@@ -1,0 +1,17 @@
+{
+  "name": "sky-view",
+  "version": "0.0.1",
+  "description": "Astronomy sky charts viewer application prototype by Anton Telechev",
+  "scripts": {},
+  "author": {
+    "name": "Anton Telechev",
+    "email": "anton.telechev@gmail.com"
+  },
+  "license": "MIT",
+  "dependencies": {},
+  "devDependencies": {
+    "express": ">=4.16.3",
+    "nsp": ">=3.2.1",
+    "open": ">=0.0.5"
+  }
+}
