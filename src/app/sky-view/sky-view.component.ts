@@ -2,6 +2,8 @@ import { Component, ElementRef, ViewChild, AfterViewInit } from '@angular/core';
 import { SceneService } from './scene.service';
 import { Constants } from '../constants';
 import { Cube } from './cube';
+import { SkyGrid } from './grid/sky-grid';
+import { Axes } from './grid/axes';
 
 @Component({
   selector: 'app-sky-view',
@@ -10,7 +12,6 @@ import { Cube } from './cube';
   providers: [ SceneService ]
 })
 export class SkyViewComponent implements AfterViewInit {
-  title = 'Sky View'; // TODO change
 
   @ViewChild('skyViewRoot')
   private skyViewRoot: ElementRef;
@@ -26,7 +27,8 @@ export class SkyViewComponent implements AfterViewInit {
 
   ngAfterViewInit() {
     this.appendCanvas();
-    this.sceneService.addObject(new Cube().getMesh()); // TODO remove
+    this.sceneService.addObjects(new SkyGrid().getGrid());
+    // this.sceneService.addObjects(new Axes().getGrid()); // TODO for dev only, should be removed
     this.sceneService.render();
   }
 

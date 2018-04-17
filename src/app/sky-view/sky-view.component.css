@@ -4,8 +4,8 @@ canvas { width: 100%; height: 100% }
 
 /** TODO refactor CSS **/
 #sky-view-root {
-  width: 400px; /* TODO should be removed and set dynamically */
-  height: 400px; /* TODO should be removed and set dynamically */
+  width: 600px; /* TODO should be removed and set dynamically */
+  height: 600px; /* TODO should be removed and set dynamically */
   border: 1px solid black;
   margin: auto auto;
   text-align:center

@@ -31,7 +31,7 @@ To start the app:
 
 ### Next Steps
 
-Initial step for a scrollable sky view:
+SV-1 - Initial step for a scrollable sky view:
   * wireframe of the sky sphere parallels and meridians
   * the viewport is placed in the center
   * the view if fully scrollable in all directions
