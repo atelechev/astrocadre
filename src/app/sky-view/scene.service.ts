@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Scene as ThreeScene, Scene } from 'three';
 import { Camera, PerspectiveCamera, WebGLRenderer, Mesh } from 'three';
 import { Constants } from '../constants';
+import { RenderableShape } from '../renderable-shape';
 
 @Injectable()
 export class SceneService {
@@ -25,21 +26,18 @@ export class SceneService {
     return this.renderer.domElement;
   }
 
-  public addMesh(mesh: Mesh): void {
-    this.scene.add(mesh);
+  public addMesh(mesh: RenderableShape): void {
+    this.scene.add(mesh.getMesh());
   }
 
   public render(): void {
-    const ren = this.renderer;
-    const sc = this.scene;
-    const cam = this.camera;
-    const animate = function() {
+    const animate = () => {
       requestAnimationFrame(animate);
-      const cube = sc.children[0];
+      const cube = this.scene.children[0];
       cube.rotation.x += 0.015;
       cube.rotation.y += 0.005;
       cube.rotation.z += 0.0025;
-      ren.render(sc, cam);
+      this.renderer.render(this.scene, this.camera);
     };
     animate();
   }
