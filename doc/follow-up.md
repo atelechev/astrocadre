@@ -28,15 +28,26 @@ To start the app:
 
 * ThreeJS is used as 3D rendering lib. A simple animation is implemented to check how it works with Angular & TypeScript. The dedicated branch is `setup-threejs`, it might be reused for other experiences as quick starter project.
 
+* SV-001: stub for a scrollable sky view. Wireframe of the sky sphere, with meridians and parallels. The viewport is in the center and the image is scrollable in all directions.
 
 ### Next Steps
 
-SV-1 - Initial step for a scrollable sky view:
-  * wireframe of the sky sphere parallels and meridians
-  * the viewport is placed in the center
-  * the view if fully scrollable in all directions
+SV-002 - Render constellation boundaries.
+  * Mock a back-end service providing constellation boundaries.
+  * Render the constellation boundaries in the view.
+  * Make the coordinates grid dimmer and the background color dark blue.
 
+Major Features:
+  * Constellation lines
+  * Stars
+  * Constellation names
+  * Star names
+  * Rendering themes
+  * Toggling layers
+  * S-N direction arrow
 
-
-
-
+Low priority improvements for POC:
+  * remove hardcoded CSS width and height for the canvas container, use constants
+  * flexible canvas size (?)
+  * do not render portions of meridian circles close to the poles
+  * 
