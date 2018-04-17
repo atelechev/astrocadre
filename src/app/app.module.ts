@@ -2,17 +2,19 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
 
-import { AppComponent } from './app.component';
+import { SkyViewComponent } from './sky-view/sky-view.component';
 
 
 @NgModule({
   declarations: [
-    AppComponent
+    SkyViewComponent
   ],
   imports: [
     BrowserModule
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [ SkyViewComponent ]
 })
-export class AppModule { }
+export class AppModule {
+
+}
