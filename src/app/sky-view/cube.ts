@@ -1,9 +1,9 @@
-import { Injectable } from '@angular/core';
 
 import { BoxGeometry, MeshBasicMaterial, Mesh } from 'three';
+import { RenderableShape } from '../renderable-shape';
 
 // TODO temporary object for tests and learning; should be removed ASAP
-export class Cube {
+export class Cube implements RenderableShape {
 
   private mesh: Mesh;
 
@@ -13,7 +13,7 @@ export class Cube {
     this.mesh = new Mesh(geometry, material);
   }
 
-  public get(): Mesh {
+  public getMesh(): Mesh {
     return this.mesh;
   }
 
