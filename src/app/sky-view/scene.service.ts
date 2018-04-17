@@ -1,9 +1,8 @@
 import { Injectable } from '@angular/core';
 
-import { Scene as ThreeScene, Scene } from 'three';
+import { Scene as ThreeScene, Scene, Object3D } from 'three';
 import { Camera, PerspectiveCamera, WebGLRenderer, Mesh } from 'three';
 import { Constants } from '../constants';
-import { RenderableShape } from '../renderable-shape';
 
 @Injectable()
 export class SceneService {
@@ -26,8 +25,12 @@ export class SceneService {
     return this.renderer.domElement;
   }
 
-  public addMesh(mesh: RenderableShape): void {
-    this.scene.add(mesh.getMesh());
+  public addObject(object: Object3D): void {
+    this.scene.add(object);
+  }
+
+  public addObjects(objects: Object3D[]): void {
+    objects.forEach(obj => this.addObject(obj));
   }
 
   public render(): void {

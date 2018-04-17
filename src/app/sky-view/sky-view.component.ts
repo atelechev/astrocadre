@@ -26,7 +26,7 @@ export class SkyViewComponent implements AfterViewInit {
 
   ngAfterViewInit() {
     this.appendCanvas();
-    this.sceneService.addMesh(new Cube()); // TODO remove
+    this.sceneService.addObject(new Cube().getMesh()); // TODO remove
     this.sceneService.render();
   }
 

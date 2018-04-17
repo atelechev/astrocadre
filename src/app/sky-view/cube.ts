@@ -1,9 +1,7 @@
-
 import { BoxGeometry, MeshBasicMaterial, Mesh } from 'three';
-import { RenderableShape } from '../renderable-shape';
 
 // TODO temporary object for tests and learning; should be removed ASAP
-export class Cube implements RenderableShape {
+export class Cube {
 
   private mesh: Mesh;
 
