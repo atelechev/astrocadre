@@ -1,9 +1,9 @@
 import { Component, ElementRef, ViewChild, AfterViewInit } from '@angular/core';
 import { SceneService } from './scene.service';
 import { Constants } from '../constants';
-import { Cube } from './cube';
-import { SkyGrid } from './grid/sky-grid';
-import { Axes } from './grid/axes';
+import { SkyGrid } from './layer/sky-grid';
+import { Axes } from './layer/axes';
+import { RenderableLayer } from '../renderable-layer';
 
 @Component({
   selector: 'app-sky-view',
@@ -16,8 +16,13 @@ export class SkyViewComponent implements AfterViewInit {
   @ViewChild('skyViewRoot')
   private skyViewRoot: ElementRef;
 
-  constructor(private sceneService: SceneService) {
+  private layers: RenderableLayer[];
 
+  constructor(private sceneService: SceneService) {
+    this.layers = new Array<RenderableLayer>(
+      // new Axes(), // TODO for dev only, should be removed
+      new SkyGrid()
+    );
   }
 
   private appendCanvas(): void {
@@ -27,8 +32,9 @@ export class SkyViewComponent implements AfterViewInit {
 
   ngAfterViewInit() {
     this.appendCanvas();
-    this.sceneService.addObjects(new SkyGrid().getGrid());
-    // this.sceneService.addObjects(new Axes().getGrid()); // TODO for dev only, should be removed
+    this.layers.forEach(layer => {
+      this.sceneService.addObjects(layer.getObjects());
+    });
     this.sceneService.render();
   }
 

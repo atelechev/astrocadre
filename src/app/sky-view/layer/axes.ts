@@ -1,7 +1,8 @@
 import { Object3D, LineBasicMaterial, BufferGeometry, Vector3, Line } from 'three';
 
+import { RenderableLayer } from '../../renderable-layer';
 
-export class Axes {
+export class Axes implements RenderableLayer {
 
   private static AXIS_LENGTH = 1.5;
 
@@ -33,7 +34,7 @@ export class Axes {
     return new Vector3(x, y, z);
   }
 
-  public getGrid(): Object3D[] {
+  public getObjects(): Object3D[] {
     return this.lines;
   }
 

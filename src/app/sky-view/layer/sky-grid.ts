@@ -1,6 +1,8 @@
 import { EllipseCurve, Object3D, LineBasicMaterial, BufferGeometry, Vector3, Line, Math as ThreeMath } from 'three';
 
-export class SkyGrid {
+import { RenderableLayer } from '../../renderable-layer';
+
+export class SkyGrid implements RenderableLayer {
 
   private static MATERIAL: LineBasicMaterial = new LineBasicMaterial({ color : 0xffffff });
 
@@ -66,7 +68,7 @@ export class SkyGrid {
     return circles;
   }
 
-  public getGrid(): Object3D[] {
+  public getObjects(): Object3D[] {
     return this.meridians.concat(this.parallels);
   }
 
