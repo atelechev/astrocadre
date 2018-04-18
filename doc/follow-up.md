@@ -50,4 +50,4 @@ Low priority improvements for POC:
   * remove hardcoded CSS width and height for the canvas container, use constants
   * flexible canvas size (?)
   * do not render portions of meridian circles close to the poles
-  * 
+  * show coordinates of the view port center

@@ -4,6 +4,7 @@ import { Constants } from '../constants';
 import { SkyGrid } from './layer/sky-grid';
 import { Axes } from './layer/axes';
 import { RenderableLayer } from '../renderable-layer';
+import { ConstellationBoundaries } from './layer/constellation-boundaries';
 
 @Component({
   selector: 'app-sky-view',
@@ -21,7 +22,8 @@ export class SkyViewComponent implements AfterViewInit {
   constructor(private sceneService: SceneService) {
     this.layers = new Array<RenderableLayer>(
       // new Axes(), // TODO for dev only, should be removed
-      new SkyGrid()
+      new SkyGrid(),
+      new ConstellationBoundaries()
     );
   }
 

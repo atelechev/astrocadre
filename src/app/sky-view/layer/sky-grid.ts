@@ -41,7 +41,7 @@ export class SkyGrid implements RenderableLayer {
 
   private initEllipse(x: number, y: number, radius: number, z: number = 0): Object3D {
     const ellipse = this.toObject3D(new EllipseCurve(x, y, radius, radius, 0, 0, false, 0));
-    if (z != 0) {
+    if (z !== 0) {
       ellipse.position.z = z;
     }
     return ellipse;
