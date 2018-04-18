@@ -2,7 +2,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
 
-import { SkyViewComponent } from './sky-view/sky-view.component';
+import { SkyViewComponent } from './core/sky-view.component';
+import { LayersModule } from './layers/layers.module';
 
 
 @NgModule({
@@ -10,7 +11,8 @@ import { SkyViewComponent } from './sky-view/sky-view.component';
     SkyViewComponent
   ],
   imports: [
-    BrowserModule
+    BrowserModule,
+    LayersModule
   ],
   providers: [],
   bootstrap: [ SkyViewComponent ]

@@ -1,8 +1,12 @@
 import { Object3D, LineBasicMaterial, BufferGeometry, Vector3, Line } from 'three';
 
-import { RenderableLayer } from '../../renderable-layer';
+import { RenderableLayer } from '../core/renderable-layer';
+import { Component } from '@angular/core';
 
-export class Axes implements RenderableLayer {
+@Component({
+  template: ``
+})
+export class AxesComponent implements RenderableLayer {
 
   private static AXIS_LENGTH = 1.5;
 
@@ -16,16 +20,16 @@ export class Axes implements RenderableLayer {
 
   private buildAxes(): Object3D[] {
     return new Array<Object3D>(
-      this.buildAxis(this.asVector3(Axes.AXIS_LENGTH, 0, 0), 0xff0000),
-      this.buildAxis(this.asVector3(0, Axes.AXIS_LENGTH, 0), 0x00ff00),
-      this.buildAxis(this.asVector3(0, 0, Axes.AXIS_LENGTH), 0x0000ff)
+      this.buildAxis(this.asVector3(AxesComponent.AXIS_LENGTH, 0, 0), 0xff0000),
+      this.buildAxis(this.asVector3(0, AxesComponent.AXIS_LENGTH, 0), 0x00ff00),
+      this.buildAxis(this.asVector3(0, 0, AxesComponent.AXIS_LENGTH), 0x0000ff)
     );
   }
 
   private buildAxis(destPoint: Vector3, color: number): Object3D {
     const material = new LineBasicMaterial({ color: color});
     const geometry = new BufferGeometry().setFromPoints(
-      new Array<Vector3>(Axes.ORIGIN, destPoint)
+      new Array<Vector3>(AxesComponent.ORIGIN, destPoint)
     );
     return new Line(geometry, material);
   }

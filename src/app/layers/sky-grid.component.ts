@@ -1,8 +1,12 @@
 import { EllipseCurve, Object3D, LineBasicMaterial, BufferGeometry, Vector3, Line, Math as ThreeMath } from 'three';
 
-import { RenderableLayer } from '../../renderable-layer';
+import { RenderableLayer } from '../core/renderable-layer';
+import { Component } from '@angular/core';
 
-export class SkyGrid implements RenderableLayer {
+@Component({
+  template: ``
+})
+export class SkyGridComponent implements RenderableLayer {
 
   private static MATERIAL: LineBasicMaterial = new LineBasicMaterial({ color : 0xffffff });
 
@@ -33,7 +37,7 @@ export class SkyGrid implements RenderableLayer {
   }
 
   private initMeridian(rotationAngle: number): Object3D {
-    const circle = this.initEllipse(0, 0, SkyGrid.GRID_RADIUS);
+    const circle = this.initEllipse(0, 0, SkyGridComponent.GRID_RADIUS);
     circle.rotateY(ThreeMath.degToRad(90));
     circle.rotateX(ThreeMath.degToRad(rotationAngle));
     return circle;
@@ -48,19 +52,19 @@ export class SkyGrid implements RenderableLayer {
   }
 
   private toObject3D(curve: EllipseCurve): Object3D {
-    const points = curve.getPoints(SkyGrid.POINTS_PER_CIRCLE)
+    const points = curve.getPoints(SkyGridComponent.POINTS_PER_CIRCLE)
                         .map(v2 => new Vector3(v2.x, v2.y, 0));
     const geometry = new BufferGeometry().setFromPoints(points);
-    return new Line(geometry, SkyGrid.MATERIAL);
+    return new Line(geometry, SkyGridComponent.MATERIAL);
   }
 
   private buildParallels(): Object3D[] {
     const circles = new Array<Object3D>();
-    circles.push(this.initEllipse(0, 0, SkyGrid.GRID_RADIUS)); // equator
+    circles.push(this.initEllipse(0, 0, SkyGridComponent.GRID_RADIUS)); // equator
 
     for (let latitude = 10; latitude < 90; latitude += 10) {
-      const zCoord = SkyGrid.GRID_RADIUS * latitude / 90;
-      const radius = Math.sqrt(SkyGrid.GRID_RADIUS * SkyGrid.GRID_RADIUS - zCoord * zCoord);
+      const zCoord = SkyGridComponent.GRID_RADIUS * latitude / 90;
+      const radius = Math.sqrt(SkyGridComponent.GRID_RADIUS * SkyGridComponent.GRID_RADIUS - zCoord * zCoord);
       circles.push(this.initEllipse(0, 0, radius, zCoord));
       circles.push(this.initEllipse(0, 0, radius, -zCoord));
     }

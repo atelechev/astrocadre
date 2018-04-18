@@ -1,10 +1,10 @@
 import { Component, ElementRef, ViewChild, AfterViewInit } from '@angular/core';
 import { SceneService } from './scene.service';
 import { Constants } from '../constants';
-import { SkyGrid } from './layer/sky-grid';
-import { Axes } from './layer/axes';
-import { RenderableLayer } from '../renderable-layer';
-import { ConstellationBoundaries } from './layer/constellation-boundaries';
+import { SkyGridComponent } from '../layers/sky-grid.component';
+import { AxesComponent } from '../layers/axes.component';
+import { RenderableLayer } from './renderable-layer';
+import { ConstellationBoundariesComponent } from '../layers/constellation-boundaries.component';
 
 @Component({
   selector: 'app-sky-view',
@@ -19,11 +19,14 @@ export class SkyViewComponent implements AfterViewInit {
 
   private layers: RenderableLayer[];
 
-  constructor(private sceneService: SceneService) {
+  constructor(private sceneService: SceneService,
+              private axes: AxesComponent,
+              private skyGrid: SkyGridComponent,
+              private constellationBoundaries: ConstellationBoundariesComponent) {
     this.layers = new Array<RenderableLayer>(
-      // new Axes(), // TODO for dev only, should be removed
-      new SkyGrid(),
-      new ConstellationBoundaries()
+      axes, // TODO for dev only, should be removed
+      skyGrid,
+      constellationBoundaries
     );
   }
 
