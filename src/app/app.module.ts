@@ -4,6 +4,7 @@ import { NgModule } from '@angular/core';
 
 import { SkyViewComponent } from './core/sky-view.component';
 import { LayersModule } from './layers/layers.module';
+import { HttpModule } from '@angular/Http';
 
 
 @NgModule({
@@ -12,6 +13,7 @@ import { LayersModule } from './layers/layers.module';
   ],
   imports: [
     BrowserModule,
+    HttpModule,
     LayersModule
   ],
   providers: [],

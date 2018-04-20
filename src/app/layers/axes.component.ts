@@ -2,6 +2,8 @@ import { Object3D, LineBasicMaterial, BufferGeometry, Vector3, Line } from 'thre
 
 import { RenderableLayer } from '../core/renderable-layer';
 import { Component } from '@angular/core';
+import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/observable/of';
 
 @Component({
   template: ``
@@ -38,8 +40,12 @@ export class AxesComponent implements RenderableLayer {
     return new Vector3(x, y, z);
   }
 
-  public getObjects(): Object3D[] {
-    return this.lines;
+  public getObjects(): Observable<Object3D[]> {
+    return Observable.of(this.lines);
+  }
+
+  public getName(): string {
+    return 'axes';
   }
 
 }

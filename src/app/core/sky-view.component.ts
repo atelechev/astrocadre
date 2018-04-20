@@ -8,12 +8,13 @@ import { ConstellationBoundariesComponent } from '../layers/constellation-bounda
 import { Object3D } from 'three';
 import { RendererService } from './renderer.service';
 import { WorldOriginCameraService } from './world-origin-camera.service';
+import { ExternalCameraService } from './external-camera.service'; // TODO for dev only
 
 @Component({
   selector: 'app-sky-view',
   templateUrl: './sky-view.component.html',
   styleUrls: ['./sky-view.component.css'],
-  providers: [ SceneService, WorldOriginCameraService, RendererService ]
+  providers: [ SceneService, WorldOriginCameraService, ExternalCameraService, RendererService ] // TODO ExternalCameraService
 })
 export class SkyViewComponent implements AfterViewInit {
 
@@ -25,13 +26,14 @@ export class SkyViewComponent implements AfterViewInit {
   constructor(private sceneService: SceneService,
               private rendererService: RendererService,
               private cameraService: WorldOriginCameraService,
-              private axes: AxesComponent,
+              // private axes: AxesComponent, // TODO
               private skyGrid: SkyGridComponent,
               private constellationBoundaries: ConstellationBoundariesComponent) {
     this.layers = new Array<RenderableLayer>(
       // axes, // TODO for dev only, should be removed
       skyGrid,
       constellationBoundaries
+      // curveSegment
     );
     // TODO could we avoid this call and make it somewhere inside cameraService?
     this.cameraService.initMouseListeners(rendererService, sceneService);
@@ -46,7 +48,10 @@ export class SkyViewComponent implements AfterViewInit {
     this.appendCanvas();
     this.layers.forEach(layer => {
       layer.getObjects().subscribe(
-        (objects: Object3D[]) => this.sceneService.addObjects(objects),
+        (objects: Object3D[]) => {
+          console.log(`${objects.length} objects to add for layer ${layer.getName()}`);
+          this.sceneService.addObjects(objects);
+        },
         (error) => console.error(`Failed to load the layer '${layer.getName()}': ${error}`)
       );
     });

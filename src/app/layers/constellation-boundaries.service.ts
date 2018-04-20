@@ -14,14 +14,15 @@ export class ConstellationBoundaryService {
 
   }
 
-  public getConstellationBoundaries(): Observable<ConstellationBoundary[]> {
+  public getConstellationBoundaries(): Observable<number[][]> {
     const url = '/assets/constellation_boundaries.json';
+    // const url = '/assets/constellations_southern.json';
     return this.http.get(url)
-               .map(this.toConstellationBoundaries)
+               .map(this.toSegments)
                .catch(this.handleError);
   }
 
-  private toConstellationBoundaries(res: Response): ConstellationBoundary[] {
+  private toSegments(res: Response): number[][] {
     return res.json();
   }
 

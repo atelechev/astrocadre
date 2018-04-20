@@ -1,7 +1,10 @@
 import { Object3D } from 'three';
+import { Observable } from 'rxjs/Observable';
 
 export interface RenderableLayer {
 
-  getObjects(): Object3D[];
+  getName(): string;
+
+  getObjects(): Observable<Object3D[]>;
 
 }

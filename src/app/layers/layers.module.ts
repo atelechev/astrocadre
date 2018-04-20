@@ -10,11 +10,11 @@ import { ConstellationBoundariesComponent } from './constellation-boundaries.com
     SkyGridComponent,
     ConstellationBoundariesComponent
   ],
-  imports: [],
   providers: [
     SkyGridComponent,
     AxesComponent,
-    ConstellationBoundariesComponent
+    ConstellationBoundariesComponent,
+    ConstellationBoundaryService
   ]
 })
 export class LayersModule {
