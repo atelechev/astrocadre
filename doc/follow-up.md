@@ -37,3 +37,17 @@ SV-002 - Render constellation boundaries.
   * Render the constellation boundaries in the view.
   * Make the coordinates grid dimmer and the background color dark blue.
 
+Major Features:
+  * Constellation lines
+  * Stars
+  * Constellation names
+  * Star names
+  * Rendering themes
+  * Toggling layers
+  * S-N direction arrow
+
+Low priority improvements for POC:
+  * remove hardcoded CSS width and height for the canvas container, use constants
+  * flexible canvas size (?)
+  * do not render portions of meridian circles close to the poles
+  * show coordinates of the view port center
