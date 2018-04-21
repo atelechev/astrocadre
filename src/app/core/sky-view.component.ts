@@ -2,7 +2,6 @@ import { Component, ElementRef, ViewChild, AfterViewInit } from '@angular/core';
 import { SceneService } from './scene.service';
 import { Constants } from '../constants';
 import { SkyGridComponent } from '../layers/sky-grid.component';
-import { AxesComponent } from '../layers/axes.component';
 import { RenderableLayer } from './renderable-layer';
 import { ConstellationBoundariesComponent } from '../layers/constellation-boundaries.component';
 import { Object3D } from 'three';
@@ -25,15 +24,12 @@ export class SkyViewComponent implements AfterViewInit {
 
   constructor(private sceneService: SceneService,
               private rendererService: RendererService,
-              private cameraService: WorldOriginCameraService,
-              // private axes: AxesComponent, // TODO
+              private cameraService: ExternalCameraService,
               private skyGrid: SkyGridComponent,
               private constellationBoundaries: ConstellationBoundariesComponent) {
     this.layers = new Array<RenderableLayer>(
-      // axes, // TODO for dev only, should be removed
       skyGrid,
       constellationBoundaries
-      // curveSegment
     );
     // TODO could we avoid this call and make it somewhere inside cameraService?
     this.cameraService.initMouseListeners(rendererService, sceneService);
@@ -55,6 +51,7 @@ export class SkyViewComponent implements AfterViewInit {
         (error) => console.error(`Failed to load the layer '${layer.getName()}': ${error}`)
       );
     });
+    this.sceneService.showAxes(); // TODO dev mode
     this.rendererService.render(this.sceneService.getScene(), this.cameraService.getCamera());
   }
 

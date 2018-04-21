@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 
 import { Scene as ThreeScene, Scene, Object3D, Vector3 } from 'three';
-import { Camera, PerspectiveCamera, WebGLRenderer, Mesh, Math as ThreeMath } from 'three';
+import { Camera, PerspectiveCamera, WebGLRenderer, Mesh, Math as ThreeMath, AxesHelper } from 'three';
 import { Constants } from '../constants';
 
 
@@ -24,6 +24,12 @@ export class SceneService {
 
   public getScene(): Scene {
     return this.scene;
+  }
+
+  public showAxes(): void {
+    const axesHelper = new AxesHelper(3);
+    this.addObject(axesHelper);
+    console.warn('Axes helper shown: dev mode.');
   }
 
 }
