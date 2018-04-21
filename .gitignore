@@ -6,12 +6,14 @@
 /tmp
 /out-tsc
 package-lock.json
+/tools/**/target
 
 # dependencies
 /node_modules
 
 # IDEs and editors
-/.idea
+**/.idea
+**/*.iml
 .project
 .classpath
 .c9/
