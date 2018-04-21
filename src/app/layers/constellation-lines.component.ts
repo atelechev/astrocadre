@@ -3,7 +3,7 @@ import { Object3D, LineBasicMaterial, Material } from 'three';
 import { Component } from '@angular/core';
 import { ConstellationsService } from './constellations.service';
 import { Observable } from 'rxjs/Observable';
-import { MergedAxialCurves } from './model/merged-axial-curves';
+import { MergedLines } from './model/merged-lines';
 
 @Component({
   template: ``,
@@ -11,24 +11,24 @@ import { MergedAxialCurves } from './model/merged-axial-curves';
     ConstellationsService
   ]
 })
-export class ConstellationBoundariesComponent implements RenderableLayer {
+export class ConstellationLinesComponent implements RenderableLayer {
 
   private material: Material;
 
   constructor(private constellationBoundaryService: ConstellationsService) {
-    this.material = new LineBasicMaterial({ color : 0x5e56ef });
+    this.material = new LineBasicMaterial({ color : 0xff56ef });
   }
 
   public getObjects(): Observable<Object3D[]> {
-    return this.constellationBoundaryService.getConstellationBoundaries()
+    return this.constellationBoundaryService.getConstellationLines()
                .map((rawSegments: number[][]) => {
-                  const mergedCurves = new MergedAxialCurves(this.material, rawSegments, 1.98);
+                  const mergedCurves = new MergedLines(this.material, rawSegments, 1.98);
                   return [ mergedCurves.toObject3D() ];
                });
   }
 
   public getName(): string {
-    return 'constellation boundaries';
+    return 'constellation lines';
   }
 
 }

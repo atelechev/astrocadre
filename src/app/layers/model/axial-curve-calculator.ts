@@ -1,5 +1,5 @@
 import { Vector3, Math as ThreeMath } from 'three';
-
+import { VectorUtil } from './vector-util';
 
 export class AxialCurveCalculator {
 
@@ -40,16 +40,6 @@ export class AxialCurveCalculator {
     return decl0 === decl1;
   }
 
-  private toVector3(ra: number, decl: number): Vector3 {
-    const zCoord = this.radius * decl / 90;
-    const radiusAtDecl = Math.sqrt(this.squareRadius - zCoord * zCoord);
-    return new Vector3(
-      -radiusAtDecl * Math.sin(ThreeMath.degToRad(ra)), // negative X to mirror for internal view
-      radiusAtDecl * Math.cos(ThreeMath.degToRad(ra)),
-      zCoord
-    );
-  }
-
   private getDirectionMultiplier(start: number, end: number): number {
     if (start <= end) {
       return 1;
@@ -64,12 +54,12 @@ export class AxialCurveCalculator {
     const decl1 = segment[3];
 
     if (this.isParallelSegment(segment)) {
-      const toVectorFunct = (v, c) => this.toVector3(v, c);
+      const toVectorFunct = (v, c) => VectorUtil.toVector3(v, c, this.radius);
       const dirMultipl = this.getDirectionMultiplier(ra0, ra1);
       return this.calculateAxisPointsBetween(ra0, ra1, decl0, dirMultipl, toVectorFunct);
     }
     if (this.isMeridionalSegment(segment)) {
-      const toVectorFunct = (v, c) => this.toVector3(c, v);
+      const toVectorFunct = (v, c) => VectorUtil.toVector3(c, v, this.radius);
       const dirMultipl = this.getDirectionMultiplier(decl0, decl1);
       return this.calculateAxisPointsBetween(decl0, decl1, ra0, dirMultipl, toVectorFunct);
     }
@@ -80,12 +70,12 @@ export class AxialCurveCalculator {
   public calculateVertices(curveStartEnd: number[]): Vector3[] {
     const intermediatePoints = this.calculateIntermediatePoints(curveStartEnd);
     const pairsForSegment = new Array<Vector3>();
-    pairsForSegment.push(this.toVector3(curveStartEnd[0], curveStartEnd[1]));
+    pairsForSegment.push(VectorUtil.toVector3(curveStartEnd[0], curveStartEnd[1], this.radius));
     intermediatePoints.forEach(point => {
       pairsForSegment.push(point);
       pairsForSegment.push(point);
     });
-    pairsForSegment.push(this.toVector3(curveStartEnd[2], curveStartEnd[3]));
+    pairsForSegment.push(VectorUtil.toVector3(curveStartEnd[2], curveStartEnd[3], this.radius));
     return pairsForSegment;
   }
 

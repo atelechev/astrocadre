@@ -8,6 +8,7 @@ import { Object3D } from 'three';
 import { RendererService } from './renderer.service';
 import { WorldOriginCameraService } from './world-origin-camera.service';
 import { ExternalCameraService } from './external-camera.service'; // TODO for dev only
+import { ConstellationLinesComponent } from '../layers/constellation-lines.component';
 
 @Component({
   selector: 'app-sky-view',
@@ -26,10 +27,12 @@ export class SkyViewComponent implements AfterViewInit {
               private rendererService: RendererService,
               private cameraService: WorldOriginCameraService,
               private skyGrid: SkyGridComponent,
-              private constellationBoundaries: ConstellationBoundariesComponent) {
+              private constellationBoundaries: ConstellationBoundariesComponent,
+              private constellationLines: ConstellationLinesComponent) {
     this.layers = new Array<RenderableLayer>(
       skyGrid,
-      constellationBoundaries
+      constellationBoundaries,
+      constellationLines
     );
     // TODO could we avoid this call and make it somewhere inside cameraService?
     this.cameraService.initMouseListeners(rendererService, sceneService);

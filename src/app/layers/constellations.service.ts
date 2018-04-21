@@ -4,11 +4,10 @@ import { Response, Http } from '@angular/Http';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/observable/throw';
-import { ConstellationBoundary } from './model/constellation-boundary';
 
 
 @Injectable()
-export class ConstellationBoundaryService {
+export class ConstellationsService {
 
   constructor(private http: Http) {
 
@@ -16,7 +15,13 @@ export class ConstellationBoundaryService {
 
   public getConstellationBoundaries(): Observable<number[][]> {
     const url = '/assets/constellation_boundaries.json';
-    // const url = '/assets/constellations_southern.json'; // TODO remove
+    return this.http.get(url)
+               .map(this.toSegments)
+               .catch(this.handleError);
+  }
+
+  public getConstellationLines(): Observable<number[][]> {
+    const url = '/assets/constellation_lines.json';
     return this.http.get(url)
                .map(this.toSegments)
                .catch(this.handleError);
@@ -31,7 +36,7 @@ export class ConstellationBoundaryService {
       const body = res.json() || '';
       return Observable.throw(res);
     }
-    return Observable.throw('Failed to retrieve ConstellationBoundaries JSON.');
+    return Observable.throw('Failed to retrieve constellation data JSON.');
   }
 
 }
