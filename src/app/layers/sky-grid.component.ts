@@ -1,4 +1,4 @@
-import { EllipseCurve, Object3D, LineBasicMaterial, BufferGeometry, Vector3, Line, Math as ThreeMath } from 'three';
+import { Object3D, LineBasicMaterial } from 'three';
 
 import { RenderableLayer } from '../core/renderable-layer';
 import { Component } from '@angular/core';
@@ -14,6 +14,8 @@ export class SkyGridComponent implements RenderableLayer {
   private static POINTS_PER_CIRCLE: number = 360 / 5;
 
   private gridRadius = 2;
+
+  private gridStep = 10;
 
   private absMeridianLineDeclination = 89.5;
 
@@ -38,8 +40,7 @@ export class SkyGridComponent implements RenderableLayer {
 
   private generateOrdinaryMeridianSegments(): MergedAxialCurves {
     const segments = new Array<number[]>();
-    const step = 10;
-    for (let i = 0; i < 360; i += step) {
+    for (let i = 0; i < 360; i += this.gridStep) {
       if (i === 0 || i === 180) {
         continue;
       }
@@ -48,38 +49,28 @@ export class SkyGridComponent implements RenderableLayer {
     return new MergedAxialCurves(this.ordinaryLineMaterial, segments, this.gridRadius);
   }
 
-  private initEllipse(x: number,
-                      y: number,
-                      radius: number,
-                      z: number = 0,
-                      material: LineBasicMaterial = this.ordinaryLineMaterial): Object3D {
-    const ellipse = this.toObject3D(new EllipseCurve(x, y, radius, radius, 0, 0, false, 0), material);
-    if (z !== 0) {
-      ellipse.position.z = z;
-    }
-    return ellipse;
+  private parallelSegment(decl: number): number[] {
+    return [ 0, decl, 360, decl ];
   }
 
-  private toObject3D(curve: EllipseCurve, material: LineBasicMaterial): Object3D {
-    const points = curve.getPoints(SkyGridComponent.POINTS_PER_CIRCLE)
-                        .map(v2 => new Vector3(v2.x, v2.y, 0));
-    const geometry = new BufferGeometry().setFromPoints(points);
-    return new Line(geometry, material);
+  private generateReferenceParallelSegments(): MergedAxialCurves {
+    const refSegments = [ this.parallelSegment(0) ];
+    return new MergedAxialCurves(this.referenceLineMaterial, refSegments, this.gridRadius);
+  }
+
+  private generateOrdinaryParallelSegments(): MergedAxialCurves {
+    const segments = new Array<number[]>();
+    for (let par = this.gridStep; par < 90; par += this.gridStep) {
+      segments.push(this.parallelSegment(par));
+      segments.push(this.parallelSegment(-par));
+    }
+    return new MergedAxialCurves(this.ordinaryLineMaterial, segments, this.gridRadius);
   }
 
   private buildParallels(): Object3D[] {
-    const circles = new Array<Object3D>();
-    circles.push(this.initEllipse(0, 0, this.gridRadius, 0, this.referenceLineMaterial));
-    const squareRadius = this.gridRadius * this.gridRadius;
-
-    for (let latitude = 10; latitude < 90; latitude += 10) {
-      const zCoord = this.gridRadius * latitude / 90;
-      const radius = Math.sqrt(squareRadius - zCoord * zCoord);
-      circles.push(this.initEllipse(0, 0, radius, zCoord));
-      circles.push(this.initEllipse(0, 0, radius, -zCoord));
-    }
-
-    return circles;
+    const ordinaryParallels = this.generateOrdinaryParallelSegments();
+    const equator = this.generateReferenceParallelSegments();
+    return [ ordinaryParallels.toObject3D(), equator.toObject3D() ];
   }
 
   public getObjects(): Observable<Object3D[]> {
