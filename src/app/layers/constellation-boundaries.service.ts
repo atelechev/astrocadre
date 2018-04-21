@@ -16,7 +16,7 @@ export class ConstellationBoundaryService {
 
   public getConstellationBoundaries(): Observable<number[][]> {
     const url = '/assets/constellation_boundaries.json';
-    // const url = '/assets/constellations_southern.json';
+    // const url = '/assets/constellations_southern.json'; // TODO remove
     return this.http.get(url)
                .map(this.toSegments)
                .catch(this.handleError);

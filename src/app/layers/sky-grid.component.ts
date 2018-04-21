@@ -4,54 +4,55 @@ import { RenderableLayer } from '../core/renderable-layer';
 import { Component } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/of';
+import { MergedAxialCurves } from './model/merged-axial-curves';
 
 @Component({
   template: ``
 })
 export class SkyGridComponent implements RenderableLayer {
 
-  private static MATERIAL: LineBasicMaterial = new LineBasicMaterial({ color : 0x999999 });
-  private static MATERIAL_REF_AXIS: LineBasicMaterial = new LineBasicMaterial({ color : 0x00ff99 }); // TODO
-
   private static POINTS_PER_CIRCLE: number = 360 / 5;
 
-  private static GRID_RADIUS = 2;
+  private gridRadius = 2;
 
-  private meridians: Object3D[];
+  private absMeridianLineDeclination = 89.5;
 
-  private parallels: Object3D[];
+  private ordinaryLineMaterial: LineBasicMaterial = new LineBasicMaterial({ color : 0x2821af });
 
-  constructor() {
-    this.meridians = this.buildMeridians();
-    this.parallels = this.buildParallels();
-  }
+  private referenceLineMaterial: LineBasicMaterial = new LineBasicMaterial({ color : 0x00ff99 }); // TODO
 
   private buildMeridians(): Object3D[] {
-    const nbMeridians = 18;
-    const circles = new Array<Object3D>();
-    const angleStep = 360 / nbMeridians * 2;
-
-    circles.push(this.initMeridian(0, SkyGridComponent.MATERIAL_REF_AXIS));
-    for (let i = 1; i < nbMeridians; i++) {
-      const rotationAngle = angleStep * i;
-      circles.push(this.initMeridian(rotationAngle));
-    }
-
-    return circles;
+    const ordinaryMeridians = this.generateOrdinaryMeridianSegments();
+    const refMeridians = this.generateReferenceMeridianSegments();
+    return [ ordinaryMeridians.toObject3D(), refMeridians.toObject3D() ];
   }
 
-  private initMeridian(rotationAngle: number, material: LineBasicMaterial = SkyGridComponent.MATERIAL): Object3D {
-    const circle = this.initEllipse(0, 0, SkyGridComponent.GRID_RADIUS, 0, material);
-    circle.rotateY(ThreeMath.degToRad(90));
-    circle.rotateX(ThreeMath.degToRad(rotationAngle));
-    return circle;
+  private generateReferenceMeridianSegments(): MergedAxialCurves {
+    const refSegments = [ this.meridianSegment(0), this.meridianSegment(180)];
+    return new MergedAxialCurves(this.referenceLineMaterial, refSegments, this.gridRadius);
+  }
+
+  private meridianSegment(ra: number): number[] {
+    return [ ra, this.absMeridianLineDeclination, ra, -this.absMeridianLineDeclination ];
+  }
+
+  private generateOrdinaryMeridianSegments(): MergedAxialCurves {
+    const segments = new Array<number[]>();
+    const step = 10;
+    for (let i = 0; i < 360; i += step) {
+      if (i === 0 || i === 180) {
+        continue;
+      }
+      segments.push(this.meridianSegment(i));
+    }
+    return new MergedAxialCurves(this.ordinaryLineMaterial, segments, this.gridRadius);
   }
 
   private initEllipse(x: number,
                       y: number,
                       radius: number,
                       z: number = 0,
-                      material: LineBasicMaterial = SkyGridComponent.MATERIAL): Object3D {
+                      material: LineBasicMaterial = this.ordinaryLineMaterial): Object3D {
     const ellipse = this.toObject3D(new EllipseCurve(x, y, radius, radius, 0, 0, false, 0), material);
     if (z !== 0) {
       ellipse.position.z = z;
@@ -68,11 +69,12 @@ export class SkyGridComponent implements RenderableLayer {
 
   private buildParallels(): Object3D[] {
     const circles = new Array<Object3D>();
-    circles.push(this.initEllipse(0, 0, SkyGridComponent.GRID_RADIUS, 0, SkyGridComponent.MATERIAL_REF_AXIS));
+    circles.push(this.initEllipse(0, 0, this.gridRadius, 0, this.referenceLineMaterial));
+    const squareRadius = this.gridRadius * this.gridRadius;
 
     for (let latitude = 10; latitude < 90; latitude += 10) {
-      const zCoord = SkyGridComponent.GRID_RADIUS * latitude / 90;
-      const radius = Math.sqrt(SkyGridComponent.GRID_RADIUS * SkyGridComponent.GRID_RADIUS - zCoord * zCoord);
+      const zCoord = this.gridRadius * latitude / 90;
+      const radius = Math.sqrt(squareRadius - zCoord * zCoord);
       circles.push(this.initEllipse(0, 0, radius, zCoord));
       circles.push(this.initEllipse(0, 0, radius, -zCoord));
     }
@@ -81,7 +83,9 @@ export class SkyGridComponent implements RenderableLayer {
   }
 
   public getObjects(): Observable<Object3D[]> {
-    return Observable.of(this.meridians.concat(this.parallels));
+    const meridians = this.buildMeridians();
+    const parallels = this.buildParallels();
+    return Observable.of(meridians.concat(parallels));
   }
 
   public getName(): string {

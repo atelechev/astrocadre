@@ -24,7 +24,7 @@ export class SkyViewComponent implements AfterViewInit {
 
   constructor(private sceneService: SceneService,
               private rendererService: RendererService,
-              private cameraService: ExternalCameraService,
+              private cameraService: WorldOriginCameraService,
               private skyGrid: SkyGridComponent,
               private constellationBoundaries: ConstellationBoundariesComponent) {
     this.layers = new Array<RenderableLayer>(
@@ -51,7 +51,7 @@ export class SkyViewComponent implements AfterViewInit {
         (error) => console.error(`Failed to load the layer '${layer.getName()}': ${error}`)
       );
     });
-    this.sceneService.showAxes(); // TODO dev mode
+    // this.sceneService.showAxes(); // TODO dev mode
     this.rendererService.render(this.sceneService.getScene(), this.cameraService.getCamera());
   }
 

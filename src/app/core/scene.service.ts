@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 
-import { Scene as ThreeScene, Scene, Object3D, Vector3 } from 'three';
+import { Scene as ThreeScene, Scene, Object3D, Vector3, Color } from 'three';
 import { Camera, PerspectiveCamera, WebGLRenderer, Mesh, Math as ThreeMath, AxesHelper } from 'three';
 import { Constants } from '../constants';
 
@@ -12,6 +12,7 @@ export class SceneService {
 
   constructor() {
     this.scene = new ThreeScene();
+    this.scene.background = new Color(0x02002c); // TODO extract to property
   }
 
   public addObject(object: Object3D): void {
