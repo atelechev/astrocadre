@@ -30,24 +30,32 @@ To start the app:
 
 * SV-001: stub for a scrollable sky view. Wireframe of the sky sphere, with meridians and parallels. The viewport is in the center and the image is scrollable in all directions.
 
+### April 21st, 2018
+
+* SV-002 - Render constellation boundaries.
+  - Static JSON asset contains constellation boundaries coordinates.
+  - Constellation boundaries are rendered in the view.
+  - Style changes in the view.
+
+
 ### Next Steps
 
-SV-002 - Render constellation boundaries.
-  * Mock a back-end service providing constellation boundaries.
-  * Render the constellation boundaries in the view.
-  * Make the coordinates grid dimmer and the background color dark blue.
+* SV-003 - Render constellation lines.
 
-Major Features:
-  * Constellation lines
+#### Major Features
+
   * Stars
   * Constellation names
   * Star names
   * Rendering themes
   * Toggling layers
   * S-N direction arrow
+  * Adjust/fine tune viewport with UI buttons
+  * Customizable field of view
+  * Export of current view as image
 
-Low priority improvements for POC:
+#### Low priority improvements for POC
+
   * remove hardcoded CSS width and height for the canvas container, use constants
   * flexible canvas size (?)
-  * do not render portions of meridian circles close to the poles
   * show coordinates of the view port center
