@@ -6,9 +6,9 @@ import com.fasterxml.jackson.databind.ser.std.StdSerializer;
 
 import java.io.IOException;
 
-public class SegmentSerializer extends StdSerializer<Segment> {
+import static fr.atelechev.skyview.tools.dataimport.NumberUtil.round;
 
-  private static int NB_DECIMALS = 2;
+public class SegmentSerializer extends StdSerializer<Segment> {
 
   public SegmentSerializer() {
     super(Segment.class);
@@ -19,14 +19,8 @@ public class SegmentSerializer extends StdSerializer<Segment> {
     final double[] coords = { round(segment.getRa0()),
                               round(segment.getDecl0()),
                               round(segment.getRa1()),
-                              round(segment.getDecl1()) };
+                              round(segment.getDecl1())};
     jsonGenerator.writeArray(coords, 0, coords.length);
   }
 
-
-  private static double round(double value) {
-    final int tmpMultiplier = (int) Math.pow(10, NB_DECIMALS);
-    final int leftShifted = (int) Math.round(value * tmpMultiplier);
-    return leftShifted / (double) tmpMultiplier;
-  }
 }

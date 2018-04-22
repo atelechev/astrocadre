@@ -6,6 +6,8 @@ import com.fasterxml.jackson.databind.ser.std.StdSerializer;
 
 import java.io.IOException;
 
+import static fr.atelechev.skyview.tools.dataimport.NumberUtil.round;
+
 public class NodeSerializer extends StdSerializer<Node> {
 
   private static final double DISTANCE = 2d;
@@ -45,12 +47,6 @@ public class NodeSerializer extends StdSerializer<Node> {
   private static double raToAngle(double ra) {
     final double multiplied = ra * 15d;
     return multiplied > 180d ? multiplied - 360d : multiplied;
-  }
-
-  private static double round(double value, int decimals) {
-    final int tmpMultiplier = (int) Math.pow(10, decimals);
-    final int leftShifted = (int) Math.round(value * tmpMultiplier);
-    return leftShifted / (double) tmpMultiplier;
   }
 
 }

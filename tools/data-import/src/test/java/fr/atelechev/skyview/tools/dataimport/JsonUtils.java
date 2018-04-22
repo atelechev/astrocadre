@@ -22,6 +22,7 @@ public class JsonUtils {
     final SimpleModule module = new SimpleModule();
     module.addSerializer(Node.class, new NodeSerializer());
     module.addSerializer(Segment.class, new SegmentSerializer());
+    module.addSerializer(Star.class, new StarSerializer());
     mapper.registerModule(module);
     return mapper;
   }
