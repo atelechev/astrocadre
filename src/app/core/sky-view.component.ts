@@ -9,12 +9,17 @@ import { RendererService } from './renderer.service';
 import { WorldOriginCameraService } from './world-origin-camera.service';
 import { ExternalCameraService } from './external-camera.service'; // TODO for dev only
 import { ConstellationLinesComponent } from '../layers/constellation-lines.component';
+import { StarsComponent } from '../layers/stars.component';
 
 @Component({
   selector: 'app-sky-view',
   templateUrl: './sky-view.component.html',
   styleUrls: ['./sky-view.component.css'],
-  providers: [ SceneService, WorldOriginCameraService, ExternalCameraService, RendererService ] // TODO ExternalCameraService
+  providers: [
+    SceneService,
+    WorldOriginCameraService,
+    ExternalCameraService, // TODO ExternalCameraService for dev only
+    RendererService ]
 })
 export class SkyViewComponent implements AfterViewInit {
 
@@ -28,11 +33,13 @@ export class SkyViewComponent implements AfterViewInit {
               private cameraService: WorldOriginCameraService,
               private skyGrid: SkyGridComponent,
               private constellationBoundaries: ConstellationBoundariesComponent,
-              private constellationLines: ConstellationLinesComponent) {
+              private constellationLines: ConstellationLinesComponent,
+              private stars: StarsComponent) {
     this.layers = new Array<RenderableLayer>(
       skyGrid,
       constellationBoundaries,
-      constellationLines
+      constellationLines,
+      stars
     );
     // TODO could we avoid this call and make it somewhere inside cameraService?
     this.cameraService.initMouseListeners(rendererService, sceneService);

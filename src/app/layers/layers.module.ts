@@ -1,20 +1,23 @@
 import { NgModule } from '@angular/core';
-import { ConstellationsService } from './constellations.service';
+import { StarsService } from './stars.service';
 import { SkyGridComponent } from './sky-grid.component';
 import { ConstellationBoundariesComponent } from './constellation-boundaries.component';
 import { ConstellationLinesComponent } from './constellation-lines.component';
+import { StarsComponent } from './stars.component';
 
 @NgModule({
   declarations: [
     SkyGridComponent,
     ConstellationBoundariesComponent,
-    ConstellationLinesComponent
+    ConstellationLinesComponent,
+    StarsComponent
   ],
   providers: [
     SkyGridComponent,
     ConstellationBoundariesComponent,
     ConstellationLinesComponent,
-    ConstellationsService
+    StarsComponent,
+    StarsService
   ]
 })
 export class LayersModule {

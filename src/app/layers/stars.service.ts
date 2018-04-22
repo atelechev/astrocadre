@@ -7,7 +7,7 @@ import 'rxjs/add/observable/throw';
 
 
 @Injectable()
-export class ConstellationsService {
+export class StarsService {
 
   constructor(private http: Http) {
 
@@ -15,16 +15,23 @@ export class ConstellationsService {
 
   public getConstellationBoundaries(): Observable<number[][]> {
     const url = '/assets/constellation_boundaries.json';
-    return this.http.get(url)
-               .map(this.toSegments)
-               .catch(this.handleError);
+    return this.execGetRequestForNumericResponse(url);
   }
 
   public getConstellationLines(): Observable<number[][]> {
     const url = '/assets/constellation_lines.json';
+    return this.execGetRequestForNumericResponse(url);
+  }
+
+  private execGetRequestForNumericResponse(url: string): Observable<number[][]> {
     return this.http.get(url)
-               .map(this.toSegments)
-               .catch(this.handleError);
+                    .map((res: Response) => res.json())
+                    .catch(this.handleError);
+  }
+
+  public getStars(magnitudeClass: number): Observable<number[][]> {
+    const url = `/assets/stars_mag${magnitudeClass.toFixed(1)}.json`;
+    return this.execGetRequestForNumericResponse(url);
   }
 
   private toSegments(res: Response): number[][] {
@@ -36,7 +43,7 @@ export class ConstellationsService {
       const body = res.json() || '';
       return Observable.throw(res);
     }
-    return Observable.throw('Failed to retrieve constellation data JSON.');
+    return Observable.throw('Failed to retrieve data JSONi from server.');
   }
 
 }

@@ -1,16 +1,24 @@
-import { BufferGeometry, LineDashedMaterial, LineBasicMaterial } from 'three';
+import { BufferGeometry, LineDashedMaterial, LineBasicMaterial, Geometry } from 'three';
 import { LineSegments, Vector3, Object3D, Material } from 'three';
 
 
 export abstract class MergedObjects {
 
-  constructor(private material: Material,
+  constructor(protected material: Material,
               private segments: number[][],
               protected radius: number) {
 
   }
 
   protected abstract segmentToVertices(segment: number[]): Vector3[];
+
+  protected asObject3D(geometry: BufferGeometry): Object3D {
+    // no constructor arg with abstract type, so we have to check it
+    if (this.material instanceof LineDashedMaterial) {
+      return new LineSegments(geometry, <LineDashedMaterial> this.material);
+    }
+    return new LineSegments(geometry, <LineBasicMaterial> this.material);
+  }
 
   public toObject3D(): Object3D {
     const geometry = new BufferGeometry();
@@ -20,11 +28,7 @@ export abstract class MergedObjects {
       pointPairs = pointPairs.concat(vertices);
     });
     geometry.setFromPoints(pointPairs);
-    // no constructor arg with abstract type, so we have to check it
-    if (this.material instanceof LineDashedMaterial) {
-      return new LineSegments(geometry, <LineDashedMaterial> this.material);
-    }
-    return new LineSegments(geometry, <LineBasicMaterial> this.material);
+    return this.asObject3D(geometry);
   }
 
 }
