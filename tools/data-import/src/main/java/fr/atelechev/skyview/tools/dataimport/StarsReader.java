@@ -14,7 +14,9 @@ public class StarsReader {
   public List<Star> readStars(String fromFilePath) throws IOException {
     final List<String> rawLines = Files.readAllLines(Paths.get(fromFilePath));
     rawLines.remove(0); // the header
-    return rawLines.stream().map(Star::fromCsvRow).collect(Collectors.toList());
+    return rawLines.stream().map(Star::fromCsvRow)
+      .peek(CoordinatesUtil::convertRa)
+      .collect(Collectors.toList());
   }
 
   public Map<Double, List<Star>> readStarsClassifyingByMagnitude(String fromFilePath) throws IOException {

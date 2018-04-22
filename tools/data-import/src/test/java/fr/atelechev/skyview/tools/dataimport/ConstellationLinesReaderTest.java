@@ -9,7 +9,6 @@ import java.util.stream.Collectors;
 
 public class ConstellationLinesReaderTest {
 
-  private static double RA_CONVERSION_RATIO = 15.0d;
 
   private List<ConstellationLine> loadConstellationLines() {
     try {
@@ -21,16 +20,11 @@ public class ConstellationLinesReaderTest {
     }
   }
 
-  private void convertRa(Segment segment) {
-    segment.setRa0(segment.getRa0() * RA_CONVERSION_RATIO);
-    segment.setRa1(segment.getRa1() * RA_CONVERSION_RATIO);
-  }
-
   @Test
   public void parseConstellationLines() throws IOException {
     final List<Segment> lines = loadConstellationLines().stream()
         .flatMap(line -> line.getLines().stream())
-        .peek(this::convertRa)
+        .peek(CoordinatesUtil::convertRa)
         .collect(Collectors.toList());
     final ObjectMapper mapper = JsonUtils.initObjectMapper();
     final String json = mapper.writeValueAsString(lines);
