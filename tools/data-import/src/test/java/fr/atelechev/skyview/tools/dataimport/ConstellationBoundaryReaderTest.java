@@ -1,6 +1,7 @@
 package fr.atelechev.skyview.tools.dataimport;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import java.io.File;
@@ -23,6 +24,7 @@ public class ConstellationBoundaryReaderTest {
   }
 
   @Test
+  @Ignore // this was an initial attempt, the output format is not used.
   public void parseConstellationBoundaries() throws IOException {
     final List<Boundary> boundaries = readBoundaries();
 
@@ -33,7 +35,7 @@ public class ConstellationBoundaryReaderTest {
 
     System.out.println(json);
 
-    outputJson(json, "constellation_bounds_18");
+    outputJson(json, "constellation_boundaries");
   }
 
   @Test
@@ -43,13 +45,14 @@ public class ConstellationBoundaryReaderTest {
     final String json = mapper.writeValueAsString(allSegments);
     System.out.println(json);
 
-    outputJson(json, "constellation_bounds_18");
+    outputJson(json, "constellation_boundaries");
   }
 
   private List<Segment> asSegments(List<Boundary> boundaries) {
     return boundaries.stream().flatMap(boundary -> boundary.getBoundary().stream())
         .flatMap(nodes -> toSegments(nodes).stream())
-        .collect(Collectors.toSet()).stream().collect(Collectors.toList());
+        .collect(Collectors.toSet()).stream()
+        .collect(Collectors.toList());
   }
 
   private List<Segment> toSegments(List<Node> nodes) {
@@ -66,13 +69,12 @@ public class ConstellationBoundaryReaderTest {
   }
 
   @Test
-  public void transformSouthernConstellations() throws IOException {
-//    final Set<String> constellations = new HashSet<>(Arrays.asList("OCT")); //, "CAM", "APS"));
-    final Set<String> constellations = new HashSet<>(Arrays.asList("OCT", "APS")); //, "CAM", "APS"));
+  public void transformSingleConstellation() throws IOException {
+    final Set<String> constellations = new HashSet<>(Arrays.asList("UMI"));
     final List<Boundary> boundaries =
         readBoundaries().stream().filter(boundary ->
             constellations.contains(boundary.getConstellationCode())).collect(Collectors.toList());
-    assertEquals(2, boundaries.size());
+    assertEquals(1, boundaries.size());
 
     final List<Segment> segments = asSegments(boundaries);
 
@@ -80,7 +82,7 @@ public class ConstellationBoundaryReaderTest {
     final String json = mapper.writeValueAsString(segments);
     System.out.println(json);
 
-    outputJson(json, "constellation_bounds_18");
+    outputJson(json, "constellation_boundaries");
   }
 
 

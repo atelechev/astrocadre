@@ -5,16 +5,18 @@ import com.fasterxml.jackson.databind.module.SimpleModule;
 
 import java.io.IOException;
 import java.nio.file.Files;
+import java.nio.file.OpenOption;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
 
 public class JsonUtils {
 
-
   public static void outputJson(String json, String outputFilePrefix) throws IOException {
-    final String outputFileName = String.format("%1$s_%2$s.json", outputFilePrefix, System.currentTimeMillis());
-    final Path outputTo = Paths.get(System.getProperty("java.io.tmpdir"), outputFileName);
-    Files.write(outputTo, json.getBytes());
+    final String outputFolder = PathUtil.getTargetJsonOutputFolder();
+    final String outputFileName = String.format("%1$s.json", outputFilePrefix);
+    final Path outputTo = Paths.get(outputFolder, outputFileName);
+    Files.write(outputTo, json.getBytes(), StandardOpenOption.TRUNCATE_EXISTING, StandardOpenOption.CREATE);
   }
 
   public static ObjectMapper initObjectMapper() {

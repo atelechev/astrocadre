@@ -68,6 +68,9 @@ export class AxialCurveCalculator {
   }
 
   public calculateVertices(curveStartEnd: number[]): Vector3[] {
+    if (this.isInitialMeridianCrossingPoint(curveStartEnd)) {
+      return [];
+    }
     const intermediatePoints = this.calculateIntermediatePoints(curveStartEnd);
     const pairsForSegment = new Array<Vector3>();
     pairsForSegment.push(VectorUtil.toVector3(curveStartEnd[0], curveStartEnd[1], this.radius));
@@ -77,6 +80,15 @@ export class AxialCurveCalculator {
     });
     pairsForSegment.push(VectorUtil.toVector3(curveStartEnd[2], curveStartEnd[3], this.radius));
     return pairsForSegment;
+  }
+
+  private isInitialMeridianCrossingPoint(segment: number[]): boolean {
+    /*
+      Work-around for helper segments like [ 360, 10, 0, 10] that are not rendered,
+      but used to join polygons on both sides of the reference meridian.
+    */
+    return segment[1] === segment[3] && 
+            ((segment[0] === 360 && segment[2] === 0) || (segment[0] === 0  && segment[2] === 360));
   }
 
 }
