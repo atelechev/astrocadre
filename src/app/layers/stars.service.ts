@@ -4,6 +4,7 @@ import { Response, Http } from '@angular/Http';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/observable/throw';
+import 'rxjs/add/observable/forkJoin';
 
 
 @Injectable()
@@ -32,6 +33,10 @@ export class StarsService {
   public getStars(magnitudeClass: number): Observable<number[][]> {
     const url = `/assets/stars_mag${magnitudeClass.toFixed(1)}.json`;
     return this.execGetRequestForNumericResponse(url);
+  }
+
+  public getStarsByClasses(magClasses: number[]): Observable<number[][][]> {
+    return Observable.forkJoin(magClasses.map(magClass => this.getStars(magClass)));
   }
 
   private toSegments(res: Response): number[][] {
