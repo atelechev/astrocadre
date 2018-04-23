@@ -50,7 +50,7 @@ export class SkyGridComponent implements RenderableLayer {
   }
 
   private parallelSegment(decl: number): number[] {
-    return [ 0, decl, 360, decl ];
+    return [ 0.01, decl, 359.99, decl ];
   }
 
   private generateReferenceParallelSegments(): MergedAxialCurves {
