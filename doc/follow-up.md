@@ -67,6 +67,10 @@ To start the app:
 #### Low priority improvements for POC
 
   * Render star colors depending on their class/temperature
+<<<<<<< HEAD
+=======
+  * cleanup constellation boundaries data from 0-meridian line cutting some constellations
+>>>>>>> 2ff5a3580e46fd0c3f2533735a8b410f0633e171
   * remove hardcoded CSS width and height for the canvas container, use constants
   * flexible canvas size (?)
   * show coordinates of the view port center
