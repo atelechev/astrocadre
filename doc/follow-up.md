@@ -51,26 +51,22 @@ To start the app:
 
 #### Major Features
 
-  * Star names
-  * Current position of the Sun and of the Moon (probably, the planets also)
-  * Rendering themes
+* Star names
+* Current position of the Sun and of the Moon (probably, the planets also)
+* Rendering themes
 
 #### UI-Only
 
-  * Primitive UI controls allowing to toggle layers, view size etc.
-  * Toggling layers
-  * S-N direction arrow
-  * Adjust/fine tune viewport with UI buttons
-  * Customizable field of view
-  * Export of current view as image
+* Primitive UI controls allowing to toggle layers, view size etc.
+* Toggling layers
+* S-N direction arrow
+* Adjust/fine tune viewport with UI buttons
+* Customizable field of view
+* Export of current view as image
 
 #### Low priority improvements for POC
 
-  * Render star colors depending on their class/temperature
-<<<<<<< HEAD
-=======
-  * cleanup constellation boundaries data from 0-meridian line cutting some constellations
->>>>>>> 2ff5a3580e46fd0c3f2533735a8b410f0633e171
-  * remove hardcoded CSS width and height for the canvas container, use constants
-  * flexible canvas size (?)
-  * show coordinates of the view port center
+* Render star colors depending on their class/temperature
+* remove hardcoded CSS width and height for the canvas container, use constants
+* flexible canvas size (?)
+* show coordinates of the view port center
