@@ -41,14 +41,16 @@ To start the app:
   - Static JSON asset contains constellation lines coordinates.
   - Constellation lines are rendered in the view.
 
+### April 23rd, 2018
+
+* SV-004 - Render stars of magnitudes down to level 6
 
 ### Next Steps
 
-* SV-004 - Render stars.
+* SV-005: Render Constellation names
 
 #### Major Features
 
-  * Constellation names
   * Star names
   * Current position of the Sun and of the Moon (probably, the planets also)
   * Rendering themes
@@ -64,7 +66,7 @@ To start the app:
 
 #### Low priority improvements for POC
 
-  * cleanup constellation boundaries data from 0-meridian line cutting some constellations
+  * Render star colors depending on their class/temperature
   * remove hardcoded CSS width and height for the canvas container, use constants
   * flexible canvas size (?)
   * show coordinates of the view port center
