@@ -4,6 +4,8 @@ import { Component } from '@angular/core';
 import { StarsService } from './stars.service';
 import { Observable } from 'rxjs/Observable';
 import { MergedLines } from './model/merged-lines';
+import { ThemesComponent } from '../themes/themes.component';
+import { Layers } from './layers';
 
 @Component({
   template: ``,
@@ -13,22 +15,24 @@ import { MergedLines } from './model/merged-lines';
 })
 export class ConstellationLinesComponent implements RenderableLayer {
 
-  private material: Material;
+  constructor(private starsService: StarsService,
+              private themes: ThemesComponent) {
 
-  constructor(private starsService: StarsService) {
-    this.material = new LineBasicMaterial({ color : 0xff56ef });
   }
 
   public getObjects(): Observable<Object3D[]> {
+    const material = 
+      this.themes.getActiveTheme()
+                 .getMaterialForLayer(Layers.CONSTELLATION_LINES, 'line-common');
     return this.starsService.getConstellationLines()
                .map((rawSegments: number[][]) => {
-                  const mergedCurves = new MergedLines(this.material, rawSegments, 1.98);
+                  const mergedCurves = new MergedLines(material, rawSegments, 1.98);
                   return [ mergedCurves.toObject3D() ];
                });
   }
 
   public getName(): string {
-    return 'constellation lines';
+    return Layers.CONSTELLATION_LINES;
   }
 
 }

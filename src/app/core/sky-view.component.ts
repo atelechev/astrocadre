@@ -10,6 +10,8 @@ import { WorldOriginCameraService } from './world-origin-camera.service';
 import { ExternalCameraService } from './external-camera.service'; // TODO for dev only
 import { ConstellationLinesComponent } from '../layers/constellation-lines.component';
 import { StarsComponent } from '../layers/stars.component';
+import { ThemesComponent } from '../themes/themes.component';
+import { Themes } from '../themes/themes';
 
 @Component({
   selector: 'app-sky-view',
@@ -34,7 +36,8 @@ export class SkyViewComponent implements AfterViewInit {
               private skyGrid: SkyGridComponent,
               private constellationBoundaries: ConstellationBoundariesComponent,
               private constellationLines: ConstellationLinesComponent,
-              private stars: StarsComponent) {
+              private stars: StarsComponent,
+              private themesComponent: ThemesComponent) {
     this.layers = new Array<RenderableLayer>(
       skyGrid,
       constellationBoundaries,
@@ -61,7 +64,6 @@ export class SkyViewComponent implements AfterViewInit {
         (error) => console.error(`Failed to load the layer '${layer.getName()}': ${error}`)
       );
     });
-    // this.sceneService.showAxes(); // TODO dev mode
     this.rendererService.render(this.sceneService.getScene(), this.cameraService.getCamera());
   }
 

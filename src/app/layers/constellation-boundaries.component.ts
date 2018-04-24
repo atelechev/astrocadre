@@ -4,6 +4,8 @@ import { Component } from '@angular/core';
 import { StarsService } from './stars.service';
 import { Observable } from 'rxjs/Observable';
 import { MergedAxialCurves } from './model/merged-axial-curves';
+import { ThemesComponent } from '../themes/themes.component';
+import { Layers } from './layers';
 
 @Component({
   template: ``,
@@ -13,22 +15,24 @@ import { MergedAxialCurves } from './model/merged-axial-curves';
 })
 export class ConstellationBoundariesComponent implements RenderableLayer {
 
-  private material: Material;
+  constructor(private starsService: StarsService,
+              private themes: ThemesComponent) {
 
-  constructor(private starsService: StarsService) {
-    this.material = new LineBasicMaterial({ color : 0x5e56ef });
   }
 
   public getObjects(): Observable<Object3D[]> {
+    const material = 
+      this.themes.getActiveTheme()
+                 .getMaterialForLayer(Layers.CONSTELLATION_BOUNDARIES, 'line-common');
     return this.starsService.getConstellationBoundaries()
                .map((rawSegments: number[][]) => {
-                  const mergedCurves = new MergedAxialCurves(this.material, rawSegments, 1.98);
+                  const mergedCurves = new MergedAxialCurves(material, rawSegments, 1.98);
                   return [ mergedCurves.toObject3D() ];
                });
   }
 
   public getName(): string {
-    return 'constellation boundaries';
+    return Layers.CONSTELLATION_BOUNDARIES;
   }
 
 }

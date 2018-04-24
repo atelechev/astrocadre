@@ -1,17 +1,17 @@
-import { Object3D, LineBasicMaterial } from 'three';
+import { Object3D, LineBasicMaterial, Material } from 'three';
 
 import { RenderableLayer } from '../core/renderable-layer';
 import { Component } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/of';
 import { MergedAxialCurves } from './model/merged-axial-curves';
+import { ThemesComponent } from '../themes/themes.component';
+import { Layers } from './layers';
 
 @Component({
   template: ``
 })
 export class SkyGridComponent implements RenderableLayer {
-
-  private static POINTS_PER_CIRCLE: number = 360 / 5;
 
   private gridRadius = 2;
 
@@ -19,9 +19,9 @@ export class SkyGridComponent implements RenderableLayer {
 
   private absMeridianLineDeclination = 89.5;
 
-  private ordinaryLineMaterial: LineBasicMaterial = new LineBasicMaterial({ color : 0x2821af });
+  constructor(private themes: ThemesComponent) {
 
-  private referenceLineMaterial: LineBasicMaterial = new LineBasicMaterial({ color : 0x00ff99 }); // TODO
+  }
 
   private buildMeridians(): Object3D[] {
     const ordinaryMeridians = this.generateOrdinaryMeridianSegments();
@@ -31,7 +31,7 @@ export class SkyGridComponent implements RenderableLayer {
 
   private generateReferenceMeridianSegments(): MergedAxialCurves {
     const refSegments = [ this.meridianSegment(0), this.meridianSegment(180)];
-    return new MergedAxialCurves(this.referenceLineMaterial, refSegments, this.gridRadius);
+    return new MergedAxialCurves(this.getReferenceLineMaterial(), refSegments, this.gridRadius);
   }
 
   private meridianSegment(ra: number): number[] {
@@ -46,7 +46,19 @@ export class SkyGridComponent implements RenderableLayer {
       }
       segments.push(this.meridianSegment(i));
     }
-    return new MergedAxialCurves(this.ordinaryLineMaterial, segments, this.gridRadius);
+    return new MergedAxialCurves(this.getCommonLineMaterial(), segments, this.gridRadius);
+  }
+
+  private getMaterialFromActiveTheme(materialKey: string): Material {
+    return this.themes.getActiveTheme().getMaterialForLayer(this.getName(), materialKey);
+  }
+
+  private getCommonLineMaterial(): Material {
+    return this.getMaterialFromActiveTheme('line-common');
+  }
+
+  private getReferenceLineMaterial(): Material {
+    return this.getMaterialFromActiveTheme('line-reference');
   }
 
   private parallelSegment(decl: number): number[] {
@@ -55,7 +67,7 @@ export class SkyGridComponent implements RenderableLayer {
 
   private generateReferenceParallelSegments(): MergedAxialCurves {
     const refSegments = [ this.parallelSegment(0) ];
-    return new MergedAxialCurves(this.referenceLineMaterial, refSegments, this.gridRadius);
+    return new MergedAxialCurves(this.getReferenceLineMaterial(), refSegments, this.gridRadius);
   }
 
   private generateOrdinaryParallelSegments(): MergedAxialCurves {
@@ -64,7 +76,7 @@ export class SkyGridComponent implements RenderableLayer {
       segments.push(this.parallelSegment(par));
       segments.push(this.parallelSegment(-par));
     }
-    return new MergedAxialCurves(this.ordinaryLineMaterial, segments, this.gridRadius);
+    return new MergedAxialCurves(this.getCommonLineMaterial(), segments, this.gridRadius);
   }
 
   private buildParallels(): Object3D[] {
@@ -80,7 +92,7 @@ export class SkyGridComponent implements RenderableLayer {
   }
 
   public getName(): string {
-    return 'sky-grid';
+    return Layers.SKY_GRID;
   }
 
 }

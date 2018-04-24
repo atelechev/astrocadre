@@ -5,6 +5,8 @@ import { StarsService } from './stars.service';
 import { Observable } from 'rxjs/Observable';
 import { MergedLines } from './model/merged-lines';
 import { MergedPoints } from './model/merged-points';
+import { ThemesComponent } from '../themes/themes.component';
+import { Layers } from './layers';
 
 @Component({
   template: ``,
@@ -14,29 +16,23 @@ import { MergedPoints } from './model/merged-points';
 })
 export class StarsComponent implements RenderableLayer {
 
-  private renderedMagnitudes = [ 2, 2.5, 3, 3.5, 4, 4.5, 5, 5.5, 6 ];
+  constructor(private starsService: StarsService,
+              private themes: ThemesComponent) {
 
-  private textureLoader: TextureLoader;
-
-
-  constructor(private starsService: StarsService) {
-    this.textureLoader = new TextureLoader();
   }
 
   private getMaterialForMagnitudeClass(magClass: number): Material {
-    const dotSizeMultiplier = 2.5;
-    const dotSize = (6.5 - magClass) * dotSizeMultiplier;
-    return new PointsMaterial({ size: dotSize,
-                                sizeAttenuation: false,
-                                map: this.textureLoader.load('assets/textures/star.png') } );
+    const materialKey = 'star-' + magClass.toFixed(1);
+    return this.themes.getActiveTheme().getMaterialForLayer(this.getName(), materialKey);
   }
 
   public getObjects(): Observable<Object3D[]> {
-    return this.starsService.getStarsByClasses(this.renderedMagnitudes)
+    const magnitudes = this.themes.getActiveTheme().getRenderedStarMagnitudes();
+    return this.starsService.getStarsByClasses(magnitudes)
     .map(starsByClasses => {
       const allStars = new Array<Object3D>();
-      for (let i = 0; i < this.renderedMagnitudes.length; i++) {
-        const material = this.getMaterialForMagnitudeClass(this.renderedMagnitudes[i]);
+      for (let i = 0; i < magnitudes.length; i++) {
+        const material = this.getMaterialForMagnitudeClass(magnitudes[i]);
         const starsForClass = new MergedPoints(material, starsByClasses[i], 1.96);
         allStars.push(starsForClass.toObject3D());
       }
@@ -45,7 +41,7 @@ export class StarsComponent implements RenderableLayer {
   }
 
   public getName(): string {
-    return 'stars';
+    return Layers.STARS;
   }
 
 }

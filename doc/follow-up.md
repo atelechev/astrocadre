@@ -45,15 +45,18 @@ To start the app:
 
 * SV-004 - Render stars of magnitudes down to level 6
 
+### April 24th, 2018
+
+* SV-005 - Add graphic themes support. Introduce SkyChart theme.
+
 ### Next Steps
 
-* SV-005: Render Constellation names
+* SV-006: Render Constellation names
 
 #### Major Features
 
 * Star names
 * Current position of the Sun and of the Moon (probably, the planets also)
-* Rendering themes
 
 #### UI-Only
 
@@ -66,6 +69,7 @@ To start the app:
 
 #### Low priority improvements for POC
 
+* Add 'night' and 'exoplorer' themes
 * Render star colors depending on their class/temperature
 * remove hardcoded CSS width and height for the canvas container, use constants
 * flexible canvas size (?)
