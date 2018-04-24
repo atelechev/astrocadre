@@ -1,4 +1,3 @@
-
 import { Vector3, Material } from 'three';
 import { VectorUtil } from './vector-util';
 import { MergedObjects } from './merged-objects';

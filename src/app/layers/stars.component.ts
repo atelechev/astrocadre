@@ -1,12 +1,11 @@
 import { RenderableLayer } from '../core/renderable-layer';
-import { Object3D, Material, PointsMaterial, TextureLoader } from 'three';
+import { Object3D, Material } from 'three';
 import { Component } from '@angular/core';
 import { StarsService } from './stars.service';
 import { Observable } from 'rxjs/Observable';
-import { MergedLines } from './model/merged-lines';
 import { MergedPoints } from './model/merged-points';
-import { ThemesComponent } from '../themes/themes.component';
 import { Layers } from './layers';
+import { Theme } from '../themes/theme';
 
 @Component({
   template: ``,
@@ -16,23 +15,22 @@ import { Layers } from './layers';
 })
 export class StarsComponent implements RenderableLayer {
 
-  constructor(private starsService: StarsService,
-              private themes: ThemesComponent) {
+  constructor(private starsService: StarsService) {
 
   }
 
-  private getMaterialForMagnitudeClass(magClass: number): Material {
+  private getMaterialForMagnitudeClass(magClass: number, theme: Theme): Material {
     const materialKey = 'star-' + magClass.toFixed(1);
-    return this.themes.getActiveTheme().getMaterialForLayer(this.getName(), materialKey);
+    return theme.getMaterialForLayer(this.getName(), materialKey);
   }
 
-  public getObjects(): Observable<Object3D[]> {
-    const magnitudes = this.themes.getActiveTheme().getRenderedStarMagnitudes();
+  public getObjects(theme: Theme): Observable<Object3D[]> {
+    const magnitudes = theme.getRenderedStarMagnitudes();
     return this.starsService.getStarsByClasses(magnitudes)
     .map(starsByClasses => {
       const allStars = new Array<Object3D>();
       for (let i = 0; i < magnitudes.length; i++) {
-        const material = this.getMaterialForMagnitudeClass(magnitudes[i]);
+        const material = this.getMaterialForMagnitudeClass(magnitudes[i], theme);
         const starsForClass = new MergedPoints(material, starsByClasses[i], 1.96);
         allStars.push(starsForClass.toObject3D());
       }

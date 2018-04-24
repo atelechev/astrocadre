@@ -1,0 +1,31 @@
+{
+  "name": "dev",
+  "background": {
+    "color": "rgb(2, 0, 44)"
+  },
+  "skyGrid": {
+    "line": {
+      "common": "rgb(40, 33, 175)",
+      "reference": "rgb(0, 255, 153)"
+    }
+  },
+  "constellation": {
+    "boundaries": {
+      "line": {
+        "common": "rgb(94, 86, 239)"
+      }
+    },
+    "lines": {
+      "line": {
+        "common": "rgb(255, 86, 239)"
+      }
+    }
+  },
+  "stars": {
+    "magnitudes": [ 2, 2.5, 3, 3.5, 4, 4.5, 5, 5.5, 6 ],
+    "texture": {
+      "image": "assets/textures/star_yellow.png",
+      "sizeMultiplier": 2.5
+    }
+  }
+}

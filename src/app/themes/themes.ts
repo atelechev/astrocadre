@@ -1,13 +1,13 @@
 
 
-export class Themes {
+export enum Themes {
 
-  public static DEV = 'dev';
+  DEV = 'dev',
 
-  public static EXOPLORER = 'exoplorer';
+  EXOPLORER = 'exoplorer',
 
-  public static SKY_CHART = 'sky-chart';
+  NIGHT_VIEW = 'night-view',
 
-  public static NIGHT_VIEW = 'night-view';
+  SKY_CHART = 'sky-chart'
 
 }

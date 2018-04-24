@@ -1,6 +1,5 @@
 import { Component, ElementRef, ViewChild, AfterViewInit } from '@angular/core';
 import { SceneService } from './scene.service';
-import { Constants } from '../constants';
 import { SkyGridComponent } from '../layers/sky-grid.component';
 import { RenderableLayer } from './renderable-layer';
 import { ConstellationBoundariesComponent } from '../layers/constellation-boundaries.component';
@@ -12,6 +11,7 @@ import { ConstellationLinesComponent } from '../layers/constellation-lines.compo
 import { StarsComponent } from '../layers/stars.component';
 import { ThemesComponent } from '../themes/themes.component';
 import { Themes } from '../themes/themes';
+import { Theme } from '../themes/theme';
 
 @Component({
   selector: 'app-sky-view',
@@ -30,14 +30,14 @@ export class SkyViewComponent implements AfterViewInit {
 
   private layers: RenderableLayer[];
 
-  constructor(private sceneService: SceneService,
+  constructor(private themesComponent: ThemesComponent,
+              private sceneService: SceneService,
               private rendererService: RendererService,
               private cameraService: WorldOriginCameraService,
               private skyGrid: SkyGridComponent,
               private constellationBoundaries: ConstellationBoundariesComponent,
               private constellationLines: ConstellationLinesComponent,
-              private stars: StarsComponent,
-              private themesComponent: ThemesComponent) {
+              private stars: StarsComponent) {
     this.layers = new Array<RenderableLayer>(
       skyGrid,
       constellationBoundaries,
@@ -55,15 +55,21 @@ export class SkyViewComponent implements AfterViewInit {
 
   ngAfterViewInit() {
     this.appendCanvas();
-    this.layers.forEach(layer => {
-      layer.getObjects().subscribe(
-        (objects: Object3D[]) => {
-          console.log(`${objects.length} objects to add for layer ${layer.getName()}`);
-          this.sceneService.addObjects(objects);
-        },
-        (error) => console.error(`Failed to load the layer '${layer.getName()}': ${error}`)
-      );
-    });
+    this.themesComponent.loadTheme(Themes.SKY_CHART).subscribe(
+      (theme: Theme) => {
+        this.sceneService.updateForTheme(theme);
+        this.layers.forEach(layer => {
+          layer.getObjects(this.themesComponent.getActiveTheme()).subscribe(
+            (objects: Object3D[]) => {
+              console.log(`${objects.length} objects to add for layer ${layer.getName()}`);
+              this.sceneService.addObjects(objects);
+            },
+            (error) => console.error(`Failed to load the layer '${layer.getName()}': ${error}`)
+          );
+        });
+      },
+      (error) => console.error(`Failed to initialize sky-view': ${error}`)
+    );
     this.rendererService.render(this.sceneService.getScene(), this.cameraService.getCamera());
   }
 

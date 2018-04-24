@@ -1,4 +1,4 @@
-import { Vector3, Math as ThreeMath } from 'three';
+import { Vector3 } from 'three';
 import { VectorUtil } from './vector-util';
 
 export class AxialCurveCalculator {
@@ -87,7 +87,7 @@ export class AxialCurveCalculator {
       Work-around for helper segments like [ 360, 10, 0, 10] that are not rendered,
       but used to join polygons on both sides of the reference meridian.
     */
-    return segment[1] === segment[3] && 
+    return segment[1] === segment[3] &&
             ((segment[0] === 360 && segment[2] === 0) || (segment[0] === 0  && segment[2] === 360));
   }
 

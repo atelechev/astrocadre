@@ -1,4 +1,4 @@
-import { BufferGeometry, LineDashedMaterial, LineBasicMaterial, Geometry } from 'three';
+import { BufferGeometry, LineDashedMaterial, LineBasicMaterial } from 'three';
 import { LineSegments, Vector3, Object3D, Material } from 'three';
 
 

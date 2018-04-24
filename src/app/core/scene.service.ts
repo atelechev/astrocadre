@@ -1,25 +1,21 @@
 import { Injectable } from '@angular/core';
 
-import { Scene as ThreeScene, Scene, Object3D, Vector3, Color } from 'three';
-import { Camera, PerspectiveCamera, WebGLRenderer, Mesh, Math as ThreeMath, AxesHelper } from 'three';
-import { Constants } from '../constants';
-import { ThemesComponent } from '../themes/themes.component';
+import { Scene as ThreeScene, Scene, Object3D } from 'three';
+import { AxesHelper } from 'three';
 import { Theme } from '../themes/theme';
+import { Themes } from '../themes/themes';
 
 @Injectable()
 export class SceneService {
 
   private scene: ThreeScene;
 
-  constructor(private themes: ThemesComponent) {
+  constructor() {
     this.scene = new ThreeScene();
-    this.scene.background = 
-      this.themes.getActiveTheme().getBackgroundColor(); // TODO make it updatable on dynamic theme change
-    this.showAxesIfDevMode();
   }
 
-  private showAxesIfDevMode(): void {
-    if (this.themes.getActiveTheme().getName() === 'dev') {
+  private showAxesIfDevMode(theme: Theme): void {
+    if (theme.getName() === Themes.DEV) {
       const axesHelper = new AxesHelper(3);
       this.addObject(axesHelper);
       console.warn('Axes helper shown: dev mode.');
@@ -36,6 +32,11 @@ export class SceneService {
 
   public getScene(): Scene {
     return this.scene;
+  }
+
+  public updateForTheme(theme: Theme): void {
+    this.showAxesIfDevMode(theme);
+    this.scene.background = theme.getBackgroundColor();
   }
 
 }

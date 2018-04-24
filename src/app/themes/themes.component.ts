@@ -1,39 +1,39 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { Theme } from './theme';
-import { ThemeDevService } from './theme-dev.service';
 import { Themes } from './themes';
-import { ThemeSkyChartService } from './theme-skychart.service';
+import { ThemesService } from './themes.service';
+import { ThemeDefinition } from './theme-definition';
+import { Observable } from 'rxjs/Observable';
 
 @Component({
   template: ``,
   providers: [
-    ThemeDevService,
-    ThemeSkyChartService
+    ThemesService
   ]
 })
 export class ThemesComponent {
 
   private activeTheme: Theme;
 
-  private themesByName: Map<string, Theme>;
+  constructor(private themesService: ThemesService) {
 
-  constructor(devTheme: ThemeDevService,
-              skyChartTheme: ThemeSkyChartService) {
-    this.activeTheme = skyChartTheme; // TODO must be initialized externally
-    this.themesByName = new Map<string, Theme>();
-    this.themesByName.set(devTheme.getName(), devTheme);
-    this.themesByName.set(skyChartTheme.getName(), skyChartTheme);
   }
 
   public getActiveTheme(): Theme {
+    if (!this.activeTheme) {
+      throw new Error('Illegal call: no theme is yet set as active!');
+    }
     return this.activeTheme;
   }
 
-  public setActiveTheme(name: string): void {
-    if (!this.themesByName.get(name)) {
-      throw new Error(`Unexpected theme name: '${name}'`);
-    }
-    this.activeTheme = this.themesByName.get(name);
+  public loadTheme(theme: Themes): Observable<Theme> {
+    return this.themesService.getThemeDefinition(theme)
+      .map((themeDef: ThemeDefinition) => {
+        const loadedTheme = new Theme(themeDef);
+        this.activeTheme = loadedTheme;
+        console.log(`Active theme set to '${theme}'`); // TODO remove
+        return loadedTheme;
+      });
   }
 
 }

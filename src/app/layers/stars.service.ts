@@ -39,16 +39,13 @@ export class StarsService {
     return Observable.forkJoin(magClasses.map(magClass => this.getStars(magClass)));
   }
 
-  private toSegments(res: Response): number[][] {
-    return res.json();
-  }
-
+  // TODO introduce shared generic error handling
   private handleError(res: Response | any): Observable<any> {
     if (res instanceof Response) {
       const body = res.json() || '';
       return Observable.throw(res);
     }
-    return Observable.throw('Failed to retrieve data JSONi from server.');
+    return Observable.throw('Failed to retrieve data JSON from server.');
   }
 
 }

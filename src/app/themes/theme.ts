@@ -1,18 +1,16 @@
-import { Color, Material } from 'three';
+import { Color, Material, LineBasicMaterial, PointsMaterial, TextureLoader } from 'three';
 import { Layers } from '../layers/layers';
-import { OnInit } from '@angular/core';
+import { ThemeDefinition } from './theme-definition';
 
-export abstract class Theme {
+export class Theme {
 
-  // TODO should be configurable by theme
-  // but the current init sequence does not allow to move it there directly
-  private renderedStarMagnitudes = [ 2, 2.5, 3, 3.5, 4, 4.5, 5, 5.5, 6 ];
+  private backgroundColor: Color;
 
   private materialsByLayer: Map<string, Map<string, Material>>;
 
-  constructor(private name: string,
-              private bgrColor: Color) {
+  constructor(private themeDef: ThemeDefinition) {
     this.materialsByLayer = this.initMaterialsMap();
+    this.backgroundColor = new Color(this.themeDef.background.color);
   }
 
   private initMaterialsMap(): Map<string, Map<string, Material>> {
@@ -24,24 +22,57 @@ export abstract class Theme {
     return materials;
   }
 
-  protected abstract getSkyGridMaterials(): Map<string, Material>;
+  private getSkyGridMaterials(): Map<string, Material> {
+    const materials = new Map<string, Material>();
+    materials.set('line-common', new LineBasicMaterial({ color : this.themeDef.skyGrid.line.common }));
+    materials.set('line-reference', new LineBasicMaterial({ color : this.themeDef.skyGrid.line.reference }));
+    return materials;
+  }
 
-  protected abstract getConstellationBoundariesMaterials(): Map<string, Material>;
+  private getConstellationBoundariesMaterials(): Map<string, Material> {
+    const materials = new Map<string, Material>();
+    materials.set('line-common', new LineBasicMaterial({ color : this.themeDef.constellation.boundaries.line.common }));
+    return materials;
+  }
 
-  protected abstract getConstellationLinesMaterials(): Map<string, Material>;
+  private getConstellationLinesMaterials(): Map<string, Material> {
+    const materials = new Map<string, Material>();
+    materials.set('line-common', new LineBasicMaterial({ color : this.themeDef.constellation.lines.line.common }));
+    return materials;
+  }
 
-  protected abstract getStarsMaterials(): Map<string, Material>;
+  private getStarsMaterials(): Map<string, Material> {
+    const materials = new Map<string, Material>();
+    const textureLoader = new TextureLoader();
+    this.getRenderedStarMagnitudes().forEach(magClass => {
+      const materialKey = 'star-' + magClass.toFixed(1);
+      const material = this.getMaterialForMagnitudeClass(magClass, textureLoader);
+      materials.set(materialKey, material);
+    });
+    return materials;
+  }
+
+  private getMaterialForMagnitudeClass(magClass: number, textureLoader: TextureLoader): Material {
+    const dotSizeMultiplier = this.themeDef.stars.texture.sizeMultiplier;
+    const dotSize = (6.5 - magClass) * dotSizeMultiplier;
+    return new PointsMaterial({ size: dotSize,
+                                sizeAttenuation: false,
+                                transparent: true,
+                                opacity: 0.95,
+                                alphaTest: 0.05,
+                                map: textureLoader.load(this.themeDef.stars.texture.image) } );
+  }
 
   public getBackgroundColor(): Color {
-    return this.bgrColor;
+    return this.backgroundColor;
   }
 
   public getName(): string {
-    return this.name;
+    return this.themeDef.name;
   }
 
   public getRenderedStarMagnitudes(): number[] {
-    return this.renderedStarMagnitudes;
+    return this.themeDef.stars.magnitudes;
   }
 
   public getMaterialsForLayer(layerName: string): Map<string, Material> {

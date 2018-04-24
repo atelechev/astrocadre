@@ -1,12 +1,12 @@
-import { Object3D, LineBasicMaterial, Material } from 'three';
+import { Object3D, Material } from 'three';
 
 import { RenderableLayer } from '../core/renderable-layer';
 import { Component } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/of';
 import { MergedAxialCurves } from './model/merged-axial-curves';
-import { ThemesComponent } from '../themes/themes.component';
 import { Layers } from './layers';
+import { Theme } from '../themes/theme';
 
 @Component({
   template: ``
@@ -19,9 +19,8 @@ export class SkyGridComponent implements RenderableLayer {
 
   private absMeridianLineDeclination = 89.5;
 
-  constructor(private themes: ThemesComponent) {
+  private theme: Theme;
 
-  }
 
   private buildMeridians(): Object3D[] {
     const ordinaryMeridians = this.generateOrdinaryMeridianSegments();
@@ -50,7 +49,7 @@ export class SkyGridComponent implements RenderableLayer {
   }
 
   private getMaterialFromActiveTheme(materialKey: string): Material {
-    return this.themes.getActiveTheme().getMaterialForLayer(this.getName(), materialKey);
+    return this.theme.getMaterialForLayer(this.getName(), materialKey);
   }
 
   private getCommonLineMaterial(): Material {
@@ -85,7 +84,8 @@ export class SkyGridComponent implements RenderableLayer {
     return [ ordinaryParallels.toObject3D(), equator.toObject3D() ];
   }
 
-  public getObjects(): Observable<Object3D[]> {
+  public getObjects(theme: Theme): Observable<Object3D[]> {
+    this.theme = theme;
     const meridians = this.buildMeridians();
     const parallels = this.buildParallels();
     return Observable.of(meridians.concat(parallels));

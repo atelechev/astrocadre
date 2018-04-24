@@ -1,8 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AbstractCameraService } from './abstract-camera-service';
 import { Camera, PerspectiveCamera, Math as ThreeMath } from 'three';
-import { RendererService } from './renderer.service';
-import { SceneService } from './scene.service';
 
 @Injectable()
 export class ExternalCameraService extends AbstractCameraService {
