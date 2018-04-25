@@ -33,13 +33,13 @@ To start the app:
 ### April 21st, 2018
 
 * SV-002 - Render constellation boundaries.
-  - Static JSON asset contains constellation boundaries coordinates.
-  - Constellation boundaries are rendered in the view.
-  - Style changes in the view.
+  * Static JSON asset contains constellation boundaries coordinates.
+  * Constellation boundaries are rendered in the view.
+  * Style changes in the view.
 
 * SV-003 - Render constallation lines.
-  - Static JSON asset contains constellation lines coordinates.
-  - Constellation lines are rendered in the view.
+  * Static JSON asset contains constellation lines coordinates.
+  * Constellation lines are rendered in the view.
 
 ### April 23rd, 2018
 
@@ -51,17 +51,20 @@ To start the app:
 
 ### Next Steps
 
-* SV-006: Render Constellation names
+* SV-006: Primitive UI controls allowing to:
+  * toggle layers
+  * change themes
+  * adjust view (rotate rigth/left, inverse, set to vertical/meridian)
 
 #### Major Features
 
+* Search control for constellation codes (extensible for other): centers the view on the typed constellation
+* Render Constellation names
 * Star names
 * Current position of the Sun and of the Moon (probably, the planets also)
 
 #### UI-Only
 
-* Primitive UI controls allowing to toggle layers, view size etc.
-* Toggling layers
 * S-N direction arrow
 * Adjust/fine tune viewport with UI buttons
 * Customizable field of view
