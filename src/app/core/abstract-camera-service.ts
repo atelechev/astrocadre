@@ -4,9 +4,9 @@ import { SceneService } from './scene.service';
 
 export abstract class AbstractCameraService {
 
-  protected fovMax = 70;
+  protected fovMax = 90;
 
-  protected fovMin = 40;
+  protected fovMin = 45;
 
   private fovRange = this.fovMax - this.fovMin;
 
@@ -45,6 +45,12 @@ export abstract class AbstractCameraService {
         this.updateCameraPropertiesDependingOnRotation();
         rendererService.render(sceneService.getScene(), this.getCamera());
       }
+    });
+    this.addMouseEventListener(rendererService, 'dblclick', (event: MouseEvent) => {
+      // TODO align with meridian on double click
+      // this.getCamera().rotation.y = 0;
+      this.getCamera().rotation.z -= 0.1;
+      // console.log(`rotX=${this.getCamera().rotation.x} rotY=${this.getCamera().rotation.y} rotZ=${this.getCamera().rotation.z}`);
     });
   }
 
