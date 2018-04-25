@@ -5,10 +5,12 @@ import { SkyViewComponent } from './core/sky-view.component';
 import { LayersModule } from './layers/layers.module';
 import { HttpModule } from '@angular/Http';
 import { ThemesModule } from './themes/themes.module';
+import { ControlsComponent } from './core/controls.component';
 
 
 @NgModule({
   declarations: [
+    ControlsComponent,
     SkyViewComponent
   ],
   imports: [

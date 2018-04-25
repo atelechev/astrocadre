@@ -1,0 +1,10 @@
+
+#sky-view-controls {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  border: 1px solid black;
+  width: 200px;
+  height: 200px;
+  background-color: white;
+}

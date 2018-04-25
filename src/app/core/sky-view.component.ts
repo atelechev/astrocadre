@@ -26,8 +26,8 @@ import { Constants } from '../constants';
 })
 export class SkyViewComponent implements AfterViewInit {
 
-  @ViewChild('skyViewRoot')
-  private skyViewRoot: ElementRef;
+  @ViewChild('skyViewViewport')
+  private skyViewViewport: ElementRef;
 
   private viewportWidth: string;
 
@@ -55,7 +55,7 @@ export class SkyViewComponent implements AfterViewInit {
 
   private appendCanvas(): void {
     const canvas = this.rendererService.getDomElement();
-    this.skyViewRoot.nativeElement.appendChild(canvas);
+    this.skyViewViewport.nativeElement.appendChild(canvas);
   }
 
   ngAfterViewInit() {
