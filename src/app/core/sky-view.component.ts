@@ -12,6 +12,7 @@ import { StarsComponent } from '../layers/stars.component';
 import { ThemesComponent } from '../themes/themes.component';
 import { Themes } from '../themes/themes';
 import { Theme } from '../themes/theme';
+import { Constants } from '../constants';
 
 @Component({
   selector: 'app-sky-view',
@@ -28,6 +29,10 @@ export class SkyViewComponent implements AfterViewInit {
   @ViewChild('skyViewRoot')
   private skyViewRoot: ElementRef;
 
+  private viewportWidth: string;
+
+  private viewportHeight: string;
+
   private layers: RenderableLayer[];
 
   constructor(private themesComponent: ThemesComponent,
@@ -38,6 +43,8 @@ export class SkyViewComponent implements AfterViewInit {
               private constellationBoundaries: ConstellationBoundariesComponent,
               private constellationLines: ConstellationLinesComponent,
               private stars: StarsComponent) {
+    this.viewportWidth = Constants.VIEW_WIDTH + 'px';
+    this.viewportHeight = Constants.VIEW_HEIGHT + 'px';
     this.layers = new Array<RenderableLayer>(
       skyGrid,
       constellationBoundaries,

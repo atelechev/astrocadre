@@ -2,10 +2,7 @@ body { margin: 0; }
 
 canvas { width: 100%; height: 100% }
 
-/** TODO refactor CSS **/
 #sky-view-root {
-  width: 700px; /* TODO should be removed and set dynamically */
-  height: 700px; /* TODO should be removed and set dynamically */
   border: 1px solid black;
   margin: auto auto;
   text-align:center
