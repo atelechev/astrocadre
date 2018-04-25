@@ -9,7 +9,7 @@ export class WorldOriginCameraService extends AbstractCameraService {
 
   constructor() {
     super();
-    this.camera = new PerspectiveCamera(50, 1, 0.1, 1000); // TODO extract params?
+    this.camera = new PerspectiveCamera(this.fovMax, this.aspectMin, 0.1, 5); // TODO extract params?
     this.setUpCamera();
   }
 

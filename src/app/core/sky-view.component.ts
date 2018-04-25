@@ -55,7 +55,7 @@ export class SkyViewComponent implements AfterViewInit {
 
   ngAfterViewInit() {
     this.appendCanvas();
-    this.themesComponent.loadTheme(Themes.SKY_CHART).subscribe(
+    this.themesComponent.loadTheme(Themes.DEV).subscribe(
       (theme: Theme) => {
         this.sceneService.updateForTheme(theme);
         this.layers.forEach(layer => {
