@@ -51,8 +51,6 @@ export class SkyViewComponent implements AfterViewInit {
       constellationLines,
       stars
     );
-    // TODO could we avoid this call and make it somewhere inside cameraService?
-    this.cameraService.initMouseListeners(rendererService, sceneService);
   }
 
   private appendCanvas(): void {
@@ -78,6 +76,7 @@ export class SkyViewComponent implements AfterViewInit {
       (error) => console.error(`Failed to initialize sky-view': ${error}`)
     );
     this.rendererService.render(this.sceneService.getScene(), this.cameraService.getCamera());
+    this.cameraService.initMouseListeners(this.rendererService, this.sceneService);
   }
 
 }
