@@ -4,5 +4,72 @@
      (mousedown)="setPressed()"
      (mouseup)="setReleased()"
      (mousemove)="drag($event)">
-  &nbsp;
+
+  <div class="ui-section">
+    <span>Theme:</span>&nbsp;
+    <select name="select_theme">
+      <option value="dev">Dev</option>
+      <option value="sky-chart">Sky Chart</option>
+    </select>
+  </div>
+
+  <div class="ui-section">
+    <span>Layers:</span><br>
+    <input type="checkbox" checked name="show_layer_sky-grid">Sky grid<br>
+    <input type="checkbox" checked name="show_layer_constellation-boundaries">Constellation boundaries<br>
+    <input type="checkbox" checked name="show_layer_constellation-lines">Constellation lines<br>
+    <input type="checkbox" checked name="show_layer_stars">Stars<br>
+  </div>
+
+  <div class="ui-section">
+    <span>Stars magnitude down to:</span>&nbsp;
+    <input class="selector_magnitude" type="number" name="show_stars_magnitude" min="2" max="6" step="0.5" value="6">
+  </div>
+
+  <div class="ui-section">
+    <table>
+      <tbody>
+        <tr>
+          <td rowspan="3">
+            <button type="button">C</button>
+          </td>
+          <td>
+            <button type="button">rtr</button>
+          </td>
+          <td>
+            <button type="button">U</button>
+          </td>
+          <td>
+            <button type="button">rtl</button>
+          </td>
+          <td rowspan="3">
+            <button type="button">+</button><br>
+            <button type="button">-</button>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <button type="button">L</button>
+          </td>
+          <td>
+            <input class="selector_view_step" type="number" name="select_view_step" min="5" max="90" step="5" value="5">
+          </td>
+          <td>
+            <button type="button">R</button>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <button type="button">rdr</button>
+          </td>
+          <td>
+            <button type="button">D</button>
+          </td>
+          <td>
+            <button type="button">rdl</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 </div>
