@@ -34,6 +34,12 @@ export class SceneService {
     return this.scene;
   }
 
+  public clearScene(): void {
+    while (this.scene.children.length) {
+      this.scene.remove(this.scene.children[0]);
+    }
+  }
+
   public updateForTheme(theme: Theme): void {
     this.showAxesIfDevMode(theme);
     this.scene.background = theme.getBackgroundColor();

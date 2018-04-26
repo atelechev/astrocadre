@@ -72,6 +72,7 @@ To start the app:
 
 #### Low priority improvements for POC
 
+* theme definition: enabled layers by default
 * Add 'night' and 'exoplorer' themes
 * Render star colors depending on their class/temperature
 * remove hardcoded CSS width and height for the canvas container, use constants

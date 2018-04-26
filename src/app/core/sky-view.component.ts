@@ -60,8 +60,14 @@ export class SkyViewComponent implements AfterViewInit {
 
   ngAfterViewInit() {
     this.appendCanvas();
-    this.themesComponent.loadTheme(Themes.DEV).subscribe(
+    this.rendererService.render(this.sceneService.getScene(), this.cameraService.getCamera());
+    this.cameraService.initMouseListeners(this.rendererService, this.sceneService);
+  }
+
+  public loadTheme(themeCode: string): void {
+    this.themesComponent.loadTheme(<Themes> themeCode).subscribe(
       (theme: Theme) => {
+        this.sceneService.clearScene();
         this.sceneService.updateForTheme(theme);
         this.layers.forEach(layer => {
           layer.getObjects(this.themesComponent.getActiveTheme()).subscribe(
@@ -75,8 +81,6 @@ export class SkyViewComponent implements AfterViewInit {
       },
       (error) => console.error(`Failed to initialize sky-view': ${error}`)
     );
-    this.rendererService.render(this.sceneService.getScene(), this.cameraService.getCamera());
-    this.cameraService.initMouseListeners(this.rendererService, this.sceneService);
   }
 
 }
