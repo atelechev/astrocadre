@@ -28,12 +28,14 @@ export class ControlsComponent implements AfterViewInit {
     new SelectableItem(Themes.SKY_CHART, 'Sky chart', 'Theme resembling standard sky charts', false)
    ];
 
-   public availableLayers = [
-      new SelectableItem(Layers.SKY_GRID, 'Coordinates grid', 'Celestial coordinates grid in degrees', true),
-      new SelectableItem(Layers.CONSTELLATION_BOUNDARIES, 'Constellation boundaries', 'Boundaries of constellations', true),
-      new SelectableItem(Layers.CONSTELLATION_LINES, 'Constellation lines', 'Lines between stars in constellations', true),
-      new SelectableItem(Layers.STARS, 'Stars', 'Stars', true)
-   ];
+  public availableLayers = [
+    new SelectableItem(Layers.SKY_GRID, 'Coordinates grid', 'Celestial coordinates grid in degrees', true),
+    new SelectableItem(Layers.CONSTELLATION_BOUNDARIES, 'Constellation boundaries', 'Boundaries of constellations', true),
+    new SelectableItem(Layers.CONSTELLATION_LINES, 'Constellation lines', 'Lines between stars in constellations', true),
+    new SelectableItem(Layers.STARS, 'Stars', 'Stars', true)
+  ];
+
+  public magnitudeSelectEnabled: boolean;
 
   public drag(event: MouseEvent): void {
     if (this.isDragged) {
@@ -66,6 +68,12 @@ export class ControlsComponent implements AfterViewInit {
       layer.selected = visible;
       this.skyViewComponent.showLayer(layerCode, visible);
     }
+    this.updateMagnitudeSelector();
+  }
+
+  private updateMagnitudeSelector(): void {
+    const starsLayer = this.getLayerByCode(Layers.STARS);
+    this.magnitudeSelectEnabled = starsLayer && starsLayer.selected;
   }
 
   ngAfterViewInit() {
@@ -75,6 +83,7 @@ export class ControlsComponent implements AfterViewInit {
     } else {
       this.changeTheme(selectedTheme.code);
     }
+    this.updateMagnitudeSelector();
   }
 
 }
