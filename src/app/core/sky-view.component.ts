@@ -13,6 +13,7 @@ import { ThemesComponent } from '../themes/themes.component';
 import { Themes } from '../themes/themes';
 import { Theme } from '../themes/theme';
 import { Constants } from '../constants';
+import { SelectableItem } from './selectable-item';
 
 @Component({
   selector: 'app-sky-view',
@@ -64,7 +65,15 @@ export class SkyViewComponent implements AfterViewInit {
     this.cameraService.initMouseListeners(this.rendererService, this.sceneService);
   }
 
-  public loadTheme(themeCode: string): void {
+  private isLayerVisible(layerCode: string, availableLayers: Array<SelectableItem>): boolean {
+    const layer = availableLayers.find(availableLayer => availableLayer.code === layerCode);
+    if (layer) {
+      return layer.selected;
+    }
+    return false;
+  }
+
+  public loadTheme(themeCode: string, availableLayers: Array<SelectableItem>): void {
     this.themesComponent.loadTheme(<Themes> themeCode).subscribe(
       (theme: Theme) => {
         this.sceneService.clearScene();
@@ -73,7 +82,10 @@ export class SkyViewComponent implements AfterViewInit {
           layer.getObjects(this.themesComponent.getActiveTheme()).subscribe(
             (objects: Object3D[]) => {
               console.log(`${objects.length} objects to add for layer ${layer.getName()}`);
-              this.sceneService.addObjects(objects);
+              this.sceneService.addLayer(layer.getName(), objects);
+              if (this.isLayerVisible(layer.getName(), availableLayers)) {
+                this.sceneService.showLayer(layer.getName(), true);
+              }
             },
             (error) => console.error(`Failed to load the layer '${layer.getName()}': ${error}`)
           );
@@ -81,6 +93,10 @@ export class SkyViewComponent implements AfterViewInit {
       },
       (error) => console.error(`Failed to initialize sky-view': ${error}`)
     );
+  }
+
+  public showLayer(layerCode: string, visible: boolean): void {
+    this.sceneService.showLayer(layerCode, visible);
   }
 
 }

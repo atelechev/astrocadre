@@ -17,10 +17,13 @@
 
   <div class="ui-section">
     <span>Layers:</span><br>
-    <input type="checkbox" checked name="show_layer_sky-grid">Sky grid<br>
-    <input type="checkbox" checked name="show_layer_constellation-boundaries">Constellation boundaries<br>
-    <input type="checkbox" checked name="show_layer_constellation-lines">Constellation lines<br>
-    <input type="checkbox" checked name="show_layer_stars">Stars<br>
+    <div *ngFor="let layer of availableLayers">
+      <input type="checkbox"
+             [checked]="layer.selected"
+             (change)="showLayer(layer.code, $event.target.checked)"
+             title="{{layer.description}}"
+             name="show_layer_{{layer.code}}">{{ layer.label }}<br>
+    </div>
   </div>
 
   <div class="ui-section">

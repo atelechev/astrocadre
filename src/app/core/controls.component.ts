@@ -2,6 +2,7 @@ import { Component, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
 import { SelectableItem } from './selectable-item';
 import { Themes } from '../themes/themes';
 import { SkyViewComponent } from './sky-view.component';
+import { Layers } from '../layers/layers';
 
 @Component({
   selector: `app-sky-view-controls`,
@@ -27,8 +28,12 @@ export class ControlsComponent implements AfterViewInit {
     new SelectableItem(Themes.SKY_CHART, 'Sky chart', 'Theme resembling standard sky charts', false)
    ];
 
-
-
+   public availableLayers = [
+      new SelectableItem(Layers.SKY_GRID, 'Coordinates grid', 'Celestial coordinates grid in degrees', true),
+      new SelectableItem(Layers.CONSTELLATION_BOUNDARIES, 'Constellation boundaries', 'Boundaries of constellations', true),
+      new SelectableItem(Layers.CONSTELLATION_LINES, 'Constellation lines', 'Lines between stars in constellations', true),
+      new SelectableItem(Layers.STARS, 'Stars', 'Stars', true)
+   ];
 
   public drag(event: MouseEvent): void {
     if (this.isDragged) {
@@ -48,7 +53,19 @@ export class ControlsComponent implements AfterViewInit {
   }
 
   public changeTheme(selectedCode: string): void {
-    this.skyViewComponent.loadTheme(selectedCode);
+    this.skyViewComponent.loadTheme(selectedCode, this.availableLayers);
+  }
+
+  private getLayerByCode(layerCode: string): SelectableItem | undefined {
+    return this.availableLayers.find(l => l.code === layerCode);
+  }
+
+  public showLayer(layerCode: string, visible: boolean): void {
+    const layer = this.getLayerByCode(layerCode);
+    if (layer) {
+      layer.selected = visible;
+      this.skyViewComponent.showLayer(layerCode, visible);
+    }
   }
 
   ngAfterViewInit() {
