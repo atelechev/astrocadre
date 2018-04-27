@@ -1,39 +1,52 @@
-import { Component } from '@angular/core';
-import { Theme } from './theme';
-import { Themes } from './themes';
+import { Component, OnChanges, SimpleChanges, Input, Output, EventEmitter } from '@angular/core';
+import { Theme } from '../core/theme';
+import { Themes } from '../core/themes';
 import { ThemesService } from './themes.service';
-import { ThemeDefinition } from './theme-definition';
-import { Observable } from 'rxjs/Observable';
+import { ThemeDefinition } from '../core/theme-definition';
 
 @Component({
+  selector: 'app-sky-view-themes',
   template: ``,
   providers: [
     ThemesService
   ]
 })
-export class ThemesComponent {
+export class ThemesComponent implements OnChanges {
 
-  private activeTheme: Theme;
+  private loadedThemes: Map<Themes, Theme>;
+
+  @Input()
+  private activeTheme: Themes;
+
+  @Output()
+  private themeLoaded = new EventEmitter<Themes>();
 
   constructor(private themesService: ThemesService) {
+    this.loadedThemes = new Map<Themes, Theme>();
+  }
 
+  private loadTheme(theme: Themes): void {
+    this.themesService.getThemeDefinition(theme).subscribe(
+      (themeDef: ThemeDefinition) => {
+        this.loadedThemes.set(theme, new Theme(themeDef));
+        this.themeLoaded.emit(theme);
+      },
+      (error) => console.error(`Failed to load theme '${theme}': ${error}`)
+    );
   }
 
   public getActiveTheme(): Theme {
-    if (!this.activeTheme) {
-      throw new Error('Illegal call: no theme is yet set as active!');
-    }
-    return this.activeTheme;
+    return this.loadedThemes.get(this.activeTheme);
   }
 
-  public loadTheme(theme: Themes): Observable<Theme> {
-    return this.themesService.getThemeDefinition(theme)
-      .map((themeDef: ThemeDefinition) => {
-        const loadedTheme = new Theme(themeDef);
-        this.activeTheme = loadedTheme;
-        console.log(`Active theme set to '${theme}'`); // TODO remove
-        return loadedTheme;
-      });
+  public ngOnChanges(changes: SimpleChanges): void {
+    if (this.activeTheme) {
+      if (!this.loadedThemes.has(this.activeTheme)) {
+        this.loadTheme(this.activeTheme);
+      } else {
+        this.themeLoaded.emit(this.activeTheme);
+      }
+    }
   }
 
 }

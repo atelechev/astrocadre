@@ -1,26 +1,30 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
-import { SkyViewComponent } from './core/sky-view.component';
-import { LayersModule } from './layers/layers.module';
+import { AppComponent } from './app.component';
 import { HttpModule } from '@angular/Http';
+import { CoreModule } from './core/core.module';
+import { ControlsModule } from './controls/controls.module';
 import { ThemesModule } from './themes/themes.module';
-import { ControlsComponent } from './core/controls.component';
+import { ViewportModule } from './viewport/viewport.module';
+import { LayersModule } from './layers/layers.module';
 
 
 @NgModule({
   declarations: [
-    ControlsComponent,
-    SkyViewComponent
+    AppComponent
   ],
   imports: [
     BrowserModule,
     HttpModule,
+    CoreModule,
     ThemesModule,
-    LayersModule
+    LayersModule,
+    ControlsModule,
+    ViewportModule
   ],
   providers: [],
-  bootstrap: [ SkyViewComponent ]
+  bootstrap: [ AppComponent ]
 })
 export class AppModule {
 

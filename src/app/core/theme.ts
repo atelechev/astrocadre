@@ -1,24 +1,24 @@
 import { Color, Material, LineBasicMaterial, PointsMaterial, TextureLoader } from 'three';
-import { Layers } from '../layers/layers';
+import { Layers } from '../core/layers';
 import { ThemeDefinition } from './theme-definition';
 
 export class Theme {
 
   private backgroundColor: Color;
 
-  private materialsByLayer: Map<string, Map<string, Material>>;
+  private materialsByLayer: Map<Layers, Map<string, Material>>;
 
   constructor(private themeDef: ThemeDefinition) {
     this.materialsByLayer = this.initMaterialsMap();
     this.backgroundColor = new Color(this.themeDef.background.color);
   }
 
-  private initMaterialsMap(): Map<string, Map<string, Material>> {
-    const materials = new Map<string, Map<string, Material>>();
-    materials.set(Layers.SKY_GRID, this.getSkyGridMaterials());
-    materials.set(Layers.CONSTELLATION_BOUNDARIES, this.getConstellationBoundariesMaterials());
-    materials.set(Layers.CONSTELLATION_LINES, this.getConstellationLinesMaterials());
-    materials.set(Layers.STARS, this.getStarsMaterials());
+  private initMaterialsMap(): Map<Layers, Map<string, Material>> {
+    const materials = new Map<Layers, Map<string, Material>>();
+    materials.set(Layers.sky_grid, this.getSkyGridMaterials());
+    materials.set(Layers.constellation_boundaries, this.getConstellationBoundariesMaterials());
+    materials.set(Layers.constellation_lines, this.getConstellationLinesMaterials());
+    materials.set(Layers.stars, this.getStarsMaterials());
     return materials;
   }
 
@@ -75,19 +75,28 @@ export class Theme {
     return this.themeDef.stars.magnitudes;
   }
 
-  public getMaterialsForLayer(layerName: string): Map<string, Material> {
-    if (!this.materialsByLayer.has(layerName)) {
-      throw new Error(`Unexpected layer name: '${layerName}'`);
-    }
-    return this.materialsByLayer.get(layerName);
+  public getMinShownMagnitude(): number {
+    return this.themeDef.stars.magnitudes[0];
   }
 
-  public getMaterialForLayer(layerName: string, materialKey: string): Material {
-    const layer = this.getMaterialsForLayer(layerName);
-    if (!layer.has(materialKey)) {
-      throw new Error(`Unexpected material key '${materialKey}' for layer '${layerName}'`);
+  public getMaxShownMagnitude(): number {
+    const allMagnitudes = this.themeDef.stars.magnitudes;
+    return allMagnitudes[allMagnitudes.length - 1];
+  }
+
+  public getMaterialsForLayer(layer: Layers): Map<string, Material> {
+    if (!this.materialsByLayer.has(layer)) {
+      throw new Error(`Unexpected layer name: '${layer}'`);
     }
-    return layer.get(materialKey);
+    return this.materialsByLayer.get(layer);
+  }
+
+  public getMaterialForLayer(layer: Layers, materialKey: string): Material {
+    const layerMaterials = this.getMaterialsForLayer(layer);
+    if (!layerMaterials.has(materialKey)) {
+      throw new Error(`Unexpected material key '${materialKey}' for layer '${layer}'`);
+    }
+    return layerMaterials.get(materialKey);
   }
 
 }

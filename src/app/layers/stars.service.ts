@@ -5,13 +5,15 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/observable/throw';
 import 'rxjs/add/observable/forkJoin';
+import { AbstractService } from '../core/abstract-service';
+import { Constants } from '../core/constants';
 
 
 @Injectable()
-export class StarsService {
+export class StarsService extends AbstractService {
 
   constructor(private http: Http) {
-
+    super();
   }
 
   public getConstellationBoundaries(): Observable<number[][]> {
@@ -30,22 +32,38 @@ export class StarsService {
                     .catch(this.handleError);
   }
 
-  public getStars(magnitudeClass: number): Observable<number[][]> {
+  private getStars(magnitudeClass: number): Observable<StarsByMagnitude> {
     const url = `/assets/stars_mag${magnitudeClass.toFixed(1)}.json`;
-    return this.execGetRequestForNumericResponse(url);
+    return this.execGetRequestForNumericResponse(url).map(
+      (stars: number[][]) => new StarsByMagnitude(magnitudeClass, stars)
+    );
   }
 
-  public getStarsByClasses(magClasses: number[]): Observable<number[][][]> {
-    return Observable.forkJoin(magClasses.map(magClass => this.getStars(magClass)));
+  public getStarsByClasses(): Observable<Map<number, number[][]>> {
+    const magClasses = Constants.STAR_MAGNITUDES; // TODO should be configured externally
+    return Observable.forkJoin(magClasses.map(magClass => this.getStars(magClass)))
+                     .map((starsByMagnitude: StarsByMagnitude[]) => {
+                       const mapped = new Map<number, number[][]>();
+                       starsByMagnitude.forEach(magClass => mapped.set(magClass.getMagnitude(), magClass.getStars()));
+                       return mapped;
+                     });
   }
 
-  // TODO introduce shared generic error handling
-  private handleError(res: Response | any): Observable<any> {
-    if (res instanceof Response) {
-      const body = res.json() || '';
-      return Observable.throw(res);
-    }
-    return Observable.throw('Failed to retrieve data JSON from server.');
+}
+
+
+class StarsByMagnitude {
+
+  constructor(private magnitude: number, private stars: number[][]) {
+
+  }
+
+  public getMagnitude(): number {
+    return this.magnitude;
+  }
+
+  public getStars(): number[][] {
+    return this.stars;
   }
 
 }

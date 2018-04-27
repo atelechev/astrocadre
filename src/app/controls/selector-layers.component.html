@@ -1,0 +1,11 @@
+
+<div class="ui-section">
+  <span>Layers:</span><br>
+  <div *ngFor="let layer of availableLayers">
+    <input type="checkbox"
+            [checked]="layer.selected"
+            (change)="fireLayerChangedEvent(layer.code, $event.target.checked)"
+            title="{{layer.description}}"
+            name="show_layer_{{layer.code}}">{{ layer.label }}<br>
+  </div>
+</div>

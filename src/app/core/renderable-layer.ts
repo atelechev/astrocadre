@@ -1,11 +1,17 @@
 import { Object3D } from 'three';
-import { Observable } from 'rxjs/Observable';
-import { Theme } from '../themes/theme';
+import { Theme } from './theme';
+import { ThemeAware } from './theme-aware';
 
-export interface RenderableLayer {
+export abstract class RenderableLayer implements ThemeAware {
 
-  getName(): string;
+  abstract getName(): string;
 
-  getObjects(theme: Theme): Observable<Object3D[]>;
+  abstract getObjects(): Object3D[];
+
+  abstract useTheme(theme: Theme): void;
+
+  public setVisible(visible: boolean): void {
+    this.getObjects().forEach(object => object.visible = visible);
+  }
 
 }

@@ -1,0 +1,21 @@
+
+<div id="sky-view-controls"
+      #skyViewControls
+      (mousedown)="setPressed()"
+      (mouseup)="setReleased()"
+      (mousemove)="drag($event)">
+
+  <app-sky-view-controls-select-theme
+      (themeChanged)="fireSelectionsChanged({ changed: 'theme', data: $event })">
+  </app-sky-view-controls-select-theme>
+
+  <app-sky-view-controls-select-layers
+      (layerVisibilityChanged)="fireSelectionsChanged({ changed: 'layer', data: $event })">
+  </app-sky-view-controls-select-layers>
+
+  <app-sky-view-controls-select-stars-magnitude
+      [enabled]="magnitudeSelectorEnabled"
+      (starsMagnitudeChanged)="fireSelectionsChanged({ changed: 'magnitude', data: $event })">
+  </app-sky-view-controls-select-stars-magnitude>
+
+</div>

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { WebGLRenderer, Scene, Camera } from 'three';
-import { Constants } from '../constants';
+import { Constants } from '../core/constants';
 
 @Injectable()
 export class RendererService {

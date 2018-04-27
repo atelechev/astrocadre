@@ -49,12 +49,20 @@ To start the app:
 
 * SV-005 - Add graphic themes support. Introduce SkyChart theme.
 
-### Next Steps
+### May 2nd, 2018
 
-* SV-006: Primitive UI controls allowing to:
+* SV-006: - Primitive UI controls allowing to:
   * toggle layers
   * change themes
-  * adjust view (rotate rigth/left, inverse, set to vertical/meridian)
+* Complete refactoring of all components, now using event driven communication, with very few dependencies between components left.
+
+### Next Steps
+
+* SV-007: - Viewport UI control support:
+  * camera control buttons should allow to navigate in the view (N, E, S, W)
+  * reset button to allow S-N axis alignment
+  * the view should be rotatable (configurable angle of rotation)
+  * the field of view should be configurable
 
 #### Major Features
 
@@ -72,7 +80,7 @@ To start the app:
 
 #### Low priority improvements for POC
 
-* theme definition: enabled layers by default
+* theme definition: enabled layers by default, pre-defined star magnitudes shown
 * Add 'night' and 'exoplorer' themes
 * Render star colors depending on their class/temperature
 * remove hardcoded CSS width and height for the canvas container, use constants

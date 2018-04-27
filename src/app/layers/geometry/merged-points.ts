@@ -1,13 +1,12 @@
-import { Vector3, Material, Points, BufferGeometry, Object3D } from 'three';
+import { Vector3, Points, BufferGeometry, Object3D } from 'three';
 import { VectorUtil } from './vector-util';
 import { MergedObjects } from './merged-objects';
 
 export class MergedPoints extends MergedObjects {
 
-  constructor(material: Material,
-              segments: number[][],
+  constructor(segments: number[][],
               radius: number) {
-    super(material, segments, radius);
+    super(segments, radius);
   }
 
   protected segmentToVertices(segment: number[]): Vector3[] {
@@ -15,8 +14,8 @@ export class MergedPoints extends MergedObjects {
     return [ p0 ];
   }
 
-  protected asObject3D(geometry: BufferGeometry): Object3D {
-    return new Points(geometry, this.material);
+  protected toTargetObject3D(geometry: BufferGeometry): Object3D {
+    return new Points(geometry);
   }
 
 }
