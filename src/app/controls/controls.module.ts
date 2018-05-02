@@ -4,19 +4,23 @@ import { SelectorThemeComponent } from './selector-theme.component';
 import { BrowserModule } from '@angular/platform-browser';
 import { SelectorLayersComponent } from './selector-layers.component';
 import { SelectorStarsMagnitudeComponent } from './selector-stars-magnitude.component';
+import { CameraControlsComponent } from './camera-controls.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
     ControlsComponent,
     SelectorThemeComponent,
     SelectorLayersComponent,
-    SelectorStarsMagnitudeComponent
+    SelectorStarsMagnitudeComponent,
+    CameraControlsComponent
   ],
   exports: [
     ControlsComponent
   ],
   imports: [
-    BrowserModule
+    BrowserModule,
+    FormsModule
   ],
   providers: [
     ControlsComponent,

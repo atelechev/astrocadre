@@ -6,6 +6,7 @@ import { SceneService } from './scene.service';
 import { Theme } from '../core/theme';
 import { ThemeAware } from '../core/theme-aware';
 import { Object3D } from 'three';
+import { CameraAction } from '../core/camera-action';
 
 
 @Component({
@@ -51,6 +52,18 @@ export class ViewportComponent implements AfterViewInit, ThemeAware {
 
   public addObjects(objects: Object3D[]): void {
     this.sceneService.addObjects(objects);
+  }
+
+  public useCamera(action: CameraAction, x: number, y: number, z: number): void {
+    switch ('' + action) { // TODO find a better way to swith on enum
+      case CameraAction[CameraAction.rotate]: {
+        this.cameraService.rotate(x, y, z);
+        break;
+      }
+      default: {
+        console.log('Unsupported camera action: ' + action);
+      }
+    }
   }
 
 }

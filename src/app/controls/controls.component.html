@@ -18,4 +18,7 @@
       (starsMagnitudeChanged)="fireSelectionsChanged({ changed: 'magnitude', data: $event })">
   </app-sky-view-controls-select-stars-magnitude>
 
+  <app-sky-view-controls-camera
+      (cameraAngleChanged)="fireSelectionsChanged({ changed: 'camera', data: $event })">
+  </app-sky-view-controls-camera>
 </div>

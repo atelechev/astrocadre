@@ -49,7 +49,7 @@ export class ControlsComponent {
   }
 
   private updateMagnitudesSelector(event: any): void {
-    if (event.changed && event.changed === 'layer' && event.data.code === 'stars') {
+    if (event.changed === 'layer' && event.data.code === 'stars') {
       this.magnitudeSelectorEnabled = event.data.visible;
     }
   }

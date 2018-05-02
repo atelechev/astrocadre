@@ -4,19 +4,9 @@ import { SceneService } from './scene.service';
 
 export abstract class AbstractCameraService {
 
-  protected fovMax = 90;
+  protected fov = 55;
 
-  protected fovMin = 45;
-
-  private fovRange = this.fovMax - this.fovMin;
-
-  protected aspectMin = 1;
-
-  protected aspectMax = 1.5;
-
-  private aspectRange = this.aspectMax - this.aspectMin;
-
-  private halfPi = Math.PI / 2;
+  protected aspect = 1;
 
   private mousePressed: boolean;
 
@@ -54,5 +44,12 @@ export abstract class AbstractCameraService {
   }
 
   abstract getCamera(): Camera;
+
+  public rotate(rx: number, ry: number, rz: number): void {
+    const camera = this.getCamera();
+    camera.rotateX(rx);
+    camera.rotateY(ry);
+    camera.rotateZ(rz);
+  }
 
 }

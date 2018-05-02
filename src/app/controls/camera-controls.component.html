@@ -1,0 +1,55 @@
+<div class="ui-section">
+  <table>
+    <tbody>
+      <tr>
+        <td rowspan="3">
+          <button type="button">C</button>
+        </td>
+        <td>
+          <button type="button">rtr</button>
+        </td>
+        <td>
+          <button type="button"
+                  (click)="fireRotateCameraEvent(cameraChangeStep.value, 0, 0)">U</button>
+        </td>
+        <td>
+          <button type="button">rtl</button>
+        </td>
+        <td rowspan="3">
+          <button type="button">+</button><br>
+          <button type="button">-</button>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <button type="button"
+                  (click)="fireRotateCameraEvent(0, cameraChangeStep.value, 0)">L</button>
+        </td>
+        <td>
+          <input class="selector_view_step" type="number"
+                 #cameraChangeStep
+                 min="5"
+                 max="90"
+                 step="5"
+                 value="5">
+        </td>
+        <td>
+          <button type="button"
+                  (click)="fireRotateCameraEvent(0, -cameraChangeStep.value, 0)">R</button>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <button type="button">rdr</button>
+        </td>
+        <td>
+          <button type="button"
+                  (click)="fireRotateCameraEvent(-cameraChangeStep.value, 0, 0)">D</button>
+        </td>
+        <td>
+          <button type="button">rdl</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
