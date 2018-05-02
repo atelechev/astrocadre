@@ -60,8 +60,8 @@ To start the app:
 
 * SV-007: - Viewport UI control support:
   * camera control buttons should allow to navigate in the view (N, E, S, W)
-  * reset button to allow S-N axis alignment
   * the view should be rotatable (configurable angle of rotation)
+  * reset button to allow S-N axis alignment
   * the field of view should be configurable
 
 #### Major Features

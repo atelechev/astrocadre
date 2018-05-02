@@ -5,7 +5,7 @@ import { Math as ThreeMath } from 'three';
 @Component({
   selector: `app-sky-view-controls-camera`,
   templateUrl: './camera-controls.component.html',
-  styleUrls: [ './controls.component.css' ],
+  styleUrls: [ './controls.component.css', './camera-controls.component.css' ],
   providers: []
 })
 export class CameraControlsComponent implements AfterViewInit {
@@ -30,7 +30,7 @@ export class CameraControlsComponent implements AfterViewInit {
   }
 
   public ngAfterViewInit(): void {
-    this.fireRotateCameraEvent(Math.PI / 2, 0, 0);
+    this.fireRotateCameraEvent(90, 0, 0);
   }
 
 }

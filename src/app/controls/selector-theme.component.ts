@@ -22,8 +22,8 @@ export class SelectorThemeComponent implements AfterViewInit {
 
   private initAvailableThemes(): Array<SelectableItem> {
     return [
-      new SelectableItem(Themes[0], 'Dev', 'Used during development phase', true),
-      new SelectableItem(Themes[3], 'Sky chart', 'Theme resembling standard sky charts', false)
+      new SelectableItem(Themes[Themes.dev], 'Dev', 'Used during development phase', true),
+      new SelectableItem(Themes[Themes.sky_chart], 'Sky chart', 'Theme resembling standard sky charts', false)
     ];
   }
 

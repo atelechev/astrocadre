@@ -1,0 +1,16 @@
+
+.ui-section table {
+  width: 100%;
+}
+
+
+.ui-section table td {
+  text-align: center;
+}
+
+.ui-section button {
+  width: 30px;
+  height: 30px;
+  text-align: center;
+  vertical-align: middle;
+}

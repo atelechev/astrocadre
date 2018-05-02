@@ -2,53 +2,75 @@
   <table>
     <tbody>
       <tr>
-        <td rowspan="3">
-          <button type="button">C</button>
+        <td>
+          <!-- down-left arrow -->
+          <button type="button"
+                  title="Rotate counter-clockwise"
+                  (click)="fireRotateCameraEvent(0, 0, -cameraChangeStep.value)">&#8601;</button>
         </td>
         <td>
-          <button type="button">rtr</button>
+          <!-- up arrow -->
+          <button type="button"
+                  title="Move upwards"
+                  (click)="fireRotateCameraEvent(cameraChangeStep.value, 0, 0)">&#8593;</button>
+        </td>
+        <td>
+          <!-- down-right arrow -->
+          <button type="button"
+                  title="Rotate clockwise"
+                  (click)="fireRotateCameraEvent(0, 0, cameraChangeStep.value)">&#8600;</button>
         </td>
         <td>
           <button type="button"
-                  (click)="fireRotateCameraEvent(cameraChangeStep.value, 0, 0)">U</button>
-        </td>
-        <td>
-          <button type="button">rtl</button>
-        </td>
-        <td rowspan="3">
-          <button type="button">+</button><br>
-          <button type="button">-</button>
+                  title="Zoom in">+</button><br>
         </td>
       </tr>
       <tr>
         <td>
+          <!-- left arrow -->
           <button type="button"
-                  (click)="fireRotateCameraEvent(0, cameraChangeStep.value, 0)">L</button>
+                  title="Move leftwards"
+                  (click)="fireRotateCameraEvent(0, cameraChangeStep.value, 0)">&#8592;</button>
         </td>
         <td>
-          <input class="selector_view_step" type="number"
-                 #cameraChangeStep
-                 min="5"
-                 max="90"
-                 step="5"
-                 value="5">
+          <!-- down arrow -->
+          <button type="button"
+                  title="Move downwards"
+                  (click)="fireRotateCameraEvent(-cameraChangeStep.value, 0, 0)">&#8595;</button>
+        </td>
+        <td>
+          <!-- right arrow -->
+          <button type="button"
+                  title="Move rightwards"
+                  (click)="fireRotateCameraEvent(0, -cameraChangeStep.value, 0)">&#8594;</button>
         </td>
         <td>
           <button type="button"
-                  (click)="fireRotateCameraEvent(0, -cameraChangeStep.value, 0)">R</button>
+                  title="Zoom out">-</button>
         </td>
       </tr>
       <tr>
         <td>
-          <button type="button">rdr</button>
-        </td>
-        <td>
+          <!-- empty square symbol -->
           <button type="button"
-                  (click)="fireRotateCameraEvent(-cameraChangeStep.value, 0, 0)">D</button>
+                  title="Adjust the field of view to the selected range">&#9633;</button>
         </td>
         <td>
-          <button type="button">rdl</button>
+          <input class="selector_view_step"
+                  type="number"
+                  title="Select the step of button actions in degrees: rotation, movement or field of view range"
+                  #cameraChangeStep
+                  min="5"
+                  max="90"
+                  step="5"
+                  value="5">
         </td>
+        <td>
+          <!-- pipe symbol -->
+          <button type="button"
+                  title="Align the view on the North-Sourth axis">&#124;</button>
+        </td>
+        <td>&nbsp;</td>
       </tr>
     </tbody>
   </table>

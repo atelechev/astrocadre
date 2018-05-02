@@ -17,10 +17,5 @@
 }
 
 .selector_magnitude, .selector_view_step {
-  width: 45px;
+  width: 35px;
 }
-
-.ui-section table {
-  width: 100%;
-}
-
