@@ -42,7 +42,6 @@ export abstract class AbstractCameraService {
         const deltaY = ThreeMath.degToRad(event.movementY * this.mouseSensivity);
         this.getCamera().rotateY(deltaX); // the axes are strangely inversed!
         this.getCamera().rotateX(deltaY);
-        this.updateCameraPropertiesDependingOnRotation();
         rendererService.render(sceneService.getScene(), this.getCamera());
       }
     });
@@ -52,22 +51,6 @@ export abstract class AbstractCameraService {
       this.getCamera().rotation.z -= 0.1;
       // console.log(`rotX=${this.getCamera().rotation.x} rotY=${this.getCamera().rotation.y} rotZ=${this.getCamera().rotation.z}`);
     });
-  }
-
-  private calculateViewChangeRatio(xRadians: number): number {
-    const absAngle = Math.abs(xRadians);
-    if (absAngle < this.halfPi) {
-      return Math.cos(absAngle);
-    }
-    return Math.cos(this.halfPi - (absAngle - this.halfPi));
-  }
-
-  private updateCameraPropertiesDependingOnRotation(): void {
-    const camera = <PerspectiveCamera> this.getCamera();
-    const changeRatio = this.calculateViewChangeRatio(camera.rotation.x);
-    camera.fov = this.fovMin + changeRatio * this.fovRange;
-    camera.aspect = this.aspectMin + (this.aspectRange - this.aspectRange * changeRatio);
-    camera.updateProjectionMatrix();
   }
 
   abstract getCamera(): Camera;
