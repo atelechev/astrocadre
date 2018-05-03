@@ -1,6 +1,7 @@
 import { Camera, Math as ThreeMath, PerspectiveCamera } from 'three';
 import { RendererService } from './renderer.service';
 import { SceneService } from './scene.service';
+import { CameraAction } from '../core/camera-action';
 
 export abstract class AbstractCameraService {
 
@@ -45,27 +46,48 @@ export abstract class AbstractCameraService {
 
   abstract getCamera(): Camera;
 
-  public rotate(rx: number, ry: number, rz: number): void {
+  private rotate(rx: number, ry: number, rz: number): void {
     const camera = this.getCamera();
     camera.rotateX(rx);
     camera.rotateY(ry);
     camera.rotateZ(rz);
   }
 
-  public setFoV(range: number): void {
+  private setFoV(range: number): void {
     const camera = <PerspectiveCamera> this.getCamera();
     camera.fov = parseInt('' + range, 10); // TODO weird
     camera.updateProjectionMatrix();
   }
 
-  public alignSNAxis(): void {
+  private alignSNAxis(): void {
     const camera = this.getCamera();
     // TODO
     // console.log(`rx=${camera.rotation.x} ry=${camera.rotation.y} rz=${camera.rotation.z}`);
-    // console.log(`dx=${ThreeMath.radToDeg(camera.rotation.x)} dy=${ThreeMath.radToDeg(camera.rotation.y)} dz=${ThreeMath.radToDeg(camera.rotation.z})`);
+    // console.log(`dx=${ThreeMath.radToDeg(camera.rotation.x)}
+    // dy=${ThreeMath.radToDeg(camera.rotation.y)} dz=${ThreeMath.radToDeg(camera.rotation.z})`);
     const delta = camera.rotation.z > 0 ? -camera.rotation.z : camera.rotation.z;
     // console.log('delta=' + delta);
     // camera.rotateZ(delta);
+  }
+
+  public processAction(event: any): void {
+    switch (event.action) {
+      case CameraAction.ROTATE: {
+        this.rotate(event.x, event.y, event.z);
+        break;
+      }
+      case CameraAction.FIELD_OF_VIEW: {
+        this.setFoV(event.range);
+        break;
+      }
+      case CameraAction.ALIGN_NS_AXIS: {
+        this.alignSNAxis();
+        break;
+      }
+      default: {
+        console.log('Unsupported camera action: ' + event.action);
+      }
+    }
   }
 
 }

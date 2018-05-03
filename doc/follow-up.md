@@ -71,6 +71,7 @@ To start the app:
 #### Major Features
 
 * Search control for constellation codes (extensible for other): centers the view on the typed constellation
+* Refactor and improve: load controls from ThemeDefinitions, avoid hardcoded SelectableItem
 * Render Constellation names
 * Star names
 * Current position of the Sun and of the Moon (probably, the planets also)

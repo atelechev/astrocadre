@@ -1,12 +1,17 @@
 
-export enum CameraAction {
+export class CameraAction {
 
-  set,
+  public static readonly SET = 'set';
 
-  rotate,
+  public static readonly ROTATE = 'rotate';
 
-  field_of_view,
+  public static readonly FIELD_OF_VIEW = 'field-of-view';
 
-  align_sn_axis
+  public static readonly ALIGN_NS_AXIS = 'align-ns-axis';
+
+  public static readonly VALUES = [ CameraAction.SET,
+                                    CameraAction.ROTATE,
+                                    CameraAction.FIELD_OF_VIEW,
+                                    CameraAction.ALIGN_NS_AXIS ];
 
 }

@@ -55,23 +55,7 @@ export class ViewportComponent implements AfterViewInit, ThemeAware {
   }
 
   public useCamera(event: any): void {
-    switch ('' + event.action) { // TODO find a better way to swith on enum
-      case CameraAction[CameraAction.rotate]: {
-        this.cameraService.rotate(event.x, event.y, event.z);
-        break;
-      }
-      case CameraAction[CameraAction.field_of_view]: {
-        this.cameraService.setFoV(event.range);
-        break;
-      }
-      case CameraAction[CameraAction.align_sn_axis]: {
-        this.cameraService.alignSNAxis();
-        break;
-      }
-      default: {
-        console.log('Unsupported camera action: ' + event.action);
-      }
-    }
+    this.cameraService.processAction(event);
   }
 
 }

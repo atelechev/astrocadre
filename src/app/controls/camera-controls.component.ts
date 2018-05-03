@@ -22,7 +22,7 @@ export class CameraControlsComponent implements AfterViewInit {
   }
 
   private fireRotateCameraEvent(x: number, y: number, z: number): void {
-    const data = { action: CameraAction[CameraAction.rotate],
+    const data = { action: CameraAction.ROTATE,
                    x: this.toRadians(x),
                    y: this.toRadians(y),
                    z: this.toRadians(z) };
@@ -30,12 +30,12 @@ export class CameraControlsComponent implements AfterViewInit {
   }
 
   private fireFoVChangeEvent(angle: number): void {
-    const data = { action: CameraAction[CameraAction.field_of_view], range: angle };
+    const data = { action: CameraAction.FIELD_OF_VIEW, range: angle };
     this.emitCameraEvent(data);
   }
 
   private fireAxisAlignEvent(): void {
-    const data = { action: CameraAction[CameraAction.align_sn_axis] };
+    const data = { action: CameraAction.ALIGN_NS_AXIS };
     this.emitCameraEvent(data);
   }
 
