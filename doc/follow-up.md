@@ -66,8 +66,7 @@ To start the app:
 
 ### Next Steps
 
-* SV-008: - Try to define  an "internal sphere" camera which might allow better view projections
-
+* SV-008: - Try to define an "internal sphere" camera which might allow better view projections
 
 #### Major Features
 
@@ -79,15 +78,18 @@ To start the app:
 #### UI-Only
 
 * S-N direction arrow
-* Adjust/fine tune viewport with UI buttons
-* Customizable field of view
 * Export of current view as image
+
+#### Release and Distribution
+
+* Find an optimal solution for packaging (minification, bundle...)
+* API to insert SkyView in a Web page
+* TESTS!!!
 
 #### Low priority improvements for POC
 
 * theme definition: enabled layers by default, pre-defined star magnitudes shown
 * Add 'night' and 'exoplorer' themes
 * Render star colors depending on their class/temperature
-* remove hardcoded CSS width and height for the canvas container, use constants
 * flexible canvas size (?)
 * show coordinates of the view port center
