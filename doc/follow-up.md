@@ -56,13 +56,18 @@ To start the app:
   * change themes
 * Complete refactoring of all components, now using event driven communication, with very few dependencies between components left.
 
-### Next Steps
+### May 3rd, 2018
 
 * SV-007: - Viewport UI control support:
-  * camera control buttons should allow to navigate in the view (N, E, S, W)
-  * the view should be rotatable (configurable angle of rotation)
-  * reset button to allow S-N axis alignment
-  * the field of view should be configurable
+  * camera control buttons allow to navigate in the view (N, E, S, W)
+  * the view is rotatable (configurable angle of rotation)
+  * the field of view angle is configurable
+  * (N-S axis alignment and zoom are postponed)
+
+### Next Steps
+
+* SV-008: - Try to define  an "internal sphere" camera which might allow better view projections
+
 
 #### Major Features
 

@@ -1,8 +1,7 @@
 
 <div class="ui-section">
   <span>Theme:</span>&nbsp;
-  <select name="select_theme"
-          ngModel
+  <select name="theme"
           (change)="fireThemeChangedEvent($event.target.value)">
     <option *ngFor="let theme of availableThemes"
             [value]="theme.code"

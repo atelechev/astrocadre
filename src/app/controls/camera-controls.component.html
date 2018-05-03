@@ -21,7 +21,9 @@
                   (click)="fireRotateCameraEvent(0, 0, cameraChangeStep.value)">&#8600;</button>
         </td>
         <td>
+          <!-- TODO disabled -->
           <button type="button"
+                  disabled
                   title="Zoom in">+</button><br>
         </td>
       </tr>
@@ -45,7 +47,9 @@
                   (click)="fireRotateCameraEvent(0, -cameraChangeStep.value, 0)">&#8594;</button>
         </td>
         <td>
+          <!-- TODO disabled -->
           <button type="button"
+                  disabled
                   title="Zoom out">-</button>
         </td>
       </tr>
@@ -53,7 +57,8 @@
         <td>
           <!-- empty square symbol -->
           <button type="button"
-                  title="Adjust the field of view to the selected range">&#9633;</button>
+                  title="Adjust the field of view to the selected range"
+                  (click)="fireFoVChangeEvent(cameraChangeStep.value)">&#9633;</button>
         </td>
         <td>
           <input class="selector_view_step"
@@ -67,7 +72,10 @@
         </td>
         <td>
           <!-- pipe symbol -->
+          <!-- TODO disabled -->
           <button type="button"
+                  disabled
+                  (click)="fireAxisAlignEvent()"
                   title="Align the view on the North-Sourth axis">&#124;</button>
         </td>
         <td>&nbsp;</td>

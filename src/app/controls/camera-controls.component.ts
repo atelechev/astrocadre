@@ -11,22 +11,32 @@ import { Math as ThreeMath } from 'three';
 export class CameraControlsComponent implements AfterViewInit {
 
   @Output()
-  private cameraAngleChanged = new EventEmitter<any>();
-
-
-  private fireCameraChangedEvent(action: string, x: number, y: number, z: number): void {
-    this.cameraAngleChanged.emit({ action: action, x: x, y: y, z: z });
-  }
+  private cameraChanged = new EventEmitter<any>();
 
   private toRadians(degrees: number): number {
     return ThreeMath.degToRad(degrees);
   }
 
+  private emitCameraEvent(data: any): void {
+    this.cameraChanged.emit(data);
+  }
+
   private fireRotateCameraEvent(x: number, y: number, z: number): void {
-    this.fireCameraChangedEvent(CameraAction[CameraAction.rotate],
-                                this.toRadians(x),
-                                this.toRadians(y),
-                                this.toRadians(z));
+    const data = { action: CameraAction[CameraAction.rotate],
+                   x: this.toRadians(x),
+                   y: this.toRadians(y),
+                   z: this.toRadians(z) };
+    this.emitCameraEvent(data);
+  }
+
+  private fireFoVChangeEvent(angle: number): void {
+    const data = { action: CameraAction[CameraAction.field_of_view], range: angle };
+    this.emitCameraEvent(data);
+  }
+
+  private fireAxisAlignEvent(): void {
+    const data = { action: CameraAction[CameraAction.align_sn_axis] };
+    this.emitCameraEvent(data);
   }
 
   public ngAfterViewInit(): void {

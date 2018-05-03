@@ -3,6 +3,10 @@ export enum CameraAction {
 
   set,
 
-  rotate
+  rotate,
+
+  field_of_view,
+
+  align_sn_axis
 
 }

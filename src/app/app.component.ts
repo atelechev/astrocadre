@@ -66,7 +66,7 @@ export class AppComponent implements OnInit {
       }
       case 'camera': {
         const eventData = event.data;
-        this.viewportManager.useCamera(eventData.action, eventData.x, eventData.y, eventData.z);
+        this.viewportManager.useCamera(eventData);
         break;
       }
       default: {

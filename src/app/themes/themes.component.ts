@@ -1,6 +1,5 @@
 import { Component, OnChanges, SimpleChanges, Input, Output, EventEmitter } from '@angular/core';
 import { Theme } from '../core/theme';
-import { Themes } from '../core/themes';
 import { ThemesService } from './themes.service';
 import { ThemeDefinition } from '../core/theme-definition';
 
@@ -13,19 +12,19 @@ import { ThemeDefinition } from '../core/theme-definition';
 })
 export class ThemesComponent implements OnChanges {
 
-  private loadedThemes: Map<Themes, Theme>;
+  private loadedThemes: Map<string, Theme>;
 
   @Input()
-  private activeTheme: Themes;
+  private activeTheme: string;
 
   @Output()
-  private themeLoaded = new EventEmitter<Themes>();
+  private themeLoaded = new EventEmitter<string>();
 
   constructor(private themesService: ThemesService) {
-    this.loadedThemes = new Map<Themes, Theme>();
+    this.loadedThemes = new Map<string, Theme>();
   }
 
-  private loadTheme(theme: Themes): void {
+  private loadTheme(theme: string): void {
     this.themesService.getThemeDefinition(theme).subscribe(
       (themeDef: ThemeDefinition) => {
         this.loadedThemes.set(theme, new Theme(themeDef));
