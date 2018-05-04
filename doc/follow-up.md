@@ -72,7 +72,9 @@ To start the app:
 
 ### Next Steps
 
-* SV-009: - Search control for constellation codes (extensible for other): centers the view on the typed constellation
+* SV-009: - Extend UI controls:
+  * Search controls for constellation codes (and extensible for other): centers the view on the typed constellation
+  * Center screen sky coordinates output in the UI
 
 #### Major Features
 

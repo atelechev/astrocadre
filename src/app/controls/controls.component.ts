@@ -17,8 +17,6 @@ export class ControlsComponent {
   @ViewChild('skyViewControls')
   private controlsHtmlElement: ElementRef;
 
-  private isDragged: boolean;
-
   private magnitudeSelectorEnabled: boolean;
 
   @ViewChild(SelectorThemeComponent)
@@ -29,23 +27,6 @@ export class ControlsComponent {
 
   constructor(private core: CoreComponent) {
 
-  }
-
-  public drag(event: MouseEvent): void {
-    if (this.isDragged) {
-      const item = <HTMLElement> this.controlsHtmlElement.nativeElement;
-      const positionBefore = item.getBoundingClientRect();
-      item.style.left = (positionBefore.left + event.movementX) + 'px';
-      item.style.top = (positionBefore.top + event.movementY) + 'px';
-    }
-  }
-
-  public setPressed(): void {
-    this.isDragged = true;
-  }
-
-  public setReleased(): void {
-    this.isDragged = false;
   }
 
   private updateMagnitudesSelector(event: any): void {

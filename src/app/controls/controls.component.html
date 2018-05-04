@@ -1,9 +1,6 @@
 
 <div id="sky-view-controls"
-      #skyViewControls
-      (mousedown)="setPressed()"
-      (mouseup)="setReleased()"
-      (mousemove)="drag($event)">
+      #skyViewControls>
 
   <app-sky-view-controls-select-theme
       (themeChanged)="fireSelectionsChanged({ changed: 'theme', data: $event })">
