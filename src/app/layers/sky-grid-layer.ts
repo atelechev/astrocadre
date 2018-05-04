@@ -11,7 +11,7 @@ export class SkyGridLayer extends RenderableLayer {
 
   private gridStep = 10;
 
-  private absMeridianLineDeclination = 89.5;
+  private absMeridianLineDeclination = 89;
 
   private commonMeridians: LineSegments;
 
