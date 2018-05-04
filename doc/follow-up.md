@@ -64,13 +64,18 @@ To start the app:
   * the field of view angle is configurable
   * (N-S axis alignment and zoom are postponed)
 
+### May 4th, 2018
+
+* SV-008: - Initial intention: define an "internal sphere" camera to allow better view projections. But: discovered and understood miscalculations in coordinates conversion between sky coordinates and XYZ. Corrected the issue and the world origin view projection became usable.
+* Refactoring in different parts.
+* Tests for VectorUtil class.
+
 ### Next Steps
 
-* SV-008: - Try to define an "internal sphere" camera which might allow better view projections
+* SV-009: - Search control for constellation codes (extensible for other): centers the view on the typed constellation
 
 #### Major Features
 
-* Search control for constellation codes (extensible for other): centers the view on the typed constellation
 * Refactor and improve: load controls from ThemeDefinitions, avoid hardcoded SelectableItem
 * Render Constellation names
 * Star names
