@@ -12,7 +12,7 @@ export class ConstellationLinesLayer extends RenderableLayer {
 
   constructor(rawSegments: number[][]) {
     super();
-    this.mergedLines = <LineSegments> new MergedLines(rawSegments, 1.98).toObject3D(); // TODO
+    this.mergedLines = new MergedLines(rawSegments, 1.98).toObject3D();
     this.objects = [ this.mergedLines ];
   }
 

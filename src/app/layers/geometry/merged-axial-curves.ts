@@ -2,7 +2,7 @@ import { Vector3, LineSegments, BufferGeometry, Object3D } from 'three';
 import { AxialCurveCalculator } from './axial-curve-calculator';
 import { MergedObjects } from './merged-objects';
 
-export class MergedAxialCurves extends MergedObjects {
+export class MergedAxialCurves extends MergedObjects<LineSegments> {
 
   private axialCurveCalculator: AxialCurveCalculator;
 
@@ -16,7 +16,7 @@ export class MergedAxialCurves extends MergedObjects {
     return this.axialCurveCalculator.calculateVertices(segment);
   }
 
-  protected toTargetObject3D(geometry: BufferGeometry): Object3D {
+  protected toTargetObject3D(geometry: BufferGeometry): LineSegments {
     return new LineSegments(geometry);
   }
 

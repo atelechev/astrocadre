@@ -12,7 +12,7 @@ export class ConstellationBoundariesLayer extends RenderableLayer {
 
   constructor(rawSegments: number[][]) {
     super();
-    this.mergedCurves = <LineSegments> new MergedAxialCurves(rawSegments, 1.98).toObject3D();
+    this.mergedCurves = new MergedAxialCurves(rawSegments, 1.98).toObject3D();
     this.objects = [ this.mergedCurves ];
   }
 

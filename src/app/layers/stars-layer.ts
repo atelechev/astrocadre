@@ -32,7 +32,7 @@ export class StarsLayer extends RenderableLayer {
   private initStarsByMagnitudeMap(starsByClasses: Map<number, number[][]>): Map<number, Points> {
     const classified = new Map<number, Points>();
     starsByClasses.forEach((stars: number[][], magClass: number) => {
-      const object = <Points> new MergedPoints(stars, 1.96).toObject3D();
+      const object = new MergedPoints(stars, 1.96).toObject3D();
       classified.set(magClass, object);
     });
     return classified;

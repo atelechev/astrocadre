@@ -2,7 +2,7 @@ import { Vector3, LineSegments, BufferGeometry, Object3D } from 'three';
 import { VectorUtil } from './vector-util';
 import { MergedObjects } from './merged-objects';
 
-export class MergedLines extends MergedObjects {
+export class MergedLines extends MergedObjects<LineSegments> {
 
   constructor(segments: number[][],
               radius: number) {
@@ -15,7 +15,7 @@ export class MergedLines extends MergedObjects {
     return [ p0, p1 ];
   }
 
-  protected toTargetObject3D(geometry: BufferGeometry): Object3D {
+  protected toTargetObject3D(geometry: BufferGeometry): LineSegments {
     return new LineSegments(geometry);
   }
 
