@@ -1,6 +1,7 @@
 import { Component, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
 import { Constants } from '../core/constants';
 import { WorldOriginCameraService } from './world-origin-camera.service';
+// import { ExternalCameraService } from './external-camera.service';
 import { RendererService } from './renderer.service';
 import { SceneService } from './scene.service';
 import { Theme } from '../core/theme';
@@ -16,6 +17,7 @@ import { CameraAction } from '../core/camera-action';
   providers: [
     SceneService,
     WorldOriginCameraService,
+    // ExternalCameraService,
     RendererService
   ]
 })

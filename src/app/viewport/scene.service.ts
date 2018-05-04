@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 
-import { Scene, Object3D } from 'three';
+import { Scene, Object3D, AxesHelper } from 'three';
 import { Theme } from '../core/theme';
 
 @Injectable()
