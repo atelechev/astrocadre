@@ -16,15 +16,27 @@ export class ExternalCameraService extends AbstractCameraService {
   private setUpCamera() {
     const position = 3.5;
     this.camera.position.z = position;
-    this.camera.position.x = position;
-    this.camera.position.y = -position;
-    this.camera.rotateX(ThreeMath.degToRad(40));
-    this.camera.rotateY(ThreeMath.degToRad(35));
-    this.camera.rotateZ(ThreeMath.degToRad(40));
+    this.camera.position.x = position + 2.5;
+    this.camera.position.y = position - 2.5;
+    this.camera.rotation.x = ThreeMath.degToRad(-15);
+    this.camera.rotation.y = ThreeMath.degToRad(55);
+    this.camera.rotation.z = ThreeMath.degToRad(102.5);
   }
 
   public getCamera(): Camera {
     return this.camera;
+  }
+
+  protected rotate(rx: number, ry: number, rz: number): void {
+    // throw new Error('Unsupported!');
+  }
+
+  protected setFoV(range: number): void {
+    // throw new Error('Unsupported!');
+  }
+
+  protected alignNSAxis(): void {
+    // throw new Error('Unsupported!');
   }
 
 }
