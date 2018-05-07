@@ -3,6 +3,7 @@ import { Object3D, LineSegments } from 'three';
 import { MergedAxialCurves } from './geometry/merged-axial-curves';
 import { Layers } from '../core/layers';
 import { Theme } from '../core/theme';
+import { Constants } from '../core/constants';
 
 export class ConstellationBoundariesLayer extends RenderableLayer {
 
@@ -12,7 +13,7 @@ export class ConstellationBoundariesLayer extends RenderableLayer {
 
   constructor(rawSegments: number[][]) {
     super();
-    this.mergedCurves = new MergedAxialCurves(rawSegments, 1.98).toObject3D();
+    this.mergedCurves = new MergedAxialCurves(rawSegments, Constants.WORLD_RADIUS - 0.02).toObject3D();
     this.objects = [ this.mergedCurves ];
   }
 

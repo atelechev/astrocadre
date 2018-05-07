@@ -4,10 +4,11 @@ import { RenderableLayer } from '../core/renderable-layer';
 import { MergedAxialCurves } from './geometry/merged-axial-curves';
 import { Layers } from '../core/layers';
 import { Theme } from '../core/theme';
+import { Constants } from '../core/constants';
 
 export class SkyGridLayer extends RenderableLayer {
 
-  private gridRadius = 2;
+  private gridRadius = Constants.WORLD_RADIUS;
 
   private gridStep = 10;
 

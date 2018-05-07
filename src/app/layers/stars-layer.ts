@@ -3,6 +3,7 @@ import { Object3D, Points } from 'three';
 import { MergedPoints } from './geometry/merged-points';
 import { Layers } from '../core/layers';
 import { Theme } from '../core/theme';
+import { Constants } from '../core/constants';
 
 export class StarsLayer extends RenderableLayer {
 
@@ -32,7 +33,7 @@ export class StarsLayer extends RenderableLayer {
   private initStarsByMagnitudeMap(starsByClasses: Map<number, number[][]>): Map<number, Points> {
     const classified = new Map<number, Points>();
     starsByClasses.forEach((stars: number[][], magClass: number) => {
-      const object = new MergedPoints(stars, 1.96).toObject3D();
+      const object = new MergedPoints(stars, Constants.WORLD_RADIUS - 0.04).toObject3D();
       classified.set(magClass, object);
     });
     return classified;
