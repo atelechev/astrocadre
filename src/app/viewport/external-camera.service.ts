@@ -1,14 +1,15 @@
 import { Injectable } from '@angular/core';
 import { AbstractCameraService } from './abstract-camera-service';
 import { Camera, PerspectiveCamera, Math as ThreeMath } from 'three';
+import { ViewportService } from './viewport.service';
 
 @Injectable()
 export class ExternalCameraService extends AbstractCameraService {
 
   private camera: Camera;
 
-  constructor() {
-    super();
+  constructor(viewportService: ViewportService) {
+    super(viewportService);
     this.camera = new PerspectiveCamera(50, 1, 0.1, 1000); // TODO extract params?
     this.setUpCamera();
   }

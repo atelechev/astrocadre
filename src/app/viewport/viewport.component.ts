@@ -7,8 +7,7 @@ import { SceneService } from './scene.service';
 import { Theme } from '../core/theme';
 import { ThemeAware } from '../core/theme-aware';
 import { Object3D } from 'three';
-import { CameraAction } from '../core/camera-action';
-
+import { Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: `app-sky-view-viewport`,
@@ -45,7 +44,9 @@ export class ViewportComponent implements AfterViewInit, ThemeAware {
   public ngAfterViewInit(): void {
     this.appendCanvas();
     this.rendererService.render(this.sceneService.getScene(), this.cameraService.getCamera());
+    this.cameraService.initCoordsMarkerObject();
     this.cameraService.initMouseListeners(this.rendererService, this.sceneService);
+    this.cameraService.emitViewportChangedEvent();
   }
 
   public useTheme(theme: Theme): void {
@@ -54,10 +55,6 @@ export class ViewportComponent implements AfterViewInit, ThemeAware {
 
   public addObjects(objects: Object3D[]): void {
     this.sceneService.addObjects(objects);
-  }
-
-  public useCamera(event: any): void {
-    this.cameraService.processAction(event);
   }
 
 }

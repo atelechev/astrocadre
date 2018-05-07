@@ -1,7 +1,9 @@
-import { Camera, Math as ThreeMath, PerspectiveCamera } from 'three';
+import { Camera, Math as ThreeMath, PerspectiveCamera, Object3D, Vector3 } from 'three';
 import { RendererService } from './renderer.service';
 import { SceneService } from './scene.service';
-import { CameraAction } from '../core/camera-action';
+import { OnInit } from '@angular/core';
+import { Constants } from '../core/constants';
+import { ViewportService } from './viewport.service';
 
 export abstract class AbstractCameraService {
 
@@ -13,6 +15,12 @@ export abstract class AbstractCameraService {
 
   private mouseSensivity = 0.05;
 
+  private coordsMarkerObject: Object3D;
+
+  constructor(protected viewportService: ViewportService) {
+
+  }
+
   private mousePressedFunction(pressed: boolean): (MouseEvent) => void {
     return (event: MouseEvent) => {
       this.mousePressed = pressed;
@@ -23,7 +31,8 @@ export abstract class AbstractCameraService {
     rendererService.getDomElement().addEventListener(eventKey, funct);
   }
 
-  public initMouseListeners(rendererService: RendererService, sceneService: SceneService): void {
+  public initMouseListeners(rendererService: RendererService,
+                            sceneService: SceneService): void {
     this.addMouseEventListener(rendererService, 'mousedown', this.mousePressedFunction(true));
     this.addMouseEventListener(rendererService, 'mouseup', this.mousePressedFunction(false));
     this.addMouseEventListener(rendererService, 'mouseleave', this.mousePressedFunction(false));
@@ -34,6 +43,7 @@ export abstract class AbstractCameraService {
         this.getCamera().rotateY(deltaX); // the axes are strangely inversed!
         this.getCamera().rotateX(deltaY);
         rendererService.render(sceneService.getScene(), this.getCamera());
+        this.emitViewportChangedEvent();
       }
     });
     this.addMouseEventListener(rendererService, 'dblclick', (event: MouseEvent) => {
@@ -52,24 +62,26 @@ export abstract class AbstractCameraService {
 
   protected abstract alignNSAxis(): void;
 
-  public processAction(event: any): void {
-    switch (event.action) {
-      case CameraAction.ROTATE: {
-        this.rotate(event.x, event.y, event.z);
-        break;
-      }
-      case CameraAction.FIELD_OF_VIEW: {
-        this.setFoV(event.range);
-        break;
-      }
-      case CameraAction.ALIGN_NS_AXIS: {
-        this.alignNSAxis();
-        break;
-      }
-      default: {
-        console.log('Unsupported camera action: ' + event.action);
-      }
+  public initCoordsMarkerObject(): void {
+    this.coordsMarkerObject = new Object3D();
+    this.coordsMarkerObject.position.set(0, 0, -(Constants.WORLD_RADIUS + 0.1));
+    const camera = this.getCamera();
+    camera.add(this.coordsMarkerObject);
+    camera.updateMatrixWorld(true);
+  }
+
+  public getViewCenterCoordinates(): Vector3 {
+    const viewCenter = new Vector3();
+    if (this.coordsMarkerObject) {
+      viewCenter.setFromMatrixPosition(this.coordsMarkerObject.matrixWorld);
     }
+    return viewCenter;
+  }
+
+  public emitViewportChangedEvent(): void {
+    const centerCoords = this.getViewCenterCoordinates();
+    console.log(`center: ${centerCoords.x} ${centerCoords.y} ${centerCoords.z}`); // TODO remove
+    this.viewportService.viewportCenterChangedTo(centerCoords);
   }
 
 }

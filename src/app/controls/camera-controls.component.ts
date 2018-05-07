@@ -1,6 +1,6 @@
-import { Component, EventEmitter, AfterViewInit, Output } from '@angular/core';
-import { CameraAction } from '../core/camera-action';
+import { Component, AfterViewInit } from '@angular/core';
 import { Math as ThreeMath } from 'three';
+import { ViewportService } from '../viewport/viewport.service';
 
 @Component({
   selector: `app-sky-view-controls-camera`,
@@ -10,37 +10,27 @@ import { Math as ThreeMath } from 'three';
 })
 export class CameraControlsComponent implements AfterViewInit {
 
-  @Output()
-  private cameraChanged = new EventEmitter<any>();
+  constructor(private viewportService: ViewportService) {
+
+  }
 
   private toRadians(degrees: number): number {
     return ThreeMath.degToRad(degrees);
   }
 
-  private emitCameraEvent(data: any): void {
-    this.cameraChanged.emit(data);
+  private viewportCenterChangeRequested(x: number, y: number, z: number): void {
+    const data = { rx: this.toRadians(x),
+                   ry: this.toRadians(y),
+                   rz: this.toRadians(z) };
+    this.viewportService.viewportCenterChangeRequested(data);
   }
 
-  private fireRotateCameraEvent(x: number, y: number, z: number): void {
-    const data = { action: CameraAction.ROTATE,
-                   x: this.toRadians(x),
-                   y: this.toRadians(y),
-                   z: this.toRadians(z) };
-    this.emitCameraEvent(data);
-  }
-
-  private fireFoVChangeEvent(angle: number): void {
-    const data = { action: CameraAction.FIELD_OF_VIEW, range: angle };
-    this.emitCameraEvent(data);
-  }
-
-  private fireAxisAlignEvent(): void {
-    const data = { action: CameraAction.ALIGN_NS_AXIS };
-    this.emitCameraEvent(data);
+  private viewportFovChangeRequested(angle: number): void {
+    this.viewportService.viewportFovChangeRequested(angle);
   }
 
   public ngAfterViewInit(): void {
-    this.fireRotateCameraEvent(90, 0, 0);
+    this.viewportCenterChangeRequested(90, 0, 0);
   }
 
 }

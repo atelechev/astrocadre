@@ -64,11 +64,6 @@ export class AppComponent implements OnInit {
         this.showStarsMagnitudeDownTo = event.data.value;
         break;
       }
-      case 'camera': {
-        const eventData = event.data;
-        this.viewportManager.useCamera(eventData);
-        break;
-      }
       default: {
         console.log('Unsupported event detected: ' + event.changed);
       }

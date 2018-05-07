@@ -14,5 +14,6 @@
   (layerLoaded)="resourceReady({ ready: 'layer', data: { code: $event } })">
 </app-sky-view-layers>
 
-<app-sky-view-viewport>
+<app-sky-view-viewport
+  (viewCenterChanged)="viewCenterChanged({ changed: 'camera', data: $event })">
 </app-sky-view-viewport>

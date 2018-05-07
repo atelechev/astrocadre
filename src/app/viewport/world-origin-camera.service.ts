@@ -1,16 +1,22 @@
 import { Injectable } from '@angular/core';
 import { AbstractCameraService } from './abstract-camera-service';
 import { Camera, PerspectiveCamera } from 'three';
+import { ViewportService } from './viewport.service';
 
 @Injectable()
 export class WorldOriginCameraService extends AbstractCameraService {
 
   private camera: Camera;
 
-  constructor() {
-    super();
+  constructor(viewportService: ViewportService) {
+    super(viewportService);
     this.camera = new PerspectiveCamera(this.fov, this.aspect, 0.1, 5); // TODO extract params?
     this.setUpCamera();
+    this.viewportService.centerChangeRequested$.subscribe(
+      (data: any) => { // TODO use interface
+        this.rotate(data.rx, data.ry, data.rz);
+      }
+    );
   }
 
   private setUpCamera() {
@@ -29,6 +35,7 @@ export class WorldOriginCameraService extends AbstractCameraService {
     camera.rotateX(rx);
     camera.rotateY(ry);
     camera.rotateZ(rz);
+    this.emitViewportChangedEvent();
   }
 
   protected setFoV(range: number): void {
