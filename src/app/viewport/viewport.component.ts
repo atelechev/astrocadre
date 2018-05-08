@@ -6,7 +6,7 @@ import { RendererService } from './renderer.service';
 import { SceneService } from './scene.service';
 import { Theme } from '../core/theme';
 import { ThemeAware } from '../core/theme-aware';
-import { Object3D } from 'three';
+import { Object3D, Math as ThreeMath } from 'three';
 import { Output, EventEmitter } from '@angular/core';
 
 @Component({
@@ -34,6 +34,7 @@ export class ViewportComponent implements AfterViewInit, ThemeAware {
               private cameraService: WorldOriginCameraService) {
     this.viewportWidth = Constants.VIEW_WIDTH + 'px';
     this.viewportHeight = Constants.VIEW_HEIGHT + 'px';
+    this.cameraService.initCoordsMarkerObject();
   }
 
   private appendCanvas(): void {
@@ -44,9 +45,7 @@ export class ViewportComponent implements AfterViewInit, ThemeAware {
   public ngAfterViewInit(): void {
     this.appendCanvas();
     this.rendererService.render(this.sceneService.getScene(), this.cameraService.getCamera());
-    this.cameraService.initCoordsMarkerObject();
     this.cameraService.initMouseListeners(this.rendererService, this.sceneService);
-    this.cameraService.emitViewportChangedEvent();
   }
 
   public useTheme(theme: Theme): void {

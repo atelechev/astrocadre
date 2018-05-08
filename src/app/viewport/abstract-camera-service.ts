@@ -72,15 +72,12 @@ export abstract class AbstractCameraService {
 
   public getViewCenterCoordinates(): Vector3 {
     const viewCenter = new Vector3();
-    if (this.coordsMarkerObject) {
-      viewCenter.setFromMatrixPosition(this.coordsMarkerObject.matrixWorld);
-    }
+    viewCenter.setFromMatrixPosition(this.coordsMarkerObject.matrixWorld);
     return viewCenter;
   }
 
   public emitViewportChangedEvent(): void {
     const centerCoords = this.getViewCenterCoordinates();
-    console.log(`center: ${centerCoords.x} ${centerCoords.y} ${centerCoords.z}`); // TODO remove
     this.viewportService.viewportCenterChangedTo(centerCoords);
   }
 

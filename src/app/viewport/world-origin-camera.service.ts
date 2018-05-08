@@ -30,7 +30,7 @@ export class WorldOriginCameraService extends AbstractCameraService {
     return this.camera;
   }
 
-  protected rotate(rx: number, ry: number, rz: number): void {
+  public rotate(rx: number, ry: number, rz: number): void {
     const camera = this.getCamera();
     camera.rotateX(rx);
     camera.rotateY(ry);
