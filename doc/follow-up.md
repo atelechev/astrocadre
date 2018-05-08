@@ -73,16 +73,18 @@ To start the app:
 ### May 8th, 2018
 
 * SV-009: - Deciced to remove the center screen position indicator from UI controls, because it does not bring much.
+  * Refactoring of all events processing into shared services.
+  * Removed last remainign enums in favor of string identifiers.
 
 ### Next Steps
 
-* SV-009: - Extend UI controls:
-  * Search controls for constellation codes (and extensible for other): centers the view on the typed constellation
-  * Center screen sky coordinates output in the UI
+* SV-010: - Load available themes and layers lists from static JSON instead of using hardcoded in controls.
 
 #### Major Features
 
-* Refactor and improve: load controls from ThemeDefinitions, avoid hardcoded SelectableItem
+* Extend UI controls:
+  * Search controls for constellation codes (and extensible for other): centers the view on the typed constellation
+  * Center screen sky coordinates output in the UI
 * Render Constellation names
 * Star names
 * Current position of the Sun and of the Moon (probably, the planets also)
