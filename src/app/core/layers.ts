@@ -1,13 +1,18 @@
 
 
-export enum Layers {
+export class Layers {
 
-  sky_grid,
+  public static readonly SKY_GRID = 'sky-grid';
 
-  constellation_boundaries,
+  public static readonly CONSTELLATION_BOUNDARIES = 'constellation-boundaries';
 
-  constellation_lines,
+  public static readonly CONSTELLATION_LINES = 'constellation-lines';
 
-  stars
+  public static readonly STARS = 'stars';
+
+  public static readonly VALUES = [ Layers.SKY_GRID,
+                                    Layers.CONSTELLATION_BOUNDARIES,
+                                    Layers.CONSTELLATION_LINES,
+                                    Layers.STARS ];
 
 }

@@ -7,7 +7,6 @@ import { SceneService } from './scene.service';
 import { Theme } from '../core/theme';
 import { ThemeAware } from '../core/theme-aware';
 import { Object3D, Math as ThreeMath } from 'three';
-import { Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: `app-sky-view-viewport`,

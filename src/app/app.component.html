@@ -3,17 +3,8 @@
   (selectionsChanged)="controlSelectionsChanged($event)">
 </app-sky-view-controls>
 
-<app-sky-view-themes
-  [activeTheme]="activeTheme"
-  (themeLoaded)="resourceReady({ ready: 'theme', data: { code: $event } })">
-</app-sky-view-themes>
+<app-sky-view-themes></app-sky-view-themes>
 
-<app-sky-view-layers
-  [activeLayers]="activeLayers"
-  [visibleStarsMagnitudeDownTo]="showStarsMagnitudeDownTo"
-  (layerLoaded)="resourceReady({ ready: 'layer', data: { code: $event } })">
-</app-sky-view-layers>
+<app-sky-view-layers></app-sky-view-layers>
 
-<app-sky-view-viewport
-  (viewCenterChanged)="viewCenterChanged({ changed: 'camera', data: $event })">
-</app-sky-view-viewport>
+<app-sky-view-viewport></app-sky-view-viewport>

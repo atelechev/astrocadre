@@ -70,6 +70,10 @@ To start the app:
 * Refactoring in different parts.
 * Tests for VectorUtil class.
 
+### May 8th, 2018
+
+* SV-009: - Deciced to remove the center screen position indicator from UI controls, because it does not bring much.
+
 ### Next Steps
 
 * SV-009: - Extend UI controls:
@@ -82,6 +86,7 @@ To start the app:
 * Render Constellation names
 * Star names
 * Current position of the Sun and of the Moon (probably, the planets also)
+* Messier objects layer
 
 #### UI-Only
 

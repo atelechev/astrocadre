@@ -81,7 +81,7 @@ export class SkyGridLayer extends RenderableLayer {
   }
 
   public getName(): string {
-    return 'coordinates grid';
+    return Layers.SKY_GRID;
   }
 
   private setCommonLinesMaterial(material: Material): void {
@@ -97,7 +97,7 @@ export class SkyGridLayer extends RenderableLayer {
   }
 
   public useTheme(theme: Theme): void {
-    const materials = theme.getMaterialsForLayer(Layers.sky_grid);
+    const materials = theme.getMaterialsForLayer(this.getName());
     this.setCommonLinesMaterial(materials.get('line-common'));
     this.setReferenceLinesMaterial(materials.get('line-reference'));
   }

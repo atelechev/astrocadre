@@ -44,14 +44,14 @@ export class StarsLayer extends RenderableLayer {
   }
 
   public getName(): string {
-    return 'stars';
+    return Layers.STARS;
   }
 
   public useTheme(theme: Theme): void {
     const magnitudes = this.getSortedMagnitudeClasses();
     magnitudes.forEach(magClass => {
       const materialKey = 'star-' + magClass.toFixed(1);
-      const material = theme.getMaterialForLayer(Layers.stars, materialKey);
+      const material = theme.getMaterialForLayer(Layers.STARS, materialKey);
       this.starsByMagnitudeClasses.get(magClass).material = material;
       material.needsUpdate = true;
     });

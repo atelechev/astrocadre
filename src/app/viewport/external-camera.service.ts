@@ -1,15 +1,16 @@
 import { Injectable } from '@angular/core';
 import { AbstractCameraService } from './abstract-camera-service';
 import { Camera, PerspectiveCamera, Math as ThreeMath } from 'three';
-import { ViewportService } from './viewport.service';
+import { ViewportEventService } from './viewport-event.service';
+import { AxialRotation } from '../core/axial-rotation';
 
 @Injectable()
 export class ExternalCameraService extends AbstractCameraService {
 
   private camera: Camera;
 
-  constructor(viewportService: ViewportService) {
-    super(viewportService);
+  constructor(viewportEventService: ViewportEventService) {
+    super(viewportEventService);
     this.camera = new PerspectiveCamera(50, 1, 0.1, 1000); // TODO extract params?
     this.setUpCamera();
   }
@@ -28,7 +29,7 @@ export class ExternalCameraService extends AbstractCameraService {
     return this.camera;
   }
 
-  protected rotate(rx: number, ry: number, rz: number): void {
+  protected rotate(rotation: AxialRotation): void {
     // throw new Error('Unsupported!');
   }
 

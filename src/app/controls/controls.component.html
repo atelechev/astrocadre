@@ -2,20 +2,12 @@
 <div id="sky-view-controls"
       #skyViewControls>
 
-  <app-sky-view-controls-select-theme
-      (themeChanged)="fireSelectionsChanged({ changed: 'theme', data: $event })">
-  </app-sky-view-controls-select-theme>
+  <app-sky-view-controls-select-theme></app-sky-view-controls-select-theme>
 
-  <app-sky-view-controls-select-layers
-      (layerVisibilityChanged)="fireSelectionsChanged({ changed: 'layer', data: $event })">
-  </app-sky-view-controls-select-layers>
+  <app-sky-view-controls-select-layers></app-sky-view-controls-select-layers>
 
-  <app-sky-view-controls-select-stars-magnitude
-      [enabled]="magnitudeSelectorEnabled"
-      (starsMagnitudeChanged)="fireSelectionsChanged({ changed: 'magnitude', data: $event })">
-  </app-sky-view-controls-select-stars-magnitude>
+  <app-sky-view-controls-select-stars-magnitude></app-sky-view-controls-select-stars-magnitude>
 
   <app-sky-view-controls-camera></app-sky-view-controls-camera>
 
-  <app-sky-view-controls-position></app-sky-view-controls-position>
 </div>

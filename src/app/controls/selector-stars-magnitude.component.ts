@@ -1,5 +1,7 @@
-import { Component, Output, EventEmitter, AfterViewInit, Input } from '@angular/core';
-
+import { Component, AfterViewInit } from '@angular/core';
+import { LayersEventService } from '../layers/layers-event.service';
+import { LayerVisibility } from '../core/layer-visibility';
+import { Layers } from '../core/layers';
 
 @Component({
   selector: `app-sky-view-controls-select-stars-magnitude`,
@@ -9,20 +11,26 @@ import { Component, Output, EventEmitter, AfterViewInit, Input } from '@angular/
 })
 export class SelectorStarsMagnitudeComponent implements AfterViewInit {
 
-  @Output()
-  private starsMagnitudeChanged = new EventEmitter<any>();
-
   public initialMagnitude = 6;
 
-  @Input()
   public enabled;
+
+  constructor(private layersEventService: LayersEventService) {
+    this.layersEventService.requestLayerVisibility$.subscribe(
+      (lv: LayerVisibility) => {
+        if (lv.layer === Layers.STARS) {
+          this.enabled = lv.visible;
+        }
+      }
+    );
+  }
 
   public ngAfterViewInit(): void {
     this.fireStarsMagnitudeChangedEvent(this.initialMagnitude);
   }
 
   public fireStarsMagnitudeChangedEvent(magnitude: any): void {
-    this.starsMagnitudeChanged.emit({ value: parseFloat(magnitude) });
+    this.layersEventService.starsMagnitudeRequested(parseFloat(magnitude));
   }
 
 }

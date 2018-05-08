@@ -5,7 +5,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { SelectorLayersComponent } from './selector-layers.component';
 import { SelectorStarsMagnitudeComponent } from './selector-stars-magnitude.component';
 import { CameraControlsComponent } from './camera-controls.component';
-import { PositionComponent } from './position.component';
 import { FormsModule } from '@angular/forms';
 import { ViewportModule } from '../viewport/viewport.module';
 
@@ -15,8 +14,7 @@ import { ViewportModule } from '../viewport/viewport.module';
     SelectorThemeComponent,
     SelectorLayersComponent,
     SelectorStarsMagnitudeComponent,
-    CameraControlsComponent,
-    PositionComponent
+    CameraControlsComponent
   ],
   exports: [
     ControlsComponent
@@ -30,8 +28,7 @@ import { ViewportModule } from '../viewport/viewport.module';
     ControlsComponent,
     SelectorThemeComponent,
     SelectorLayersComponent,
-    SelectorStarsMagnitudeComponent,
-    PositionComponent
+    SelectorStarsMagnitudeComponent
   ]
 })
 export class ControlsModule {

@@ -3,7 +3,8 @@ import { RendererService } from './renderer.service';
 import { SceneService } from './scene.service';
 import { OnInit } from '@angular/core';
 import { Constants } from '../core/constants';
-import { ViewportService } from './viewport.service';
+import { ViewportEventService } from './viewport-event.service';
+import { AxialRotation } from '../core/axial-rotation';
 
 export abstract class AbstractCameraService {
 
@@ -17,7 +18,7 @@ export abstract class AbstractCameraService {
 
   private coordsMarkerObject: Object3D;
 
-  constructor(protected viewportService: ViewportService) {
+  constructor(protected viewportService: ViewportEventService) {
 
   }
 
@@ -43,7 +44,6 @@ export abstract class AbstractCameraService {
         this.getCamera().rotateY(deltaX); // the axes are strangely inversed!
         this.getCamera().rotateX(deltaY);
         rendererService.render(sceneService.getScene(), this.getCamera());
-        this.emitViewportChangedEvent();
       }
     });
     this.addMouseEventListener(rendererService, 'dblclick', (event: MouseEvent) => {
@@ -56,7 +56,7 @@ export abstract class AbstractCameraService {
 
   abstract getCamera(): Camera;
 
-  protected abstract rotate(rx: number, ry: number, rz: number): void;
+  protected abstract rotate(rotation: AxialRotation): void;
 
   protected abstract setFoV(range: number): void;
 
@@ -74,11 +74,6 @@ export abstract class AbstractCameraService {
     const viewCenter = new Vector3();
     viewCenter.setFromMatrixPosition(this.coordsMarkerObject.matrixWorld);
     return viewCenter;
-  }
-
-  public emitViewportChangedEvent(): void {
-    const centerCoords = this.getViewCenterCoordinates();
-    this.viewportService.viewportCenterChangedTo(centerCoords);
   }
 
 }

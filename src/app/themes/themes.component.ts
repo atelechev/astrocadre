@@ -1,7 +1,8 @@
-import { Component, OnChanges, SimpleChanges, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, SimpleChanges } from '@angular/core';
 import { Theme } from '../core/theme';
 import { ThemesService } from './themes.service';
 import { ThemeDefinition } from '../core/theme-definition';
+import { ThemesEventService } from './themes-event.service';
 
 @Component({
   selector: 'app-sky-view-themes',
@@ -10,17 +11,14 @@ import { ThemeDefinition } from '../core/theme-definition';
     ThemesService
   ]
 })
-export class ThemesComponent implements OnChanges {
+export class ThemesComponent implements OnInit {
 
   private loadedThemes: Map<string, Theme>;
 
-  @Input()
   private activeTheme: string;
 
-  @Output()
-  private themeLoaded = new EventEmitter<string>();
-
-  constructor(private themesService: ThemesService) {
+  constructor(private themesService: ThemesService,
+              private themesEventService: ThemesEventService) {
     this.loadedThemes = new Map<string, Theme>();
   }
 
@@ -28,7 +26,8 @@ export class ThemesComponent implements OnChanges {
     this.themesService.getThemeDefinition(theme).subscribe(
       (themeDef: ThemeDefinition) => {
         this.loadedThemes.set(theme, new Theme(themeDef));
-        this.themeLoaded.emit(theme);
+        this.activeTheme = theme;
+        this.themesEventService.themeLoaded(theme);
       },
       (error) => console.error(`Failed to load theme '${theme}': ${error}`)
     );
@@ -38,14 +37,21 @@ export class ThemesComponent implements OnChanges {
     return this.loadedThemes.get(this.activeTheme);
   }
 
-  public ngOnChanges(changes: SimpleChanges): void {
-    if (this.activeTheme) {
-      if (!this.loadedThemes.has(this.activeTheme)) {
-        this.loadTheme(this.activeTheme);
-      } else {
-        this.themeLoaded.emit(this.activeTheme);
+  private subscribeThemeLoadRequestEvent(): void {
+    this.themesEventService.requestThemeLoad$.subscribe(
+      (theme: string) => {
+        if (!this.loadedThemes.has(theme)) {
+          this.loadTheme(theme);
+        } else {
+          this.activeTheme = theme;
+          this.themesEventService.themeLoaded(theme);
+        }
       }
-    }
+    );
+  }
+
+  public ngOnInit(): void {
+    this.subscribeThemeLoadRequestEvent();
   }
 
 }

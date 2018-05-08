@@ -40,18 +40,18 @@ export class LayersFactoryService {
     );
   }
 
-  public newRenderableLayer(layer: Layers): Observable<RenderableLayer> {
-    switch ('' + layer) { // TODO fix to make it switch properly
-      case Layers[0]: {
+  public newRenderableLayer(layer: string): Observable<RenderableLayer> {
+    switch (layer) {
+      case Layers.SKY_GRID: {
         return Observable.of(new SkyGridLayer());
       }
-      case Layers[1]: {
+      case Layers.CONSTELLATION_BOUNDARIES: {
         return this.initConstellationBoundariesLayer();
       }
-      case Layers[2]: {
+      case Layers.CONSTELLATION_LINES: {
         return this.initConstellationLinesLayer();
       }
-      case Layers[3]: {
+      case Layers.STARS: {
         return this.initStarsLayer();
       }
       default: {

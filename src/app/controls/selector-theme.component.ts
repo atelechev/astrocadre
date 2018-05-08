@@ -1,6 +1,7 @@
-import { Component, Output, EventEmitter, AfterViewInit } from '@angular/core';
+import { Component, AfterViewInit } from '@angular/core';
 import { SelectableItem } from './selectable-item';
 import { Themes } from '../core/themes';
+import { ThemesEventService } from '../themes/themes-event.service';
 
 
 @Component({
@@ -11,12 +12,9 @@ import { Themes } from '../core/themes';
 })
 export class SelectorThemeComponent implements AfterViewInit {
 
-  @Output()
-  private themeChanged = new EventEmitter<any>();
-
   public availableThemes: Array<SelectableItem>;
 
-  constructor() {
+  constructor(private themesEventService: ThemesEventService) {
     this.availableThemes = this.initAvailableThemes();
   }
 
@@ -39,7 +37,7 @@ export class SelectorThemeComponent implements AfterViewInit {
   }
 
   public fireThemeChangedEvent(themeCode: string): void {
-    this.themeChanged.emit({ code: themeCode });
+    this.themesEventService.loadThemeRequested(themeCode);
   }
 
   public ngAfterViewInit(): void {

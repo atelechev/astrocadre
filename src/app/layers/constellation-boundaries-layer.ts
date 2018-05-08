@@ -22,11 +22,11 @@ export class ConstellationBoundariesLayer extends RenderableLayer {
   }
 
   public getName(): string {
-    return 'constellation boundaries';
+    return Layers.CONSTELLATION_BOUNDARIES;
   }
 
   public useTheme(theme: Theme): void {
-    const materials = theme.getMaterialsForLayer(Layers.constellation_boundaries);
+    const materials = theme.getMaterialsForLayer(this.getName());
     const lineCommon = materials.get('line-common');
     this.mergedCurves.material = lineCommon;
     lineCommon.needsUpdate = true;

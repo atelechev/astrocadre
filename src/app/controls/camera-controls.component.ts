@@ -1,6 +1,6 @@
 import { Component, AfterViewInit } from '@angular/core';
 import { Math as ThreeMath } from 'three';
-import { ViewportService } from '../viewport/viewport.service';
+import { ViewportEventService } from '../viewport/viewport-event.service';
 
 @Component({
   selector: `app-sky-view-controls-camera`,
@@ -10,7 +10,7 @@ import { ViewportService } from '../viewport/viewport.service';
 })
 export class CameraControlsComponent implements AfterViewInit {
 
-  constructor(private viewportService: ViewportService) {
+  constructor(private viewportService: ViewportEventService) {
 
   }
 
@@ -18,19 +18,19 @@ export class CameraControlsComponent implements AfterViewInit {
     return ThreeMath.degToRad(degrees);
   }
 
-  private viewportCenterChangeRequested(x: number, y: number, z: number): void {
+  private rotateView(x: number, y: number, z: number): void {
     const data = { rx: this.toRadians(x),
                    ry: this.toRadians(y),
                    rz: this.toRadians(z) };
-    this.viewportService.viewportCenterChangeRequested(data);
+    this.viewportService.axialRotationRequested(data);
   }
 
-  private viewportFovChangeRequested(angle: number): void {
-    this.viewportService.viewportFovChangeRequested(angle);
+  private changeFov(angle: number): void {
+    this.viewportService.fovRequested(angle);
   }
 
   public ngAfterViewInit(): void {
-    this.viewportCenterChangeRequested(90, 0, 0);
+    this.rotateView(90, 0, 0);
   }
 
 }

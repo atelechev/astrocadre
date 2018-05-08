@@ -6,19 +6,19 @@ export class Theme {
 
   private backgroundColor: Color;
 
-  private materialsByLayer: Map<Layers, Map<string, Material>>;
+  private materialsByLayer: Map<string, Map<string, Material>>;
 
   constructor(private themeDef: ThemeDefinition) {
     this.materialsByLayer = this.initMaterialsMap();
     this.backgroundColor = new Color(this.themeDef.background.color);
   }
 
-  private initMaterialsMap(): Map<Layers, Map<string, Material>> {
-    const materials = new Map<Layers, Map<string, Material>>();
-    materials.set(Layers.sky_grid, this.getSkyGridMaterials());
-    materials.set(Layers.constellation_boundaries, this.getConstellationBoundariesMaterials());
-    materials.set(Layers.constellation_lines, this.getConstellationLinesMaterials());
-    materials.set(Layers.stars, this.getStarsMaterials());
+  private initMaterialsMap(): Map<string, Map<string, Material>> {
+    const materials = new Map<string, Map<string, Material>>();
+    materials.set(Layers.SKY_GRID, this.getSkyGridMaterials());
+    materials.set(Layers.CONSTELLATION_BOUNDARIES, this.getConstellationBoundariesMaterials());
+    materials.set(Layers.CONSTELLATION_LINES, this.getConstellationLinesMaterials());
+    materials.set(Layers.STARS, this.getStarsMaterials());
     return materials;
   }
 
@@ -84,14 +84,14 @@ export class Theme {
     return allMagnitudes[allMagnitudes.length - 1];
   }
 
-  public getMaterialsForLayer(layer: Layers): Map<string, Material> {
+  public getMaterialsForLayer(layer: string): Map<string, Material> {
     if (!this.materialsByLayer.has(layer)) {
       throw new Error(`Unexpected layer name: '${layer}'`);
     }
     return this.materialsByLayer.get(layer);
   }
 
-  public getMaterialForLayer(layer: Layers, materialKey: string): Material {
+  public getMaterialForLayer(layer: string, materialKey: string): Material {
     const layerMaterials = this.getMaterialsForLayer(layer);
     if (!layerMaterials.has(materialKey)) {
       throw new Error(`Unexpected material key '${materialKey}' for layer '${layer}'`);

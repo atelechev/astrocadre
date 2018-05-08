@@ -6,19 +6,19 @@
           <!-- down-left arrow -->
           <button type="button"
                   title="Rotate counter-clockwise"
-                  (click)="viewportCenterChangeRequested(0, 0, -cameraChangeStep.value)">&#8601;</button>
+                  (click)="rotateView(0, 0, -cameraChangeStep.value)">&#8601;</button>
         </td>
         <td>
           <!-- up arrow -->
           <button type="button"
                   title="Move upwards"
-                  (click)="viewportCenterChangeRequested(cameraChangeStep.value, 0, 0)">&#8593;</button>
+                  (click)="rotateView(cameraChangeStep.value, 0, 0)">&#8593;</button>
         </td>
         <td>
           <!-- down-right arrow -->
           <button type="button"
                   title="Rotate clockwise"
-                  (click)="viewportCenterChangeRequested(0, 0, cameraChangeStep.value)">&#8600;</button>
+                  (click)="rotateView(0, 0, cameraChangeStep.value)">&#8600;</button>
         </td>
         <td>
           <!-- TODO disabled -->
@@ -32,19 +32,19 @@
           <!-- left arrow -->
           <button type="button"
                   title="Move leftwards"
-                  (click)="viewportCenterChangeRequested(0, cameraChangeStep.value, 0)">&#8592;</button>
+                  (click)="rotateView(0, cameraChangeStep.value, 0)">&#8592;</button>
         </td>
         <td>
           <!-- down arrow -->
           <button type="button"
                   title="Move downwards"
-                  (click)="viewportCenterChangeRequested(-cameraChangeStep.value, 0, 0)">&#8595;</button>
+                  (click)="rotateView(-cameraChangeStep.value, 0, 0)">&#8595;</button>
         </td>
         <td>
           <!-- right arrow -->
           <button type="button"
                   title="Move rightwards"
-                  (click)="viewportCenterChangeRequested(0, -cameraChangeStep.value, 0)">&#8594;</button>
+                  (click)="rotateView(0, -cameraChangeStep.value, 0)">&#8594;</button>
         </td>
         <td>
           <!-- TODO disabled -->
@@ -58,7 +58,7 @@
           <!-- empty square symbol -->
           <button type="button"
                   title="Adjust the field of view to the selected range"
-                  (click)="viewportFovChangeRequested(cameraChangeStep.value)">&#9633;</button>
+                  (click)="changeFov(cameraChangeStep.value)">&#9633;</button>
         </td>
         <td>
           <input class="selector_view_step"

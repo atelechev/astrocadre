@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { ViewportComponent } from './viewport.component';
-import { ViewportService } from './viewport.service';
+import { ViewportEventService } from './viewport-event.service';
 
 @NgModule({
   declarations: [
@@ -12,7 +12,7 @@ import { ViewportService } from './viewport.service';
   imports: [],
   providers: [
     ViewportComponent,
-    ViewportService
+    ViewportEventService
   ]
 })
 export class ViewportModule {
