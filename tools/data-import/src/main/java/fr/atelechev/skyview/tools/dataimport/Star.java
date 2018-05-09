@@ -5,7 +5,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.function.Function;
+import static fr.atelechev.skyview.tools.dataimport.CsvUtil.parseDouble;
+import static fr.atelechev.skyview.tools.dataimport.CsvUtil.parseInt;
 
 @Data
 @NoArgsConstructor
@@ -67,10 +68,7 @@ public class Star {
 
 
   public static Star fromCsvRow(String csvRow) {
-    final String[] rowSplit = csvRow.split(",");
-    if (rowSplit.length != 18) {
-      throw new IllegalArgumentException(String.format("Invalid number of cells: %1$s for row '%2$s'", rowSplit.length, csvRow));
-    }
+    final String[] rowSplit = CsvUtil.split(csvRow, 18);
     final Star star = new Star();
     star.setId(parseInt(rowSplit[0], false));
     star.setIdHip(parseInt(rowSplit[1], true));
@@ -91,21 +89,6 @@ public class Star {
     star.setConstellationCode(rowSplit[16]);
     star.setLuminosity(parseDouble(rowSplit[17], true));
     return star;
-  }
-
-  private static Double parseDouble(String value, boolean nullable) {
-    return parseNumber(value, nullable, Double::parseDouble);
-  }
-
-  private static Integer parseInt(String value, boolean nullable) {
-    return parseNumber(value, nullable, Integer::parseInt);
-  }
-
-  private static <T extends Number> T parseNumber(String value, boolean isNullable, Function<String, T> parseFuncion) {
-    if (isNullable && (value == null || value.trim().isEmpty())) {
-      return null;
-    }
-    return parseFuncion.apply(value);
   }
 
 }
