@@ -1,0 +1,29 @@
+{
+  "selectable": true,
+  "items": [
+    {
+      "code": "sky-grid",
+      "label": "Coordinates grid",
+      "description": "Celestial coordinates grid in degrees",
+      "selected": true
+    },
+    {
+      "code": "constellation-boundaries",
+      "label": "Constellation boundaries",
+      "description": "Boundaries of constellations",
+      "selected": true
+    },
+    {
+      "code": "constellation-lines",
+      "label": "Constellation lines",
+      "description": "Lines between stars in constellations",
+      "selected": true
+    },
+    {
+      "code": "stars",
+      "label": "Stars",
+      "description": "Stars",
+      "selected": true
+    }
+  ]
+}

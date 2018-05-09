@@ -1,8 +1,9 @@
 import { Component, AfterViewInit } from '@angular/core';
 import { SelectableItem } from './selectable-item';
-import { CoreComponent } from '../core/core.component';
 import { Layers } from '../core/layers';
 import { LayersEventService } from '../layers/layers-event.service';
+import { ControlsService } from './controls.service';
+import { SectionMetadata } from './section-metadata';
 
 
 @Component({
@@ -15,22 +16,26 @@ export class SelectorLayersComponent implements AfterViewInit {
 
   public availableLayers: Array<SelectableItem>;
 
-  constructor(private core: CoreComponent,
+  constructor(private metadataLoader: ControlsService,
               private layersEventService: LayersEventService) {
-    this.availableLayers = this.initAvailableLayers();
+    this.availableLayers = new Array<SelectableItem>();
   }
 
-  private initAvailableLayers(): Array<SelectableItem> {
-    return [
-      new SelectableItem(Layers.SKY_GRID, 'Coordinates grid', 'Celestial coordinates grid in degrees', true),
-      new SelectableItem(Layers.CONSTELLATION_BOUNDARIES, 'Constellation boundaries', 'Boundaries of constellations', true),
-      new SelectableItem(Layers.CONSTELLATION_LINES, 'Constellation lines', 'Lines between stars in constellations', true),
-      new SelectableItem(Layers.STARS, 'Stars', 'Stars', true)
-    ];
-  }
-
-  public getSelectedLayers(): Array<SelectableItem> {
-    return this.availableLayers.filter(layer => layer.selected);
+  private initAvailableLayers(): void {
+    this.metadataLoader.getAvailableLayers().subscribe(
+      (metadata: SectionMetadata) => {
+        this.availableLayers = metadata.items.map(item => {
+          return SelectableItem.from(item);
+        });
+        if (this.availableLayers) {
+          this.availableLayers.forEach(layer => {
+                                this.layersEventService.loadLayerRequested(layer.code);
+                                this.fireLayerChangedEvent(layer.code, layer.selected);
+                              });
+        }
+      },
+      (error: any) => console.error(`Failed to load layers metadata: ${error}`)
+    );
   }
 
   public fireLayerChangedEvent(layerCode: string, visible: boolean): void {
@@ -38,11 +43,7 @@ export class SelectorLayersComponent implements AfterViewInit {
   }
 
   public ngAfterViewInit(): void {
-    this.availableLayers.filter(layer => layer.selected)
-                        .forEach(layer => {
-                          this.layersEventService.loadLayerRequested(layer.code);
-                          this.fireLayerChangedEvent(layer.code, true);
-                        });
+    this.initAvailableLayers();
   }
 
 }

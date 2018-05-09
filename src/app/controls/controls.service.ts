@@ -16,4 +16,9 @@ export class ControlsService extends AbstractService {
     return this.execGetRequestForUrl(url);
   }
 
+  public getAvailableLayers(): Observable<SectionMetadata> {
+    const url = '/assets/layers.json';
+    return this.execGetRequestForUrl(url);
+  }
+
 }

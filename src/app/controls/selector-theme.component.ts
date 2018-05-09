@@ -25,7 +25,7 @@ export class SelectorThemeComponent implements AfterViewInit {
     this.metadataLoader.getAvailableThemes().subscribe(
       (metadata: SectionMetadata) => {
         this.availableThemes = metadata.items.map(item => {
-          return new SelectableItem(item.code, item.label, item.description, item.selected);
+          return SelectableItem.from(item);
         });
         if (this.availableThemes && this.availableThemes.length > 0) {
           this.fireThemeChangedEvent(this.availableThemes[0].code);
