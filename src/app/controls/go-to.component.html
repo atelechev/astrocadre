@@ -2,6 +2,7 @@
 <div class="ui-section">
   <input type="text"
          title="Type constellation code or name to move the view to it"
+         [class]="searchNoResultsClass"
          name="goto_search_text"
          (keyup)="updateGoToButtonState()"
          (keyup.enter)="execGoToSearchRequest()"
