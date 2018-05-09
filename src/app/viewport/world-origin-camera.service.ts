@@ -18,6 +18,9 @@ export class WorldOriginCameraService extends AbstractCameraService {
         this.rotate(rotation);
       }
     );
+    this.viewportService.requestFov$.subscribe(
+      (fov: number) => this.setFoV(fov)
+    );
   }
 
   private setUpCamera() {
