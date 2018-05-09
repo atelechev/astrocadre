@@ -1,9 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
-import { Response, Http } from '@angular/Http';
+import { Http } from '@angular/Http';
 import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/catch';
-import 'rxjs/add/observable/throw';
 import 'rxjs/add/observable/forkJoin';
 import { AbstractService } from '../core/abstract-service';
 import { Constants } from '../core/constants';
@@ -12,29 +10,23 @@ import { Constants } from '../core/constants';
 @Injectable()
 export class StarsService extends AbstractService {
 
-  constructor(private http: Http) {
-    super();
+  constructor(http: Http) {
+    super(http);
   }
 
   public getConstellationBoundaries(): Observable<number[][]> {
     const url = '/assets/constellation_boundaries.json';
-    return this.execGetRequestForNumericResponse(url);
+    return this.execGetRequestForUrl(url);
   }
 
   public getConstellationLines(): Observable<number[][]> {
     const url = '/assets/constellation_lines.json';
-    return this.execGetRequestForNumericResponse(url);
-  }
-
-  private execGetRequestForNumericResponse(url: string): Observable<number[][]> {
-    return this.http.get(url)
-                    .map((res: Response) => res.json())
-                    .catch(this.handleError);
+    return this.execGetRequestForUrl(url);
   }
 
   private getStars(magnitudeClass: number): Observable<StarsByMagnitude> {
     const url = `/assets/stars_mag${magnitudeClass.toFixed(1)}.json`;
-    return this.execGetRequestForNumericResponse(url).map(
+    return this.execGetRequestForUrl(url).map(
       (stars: number[][]) => new StarsByMagnitude(magnitudeClass, stars)
     );
   }

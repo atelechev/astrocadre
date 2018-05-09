@@ -1,0 +1,17 @@
+{
+  "selectable": true,
+  "items": [
+    {
+      "code": "dev",
+      "label": "Dev",
+      "description": "Used during development phase",
+      "selected": true
+    },
+    {
+      "code": "sky-chart",
+      "label": "Sky chart",
+      "description": "Theme resembling standard sky charts",
+      "selected": false
+    }
+  ]
+}

@@ -2,6 +2,8 @@ import { Component, AfterViewInit } from '@angular/core';
 import { SelectableItem } from './selectable-item';
 import { Themes } from '../core/themes';
 import { ThemesEventService } from '../themes/themes-event.service';
+import { ControlsService } from './controls.service';
+import { SectionMetadata } from './section-metadata';
 
 
 @Component({
@@ -14,26 +16,25 @@ export class SelectorThemeComponent implements AfterViewInit {
 
   public availableThemes: Array<SelectableItem>;
 
-  constructor(private themesEventService: ThemesEventService) {
-    this.availableThemes = this.initAvailableThemes();
+  constructor(private metadataLoader: ControlsService,
+              private themesEventService: ThemesEventService) {
+    this.availableThemes = new Array<SelectableItem>();
   }
 
-  private initAvailableThemes(): Array<SelectableItem> {
-    return [
-      new SelectableItem(Themes.DEV, 'Dev', 'Used during development phase', true),
-      new SelectableItem(Themes.SKY_CHART, 'Sky chart', 'Theme resembling standard sky charts', false)
-    ];
-  }
-
-  private getSelectedTheme(): SelectableItem {
-    const selected = this.availableThemes.find(item => item.selected);
-    if (selected) {
-      return selected;
-    }
-    if (this.availableThemes.length > 0) {
-      return this.availableThemes[0];
-    }
-    throw new Error('Unexpected state: no themes registered as available!');
+  private initAvailableThemes(): void {
+    this.metadataLoader.getAvailableThemes().subscribe(
+      (metadata: SectionMetadata) => {
+        this.availableThemes = metadata.items.map(item => {
+          return new SelectableItem(item.code, item.label, item.description, item.selected);
+        });
+        if (this.availableThemes && this.availableThemes.length > 0) {
+          this.fireThemeChangedEvent(this.availableThemes[0].code);
+        } else {
+          throw new Error('Unexpected state: no themes registered as available!');
+        }
+      },
+      (error: any) => console.error(`Failed to load themes metadata: ${error}`)
+    );
   }
 
   public fireThemeChangedEvent(themeCode: string): void {
@@ -41,7 +42,7 @@ export class SelectorThemeComponent implements AfterViewInit {
   }
 
   public ngAfterViewInit(): void {
-    this.fireThemeChangedEvent(this.getSelectedTheme().code);
+    this.initAvailableThemes();
   }
 
 }
