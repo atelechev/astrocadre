@@ -76,22 +76,21 @@ To start the app:
   * Refactoring of all events processing into shared services.
   * Removed last remainign enums in favor of string identifiers.
 
-### Next Steps
+### May 9th, 2018
 
 * SV-010: - Load available themes and layers lists from static JSON instead of using hardcoded in controls.
 
+### Next Steps
+
+* SV-011: - Extend UI controls:
+  * Search controls for constellation codes (and extensible for other): centers the view on the typed constellation
+
 #### Major Features
 
-* Extend UI controls:
-  * Search controls for constellation codes (and extensible for other): centers the view on the typed constellation
-  * Center screen sky coordinates output in the UI
 * Render Constellation names
 * Star names
-* Current position of the Sun and of the Moon (probably, the planets also)
+* Current position of the Sun and of the Moon (probably, the planets also) - new layer
 * Messier objects layer
-
-#### UI-Only
-
 * S-N direction arrow
 * Export of current view as image
 
@@ -104,7 +103,10 @@ To start the app:
 #### Low priority improvements for POC
 
 * theme definition: enabled layers by default, pre-defined star magnitudes shown
-* Add 'night' and 'exoplorer' themes
-* Render star colors depending on their class/temperature
+* 'night' and 'exoplorer' themes
+* star colors depending on their class/temperature
 * flexible canvas size (?)
-* show coordinates of the view port center
+
+#### Postponed or cancelled
+
+* Center screen sky coordinates output in the UI
