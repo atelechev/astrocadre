@@ -1,0 +1,12 @@
+
+<div class="ui-section">
+  <input type="text"
+         title="Type constellation code or name to move the view to it"
+         name="goto_search_text"
+         (keyup)="updateGoToButtonState()"
+         (keyup.enter)="execGoToSearchRequest()"
+         [(ngModel)]="searchText"/>&nbsp;
+  <button type="button"
+          [disabled]="goToButtonDisabled"
+          (click)="execGoToSearchRequest()">Go to</button>
+</div>
