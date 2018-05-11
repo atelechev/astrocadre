@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AbstractCameraService } from './abstract-camera-service';
-import { Camera, PerspectiveCamera, Math as ThreeMath } from 'three';
+import { Camera, PerspectiveCamera, Math as ThreeMath, Vector3 } from 'three';
 import { ViewportEventService } from './viewport-event.service';
 import { AxialRotation } from '../core/axial-rotation';
 import { SkyCoordinate } from '../core/sky-coordinate';
@@ -50,8 +50,16 @@ export class WorldOriginCameraService extends AbstractCameraService {
     return this.camera;
   }
 
+  private getAlignmentPoleCoordinate(declination: number): Vector3 {
+    if (declination < 0) {
+      return Constants.SOUTH;
+    }
+    return Constants.NORTH;
+  }
+
   private centerView(coords: SkyCoordinate): void {
     const camera = this.getCamera();
+    camera.up = this.getAlignmentPoleCoordinate(coords.declination);
     camera.lookAt(VectorUtil.toVector3(coords.rightAscension, coords.declination, Constants.WORLD_RADIUS));
   }
 
