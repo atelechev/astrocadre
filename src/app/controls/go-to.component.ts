@@ -1,6 +1,7 @@
 import { Component, AfterViewInit } from '@angular/core';
 import { SearchableItem } from './searchable-item';
 import { ControlsService } from './controls.service';
+import { ViewportEventService } from '../viewport/viewport-event.service';
 
 @Component({
   selector: `app-sky-view-controls-go-to`,
@@ -18,7 +19,8 @@ export class GoToComponent implements AfterViewInit {
 
   private searchableItems: Map<string, SearchableItem>;
 
-  constructor(private metadataService: ControlsService) {
+  constructor(private metadataService: ControlsService,
+              private viewportEventService: ViewportEventService) {
     this.goToButtonDisabled = true;
   }
 
@@ -31,9 +33,12 @@ export class GoToComponent implements AfterViewInit {
     if (this.goToButtonDisabled) {
       return;
     }
-    if (this.searchableItems.has(this.searchText.trim().toUpperCase())) {
-      console.log('going to: ' + this.searchText);
+    const searchTextNormalized = this.searchText.trim().toUpperCase();
+    if (this.searchableItems.has(searchTextNormalized)) {
+      const item = this.searchableItems.get(searchTextNormalized);
+      const goToCoord = { rightAscension: item.ra, declination: item.dec };
       this.resetSearchInputCssClass();
+      this.viewportEventService.centerViewRequested(goToCoord);
     } else {
       this.searchNoResultsClass = 'searchtext-input-invalid';
     }

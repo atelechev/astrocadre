@@ -1,8 +1,11 @@
 import { Injectable } from '@angular/core';
 import { AbstractCameraService } from './abstract-camera-service';
-import { Camera, PerspectiveCamera } from 'three';
+import { Camera, PerspectiveCamera, Math as ThreeMath } from 'three';
 import { ViewportEventService } from './viewport-event.service';
 import { AxialRotation } from '../core/axial-rotation';
+import { SkyCoordinate } from '../core/sky-coordinate';
+import { VectorUtil } from '../layers/geometry/vector-util';
+import { Constants } from '../core/constants';
 
 @Injectable()
 export class WorldOriginCameraService extends AbstractCameraService {
@@ -13,13 +16,26 @@ export class WorldOriginCameraService extends AbstractCameraService {
     super(viewportService);
     this.camera = new PerspectiveCamera(this.fov, this.aspect, 0.1, 5); // TODO extract params?
     this.setUpCamera();
+    this.subscribeAxialRotationEvent();
+    this.subscribeFovChangeEvent();
+    this.subscribeViewCenterChangeEvent();
+  }
+
+  private subscribeAxialRotationEvent(): void {
     this.viewportService.requestAxialRotation$.subscribe(
-      (rotation: AxialRotation) => {
-        this.rotate(rotation);
-      }
+      (rotation: AxialRotation) => this.rotate(rotation)
     );
+  }
+
+  private subscribeFovChangeEvent(): void {
     this.viewportService.requestFov$.subscribe(
       (fov: number) => this.setFoV(fov)
+    );
+  }
+
+  private subscribeViewCenterChangeEvent(): void {
+    this.viewportService.requestCenterView$.subscribe(
+      (coords: SkyCoordinate) => this.centerView(coords)
     );
   }
 
@@ -32,6 +48,11 @@ export class WorldOriginCameraService extends AbstractCameraService {
 
   public getCamera(): Camera {
     return this.camera;
+  }
+
+  private centerView(coords: SkyCoordinate): void {
+    const camera = this.getCamera();
+    camera.lookAt(VectorUtil.toVector3(coords.rightAscension, coords.declination, Constants.WORLD_RADIUS));
   }
 
   public rotate(rotation: AxialRotation): void {
