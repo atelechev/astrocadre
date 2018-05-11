@@ -80,18 +80,21 @@ To start the app:
 
 * SV-010: - Load available themes and layers lists from static JSON instead of using hardcoded in controls.
 
+### May 11th, 2018
+
+* SV-011: - GoTo feature in UI controls
+  * Search by constellation codes: the view is centered on the typed constellation.
+  * extra: view alignment with NS axis, depending on hemisphere.
+
 ### Next Steps
 
-* SV-011: - Extend UI controls:
-  * Search controls for constellation codes (and extensible for other): centers the view on the typed constellation
+* SV-012: - Render Constellation names
 
 #### Major Features
 
-* Render Constellation names
 * Star names
 * Current position of the Sun and of the Moon (probably, the planets also) - new layer
 * Messier objects layer
-* S-N direction arrow
 * Export of current view as image
 
 #### Release and Distribution
@@ -102,6 +105,7 @@ To start the app:
 
 #### Low priority improvements for POC
 
+* S-N direction arrow
 * theme definition: enabled layers by default, pre-defined star magnitudes shown
 * 'night' and 'exoplorer' themes
 * star colors depending on their class/temperature
