@@ -29,6 +29,10 @@ export class CameraControlsComponent implements AfterViewInit {
     this.viewportService.fovRequested(angle);
   }
 
+  private alignNSAxis(): void {
+    this.viewportService.axisAlignmentRequested();
+  }
+
   public ngAfterViewInit(): void {
     this.rotateView(90, 0, 0);
   }

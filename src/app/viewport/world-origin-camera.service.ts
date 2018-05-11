@@ -19,6 +19,7 @@ export class WorldOriginCameraService extends AbstractCameraService {
     this.subscribeAxialRotationEvent();
     this.subscribeFovChangeEvent();
     this.subscribeViewCenterChangeEvent();
+    this.subscribeAxisAlignmentEvent();
   }
 
   private subscribeAxialRotationEvent(): void {
@@ -36,6 +37,12 @@ export class WorldOriginCameraService extends AbstractCameraService {
   private subscribeViewCenterChangeEvent(): void {
     this.viewportService.requestCenterView$.subscribe(
       (coords: SkyCoordinate) => this.centerView(coords)
+    );
+  }
+
+  private subscribeAxisAlignmentEvent(): void {
+    this.viewportService.requestAxisAlignment$.subscribe(
+      () => this.alignNSAxis()
     );
   }
 
@@ -78,13 +85,9 @@ export class WorldOriginCameraService extends AbstractCameraService {
 
   protected alignNSAxis(): void {
     const camera = this.getCamera();
-    // TODO
-    // console.log(`rx=${camera.rotation.x} ry=${camera.rotation.y} rz=${camera.rotation.z}`);
-    // console.log(`dx=${ThreeMath.radToDeg(camera.rotation.x)}
-    // dy=${ThreeMath.radToDeg(camera.rotation.y)} dz=${ThreeMath.radToDeg(camera.rotation.z})`);
-    const delta = camera.rotation.z > 0 ? -camera.rotation.z : camera.rotation.z;
-    // console.log('delta=' + delta);
-    // camera.rotateZ(delta);
+    const viewCenter = this.getViewCenterCoordinates();
+    camera.up = this.getAlignmentPoleCoordinate(viewCenter.z);
+    camera.lookAt(viewCenter);
   }
 
 }

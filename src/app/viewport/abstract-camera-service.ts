@@ -16,7 +16,7 @@ export abstract class AbstractCameraService {
 
   private mouseSensivity = 0.05;
 
-  private coordsMarkerObject: Object3D;
+  protected coordsMarkerObject: Object3D;
 
   constructor(protected viewportService: ViewportEventService) {
 
@@ -47,10 +47,7 @@ export abstract class AbstractCameraService {
       }
     });
     this.addMouseEventListener(rendererService, 'dblclick', (event: MouseEvent) => {
-      // TODO align with meridian on double click
-      // this.getCamera().rotation.y = 0;
-      this.getCamera().rotation.z = 0;
-      // console.log(`rotX=${this.getCamera().rotation.x} rotY=${this.getCamera().rotation.y} rotZ=${this.getCamera().rotation.z}`);
+      this.alignNSAxis();
     });
   }
 
