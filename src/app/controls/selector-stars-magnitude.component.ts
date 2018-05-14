@@ -1,4 +1,4 @@
-import { Component, AfterViewInit } from '@angular/core';
+import { Component, AfterViewInit, Input } from '@angular/core';
 import { LayersEventService } from '../layers/layers-event.service';
 import { LayerVisibility } from '../core/layer-visibility';
 import { Layers } from '../core/layers';
@@ -13,7 +13,8 @@ export class SelectorStarsMagnitudeComponent implements AfterViewInit {
 
   public initialMagnitude = 6;
 
-  public enabled;
+  @Input()
+  public enabled: boolean;
 
   constructor(private layersEventService: LayersEventService) {
     this.layersEventService.requestLayerVisibility$.subscribe(

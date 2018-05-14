@@ -7,6 +7,8 @@ import { StarsLayer } from './stars-layer';
 import { LayersEventService } from './layers-event.service';
 import { LayerVisibility } from '../core/layer-visibility';
 import { ItemsTreeNode } from '../core/items-tree-node';
+import { Layers } from '../core/layers';
+import { StarsMagnitudeLayer } from './stars-magnitude-layer';
 
 @Component({
   selector: 'app-sky-view-layers',
@@ -73,13 +75,21 @@ export class LayersComponent implements ThemeAware, OnInit {
 
   private subscribeStarsMagnitudeRequestEvent(): void {
     this.layersEventService.requestStarsMagnitude$.subscribe(
-      (magnitude: number) => {
-        const allStars = this.getLayer('stars');
-        if (allStars) {
-          (<StarsLayer> allStars).setVisibleMagnitudesDownTo(magnitude);
-        }
-      }
+      (magnitude: number) => this.ensureStarMagnitudesVisibleDownTo(magnitude)
     );
+  }
+
+  private ensureStarMagnitudesVisibleDownTo(magnitude: number): void {
+    const starsLayer = this.getLayer(Layers.STARS);
+    if (starsLayer) {
+      this.collectChildren(starsLayer)
+          .filter(layer => layer instanceof StarsMagnitudeLayer)
+          .map(layer => <StarsMagnitudeLayer> layer)
+          .forEach(layer => {
+            const visible = layer.magClass <= magnitude;
+            layer.setVisible(visible);
+          });
+    }
   }
 
   public ngOnInit(): void {

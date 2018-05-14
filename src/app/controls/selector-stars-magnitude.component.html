@@ -1,11 +1,9 @@
 
-<div class="ui-section">
-  <span>Stars magnitude down to:</span>&nbsp;
-  <input class="selector_magnitude"
-          type="number"
-          [disabled]="!enabled"
-          (change)="fireStarsMagnitudeChangedEvent($event.target.value)"
-          name="show_stars_magnitude"
-          min="2"
-          max="6" step="0.5" value="{{ initialMagnitude }}">
-</div>
+<span>Magnitude down to:</span>&nbsp;
+<input class="selector_magnitude"
+        type="number"
+        [disabled]="!enabled"
+        (change)="fireStarsMagnitudeChangedEvent($event.target.value)"
+        name="show_stars_magnitude"
+        min="2"
+        max="6" step="0.5" value="{{ initialMagnitude }}">

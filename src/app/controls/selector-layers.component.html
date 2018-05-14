@@ -8,7 +8,7 @@
               (change)="fireLayerChangedEvent(layer.code, $event.target.checked)"
               title="{{layer.description}}"
               name="show_layer_{{layer.code}}">{{ layer.label }}<br>
-      <ul *ngIf="layer.items">
+      <ul *ngIf="layer.items && layer.code !== 'stars'">
         <li *ngFor="let subLayer of layer.items">
           <!-- TODO refactor to fill it recursively -->
           <input type="checkbox"
@@ -18,6 +18,11 @@
             title="{{subLayer.description}}"
             name="show_layer_{{subLayer.code}}">{{ subLayer.label }}<br>
         </li>
+      </ul>
+      <ul *ngIf="layer.items && layer.code === 'stars'">
+        <app-sky-view-controls-select-stars-magnitude
+            [enabled]="layer.selected">
+        </app-sky-view-controls-select-stars-magnitude>
       </ul>
     </li>
   </ul>
