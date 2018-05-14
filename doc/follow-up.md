@@ -88,7 +88,9 @@ To start the app:
 
 ### Next Steps
 
-* SV-012: - Render Constellation names
+* SV-012:
+  * Refactor layers model to support hierarchical structures
+  * Render Constellation names
 
 #### Major Features
 
