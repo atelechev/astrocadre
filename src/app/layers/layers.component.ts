@@ -3,7 +3,6 @@ import { RenderableLayer } from '../core/renderable-layer';
 import { ThemeAware } from '../core/theme-aware';
 import { Theme } from '../core/theme';
 import { LayersFactoryService } from './layers-factory.service';
-import { StarsLayer } from './stars-layer';
 import { LayersEventService } from './layers-event.service';
 import { LayerVisibility } from '../core/layer-visibility';
 import { ItemsTreeNode } from '../core/items-tree-node';

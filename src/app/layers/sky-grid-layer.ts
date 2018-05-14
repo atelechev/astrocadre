@@ -11,7 +11,9 @@ export class SkyGridLayer extends RenderableLayer {
 
   private gridRadius = Constants.WORLD_RADIUS;
 
-  private gridStep = 10;
+  private gridStepMeridians = 15;
+
+  private gridStepParallels = 10;
 
   private absMeridianLineDeclination = 89;
 
@@ -50,7 +52,7 @@ export class SkyGridLayer extends RenderableLayer {
 
   private generateCommonMeridianSegments(): LineSegments {
     const segments = new Array<number[]>();
-    for (let i = 0; i < 360; i += this.gridStep) {
+    for (let i = 0; i < 360; i += this.gridStepMeridians) {
       if (i === 0 || i === 180) {
         continue;
       }
@@ -70,7 +72,7 @@ export class SkyGridLayer extends RenderableLayer {
 
   private generateCommonParallelSegments(): LineSegments {
     const segments = new Array<number[]>();
-    for (let par = this.gridStep; par < 90; par += this.gridStep) {
+    for (let par = this.gridStepParallels; par < 90; par += this.gridStepParallels) {
       segments.push(this.parallelSegment(par));
       segments.push(this.parallelSegment(-par));
     }
