@@ -1,8 +1,8 @@
-import { Selectable } from './selectable';
+import { SelectableItem } from './selectable-item';
 
 export interface SectionMetadata {
 
   selectable: boolean;
-  items: Array<Selectable>;
+  items: Array<SelectableItem>;
 
 }
