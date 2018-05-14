@@ -1,11 +1,24 @@
 
 <div class="ui-section">
   <span>Layers:</span><br>
-  <div *ngFor="let layer of availableLayers">
-    <input type="checkbox"
-            [checked]="layer.selected"
-            (change)="fireLayerChangedEvent(layer.code, $event.target.checked)"
-            title="{{layer.description}}"
-            name="show_layer_{{layer.code}}">{{ layer.label }}<br>
-  </div>
+  <ul>
+    <li *ngFor="let layer of availableLayers">
+      <input type="checkbox"
+              [checked]="layer.selected"
+              (change)="fireLayerChangedEvent(layer.code, $event.target.checked)"
+              title="{{layer.description}}"
+              name="show_layer_{{layer.code}}">{{ layer.label }}<br>
+      <ul *ngIf="layer.items">
+        <li *ngFor="let subLayer of layer.items">
+          <!-- TODO refactor to fill it recursively -->
+          <input type="checkbox"
+            [checked]="subLayer.selected"
+            [disabled]="!layer.selected"
+            (change)="fireLayerChangedEvent(subLayer.code, $event.target.checked)"
+            title="{{subLayer.description}}"
+            name="show_layer_{{subLayer.code}}">{{ subLayer.label }}<br>
+        </li>
+      </ul>
+    </li>
+  </ul>
 </div>
