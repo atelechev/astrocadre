@@ -31,7 +31,7 @@ public class ConstellationLinesReaderTest {
 
     System.out.println(json);
 
-    JsonUtils.outputJson(json, "constellation_lines");
+    JsonUtils.outputJson(json, "constellation-lines");
   }
 
 }

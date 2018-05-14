@@ -35,7 +35,7 @@ public class ConstellationBoundaryReaderTest {
 
     System.out.println(json);
 
-    outputJson(json, "constellation_boundaries");
+    outputJson(json, "constellation-boundaries");
   }
 
   @Test
@@ -45,7 +45,7 @@ public class ConstellationBoundaryReaderTest {
     final String json = mapper.writeValueAsString(allSegments);
     System.out.println(json);
 
-    outputJson(json, "constellation_boundaries");
+    outputJson(json, "constellation-boundaries");
   }
 
   private List<Segment> asSegments(List<Boundary> boundaries) {
@@ -82,7 +82,7 @@ public class ConstellationBoundaryReaderTest {
     final String json = mapper.writeValueAsString(segments);
     System.out.println(json);
 
-    outputJson(json, "constellation_boundaries");
+    outputJson(json, "constellation-boundaries");
   }
 
 

@@ -47,7 +47,7 @@ public class StarsReaderTest {
     try {
       System.out.println(String.format("%1$s stars for magnitude class %2$s", stars.size(), magClass));
       final String json = MAPPER.writeValueAsString(stars);
-      final String fileName = String.format("stars_mag%1$s", magClass);
+      final String fileName = String.format("stars-mag%1$s", magClass);
       JsonUtils.outputJson(json, fileName);
     } catch (IOException ex) {
       throw new IllegalStateException(ex);
