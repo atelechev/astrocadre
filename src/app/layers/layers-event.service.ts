@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs/Subject';
 import { LayerVisibility } from '../core/layer-visibility';
+import { ItemsTreeNode } from '../core/items-tree-node';
 
 
 @Injectable()
@@ -8,7 +9,7 @@ export class LayersEventService {
 
   private broadcastLayerLoaded = new Subject<string>();
 
-  private requestLayerLoad = new Subject<string>();
+  private requestLayerLoad = new Subject<ItemsTreeNode>();
 
   private requestLayerVisibility = new Subject<LayerVisibility>();
 
@@ -26,7 +27,7 @@ export class LayersEventService {
     this.broadcastLayerLoaded.next(layer);
   }
 
-  public loadLayerRequested(layer: string): void {
+  public loadLayerRequested(layer: ItemsTreeNode): void {
     this.requestLayerLoad.next(layer);
   }
 

@@ -5,6 +5,7 @@ import { MergedAxialCurves } from './geometry/merged-axial-curves';
 import { Layers } from '../core/layers';
 import { Theme } from '../core/theme';
 import { Constants } from '../core/constants';
+import { ItemsTreeNode } from '../core/items-tree-node';
 
 export class SkyGridLayer extends RenderableLayer {
 
@@ -24,8 +25,8 @@ export class SkyGridLayer extends RenderableLayer {
 
   private objects: Object3D[];
 
-  constructor() {
-    super();
+  constructor(tree: ItemsTreeNode) {
+    super(tree);
     this.commonMeridians = this.generateCommonMeridianSegments();
     this.commonParallels = this.generateCommonParallelSegments();
     this.referenceMeridian = this.generateReferenceMeridianSegments();
@@ -80,10 +81,6 @@ export class SkyGridLayer extends RenderableLayer {
     return this.objects;
   }
 
-  public getName(): string {
-    return Layers.SKY_GRID;
-  }
-
   private setCommonLinesMaterial(material: Material): void {
     this.commonParallels.material = material;
     this.commonMeridians.material = material;
@@ -96,7 +93,7 @@ export class SkyGridLayer extends RenderableLayer {
     material.needsUpdate = true;
   }
 
-  public useTheme(theme: Theme): void {
+  protected useThemeForThis(theme: Theme): void {
     const materials = theme.getMaterialsForLayer(this.getName());
     this.setCommonLinesMaterial(materials.get('line-common'));
     this.setReferenceLinesMaterial(materials.get('line-reference'));

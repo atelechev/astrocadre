@@ -6,6 +6,7 @@ import { LayersFactoryService } from './layers-factory.service';
 import { StarsLayer } from './stars-layer';
 import { LayersEventService } from './layers-event.service';
 import { LayerVisibility } from '../core/layer-visibility';
+import { ItemsTreeNode } from '../core/items-tree-node';
 
 @Component({
   selector: 'app-sky-view-layers',
@@ -19,12 +20,9 @@ export class LayersComponent implements ThemeAware, OnInit {
 
   private loadedLayers: Map<string, RenderableLayer>;
 
-  private activeLayers: Set<string>;
-
   constructor(private layersFactory: LayersFactoryService,
               private layersEventService: LayersEventService) {
     this.loadedLayers = new Map<string, RenderableLayer>();
-    this.activeLayers = new Set<string>();
   }
 
   public getLayer(layer: string): RenderableLayer {
@@ -37,7 +35,7 @@ export class LayersComponent implements ThemeAware, OnInit {
     });
   }
 
-  private loadLayer(layer: string): void {
+  private loadLayer(layer: ItemsTreeNode): void {
     this.layersFactory.newRenderableLayer(layer).subscribe(
       (loadedLayer: RenderableLayer) => {
         this.loadedLayers.set(loadedLayer.getName(), loadedLayer);
@@ -47,42 +45,29 @@ export class LayersComponent implements ThemeAware, OnInit {
     );
   }
 
-  private setVisible(code: string, visible: boolean): void {
-    const layer = this.getLayer(code);
-    if (layer) {
-      layer.setVisible(visible);
-    }
+  private updateHierachicalVisibility(layer: RenderableLayer, visible: boolean): void {
+    layer.setVisible(visible);
+    this.collectChildren(layer).forEach(child => this.updateHierachicalVisibility(child, visible));
   }
 
-  private updateLayersVisibility(): void {
-    this.loadedLayers.forEach((layer: RenderableLayer, code: string) => {
-      const visible = this.activeLayers.has(code);
-      layer.setVisible(visible);
-    });
+  private collectChildren(layer: RenderableLayer): Array<RenderableLayer> {
+    return Array.from(this.loadedLayers.values()).filter(l => l.isChildOf(layer));
   }
 
   private subscribeLayerLoadRequestEvent(): void {
     this.layersEventService.requestLayerLoad$.subscribe(
-      (code: string) => this.loadLayer(code)
+      (layer: ItemsTreeNode) => this.loadLayer(layer)
     );
   }
 
   private subscribeLayerVisibilityRequestEvent(): void {
     this.layersEventService.requestLayerVisibility$.subscribe(
       (lv: LayerVisibility) => {
-        if (lv.visible) {
-          this.activeLayers.add(lv.layer);
-        } else {
-          this.activeLayers.delete(lv.layer);
+        const layer = this.getLayer(lv.layer);
+        if (layer) {
+          this.updateHierachicalVisibility(layer, lv.visible);
         }
-        this.updateLayersVisibility();
       }
-    );
-  }
-
-  private subscribeLayerLoadedEvent(): void {
-    this.layersEventService.broadcastLayerLoaded$.subscribe(
-      (layer: string) => this.updateLayersVisibility()
     );
   }
 
@@ -100,7 +85,6 @@ export class LayersComponent implements ThemeAware, OnInit {
   public ngOnInit(): void {
     this.subscribeLayerLoadRequestEvent();
     this.subscribeLayerVisibilityRequestEvent();
-    this.subscribeLayerLoadedEvent();
     this.subscribeStarsMagnitudeRequestEvent();
   }
 

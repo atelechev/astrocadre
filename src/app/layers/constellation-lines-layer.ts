@@ -4,6 +4,7 @@ import { MergedLines } from './geometry/merged-lines';
 import { Layers } from '../core/layers';
 import { Theme } from '../core/theme';
 import { Constants } from '../core/constants';
+import { ItemsTreeNode } from '../core/items-tree-node';
 
 export class ConstellationLinesLayer extends RenderableLayer {
 
@@ -11,8 +12,9 @@ export class ConstellationLinesLayer extends RenderableLayer {
 
   private objects: Object3D[];
 
-  constructor(rawSegments: number[][]) {
-    super();
+  constructor(tree: ItemsTreeNode,
+              rawSegments: number[][]) {
+    super(tree);
     this.mergedLines = new MergedLines(rawSegments, Constants.WORLD_RADIUS - 0.02).toObject3D();
     this.objects = [ this.mergedLines ];
   }
@@ -21,11 +23,7 @@ export class ConstellationLinesLayer extends RenderableLayer {
     return this.objects;
   }
 
-  public getName(): string {
-    return Layers.CONSTELLATION_LINES;
-  }
-
-  public useTheme(theme: Theme): void {
+  protected useThemeForThis(theme: Theme): void {
     const materials = theme.getMaterialsForLayer(this.getName());
     const material = materials.get('line-common');
     this.mergedLines.material = material;
