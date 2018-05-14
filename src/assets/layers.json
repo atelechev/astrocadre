@@ -8,22 +8,86 @@
       "selected": true
     },
     {
-      "code": "constellation-boundaries",
-      "label": "Constellation boundaries",
-      "description": "Boundaries of constellations",
-      "selected": true
-    },
-    {
-      "code": "constellation-lines",
-      "label": "Constellation lines",
-      "description": "Lines between stars in constellations",
-      "selected": true
+      "code": "constellations",
+      "label": "Constellations",
+      "description": "Constellations visualisation and data",
+      "selected": true,
+      "items": [
+        {
+          "code": "constellation-boundaries",
+          "label": "Boundaries",
+          "description": "Boundaries of constellations",
+          "selected": true
+        },
+        {
+          "code": "constellation-lines",
+          "label": "Lines",
+          "description": "Lines between stars in constellations",
+          "selected": true
+        }
+      ]
     },
     {
       "code": "stars",
       "label": "Stars",
-      "description": "Stars",
-      "selected": true
+      "description": "Stars visualisation and data",
+      "selected": true,
+      "items": [
+        {
+          "code": "stars-mag2.0",
+          "label": "Magnitude < 2.0",
+          "description": "Stars of magnitude less or equal to 2.0",
+          "selected": true
+        },
+        {
+          "code": "stars-mag2.5",
+          "label": "Magnitude 2.0 <-> 2.5",
+          "description": "Stars of magnitude between 2.0 and 2.5",
+          "selected": true
+        },
+        {
+          "code": "stars-mag3.0",
+          "label": "Magnitude 2.5 <-> 3.0",
+          "description": "Stars of magnitude between 2.5 and 3.0",
+          "selected": true
+        },
+        {
+          "code": "stars-mag3.5",
+          "label": "Magnitude 3.0 <-> 3.5",
+          "description": "Stars of magnitude between 3.0 and 3.5",
+          "selected": true
+        },
+        {
+          "code": "stars-mag4.0",
+          "label": "Magnitude 3.5 <-> 4.0",
+          "description": "Stars of magnitude between 3.5 and 4.0",
+          "selected": true
+        },
+        {
+          "code": "stars-mag4.5",
+          "label": "Magnitude 4.0 <-> 4.5",
+          "description": "Stars of magnitude between 4.0 and 4.5",
+          "selected": true
+        },
+        {
+          "code": "stars-mag5.0",
+          "label": "Magnitude 4.5 <-> 5.0",
+          "description": "Stars of magnitude between 4.5 and 5.0",
+          "selected": true
+        },
+        {
+          "code": "stars-mag5.5",
+          "label": "Magnitude 5.0 <-> 5.5",
+          "description": "Stars of magnitude between 5.0 and 5.5",
+          "selected": true
+        },
+        {
+          "code": "stars-mag6.0",
+          "label": "Magnitude > 5.5",
+          "description": "Stars of magnitude between 5.5 and more",
+          "selected": true
+        }
+      ]
     }
   ]
 }
