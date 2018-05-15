@@ -5,6 +5,7 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/observable/forkJoin';
 import { AbstractService } from '../core/abstract-service';
 import { Constants } from '../core/constants';
+import { ConstellationMetadata } from './constellation-metadata';
 
 
 @Injectable()
@@ -26,6 +27,11 @@ export class StarsService extends AbstractService {
 
   public getStarsByMagnitudeClass(magnitudeClass: number): Observable<number[][]> {
     const url = `/assets/stars-mag${magnitudeClass.toFixed(1)}.json`;
+    return this.execGetRequestForUrl(url);
+  }
+
+  public getConstellationMetadata(): Observable<ConstellationMetadata[]> {
+    const url = '/assets/constellations.json';
     return this.execGetRequestForUrl(url);
   }
 

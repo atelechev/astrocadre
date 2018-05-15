@@ -11,6 +11,8 @@ import { StarsLayer } from './stars-layer';
 import { ConstellationsLayer } from './constellations-layer';
 import { StarsMagnitudeLayer } from './stars-magnitude-layer';
 import { ItemsTreeNode } from '../core/items-tree-node';
+import { ConstellationNamesLayer } from './constellation-names-layer';
+import { ConstellationMetadata } from './constellation-metadata';
 
 @Injectable()
 export class LayersFactoryService {
@@ -21,17 +23,19 @@ export class LayersFactoryService {
 
   private initConstellationBoundariesLayer(layer: ItemsTreeNode): Observable<RenderableLayer> {
     return this.starsService.getConstellationBoundaries().map(
-      (rawBoundaries: number[][]) => {
-        return new ConstellationBoundariesLayer(layer, rawBoundaries);
-      }
+      (rawBoundaries: number[][]) => new ConstellationBoundariesLayer(layer, rawBoundaries)
     );
   }
 
   private initConstellationLinesLayer(layer: ItemsTreeNode): Observable<RenderableLayer> {
     return this.starsService.getConstellationLines().map(
-      (rawSegments: number[][]) => {
-        return new ConstellationLinesLayer(layer, rawSegments);
-      }
+      (rawSegments: number[][]) => new ConstellationLinesLayer(layer, rawSegments)
+    );
+  }
+
+  private initConstellationNamesLayer(layer: ItemsTreeNode): Observable<RenderableLayer> {
+    return this.starsService.getConstellationMetadata().map(
+      (rawMetadata: ConstellationMetadata[]) => new ConstellationNamesLayer(layer, rawMetadata)
     );
   }
 
@@ -66,8 +70,11 @@ export class LayersFactoryService {
       case Layers.CONSTELLATION_LINES: {
         return this.initConstellationLinesLayer(layer);
       }
+      case Layers.CONSTELLATION_NAMES: {
+        return this.initConstellationNamesLayer(layer);
+      }
       default: {
-        throw new Error(`Unsupported layer: ${layer}`);
+        throw new Error(`Unsupported layer: ${layer.code}`);
       }
     }
   }

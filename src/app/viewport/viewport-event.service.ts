@@ -15,6 +15,8 @@ export class ViewportEventService {
 
   private requestAxisAlignment = new Subject<null>();
 
+  private broadcastViewportChanged = new Subject<null>();
+
   public readonly requestAxialRotation$ = this.requestAxialRotation.asObservable();
 
   public readonly requestCenterView$ = this.requestCenterView.asObservable();
@@ -22,6 +24,8 @@ export class ViewportEventService {
   public readonly requestFov$ = this.requestFov.asObservable();
 
   public readonly requestAxisAlignment$ = this.requestAxisAlignment.asObservable();
+
+  public readonly broadcastViewportChanged$ = this.broadcastViewportChanged.asObservable();
 
   public axialRotationRequested(axialRotation: AxialRotation): void {
     this.requestAxialRotation.next(axialRotation);
@@ -37,6 +41,10 @@ export class ViewportEventService {
 
   public axisAlignmentRequested(): void {
     this.requestAxisAlignment.next();
+  }
+
+  public viewportChanged(): void {
+    this.broadcastViewportChanged.next();
   }
 
 }

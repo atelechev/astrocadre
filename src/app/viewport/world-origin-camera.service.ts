@@ -68,6 +68,7 @@ export class WorldOriginCameraService extends AbstractCameraService {
     const camera = this.getCamera();
     camera.up = this.getAlignmentPoleCoordinate(coords.declination);
     camera.lookAt(VectorUtil.toVector3(coords.rightAscension, coords.declination, Constants.WORLD_RADIUS));
+    this.viewportService.viewportChanged();
   }
 
   public rotate(rotation: AxialRotation): void {
@@ -75,12 +76,14 @@ export class WorldOriginCameraService extends AbstractCameraService {
     camera.rotateX(rotation.rx);
     camera.rotateY(rotation.ry);
     camera.rotateZ(rotation.rz);
+    this.viewportService.viewportChanged();
   }
 
   protected setFoV(range: number): void {
     const camera = <PerspectiveCamera> this.getCamera();
     camera.fov = parseInt('' + range, 10); // TODO weird
     camera.updateProjectionMatrix();
+    this.viewportService.viewportChanged();
   }
 
   protected alignNSAxis(): void {
@@ -88,6 +91,7 @@ export class WorldOriginCameraService extends AbstractCameraService {
     const viewCenter = this.getViewCenterCoordinates();
     camera.up = this.getAlignmentPoleCoordinate(viewCenter.z);
     camera.lookAt(viewCenter);
+    this.viewportService.viewportChanged();
   }
 
 }

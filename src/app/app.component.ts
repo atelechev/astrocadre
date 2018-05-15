@@ -7,6 +7,10 @@ import { LayersComponent } from './layers/layers.component';
 import { LayersEventService } from './layers/layers-event.service';
 import { LayerVisibility } from './core/layer-visibility';
 import { ThemesEventService } from './themes/themes-event.service';
+import { ViewportEventService } from './viewport/viewport-event.service';
+import { Layers } from './core/layers';
+import { ConstellationNamesLayer } from './layers/constellation-names-layer';
+import { TextLayer } from './core/text-layer';
 
 @Component({
   selector: `app-sky-view`,
@@ -35,7 +39,8 @@ export class AppComponent implements OnInit {
 
   constructor(private changeDetector: ChangeDetectorRef,
               private layersEventService: LayersEventService,
-              private themesEventService: ThemesEventService) {
+              private themesEventService: ThemesEventService,
+              private viewportEventService: ViewportEventService) {
     this.themeAwareComponents = new Array<ThemeAware>();
   }
 
@@ -48,6 +53,9 @@ export class AppComponent implements OnInit {
           layer.useTheme(theme);
         }
         this.viewportManager.addObjects(layer.getObjects());
+        if (layer instanceof TextLayer) {
+          this.viewportManager.addTextElements((<TextLayer> layer).getTextElements());
+        }
       }
     );
   }
@@ -63,11 +71,24 @@ export class AppComponent implements OnInit {
     );
   }
 
+  private subscribeCameraChangeEvent(): void {
+    this.viewportEventService.broadcastViewportChanged$.subscribe(
+      () => {
+        const constellationNames = <ConstellationNamesLayer> this.layersManager.getLayer(Layers.CONSTELLATION_NAMES);
+        if (constellationNames) {
+          const allLabels = constellationNames.getRenderableLabels();
+          this.viewportManager.showVisibleLabels(Layers.CONSTELLATION_NAMES, allLabels);
+        }
+      }
+    );
+  }
+
   public ngOnInit(): void {
     this.themeAwareComponents.push(this.viewportManager);
     this.themeAwareComponents.push(this.layersManager);
     this.subscribeLayerLoadedEvent();
     this.subscribeThemeLoadedEvent();
+    this.subscribeCameraChangeEvent();
     // necessary to avoid the nasty "Expression has changed after it was checked." error:
     this.changeDetector.detectChanges();
   }

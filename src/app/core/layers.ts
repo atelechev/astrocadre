@@ -10,6 +10,8 @@ export class Layers {
 
   public static readonly CONSTELLATION_LINES = 'constellation-lines';
 
+  public static readonly CONSTELLATION_NAMES = 'constellation-names';
+
   public static readonly STARS = 'stars';
 
 }

@@ -19,6 +19,13 @@
       "line": {
         "common": "rgb(204, 204, 204)"
       }
+    },
+    "names": {
+      "fontSize": "26px",
+      "fontFamily": "arial",
+      "fontStyle": "normal",
+      "fontWeight": "normal",
+      "color": "black"
     }
   },
   "stars": {

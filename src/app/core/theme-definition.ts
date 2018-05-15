@@ -1,3 +1,4 @@
+import { TextStyle } from './text-style';
 
 export interface ThemeDefinition {
 
@@ -8,7 +9,7 @@ export interface ThemeDefinition {
   skyGrid: {
     line: {
       common: string;
-      reference: string
+      reference: string;
     }
   };
   constellation: {
@@ -19,9 +20,10 @@ export interface ThemeDefinition {
     };
     lines: {
       line: {
-        common: string
+        common: string;
       }
-    }
+    };
+    names: TextStyle;
   };
   stars: {
     magnitudes: number[];

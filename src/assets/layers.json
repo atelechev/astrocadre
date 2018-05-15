@@ -24,6 +24,12 @@
           "label": "Lines",
           "description": "Lines between stars in constellations",
           "selected": true
+        },
+        {
+          "code": "constellation-names",
+          "label": "Names",
+          "description": "The names of the constellations",
+          "selected": true
         }
       ]
     },

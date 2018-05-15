@@ -44,10 +44,12 @@ export abstract class AbstractCameraService {
         this.getCamera().rotateY(deltaX); // the axes are strangely inversed!
         this.getCamera().rotateX(deltaY);
         rendererService.render(sceneService.getScene(), this.getCamera());
+        this.viewportService.viewportChanged();
       }
     });
     this.addMouseEventListener(rendererService, 'dblclick', (event: MouseEvent) => {
       this.alignNSAxis();
+      this.viewportService.viewportChanged();
     });
   }
 

@@ -1,6 +1,7 @@
 import { Color, Material, LineBasicMaterial, PointsMaterial, TextureLoader } from 'three';
 import { Layers } from '../core/layers';
 import { ThemeDefinition } from './theme-definition';
+import { TextStyle } from './text-style';
 
 export class Theme {
 
@@ -8,8 +9,11 @@ export class Theme {
 
   private materialsByLayer: Map<string, Map<string, Material>>;
 
+  private textStyleByLayer: Map<string, TextStyle>;
+
   constructor(private themeDef: ThemeDefinition) {
     this.materialsByLayer = this.initMaterialsMap();
+    this.textStyleByLayer = this.initTextStyles();
     this.backgroundColor = new Color(this.themeDef.background.color);
   }
 
@@ -20,6 +24,12 @@ export class Theme {
     materials.set(Layers.CONSTELLATION_LINES, this.getConstellationLinesMaterials());
     materials.set(Layers.STARS, this.getStarsMaterials());
     return materials;
+  }
+
+  private initTextStyles(): Map<string, TextStyle> {
+    const styles = new Map<string, TextStyle>();
+    styles.set(Layers.CONSTELLATION_NAMES, this.themeDef.constellation.names);
+    return styles;
   }
 
   private getSkyGridMaterials(): Map<string, Material> {
@@ -40,6 +50,7 @@ export class Theme {
     materials.set('line-common', new LineBasicMaterial({ color : this.themeDef.constellation.lines.line.common }));
     return materials;
   }
+
 
   private getStarsMaterials(): Map<string, Material> {
     const materials = new Map<string, Material>();
@@ -89,6 +100,13 @@ export class Theme {
       throw new Error(`Unexpected layer name: '${layer}'`);
     }
     return this.materialsByLayer.get(layer);
+  }
+
+  public getTextStyleForLayer(layer: string): TextStyle {
+    if (!this.textStyleByLayer.has(layer)) {
+      throw new Error(`Unexpected layer name: '${layer}'`);
+    }
+    return this.textStyleByLayer.get(layer);
   }
 
   public getMaterialForLayer(layer: string, materialKey: string): Material {
