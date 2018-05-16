@@ -1,5 +1,5 @@
 import { TextLayer } from '../core/text-layer';
-import { Object3D, Points } from 'three';
+import { Object3D } from 'three';
 import { Theme } from '../core/theme';
 import { ItemsTreeNode } from '../core/items-tree-node';
 import { ConstellationMetadata } from './constellation-metadata';
@@ -11,25 +11,21 @@ export class ConstellationNamesLayer extends TextLayer {
 
   private renderableLabels: Map<string, RenderableText>;
 
-  private allCenters: Array<Points>;
-
   private allHtmls: Array<HTMLElement>;
 
   constructor(tree: ItemsTreeNode,
-              private rawMetadata: ConstellationMetadata[]) {
+              rawMetadata: ConstellationMetadata[]) {
     super(tree);
-    this.initRenderableLabels();
+    this.initRenderableLabels(rawMetadata);
   }
 
-  private initRenderableLabels(): void {
+  private initRenderableLabels(rawMetadata: ConstellationMetadata[]): void {
     this.renderableLabels = new Map<string, RenderableText>();
-    this.allCenters = new Array<Points>();
     this.allHtmls = new Array<HTMLElement>();
-    this.rawMetadata.forEach(
+    rawMetadata.forEach(
       (constMeta: ConstellationMetadata) => {
         const renderable = this.toRenderableText(constMeta);
         this.renderableLabels.set(constMeta.code, renderable);
-        this.allCenters.push(renderable.getWorldPosition());
         this.allHtmls.push(renderable.getHtmlElement());
       });
   }
@@ -40,7 +36,7 @@ export class ConstellationNamesLayer extends TextLayer {
   }
 
   public getObjects(): Array<Object3D> {
-    return this.allCenters;
+    return [];
   }
 
   public getTextElements(): Array<HTMLElement> {

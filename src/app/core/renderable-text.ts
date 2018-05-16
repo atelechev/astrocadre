@@ -1,26 +1,40 @@
-import { Vector3, Points, BufferGeometry } from 'three';
+import { Vector3 } from 'three';
 import { Theme } from './theme';
 
 export class RenderableText {
 
-  private worldPosition: Points;
+  private static readonly MEASURE_CANVAS = document.createElement('canvas');
 
   private htmlElement: HTMLElement;
 
+  // half width of the rendered text
+  private widthOffset: number;
+
+  // half height of the rendered text
+  private heightOffset: number;
+
   constructor(private readonly parentLayer: string,
-              position: Vector3,
-              text: string) {
-    this.worldPosition = this.toPoints(position);
+              public readonly position: Vector3,
+              private text: string) {
     this.htmlElement = this.initHtmlElement(parentLayer, text);
+    this.widthOffset = 0;
+    this.heightOffset = 0;
   }
 
-  private toPoints(position: Vector3): Points {
-    const geometry = new BufferGeometry();
-    geometry.setFromPoints([ position ]);
-    const point = new Points(geometry);
-    point.visible = true; // TODO disable
-    point.updateMatrixWorld(true);
-    return point;
+  private updateOffsets(): void {
+    const context = RenderableText.MEASURE_CANVAS.getContext('2d');
+    context.font = this.getFontStyleForMetrics();
+    const textWidth = context.measureText(this.text).width;
+    if (textWidth) {
+      this.widthOffset = Math.ceil(textWidth) / 2;
+    }
+    const fontSize = this.htmlElement.style.fontSize;
+    this.heightOffset = parseInt(fontSize.substring(0, fontSize.length - 2), 10) / 2;
+  }
+
+  private getFontStyleForMetrics(): string {
+    const style = this.htmlElement.style;
+    return `${style.fontStyle} ${style.fontWeight} ${style.fontSize} ${style.fontFamily}`;
   }
 
   private initHtmlElement(parentLayer: string, text: string): HTMLElement {
@@ -28,10 +42,6 @@ export class RenderableText {
     element.className = 'label_' + parentLayer;
     element.textContent = text;
     return element;
-  }
-
-  public getWorldPosition(): Points {
-    return this.worldPosition;
   }
 
   public getHtmlElement(): HTMLElement {
@@ -48,11 +58,20 @@ export class RenderableText {
     style.fontWeight = labelStyle.fontWeight;
     style.color = labelStyle.color;
     style.zIndex = '100';
+    this.updateOffsets();
   }
 
   public setVisible(visible: boolean): void {
     const displayVisibility = visible ? 'initial' : 'none';
     this.htmlElement.style.display = displayVisibility;
+  }
+
+  public getWidthOffset(): number {
+    return this.widthOffset;
+  }
+
+  public getHeightOffset(): number {
+    return this.heightOffset;
   }
 
 }

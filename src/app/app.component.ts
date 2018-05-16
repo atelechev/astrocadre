@@ -66,6 +66,7 @@ export class AppComponent implements OnInit {
         const theme = this.themesManager.getActiveTheme();
         if (theme) {
           this.themeAwareComponents.forEach(component => component.useTheme(theme));
+          this.viewportEventService.viewportChanged();
         }
       }
     );
@@ -73,12 +74,29 @@ export class AppComponent implements OnInit {
 
   private subscribeCameraChangeEvent(): void {
     this.viewportEventService.broadcastViewportChanged$.subscribe(
-      () => {
-        const constellationNames = <ConstellationNamesLayer> this.layersManager.getLayer(Layers.CONSTELLATION_NAMES);
-        if (constellationNames) {
-          const allLabels = constellationNames.getRenderableLabels();
-          this.viewportManager.showVisibleLabels(Layers.CONSTELLATION_NAMES, allLabels);
-        }
+      () => Layers.TEXT_LAYERS.forEach(
+        textLayer => this.updateLabelsVisibility(textLayer)
+      )
+    );
+  }
+
+  private updateLabelsVisibility(textLayer: string): void {
+    const layer = this.layersManager.getLayer(textLayer);
+    if (layer && layer instanceof TextLayer) {
+      const tLayer = <TextLayer> layer;
+      if (tLayer.isVisible()) {
+        this.viewportManager.showVisibleLabels(tLayer.getName(), tLayer.getRenderableLabels());
+      } else {
+        this.viewportManager.hideLabelsByLayer(textLayer);
+      }
+    }
+  }
+
+  private subscribeLayerVisibilityEvent(): void {
+    this.layersEventService.requestLayerVisibility$.subscribe(
+      (lv: LayerVisibility) => {
+        this.layersManager.updateLayerVisibility(lv);
+        this.updateLabelsVisibility(lv.layer);
       }
     );
   }
@@ -88,6 +106,7 @@ export class AppComponent implements OnInit {
     this.themeAwareComponents.push(this.layersManager);
     this.subscribeLayerLoadedEvent();
     this.subscribeThemeLoadedEvent();
+    this.subscribeLayerVisibilityEvent();
     this.subscribeCameraChangeEvent();
     // necessary to avoid the nasty "Expression has changed after it was checked." error:
     this.changeDetector.detectChanges();

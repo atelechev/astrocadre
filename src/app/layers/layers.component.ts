@@ -61,15 +61,11 @@ export class LayersComponent implements ThemeAware, OnInit {
     );
   }
 
-  private subscribeLayerVisibilityRequestEvent(): void {
-    this.layersEventService.requestLayerVisibility$.subscribe(
-      (lv: LayerVisibility) => {
-        const layer = this.getLayer(lv.layer);
-        if (layer) {
-          this.updateHierachicalVisibility(layer, lv.visible);
-        }
-      }
-    );
+  public updateLayerVisibility(lv: LayerVisibility): void {
+    const layer = this.getLayer(lv.layer);
+    if (layer) {
+      this.updateHierachicalVisibility(layer, lv.visible);
+    }
   }
 
   private subscribeStarsMagnitudeRequestEvent(): void {
@@ -93,7 +89,6 @@ export class LayersComponent implements ThemeAware, OnInit {
 
   public ngOnInit(): void {
     this.subscribeLayerLoadRequestEvent();
-    this.subscribeLayerVisibilityRequestEvent();
     this.subscribeStarsMagnitudeRequestEvent();
   }
 

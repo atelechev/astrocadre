@@ -14,4 +14,14 @@ export class Layers {
 
   public static readonly STARS = 'stars';
 
+  public static readonly TEXT_LAYERS = [
+    Layers.CONSTELLATION_NAMES
+  ];
+
+  public static readonly OBJECT_LAYERS = [
+    Layers.SKY_GRID,
+    Layers.CONSTELLATIONS,
+    Layers.STARS
+  ];
+
 }

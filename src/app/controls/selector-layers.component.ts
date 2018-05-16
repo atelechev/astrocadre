@@ -57,25 +57,58 @@ export class SelectorLayersComponent implements AfterViewInit {
   private initAvailableLayer(layer: SelectableItem): void {
     this.layersEventService.loadLayerRequested(layer.asItemsTree());
     layer.items.forEach(subLayer => this.initAvailableLayer(SelectableItem.from(subLayer)));
-    this.fireLayerChangedEvent(layer.code, layer.selected);
   }
 
   public fireLayerChangedEvent(layerCode: string, visible: boolean): void {
-    this.layersEventService.layerVisibleRequested({ layer: layerCode, visible: visible });
+    this.requestLayerVisibility(layerCode, visible);
     this.updateSelectorRecursively(this.availableLayers.find(layer => layer.code === layerCode), visible);
+  }
+
+  private requestLayerVisibility(layerCode: string, visible: boolean): void {
+    this.layersEventService.layerVisibleRequested({ layer: layerCode, visible: visible });
   }
 
   private updateSelectorRecursively(layer: SelectableItem, visible: boolean): void {
     if (layer && layer.items) {
       layer.items.forEach(subLayer => {
         subLayer.selected = visible;
+        this.requestLayerVisibility(subLayer.code, visible);
         this.updateSelectorRecursively(subLayer, visible);
       });
     }
   }
 
+  private findLayerInSelectableItems(layer: string, items: Array<SelectableItem>): SelectableItem {
+    if (items) {
+      for (let i = 0; i < items.length; i++) {
+        const item = items[i];
+        if (item.code === layer) {
+          return item;
+        } else {
+          const foundAmongChildren = this.findLayerInSelectableItems(layer, item.items);
+          if (foundAmongChildren) {
+            return foundAmongChildren;
+          }
+        }
+      }
+    }
+    return undefined;
+  }
+
+  private subscribeLayerLoaded(): void {
+    this.layersEventService.broadcastLayerLoaded$.subscribe(
+      (layer: string) => {
+        const layerItem = this.findLayerInSelectableItems(layer, this.availableLayers);
+        if (layerItem) {
+          this.fireLayerChangedEvent(layer, layerItem.selected);
+        }
+      }
+    );
+  }
+
   public ngAfterViewInit(): void {
     this.initAvailableLayers();
+    this.subscribeLayerLoaded();
   }
 
 }

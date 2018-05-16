@@ -6,8 +6,10 @@ import { RendererService } from './renderer.service';
 import { SceneService } from './scene.service';
 import { Theme } from '../core/theme';
 import { ThemeAware } from '../core/theme-aware';
-import { Object3D, Math as ThreeMath, Camera, Points, Frustum, Matrix4, Vector3 } from 'three';
+import { Object3D, Math as ThreeMath, Camera, Frustum, Matrix4, Vector3, Sphere } from 'three';
 import { RenderableText } from '../core/renderable-text';
+import { Observable } from 'rxjs/Observable';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
 @Component({
   selector: `app-sky-view-viewport`,
@@ -77,16 +79,22 @@ export class ViewportComponent implements AfterViewInit, ThemeAware {
     return Constants.VIEW_HEIGHT;
   }
 
-  private hideLabelsByLayer(layer: string): void {
+  public hideLabelsByLayer(layer: string): void {
     const labelClass = 'label_' + layer;
     const allChildren = <HTMLCollection> this.skyViewViewport.nativeElement.children;
     const length = allChildren.length;
     for (let i = 0; i < length; i++) {
       const child = <HTMLElement> allChildren.item(i);
       if (child && child.getAttribute('class') === labelClass) {
-        child.style.display = 'none';
+        this.hideLabel(child.style);
       }
     }
+  }
+
+  private hideLabel(style: CSSStyleDeclaration): void {
+    style.display = 'none';
+    style.top = '';
+    style.left = '';
   }
 
   public showVisibleLabels(layer: string, labels: Map<string, RenderableText>): void {
@@ -94,29 +102,35 @@ export class ViewportComponent implements AfterViewInit, ThemeAware {
     const camera = this.cameraService.getCamera();
     camera.updateMatrix();
     camera.updateMatrixWorld(true);
+    const frustum = this.initFrustum();
     labels.forEach(
       (renderable: RenderableText, code: string) => {
-        const center = renderable.getWorldPosition();
-        if (!this.isPointBehind(center, code)) {
-          const onScreenPosition = this.getOnscreenPosition(center);
+        if (!this.isPointBehind(frustum, renderable.position)) {
+          const onScreenPosition = this.getOnscreenPosition(renderable.position);
           if (this.isPointOnScreen(onScreenPosition)) {
-            this.setLabelPositionAndShow(renderable.getHtmlElement(), onScreenPosition);
+            this.setLabelPositionAndShow(renderable, onScreenPosition);
           }
         }
       }
     );
   }
 
-  private isPointBehind(point: Points, code: string): boolean {
-    const frustrum = new Frustum();
+  private initFrustum(): Frustum {
+    const frustum = new Frustum();
     const camera = this.cameraService.getCamera();
-    frustrum.setFromMatrix(new Matrix4().multiplyMatrices(camera.projectionMatrix, camera.matrixWorldInverse));
-    const res1 = frustrum.containsPoint(point.position);
-    return !frustrum.containsPoint(point.geometry.boundingSphere.center);
+    frustum.setFromMatrix(new Matrix4().multiplyMatrices(camera.projectionMatrix, camera.matrixWorldInverse));
+    return frustum;
   }
 
-  private getOnscreenPosition(point: Points): Vector3 {
-    const onScreen = point.geometry.boundingSphere.center.clone();
+  private isPointBehind(frustum: Frustum, point: Vector3): boolean {
+    if (!point) {
+      return true;
+    }
+    return !frustum.containsPoint(point);
+  }
+
+  private getOnscreenPosition(point: Vector3): Vector3 {
+    const onScreen = point.clone();
     onScreen.project(this.cameraService.getCamera());
     onScreen.x = (onScreen.x * this.halfWidth) + this.halfWidth;
     onScreen.y = - (onScreen.y * this.halfHeight) + this.halfHeight;
@@ -131,10 +145,11 @@ export class ViewportComponent implements AfterViewInit, ThemeAware {
            position.y < this.getViewportHeight();
   }
 
-  private setLabelPositionAndShow(label: HTMLElement, position: Vector3): void {
-    label.style.top = Math.floor(position.y) + 'px';
-    label.style.left = Math.floor(position.x) + 'px';
-    label.style.display = 'initial';
+  private setLabelPositionAndShow(renderable: RenderableText, position: Vector3): void {
+    const style = renderable.getHtmlElement().style;
+    style.top = Math.floor(position.y - renderable.getHeightOffset()) + 'px';
+    style.left = Math.floor(position.x - renderable.getWidthOffset()) + 'px';
+    style.display = 'initial';
   }
 
 }

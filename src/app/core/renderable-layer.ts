@@ -5,6 +5,8 @@ import { ItemsTreeNode } from './items-tree-node';
 
 export abstract class RenderableLayer implements ThemeAware {
 
+  private visible: boolean;
+
   constructor(protected readonly tree: ItemsTreeNode) {
 
   }
@@ -17,18 +19,17 @@ export abstract class RenderableLayer implements ThemeAware {
 
   public useTheme(theme: Theme): void {
     this.useThemeForThis(theme);
-    this.getSubLayers().forEach(layer => layer.useTheme(theme));
   }
 
   protected abstract useThemeForThis(theme: Theme): void;
 
-  public getSubLayers(): RenderableLayer[] {
-    return [];
+  public setVisible(visible: boolean): void {
+    this.visible = visible;
+    this.getObjects().forEach(object => object.visible = visible);
   }
 
-  public setVisible(visible: boolean): void {
-    this.getObjects().forEach(object => object.visible = visible);
-    this.getSubLayers().forEach(layer => layer.setVisible(visible));
+  public isVisible(): boolean {
+    return this.visible;
   }
 
   public isParentOf(other: RenderableLayer): boolean {

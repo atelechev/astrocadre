@@ -1,5 +1,6 @@
 import { RenderableLayer } from './renderable-layer';
 import { ItemsTreeNode } from './items-tree-node';
+import { RenderableText } from './renderable-text';
 
 export abstract class TextLayer extends RenderableLayer {
 
@@ -9,10 +10,6 @@ export abstract class TextLayer extends RenderableLayer {
 
   public abstract getTextElements(): Array<HTMLElement>;
 
-  public setVisible(visible: boolean): void {
-    super.setVisible(visible);
-    this.getTextElements().forEach(
-      htmlElement => htmlElement.style.display = 'none');
-  }
+  public abstract getRenderableLabels(): Map<string, RenderableText>;
 
 }
