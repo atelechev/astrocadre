@@ -2,6 +2,7 @@ import { Component, AfterViewInit } from '@angular/core';
 import { SearchableItem } from './searchable-item';
 import { ControlsService } from './controls.service';
 import { ViewportEventService } from '../viewport/viewport-event.service';
+import { SkyCoordinate } from '../core/sky-coordinate';
 
 @Component({
   selector: `app-sky-view-controls-go-to`,
@@ -10,6 +11,8 @@ import { ViewportEventService } from '../viewport/viewport-event.service';
   providers: []
 })
 export class GoToComponent implements AfterViewInit {
+
+  private readonly coordinates = /(\d+(?:[.,]\d*)?)\s+(-?\d+(?:[.,]\d*)?)/i;
 
   private searchText: string;
 
@@ -33,15 +36,38 @@ export class GoToComponent implements AfterViewInit {
     if (this.goToButtonDisabled) {
       return;
     }
-    const searchTextNormalized = this.normalizeString(this.searchText);
-    if (this.searchableItems.has(searchTextNormalized)) {
-      const item = this.searchableItems.get(searchTextNormalized);
-      const goToCoord = { rightAscension: item.ra, declination: item.dec };
+    const goToCoord = this.parseSearchText();
+    if (goToCoord) {
       this.resetSearchInputCssClass();
       this.viewportEventService.centerViewRequested(goToCoord);
     } else {
       this.searchNoResultsClass = 'searchtext-input-invalid';
     }
+  }
+
+  private parseSearchText(): SkyCoordinate {
+    const directCoordinates = this.searchTextToCoordinate();
+    if (directCoordinates) {
+      return directCoordinates;
+    }
+    const searchTextNormalized = this.normalizeString(this.searchText);
+    if (this.searchableItems.has(searchTextNormalized)) {
+      const item = this.searchableItems.get(searchTextNormalized);
+      return this.toSkyCoordinate(item.ra, item.dec);
+    }
+    return undefined;
+  }
+
+  private toSkyCoordinate(ra: number, dec: number): SkyCoordinate {
+    return { rightAscension: ra, declination: dec };
+  }
+
+  private searchTextToCoordinate(): SkyCoordinate {
+    const matches = this.searchText.match(this.coordinates);
+    if (matches && matches.length === 3) {
+      return this.toSkyCoordinate(parseFloat(matches[0]), parseFloat(matches[1]));
+    }
+    return undefined;
   }
 
   private normalizeString(value: string): string {
