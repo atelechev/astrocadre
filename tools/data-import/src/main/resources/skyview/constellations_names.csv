@@ -1,0 +1,179 @@
+constellation_code,lang,name
+AND,la,Andromeda
+AND,en,Andromeda
+ANT,la,Antlia
+ANT,en,Pump
+APS,la,Apus
+APS,en,Bird of Paradise
+AQR,la,Aquarius
+AQR,en,Aquarius
+AQL,la,Aquila
+AQL,en,Eagle
+ARA,la,Ara
+ARA,en,Altar
+ARI,la,Aries
+ARI,en,Ram
+AUR,la,Auriga
+AUR,en,Charioteer
+BOO,la,Bootes
+BOO,en,Herdsman
+CAE,la,Caelum
+CAE,en,Chisel
+CAM,la,Camelopardalis
+CAM,en,Giraffe
+CNC,la,Cancer
+CNC,en,Cancer
+CVN,la,Canes Venatici
+CVN,en,Hunting Dogs
+CMA,la,Canis Major
+CMA,en,Greater Dog
+CMI,la,Canis Minor
+CMI,en,Lesser Dog
+CAP,la,Capricornus
+CAP,en,Sea Goat
+CAR,la,Carina
+CAR,en,Keel
+CAS,la,Cassiopeia
+CAS,en,Cassiopeia
+CEN,la,Centaurus
+CEN,en,Centaur
+CEP,la,Cepheus
+CEP,en,Cepheus
+CET,la,Cetus
+CET,en,Whale
+CHA,la,Chamaeleon
+CHA,en,Chameleon
+CIR,la,Circinus
+CIR,en,Compass
+COL,la,Columba
+COL,en,Dove
+COM,la,Coma Berenices
+COM,en,Berenices's Hair
+CRA,la,Corona Australis
+CRA,en,Southern Crown
+CRB,la,Corona Borealis
+CRB,en,Nothern Crown
+CRV,la,Corvus
+CRV,en,Crow
+CRT,la,Crater
+CRT,en,Cup
+CRU,la,Crux
+CRU,en,Southern Cross
+CYG,la,Cygnus
+CYG,en,Swan
+DEL,la,Delphinus
+DEL,en,Dolphin
+DOR,la,Dorado
+DOR,en,Swordfish
+DRA,la,Draco
+DRA,en,Dragon
+EQU,la,Equuleus
+EQU,en,Pony
+ERI,la,Eridanus
+ERI,en,Eridanus
+FOR,la,Fornax
+FOR,en,Brazier
+GEM,la,Gemini
+GEM,en,Twins
+GRU,la,Grus
+GRU,en,Crane
+HER,la,Hercules
+HER,en,Heracles
+HOR,la,Horologium
+HOR,en,Pendulum Clock
+HYA,la,Hydra
+HYA,en,Hydra
+HYI,la,Hydrus
+HYI,en,Water Snake
+IND,la,Indus
+IND,en,Indian
+LAC,la,Lacerta
+LAC,en,Lizard
+LEO,la,Leo
+LEO,en,Lion
+LMI,la,Leo Minor
+LMI,en,Lesser Lion
+LEP,la,Lepus
+LEP,en,Hare
+LIB,la,Libra
+LIB,en,Balance
+LUP,la,Lupus
+LUP,en,Wolf
+LYN,la,Lynx
+LYN,en,Lynx
+LYR,la,Lyra
+LYR,en,Lyre
+MEN,la,Mensa
+MEN,en,Table
+MIC,la,Microscopium
+MIC,en,Microscope
+MON,la,Monoceros
+MON,en,Unicorn
+MUS,la,Musca
+MUS,en,Fly
+NOR,la,Norma
+NOR,en,Carpenter's Square
+OCT,la,Octans
+OCT,en,Octant
+OPH,la,Ophiuchus
+OPH,en,Serpent Bearer
+ORI,la,Orion
+ORI,en,Orion
+PAV,la,Pavo
+PAV,en,Peacock
+PEG,la,Pegasus
+PEG,en,Pegasus
+PER,la,Perseus
+PER,en,Perseus
+PHE,la,Phoenix
+PHE,en,Phoenix
+PIC,la,Pictor
+PIC,en,Easel
+PSC,la,Pisces
+PSC,en,Fishes
+PSA,la,Piscis Austrinus
+PSA,en,Southern Fish
+PUP,la,Puppis
+PUP,en,Poop Deck
+PYX,la,Pyxis
+PYX,en,Compass box
+RET,la,Reticulum
+RET,en,Reticle
+SGE,la,Sagitta
+SGE,en,Arrow
+SGR,la,Sagittarius
+SGR,en,Sagittarius
+SCO,la,Scorpius
+SCO,en,Scorpion
+SCL,la,Sculptor
+SCL,en,Sculptor
+SCT,la,Scutum
+SCT,en,Shield
+SER1,la,Serpens
+SER1,en,Snake
+SER2,la,Serpens
+SER2,en,Snake
+SEX,la,Sextans
+SEX,en,Sextant
+TAU,la,Taurus
+TAU,en,Taurus
+TEL,la,Telescopium
+TEL,en,Telescope
+TRI,la,Triangulum
+TRI,en,Triangle
+TRA,la,Triangulum Australe
+TRA,en,Southern Triangle
+TUC,la,Tucana
+TUC,en,Toucan
+UMA,la,Ursa Major
+UMA,en,Great Bear
+UMI,la,Ursa Minor
+UMI,en,Little Bear
+VEL,la,Vela
+VEL,en,Sails
+VIR,la,Virgo
+VIR,en,Virgin
+VOL,la,Volans
+VOL,en,Flying Fish
+VUL,la,Vulpecula
+VUL,en,Fox

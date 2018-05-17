@@ -2,6 +2,9 @@ package fr.atelechev.skyview.tools.dataimport;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
+
+import java.util.List;
+
 import static fr.atelechev.skyview.tools.dataimport.CsvUtil.parseDouble;
 
 @Data
@@ -15,6 +18,9 @@ public class Constellation {
 
   @JsonProperty("dec")
   private double centerDec;
+
+  @JsonProperty("names")
+  private List<String> names;
 
   public static Constellation fromCsvRow(String csvRow) {
     final String[] rowSplit =  CsvUtil.split(csvRow, 4);

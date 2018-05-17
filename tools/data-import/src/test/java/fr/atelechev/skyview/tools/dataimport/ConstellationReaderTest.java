@@ -13,12 +13,13 @@ import static org.junit.Assert.assertEquals;
 public class ConstellationReaderTest {
 
   private static final String CONSTELLATIONS_FILE = PathUtil.getResourceFilePath("/skyview/constellations_18.csv");
+  private static final String CONSTELLATIONS_NAMES_FILE = PathUtil.getResourceFilePath("/skyview/constellations_names.csv");
 
   private final ConstellationReader reader = new ConstellationReader();
 
   @Test
   public void parseAllConstellations() throws IOException {
-    final List<Constellation> allConstellations = reader.readConstellations(CONSTELLATIONS_FILE);
+    final List<Constellation> allConstellations = reader.readConstellations(CONSTELLATIONS_FILE, CONSTELLATIONS_NAMES_FILE);
     allConstellations.forEach(System.out::println);
     assertEquals(89, allConstellations.size());
 
