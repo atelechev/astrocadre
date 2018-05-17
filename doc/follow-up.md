@@ -92,18 +92,20 @@ To start the app:
   * Refactor layers model to support hierarchical structures
   * Render Constellation code labels
 
-### Next Steps
-
 * SV-013:
   * Use constellation names instead of codes in labels
   * GoTo should support selection by name. Selection by code to be also kept.
   * GoTo should allow selection by RA/DEC coordinate
 
+### Next Steps
+
+* SV-014:
+  * Show star names for those that have own names, as an enablable layer.
+  * Show Greek letters for stars identified with letters, as an enablable layer.
+
 #### Major Features
 
 * Export of current view as image
-* Star names for named stars, where applicable
-* Star Greek letters, where applicable
 
 #### Release and Distribution
 
