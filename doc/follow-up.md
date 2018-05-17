@@ -86,24 +86,35 @@ To start the app:
   * Search by constellation codes: the view is centered on the typed constellation.
   * extra: view alignment with NS axis, depending on hemisphere.
 
-### Next Steps
+### May 17th, 2018
 
 * SV-012:
   * Refactor layers model to support hierarchical structures
-  * Render Constellation names
+  * Render Constellation code labels
+
+### Next Steps
+
+* SV-013:
+  * Use constellation names instead of codes in labels
+  * GoTo should support selection by name. Selection by code to be also kept.
+  * GoTo should allow selection by RA/DEC coordinate
 
 #### Major Features
 
-* Star names
-* Current position of the Sun and of the Moon (probably, the planets also) - new layer
-* Messier objects layer
 * Export of current view as image
+* Star names for named stars, where applicable
+* Star Greek letters, where applicable
 
 #### Release and Distribution
 
 * Find an optimal solution for packaging (minification, bundle...)
 * API to insert SkyView in a Web page
 * TESTS!!!
+
+#### Features after First Public Release
+
+* Current position of the Sun and of the Moon (probably, the planets also) - new layer
+* Messier objects layer
 
 #### Low priority improvements for POC
 
