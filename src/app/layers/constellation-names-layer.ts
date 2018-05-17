@@ -32,7 +32,7 @@ export class ConstellationNamesLayer extends TextLayer {
 
   private toRenderableText(constMeta: ConstellationMetadata): RenderableText {
     const center = VectorUtil.toVector3(constMeta.ra, constMeta.dec, Constants.WORLD_RADIUS);
-    return new RenderableText(this.getName(), center, constMeta.code);
+    return new RenderableText(this.getName(), center, constMeta.names[0]);
   }
 
   public getObjects(): Array<Object3D> {

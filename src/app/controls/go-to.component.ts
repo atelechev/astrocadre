@@ -33,7 +33,7 @@ export class GoToComponent implements AfterViewInit {
     if (this.goToButtonDisabled) {
       return;
     }
-    const searchTextNormalized = this.searchText.trim().toUpperCase();
+    const searchTextNormalized = this.normalizeString(this.searchText);
     if (this.searchableItems.has(searchTextNormalized)) {
       const item = this.searchableItems.get(searchTextNormalized);
       const goToCoord = { rightAscension: item.ra, declination: item.dec };
@@ -44,14 +44,23 @@ export class GoToComponent implements AfterViewInit {
     }
   }
 
+  private normalizeString(value: string): string {
+    const replaceExpr = /\s+/gi;
+    return value.replace(replaceExpr, '').toUpperCase();
+  }
+
   private resetSearchInputCssClass(): void {
     this.searchNoResultsClass = '';
   }
 
   private initSearchableItemsMap(items: SearchableItem[]): void {
     this.searchableItems = new Map<string, SearchableItem>();
-    items.forEach(item =>
-      this.searchableItems.set(item.code.trim().toUpperCase(), item)
+    items.forEach(item => {
+        this.searchableItems.set(this.normalizeString(item.code), item);
+        if (item.names) {
+          item.names.forEach(name => this.searchableItems.set(this.normalizeString(name), item));
+        }
+      }
     );
   }
 
