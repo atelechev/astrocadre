@@ -74,21 +74,21 @@ export class AppComponent implements OnInit {
 
   private subscribeCameraChangeEvent(): void {
     this.viewportEventService.broadcastViewportChanged$.subscribe(
-      () => Layers.TEXT_LAYERS.forEach(
-        textLayer => this.updateLabelsVisibility(textLayer)
-      )
+      () => this.updateLabelsVisibilityForAllLayers()
     );
   }
 
-  private updateLabelsVisibility(textLayer: string): void {
-    const layer = this.layersManager.getLayer(textLayer);
-    if (layer && layer instanceof LabelledLayer) {
-      const tLayer = <LabelledLayer> layer;
-      if (tLayer.isVisible()) {
-        this.viewportManager.showVisibleLabels(tLayer.getName(), tLayer.getRenderableLabels());
-      } else {
-        this.viewportManager.hideLabelsByLayer(textLayer);
-      }
+  private updateLabelsVisibilityForAllLayers(): void {
+    this.layersManager.getLabelledLayers().forEach(
+      (layer: LabelledLayer) => this.updateLabelsVisibilityForLayer(layer)
+    );
+  }
+
+  private updateLabelsVisibilityForLayer(layer: LabelledLayer): void {
+    if (layer.isVisible()) {
+      this.viewportManager.showVisibleLabels(layer.getName(), layer.getRenderableLabels());
+    } else {
+      this.viewportManager.hideLabelsByLayer(layer.getName());
     }
   }
 
@@ -96,7 +96,10 @@ export class AppComponent implements OnInit {
     this.layersEventService.requestLayerVisibility$.subscribe(
       (lv: LayerVisibility) => {
         this.layersManager.updateLayerVisibility(lv);
-        this.updateLabelsVisibility(lv.layer);
+        const layer = this.layersManager.getLayer(lv.layer);
+        if (layer && layer instanceof LabelledLayer) {
+          this.updateLabelsVisibilityForLayer(<LabelledLayer> layer);
+        }
       }
     );
   }

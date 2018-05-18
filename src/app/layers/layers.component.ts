@@ -8,6 +8,7 @@ import { LayerVisibility } from '../core/layer-visibility';
 import { ItemsTreeNode } from '../core/items-tree-node';
 import { Layers } from '../core/layers';
 import { StarsMagnitudeLayer } from './stars-magnitude-layer';
+import { LabelledLayer } from '../core/labelled-layer';
 
 @Component({
   selector: 'app-sky-view-layers',
@@ -28,6 +29,12 @@ export class LayersComponent implements ThemeAware, OnInit {
 
   public getLayer(layer: string): RenderableLayer {
     return this.loadedLayers.get(layer);
+  }
+
+  public getLabelledLayers(): Array<LabelledLayer> {
+    return Array.from(this.loadedLayers.values())
+                .filter(layer => layer instanceof LabelledLayer)
+                .map(layer => <LabelledLayer> layer);
   }
 
   public useTheme(theme: Theme): void {
