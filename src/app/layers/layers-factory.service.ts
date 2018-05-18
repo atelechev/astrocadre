@@ -49,7 +49,7 @@ export class LayersFactoryService {
     }
     const magClass = parseFloat(layer.code.substr(Layers.STARS.length + '-mag'.length));
     return this.starsService.getStarsByMagnitudeClass(magClass).map(
-      (rawStars: number[][]) => new StarsMagnitudeLayer(layer, magClass, rawStars)
+      (rawStars: any[][]) => new StarsMagnitudeLayer(layer, magClass, rawStars)
     );
   }
 

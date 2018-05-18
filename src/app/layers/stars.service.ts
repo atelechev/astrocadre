@@ -25,7 +25,7 @@ export class StarsService extends AbstractService {
     return this.execGetRequestForUrl(url);
   }
 
-  public getStarsByMagnitudeClass(magnitudeClass: number): Observable<number[][]> {
+  public getStarsByMagnitudeClass(magnitudeClass: number): Observable<any[][]> {
     const url = `/assets/stars-mag${magnitudeClass.toFixed(1)}.json`;
     return this.execGetRequestForUrl(url);
   }
