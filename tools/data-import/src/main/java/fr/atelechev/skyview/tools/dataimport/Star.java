@@ -70,13 +70,13 @@ public class Star {
   public static Star fromCsvRow(String csvRow) {
     final String[] rowSplit = CsvUtil.split(csvRow, 18);
     final Star star = new Star();
-    star.setId(parseInt(rowSplit[0], false));
-    star.setIdHip(parseInt(rowSplit[1], true));
-    star.setIdHd(parseInt(rowSplit[2], true));
-    star.setIdHr(parseInt(rowSplit[3], true));
-    star.setGl(rowSplit[4]);
-    star.setStandardName(rowSplit[5]);
-    star.setProperName(rowSplit[6]);
+    star.setId(parseInt(rowSplit[0], false)); // id
+    star.setIdHip(parseInt(rowSplit[1], true)); // hip
+    star.setIdHd(parseInt(rowSplit[2], true)); // hd
+    star.setIdHr(parseInt(rowSplit[3], true)); // hr
+    star.setGl(rowSplit[4]); // gl
+    star.setStandardName(rowSplit[5]); // bf
+    star.setProperName(rowSplit[6]); // proper
     star.setRa(parseDouble(rowSplit[7], false));
     star.setDec(parseDouble(rowSplit[8], false));
     star.setDistanceTo(parseDouble(rowSplit[9], true));

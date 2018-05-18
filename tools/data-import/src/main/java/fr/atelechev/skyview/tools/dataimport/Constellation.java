@@ -23,7 +23,7 @@ public class Constellation {
   private List<String> names;
 
   public static Constellation fromCsvRow(String csvRow) {
-    final String[] rowSplit =  CsvUtil.split(csvRow, 4);
+    final String[] rowSplit = CsvUtil.split(csvRow, 4);
     final Constellation constellation = new Constellation();
     constellation.setCode(rowSplit[3]);
     constellation.setCenterRa(parseDouble(rowSplit[1], false));
