@@ -1,4 +1,4 @@
-import { TextLayer } from '../core/text-layer';
+import { LabelledLayer } from '../core/labelled-layer';
 import { Object3D } from 'three';
 import { Theme } from '../core/theme';
 import { ItemsTreeNode } from '../core/items-tree-node';
@@ -7,7 +7,7 @@ import { VectorUtil } from './geometry/vector-util';
 import { Constants } from '../core/constants';
 import { RenderableText } from '../core/renderable-text';
 
-export class ConstellationNamesLayer extends TextLayer {
+export class ConstellationNamesLayer extends LabelledLayer {
 
   private renderableLabels: Map<string, RenderableText>;
 

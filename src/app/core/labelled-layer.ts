@@ -2,7 +2,7 @@ import { RenderableLayer } from './renderable-layer';
 import { ItemsTreeNode } from './items-tree-node';
 import { RenderableText } from './renderable-text';
 
-export abstract class TextLayer extends RenderableLayer {
+export abstract class LabelledLayer extends RenderableLayer {
 
   constructor(tree: ItemsTreeNode) {
     super(tree);

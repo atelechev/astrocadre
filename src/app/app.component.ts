@@ -10,7 +10,7 @@ import { ThemesEventService } from './themes/themes-event.service';
 import { ViewportEventService } from './viewport/viewport-event.service';
 import { Layers } from './core/layers';
 import { ConstellationNamesLayer } from './layers/constellation-names-layer';
-import { TextLayer } from './core/text-layer';
+import { LabelledLayer } from './core/labelled-layer';
 
 @Component({
   selector: `app-sky-view`,
@@ -53,8 +53,8 @@ export class AppComponent implements OnInit {
           layer.useTheme(theme);
         }
         this.viewportManager.addObjects(layer.getObjects());
-        if (layer instanceof TextLayer) {
-          this.viewportManager.addTextElements((<TextLayer> layer).getTextElements());
+        if (layer instanceof LabelledLayer) {
+          this.viewportManager.addTextElements((<LabelledLayer> layer).getTextElements());
         }
       }
     );
@@ -82,8 +82,8 @@ export class AppComponent implements OnInit {
 
   private updateLabelsVisibility(textLayer: string): void {
     const layer = this.layersManager.getLayer(textLayer);
-    if (layer && layer instanceof TextLayer) {
-      const tLayer = <TextLayer> layer;
+    if (layer && layer instanceof LabelledLayer) {
+      const tLayer = <LabelledLayer> layer;
       if (tLayer.isVisible()) {
         this.viewportManager.showVisibleLabels(tLayer.getName(), tLayer.getRenderableLabels());
       } else {
