@@ -9,7 +9,7 @@ export class Theme {
 
   private materialsByLayer: Map<string, Map<string, Material>>;
 
-  private textStyleByLayer: Map<string, TextStyle>;
+  private textStyleByLayer: Map<string, Map<string, TextStyle>>;
 
   constructor(private themeDef: ThemeDefinition) {
     this.materialsByLayer = this.initMaterialsMap();
@@ -26,9 +26,11 @@ export class Theme {
     return materials;
   }
 
-  private initTextStyles(): Map<string, TextStyle> {
-    const styles = new Map<string, TextStyle>();
-    styles.set(Layers.CONSTELLATION_NAMES, this.themeDef.constellation.names);
+  private initTextStyles(): Map<string, Map<string, TextStyle>> {
+    const styles = new Map<string, Map<string, TextStyle>>();
+    const nameLabels = new Map<string, TextStyle>();
+    nameLabels.set('labels', this.themeDef.constellation.names);
+    styles.set(Layers.CONSTELLATION_NAMES, nameLabels);
     return styles;
   }
 
@@ -102,7 +104,7 @@ export class Theme {
     return this.materialsByLayer.get(layer);
   }
 
-  public getTextStyleForLayer(layer: string): TextStyle {
+  public getTextStylesForLayer(layer: string): Map<string, TextStyle> {
     if (!this.textStyleByLayer.has(layer)) {
       throw new Error(`Unexpected layer name: '${layer}'`);
     }
@@ -115,6 +117,14 @@ export class Theme {
       throw new Error(`Unexpected material key '${materialKey}' for layer '${layer}'`);
     }
     return layerMaterials.get(materialKey);
+  }
+
+  public getTextStyleForLayer(layer: string, styleKey: string): TextStyle {
+    const layerStyles = this.getTextStylesForLayer(layer);
+    if (!layerStyles.has(styleKey)) {
+      throw new Error(`Unexpected style key '${styleKey}' for layer '${layer}'`);
+    }
+    return layerStyles.get(styleKey);
   }
 
 }

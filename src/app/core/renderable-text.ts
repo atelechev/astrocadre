@@ -49,7 +49,7 @@ export class RenderableText {
   }
 
   public useTheme(theme: Theme): void {
-    const labelStyle = theme.getTextStyleForLayer(this.parentLayer);
+    const labelStyle = theme.getTextStyleForLayer(this.parentLayer, 'labels');
     const style = this.htmlElement.style;
     style.position = 'absolute';
     style.fontFamily = labelStyle.fontFamily;

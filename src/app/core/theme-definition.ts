@@ -30,6 +30,10 @@ export interface ThemeDefinition {
     texture: {
       image: string;
       sizeMultiplier: number;
+    },
+    names: {
+      proper: TextStyle;
+      standard: TextStyle;
     }
   };
 
