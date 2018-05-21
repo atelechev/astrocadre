@@ -28,10 +28,22 @@ export class Theme {
 
   private initTextStyles(): Map<string, Map<string, TextStyle>> {
     const styles = new Map<string, Map<string, TextStyle>>();
+    styles.set(Layers.CONSTELLATION_NAMES, this.initConstellationNamesTextStyles());
+    styles.set(Layers.STARS, this.initStarsTextStyles());
+    return styles;
+  }
+
+  private initStarsTextStyles(): Map<string, TextStyle> {
+    const starsLabels = new Map<string, TextStyle>();
+    starsLabels.set('names-proper', this.themeDef.stars.names.proper);
+    starsLabels.set('names-standard', this.themeDef.stars.names.standard);
+    return starsLabels;
+  }
+
+  private initConstellationNamesTextStyles(): Map<string, TextStyle> {
     const nameLabels = new Map<string, TextStyle>();
     nameLabels.set('labels', this.themeDef.constellation.names);
-    styles.set(Layers.CONSTELLATION_NAMES, nameLabels);
-    return styles;
+    return nameLabels;
   }
 
   private getSkyGridMaterials(): Map<string, Material> {

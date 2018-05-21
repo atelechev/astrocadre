@@ -33,6 +33,22 @@
     "texture": {
       "image": "assets/textures/star_yellow.png",
       "sizeMultiplier": 2.5
+    },
+    "names": {
+      "proper": {
+        "fontSize": "12px",
+        "fontFamily": "arial",
+        "fontStyle": "italic",
+        "fontWeight": "normal",
+        "color": "orange"
+      },
+      "standard": {
+        "fontSize": "10px",
+        "fontFamily": "arial",
+        "fontStyle": "normal",
+        "fontWeight": "normal",
+        "color": "orange"
+      }
     }
   }
 }

@@ -33,6 +33,22 @@
     "texture": {
       "image": "assets/textures/star_black.png",
       "sizeMultiplier": 3
+    },
+    "names": {
+      "proper": {
+        "fontSize": "12px",
+        "fontFamily": "arial",
+        "fontStyle": "italic",
+        "fontWeight": "normal",
+        "color": "black"
+      },
+      "standard": {
+        "fontSize": "10px",
+        "fontFamily": "arial",
+        "fontStyle": "normal",
+        "fontWeight": "normal",
+        "color": "black"
+      }
     }
   }
 }
