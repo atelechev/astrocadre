@@ -117,10 +117,11 @@ export class Theme {
   }
 
   public getTextStylesForLayer(layer: string): Map<string, TextStyle> {
-    if (!this.textStyleByLayer.has(layer)) {
+    const starsNormalizedLayer = this.getLayerNameWithoutStarsMag(layer);
+    if (!this.textStyleByLayer.has(starsNormalizedLayer)) {
       throw new Error(`Unexpected layer name: '${layer}'`);
     }
-    return this.textStyleByLayer.get(layer);
+    return this.textStyleByLayer.get(starsNormalizedLayer);
   }
 
   public getMaterialForLayer(layer: string, materialKey: string): Material {
@@ -129,6 +130,10 @@ export class Theme {
       throw new Error(`Unexpected material key '${materialKey}' for layer '${layer}'`);
     }
     return layerMaterials.get(materialKey);
+  }
+
+  private getLayerNameWithoutStarsMag(layer: string): string {
+    return layer.startsWith(Layers.STARS + '-mag') ? Layers.STARS : layer;
   }
 
   public getTextStyleForLayer(layer: string, styleKey: string): TextStyle {

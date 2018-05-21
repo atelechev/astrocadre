@@ -14,6 +14,7 @@ export class RenderableText {
   private heightOffset: number;
 
   constructor(private readonly parentLayer: string,
+              private readonly styleKey: string,
               public readonly position: Vector3,
               private text: string) {
     this.htmlElement = this.initHtmlElement(parentLayer, text);
@@ -49,7 +50,7 @@ export class RenderableText {
   }
 
   public useTheme(theme: Theme): void {
-    const labelStyle = theme.getTextStyleForLayer(this.parentLayer, 'labels');
+    const labelStyle = theme.getTextStyleForLayer(this.parentLayer, this.styleKey);
     const style = this.htmlElement.style;
     style.position = 'absolute';
     style.fontFamily = labelStyle.fontFamily;
