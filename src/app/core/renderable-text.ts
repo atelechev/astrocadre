@@ -1,5 +1,6 @@
 import { Vector3 } from 'three';
 import { Theme } from './theme';
+import { TextOffsetPolicy } from './text-offset-policy';
 
 export class RenderableText {
 
@@ -16,26 +17,17 @@ export class RenderableText {
   constructor(private readonly parentLayer: string,
               private readonly styleKey: string,
               public readonly position: Vector3,
-              private text: string) {
+              private text: string,
+              private offsetPolicy: TextOffsetPolicy) {
     this.htmlElement = this.initHtmlElement(parentLayer, text);
     this.widthOffset = 0;
     this.heightOffset = 0;
   }
 
   private updateOffsets(): void {
-    const context = RenderableText.MEASURE_CANVAS.getContext('2d');
-    context.font = this.getFontStyleForMetrics();
-    const textWidth = context.measureText(this.text).width;
-    if (textWidth) {
-      this.widthOffset = Math.ceil(textWidth) / 2;
-    }
-    const fontSize = this.htmlElement.style.fontSize;
-    this.heightOffset = parseInt(fontSize.substring(0, fontSize.length - 2), 10) / 2;
-  }
-
-  private getFontStyleForMetrics(): string {
-    const style = this.htmlElement.style;
-    return `${style.fontStyle} ${style.fontWeight} ${style.fontSize} ${style.fontFamily}`;
+    const offsets = this.offsetPolicy.calculateOffsets(this.text, this.htmlElement);
+    this.widthOffset = offsets.offsetWidth;
+    this.heightOffset = offsets.offsetHeight;
   }
 
   private initHtmlElement(parentLayer: string, text: string): HTMLElement {
