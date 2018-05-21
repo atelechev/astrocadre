@@ -11,6 +11,8 @@ import { ViewportEventService } from './viewport/viewport-event.service';
 import { Layers } from './core/layers';
 import { ConstellationNamesLayer } from './layers/constellation-names-layer';
 import { LabelledLayer } from './core/labelled-layer';
+import { StarLabelVisibility } from './core/star-label-visibility';
+import { StarsMagnitudeLayer } from './layers/stars-magnitude-layer';
 
 @Component({
   selector: `app-sky-view`,
@@ -92,6 +94,47 @@ export class AppComponent implements OnInit {
     }
   }
 
+  private subscribeStarsMagnitudeRequestEvent(): void {
+    this.layersEventService.requestStarsMagnitude$.subscribe(
+      (magnitude: number) => {
+        this.layersManager.ensureStarMagnitudesVisibleDownTo(magnitude);
+        this.updateLabelsVisibilityForAllLayers();
+      }
+    );
+  }
+
+  private hideMagnitudeLabels(starsPerMagnitude: Array<StarsMagnitudeLayer>, slv: StarLabelVisibility): void {
+    const hiddenMagnitudes =
+        slv.visible ? starsPerMagnitude.filter(layer => layer.magClass > slv.magnitude) : starsPerMagnitude;
+    hiddenMagnitudes.forEach(
+      (layer) => this.viewportManager.hideLabelsByLayer(layer.getName())
+    );
+  }
+
+  private showMagnitudeLabels(starsPerMagnitude: Array<StarsMagnitudeLayer>, slv: StarLabelVisibility): void {
+    const visibleMagnitudes =
+        slv.visible ? starsPerMagnitude.filter(layer => layer.magClass <= slv.magnitude) : [];
+    visibleMagnitudes.forEach(
+      (layer) => this.viewportManager.showVisibleLabels(layer.getName(), layer.getRenderableLabels())
+    );
+  }
+
+  private subscribeStarsLabelsVisibilityRequestEvent(): void {
+    this.layersEventService.requestStarsLabelsVisibility$.subscribe(
+      (slv: StarLabelVisibility) => {
+        const starsPerMagnitude = this.layersManager.getStarsMagnitudeLayers();
+        this.hideMagnitudeLabels(starsPerMagnitude, slv);
+        this.showMagnitudeLabels(starsPerMagnitude, slv);
+      }
+    );
+  }
+
+  private subscribeStarsLabelsTypeRequestEvent(): void {
+    this.layersEventService.requestStarsLabelsType$.subscribe(
+      (labelType: string) => console.log(labelType) // TODO
+    );
+  }
+
   private subscribeLayerVisibilityEvent(): void {
     this.layersEventService.requestLayerVisibility$.subscribe(
       (lv: LayerVisibility) => {
@@ -111,6 +154,9 @@ export class AppComponent implements OnInit {
     this.subscribeThemeLoadedEvent();
     this.subscribeLayerVisibilityEvent();
     this.subscribeCameraChangeEvent();
+    this.subscribeStarsMagnitudeRequestEvent();
+    this.subscribeStarsLabelsVisibilityRequestEvent();
+    this.subscribeStarsLabelsTypeRequestEvent();
     // necessary to avoid the nasty "Expression has changed after it was checked." error:
     this.changeDetector.detectChanges();
   }

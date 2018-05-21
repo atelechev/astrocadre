@@ -20,9 +20,10 @@
         </li>
       </ul>
       <ul *ngIf="layer.items && layer.code === 'stars'">
-        <app-sky-view-controls-select-stars-magnitude
-            [enabled]="layer.selected">
-        </app-sky-view-controls-select-stars-magnitude>
+        <app-sky-view-controls-select-stars
+            [enabled]="layer.selected"
+            [showNames]="layer.selected">
+        </app-sky-view-controls-select-stars>
       </ul>
     </li>
   </ul>

@@ -37,6 +37,12 @@ export class LayersComponent implements ThemeAware, OnInit {
                 .map(layer => <LabelledLayer> layer);
   }
 
+  public getStarsMagnitudeLayers(): Array<StarsMagnitudeLayer> {
+    return Array.from(this.loadedLayers.values())
+                .filter(layer => layer instanceof StarsMagnitudeLayer)
+                .map(layer => <StarsMagnitudeLayer> layer);
+  }
+
   public useTheme(theme: Theme): void {
     this.loadedLayers.forEach((layer: RenderableLayer, key: string) => {
       layer.useTheme(theme);
@@ -75,13 +81,7 @@ export class LayersComponent implements ThemeAware, OnInit {
     }
   }
 
-  private subscribeStarsMagnitudeRequestEvent(): void {
-    this.layersEventService.requestStarsMagnitude$.subscribe(
-      (magnitude: number) => this.ensureStarMagnitudesVisibleDownTo(magnitude)
-    );
-  }
-
-  private ensureStarMagnitudesVisibleDownTo(magnitude: number): void {
+  public ensureStarMagnitudesVisibleDownTo(magnitude: number): void {
     const starsLayer = this.getLayer(Layers.STARS);
     if (starsLayer) {
       this.collectChildren(starsLayer)
@@ -96,7 +96,6 @@ export class LayersComponent implements ThemeAware, OnInit {
 
   public ngOnInit(): void {
     this.subscribeLayerLoadRequestEvent();
-    this.subscribeStarsMagnitudeRequestEvent();
   }
 
 }

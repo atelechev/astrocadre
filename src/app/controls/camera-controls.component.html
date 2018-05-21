@@ -20,12 +20,6 @@
                   title="Rotate clockwise"
                   (click)="rotateView(0, 0, cameraChangeStep.value)">&#8600;</button>
         </td>
-        <td>
-          <!-- TODO disabled -->
-          <button type="button"
-                  disabled
-                  title="Zoom in">+</button><br>
-        </td>
       </tr>
       <tr>
         <td>
@@ -45,12 +39,6 @@
           <button type="button"
                   title="Move rightwards"
                   (click)="rotateView(0, -cameraChangeStep.value, 0)">&#8594;</button>
-        </td>
-        <td>
-          <!-- TODO disabled -->
-          <button type="button"
-                  disabled
-                  title="Zoom out">-</button>
         </td>
       </tr>
       <tr>
@@ -76,7 +64,6 @@
                   title="Align the view on the North-Sourth axis"
                   (click)="alignNSAxis()">&#124;</button>
         </td>
-        <td>&nbsp;</td>
       </tr>
     </tbody>
   </table>

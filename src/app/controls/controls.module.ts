@@ -3,18 +3,18 @@ import { ControlsComponent } from './controls.component';
 import { SelectorThemeComponent } from './selector-theme.component';
 import { BrowserModule } from '@angular/platform-browser';
 import { SelectorLayersComponent } from './selector-layers.component';
-import { SelectorStarsMagnitudeComponent } from './selector-stars-magnitude.component';
 import { CameraControlsComponent } from './camera-controls.component';
 import { FormsModule } from '@angular/forms';
 import { ViewportModule } from '../viewport/viewport.module';
 import { GoToComponent } from './go-to.component';
+import { SelectorLayersStarsComponent } from './selector-layers-stars.component';
 
 @NgModule({
   declarations: [
     ControlsComponent,
     SelectorThemeComponent,
     SelectorLayersComponent,
-    SelectorStarsMagnitudeComponent,
+    SelectorLayersStarsComponent,
     CameraControlsComponent,
     GoToComponent
   ],
@@ -30,7 +30,7 @@ import { GoToComponent } from './go-to.component';
     ControlsComponent,
     SelectorThemeComponent,
     SelectorLayersComponent,
-    SelectorStarsMagnitudeComponent,
+    SelectorLayersStarsComponent,
     GoToComponent
   ]
 })
