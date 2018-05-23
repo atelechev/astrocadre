@@ -80,13 +80,16 @@ export class ViewportComponent implements AfterViewInit, ThemeAware {
   }
 
   public hideLabelsByLayer(layer: string): void {
-    const labelClass = 'label_' + layer;
+    const labelClassPrefix = 'label_' + layer;
     const allChildren = <HTMLCollection> this.skyViewViewport.nativeElement.children;
     const length = allChildren.length;
     for (let i = 0; i < length; i++) {
       const child = <HTMLElement> allChildren.item(i);
-      if (child && child.getAttribute('class') === labelClass) {
-        this.hideLabel(child.style);
+      if (child) {
+        const cssClass = child.getAttribute('class');
+        if (cssClass && cssClass.startsWith(labelClassPrefix)) {
+          this.hideLabel(child.style);
+        }
       }
     }
   }

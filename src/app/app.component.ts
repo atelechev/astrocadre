@@ -131,7 +131,12 @@ export class AppComponent implements OnInit {
 
   private subscribeStarsLabelsTypeRequestEvent(): void {
     this.layersEventService.requestStarsLabelsType$.subscribe(
-      (labelType: string) => console.log(labelType) // TODO
+      (labelType: string) => {
+        const starsPerMagnitude = this.layersManager.getStarsMagnitudeLayers();
+        const labelTypeNoPrefix = labelType.substring(Layers.STARS.length + 1);
+        starsPerMagnitude.forEach(layer => layer.setShownLabelsType(labelTypeNoPrefix));
+        this.updateLabelsVisibilityForAllLayers(); // TODO
+      }
     );
   }
 

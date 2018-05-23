@@ -55,7 +55,7 @@ export class LayersComponent implements ThemeAware, OnInit {
         this.loadedLayers.set(loadedLayer.getName(), loadedLayer);
         this.layersEventService.layerLoaded(loadedLayer.getName());
       },
-      (error) => console.error(`Failed to load layer '${layer}': ${error}`)
+      (error) => console.error(`Failed to load layer '${layer.code}': ${error}`)
     );
   }
 

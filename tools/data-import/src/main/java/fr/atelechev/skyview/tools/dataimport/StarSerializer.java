@@ -31,7 +31,8 @@ public class StarSerializer extends StdSerializer<Star> {
   private void writeStarName(Star star, JsonGenerator jsonGenerator) throws IOException {
     if (isDefined(star.getProperName())) {
       jsonGenerator.writeString(star.getProperName().trim());
-    } else if (isDefined(star.getStandardName())) {
+    }
+    if (isDefined(star.getStandardName())) {
       jsonGenerator.writeString(normalizeStandardName(star.getStandardName()));
     }
   }

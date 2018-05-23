@@ -32,8 +32,10 @@ export class RenderableText {
 
   private initHtmlElement(parentLayer: string, text: string): HTMLElement {
     const element = document.createElement('div');
-    element.className = 'label_' + parentLayer;
+    element.className = `label_${parentLayer}_${this.styleKey}`;
     element.textContent = text;
+    element.style.position = 'absolute';
+    element.style.zIndex = '100';
     return element;
   }
 
@@ -44,13 +46,11 @@ export class RenderableText {
   public useTheme(theme: Theme): void {
     const labelStyle = theme.getTextStyleForLayer(this.parentLayer, this.styleKey);
     const style = this.htmlElement.style;
-    style.position = 'absolute';
     style.fontFamily = labelStyle.fontFamily;
     style.fontSize = labelStyle.fontSize;
     style.fontStyle = labelStyle.fontStyle;
     style.fontWeight = labelStyle.fontWeight;
     style.color = labelStyle.color;
-    style.zIndex = '100';
     this.updateOffsets();
   }
 

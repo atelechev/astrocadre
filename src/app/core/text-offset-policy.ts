@@ -55,11 +55,21 @@ class TopRightText implements TextOffsetPolicy {
 
 }
 
+class CloseRightText implements TextOffsetPolicy {
+
+  public calculateOffsets(text: string, htmlElement: HTMLElement): TextOffsets {
+    return new TextOffsets(-5, 6);
+  }
+
+}
+
 export class TextOffsetPolicies {
 
   public static readonly CENTERED: TextOffsetPolicy = new CenteredText();
 
   public static readonly TOP_RIGHT: TextOffsetPolicy = new TopRightText();
+
+  public static readonly CLOSE_RIGHT: TextOffsetPolicy = new CloseRightText();
 
 }
 

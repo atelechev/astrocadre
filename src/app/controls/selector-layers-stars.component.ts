@@ -36,7 +36,18 @@ export class SelectorLayersStarsComponent implements AfterViewInit {
     );
   }
 
+  private subscribeLayerLoadedEvent(): void {
+    this.layersEventService.broadcastLayerLoaded$.subscribe(
+      (layer: string) => {
+        if (layer.startsWith(Layers.STARS + '-')) {
+          this.fireStarsLabelsVisibilityChangeEvent();
+        }
+      }
+    );
+  }
+
   public ngAfterViewInit(): void {
+    this.subscribeLayerLoadedEvent();
     this.fireStarsMagnitudeChangedEvent();
     this.fireStarsLabelsTypeChangeEvent();
     this.fireStarsLabelsVisibilityChangeEvent();
@@ -48,6 +59,7 @@ export class SelectorLayersStarsComponent implements AfterViewInit {
 
   public fireStarsLabelsVisibilityChangeEvent(): void {
     const data = { magnitude: this.magnitude, visible: this.showNames };
+    this.fireStarsLabelsTypeChangeEvent();
     this.layersEventService.starsLabelsVisibleRequested(data);
   }
 
