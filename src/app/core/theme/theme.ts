@@ -6,6 +6,7 @@ import { MaterialsFactory } from './materials-factory';
 import { SkyGridMaterialsFactory } from './sky-grid-materials-factory';
 import { ConstellationBoundariesMaterialsFactory } from './constellation-boundaries-materials-factory';
 import { ConstellationLinesMaterialsFactory } from './constellation-lines-materials-factory';
+import { StarsMaterialsFactory } from './stars-materials-factory';
 
 export class Theme {
 
@@ -31,6 +32,7 @@ export class Theme {
     factories.set(Layers.SKY_GRID, new SkyGridMaterialsFactory());
     factories.set(Layers.CONSTELLATION_BOUNDARIES, new ConstellationBoundariesMaterialsFactory());
     factories.set(Layers.CONSTELLATION_LINES, new ConstellationLinesMaterialsFactory());
+    factories.set(Layers.STARS, new StarsMaterialsFactory());
     return factories;
   }
 
@@ -42,13 +44,11 @@ export class Theme {
     const materials = new Map<string, Map<string, Material>>();
     const layers = [ Layers.SKY_GRID,
                      Layers.CONSTELLATION_BOUNDARIES,
-                     Layers.CONSTELLATION_LINES ];
-
+                     Layers.CONSTELLATION_LINES,
+                     Layers.STARS ];
     layers.forEach(
       (layer: string) => materials.set(layer, this.buildMaterialsForLayer(layer))
     );
-// TODO
-    materials.set(Layers.STARS, this.getStarsMaterials());
     return materials;
   }
 
@@ -70,35 +70,6 @@ export class Theme {
     const nameLabels = new Map<string, TextStyle>();
     nameLabels.set('labels', this.themeDef.constellation.names);
     return nameLabels;
-  }
-
-  private getSkyGridMaterials(): Map<string, Material> {
-    const materials = new Map<string, Material>();
-    materials.set('line-common', new LineBasicMaterial({ color : this.themeDef.skyGrid.line.common }));
-    materials.set('line-reference', new LineBasicMaterial({ color : this.themeDef.skyGrid.line.reference }));
-    return materials;
-  }
-
-  private getStarsMaterials(): Map<string, Material> {
-    const materials = new Map<string, Material>();
-    const textureLoader = new TextureLoader();
-    this.getRenderedStarMagnitudes().forEach(magClass => {
-      const materialKey = 'star-' + magClass.toFixed(1);
-      const material = this.getMaterialForMagnitudeClass(magClass, textureLoader);
-      materials.set(materialKey, material);
-    });
-    return materials;
-  }
-
-  private getMaterialForMagnitudeClass(magClass: number, textureLoader: TextureLoader): Material {
-    const dotSizeMultiplier = this.themeDef.stars.texture.sizeMultiplier;
-    const dotSize = (6.5 - magClass) * dotSizeMultiplier;
-    return new PointsMaterial({ size: dotSize,
-                                sizeAttenuation: false,
-                                transparent: true,
-                                opacity: 0.95,
-                                alphaTest: 0.05,
-                                map: textureLoader.load(this.themeDef.stars.texture.image) } );
   }
 
   public getBackgroundColor(): Color {
