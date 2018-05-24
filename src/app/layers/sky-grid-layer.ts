@@ -3,7 +3,7 @@ import { Object3D, Material, LineSegments } from 'three';
 import { RenderableLayer } from '../core/renderable-layer';
 import { MergedAxialCurves } from './geometry/merged-axial-curves';
 import { Layers } from '../core/layers';
-import { Theme } from '../core/theme';
+import { Theme } from '../core/theme/theme';
 import { Constants } from '../core/constants';
 import { ItemsTreeNode } from '../core/items-tree-node';
 

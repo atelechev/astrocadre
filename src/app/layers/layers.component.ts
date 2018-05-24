@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { RenderableLayer } from '../core/renderable-layer';
-import { ThemeAware } from '../core/theme-aware';
-import { Theme } from '../core/theme';
+import { ThemeAware } from '../core/theme/theme-aware';
+import { Theme } from '../core/theme/theme';
 import { LayersFactoryService } from './layers-factory.service';
 import { LayersEventService } from './layers-event.service';
 import { LayerVisibility } from '../core/layer-visibility';

@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import { Themes } from '../core/themes';
+import { Themes } from '../core/theme/themes';
 import { AbstractService } from '../core/abstract-service';
 import { Http } from '@angular/Http';
-import { ThemeDefinition } from '../core/theme-definition';
+import { ThemeDefinition } from '../core/theme/theme-definition';
 import { Observable } from 'rxjs/Observable';
 
 @Injectable()

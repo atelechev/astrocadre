@@ -1,6 +1,6 @@
 import { LabelledLayer } from '../core/labelled-layer';
 import { Object3D } from 'three';
-import { Theme } from '../core/theme';
+import { Theme } from '../core/theme/theme';
 import { ItemsTreeNode } from '../core/items-tree-node';
 import { ConstellationMetadata } from './constellation-metadata';
 import { VectorUtil } from './geometry/vector-util';

@@ -1,8 +1,8 @@
 import { Component, ViewChild, OnInit, ChangeDetectorRef } from '@angular/core';
-import { Themes } from './core/themes';
+import { Themes } from './core/theme/themes';
 import { ViewportComponent } from './viewport/viewport.component';
 import { ThemesComponent } from './themes/themes.component';
-import { ThemeAware } from './core/theme-aware';
+import { ThemeAware } from './core/theme/theme-aware';
 import { LayersComponent } from './layers/layers.component';
 import { LayersEventService } from './layers/layers-event.service';
 import { LayerVisibility } from './core/layer-visibility';

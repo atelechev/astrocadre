@@ -1,4 +1,4 @@
-import { TextStyle } from './text-style';
+import { TextStyle } from '../text-style';
 
 export interface ThemeDefinition {
 

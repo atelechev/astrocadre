@@ -1,6 +1,6 @@
 import { Object3D } from 'three';
-import { Theme } from './theme';
-import { ThemeAware } from './theme-aware';
+import { Theme } from './theme/theme';
+import { ThemeAware } from './theme/theme-aware';
 import { ItemsTreeNode } from './items-tree-node';
 
 export abstract class RenderableLayer implements ThemeAware {

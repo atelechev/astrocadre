@@ -1,6 +1,6 @@
 import { RenderableLayer } from '../core/renderable-layer';
 import { Object3D } from 'three';
-import { Theme } from '../core/theme';
+import { Theme } from '../core/theme/theme';
 import { ItemsTreeNode } from '../core/items-tree-node';
 
 export class StarsLayer extends RenderableLayer {

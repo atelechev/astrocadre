@@ -1,7 +1,7 @@
 import { Color, Material, LineBasicMaterial, PointsMaterial, TextureLoader } from 'three';
-import { Layers } from '../core/layers';
+import { Layers } from '../../core/layers';
 import { ThemeDefinition } from './theme-definition';
-import { TextStyle } from './text-style';
+import { TextStyle } from '../text-style';
 
 export class Theme {
 

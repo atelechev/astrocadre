@@ -1,5 +1,5 @@
 import { Layers } from '../core/layers';
-import { Theme } from '../core/theme';
+import { Theme } from '../core/theme/theme';
 import { Constants } from '../core/constants';
 import { Points, Object3D } from 'three';
 import { MergedPoints } from './geometry/merged-points';

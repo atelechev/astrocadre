@@ -1,7 +1,7 @@
-import { Component, OnInit, SimpleChanges } from '@angular/core';
-import { Theme } from '../core/theme';
+import { Component, OnInit } from '@angular/core';
+import { Theme } from '../core/theme/theme';
 import { ThemesService } from './themes.service';
-import { ThemeDefinition } from '../core/theme-definition';
+import { ThemeDefinition } from '../core/theme/theme-definition';
 import { ThemesEventService } from './themes-event.service';
 
 @Component({

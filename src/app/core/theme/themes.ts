@@ -1,5 +1,4 @@
 
-
 export class Themes {
 
   public static readonly DEV = 'dev';
@@ -9,7 +8,5 @@ export class Themes {
   public static readonly NIGHT_VIEW = 'night-view';
 
   public static readonly SKY_CHART = 'sky-chart';
-
-  public static readonly VALUES = [ Themes.DEV, Themes.SKY_CHART ];
 
 }
