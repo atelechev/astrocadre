@@ -9,9 +9,9 @@ describe('ConstellationBoundariesMaterialsFactory', () => {
 
   const factory = new ConstellationBoundariesMaterialsFactory();
 
-  const themeDef: ThemeDefinition = emptyThemeDef;
+  const themeDef: ThemeDefinition = Object.create(emptyThemeDef);
 
-  emptyThemeDef.constellation.boundaries = {
+  themeDef.constellation.boundaries = {
       line: {
         common: 'rgb(3, 3, 3)'
       }

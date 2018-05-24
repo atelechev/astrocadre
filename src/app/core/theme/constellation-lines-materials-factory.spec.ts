@@ -1,38 +1,36 @@
-import { SkyGridMaterialsFactory } from './sky-grid-materials-factory';
+import { ConstellationLinesMaterialsFactory } from './constellation-lines-materials-factory';
 import { ThemeDefinition } from './theme-definition';
 import { Layers } from '../layers';
 import { LineBasicMaterial } from 'three';
 import { assertColorsSame, assertLineBasicMaterialBuilt, emptyTextStyle, emptyThemeDef } from './materials-factory.spec';
 
 
-describe('SkyGridMaterialsFactory', () => {
+describe('ConstellationLinesMaterialsFactory', () => {
 
-  const factory = new SkyGridMaterialsFactory();
+  const factory = new ConstellationLinesMaterialsFactory();
 
   const themeDef: ThemeDefinition = Object.create(emptyThemeDef);
 
-  themeDef.skyGrid = {
+  themeDef.constellation.lines = {
       line: {
-        common: 'rgb(1, 1, 1)',
-        reference: 'rgb(2, 2, 2)'
+        common: 'rgb(4, 4, 4)'
       }
     };
 
   it('#constructor should initialize targetLayerName field', () => {
-    expect(factory.targetLayerName).toBe(Layers.SKY_GRID);
+    expect(factory.targetLayerName).toBe(Layers.CONSTELLATION_LINES);
   });
 
   it('#buildMaterials should throw expected error if themeDef is undefined', () => {
-    const expectedMessage = 'Missing theme definition in MaterialsFactory for layer sky-grid';
+    const expectedMessage = 'Missing theme definition in MaterialsFactory for layer constellation-lines';
     expect(() => factory.buildMaterials(undefined)).toThrow(new Error(expectedMessage));
   });
 
   it('#buildMaterials should return expected materials map', () => {
     const materials = factory.buildMaterials(themeDef);
     expect(materials).toBeDefined();
-    expect(materials.size).toBe(2);
-    assertLineBasicMaterialBuilt(materials, 'line-common', new LineBasicMaterial({ color: 'rgb(1, 1, 1)' }));
-    assertLineBasicMaterialBuilt(materials, 'line-reference', new LineBasicMaterial({ color: 'rgb(2, 2, 2)' }));
+    expect(materials.size).toBe(1);
+    assertLineBasicMaterialBuilt(materials, 'line-common', new LineBasicMaterial({ color: 'rgb(4, 4, 4)' }));
   });
 
 });

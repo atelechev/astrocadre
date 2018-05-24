@@ -5,6 +5,7 @@ import { TextStyle } from '../text-style';
 import { MaterialsFactory } from './materials-factory';
 import { SkyGridMaterialsFactory } from './sky-grid-materials-factory';
 import { ConstellationBoundariesMaterialsFactory } from './constellation-boundaries-materials-factory';
+import { ConstellationLinesMaterialsFactory } from './constellation-lines-materials-factory';
 
 export class Theme {
 
@@ -29,6 +30,7 @@ export class Theme {
     const factories = new Map<string, MaterialsFactory>();
     factories.set(Layers.SKY_GRID, new SkyGridMaterialsFactory());
     factories.set(Layers.CONSTELLATION_BOUNDARIES, new ConstellationBoundariesMaterialsFactory());
+    factories.set(Layers.CONSTELLATION_LINES, new ConstellationLinesMaterialsFactory());
     return factories;
   }
 
@@ -38,13 +40,14 @@ export class Theme {
 
   private initMaterialsMap(): Map<string, Map<string, Material>> {
     const materials = new Map<string, Map<string, Material>>();
-    const layers = [ Layers.SKY_GRID, Layers.CONSTELLATION_BOUNDARIES ];
+    const layers = [ Layers.SKY_GRID,
+                     Layers.CONSTELLATION_BOUNDARIES,
+                     Layers.CONSTELLATION_LINES ];
 
     layers.forEach(
       (layer: string) => materials.set(layer, this.buildMaterialsForLayer(layer))
     );
 // TODO
-    materials.set(Layers.CONSTELLATION_LINES, this.getConstellationLinesMaterials());
     materials.set(Layers.STARS, this.getStarsMaterials());
     return materials;
   }
@@ -75,13 +78,6 @@ export class Theme {
     materials.set('line-reference', new LineBasicMaterial({ color : this.themeDef.skyGrid.line.reference }));
     return materials;
   }
-
-  private getConstellationLinesMaterials(): Map<string, Material> {
-    const materials = new Map<string, Material>();
-    materials.set('line-common', new LineBasicMaterial({ color : this.themeDef.constellation.lines.line.common }));
-    return materials;
-  }
-
 
   private getStarsMaterials(): Map<string, Material> {
     const materials = new Map<string, Material>();
