@@ -1,35 +1,45 @@
-import { Material, LineBasicMaterial, Color } from 'three';
+import { Material, LineBasicMaterial, Color, PointsMaterial, TextureLoader } from 'three';
 import { TextStyle } from '../text-style';
 import { ThemeDefinition } from './theme-definition';
 
-export const emptyTextStyle: TextStyle = {
-  fontSize: 'irrelevant',
-  fontFamily: 'irrelevant',
-  fontStyle: 'irrelevant',
-  fontWeight: 'irrelevant',
-  color: 'irrelevant',
+const IRRELEVANT = 'irrelevant';
+
+export const textStyle = (fSize: string = IRRELEVANT,
+                          fFam: string = IRRELEVANT,
+                          fStyle: string = IRRELEVANT,
+                          fWeight: string = IRRELEVANT,
+                          fColor: string = IRRELEVANT) => {
+  return {
+    fontSize: fSize,
+    fontFamily: fFam,
+    fontStyle: fStyle,
+    fontWeight: fWeight,
+    color: fColor,
+  };
 };
+
+export const emptyTextStyle: TextStyle = textStyle();
 
 export const emptyThemeDef: ThemeDefinition = {
   name: 'test',
   background: {
-    color: 'irrelevant'
+    color: IRRELEVANT
   },
   skyGrid: {
     line: {
-      common: 'irrelevant',
-      reference: 'irrelevant'
+      common: IRRELEVANT,
+      reference: IRRELEVANT
     }
   },
   constellation: {
     boundaries: {
       line: {
-        common: 'irrelevant'
+        common: IRRELEVANT
       }
     },
     lines: {
       line: {
-        common: 'irrelevant'
+        common: IRRELEVANT
       }
     },
     names: emptyTextStyle
@@ -37,7 +47,7 @@ export const emptyThemeDef: ThemeDefinition = {
   stars: {
     magnitudes: [],
     texture: {
-      image: 'irrelevant',
+      image: IRRELEVANT,
       sizeMultiplier: 0
     },
     names: {
@@ -55,12 +65,48 @@ export const assertColorsSame = (color1: Color, color2: Color) => {
   expect(color1.b).toBe(color2.b);
 };
 
+export const lineBasicMaterial = (color: string) => {
+  return new LineBasicMaterial({ color: color });
+};
+
+export const assertLineBasicMaterialExpected = (checked: Material, expected: LineBasicMaterial) => {
+  expect(checked).toBeDefined();
+  expect(checked instanceof LineBasicMaterial).toBeTruthy();
+  assertColorsSame((<LineBasicMaterial> checked).color, expected.color);
+};
+
 export const assertLineBasicMaterialBuilt = (materials: Map<string, Material>,
                                              key: string,
                                              expectedMaterial: LineBasicMaterial) => {
   expect(materials.has(key)).toBeTruthy();
   const material = materials.get(key);
-  expect(material).toBeDefined();
-  expect(material instanceof LineBasicMaterial).toBeTruthy();
-  assertColorsSame((<LineBasicMaterial> material).color, expectedMaterial.color);
+  assertLineBasicMaterialExpected(material, expectedMaterial);
 };
+
+export const pointsMaterial = (size: number, name: string) => {
+  return new PointsMaterial({ size: size,
+                            sizeAttenuation: false,
+                            transparent: true,
+                            opacity: 0.95,
+                            alphaTest: 0.05,
+                            map: new TextureLoader().load(name) } );
+};
+
+export const assertPointsMaterialExpected = (checked: Material, expected: PointsMaterial) => {
+  expect(checked).toBeDefined();
+  expect(checked instanceof PointsMaterial).toBeTruthy();
+  const checkedPoints = <PointsMaterial> checked;
+  expect(checkedPoints.map.name).toBe(expected.map.name);
+  expect(checkedPoints.size).toBe(expected.size);
+};
+
+export const assertTextStyleExpected = (checked: TextStyle, expected: TextStyle) => {
+  expect(checked).toBeDefined();
+  expect(checked.color).toBe(expected.color);
+  expect(checked.fontFamily).toBe(expected.fontFamily);
+  expect(checked.fontSize).toBe(expected.fontSize);
+  expect(checked.fontStyle).toBe(expected.fontStyle);
+  expect(checked.fontWeight).toBe(expected.fontWeight);
+};
+
+

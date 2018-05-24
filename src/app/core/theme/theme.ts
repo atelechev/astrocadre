@@ -17,6 +17,9 @@ export class Theme {
   private textStyleByLayer: Map<string, Map<string, TextStyle>>;
 
   constructor(private themeDef: ThemeDefinition) {
+    if (!themeDef) {
+      throw new Error('Failed to create Theme: undefined themeDef arg');
+    }
     this.materialsByLayer = this.initMaterialsMap();
     this.textStyleByLayer = this.initTextStyles();
     this.backgroundColor = new Color(this.themeDef.background.color);
@@ -147,7 +150,7 @@ export class Theme {
   }
 
   private getLayerNameWithoutStarsMag(layer: string): string {
-    return layer.startsWith(Layers.STARS + '-mag') ? Layers.STARS : layer;
+    return layer && layer.startsWith(Layers.STARS + '-mag') ? Layers.STARS : layer;
   }
 
   public getTextStyleForLayer(layer: string, styleKey: string): TextStyle {
