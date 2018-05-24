@@ -2,8 +2,12 @@ import { Color, Material, LineBasicMaterial, PointsMaterial, TextureLoader } fro
 import { Layers } from '../../core/layers';
 import { ThemeDefinition } from './theme-definition';
 import { TextStyle } from '../text-style';
+import { MaterialsFactory } from './materials-factory';
+import { SkyGridMaterialsFactory } from './sky-grid-materials-factory';
 
 export class Theme {
+
+  private static readonly FACTORIES: Map<string, MaterialsFactory> = Theme.initMaterialsFactories();
 
   private backgroundColor: Color;
 
@@ -17,9 +21,24 @@ export class Theme {
     this.backgroundColor = new Color(this.themeDef.background.color);
   }
 
+  private static initMaterialsFactories(): Map<string, MaterialsFactory> {
+    const factories = new Map<string, MaterialsFactory>();
+    factories.set(Layers.SKY_GRID, new SkyGridMaterialsFactory());
+    return factories;
+  }
+
+  private buildMaterialsForLayer(layer: string): Map<string, Material> {
+    return Theme.FACTORIES.get(layer).buildMaterials(this.themeDef);
+  }
+
   private initMaterialsMap(): Map<string, Map<string, Material>> {
     const materials = new Map<string, Map<string, Material>>();
-    materials.set(Layers.SKY_GRID, this.getSkyGridMaterials());
+    const layers = [ Layers.SKY_GRID ];
+
+    layers.forEach(
+      (layer: string) => materials.set(layer, this.buildMaterialsForLayer(layer))
+    );
+// TODO
     materials.set(Layers.CONSTELLATION_BOUNDARIES, this.getConstellationBoundariesMaterials());
     materials.set(Layers.CONSTELLATION_LINES, this.getConstellationLinesMaterials());
     materials.set(Layers.STARS, this.getStarsMaterials());
