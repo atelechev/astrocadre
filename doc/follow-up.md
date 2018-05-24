@@ -89,43 +89,47 @@ To start the app:
 ### May 17th, 2018
 
 * SV-012:
-  * Refactor layers model to support hierarchical structures
-  * Render Constellation code labels
+  * Layers model refactored to support hierarchical structures.
+  * Constellation code labels are rendered in the view.
 
 * SV-013:
-  * Use constellation names instead of codes in labels
-  * GoTo should support selection by name. Selection by code to be also kept.
-  * GoTo should allow selection by RA/DEC coordinate
-
-### Next Steps
+  * Constellation names instead of codes are used in labels.
+  * GoTo support selection by name, alongside with the selection by code.
+  * GoTo allows selection by RA/DEC coordinates.
 
 * SV-014:
   * Show star names for those that have own names, as an enablable layer.
   * Show Greek letters for stars identified with letters, as an enablable layer.
 
+### Next Steps
+
+* SV-015: Release preparation
+  * refactoring and clean-up of the main app
+  * tests of the main app
+  * inline documentation where necessary
+  * detailed README.md
+  * refactor, clean-up and document tools/data-import
+
 #### Major Features
 
-* Export of current view as image
+_None scheduled currently before first public release is done._
 
-#### Release and Distribution
+#### TODOs for Release and Distribution
 
 * Find an optimal solution for packaging (minification, bundle...)
 * API to insert SkyView in a Web page
-* TESTS!!!
 
 #### Features after First Public Release
 
+* Export of current view as image
 * Current position of the Sun and of the Moon (probably, the planets also) - new layer
 * Messier objects layer
 
 #### Low priority improvements for POC
 
 * S-N direction arrow
-* theme definition: enabled layers by default, pre-defined star magnitudes shown
+* theme definition: pre-defined star magnitudes shown
 * 'night' and 'exoplorer' themes
 * star colors depending on their class/temperature
 * flexible canvas size (?)
-
-#### Postponed or cancelled
-
-* Center screen sky coordinates output in the UI
+* Show the name of the constellation or another significant object that is most close to the center of the viewport
