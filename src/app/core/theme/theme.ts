@@ -8,6 +8,7 @@ import { ConstellationBoundariesMaterialsFactory } from './constellation-boundar
 import { ConstellationLinesMaterialsFactory } from './constellation-lines-materials-factory';
 import { StarsMaterialsFactory } from './stars-materials-factory';
 import { ConstellationNamesTextStylesFactory } from './constellation-names-text-style-factory';
+import { StarsTextStyleFactory } from './stars-text-style-factory';
 
 export class Theme {
 
@@ -42,6 +43,7 @@ export class Theme {
   private static initTextStylesFactories(): Map<string, TextStylesFactory> {
     const factories = new Map<string, TextStylesFactory>();
     factories.set(Layers.CONSTELLATION_NAMES, new ConstellationNamesTextStylesFactory());
+    factories.set(Layers.STARS, new StarsTextStyleFactory());
     return factories;
   }
 
@@ -67,20 +69,14 @@ export class Theme {
 
   private initTextStyles(): Map<string, Map<string, TextStyle>> {
     const styles = new Map<string, Map<string, TextStyle>>();
-    const layers = [ Layers.CONSTELLATION_NAMES ];
+    const layers = [
+      Layers.CONSTELLATION_NAMES,
+      Layers.STARS
+    ];
     layers.forEach(
       (layer: string) => styles.set(layer, this.buildTextStylesForLayer(layer))
     );
-    // TODO
-    styles.set(Layers.STARS, this.initStarsTextStyles());
     return styles;
-  }
-
-  private initStarsTextStyles(): Map<string, TextStyle> {
-    const starsLabels = new Map<string, TextStyle>();
-    starsLabels.set('names-proper', this.themeDef.stars.names.proper);
-    starsLabels.set('names-standard', this.themeDef.stars.names.standard);
-    return starsLabels;
   }
 
   public getBackgroundColor(): Color {
