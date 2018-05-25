@@ -1,7 +1,7 @@
 import { Material } from 'three';
 import { ThemeDefinition } from './theme-definition';
 import { LayerAware } from '../layer-aware';
-import { TextStyle } from '../text-style';
+import { TextStyle } from './text-style';
 
 /**
  * Provides a common validation method for ThemeDefinition argument

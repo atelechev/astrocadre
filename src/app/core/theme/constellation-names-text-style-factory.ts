@@ -1,6 +1,6 @@
 import { TextStylesFactory } from './abstract-factories';
 import { ThemeDefinition } from './theme-definition';
-import { TextStyle } from '../text-style';
+import { TextStyle } from './text-style';
 import { Layers } from '../layers';
 
 export class ConstellationNamesTextStylesFactory extends TextStylesFactory {

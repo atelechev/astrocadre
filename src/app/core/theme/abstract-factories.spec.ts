@@ -1,5 +1,5 @@
 import { Material, LineBasicMaterial, Color, PointsMaterial, TextureLoader } from 'three';
-import { TextStyle } from '../text-style';
+import { TextStyle } from './text-style';
 import { ThemeDefinition } from './theme-definition';
 
 const IRRELEVANT = 'irrelevant';

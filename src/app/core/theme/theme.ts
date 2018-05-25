@@ -1,7 +1,7 @@
 import { Color, Material } from 'three';
 import { Layers } from '../../core/layers';
 import { ThemeDefinition } from './theme-definition';
-import { TextStyle } from '../text-style';
+import { TextStyle } from './text-style';
 import { MaterialsFactory, TextStylesFactory } from './abstract-factories';
 import { SkyGridMaterialsFactory } from './sky-grid-materials-factory';
 import { ConstellationBoundariesMaterialsFactory } from './constellation-boundaries-materials-factory';
