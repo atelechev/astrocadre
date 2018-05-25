@@ -108,6 +108,14 @@ export const assertPointsMaterialBuilt = (materials: Map<string, Material>,
   assertPointsMaterialExpected(material, expectedMaterial);
 };
 
+export const assertTextStyleBuilt = (styles: Map<string, TextStyle>,
+                                     key: string,
+                                     expectedStyle: TextStyle) => {
+  expect(styles.has(key)).toBeTruthy();
+  const style = styles.get(key);
+  assertTextStyleExpected(style, expectedStyle);
+};
+
 export const assertTextStyleExpected = (checked: TextStyle, expected: TextStyle) => {
   expect(checked).toBeDefined();
   expect(checked.color).toBe(expected.color);

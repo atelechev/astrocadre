@@ -3,6 +3,10 @@ import { ThemeDefinition } from './theme-definition';
 import { LayerAware } from '../layer-aware';
 import { TextStyle } from '../text-style';
 
+/**
+ * Provides a common validation method for ThemeDefinition argument
+ * processed in descendants.
+ */
 abstract class EnsuringThemeDefinitionValid extends LayerAware {
 
   constructor(targetLayer: string) {
@@ -17,6 +21,9 @@ abstract class EnsuringThemeDefinitionValid extends LayerAware {
 
 }
 
+/**
+ * Base factory class to produce Three's Materials.
+ */
 export abstract class MaterialsFactory extends EnsuringThemeDefinitionValid {
 
   constructor(targetLayer: string) {
@@ -32,6 +39,9 @@ export abstract class MaterialsFactory extends EnsuringThemeDefinitionValid {
 
 }
 
+/**
+ * Base factory class to produce label text styles.
+ */
 export abstract class TextStylesFactory extends EnsuringThemeDefinitionValid {
 
   constructor(targetLayer: string) {

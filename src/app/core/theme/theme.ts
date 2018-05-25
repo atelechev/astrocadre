@@ -2,15 +2,18 @@ import { Color, Material, LineBasicMaterial, PointsMaterial, TextureLoader } fro
 import { Layers } from '../../core/layers';
 import { ThemeDefinition } from './theme-definition';
 import { TextStyle } from '../text-style';
-import { MaterialsFactory } from './abstract-factories';
+import { MaterialsFactory, TextStylesFactory } from './abstract-factories';
 import { SkyGridMaterialsFactory } from './sky-grid-materials-factory';
 import { ConstellationBoundariesMaterialsFactory } from './constellation-boundaries-materials-factory';
 import { ConstellationLinesMaterialsFactory } from './constellation-lines-materials-factory';
 import { StarsMaterialsFactory } from './stars-materials-factory';
+import { ConstellationNamesTextStylesFactory } from './constellation-names-text-style-factory';
 
 export class Theme {
 
-  private static readonly FACTORIES: Map<string, MaterialsFactory> = Theme.initMaterialsFactories();
+  private static readonly FACTORIES_MATERIALS: Map<string, MaterialsFactory> = Theme.initMaterialsFactories();
+
+  private static readonly FACTORIES_TEXTSTYLES: Map<string, TextStylesFactory> = Theme.initTextStylesFactories();
 
   private backgroundColor: Color;
 
@@ -36,8 +39,14 @@ export class Theme {
     return factories;
   }
 
+  private static initTextStylesFactories(): Map<string, TextStylesFactory> {
+    const factories = new Map<string, TextStylesFactory>();
+    factories.set(Layers.CONSTELLATION_NAMES, new ConstellationNamesTextStylesFactory());
+    return factories;
+  }
+
   private buildMaterialsForLayer(layer: string): Map<string, Material> {
-    return Theme.FACTORIES.get(layer).buildMaterials(this.themeDef);
+    return Theme.FACTORIES_MATERIALS.get(layer).buildMaterials(this.themeDef);
   }
 
   private initMaterialsMap(): Map<string, Map<string, Material>> {
@@ -52,9 +61,17 @@ export class Theme {
     return materials;
   }
 
+  private buildTextStylesForLayer(layer: string): Map<string, TextStyle> {
+    return Theme.FACTORIES_TEXTSTYLES.get(layer).buildTextStyles(this.themeDef);
+  }
+
   private initTextStyles(): Map<string, Map<string, TextStyle>> {
     const styles = new Map<string, Map<string, TextStyle>>();
-    styles.set(Layers.CONSTELLATION_NAMES, this.initConstellationNamesTextStyles());
+    const layers = [ Layers.CONSTELLATION_NAMES ];
+    layers.forEach(
+      (layer: string) => styles.set(layer, this.buildTextStylesForLayer(layer))
+    );
+    // TODO
     styles.set(Layers.STARS, this.initStarsTextStyles());
     return styles;
   }
@@ -64,12 +81,6 @@ export class Theme {
     starsLabels.set('names-proper', this.themeDef.stars.names.proper);
     starsLabels.set('names-standard', this.themeDef.stars.names.standard);
     return starsLabels;
-  }
-
-  private initConstellationNamesTextStyles(): Map<string, TextStyle> {
-    const nameLabels = new Map<string, TextStyle>();
-    nameLabels.set('labels', this.themeDef.constellation.names);
-    return nameLabels;
   }
 
   public getBackgroundColor(): Color {
