@@ -18,7 +18,7 @@ describe('ConstellationBoundariesMaterialsFactory', () => {
     };
 
   it('#constructor should initialize targetLayerName field', () => {
-    expect(factory.targetLayerName).toBe(Layers.CONSTELLATION_BOUNDARIES);
+    expect(factory.layerCode).toBe(Layers.CONSTELLATION_BOUNDARIES);
   });
 
   it('#buildMaterials should throw expected error if themeDef is undefined', () => {

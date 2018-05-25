@@ -24,7 +24,7 @@ describe('StarsMaterialsFactory', () => {
   };
 
   it('#constructor should initialize targetLayerName field', () => {
-    expect(factory.targetLayerName).toBe(Layers.STARS);
+    expect(factory.layerCode).toBe(Layers.STARS);
   });
 
   it('#buildMaterials should throw expected error if themeDef is undefined', () => {
