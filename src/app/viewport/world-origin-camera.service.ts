@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { AbstractCameraService } from './abstract-camera-service';
 import { Camera, PerspectiveCamera, Math as ThreeMath, Vector3 } from 'three';
-import { ViewportEventService } from './viewport-event.service';
-import { AxialRotation } from '../core/axial-rotation';
-import { SkyCoordinate } from '../core/sky-coordinate';
+import { ViewportEventService } from '../core/viewport/viewport-event.service';
+import { AxialRotation } from '../core/viewport/axial-rotation';
+import { SkyCoordinate } from '../core/viewport/sky-coordinate';
 import { VectorUtil } from '../layers/geometry/vector-util';
 import { Constants } from '../core/constants';
 

@@ -1,8 +1,5 @@
 import { ThemesEventService } from './themes-event.service';
 import { TestBed } from '@angular/core/testing';
-import { Injectable } from '@angular/core';
-import { Subject } from 'rxjs/Subject';
-import { Observable } from 'rxjs/Observable';
 
 describe('ThemesEventService', () => {
 

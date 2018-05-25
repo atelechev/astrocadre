@@ -1,6 +1,6 @@
 import { Component, AfterViewInit } from '@angular/core';
 import { Math as ThreeMath } from 'three';
-import { ViewportEventService } from '../viewport/viewport-event.service';
+import { ViewportEventService } from '../core/viewport/viewport-event.service';
 
 @Component({
   selector: `app-sky-view-controls-camera`,

@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { AbstractCameraService } from './abstract-camera-service';
 import { Camera, PerspectiveCamera, Math as ThreeMath } from 'three';
-import { ViewportEventService } from './viewport-event.service';
-import { AxialRotation } from '../core/axial-rotation';
+import { ViewportEventService } from '../core/viewport/viewport-event.service';
+import { AxialRotation } from '../core/viewport/axial-rotation';
 
 @Injectable()
 export class ExternalCameraService extends AbstractCameraService {

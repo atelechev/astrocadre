@@ -1,8 +1,8 @@
 import { Component, AfterViewInit } from '@angular/core';
 import { SearchableItem } from './searchable-item';
 import { ControlsService } from './controls.service';
-import { ViewportEventService } from '../viewport/viewport-event.service';
-import { SkyCoordinate } from '../core/sky-coordinate';
+import { ViewportEventService } from '../core/viewport/viewport-event.service';
+import { SkyCoordinate } from '../core/viewport/sky-coordinate';
 
 @Component({
   selector: `app-sky-view-controls-go-to`,

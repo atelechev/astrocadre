@@ -6,7 +6,7 @@ import { LayersComponent } from './layers/layers.component';
 import { LayersEventService } from './layers/layers-event.service';
 import { LayerVisibility } from './core/layer-visibility';
 import { ThemesEventService } from './core/theme/themes-event.service';
-import { ViewportEventService } from './viewport/viewport-event.service';
+import { ViewportEventService } from './core/viewport/viewport-event.service';
 import { Layers } from './core/layers';
 import { ConstellationNamesLayer } from './layers/constellation-names-layer';
 import { LabelledLayer } from './core/labelled-layer';

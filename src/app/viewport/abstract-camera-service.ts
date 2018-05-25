@@ -3,8 +3,8 @@ import { RendererService } from './renderer.service';
 import { SceneService } from './scene.service';
 import { OnInit } from '@angular/core';
 import { Constants } from '../core/constants';
-import { ViewportEventService } from './viewport-event.service';
-import { AxialRotation } from '../core/axial-rotation';
+import { ViewportEventService } from '../core/viewport/viewport-event.service';
+import { AxialRotation } from '../core/viewport/axial-rotation';
 
 export abstract class AbstractCameraService {
 

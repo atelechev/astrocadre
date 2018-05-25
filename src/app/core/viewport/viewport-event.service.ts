@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs/Subject';
-import { AxialRotation } from '../core/axial-rotation';
-import { SkyCoordinate } from '../core/sky-coordinate';
+import { AxialRotation } from './axial-rotation';
+import { SkyCoordinate } from './sky-coordinate';
 
 
 @Injectable()

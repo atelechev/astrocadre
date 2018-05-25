@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CoreComponent } from './core.component';
 import { ThemesEventService } from './theme/themes-event.service';
+import { ViewportEventService } from './viewport/viewport-event.service';
 
 @NgModule({
   declarations: [
@@ -11,7 +12,8 @@ import { ThemesEventService } from './theme/themes-event.service';
   ],
   providers: [
     CoreComponent,
-    ThemesEventService
+    ThemesEventService,
+    ViewportEventService
   ]
 })
 export class CoreModule {
