@@ -4,13 +4,13 @@
     {
       "code": "dev",
       "label": "Dev",
-      "description": "Used during development phase",
+      "description": "\"Development\" phase theme. Uses highly contrasted and often incompatible colors in order to make rendered items more visible.",
       "selected": true
     },
     {
       "code": "sky-chart",
       "label": "Sky chart",
-      "description": "Theme resembling standard sky charts",
+      "description": "Theme defined closely to standard black and white sky charts, like the ones seen in printed catalogues.",
       "selected": false
     }
   ]
