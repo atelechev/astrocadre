@@ -1,4 +1,4 @@
-import { Color, Material, LineBasicMaterial, PointsMaterial, TextureLoader } from 'three';
+import { Color, Material } from 'three';
 import { Layers } from '../../core/layers';
 import { ThemeDefinition } from './theme-definition';
 import { TextStyle } from '../text-style';
@@ -10,6 +10,10 @@ import { StarsMaterialsFactory } from './stars-materials-factory';
 import { ConstellationNamesTextStylesFactory } from './constellation-names-text-style-factory';
 import { StarsTextStyleFactory } from './stars-text-style-factory';
 
+/**
+ * Wraps a ThemeDefinition in order to transform its input raw data into objects
+ * of target types. Main object used to define a graphics theme and access its properties.
+ */
 export class Theme {
 
   private static readonly FACTORIES_MATERIALS: Map<string, MaterialsFactory> = Theme.initMaterialsFactories();
@@ -20,14 +24,14 @@ export class Theme {
 
   private materialsByLayer: Map<string, Map<string, Material>>;
 
-  private textStyleByLayer: Map<string, Map<string, TextStyle>>;
+  private textStylesByLayer: Map<string, Map<string, TextStyle>>;
 
   constructor(private themeDef: ThemeDefinition) {
     if (!themeDef) {
       throw new Error('Failed to create Theme: undefined themeDef arg');
     }
     this.materialsByLayer = this.initMaterialsMap();
-    this.textStyleByLayer = this.initTextStyles();
+    this.textStylesByLayer = this.initTextStyles();
     this.backgroundColor = new Color(this.themeDef.background.color);
   }
 
@@ -101,25 +105,33 @@ export class Theme {
   }
 
   public getMaterialsForLayer(layer: string): Map<string, Material> {
-    if (!this.materialsByLayer.has(layer)) {
-      throw new Error(`Unexpected layer name: '${layer}'`);
-    }
+    this.ensureLayerKeyPresent(this.materialsByLayer, layer);
     return this.materialsByLayer.get(layer);
+  }
+
+  private ensureLayerKeyPresent(map: Map<string, any>, layerKey: string): void {
+    if (!map.has(layerKey)) {
+      throw new Error(`Unexpected layer name: '${layerKey}'`);
+    }
   }
 
   public getTextStylesForLayer(layer: string): Map<string, TextStyle> {
     const starsNormalizedLayer = this.getLayerNameWithoutStarsMag(layer);
-    if (!this.textStyleByLayer.has(starsNormalizedLayer)) {
-      throw new Error(`Unexpected layer name: '${layer}'`);
+    this.ensureLayerKeyPresent(this.textStylesByLayer, starsNormalizedLayer);
+    return this.textStylesByLayer.get(starsNormalizedLayer);
+  }
+
+  private ensureMaterialOrStyleKeyPresent(map: Map<string, any>,
+                                          layerKey: string,
+                                          targetKey: string): void {
+    if (!map.has(targetKey)) {
+      throw new Error(`Unexpected key '${targetKey}' for layer '${layerKey}'`);
     }
-    return this.textStyleByLayer.get(starsNormalizedLayer);
   }
 
   public getMaterialForLayer(layer: string, materialKey: string): Material {
     const layerMaterials = this.getMaterialsForLayer(layer);
-    if (!layerMaterials.has(materialKey)) {
-      throw new Error(`Unexpected material key '${materialKey}' for layer '${layer}'`);
-    }
+    this.ensureMaterialOrStyleKeyPresent(layerMaterials, layer, materialKey);
     return layerMaterials.get(materialKey);
   }
 
@@ -129,9 +141,7 @@ export class Theme {
 
   public getTextStyleForLayer(layer: string, styleKey: string): TextStyle {
     const layerStyles = this.getTextStylesForLayer(layer);
-    if (!layerStyles.has(styleKey)) {
-      throw new Error(`Unexpected style key '${styleKey}' for layer '${layer}'`);
-    }
+    this.ensureMaterialOrStyleKeyPresent(layerStyles, layer, styleKey);
     return layerStyles.get(styleKey);
   }
 

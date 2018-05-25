@@ -120,22 +120,22 @@ describe('Theme', () => {
 
   it('#getMaterialForLayer should throw error for sky-grid layer and unsupported material key', () => {
     expect(() => theme.getMaterialForLayer(Layers.SKY_GRID, 'any'))
-      .toThrow(new Error('Unexpected material key \'any\' for layer \'sky-grid\''));
+      .toThrow(new Error('Unexpected key \'any\' for layer \'sky-grid\''));
   });
 
   it('#getMaterialForLayer should throw error for constellation-boundaries layer and unsupported material key', () => {
     expect(() => theme.getMaterialForLayer(Layers.CONSTELLATION_BOUNDARIES, 'any'))
-      .toThrow(new Error('Unexpected material key \'any\' for layer \'constellation-boundaries\''));
+      .toThrow(new Error('Unexpected key \'any\' for layer \'constellation-boundaries\''));
   });
 
   it('#getMaterialForLayer should throw error for constellation-lines layer and unsupported material key', () => {
     expect(() => theme.getMaterialForLayer(Layers.CONSTELLATION_LINES, 'any'))
-      .toThrow(new Error('Unexpected material key \'any\' for layer \'constellation-lines\''));
+      .toThrow(new Error('Unexpected key \'any\' for layer \'constellation-lines\''));
   });
 
   it('#getMaterialForLayer should throw error for sky-grid layer and unsupported material key', () => {
     expect(() => theme.getMaterialForLayer(Layers.STARS, 'any'))
-      .toThrow(new Error('Unexpected material key \'any\' for layer \'stars\''));
+      .toThrow(new Error('Unexpected key \'any\' for layer \'stars\''));
   });
 
   it('#getMaterialForLayer should return expected material for sky-grid line-common', () => {
@@ -201,12 +201,12 @@ describe('Theme', () => {
 
   it('#getTextStyleForLayer should throw error for constellation-names layer and unsupported key', () => {
     expect(() => theme.getTextStyleForLayer(Layers.CONSTELLATION_NAMES, 'any'))
-      .toThrow(new Error('Unexpected style key \'any\' for layer \'constellation-names\''));
+      .toThrow(new Error('Unexpected key \'any\' for layer \'constellation-names\''));
   });
 
   it('#getTextStyleForLayer should throw error for stars layer and unsupported key', () => {
     expect(() => theme.getTextStyleForLayer(Layers.STARS, 'any'))
-      .toThrow(new Error('Unexpected style key \'any\' for layer \'stars\''));
+      .toThrow(new Error('Unexpected key \'any\' for layer \'stars\''));
   });
 
   it('#getTextStyleForLayer should return expected style for constellation-names layer and labels key', () => {
