@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { Themes } from '../core/theme/themes';
 import { AbstractService } from '../core/abstract-service';
 import { Http } from '@angular/Http';
 import { ThemeDefinition } from '../core/theme/theme-definition';
@@ -12,7 +11,7 @@ export class ThemesService extends AbstractService {
     super(http);
   }
 
-  public getThemeDefinition(theme: Themes): Observable<ThemeDefinition> {
+  public getThemeDefinition(theme: string): Observable<ThemeDefinition> {
     const url = `/assets/themes/${theme}.json`;
     return this.execGetRequestForUrl(url);
   }

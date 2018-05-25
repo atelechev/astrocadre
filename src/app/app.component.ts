@@ -1,5 +1,4 @@
 import { Component, ViewChild, OnInit, ChangeDetectorRef } from '@angular/core';
-import { Themes } from './core/theme/themes';
 import { ViewportComponent } from './viewport/viewport.component';
 import { ThemesComponent } from './themes/themes.component';
 import { ThemeAware } from './core/theme/theme-aware';

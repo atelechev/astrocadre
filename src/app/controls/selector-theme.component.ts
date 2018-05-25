@@ -1,6 +1,5 @@
 import { Component, AfterViewInit } from '@angular/core';
 import { SelectableItem } from './selectable-item';
-import { Themes } from '../core/theme/themes';
 import { ThemesEventService } from '../core/theme/themes-event.service';
 import { ControlsService } from './controls.service';
 import { SectionMetadata } from './section-metadata';
