@@ -13,8 +13,7 @@ export class StarsMaterialsFactory extends MaterialsFactory {
     this.textureLoader = new TextureLoader();
   }
 
-  public buildMaterials(themeDef: ThemeDefinition): Map<string, Material> {
-    this.ensureThemeDefined(themeDef);
+  protected buildMaterialsWith(themeDef: ThemeDefinition): Map<string, Material> {
     const materials = new Map<string, Material>();
     const sizeMultiplier = themeDef.stars.texture.sizeMultiplier;
     const textureFile = themeDef.stars.texture.image;

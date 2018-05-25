@@ -9,8 +9,7 @@ export class ConstellationLinesMaterialsFactory extends MaterialsFactory {
     super(Layers.CONSTELLATION_LINES);
   }
 
-  public buildMaterials(themeDef: ThemeDefinition): Map<string, Material> {
-    this.ensureThemeDefined(themeDef);
+  protected buildMaterialsWith(themeDef: ThemeDefinition): Map<string, Material> {
     const materials = new Map<string, Material>();
     materials.set('line-common', new LineBasicMaterial({ color : themeDef.constellation.lines.line.common }));
     return materials;
