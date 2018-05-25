@@ -6,7 +6,7 @@ import { ThemeAware } from './core/theme/theme-aware';
 import { LayersComponent } from './layers/layers.component';
 import { LayersEventService } from './layers/layers-event.service';
 import { LayerVisibility } from './core/layer-visibility';
-import { ThemesEventService } from './themes/themes-event.service';
+import { ThemesEventService } from './core/theme/themes-event.service';
 import { ViewportEventService } from './viewport/viewport-event.service';
 import { Layers } from './core/layers';
 import { ConstellationNamesLayer } from './layers/constellation-names-layer';
@@ -22,8 +22,7 @@ import { StarsMagnitudeLayer } from './layers/stars-magnitude-layer';
     ViewportComponent,
     ThemesComponent,
     LayersComponent,
-    LayersEventService,
-    ThemesEventService
+    LayersEventService
   ]
 })
 export class AppComponent implements OnInit {

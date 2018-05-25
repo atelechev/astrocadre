@@ -2,14 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { Theme } from '../core/theme/theme';
 import { ThemesService } from './themes.service';
 import { ThemeDefinition } from '../core/theme/theme-definition';
-import { ThemesEventService } from './themes-event.service';
+import { ThemesEventService } from '../core/theme/themes-event.service';
 
 @Component({
   selector: 'app-sky-view-themes',
   template: ``,
-  providers: [
-    ThemesService
-  ]
+  providers: []
 })
 export class ThemesComponent implements OnInit {
 
