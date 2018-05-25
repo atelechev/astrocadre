@@ -2,7 +2,7 @@ import { Color, Material, LineBasicMaterial, PointsMaterial, TextureLoader } fro
 import { Layers } from '../../core/layers';
 import { ThemeDefinition } from './theme-definition';
 import { TextStyle } from '../text-style';
-import { MaterialsFactory } from './materials-factory';
+import { MaterialsFactory } from './abstract-factories';
 import { SkyGridMaterialsFactory } from './sky-grid-materials-factory';
 import { ConstellationBoundariesMaterialsFactory } from './constellation-boundaries-materials-factory';
 import { ConstellationLinesMaterialsFactory } from './constellation-lines-materials-factory';

@@ -2,8 +2,8 @@ import { StarsMaterialsFactory } from './stars-materials-factory';
 import { ThemeDefinition } from './theme-definition';
 import { Layers } from '../layers';
 import { LineBasicMaterial } from 'three';
-import { assertColorsSame, assertLineBasicMaterialBuilt, emptyTextStyle, pointsMaterial } from './materials-factory.spec';
-import { emptyThemeDef, textStyle, assertPointsMaterialBuilt } from './materials-factory.spec';
+import { assertColorsSame, assertLineBasicMaterialBuilt, emptyTextStyle, pointsMaterial } from './abstract-factories.spec';
+import { emptyThemeDef, textStyle, assertPointsMaterialBuilt } from './abstract-factories.spec';
 
 
 describe('StarsMaterialsFactory', () => {
@@ -28,7 +28,7 @@ describe('StarsMaterialsFactory', () => {
   });
 
   it('#buildMaterials should throw expected error if themeDef is undefined', () => {
-    const expectedMessage = 'Missing theme definition in MaterialsFactory for layer stars';
+    const expectedMessage = 'Missing theme definition in StarsMaterialsFactory';
     expect(() => factory.buildMaterials(undefined)).toThrow(new Error(expectedMessage));
   });
 

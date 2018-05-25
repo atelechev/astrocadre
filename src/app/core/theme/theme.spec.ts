@@ -1,6 +1,6 @@
 import { ThemeDefinition } from './theme-definition';
-import { textStyle, assertColorsSame, assertLineBasicMaterialExpected, assertTextStyleExpected } from './materials-factory.spec';
-import { lineBasicMaterial, assertPointsMaterialExpected, pointsMaterial } from './materials-factory.spec';
+import { textStyle, assertColorsSame, assertLineBasicMaterialExpected, assertTextStyleExpected } from './abstract-factories.spec';
+import { lineBasicMaterial, assertPointsMaterialExpected, pointsMaterial } from './abstract-factories.spec';
 import { Theme } from './theme';
 import { Color, LineBasicMaterial } from 'three';
 import { Layers } from '../layers';

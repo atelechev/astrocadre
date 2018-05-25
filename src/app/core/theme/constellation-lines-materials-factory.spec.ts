@@ -2,7 +2,7 @@ import { ConstellationLinesMaterialsFactory } from './constellation-lines-materi
 import { ThemeDefinition } from './theme-definition';
 import { Layers } from '../layers';
 import { LineBasicMaterial } from 'three';
-import { assertColorsSame, assertLineBasicMaterialBuilt, emptyTextStyle, emptyThemeDef } from './materials-factory.spec';
+import { assertColorsSame, assertLineBasicMaterialBuilt, emptyTextStyle, emptyThemeDef } from './abstract-factories.spec';
 
 
 describe('ConstellationLinesMaterialsFactory', () => {
@@ -22,7 +22,7 @@ describe('ConstellationLinesMaterialsFactory', () => {
   });
 
   it('#buildMaterials should throw expected error if themeDef is undefined', () => {
-    const expectedMessage = 'Missing theme definition in MaterialsFactory for layer constellation-lines';
+    const expectedMessage = 'Missing theme definition in ConstellationLinesMaterialsFactory';
     expect(() => factory.buildMaterials(undefined)).toThrow(new Error(expectedMessage));
   });
 

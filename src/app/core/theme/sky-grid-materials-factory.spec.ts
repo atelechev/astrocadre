@@ -2,7 +2,7 @@ import { SkyGridMaterialsFactory } from './sky-grid-materials-factory';
 import { ThemeDefinition } from './theme-definition';
 import { Layers } from '../layers';
 import { LineBasicMaterial } from 'three';
-import { assertColorsSame, assertLineBasicMaterialBuilt, emptyTextStyle, emptyThemeDef } from './materials-factory.spec';
+import { assertColorsSame, assertLineBasicMaterialBuilt, emptyTextStyle, emptyThemeDef } from './abstract-factories.spec';
 
 
 describe('SkyGridMaterialsFactory', () => {
@@ -23,7 +23,7 @@ describe('SkyGridMaterialsFactory', () => {
   });
 
   it('#buildMaterials should throw expected error if themeDef is undefined', () => {
-    const expectedMessage = 'Missing theme definition in MaterialsFactory for layer sky-grid';
+    const expectedMessage = 'Missing theme definition in SkyGridMaterialsFactory';
     expect(() => factory.buildMaterials(undefined)).toThrow(new Error(expectedMessage));
   });
 

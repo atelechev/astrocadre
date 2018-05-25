@@ -1,4 +1,4 @@
-import { MaterialsFactory } from './materials-factory';
+import { MaterialsFactory } from './abstract-factories';
 import { Layers } from '../layers';
 import { ThemeDefinition } from './theme-definition';
 import { Material, TextureLoader, PointsMaterial } from 'three';
