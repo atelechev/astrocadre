@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { RenderableLayer } from '../core/renderable-layer';
+import { RenderableLayer } from '../core/layer/renderable-layer';
 import { ThemeAware } from '../core/theme/theme-aware';
 import { Theme } from '../core/theme/theme';
 import { LayersFactoryService } from './layers-factory.service';
@@ -8,7 +8,7 @@ import { LayerVisibility } from '../core/layer/layer-visibility';
 import { ItemsTreeNode } from '../core/items-tree-node';
 import { Layers } from '../core/layers';
 import { StarsMagnitudeLayer } from './stars-magnitude-layer';
-import { LabelledLayer } from '../core/labelled-layer';
+import { LabelledLayer } from '../core/layer/labelled-layer';
 
 @Component({
   selector: 'app-sky-view-layers',

@@ -1,5 +1,5 @@
 import { Layers } from '../core/layers';
-import { RenderableLayer } from '../core/renderable-layer';
+import { RenderableLayer } from '../core/layer/renderable-layer';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/of';
 import { Injectable } from '@angular/core';

@@ -9,7 +9,7 @@ import { ThemesEventService } from './core/theme/themes-event.service';
 import { ViewportEventService } from './core/viewport/viewport-event.service';
 import { Layers } from './core/layers';
 import { ConstellationNamesLayer } from './layers/constellation-names-layer';
-import { LabelledLayer } from './core/labelled-layer';
+import { LabelledLayer } from './core/layer/labelled-layer';
 import { StarLabelVisibility } from './core/layer/star-label-visibility';
 import { StarsMagnitudeLayer } from './layers/stars-magnitude-layer';
 

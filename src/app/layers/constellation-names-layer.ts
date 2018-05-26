@@ -1,4 +1,4 @@
-import { LabelledLayer } from '../core/labelled-layer';
+import { LabelledLayer } from '../core/layer/labelled-layer';
 import { Object3D } from 'three';
 import { Theme } from '../core/theme/theme';
 import { ItemsTreeNode } from '../core/items-tree-node';

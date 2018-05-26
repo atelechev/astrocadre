@@ -1,4 +1,4 @@
-import { RenderableLayer } from '../core/renderable-layer';
+import { RenderableLayer } from '../core/layer/renderable-layer';
 import { Object3D, LineSegments } from 'three';
 import { MergedAxialCurves } from './geometry/merged-axial-curves';
 import { Layers } from '../core/layers';

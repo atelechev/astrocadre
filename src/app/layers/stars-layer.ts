@@ -1,4 +1,4 @@
-import { RenderableLayer } from '../core/renderable-layer';
+import { RenderableLayer } from '../core/layer/renderable-layer';
 import { Object3D } from 'three';
 import { Theme } from '../core/theme/theme';
 import { ItemsTreeNode } from '../core/items-tree-node';

@@ -1,4 +1,4 @@
-import { RenderableLayer } from '../core/renderable-layer';
+import { RenderableLayer } from '../core/layer/renderable-layer';
 import { Object3D, LineSegments } from 'three';
 import { MergedLines } from './geometry/merged-lines';
 import { Layers } from '../core/layers';
