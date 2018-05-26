@@ -1,10 +1,9 @@
 import { Vector3 } from 'three';
 import { Theme } from '../../theme/theme';
 import { TextOffsetPolicy } from './text-offset-policy';
+import { TextStyleAssigner } from './text-style-assigner';
 
 export class RenderableText {
-
-  private static readonly MEASURE_CANVAS = document.createElement('canvas');
 
   private htmlElement: HTMLElement;
 
@@ -45,12 +44,7 @@ export class RenderableText {
 
   public useTheme(theme: Theme): void {
     const labelStyle = theme.getTextStyleForLayer(this.parentLayer, this.styleKey);
-    const style = this.htmlElement.style;
-    style.fontFamily = labelStyle.fontFamily;
-    style.fontSize = labelStyle.fontSize;
-    style.fontStyle = labelStyle.fontStyle;
-    style.fontWeight = labelStyle.fontWeight;
-    style.color = labelStyle.color;
+    TextStyleAssigner.applyStyleOn(labelStyle, this.htmlElement);
     this.updateOffsets();
   }
 
