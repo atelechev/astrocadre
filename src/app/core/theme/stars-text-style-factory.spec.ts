@@ -13,7 +13,7 @@ describe('StarsTextStyleFactory', () => {
   themeDef.stars.names.standard = textStyle('size3', 'fam3', 'style3', 'weight3', 'color3');
 
   it('#constructor should initialize targetLayerName field', () => {
-    expect(factory.layerCode).toBe(Layers.STARS);
+    expect(factory.layerName).toBe(Layers.STARS);
   });
 
   it('#buildTextStyles should throw expected error if themeDef is undefined', () => {

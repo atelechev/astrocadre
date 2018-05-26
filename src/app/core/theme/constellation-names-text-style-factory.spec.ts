@@ -12,7 +12,7 @@ describe('ConstellationNamesTextStylesFactory', () => {
   themeDef.constellation.names = textStyle('size1', 'fam1', 'style1', 'weight1', 'color1');
 
   it('#constructor should initialize targetLayerName field', () => {
-    expect(factory.layerCode).toBe(Layers.CONSTELLATION_NAMES);
+    expect(factory.layerName).toBe(Layers.CONSTELLATION_NAMES);
   });
 
   it('#buildTextStyles should throw expected error if themeDef is undefined', () => {

@@ -1,7 +1,7 @@
 
 export abstract class LayerAware {
 
-  constructor(public readonly layerCode: string) {
+  constructor(public readonly layerName: string) {
 
   }
 

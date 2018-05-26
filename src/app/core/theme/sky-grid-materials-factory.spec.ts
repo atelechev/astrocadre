@@ -19,7 +19,7 @@ describe('SkyGridMaterialsFactory', () => {
     };
 
   it('#constructor should initialize targetLayerName field', () => {
-    expect(factory.layerCode).toBe(Layers.SKY_GRID);
+    expect(factory.layerName).toBe(Layers.SKY_GRID);
   });
 
   it('#buildMaterials should throw expected error if themeDef is undefined', () => {
