@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CoreComponent } from './core.component';
 import { ThemesEventService } from './theme/themes-event.service';
 import { ViewportEventService } from './viewport/viewport-event.service';
+import { LayersEventService } from './layer/layers-event.service';
 
 @NgModule({
   declarations: [
@@ -13,7 +14,8 @@ import { ViewportEventService } from './viewport/viewport-event.service';
   providers: [
     CoreComponent,
     ThemesEventService,
-    ViewportEventService
+    ViewportEventService,
+    LayersEventService
   ]
 })
 export class CoreModule {

@@ -3,14 +3,14 @@ import { ViewportComponent } from './viewport/viewport.component';
 import { ThemesComponent } from './themes/themes.component';
 import { ThemeAware } from './core/theme/theme-aware';
 import { LayersComponent } from './layers/layers.component';
-import { LayersEventService } from './layers/layers-event.service';
-import { LayerVisibility } from './core/layer-visibility';
+import { LayersEventService } from './core/layer/layers-event.service';
+import { LayerVisibility } from './core/layer/layer-visibility';
 import { ThemesEventService } from './core/theme/themes-event.service';
 import { ViewportEventService } from './core/viewport/viewport-event.service';
 import { Layers } from './core/layers';
 import { ConstellationNamesLayer } from './layers/constellation-names-layer';
 import { LabelledLayer } from './core/labelled-layer';
-import { StarLabelVisibility } from './core/star-label-visibility';
+import { StarLabelVisibility } from './core/layer/star-label-visibility';
 import { StarsMagnitudeLayer } from './layers/stars-magnitude-layer';
 
 @Component({
@@ -20,8 +20,7 @@ import { StarsMagnitudeLayer } from './layers/stars-magnitude-layer';
   providers: [
     ViewportComponent,
     ThemesComponent,
-    LayersComponent,
-    LayersEventService
+    LayersComponent
   ]
 })
 export class AppComponent implements OnInit {

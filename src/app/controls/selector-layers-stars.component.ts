@@ -1,6 +1,6 @@
 import { Component, AfterViewInit, Input } from '@angular/core';
-import { LayersEventService } from '../layers/layers-event.service';
-import { LayerVisibility } from '../core/layer-visibility';
+import { LayersEventService } from '../core/layer/layers-event.service';
+import { LayerVisibility } from '../core/layer/layer-visibility';
 import { Layers } from '../core/layers';
 
 @Component({
