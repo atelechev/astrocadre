@@ -5,8 +5,8 @@ import { ItemsTreeNode } from '../core/items-tree-node';
 import { ConstellationMetadata } from './constellation-metadata';
 import { VectorUtil } from './geometry/vector-util';
 import { Constants } from '../core/constants';
-import { RenderableText } from '../core/renderable-text';
-import { TextOffsetPolicies } from '../core/text-offset-policy';
+import { RenderableText } from '../core/layer/label/renderable-text';
+import { TextOffsetPolicies } from '../core/layer/label/text-offset-policy';
 
 export class ConstellationNamesLayer extends LabelledLayer {
 

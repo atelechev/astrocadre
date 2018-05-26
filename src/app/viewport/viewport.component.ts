@@ -6,7 +6,7 @@ import { SceneService } from './scene.service';
 import { Theme } from '../core/theme/theme';
 import { ThemeAware } from '../core/theme/theme-aware';
 import { Object3D, Math as ThreeMath, Camera, Frustum, Matrix4, Vector3, Sphere } from 'three';
-import { RenderableText } from '../core/renderable-text';
+import { RenderableText } from '../core/layer/label/renderable-text';
 import { Observable } from 'rxjs/Observable';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 

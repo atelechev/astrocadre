@@ -5,10 +5,10 @@ import { Points, Object3D } from 'three';
 import { MergedPoints } from './geometry/merged-points';
 import { ItemsTreeNode } from '../core/items-tree-node';
 import { LabelledLayer } from '../core/layer/labelled-layer';
-import { RenderableText } from '../core/renderable-text';
+import { RenderableText } from '../core/layer/label/renderable-text';
 import { StandardNameConverter } from './standard-name-converter';
 import { VectorUtil } from './geometry/vector-util';
-import { TextOffsetPolicies, TextOffsetPolicy } from '../core/text-offset-policy';
+import { TextOffsetPolicies, TextOffsetPolicy } from '../core/layer/label/text-offset-policy';
 
 export class StarsMagnitudeLayer extends LabelledLayer {
 

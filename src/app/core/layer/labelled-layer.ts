@@ -1,6 +1,6 @@
 import { RenderableLayer } from './renderable-layer';
 import { ItemsTreeNode } from '../items-tree-node';
-import { RenderableText } from '../renderable-text';
+import { RenderableText } from './label/renderable-text';
 
 export abstract class LabelledLayer extends RenderableLayer {
 

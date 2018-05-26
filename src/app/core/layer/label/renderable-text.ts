@@ -1,5 +1,5 @@
 import { Vector3 } from 'three';
-import { Theme } from './theme/theme';
+import { Theme } from '../../theme/theme';
 import { TextOffsetPolicy } from './text-offset-policy';
 
 export class RenderableText {
