@@ -7,11 +7,13 @@ describe('TextStyleAssigner', () => {
 
   it('#applyStyleOn should throw expected error for undefined style arg', () => {
     const element = document.createElement('div');
-    expect(() => assigner.applyStyleOn(undefined, element)).toThrow(new Error('style arg must be defined'));
+    expect(() => assigner.applyStyleOn(undefined, element))
+      .toThrow(new Error('style arg must be defined, but was \'undefined\''));
   });
 
   it('#applyStyleOn should throw expected error for undefined element arg', () => {
-    expect(() => assigner.applyStyleOn(textStyle(), undefined)).toThrow(new Error('element arg must be defined'));
+    expect(() => assigner.applyStyleOn(textStyle(), undefined))
+      .toThrow(new Error('element arg must be defined, but was \'undefined\''));
   });
 
   it('#applyStyleOn should assign expected font size', () => {

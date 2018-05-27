@@ -1,8 +1,10 @@
 
 export class TextOffsets {
 
-  constructor(public readonly offsetWidth: number,
-              public readonly offsetHeight: number) {
+  public static readonly ZERO_OFFSETS = new TextOffsets(0, 0);
+
+  constructor(public readonly offsetX: number,
+              public readonly offsetY: number) {
 
   }
 

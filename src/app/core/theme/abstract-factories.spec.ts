@@ -2,7 +2,7 @@ import { Material, LineBasicMaterial, Color, PointsMaterial, TextureLoader } fro
 import { TextStyle } from './text-style';
 import { ThemeDefinition } from './theme-definition';
 
-const IRRELEVANT = 'irrelevant';
+export const IRRELEVANT = 'irrelevant';
 
 export const textStyle = (fSize: string = IRRELEVANT,
                           fFam: string = IRRELEVANT,

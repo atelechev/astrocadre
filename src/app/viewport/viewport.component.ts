@@ -148,8 +148,8 @@ export class ViewportComponent implements AfterViewInit, ThemeAware {
 
   private setLabelPositionAndShow(renderable: RenderableText, position: Vector3): void {
     const style = renderable.getHtmlElement().style;
-    style.top = Math.floor(position.y - renderable.getHeightOffset()) + 'px';
-    style.left = Math.floor(position.x - renderable.getWidthOffset()) + 'px';
+    style.top = Math.floor(position.y - renderable.getOffsetY()) + 'px';
+    style.left = Math.floor(position.x - renderable.getOffsetX()) + 'px';
     style.display = 'initial';
   }
 
