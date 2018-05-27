@@ -21,6 +21,9 @@ class CenteredText implements TextOffsetPolicy {
   private static readonly MEASURE_CANVAS = document.createElement('canvas');
 
   public calculateOffsets(text: string, htmlElement: HTMLElement): TextOffsets {
+    if (!text || !htmlElement) {
+      return TextOffsets.ZERO_OFFSETS;
+    }
     return new TextOffsets(
       this.calculateWidthOffset(text, htmlElement),
       this.calculateHeightOffset(htmlElement)
@@ -51,16 +54,20 @@ class CenteredText implements TextOffsetPolicy {
 
 class TopRightText implements TextOffsetPolicy {
 
+  private static readonly TOP_RIGHT_SINGLETON = new TextOffsets(-10, 12);
+
   public calculateOffsets(text: string, htmlElement: HTMLElement): TextOffsets {
-    return new TextOffsets(-10, 12);
+    return TopRightText.TOP_RIGHT_SINGLETON;
   }
 
 }
 
 class CloseRightText implements TextOffsetPolicy {
 
+  private static readonly CLOSE_RIGHT_SINGLETON = new TextOffsets(-5, 6);
+
   public calculateOffsets(text: string, htmlElement: HTMLElement): TextOffsets {
-    return new TextOffsets(-5, 6);
+    return CloseRightText.CLOSE_RIGHT_SINGLETON;
   }
 
 }
