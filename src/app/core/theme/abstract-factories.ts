@@ -1,6 +1,6 @@
 import { Material } from 'three';
 import { ThemeDefinition } from './theme-definition';
-import { LayerAware } from '../layer-aware';
+import { LayerAware } from '../layer/layer-aware';
 import { TextStyle } from './text-style';
 
 /**
