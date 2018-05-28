@@ -5,6 +5,9 @@ import { TextStyleAssigner } from './text-style-assigner';
 import { HtmlElementFactory } from './html-element-factory';
 import { ArgValidator } from '../arg-validator';
 
+/**
+ * Wraps data about text that can be rendered in the view.
+ */
 export class RenderableText {
 
   private htmlElement: HTMLElement;

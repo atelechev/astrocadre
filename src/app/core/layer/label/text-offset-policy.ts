@@ -1,4 +1,7 @@
 
+/**
+ * Wraps values of X an Y axis offsets to apply on an element while calculating its position in the view.
+ */
 export class TextOffsets {
 
   public static readonly ZERO_OFFSETS = new TextOffsets(0, 0);
@@ -10,12 +13,26 @@ export class TextOffsets {
 
 }
 
+/**
+ * Provides access to a method that implements rules to calculate TextOffsets.
+ */
 export interface TextOffsetPolicy {
 
+  /**
+   * Calculates the offsets to apply on the specified text and HTML element.
+   *
+   * @param text the text to calculate the offsets for.
+   * @param htmlElement the HTML element to calculate the offsets for.
+   *
+   * @returns TextOffsets the calculated offsets.
+   */
   calculateOffsets(text: string, htmlElement: HTMLElement): TextOffsets;
 
 }
 
+/**
+ * Implements TextOffsetPolicy that allows to place a label centered relatively to a point.
+ */
 class CenteredText implements TextOffsetPolicy {
 
   private static readonly MEASURE_CANVAS = document.createElement('canvas');
@@ -52,6 +69,9 @@ class CenteredText implements TextOffsetPolicy {
 
 }
 
+/**
+ * Implements TextOffsetPolicy that places a label on a constant distance to the top right of a point.
+ */
 class TopRightText implements TextOffsetPolicy {
 
   private static readonly TOP_RIGHT_SINGLETON = new TextOffsets(-10, 12);
@@ -62,6 +82,9 @@ class TopRightText implements TextOffsetPolicy {
 
 }
 
+/**
+ * Implements TextOffsetPolicy that places a label on a constant distance close to the right of a point.
+ */
 class CloseRightText implements TextOffsetPolicy {
 
   private static readonly CLOSE_RIGHT_SINGLETON = new TextOffsets(-5, 6);
@@ -72,6 +95,9 @@ class CloseRightText implements TextOffsetPolicy {
 
 }
 
+/**
+ * Provides access to existing TextOffsetPolicies.
+ */
 export class TextOffsetPolicies {
 
   public static readonly CENTERED: TextOffsetPolicy = new CenteredText();

@@ -1,7 +1,19 @@
 import { ArgValidator } from '../arg-validator';
 
+/**
+ * Factory utility class allowing to instantiate HTML elements.
+ */
 export class HtmlElementFactory {
 
+  /**
+   * Creates a new HTML div element supposed to contain a label.
+   *
+   * @param layerName the name of the layer that uses this element. Mandatory.
+   * @param styleKey the text style key of the label. Mandatory.
+   * @param text the label text.
+   *
+   * @returns HTMLElement the instantiated label element.
+   */
   public static newLabel(layerName: string,
                          styleKey: string,
                          text: string): HTMLElement {
