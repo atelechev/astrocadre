@@ -3,6 +3,7 @@ import { Theme } from '../../theme/theme';
 import { TextOffsetPolicy, TextOffsets } from './text-offset-policy';
 import { TextStyleAssigner } from './text-style-assigner';
 import { HtmlElementFactory } from './html-element-factory';
+import { ArgValidator } from '../arg-validator';
 
 export class RenderableText {
 
@@ -15,6 +16,8 @@ export class RenderableText {
               public readonly position: Vector3,
               private text: string,
               private offsetPolicy: TextOffsetPolicy) {
+    ArgValidator.ensureArgDefined(position, 'position');
+    ArgValidator.ensureArgDefined(offsetPolicy, 'offsetPolicy');
     this.htmlElement = HtmlElementFactory.newLabel(parentLayer, styleKey, text);
     this.offsets = TextOffsets.ZERO_OFFSETS;
   }
