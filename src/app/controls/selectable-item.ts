@@ -1,4 +1,4 @@
-import { ItemsTreeNode } from '../core/items-tree-node';
+import { LayersTreeNode } from '../core/layer/layers-tree-node';
 
 export class SelectableItem {
 
@@ -19,9 +19,9 @@ export class SelectableItem {
                               children);
   }
 
-  public asItemsTree(): ItemsTreeNode {
+  public asItemsTree(): LayersTreeNode {
     const children = this.items ? this.items.map(item => SelectableItem.from(item).asItemsTree()) : [];
-    return new ItemsTreeNode(this.code, children);
+    return new LayersTreeNode(this.code, children);
   }
 
 }

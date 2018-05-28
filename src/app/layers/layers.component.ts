@@ -5,7 +5,7 @@ import { Theme } from '../core/theme/theme';
 import { LayersFactoryService } from './layers-factory.service';
 import { LayersEventService } from '../core/layer/layers-event.service';
 import { LayerVisibility } from '../core/layer/layer-visibility';
-import { ItemsTreeNode } from '../core/items-tree-node';
+import { LayersTreeNode } from '../core/layer/layers-tree-node';
 import { Layers } from '../core/layers';
 import { StarsMagnitudeLayer } from './stars-magnitude-layer';
 import { LabelledLayer } from '../core/layer/labelled-layer';
@@ -49,7 +49,7 @@ export class LayersComponent implements ThemeAware, OnInit {
     });
   }
 
-  private loadLayer(layer: ItemsTreeNode): void {
+  private loadLayer(layer: LayersTreeNode): void {
     this.layersFactory.newRenderableLayer(layer).subscribe(
       (loadedLayer: RenderableLayer) => {
         this.loadedLayers.set(loadedLayer.getName(), loadedLayer);
@@ -70,7 +70,7 @@ export class LayersComponent implements ThemeAware, OnInit {
 
   private subscribeLayerLoadRequestEvent(): void {
     this.layersEventService.requestLayerLoad$.subscribe(
-      (layer: ItemsTreeNode) => this.loadLayer(layer)
+      (layer: LayersTreeNode) => this.loadLayer(layer)
     );
   }
 

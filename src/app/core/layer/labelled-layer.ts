@@ -1,5 +1,5 @@
 import { RenderableLayer } from './renderable-layer';
-import { ItemsTreeNode } from '../items-tree-node';
+import { LayersTreeNode } from './layers-tree-node';
 import { RenderableText } from './label/renderable-text';
 
 /**
@@ -7,7 +7,7 @@ import { RenderableText } from './label/renderable-text';
  */
 export abstract class LabelledLayer extends RenderableLayer {
 
-  constructor(tree: ItemsTreeNode) {
+  constructor(tree: LayersTreeNode) {
     super(tree);
   }
 

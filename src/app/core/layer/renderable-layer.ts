@@ -1,7 +1,7 @@
 import { Object3D } from 'three';
 import { Theme } from '../theme/theme';
 import { ThemeAware } from '../theme/theme-aware';
-import { ItemsTreeNode } from '../items-tree-node';
+import { LayersTreeNode } from './layers-tree-node';
 import { ArgValidator } from './arg-validator';
 
 /**
@@ -11,7 +11,7 @@ export abstract class RenderableLayer implements ThemeAware {
 
   private visible: boolean;
 
-  constructor(protected readonly tree: ItemsTreeNode) {
+  constructor(protected readonly tree: LayersTreeNode) {
     ArgValidator.ensureArgDefined(tree, 'tree');
   }
 

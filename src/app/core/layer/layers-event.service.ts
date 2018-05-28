@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs/Subject';
 import { LayerVisibility } from './layer-visibility';
 import { StarLabelVisibility } from './star-label-visibility';
-import { ItemsTreeNode } from '../items-tree-node';
+import { LayersTreeNode } from './layers-tree-node';
 
 /**
  * Used to exchange events and messages related with layers rendered in the main viewport.
@@ -12,7 +12,7 @@ export class LayersEventService {
 
   private broadcastLayerLoaded = new Subject<string>();
 
-  private requestLayerLoad = new Subject<ItemsTreeNode>();
+  private requestLayerLoad = new Subject<LayersTreeNode>();
 
   private requestLayerVisibility = new Subject<LayerVisibility>();
 
@@ -66,7 +66,7 @@ export class LayersEventService {
    *
    * @param layer the node of the layer to load in the whole layers tree.
    */
-  public loadLayerRequested(layer: ItemsTreeNode): void {
+  public loadLayerRequested(layer: LayersTreeNode): void {
     this.requestLayerLoad.next(layer);
   }
 

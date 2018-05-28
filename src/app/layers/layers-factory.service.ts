@@ -10,7 +10,7 @@ import { ConstellationLinesLayer } from './constellation-lines-layer';
 import { StarsLayer } from './stars-layer';
 import { ConstellationsLayer } from './constellations-layer';
 import { StarsMagnitudeLayer } from './stars-magnitude-layer';
-import { ItemsTreeNode } from '../core/items-tree-node';
+import { LayersTreeNode } from '../core/layer/layers-tree-node';
 import { ConstellationNamesLayer } from './constellation-names-layer';
 import { ConstellationMetadata } from './constellation-metadata';
 
@@ -21,19 +21,19 @@ export class LayersFactoryService {
 
   }
 
-  private initConstellationBoundariesLayer(layer: ItemsTreeNode): Observable<RenderableLayer> {
+  private initConstellationBoundariesLayer(layer: LayersTreeNode): Observable<RenderableLayer> {
     return this.starsService.getConstellationBoundaries().map(
       (rawBoundaries: number[][]) => new ConstellationBoundariesLayer(layer, rawBoundaries)
     );
   }
 
-  private initConstellationLinesLayer(layer: ItemsTreeNode): Observable<RenderableLayer> {
+  private initConstellationLinesLayer(layer: LayersTreeNode): Observable<RenderableLayer> {
     return this.starsService.getConstellationLines().map(
       (rawSegments: number[][]) => new ConstellationLinesLayer(layer, rawSegments)
     );
   }
 
-  private initConstellationNamesLayer(layer: ItemsTreeNode): Observable<RenderableLayer> {
+  private initConstellationNamesLayer(layer: LayersTreeNode): Observable<RenderableLayer> {
     return this.starsService.getConstellationMetadata().map(
       (rawMetadata: ConstellationMetadata[]) => new ConstellationNamesLayer(layer, rawMetadata)
     );
@@ -43,7 +43,7 @@ export class LayersFactoryService {
     return layer && layer.startsWith(Layers.STARS);
   }
 
-  private initStarLayers(layer: ItemsTreeNode): Observable<RenderableLayer> {
+  private initStarLayers(layer: LayersTreeNode): Observable<RenderableLayer> {
     if (layer.code === Layers.STARS) {
       return Observable.of(new StarsLayer(layer));
     }
@@ -53,7 +53,7 @@ export class LayersFactoryService {
     );
   }
 
-  public newRenderableLayer(layer: ItemsTreeNode): Observable<RenderableLayer> {
+  public newRenderableLayer(layer: LayersTreeNode): Observable<RenderableLayer> {
     if (this.isStarLayer(layer.code)) {
       return this.initStarLayers(layer);
     }

@@ -1,7 +1,7 @@
 import { LabelledLayer } from '../core/layer/labelled-layer';
 import { Object3D } from 'three';
 import { Theme } from '../core/theme/theme';
-import { ItemsTreeNode } from '../core/items-tree-node';
+import { LayersTreeNode } from '../core/layer/layers-tree-node';
 import { ConstellationMetadata } from './constellation-metadata';
 import { VectorUtil } from './geometry/vector-util';
 import { Constants } from '../core/constants';
@@ -14,7 +14,7 @@ export class ConstellationNamesLayer extends LabelledLayer {
 
   private allHtmls: Array<HTMLElement>;
 
-  constructor(tree: ItemsTreeNode,
+  constructor(tree: LayersTreeNode,
               rawMetadata: ConstellationMetadata[]) {
     super(tree);
     this.initRenderableLabels(rawMetadata);

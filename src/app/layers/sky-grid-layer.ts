@@ -5,7 +5,7 @@ import { MergedAxialCurves } from './geometry/merged-axial-curves';
 import { Layers } from '../core/layers';
 import { Theme } from '../core/theme/theme';
 import { Constants } from '../core/constants';
-import { ItemsTreeNode } from '../core/items-tree-node';
+import { LayersTreeNode } from '../core/layer/layers-tree-node';
 
 export class SkyGridLayer extends RenderableLayer {
 
@@ -27,7 +27,7 @@ export class SkyGridLayer extends RenderableLayer {
 
   private objects: Object3D[];
 
-  constructor(tree: ItemsTreeNode) {
+  constructor(tree: LayersTreeNode) {
     super(tree);
     this.commonMeridians = this.generateCommonMeridianSegments();
     this.commonParallels = this.generateCommonParallelSegments();

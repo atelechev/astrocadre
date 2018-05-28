@@ -3,7 +3,7 @@ import { Theme } from '../core/theme/theme';
 import { Constants } from '../core/constants';
 import { Points, Object3D } from 'three';
 import { MergedPoints } from './geometry/merged-points';
-import { ItemsTreeNode } from '../core/items-tree-node';
+import { LayersTreeNode } from '../core/layer/layers-tree-node';
 import { LabelledLayer } from '../core/layer/labelled-layer';
 import { RenderableText } from '../core/layer/label/renderable-text';
 import { StandardNameConverter } from './standard-name-converter';
@@ -28,7 +28,7 @@ export class StarsMagnitudeLayer extends LabelledLayer {
 
   private shownLabelsType: string;
 
-  constructor(tree: ItemsTreeNode,
+  constructor(tree: LayersTreeNode,
               public readonly magClass: number,
               rawStars: number[][]) {
     super(tree);

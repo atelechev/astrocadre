@@ -1,18 +1,18 @@
 import { RenderableLayer } from './renderable-layer';
 import { Object3D } from 'three';
 import { Theme } from '../theme/theme';
-import { ItemsTreeNode } from '../items-tree-node';
+import { LayersTreeNode } from './layers-tree-node';
 
 describe('RenderableLayer', () => {
 
-  const childNode = new ItemsTreeNode('child1', []);
-  const parentNode = new ItemsTreeNode('parent', [ childNode ]);
+  const childNode = new LayersTreeNode('child1', []);
+  const parentNode = new LayersTreeNode('parent', [ childNode ]);
 
   class MinLayerImpl extends RenderableLayer {
 
     private objects = [ new Object3D(), new Object3D() ];
 
-    constructor(protected readonly tree: ItemsTreeNode) {
+    constructor(protected readonly tree: LayersTreeNode) {
       super(tree);
     }
 

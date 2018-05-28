@@ -4,7 +4,7 @@ import { Layers } from '../core/layers';
 import { LayersEventService } from '../core/layer/layers-event.service';
 import { ControlsService } from './controls.service';
 import { SectionMetadata } from './section-metadata';
-import { ItemsTreeNode } from '../core/items-tree-node';
+import { LayersTreeNode } from '../core/layer/layers-tree-node';
 
 
 @Component({
@@ -38,7 +38,7 @@ export class SelectorLayersComponent implements AfterViewInit {
   }
 
   // TODO tree processing should be extracted into dedicated utilities
-  private extractCodes(node: ItemsTreeNode): string[] {
+  private extractCodes(node: LayersTreeNode): string[] {
     const childCodes = node.children.map(n => this.extractCodes(n))
                                     .reduce((prev, curr) => prev.concat(curr), []);
     return [ node.code ].concat(childCodes);

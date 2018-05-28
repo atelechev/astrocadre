@@ -4,7 +4,7 @@ import { MergedAxialCurves } from './geometry/merged-axial-curves';
 import { Layers } from '../core/layers';
 import { Theme } from '../core/theme/theme';
 import { Constants } from '../core/constants';
-import { ItemsTreeNode } from '../core/items-tree-node';
+import { LayersTreeNode } from '../core/layer/layers-tree-node';
 
 export class ConstellationBoundariesLayer extends RenderableLayer {
 
@@ -12,7 +12,7 @@ export class ConstellationBoundariesLayer extends RenderableLayer {
 
   private objects: Object3D[];
 
-  constructor(tree: ItemsTreeNode,
+  constructor(tree: LayersTreeNode,
               rawSegments: number[][]) {
     super(tree);
     this.mergedCurves = new MergedAxialCurves(rawSegments, Constants.WORLD_RADIUS - 0.02).toObject3D();
