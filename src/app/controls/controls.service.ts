@@ -23,7 +23,7 @@ export class ControlsService extends AbstractService {
   }
 
   public getSearchableItems(): Observable<SearchableItem[]> {
-    const url = 'assets/constellations.json';
+    const url = 'assets/searchable-items.json';
     return this.execGetRequestForUrl(url);
   }
 

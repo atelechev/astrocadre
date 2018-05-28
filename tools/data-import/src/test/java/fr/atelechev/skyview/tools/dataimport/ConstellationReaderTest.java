@@ -28,7 +28,7 @@ public class ConstellationReaderTest {
 
     System.out.println(json);
 
-    outputJson(json, "constellations");
+    outputJson(json, "searchable-items");
   }
 
 }
