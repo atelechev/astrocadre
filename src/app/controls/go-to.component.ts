@@ -1,6 +1,6 @@
 import { Component, AfterViewInit } from '@angular/core';
-import { SearchableItem } from './searchable-item';
-import { ControlsService } from './controls.service';
+import { SearchableItem } from '../core/search/searchable-item';
+import { StaticDataService } from '../core/static-data-service';
 import { ViewportEventService } from '../core/viewport/viewport-event.service';
 import { SkyCoordinate } from '../core/viewport/sky-coordinate';
 
@@ -22,7 +22,7 @@ export class GoToComponent implements AfterViewInit {
 
   private searchableItems: Map<string, SearchableItem>;
 
-  constructor(private metadataService: ControlsService,
+  constructor(private dataService: StaticDataService,
               private viewportEventService: ViewportEventService) {
     this.goToButtonDisabled = true;
   }
@@ -91,7 +91,7 @@ export class GoToComponent implements AfterViewInit {
   }
 
   public ngAfterViewInit(): void {
-    this.metadataService.getSearchableItems().subscribe(
+    this.dataService.getSearchableItems().subscribe(
       (items: SearchableItem[]) => this.initSearchableItemsMap(items),
       (error: any) => console.log(`Failed to retrieve searchable items: ${error}`)
     );

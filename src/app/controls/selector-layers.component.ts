@@ -1,9 +1,9 @@
 import { Component, AfterViewInit } from '@angular/core';
-import { SelectableItem } from './selectable-item';
+import { SelectableItem } from '../core/controls/selectable-item';
 import { Layers } from '../core/layers';
 import { LayersEventService } from '../core/layer/layers-event.service';
-import { ControlsService } from './controls.service';
-import { SectionMetadata } from './section-metadata';
+import { StaticDataService } from '../core/static-data-service';
+import { SectionMetadata } from '../core/controls/section-metadata';
 import { LayersTreeNode } from '../core/layer/layers-tree-node';
 
 
@@ -17,13 +17,13 @@ export class SelectorLayersComponent implements AfterViewInit {
 
   public availableLayers: Array<SelectableItem>;
 
-  constructor(private metadataLoader: ControlsService,
+  constructor(private dataService: StaticDataService,
               private layersEventService: LayersEventService) {
     this.availableLayers = new Array<SelectableItem>();
   }
 
   private initAvailableLayers(): void {
-    this.metadataLoader.getAvailableLayers().subscribe(
+    this.dataService.getAvailableLayers().subscribe(
       (metadata: SectionMetadata) => {
         this.availableLayers = metadata.items.map(item => {
           return SelectableItem.from(item);

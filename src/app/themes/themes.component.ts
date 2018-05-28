@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Theme } from '../core/theme/theme';
-import { ThemesService } from './themes.service';
+import { StaticDataService } from '../core/static-data-service';
 import { ThemeDefinition } from '../core/theme/theme-definition';
 import { ThemesEventService } from '../core/theme/themes-event.service';
 
@@ -15,13 +15,13 @@ export class ThemesComponent implements OnInit {
 
   private activeTheme: string;
 
-  constructor(private themesService: ThemesService,
+  constructor(private dataService: StaticDataService,
               private themesEventService: ThemesEventService) {
     this.loadedThemes = new Map<string, Theme>();
   }
 
   private loadTheme(theme: string): void {
-    this.themesService.getThemeDefinition(theme).subscribe(
+    this.dataService.getThemeDefinition(theme).subscribe(
       (themeDef: ThemeDefinition) => {
         this.loadedThemes.set(theme, new Theme(themeDef));
         this.activeTheme = theme;

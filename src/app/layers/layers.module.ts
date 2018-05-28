@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { LayersComponent } from './layers.component';
-import { StarsService } from './stars.service';
+import { StaticDataService } from '../core/static-data-service';
 
 @NgModule({
   declarations: [
@@ -10,8 +10,7 @@ import { StarsService } from './stars.service';
     LayersComponent
   ],
   providers: [
-    LayersComponent,
-    StarsService
+    LayersComponent
   ]
 })
 export class LayersModule {

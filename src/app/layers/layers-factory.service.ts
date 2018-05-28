@@ -4,7 +4,7 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/of';
 import { Injectable } from '@angular/core';
 import { SkyGridLayer } from './sky-grid-layer';
-import { StarsService } from './stars.service';
+import { StaticDataService } from '../core/static-data-service';
 import { ConstellationBoundariesLayer } from './constellation-boundaries-layer';
 import { ConstellationLinesLayer } from './constellation-lines-layer';
 import { StarsLayer } from './stars-layer';
@@ -12,29 +12,29 @@ import { ConstellationsLayer } from './constellations-layer';
 import { StarsMagnitudeLayer } from './stars-magnitude-layer';
 import { LayersTreeNode } from '../core/layer/layers-tree-node';
 import { ConstellationNamesLayer } from './constellation-names-layer';
-import { ConstellationMetadata } from './constellation-metadata';
+import { ConstellationMetadata } from '../core/layer/constellation-metadata';
 
 @Injectable()
 export class LayersFactoryService {
 
-  constructor(private starsService: StarsService) {
+  constructor(private dataService: StaticDataService) {
 
   }
 
   private initConstellationBoundariesLayer(layer: LayersTreeNode): Observable<RenderableLayer> {
-    return this.starsService.getConstellationBoundaries().map(
+    return this.dataService.getConstellationBoundaries().map(
       (rawBoundaries: number[][]) => new ConstellationBoundariesLayer(layer, rawBoundaries)
     );
   }
 
   private initConstellationLinesLayer(layer: LayersTreeNode): Observable<RenderableLayer> {
-    return this.starsService.getConstellationLines().map(
+    return this.dataService.getConstellationLines().map(
       (rawSegments: number[][]) => new ConstellationLinesLayer(layer, rawSegments)
     );
   }
 
   private initConstellationNamesLayer(layer: LayersTreeNode): Observable<RenderableLayer> {
-    return this.starsService.getConstellationMetadata().map(
+    return this.dataService.getConstellationsMetadata().map(
       (rawMetadata: ConstellationMetadata[]) => new ConstellationNamesLayer(layer, rawMetadata)
     );
   }
@@ -48,7 +48,7 @@ export class LayersFactoryService {
       return Observable.of(new StarsLayer(layer));
     }
     const magClass = parseFloat(layer.code.substr(Layers.STARS.length + '-mag'.length));
-    return this.starsService.getStarsByMagnitudeClass(magClass).map(
+    return this.dataService.getStarsByMagnitudeClass(magClass).map(
       (rawStars: any[][]) => new StarsMagnitudeLayer(layer, magClass, rawStars)
     );
   }

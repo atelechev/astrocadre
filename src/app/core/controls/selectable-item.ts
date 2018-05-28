@@ -1,4 +1,4 @@
-import { LayersTreeNode } from '../core/layer/layers-tree-node';
+import { LayersTreeNode } from '../layer/layers-tree-node';
 
 export class SelectableItem {
 

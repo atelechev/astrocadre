@@ -2,7 +2,7 @@ import { LabelledLayer } from '../core/layer/labelled-layer';
 import { Object3D } from 'three';
 import { Theme } from '../core/theme/theme';
 import { LayersTreeNode } from '../core/layer/layers-tree-node';
-import { ConstellationMetadata } from './constellation-metadata';
+import { ConstellationMetadata } from '../core/layer/constellation-metadata';
 import { VectorUtil } from './geometry/vector-util';
 import { Constants } from '../core/constants';
 import { RenderableText } from '../core/layer/label/renderable-text';
