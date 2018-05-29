@@ -30,46 +30,46 @@ describe('TextOffsetPolicy', () => {
     assertOffsetsExpected(0, 0, zeroOffset);
   });
 
-  it('#TextOffsetPolicies.CLOSE_RIGHT should return offset of (-5, 6) for undefined text', () => {
+  it('#TextOffsetPolicies.CLOSE_RIGHT should return offset of (6, -5) for undefined text', () => {
     const element = document.createElement('div');
     const offsets = closeRightPolicy.calculateOffsets(undefined, element);
-    assertOffsetsExpected(-5, 6, offsets);
+    assertOffsetsExpected(6, -5, offsets);
   });
 
-  it('#TextOffsetPolicies.CLOSE_RIGHT should return offset of (-5, 6) for undefined element', () => {
+  it('#TextOffsetPolicies.CLOSE_RIGHT should return offset of (6, -5) for undefined element', () => {
     const offsets = closeRightPolicy.calculateOffsets('test', undefined);
-    assertOffsetsExpected(-5, 6, offsets);
+    assertOffsetsExpected(6, -5, offsets);
   });
 
-  it('#TextOffsetPolicies.CLOSE_RIGHT should return offset of (-5, 6) for any element', () => {
+  it('#TextOffsetPolicies.CLOSE_RIGHT should return offset of (6, -5) for any element', () => {
     const texts = [ 'a', 'test', 'test test test' ];
     texts.forEach(
       (text: string) => {
         const element = document.createElement('div');
         const offsets = closeRightPolicy.calculateOffsets(text, element);
-        assertOffsetsExpected(-5, 6, offsets);
+        assertOffsetsExpected(6, -5, offsets);
       }
     );
   });
 
-  it('#TextOffsetPolicies.TOP_RIGHT should return offset of (-10, 12) for undefined text', () => {
+  it('#TextOffsetPolicies.TOP_RIGHT should return offset of (9, -12) for undefined text', () => {
     const element = document.createElement('div');
     const offsets = topRightPolicy.calculateOffsets(undefined, element);
-    assertOffsetsExpected(-10, 12, offsets);
+    assertOffsetsExpected(9, -12, offsets);
   });
 
-  it('#TextOffsetPolicies.TOP_RIGHT should return offset of (-10, 12) for undefined element', () => {
+  it('#TextOffsetPolicies.TOP_RIGHT should return offset of (9, -12) for undefined element', () => {
     const offsets = topRightPolicy.calculateOffsets('test', undefined);
-    assertOffsetsExpected(-10, 12, offsets);
+    assertOffsetsExpected(9, -12, offsets);
   });
 
-  it('#TextOffsetPolicies.TOP_RIGHT should return offset of (-10, 12) for any element', () => {
+  it('#TextOffsetPolicies.TOP_RIGHT should return offset of (9, -12) for any element', () => {
     const texts = [ 'a', 'test', 'test test test' ];
     texts.forEach(
       (text: string) => {
         const element = document.createElement('div');
         const offsets = topRightPolicy.calculateOffsets(text, element);
-        assertOffsetsExpected(-10, 12, offsets);
+        assertOffsetsExpected(9, -12, offsets);
       }
     );
   });

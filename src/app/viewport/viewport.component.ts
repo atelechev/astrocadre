@@ -5,10 +5,9 @@ import { RendererService } from './renderer.service';
 import { SceneService } from './scene.service';
 import { Theme } from '../core/theme/theme';
 import { ThemeAware } from '../core/theme/theme-aware';
-import { Object3D, Math as ThreeMath, Camera, Frustum, Matrix4, Vector3, Sphere } from 'three';
+import { Object3D } from 'three';
 import { RenderableText } from '../core/layer/label/renderable-text';
-import { Observable } from 'rxjs/Observable';
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { LabelsVisibilityManager } from './labels-visibility-manager';
 
 @Component({
   selector: `app-sky-view-viewport`,
@@ -29,17 +28,13 @@ export class ViewportComponent implements AfterViewInit, ThemeAware {
 
   private viewportHeight: string;
 
-  private readonly halfWidth: number;
-
-  private readonly halfHeight: number;
+  private labelsVisibilityManager: LabelsVisibilityManager;
 
   constructor(private rendererService: RendererService,
               private sceneService: SceneService,
               private cameraService: WorldOriginCameraService) {
-    this.viewportWidth = this.getViewportWidth() + 'px';
-    this.viewportHeight = this.getViewportHeight() + 'px';
-    this.halfWidth = this.getViewportWidth() / 2;
-    this.halfHeight = this.getViewportHeight() / 2;
+    this.viewportWidth = Constants.VIEW_WIDTH + 'px';
+    this.viewportHeight = Constants.VIEW_HEIGHT + 'px';
     this.cameraService.initCoordsMarkerObject();
   }
 
@@ -50,6 +45,7 @@ export class ViewportComponent implements AfterViewInit, ThemeAware {
 
   public ngAfterViewInit(): void {
     this.appendCanvas();
+    this.labelsVisibilityManager = new LabelsVisibilityManager(this.skyViewViewport, this.cameraService.getCamera());
     this.rendererService.render(this.sceneService.getScene(), this.cameraService.getCamera());
     this.cameraService.initMouseListeners(this.rendererService, this.sceneService);
   }
@@ -69,88 +65,12 @@ export class ViewportComponent implements AfterViewInit, ThemeAware {
     });
   }
 
-  public getViewportWidth(): number {
-    return Constants.VIEW_WIDTH;
-  }
-
-  public getViewportHeight(): number {
-    return Constants.VIEW_HEIGHT;
-  }
-
   public hideLabelsByLayer(layer: string): void {
-    const labelClassPrefix = 'label_' + layer;
-    const allChildren = <HTMLCollection> this.skyViewViewport.nativeElement.children;
-    const length = allChildren.length;
-    for (let i = 0; i < length; i++) {
-      const child = <HTMLElement> allChildren.item(i);
-      if (child) {
-        const cssClass = child.getAttribute('class');
-        if (cssClass && cssClass.startsWith(labelClassPrefix)) {
-          this.hideLabel(child.style);
-        }
-      }
-    }
-  }
-
-  private hideLabel(style: CSSStyleDeclaration): void {
-    style.display = 'none';
-    style.top = '';
-    style.left = '';
+    this.labelsVisibilityManager.hideLabelsByLayer(layer);
   }
 
   public showVisibleLabels(layer: string, labels: Map<string, RenderableText>): void {
-    this.hideLabelsByLayer(layer);
-    const camera = this.cameraService.getCamera();
-    camera.updateMatrix();
-    camera.updateMatrixWorld(true);
-    const frustum = this.initFrustum();
-    labels.forEach(
-      (renderable: RenderableText, code: string) => {
-        if (!this.isPointBehind(frustum, renderable.position)) {
-          const onScreenPosition = this.getOnscreenPosition(renderable.position);
-          if (this.isPointOnScreen(onScreenPosition)) {
-            this.setLabelPositionAndShow(renderable, onScreenPosition);
-          }
-        }
-      }
-    );
-  }
-
-  private initFrustum(): Frustum {
-    const frustum = new Frustum();
-    const camera = this.cameraService.getCamera();
-    frustum.setFromMatrix(new Matrix4().multiplyMatrices(camera.projectionMatrix, camera.matrixWorldInverse));
-    return frustum;
-  }
-
-  private isPointBehind(frustum: Frustum, point: Vector3): boolean {
-    if (!point) {
-      return true;
-    }
-    return !frustum.containsPoint(point);
-  }
-
-  private getOnscreenPosition(point: Vector3): Vector3 {
-    const onScreen = point.clone();
-    onScreen.project(this.cameraService.getCamera());
-    onScreen.x = (onScreen.x * this.halfWidth) + this.halfWidth;
-    onScreen.y = - (onScreen.y * this.halfHeight) + this.halfHeight;
-    onScreen.z = 0;
-    return onScreen;
-  }
-
-  private isPointOnScreen(position: Vector3): boolean {
-    return position &&
-           position.x >= 0 && position.y >= 0 &&
-           position.x < this.getViewportWidth() &&
-           position.y < this.getViewportHeight();
-  }
-
-  private setLabelPositionAndShow(renderable: RenderableText, position: Vector3): void {
-    const style = renderable.getHtmlElement().style;
-    style.top = Math.floor(position.y - renderable.getOffsetY()) + 'px';
-    style.left = Math.floor(position.x - renderable.getOffsetX()) + 'px';
-    style.display = 'initial';
+    this.labelsVisibilityManager.showVisibleLabels(layer, labels);
   }
 
 }

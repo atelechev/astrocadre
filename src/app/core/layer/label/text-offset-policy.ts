@@ -74,7 +74,7 @@ class CenteredText implements TextOffsetPolicy {
  */
 class TopRightText implements TextOffsetPolicy {
 
-  private static readonly TOP_RIGHT_SINGLETON = new TextOffsets(-10, 12);
+  private static readonly TOP_RIGHT_SINGLETON = new TextOffsets(9, -12);
 
   public calculateOffsets(text: string, htmlElement: HTMLElement): TextOffsets {
     return TopRightText.TOP_RIGHT_SINGLETON;
@@ -87,7 +87,7 @@ class TopRightText implements TextOffsetPolicy {
  */
 class CloseRightText implements TextOffsetPolicy {
 
-  private static readonly CLOSE_RIGHT_SINGLETON = new TextOffsets(-5, 6);
+  private static readonly CLOSE_RIGHT_SINGLETON = new TextOffsets(6, -5);
 
   public calculateOffsets(text: string, htmlElement: HTMLElement): TextOffsets {
     return CloseRightText.CLOSE_RIGHT_SINGLETON;
