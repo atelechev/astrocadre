@@ -45,7 +45,7 @@ export class SelectorLayersComponent implements AfterViewInit {
   }
 
   private ensureLayersTreeValid(): void {
-    const items = this.availableLayers.map(item => item.asItemsTree());
+    const items = this.availableLayers.map(item => item.asLayersTree());
     const allCodes = items.map(item => this.extractCodes(item))
                           .reduce((prev, curr) => prev.concat(curr), []);
     const asSet = new Set(allCodes);
@@ -55,7 +55,7 @@ export class SelectorLayersComponent implements AfterViewInit {
   }
 
   private initAvailableLayer(layer: SelectableItem): void {
-    this.layersEventService.loadLayerRequested(layer.asItemsTree());
+    this.layersEventService.loadLayerRequested(layer.asLayersTree());
     layer.items.forEach(subLayer => this.initAvailableLayer(SelectableItem.from(subLayer)));
   }
 

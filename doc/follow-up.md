@@ -101,6 +101,8 @@ To start the app:
   * Show star names for those that have own names, as an enablable layer.
   * Show Greek letters for stars identified with letters, as an enablable layer.
 
+### May 28th, 2018
+
 * SV-015: Release preparation
   * refactoring, clean-up, tests and inline doc in app/core
 

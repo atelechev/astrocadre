@@ -79,12 +79,15 @@ export class StaticDataService {
       const body = res.json() || '';
       return Observable.throw(res);
     }
+    if (res.error) {
+      return Observable.throw(res.error);
+    }
     return Observable.throw('Failed to retrieve data JSON from server.');
   }
 
   private execGetRequestForUrl(url: string): Observable<any> {
     return this.http.get(url)
-                    .map((res: Response) => res.json())
+                    .map((res: Response) => res.json ? res.json() : res)
                     .catch(this.handleError);
   }
 

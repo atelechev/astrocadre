@@ -1,6 +1,7 @@
 import { Material, LineBasicMaterial, Color, PointsMaterial, TextureLoader } from 'three';
 import { TextStyle } from './text-style';
 import { ThemeDefinition } from './theme-definition';
+import { defer } from 'rxjs/observable/defer';
 
 export const IRRELEVANT = 'irrelevant';
 
@@ -125,4 +126,10 @@ export const assertTextStyleExpected = (checked: TextStyle, expected: TextStyle)
   expect(checked.fontWeight).toBe(expected.fontWeight);
 };
 
+export function asyncData<T>(data: T) {
+  return defer(() => Promise.resolve(data));
+}
 
+export function asyncError<T>(errorObject: any) {
+  return defer(() => Promise.reject(errorObject));
+}

@@ -19,8 +19,8 @@ export class SelectableItem {
                               children);
   }
 
-  public asItemsTree(): LayersTreeNode {
-    const children = this.items ? this.items.map(item => SelectableItem.from(item).asItemsTree()) : [];
+  public asLayersTree(): LayersTreeNode {
+    const children = this.items ? this.items.map(item => SelectableItem.from(item).asLayersTree()) : [];
     return new LayersTreeNode(this.code, children);
   }
 
