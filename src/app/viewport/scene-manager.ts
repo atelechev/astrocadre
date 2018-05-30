@@ -2,7 +2,11 @@ import { Injectable } from '@angular/core';
 import { Scene, Object3D, AxesHelper, WebGLRenderer, Camera } from 'three';
 import { Theme } from '../core/theme/theme';
 import { ViewportDimensionService } from './viewport-dimension.service';
+import { WorldOriginCameraService } from './world-origin-camera.service';
 
+/**
+ * Provides methods to handle actions related with Three's Scene object and rendering.
+ */
 @Injectable()
 export class SceneManager {
 
@@ -10,7 +14,8 @@ export class SceneManager {
 
   private renderer: WebGLRenderer;
 
-  constructor(dimensionService: ViewportDimensionService) {
+  constructor(dimensionService: ViewportDimensionService,
+              private cameraService: WorldOriginCameraService) {
     this.scene = new Scene();
     this.renderer = new WebGLRenderer();
     this.renderer.setSize(dimensionService.getWidth(),
@@ -23,6 +28,12 @@ export class SceneManager {
     }
   }
 
+  /**
+   * Adds the specified objects to the underlying Scene.
+   * Does not add undefined or already added objects.
+   *
+   * @param objects the array of objects to add.
+   */
   public addObjects(objects: Object3D[]): void {
     objects.forEach(object => this.addObject(object));
   }
@@ -36,6 +47,11 @@ export class SceneManager {
     }
   }
 
+  /**
+   * Removes the specified objects from the underlying Scene.
+   *
+   * @param objects the objects to remove.
+   */
   public removeObjects(objects: Object3D[]): void {
     objects.forEach(object => this.removeObject(object));
   }
@@ -49,22 +65,36 @@ export class SceneManager {
     return false;
   }
 
+  /**
+   * Updates the Scene with respective theme configuration.
+   *
+   * @param theme the Theme to apply.
+   */
   public updateForTheme(theme: Theme): void {
     this.scene.background = theme.getBackgroundColor();
   }
 
+  /**
+   * Returns the underlying Scene instance.
+   */
   public getScene(): Scene {
     return this.scene;
   }
 
+  /**
+   * Returns the DOM element of the Canvas used for rendering.
+   */
   public getDomElement(): HTMLCanvasElement {
     return this.renderer.domElement;
   }
 
-  public render(camera: Camera): void {
+  /**
+   * Triggers the rendering of the underlying Scene.
+   */
+  public render(): void {
     const animate = () => {
       requestAnimationFrame(animate);
-      this.renderer.render(this.scene, camera);
+      this.renderer.render(this.scene, this.cameraService.getCamera());
     };
     animate();
   }

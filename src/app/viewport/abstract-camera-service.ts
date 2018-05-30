@@ -41,7 +41,7 @@ export abstract class AbstractCameraService {
         const deltaY = ThreeMath.degToRad(event.movementY * this.mouseSensivity);
         this.getCamera().rotateY(deltaX); // the axes are strangely inversed!
         this.getCamera().rotateX(deltaY);
-        sceneManager.render(this.getCamera());
+        sceneManager.render();
         this.viewportService.viewportChanged();
       }
     });

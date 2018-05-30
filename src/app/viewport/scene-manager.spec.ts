@@ -4,13 +4,21 @@ import { Scene, Color, Object3D } from 'three';
 import { Theme } from '../core/theme/theme';
 import { emptyThemeDef, assertColorsSame } from '../core/theme/abstract-factories.spec';
 import { ViewportDimensionService } from './viewport-dimension.service';
+import { WorldOriginCameraService } from './world-origin-camera.service';
+import { ViewportEventService } from '../core/viewport/viewport-event.service';
 
 describe('SceneManager', () => {
 
   let service: SceneManager;
 
   beforeEach(() => {
-    TestBed.configureTestingModule({ providers: [ ViewportDimensionService, SceneManager ] });
+    TestBed.configureTestingModule({
+      providers: [
+        ViewportEventService,
+        ViewportDimensionService,
+        WorldOriginCameraService,
+        SceneManager ]
+    });
     service = TestBed.get(SceneManager);
   });
 

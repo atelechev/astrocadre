@@ -44,7 +44,7 @@ export class ViewportComponent implements AfterViewInit, ThemeAware {
 
   public ngAfterViewInit(): void {
     this.appendCanvas();
-    this.sceneManager.render(this.cameraService.getCamera());
+    this.sceneManager.render();
     this.cameraService.initMouseListeners(this.sceneManager);
   }
 
