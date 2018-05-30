@@ -1,7 +1,6 @@
 import { Component, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
 import { Constants } from '../core/constants';
 import { WorldOriginCameraService } from './world-origin-camera.service';
-import { RendererService } from './renderer.service';
 import { SceneService } from './scene.service';
 import { Theme } from '../core/theme/theme';
 import { ThemeAware } from '../core/theme/theme-aware';
@@ -15,8 +14,7 @@ import { LabelsVisibilityManager } from './labels-visibility-manager';
   styleUrls: [ './viewport.component.css' ],
   providers: [
     SceneService,
-    WorldOriginCameraService,
-    RendererService
+    WorldOriginCameraService
   ]
 })
 export class ViewportComponent implements AfterViewInit, ThemeAware {
@@ -30,8 +28,7 @@ export class ViewportComponent implements AfterViewInit, ThemeAware {
 
   private labelsVisibilityManager: LabelsVisibilityManager;
 
-  constructor(private rendererService: RendererService,
-              private sceneService: SceneService,
+  constructor(private sceneService: SceneService,
               private cameraService: WorldOriginCameraService) {
     this.viewportWidth = Constants.VIEW_WIDTH + 'px';
     this.viewportHeight = Constants.VIEW_HEIGHT + 'px';
@@ -39,15 +36,15 @@ export class ViewportComponent implements AfterViewInit, ThemeAware {
   }
 
   private appendCanvas(): void {
-    const canvas = this.rendererService.getDomElement();
+    const canvas = this.sceneService.getDomElement();
     this.skyViewViewport.nativeElement.appendChild(canvas);
   }
 
   public ngAfterViewInit(): void {
     this.appendCanvas();
     this.labelsVisibilityManager = new LabelsVisibilityManager(this.skyViewViewport, this.cameraService.getCamera());
-    this.rendererService.render(this.sceneService.getScene(), this.cameraService.getCamera());
-    this.cameraService.initMouseListeners(this.rendererService, this.sceneService);
+    this.sceneService.render(this.cameraService.getCamera());
+    this.cameraService.initMouseListeners(this.sceneService);
   }
 
   public useTheme(theme: Theme): void {

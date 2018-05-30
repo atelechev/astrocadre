@@ -23,6 +23,12 @@ describe('SceneService', () => {
     expect(scene instanceof Scene).toBeTruthy();
   });
 
+  it('#getDomElement should return a defined HTMLCanvasElement', () => {
+    const canvas = service.getDomElement();
+    expect(canvas).toBeDefined();
+    expect(canvas instanceof HTMLCanvasElement).toBeTruthy();
+  });
+
   it('#updateForTheme updates the background of the underlying scene', () => {
     const themeDef = Object.create(emptyThemeDef);
     themeDef.background.color = 'rgb(255, 0, 0)';
