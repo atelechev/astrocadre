@@ -1,5 +1,4 @@
 import { Component, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
-import { Constants } from '../core/constants';
 import { WorldOriginCameraService } from './world-origin-camera.service';
 import { SceneService } from './scene.service';
 import { Theme } from '../core/theme/theme';
@@ -7,14 +6,17 @@ import { ThemeAware } from '../core/theme/theme-aware';
 import { Object3D } from 'three';
 import { RenderableText } from '../core/layer/label/renderable-text';
 import { LabelsVisibilityManager } from './labels-visibility-manager';
+import { ViewportDimensionService } from './viewport-dimension.service';
 
 @Component({
   selector: `app-sky-view-viewport`,
   templateUrl: './viewport.component.html',
   styleUrls: [ './viewport.component.css' ],
   providers: [
+    ViewportDimensionService,
     SceneService,
-    WorldOriginCameraService
+    WorldOriginCameraService,
+    LabelsVisibilityManager
   ]
 })
 export class ViewportComponent implements AfterViewInit, ThemeAware {
@@ -26,12 +28,12 @@ export class ViewportComponent implements AfterViewInit, ThemeAware {
 
   private viewportHeight: string;
 
-  private labelsVisibilityManager: LabelsVisibilityManager;
-
-  constructor(private sceneService: SceneService,
-              private cameraService: WorldOriginCameraService) {
-    this.viewportWidth = Constants.VIEW_WIDTH + 'px';
-    this.viewportHeight = Constants.VIEW_HEIGHT + 'px';
+  constructor(private dimensionService: ViewportDimensionService,
+              private sceneService: SceneService,
+              private cameraService: WorldOriginCameraService,
+              private labelsVisibilityManager: LabelsVisibilityManager) {
+    this.viewportWidth = this.dimensionService.getWidth() + 'px';
+    this.viewportHeight = this.dimensionService.getHeight() + 'px';
     this.cameraService.initCoordsMarkerObject();
   }
 
@@ -42,7 +44,6 @@ export class ViewportComponent implements AfterViewInit, ThemeAware {
 
   public ngAfterViewInit(): void {
     this.appendCanvas();
-    this.labelsVisibilityManager = new LabelsVisibilityManager(this.skyViewViewport, this.cameraService.getCamera());
     this.sceneService.render(this.cameraService.getCamera());
     this.cameraService.initMouseListeners(this.sceneService);
   }
@@ -63,11 +64,11 @@ export class ViewportComponent implements AfterViewInit, ThemeAware {
   }
 
   public hideLabelsByLayer(layer: string): void {
-    this.labelsVisibilityManager.hideLabelsByLayer(layer);
+    this.labelsVisibilityManager.hideLabelsByLayer(layer, this.skyViewViewport.nativeElement);
   }
 
   public showVisibleLabels(layer: string, labels: Map<string, RenderableText>): void {
-    this.labelsVisibilityManager.showVisibleLabels(layer, labels);
+    this.labelsVisibilityManager.showVisibleLabels(layer, labels, this.skyViewViewport.nativeElement);
   }
 
 }

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { Constants } from '../core/constants';
 import { Scene, Object3D, AxesHelper, WebGLRenderer, Camera } from 'three';
 import { Theme } from '../core/theme/theme';
+import { ViewportDimensionService } from './viewport-dimension.service';
 
 @Injectable()
 export class SceneService {
@@ -10,10 +10,11 @@ export class SceneService {
 
   private renderer: WebGLRenderer;
 
-  constructor() {
+  constructor(dimensionService: ViewportDimensionService) {
     this.scene = new Scene();
     this.renderer = new WebGLRenderer();
-    this.renderer.setSize(Constants.VIEW_WIDTH, Constants.VIEW_HEIGHT);
+    this.renderer.setSize(dimensionService.getWidth(),
+                          dimensionService.getHeight());
   }
 
   private addObject(object: Object3D): void {

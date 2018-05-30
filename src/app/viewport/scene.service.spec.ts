@@ -3,13 +3,14 @@ import { TestBed } from '@angular/core/testing';
 import { Scene, Color, Object3D } from 'three';
 import { Theme } from '../core/theme/theme';
 import { emptyThemeDef, assertColorsSame } from '../core/theme/abstract-factories.spec';
+import { ViewportDimensionService } from './viewport-dimension.service';
 
 describe('SceneService', () => {
 
   let service: SceneService;
 
   beforeEach(() => {
-    TestBed.configureTestingModule({ providers: [SceneService] });
+    TestBed.configureTestingModule({ providers: [ ViewportDimensionService, SceneService ] });
     service = TestBed.get(SceneService);
   });
 
