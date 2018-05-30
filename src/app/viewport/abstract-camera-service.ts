@@ -1,5 +1,5 @@
 import { Camera, Math as ThreeMath, PerspectiveCamera, Object3D, Vector3 } from 'three';
-import { SceneService } from './scene.service';
+import { SceneManager } from './scene-manager';
 import { OnInit } from '@angular/core';
 import { Constants } from '../core/constants';
 import { ViewportEventService } from '../core/viewport/viewport-event.service';
@@ -27,25 +27,25 @@ export abstract class AbstractCameraService {
     };
   }
 
-  private addMouseEventListener(sceneService: SceneService, eventKey: string, funct: (MouseEvent) => void): void {
-    sceneService.getDomElement().addEventListener(eventKey, funct);
+  private addMouseEventListener(sceneManager: SceneManager, eventKey: string, funct: (MouseEvent) => void): void {
+    sceneManager.getDomElement().addEventListener(eventKey, funct);
   }
 
-  public initMouseListeners(sceneService: SceneService): void {
-    this.addMouseEventListener(sceneService, 'mousedown', this.mousePressedFunction(true));
-    this.addMouseEventListener(sceneService, 'mouseup', this.mousePressedFunction(false));
-    this.addMouseEventListener(sceneService, 'mouseleave', this.mousePressedFunction(false));
-    this.addMouseEventListener(sceneService, 'mousemove', (event: MouseEvent) => {
+  public initMouseListeners(sceneManager: SceneManager): void {
+    this.addMouseEventListener(sceneManager, 'mousedown', this.mousePressedFunction(true));
+    this.addMouseEventListener(sceneManager, 'mouseup', this.mousePressedFunction(false));
+    this.addMouseEventListener(sceneManager, 'mouseleave', this.mousePressedFunction(false));
+    this.addMouseEventListener(sceneManager, 'mousemove', (event: MouseEvent) => {
       if (this.mousePressed && event.button === 0) {
         const deltaX = ThreeMath.degToRad(event.movementX * this.mouseSensivity);
         const deltaY = ThreeMath.degToRad(event.movementY * this.mouseSensivity);
         this.getCamera().rotateY(deltaX); // the axes are strangely inversed!
         this.getCamera().rotateX(deltaY);
-        sceneService.render(this.getCamera());
+        sceneManager.render(this.getCamera());
         this.viewportService.viewportChanged();
       }
     });
-    this.addMouseEventListener(sceneService, 'dblclick', (event: MouseEvent) => {
+    this.addMouseEventListener(sceneManager, 'dblclick', (event: MouseEvent) => {
       this.alignNSAxis();
       this.viewportService.viewportChanged();
     });

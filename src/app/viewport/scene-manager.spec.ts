@@ -1,17 +1,17 @@
-import { SceneService } from './scene.service';
+import { SceneManager } from './scene-manager';
 import { TestBed } from '@angular/core/testing';
 import { Scene, Color, Object3D } from 'three';
 import { Theme } from '../core/theme/theme';
 import { emptyThemeDef, assertColorsSame } from '../core/theme/abstract-factories.spec';
 import { ViewportDimensionService } from './viewport-dimension.service';
 
-describe('SceneService', () => {
+describe('SceneManager', () => {
 
-  let service: SceneService;
+  let service: SceneManager;
 
   beforeEach(() => {
-    TestBed.configureTestingModule({ providers: [ ViewportDimensionService, SceneService ] });
-    service = TestBed.get(SceneService);
+    TestBed.configureTestingModule({ providers: [ ViewportDimensionService, SceneManager ] });
+    service = TestBed.get(SceneManager);
   });
 
   const assertObjectsCount = (expectedObjectsCount: number) => {

@@ -1,6 +1,6 @@
 import { Component, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
 import { WorldOriginCameraService } from './world-origin-camera.service';
-import { SceneService } from './scene.service';
+import { SceneManager } from './scene-manager';
 import { Theme } from '../core/theme/theme';
 import { ThemeAware } from '../core/theme/theme-aware';
 import { Object3D } from 'three';
@@ -14,7 +14,7 @@ import { ViewportDimensionService } from './viewport-dimension.service';
   styleUrls: [ './viewport.component.css' ],
   providers: [
     ViewportDimensionService,
-    SceneService,
+    SceneManager,
     WorldOriginCameraService,
     LabelsVisibilityManager
   ]
@@ -29,31 +29,31 @@ export class ViewportComponent implements AfterViewInit, ThemeAware {
   private viewportHeight: string;
 
   constructor(private dimensionService: ViewportDimensionService,
-              private sceneService: SceneService,
+              private sceneManager: SceneManager,
               private cameraService: WorldOriginCameraService,
-              private labelsVisibilityManager: LabelsVisibilityManager) {
+              private labelsManager: LabelsVisibilityManager) {
     this.viewportWidth = this.dimensionService.getWidth() + 'px';
     this.viewportHeight = this.dimensionService.getHeight() + 'px';
     this.cameraService.initCoordsMarkerObject();
   }
 
   private appendCanvas(): void {
-    const canvas = this.sceneService.getDomElement();
+    const canvas = this.sceneManager.getDomElement();
     this.skyViewViewport.nativeElement.appendChild(canvas);
   }
 
   public ngAfterViewInit(): void {
     this.appendCanvas();
-    this.sceneService.render(this.cameraService.getCamera());
-    this.cameraService.initMouseListeners(this.sceneService);
+    this.sceneManager.render(this.cameraService.getCamera());
+    this.cameraService.initMouseListeners(this.sceneManager);
   }
 
   public useTheme(theme: Theme): void {
-    this.sceneService.updateForTheme(theme);
+    this.sceneManager.updateForTheme(theme);
   }
 
   public addObjects(objects: Object3D[]): void {
-    this.sceneService.addObjects(objects);
+    this.sceneManager.addObjects(objects);
   }
 
   public addTextElements(htmlElements: HTMLElement[]): void {
@@ -64,11 +64,11 @@ export class ViewportComponent implements AfterViewInit, ThemeAware {
   }
 
   public hideLabelsByLayer(layer: string): void {
-    this.labelsVisibilityManager.hideLabelsByLayer(layer, this.skyViewViewport.nativeElement);
+    this.labelsManager.hideLabelsByLayer(layer, this.skyViewViewport.nativeElement);
   }
 
   public showVisibleLabels(layer: string, labels: Map<string, RenderableText>): void {
-    this.labelsVisibilityManager.showVisibleLabels(layer, labels, this.skyViewViewport.nativeElement);
+    this.labelsManager.showVisibleLabels(layer, labels, this.skyViewViewport.nativeElement);
   }
 
 }

@@ -4,7 +4,7 @@ import { Theme } from '../core/theme/theme';
 import { ViewportDimensionService } from './viewport-dimension.service';
 
 @Injectable()
-export class SceneService {
+export class SceneManager {
 
   private scene: Scene;
 
