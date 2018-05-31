@@ -2,6 +2,9 @@ import { ViewportEventService } from '../core/viewport/viewport-event.service';
 import { Math as ThreeMath } from 'three';
 import { Injectable } from '@angular/core';
 
+/**
+ * Provides a method to bind mouse event listeners to a DOM element.
+ */
 @Injectable()
 export class MouseEventsHandler {
 
@@ -23,6 +26,11 @@ export class MouseEventsHandler {
     element.addEventListener(eventKey, funct);
   }
 
+  /**
+   * Binds mouse event listeners to the specified HTML element.
+   *
+   * @param element the HTML element to bind mouse listeners to.
+   */
   public initMouseListenersOn(element: HTMLElement): void {
     this.addMouseEventListener(element, 'mousedown', this.mousePressedFunction(true));
     this.addMouseEventListener(element, 'mouseup', this.mousePressedFunction(false));
