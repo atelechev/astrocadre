@@ -79,11 +79,14 @@ export class AppComponent implements OnInit {
 
   private updateLabelsVisibilityForAllLayers(): void {
     this.layersManager.getLabelledLayers().forEach(
-      (layer: LabelledLayer) => this.updateLabelsVisibilityForLayer(layer)
+      (layer: LabelledLayer) => this.updateLabelsVisibilityForLayer(layer, undefined)
     );
   }
 
-  private updateLabelsVisibilityForLayer(layer: LabelledLayer): void {
+  private updateLabelsVisibilityForLayer(layer: LabelledLayer, lv: LayerVisibility): void {
+    if (lv) {
+      layer.setLabelsShown(lv.visible); // TODO refactor + 2nd param
+    }
     if (layer.isVisible() && layer.isLabelsShown()) {
       this.viewportManager.showVisibleLabels(layer.getName(), layer.getRenderableLabels());
     } else {
@@ -146,7 +149,7 @@ export class AppComponent implements OnInit {
         this.layersManager.updateLayerVisibility(lv);
         const layer = this.layersManager.getLayer(lv.layer);
         if (layer && layer instanceof LabelledLayer) {
-          this.updateLabelsVisibilityForLayer(<LabelledLayer> layer);
+          this.updateLabelsVisibilityForLayer(<LabelledLayer> layer, lv);
         }
       }
     );
