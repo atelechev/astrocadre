@@ -37,7 +37,6 @@ export class ViewportComponent implements AfterViewInit, ThemeAware {
               private mouseEventHandler: MouseEventsHandler) {
     this.viewportWidth = this.dimensionService.getWidth() + 'px';
     this.viewportHeight = this.dimensionService.getHeight() + 'px';
-    this.cameraService.initCoordsMarkerObject();
   }
 
   private appendCanvas(): void {

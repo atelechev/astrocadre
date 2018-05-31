@@ -16,9 +16,6 @@ export class WorldOriginCameraService {
 
   private readonly initialFov = 30;
 
-  /*
-    TODO Was supposed for tracing the center point of the screen, but currently not used.
-   */
   private coordsMarkerObject: Object3D;
 
   private camera: PerspectiveCamera;
@@ -29,6 +26,7 @@ export class WorldOriginCameraService {
                                         dimensionService.getAspect(),
                                         this.nearPlane,
                                         this.farPlane);
+    this.coordsMarkerObject = this.initCoordsMarkerObject();
     this.setUpCamera();
     this.subscribeAxialRotationEvent();
     this.subscribeFovChangeEvent();
@@ -67,7 +65,7 @@ export class WorldOriginCameraService {
     this.camera.position.y = origin;
   }
 
-  public getCamera(): Camera {
+  public getCamera(): PerspectiveCamera {
     return this.camera;
   }
 
@@ -78,9 +76,10 @@ export class WorldOriginCameraService {
     return Constants.NORTH;
   }
 
-  private centerView(coords: SkyCoordinate): void {
+  public centerView(coords: SkyCoordinate): void {
     this.camera.up = this.getAlignmentPoleCoordinate(coords.declination);
     this.camera.lookAt(VectorUtil.toVector3(coords.rightAscension, coords.declination, Constants.WORLD_RADIUS));
+    this.camera.updateMatrixWorld(true);
     this.viewportService.viewportChanged();
   }
 
@@ -91,28 +90,30 @@ export class WorldOriginCameraService {
     this.viewportService.viewportChanged();
   }
 
-  protected setFoV(range: number): void {
+  public setFoV(range: number): void {
     this.camera.fov = range;
     this.camera.updateProjectionMatrix();
     this.viewportService.viewportChanged();
   }
 
-  protected alignNSAxis(): void {
+  public alignNSAxis(): void {
     const viewCenter = this.getViewCenterCoordinates();
     this.camera.up = this.getAlignmentPoleCoordinate(viewCenter.z);
     this.camera.lookAt(viewCenter);
     this.viewportService.viewportChanged();
   }
 
-  public initCoordsMarkerObject(): void {
-    this.coordsMarkerObject = new Object3D();
-    this.coordsMarkerObject.position.set(0, 0, -(Constants.WORLD_RADIUS + 0.1));
-    this.camera.add(this.coordsMarkerObject);
+  private initCoordsMarkerObject(): Object3D {
+    const marker = new Object3D();
+    marker.position.set(0, 0, -(Constants.WORLD_RADIUS + 0.1));
+    this.camera.add(marker);
     this.camera.updateMatrixWorld(true);
+    return marker;
   }
 
   public getViewCenterCoordinates(): Vector3 {
     const viewCenter = new Vector3();
+    this.coordsMarkerObject.updateMatrixWorld(true);
     viewCenter.setFromMatrixPosition(this.coordsMarkerObject.matrixWorld);
     return viewCenter;
   }
