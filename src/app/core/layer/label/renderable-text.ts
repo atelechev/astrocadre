@@ -1,7 +1,7 @@
 import { Vector3 } from 'three';
 import { Theme } from '../../theme/theme';
 import { TextOffsetPolicy, TextOffsets } from './text-offset-policy';
-import { TextStyleAssigner } from './text-style-assigner';
+import { applyStyleOn } from './text-utils';
 import { HtmlElementFactory } from './html-element-factory';
 import { ensureArgDefined } from '../arg-validation-utils';
 
@@ -31,7 +31,7 @@ export class RenderableText {
 
   public useTheme(theme: Theme): void {
     const labelStyle = theme.getTextStyleForLayer(this.parentLayer, this.styleKey);
-    TextStyleAssigner.applyStyleOn(labelStyle, this.htmlElement);
+    applyStyleOn(labelStyle, this.htmlElement);
     this.offsets = this.offsetPolicy.calculateOffsets(this.text, this.htmlElement);
   }
 
