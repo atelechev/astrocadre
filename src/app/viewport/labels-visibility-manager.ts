@@ -6,6 +6,10 @@ import { WorldOriginCameraService } from './world-origin-camera.service';
 import { ViewportDimensionService } from './viewport-dimension.service';
 import { ScreenCoordinate } from '../core/viewport/screen-coordinate';
 
+/**
+ * Provides methods to text/labels onscreen visibility.
+ *
+ */
 @Injectable()
 export class LabelsVisibilityManager {
 
@@ -25,6 +29,12 @@ export class LabelsVisibilityManager {
     this.camera = cameraService.getCamera();
   }
 
+  /**
+   * Hides all the labels existing for the specified layer.
+   *
+   * @param layer the layer name.
+   * @param labelsDomRoot the DOM node containing labels.
+   */
   public hideLabelsByLayer(layer: string, labelsDomRoot: HTMLElement): void {
     const labelClassPrefix = 'label_' + layer;
     const allChildren = labelsDomRoot.children;
@@ -46,6 +56,14 @@ export class LabelsVisibilityManager {
     style.left = '';
   }
 
+  /**
+   * Shows olnly the labels that correspond to the objects of the specified layer currently
+   * visible on the screen.
+   *
+   * @param layer the layer to show labels for.
+   * @param labels the map of all available labels.
+   * @param labelsDomRoot the DOM node containing labels.
+   */
   public showVisibleLabels(layer: string, labels: Map<string, RenderableText>, labelsDomRoot: any): void {
     this.hideLabelsByLayer(layer, labelsDomRoot);
     this.camera.updateMatrix();

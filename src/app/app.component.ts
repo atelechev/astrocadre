@@ -84,7 +84,7 @@ export class AppComponent implements OnInit {
   }
 
   private updateLabelsVisibilityForLayer(layer: LabelledLayer): void {
-    if (layer.isVisible()) {
+    if (layer.isVisible() && layer.isLabelsShown()) {
       this.viewportManager.showVisibleLabels(layer.getName(), layer.getRenderableLabels());
     } else {
       this.viewportManager.hideLabelsByLayer(layer.getName());
@@ -120,6 +120,9 @@ export class AppComponent implements OnInit {
     this.layersEventService.requestStarsLabelsVisibility$.subscribe(
       (slv: StarLabelVisibility) => {
         const starsPerMagnitude = this.layersManager.getStarsMagnitudeLayers();
+        starsPerMagnitude.forEach(
+          (layer: StarsMagnitudeLayer) => layer.setLabelsShown(slv.visible)
+        );
         this.hideMagnitudeLabels(starsPerMagnitude, slv);
         this.showMagnitudeLabels(starsPerMagnitude, slv);
       }

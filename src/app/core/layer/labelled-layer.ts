@@ -7,6 +7,8 @@ import { RenderableText } from './label/renderable-text';
  */
 export abstract class LabelledLayer extends RenderableLayer {
 
+  private labelsShown: boolean;
+
   constructor(tree: LayersTreeNode) {
     super(tree);
   }
@@ -20,5 +22,21 @@ export abstract class LabelledLayer extends RenderableLayer {
    * Returns the Map of existing RenderableText items and their identifiers, registered for this layer.
    */
   public abstract getRenderableLabels(): Map<string, RenderableText>;
+
+  /**
+   * Returns true if the text/labels associated with this layer should be shown.
+   */
+  public isLabelsShown(): boolean {
+    return this.labelsShown;
+  }
+
+  /**
+   * Sets the visibility of text/labels assiciated with this layer.
+   *
+   * @param show true to show the labels.
+   */
+  public setLabelsShown(show: boolean): void {
+    this.labelsShown = show;
+  }
 
 }
