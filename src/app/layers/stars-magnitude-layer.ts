@@ -9,14 +9,13 @@ import { RenderableText } from '../core/layer/label/renderable-text';
 import { StandardNameConverter } from './standard-name-converter';
 import { VectorUtil } from './geometry/vector-util';
 import { TextOffsetPolicies, TextOffsetPolicy } from '../core/layer/label/text-offset-policy';
+import { StarNameExtractor } from './star-name-extractor';
 
 export class StarsMagnitudeLayer extends LabelledLayer {
 
   public static readonly LABELTYPE_NAME_PROPER = 'names-proper';
 
   public static readonly LABELTYPE_NAME_STANDARD = 'names-standard';
-
-  private firstNameIndex = 3;
 
   private stars: Points;
 
@@ -42,7 +41,7 @@ export class StarsMagnitudeLayer extends LabelledLayer {
     this.standardNameLabels = new Map<string, RenderableText>();
     rawStars.forEach(
       (rawStar: any[]) => {
-        const name = this.extractStandardName(rawStar);
+        const name = StarNameExtractor.extractStandardName(rawStar);
         if (name) {
           const renderable = this.toStandardNameRenderableText(rawStar, name);
           this.standardNameLabels.set(name, renderable);
@@ -50,18 +49,6 @@ export class StarsMagnitudeLayer extends LabelledLayer {
         }
       }
     );
-  }
-
-  private extractStandardName(rawStar: any[]): string | undefined {
-    if (rawStar.length > this.firstNameIndex) {
-      if (rawStar.length > this.firstNameIndex + 1) {
-        return rawStar[rawStar.length - 1];
-      }
-      if (StandardNameConverter.isStandardName(rawStar[this.firstNameIndex])) {
-        return rawStar[this.firstNameIndex];
-      }
-    }
-    return undefined;
   }
 
   private toStandardNameRenderableText(rawStar: any[], name: string): RenderableText {
@@ -72,19 +59,11 @@ export class StarsMagnitudeLayer extends LabelledLayer {
                                      TextOffsetPolicies.CLOSE_RIGHT);
   }
 
-  private extractProperName(rawStar: any[]): string | undefined {
-    if (rawStar.length > this.firstNameIndex &&
-       !StandardNameConverter.isStandardName(rawStar[this.firstNameIndex])) {
-      return rawStar[this.firstNameIndex];
-    }
-    return undefined;
-  }
-
   private initProperNameLabels(rawStars: any[][]): void {
     this.properNameLabels = new Map<string, RenderableText>();
     rawStars.forEach(
       (rawStar: any[]) => {
-        const name = this.extractProperName(rawStar);
+        const name = StarNameExtractor.extractProperName(rawStar);
         if (name) {
           const renderable = this.toProperNameRenderableText(rawStar, name);
           this.properNameLabels.set(name, renderable);
