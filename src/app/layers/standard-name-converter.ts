@@ -1,4 +1,8 @@
 
+/**
+ * Provides methods related with conversion of Greek-based letter star names and their
+ * standardized latin forms.
+ */
 export class StandardNameConverter {
 
   private static CHAR_MAPPINGS: Map<string, string> = StandardNameConverter.initCharMappings();
@@ -32,6 +36,14 @@ export class StandardNameConverter {
     return charsMap;
   }
 
+  /**
+   * Returns the Greek character corresponding to the specified standard name of the star.
+   *
+   * @param stdName the standard name of a star.
+   *
+   * @returns string the corresponding Greek letter.
+   * @throws Error if the Greek letter cannot be extracted from the specified arg.
+   */
   public static toGreekLetter(stdName: string): string {
     if (!stdName) {
       throw new Error('Undefined stdName arg.');
@@ -44,6 +56,13 @@ export class StandardNameConverter {
     return StandardNameConverter.CHAR_MAPPINGS.get(greekKey);
   }
 
+  /**
+   * Returns true if the arg matches a standard star name, for example 'BET CET'.
+   *
+   * @param name the standard name to test.
+   *
+   * @returns boolean true if the arg matches.
+   */
   public static isStandardName(name: string): boolean {
     if (!name || name.length === 0) {
       return false;
