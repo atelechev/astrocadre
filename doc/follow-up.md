@@ -106,9 +106,14 @@ To start the app:
 * SV-015: Release preparation
   * refactoring, clean-up, tests and inline doc in app/core
 
-### Next Steps
+### May 31st, 2018
 
 * SV-016: Release preparation
+  * refactoring, clean-up, tests and inline doc in app/viewport and related
+
+### Next Steps
+
+* SV-017: Release preparation
   * refactoring and clean-up of the main app
   * tests of the main app
   * inline documentation where necessary
