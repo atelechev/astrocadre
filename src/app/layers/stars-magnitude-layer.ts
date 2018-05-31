@@ -6,10 +6,9 @@ import { MergedPoints } from './geometry/merged-points';
 import { LayersTreeNode } from '../core/layer/layers-tree-node';
 import { LabelledLayer } from '../core/layer/labelled-layer';
 import { RenderableText } from '../core/layer/label/renderable-text';
-import { StandardNameConverter } from './standard-name-converter';
 import { VectorUtil } from './geometry/vector-util';
 import { TextOffsetPolicies, TextOffsetPolicy } from '../core/layer/label/text-offset-policy';
-import { StarNameExtractor } from './star-name-extractor';
+import { extractStandardName, extractProperName, toGreekLetter } from './star-name-utils';
 
 export class StarsMagnitudeLayer extends LabelledLayer {
 
@@ -41,7 +40,7 @@ export class StarsMagnitudeLayer extends LabelledLayer {
     this.standardNameLabels = new Map<string, RenderableText>();
     rawStars.forEach(
       (rawStar: any[]) => {
-        const name = StarNameExtractor.extractStandardName(rawStar);
+        const name = extractStandardName(rawStar);
         if (name) {
           const renderable = this.toStandardNameRenderableText(rawStar, name);
           this.standardNameLabels.set(name, renderable);
@@ -52,7 +51,7 @@ export class StarsMagnitudeLayer extends LabelledLayer {
   }
 
   private toStandardNameRenderableText(rawStar: any[], name: string): RenderableText {
-    const greekLetter = StandardNameConverter.toGreekLetter(name);
+    const greekLetter = toGreekLetter(name);
     return this.toNameRenderableText(rawStar,
                                      StarsMagnitudeLayer.LABELTYPE_NAME_STANDARD,
                                      greekLetter,
@@ -63,7 +62,7 @@ export class StarsMagnitudeLayer extends LabelledLayer {
     this.properNameLabels = new Map<string, RenderableText>();
     rawStars.forEach(
       (rawStar: any[]) => {
-        const name = StarNameExtractor.extractProperName(rawStar);
+        const name = extractProperName(rawStar);
         if (name) {
           const renderable = this.toProperNameRenderableText(rawStar, name);
           this.properNameLabels.set(name, renderable);
