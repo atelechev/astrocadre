@@ -6,7 +6,7 @@ import { MergedPoints } from './geometry/merged-points';
 import { LayersTreeNode } from '../core/layer/layers-tree-node';
 import { LabelledLayer } from '../core/layer/labelled-layer';
 import { RenderableText } from '../core/layer/label/renderable-text';
-import { VectorUtil } from './geometry/vector-util';
+import { toVector3 } from '../core/layer/vector-utils';
 import { TextOffsetPolicies, TextOffsetPolicy } from '../core/layer/label/text-offset-policy';
 import { extractStandardName, extractProperName, toGreekLetter } from './star-name-utils';
 
@@ -80,7 +80,7 @@ export class StarsMagnitudeLayer extends LabelledLayer {
   }
 
   private toNameRenderableText(rawStar: any[], styleKey: string, name: string, offsetPolicy: TextOffsetPolicy): RenderableText {
-    const center = VectorUtil.toVector3(rawStar[0], rawStar[1], Constants.WORLD_RADIUS);
+    const center = toVector3(rawStar[0], rawStar[1], Constants.WORLD_RADIUS);
     return new RenderableText(this.getName(), styleKey, center, name, offsetPolicy);
   }
 

@@ -4,7 +4,7 @@ import { ViewportEventService } from '../core/viewport/viewport-event.service';
 import { ViewportDimensionService } from './viewport-dimension.service';
 import { AxialRotation } from '../core/viewport/axial-rotation';
 import { SkyCoordinate } from '../core/viewport/sky-coordinate';
-import { VectorUtil } from '../layers/geometry/vector-util';
+import { toVector3 } from '../core/layer/vector-utils';
 import { Constants } from '../core/constants';
 
 @Injectable()
@@ -78,7 +78,7 @@ export class WorldOriginCameraService {
 
   public centerView(coords: SkyCoordinate): void {
     this.camera.up = this.getAlignmentPoleCoordinate(coords.declination);
-    this.camera.lookAt(VectorUtil.toVector3(coords.rightAscension, coords.declination, Constants.WORLD_RADIUS));
+    this.camera.lookAt(toVector3(coords.rightAscension, coords.declination, Constants.WORLD_RADIUS));
     this.camera.updateMatrixWorld(true);
     this.viewportService.viewportChanged();
   }

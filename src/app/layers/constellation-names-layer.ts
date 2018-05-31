@@ -3,7 +3,7 @@ import { Object3D } from 'three';
 import { Theme } from '../core/theme/theme';
 import { LayersTreeNode } from '../core/layer/layers-tree-node';
 import { ConstellationMetadata } from '../core/layer/constellation-metadata';
-import { VectorUtil } from './geometry/vector-util';
+import { toVector3 } from '../core/layer/vector-utils';
 import { Constants } from '../core/constants';
 import { RenderableText } from '../core/layer/label/renderable-text';
 import { TextOffsetPolicies } from '../core/layer/label/text-offset-policy';
@@ -32,7 +32,7 @@ export class ConstellationNamesLayer extends LabelledLayer {
   }
 
   private toRenderableText(constMeta: ConstellationMetadata): RenderableText {
-    const center = VectorUtil.toVector3(constMeta.ra, constMeta.dec, Constants.WORLD_RADIUS);
+    const center = toVector3(constMeta.ra, constMeta.dec, Constants.WORLD_RADIUS);
     return new RenderableText(this.getName(), 'labels', center, constMeta.names[0], TextOffsetPolicies.CENTERED);
   }
 

@@ -1,5 +1,5 @@
 import { Vector3, LineSegments, BufferGeometry, Object3D } from 'three';
-import { VectorUtil } from './vector-util';
+import { toVector3 } from '../../core/layer/vector-utils';
 import { MergedObjects } from './merged-objects';
 
 export class MergedLines extends MergedObjects<LineSegments> {
@@ -10,8 +10,8 @@ export class MergedLines extends MergedObjects<LineSegments> {
   }
 
   protected segmentToVertices(segment: number[]): Vector3[] {
-    const p0 = VectorUtil.toVector3(segment[0], segment[1], this.radius);
-    const p1 = VectorUtil.toVector3(segment[2], segment[3], this.radius);
+    const p0 = toVector3(segment[0], segment[1], this.radius);
+    const p1 = toVector3(segment[2], segment[3], this.radius);
     return [ p0, p1 ];
   }
 

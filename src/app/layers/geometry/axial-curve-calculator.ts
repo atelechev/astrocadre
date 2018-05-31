@@ -1,5 +1,5 @@
 import { Vector3 } from 'three';
-import { VectorUtil } from './vector-util';
+import { toVector3 } from '../../core/layer/vector-utils';
 
 export class AxialCurveCalculator {
 
@@ -54,12 +54,12 @@ export class AxialCurveCalculator {
     const decl1 = segment[3];
 
     if (this.isParallelSegment(segment)) {
-      const toVectorFunct = (v, c) => VectorUtil.toVector3(v, c, this.radius);
+      const toVectorFunct = (v, c) => toVector3(v, c, this.radius);
       const dirMultipl = this.getDirectionMultiplier(ra0, ra1);
       return this.calculateAxisPointsBetween(ra0, ra1, decl0, dirMultipl, toVectorFunct);
     }
     if (this.isMeridionalSegment(segment)) {
-      const toVectorFunct = (v, c) => VectorUtil.toVector3(c, v, this.radius);
+      const toVectorFunct = (v, c) => toVector3(c, v, this.radius);
       const dirMultipl = this.getDirectionMultiplier(decl0, decl1);
       return this.calculateAxisPointsBetween(decl0, decl1, ra0, dirMultipl, toVectorFunct);
     }
@@ -73,12 +73,12 @@ export class AxialCurveCalculator {
     }
     const intermediatePoints = this.calculateIntermediatePoints(curveStartEnd);
     const pairsForSegment = new Array<Vector3>();
-    pairsForSegment.push(VectorUtil.toVector3(curveStartEnd[0], curveStartEnd[1], this.radius));
+    pairsForSegment.push(toVector3(curveStartEnd[0], curveStartEnd[1], this.radius));
     intermediatePoints.forEach(point => {
       pairsForSegment.push(point);
       pairsForSegment.push(point);
     });
-    pairsForSegment.push(VectorUtil.toVector3(curveStartEnd[2], curveStartEnd[3], this.radius));
+    pairsForSegment.push(toVector3(curveStartEnd[2], curveStartEnd[3], this.radius));
     return pairsForSegment;
   }
 
