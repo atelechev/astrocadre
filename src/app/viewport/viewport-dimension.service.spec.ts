@@ -108,4 +108,19 @@ describe('ViewportDimensionService', () => {
     expect(service.isInBounds(coord(5, 5))).toBeTruthy();
   });
 
+  it('#getAspect returns 1 when width is equal to height', () => {
+    ensureViewportDimenstion(100, 100);
+    expect(service.getAspect()).toBeCloseTo(1, 3);
+  });
+
+  it('#getAspect returns 0.5 when width is two times lower than height', () => {
+    ensureViewportDimenstion(100, 200);
+    expect(service.getAspect()).toBeCloseTo(0.5, 3);
+  });
+
+  it('#getAspect returns 2 when width is two times greater than height', () => {
+    ensureViewportDimenstion(200, 100);
+    expect(service.getAspect()).toBeCloseTo(2, 3);
+  });
+
 });

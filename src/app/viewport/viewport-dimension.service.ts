@@ -74,4 +74,13 @@ export class ViewportDimensionService {
            coordinate.y < this.height;
   }
 
+  /**
+   * Returns the aspect ratio calculated from the current width and height values.
+   *
+   * @returns number the width/height aspect.
+   */
+  public getAspect(): number {
+    return this.width / this.height;
+  }
+
 }

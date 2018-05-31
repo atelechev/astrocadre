@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Object3D, Camera, PerspectiveCamera, Vector3 } from 'three';
 import { ViewportEventService } from '../core/viewport/viewport-event.service';
+import { ViewportDimensionService } from './viewport-dimension.service';
 import { AxialRotation } from '../core/viewport/axial-rotation';
 import { SkyCoordinate } from '../core/viewport/sky-coordinate';
 import { VectorUtil } from '../layers/geometry/vector-util';
@@ -9,16 +10,25 @@ import { Constants } from '../core/constants';
 @Injectable()
 export class WorldOriginCameraService {
 
-  protected fov = 30;
+  private readonly nearPlane = 0.1;
 
-  protected aspect = 1;
+  private readonly farPlane = 5;
 
-  protected coordsMarkerObject: Object3D;
+  private readonly initialFov = 30;
+
+  /*
+    TODO Was supposed for tracing the center point of the screen, but currently not used.
+   */
+  private coordsMarkerObject: Object3D;
 
   private camera: PerspectiveCamera;
 
-  constructor(private viewportService: ViewportEventService) {
-    this.camera = new PerspectiveCamera(this.fov, this.aspect, 0.1, 5); // TODO extract params?
+  constructor(private viewportService: ViewportEventService,
+              dimensionService: ViewportDimensionService) {
+    this.camera = new PerspectiveCamera(this.initialFov,
+                                        dimensionService.getAspect(),
+                                        this.nearPlane,
+                                        this.farPlane);
     this.setUpCamera();
     this.subscribeAxialRotationEvent();
     this.subscribeFovChangeEvent();
