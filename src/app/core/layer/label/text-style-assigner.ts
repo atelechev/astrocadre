@@ -1,5 +1,5 @@
 import { TextStyle } from '../../theme/text-style';
-import { ArgValidator } from '../arg-validator';
+import { ensureArgDefined } from '../arg-validation-utils';
 
 /**
  * Provides a method to assign TextStyle properties to a HTMLElement.
@@ -13,8 +13,8 @@ export class TextStyleAssigner {
    * @param element the element to apply text style properties on
    */
   public static applyStyleOn(style: TextStyle, element: HTMLElement): void {
-    ArgValidator.ensureArgDefined(style, 'style');
-    ArgValidator.ensureArgDefined(element, 'element');
+    ensureArgDefined(style, 'style');
+    ensureArgDefined(element, 'element');
     const elementStyle = element.style;
     elementStyle.fontFamily = style.fontFamily;
     elementStyle.fontSize = style.fontSize;

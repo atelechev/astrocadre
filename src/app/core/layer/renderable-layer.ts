@@ -2,7 +2,7 @@ import { Object3D } from 'three';
 import { Theme } from '../theme/theme';
 import { ThemeAware } from '../theme/theme-aware';
 import { LayersTreeNode } from './layers-tree-node';
-import { ArgValidator } from './arg-validator';
+import { ensureArgDefined } from './arg-validation-utils';
 
 /**
  * Represents a layer of objects that can be rendered/visualized in the view.
@@ -12,7 +12,7 @@ export abstract class RenderableLayer implements ThemeAware {
   private visible: boolean;
 
   constructor(protected readonly tree: LayersTreeNode) {
-    ArgValidator.ensureArgDefined(tree, 'tree');
+    ensureArgDefined(tree, 'tree');
   }
 
   /**
@@ -35,7 +35,7 @@ export abstract class RenderableLayer implements ThemeAware {
    * @param theme the theme to apply.
    */
   public useTheme(theme: Theme): void {
-    ArgValidator.ensureArgDefined(theme, 'theme');
+    ensureArgDefined(theme, 'theme');
     this.useThemeForThis(theme);
   }
 

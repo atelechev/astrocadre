@@ -3,7 +3,7 @@ import { Theme } from '../../theme/theme';
 import { TextOffsetPolicy, TextOffsets } from './text-offset-policy';
 import { TextStyleAssigner } from './text-style-assigner';
 import { HtmlElementFactory } from './html-element-factory';
-import { ArgValidator } from '../arg-validator';
+import { ensureArgDefined } from '../arg-validation-utils';
 
 /**
  * Wraps data about text that can be rendered in the view.
@@ -19,8 +19,8 @@ export class RenderableText {
               public readonly position: Vector3,
               private text: string,
               private offsetPolicy: TextOffsetPolicy) {
-    ArgValidator.ensureArgDefined(position, 'position');
-    ArgValidator.ensureArgDefined(offsetPolicy, 'offsetPolicy');
+    ensureArgDefined(position, 'position');
+    ensureArgDefined(offsetPolicy, 'offsetPolicy');
     this.htmlElement = HtmlElementFactory.newLabel(parentLayer, styleKey, text);
     this.offsets = TextOffsets.ZERO_OFFSETS;
   }

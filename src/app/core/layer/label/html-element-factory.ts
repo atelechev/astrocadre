@@ -1,4 +1,4 @@
-import { ArgValidator } from '../arg-validator';
+import { ensureStringDefinedNotEmpty } from '../arg-validation-utils';
 
 /**
  * Factory utility class allowing to instantiate HTML elements.
@@ -17,8 +17,8 @@ export class HtmlElementFactory {
   public static newLabel(layerName: string,
                          styleKey: string,
                          text: string): HTMLElement {
-    ArgValidator.ensureStringDefinedNotEmpty(layerName, 'layerName');
-    ArgValidator.ensureStringDefinedNotEmpty(styleKey, 'styleKey');
+    ensureStringDefinedNotEmpty(layerName, 'layerName');
+    ensureStringDefinedNotEmpty(styleKey, 'styleKey');
     const element = document.createElement('div');
     element.className = `label_${layerName}_${styleKey}`;
     element.textContent = text;
