@@ -7,6 +7,7 @@ import { Object3D } from 'three';
 import { RenderableText } from '../core/layer/label/renderable-text';
 import { LabelsVisibilityManager } from './labels-visibility-manager';
 import { ViewportDimensionService } from './viewport-dimension.service';
+import { MouseEventsHandler } from './mouse-events-handler';
 
 @Component({
   selector: `app-sky-view-viewport`,
@@ -16,7 +17,8 @@ import { ViewportDimensionService } from './viewport-dimension.service';
     ViewportDimensionService,
     SceneManager,
     WorldOriginCameraService,
-    LabelsVisibilityManager
+    LabelsVisibilityManager,
+    MouseEventsHandler
   ]
 })
 export class ViewportComponent implements AfterViewInit, ThemeAware {
@@ -31,7 +33,8 @@ export class ViewportComponent implements AfterViewInit, ThemeAware {
   constructor(private dimensionService: ViewportDimensionService,
               private sceneManager: SceneManager,
               private cameraService: WorldOriginCameraService,
-              private labelsManager: LabelsVisibilityManager) {
+              private labelsManager: LabelsVisibilityManager,
+              private mouseEventHandler: MouseEventsHandler) {
     this.viewportWidth = this.dimensionService.getWidth() + 'px';
     this.viewportHeight = this.dimensionService.getHeight() + 'px';
     this.cameraService.initCoordsMarkerObject();
@@ -45,7 +48,7 @@ export class ViewportComponent implements AfterViewInit, ThemeAware {
   public ngAfterViewInit(): void {
     this.appendCanvas();
     this.sceneManager.render();
-    this.cameraService.initMouseListeners(this.sceneManager);
+    this.mouseEventHandler.initMouseListenersOn(this.skyViewViewport.nativeElement);
   }
 
   public useTheme(theme: Theme): void {

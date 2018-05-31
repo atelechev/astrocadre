@@ -1,0 +1,42 @@
+import { ViewportEventService } from '../core/viewport/viewport-event.service';
+import { Math as ThreeMath } from 'three';
+import { Injectable } from '@angular/core';
+
+@Injectable()
+export class MouseEventsHandler {
+
+  private mousePressed: boolean;
+
+  private mouseSensivity = 0.05;
+
+  constructor(private viewportService: ViewportEventService) {
+
+  }
+
+  private mousePressedFunction(pressed: boolean): (MouseEvent) => void {
+    return (event: MouseEvent) => {
+      this.mousePressed = pressed;
+    };
+  }
+
+  private addMouseEventListener(element: HTMLElement, eventKey: string, funct: (MouseEvent) => void): void {
+    element.addEventListener(eventKey, funct);
+  }
+
+  public initMouseListenersOn(element: HTMLElement): void {
+    this.addMouseEventListener(element, 'mousedown', this.mousePressedFunction(true));
+    this.addMouseEventListener(element, 'mouseup', this.mousePressedFunction(false));
+    this.addMouseEventListener(element, 'mouseleave', this.mousePressedFunction(false));
+    this.addMouseEventListener(element, 'mousemove', (event: MouseEvent) => {
+      if (this.mousePressed && event.button === 0) {
+        const deltaY = ThreeMath.degToRad(event.movementX * this.mouseSensivity);
+        const deltaX = ThreeMath.degToRad(event.movementY * this.mouseSensivity);
+        this.viewportService.axialRotationRequested({ rx: deltaX, ry: deltaY, rz: 0 });
+      }
+    });
+    this.addMouseEventListener(element, 'dblclick', (event: MouseEvent) => {
+      this.viewportService.axisAlignmentRequested();
+    });
+  }
+
+}

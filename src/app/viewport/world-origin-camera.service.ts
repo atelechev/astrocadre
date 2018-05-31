@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
-import { AbstractCameraService } from './abstract-camera-service';
-import { Camera, PerspectiveCamera, Math as ThreeMath, Vector3 } from 'three';
+import { Object3D, Camera, PerspectiveCamera, Vector3 } from 'three';
 import { ViewportEventService } from '../core/viewport/viewport-event.service';
 import { AxialRotation } from '../core/viewport/axial-rotation';
 import { SkyCoordinate } from '../core/viewport/sky-coordinate';
@@ -8,12 +7,17 @@ import { VectorUtil } from '../layers/geometry/vector-util';
 import { Constants } from '../core/constants';
 
 @Injectable()
-export class WorldOriginCameraService extends AbstractCameraService {
+export class WorldOriginCameraService {
 
-  private camera: Camera;
+  protected fov = 30;
 
-  constructor(viewportService: ViewportEventService) {
-    super(viewportService);
+  protected aspect = 1;
+
+  protected coordsMarkerObject: Object3D;
+
+  private camera: PerspectiveCamera;
+
+  constructor(private viewportService: ViewportEventService) {
     this.camera = new PerspectiveCamera(this.fov, this.aspect, 0.1, 5); // TODO extract params?
     this.setUpCamera();
     this.subscribeAxialRotationEvent();
@@ -65,33 +69,42 @@ export class WorldOriginCameraService extends AbstractCameraService {
   }
 
   private centerView(coords: SkyCoordinate): void {
-    const camera = this.getCamera();
-    camera.up = this.getAlignmentPoleCoordinate(coords.declination);
-    camera.lookAt(VectorUtil.toVector3(coords.rightAscension, coords.declination, Constants.WORLD_RADIUS));
+    this.camera.up = this.getAlignmentPoleCoordinate(coords.declination);
+    this.camera.lookAt(VectorUtil.toVector3(coords.rightAscension, coords.declination, Constants.WORLD_RADIUS));
     this.viewportService.viewportChanged();
   }
 
   public rotate(rotation: AxialRotation): void {
-    const camera = this.getCamera();
-    camera.rotateX(rotation.rx);
-    camera.rotateY(rotation.ry);
-    camera.rotateZ(rotation.rz);
+    this.camera.rotateX(rotation.rx);
+    this.camera.rotateY(rotation.ry);
+    this.camera.rotateZ(rotation.rz);
     this.viewportService.viewportChanged();
   }
 
   protected setFoV(range: number): void {
-    const camera = <PerspectiveCamera> this.getCamera();
-    camera.fov = parseInt('' + range, 10); // TODO weird
-    camera.updateProjectionMatrix();
+    this.camera.fov = range;
+    this.camera.updateProjectionMatrix();
     this.viewportService.viewportChanged();
   }
 
   protected alignNSAxis(): void {
-    const camera = this.getCamera();
     const viewCenter = this.getViewCenterCoordinates();
-    camera.up = this.getAlignmentPoleCoordinate(viewCenter.z);
-    camera.lookAt(viewCenter);
+    this.camera.up = this.getAlignmentPoleCoordinate(viewCenter.z);
+    this.camera.lookAt(viewCenter);
     this.viewportService.viewportChanged();
+  }
+
+  public initCoordsMarkerObject(): void {
+    this.coordsMarkerObject = new Object3D();
+    this.coordsMarkerObject.position.set(0, 0, -(Constants.WORLD_RADIUS + 0.1));
+    this.camera.add(this.coordsMarkerObject);
+    this.camera.updateMatrixWorld(true);
+  }
+
+  public getViewCenterCoordinates(): Vector3 {
+    const viewCenter = new Vector3();
+    viewCenter.setFromMatrixPosition(this.coordsMarkerObject.matrixWorld);
+    return viewCenter;
   }
 
 }
