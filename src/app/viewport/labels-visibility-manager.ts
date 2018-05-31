@@ -13,12 +13,15 @@ export class LabelsVisibilityManager {
 
   private readonly halfHeight: number;
 
-  private camera: Camera;
+  private readonly camera: Camera;
+
+  private readonly frustum: Frustum;
 
   constructor(private dimensionService: ViewportDimensionService,
               cameraService: WorldOriginCameraService) {
     this.halfWidth = this.dimensionService.getWidth() / 2;
     this.halfHeight = this.dimensionService.getHeight() / 2;
+    this.frustum = new Frustum();
     this.camera = cameraService.getCamera();
   }
 
@@ -47,10 +50,10 @@ export class LabelsVisibilityManager {
     this.hideLabelsByLayer(layer, labelsDomRoot);
     this.camera.updateMatrix();
     this.camera.updateMatrixWorld(true);
-    const frustum = this.initFrustum();
+    this.updateFrustum();
     labels.forEach(
       (renderable: RenderableText, code: string) => {
-        if (!this.isPointBehind(frustum, renderable.position)) {
+        if (!this.isPointBehind(renderable.position)) {
           const onScreenCoordinate = this.getOnscreenPosition(renderable.position);
           if (this.dimensionService.isInBounds(onScreenCoordinate)) {
             this.setLabelPositionAndShow(renderable, onScreenCoordinate);
@@ -60,17 +63,16 @@ export class LabelsVisibilityManager {
     );
   }
 
-  private initFrustum(): Frustum {
-    const frustum = new Frustum();
-    frustum.setFromMatrix(new Matrix4().multiplyMatrices(this.camera.projectionMatrix, this.camera.matrixWorldInverse));
-    return frustum;
+  private updateFrustum(): void {
+    const matrix = new Matrix4().multiplyMatrices(this.camera.projectionMatrix, this.camera.matrixWorldInverse);
+    this.frustum.setFromMatrix(matrix);
   }
 
-  private isPointBehind(frustum: Frustum, point: Vector3): boolean {
+  private isPointBehind(point: Vector3): boolean {
     if (!point) {
       return true;
     }
-    return !frustum.containsPoint(point);
+    return !this.frustum.containsPoint(point);
   }
 
   private getOnscreenPosition(point: Vector3): ScreenCoordinate {
