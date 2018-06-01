@@ -30,7 +30,7 @@ export class StarsMagnitudeLayer extends LabelledLayer {
               public readonly magClass: number,
               rawStars: number[][]) {
     super(tree);
-    this.stars = new MergedPoints(rawStars, Constants.WORLD_RADIUS - 0.04).toObject3D();
+    this.stars = new MergedPoints(rawStars, Constants.WORLD_RADIUS - 0.04).createObject3D();
     this.namesHtmls = new Array<HTMLElement>();
     this.initProperNameLabels(rawStars);
     this.initStandardNameLabels(rawStars);

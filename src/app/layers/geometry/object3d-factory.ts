@@ -2,8 +2,10 @@ import { BufferGeometry } from 'three';
 import { Vector3, Object3D } from 'three';
 import { ensureArgDefined, ensureArgArrayDefinedNotEmpty } from '../../core/layer/arg-validation-utils';
 
-
-export abstract class MergedObjects<T extends Object3D> {
+/**
+ * Base class for factories producing Three's Object3D instances.
+ */
+export abstract class Object3DFactory<T extends Object3D> {
 
   constructor(private segments: number[][],
               protected radius: number) {
@@ -15,7 +17,7 @@ export abstract class MergedObjects<T extends Object3D> {
 
   protected abstract toTargetObject3D(geometry: BufferGeometry): T;
 
-  public toObject3D(): T {
+  public createObject3D(): T {
     const geometry = new BufferGeometry();
     let pointPairs = new Array<Vector3>();
     this.segments.forEach(segment => {

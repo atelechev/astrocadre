@@ -1,8 +1,8 @@
 import { Vector3, LineSegments, BufferGeometry, Object3D } from 'three';
 import { toVector3 } from '../../core/layer/vector-utils';
-import { MergedObjects } from './merged-objects';
+import { Object3DFactory } from './object3d-factory';
 
-export class MergedLines extends MergedObjects<LineSegments> {
+export class MergedLines extends Object3DFactory<LineSegments> {
 
   constructor(segments: number[][],
               radius: number) {
