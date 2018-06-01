@@ -1,12 +1,14 @@
 import { BufferGeometry } from 'three';
 import { Vector3, Object3D } from 'three';
+import { ensureArgDefined, ensureArgArrayDefinedNotEmpty } from '../../core/layer/arg-validation-utils';
 
 
 export abstract class MergedObjects<T extends Object3D> {
 
   constructor(private segments: number[][],
               protected radius: number) {
-
+    ensureArgArrayDefinedNotEmpty(segments, 'segments');
+    ensureArgDefined(radius, 'radius');
   }
 
   protected abstract segmentToVertices(segment: number[]): Vector3[];
