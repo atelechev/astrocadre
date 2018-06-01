@@ -25,6 +25,17 @@ export const ensureArgDefined = (arg: any, argName: string): void => {
   }
 };
 
+/**
+ * Validates that the first argument is defined and not empty.
+ *
+ * @param arg the argument to validate.
+ * @param argName the name of the argument, used in the error message.
+ */
+export const ensureArgArrayDefinedNotEmpty = (arg: any[], argName: string): void => {
+  if (!arg || arg.length === 0) {
+    throwErrorForInvalidArg(arg ? '[]' : arg, argName);
+  }
+};
 
 /**
  * Validates that the string of the first argument is defined and not empty and does not contain only spaces.

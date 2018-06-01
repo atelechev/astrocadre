@@ -1,4 +1,4 @@
-import { ensureArgDefined, ensureStringDefinedNotEmpty } from './arg-validation-utils';
+import { ensureArgDefined, ensureStringDefinedNotEmpty, ensureArgArrayDefinedNotEmpty } from './arg-validation-utils';
 
 describe('ArgValidator', () => {
 
@@ -52,6 +52,21 @@ describe('ArgValidator', () => {
 
   it('#ensureStringDefinedNotEmpty should do nothing if the arg is a string', () => {
     ensureStringDefinedNotEmpty('abc', 'test14');
+  });
+
+  it('#ensureArgArrayDefinedNotEmpty should throw expected error if arg is null', () => {
+    expect(() => ensureArgArrayDefinedNotEmpty(null, 'test14'))
+      .toThrow(new Error('test14 arg must be defined, but was \'null\''));
+  });
+
+  it('#ensureArgArrayDefinedNotEmpty should throw expected error if arg is undefined', () => {
+    expect(() => ensureArgArrayDefinedNotEmpty(undefined, 'test15'))
+      .toThrow(new Error('test15 arg must be defined, but was \'undefined\''));
+  });
+
+  it('#ensureArgArrayDefinedNotEmpty should throw expected error if arg is an empty array', () => {
+    expect(() => ensureArgArrayDefinedNotEmpty([], 'test16'))
+      .toThrow(new Error('test16 arg must be defined, but was \'[]\''));
   });
 
 });
