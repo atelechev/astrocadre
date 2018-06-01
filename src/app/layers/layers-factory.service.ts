@@ -11,23 +11,29 @@ import { StarsMagnitudeLayer } from './stars-magnitude-layer';
 import { LayersTreeNode } from '../core/layer/layers-tree-node';
 import { ConstellationNamesLayer } from './constellation-names-layer';
 import { ConstellationMetadata } from '../core/layer/constellation-metadata';
+import { AxialCurvesFactory } from './geometry/axial-curves-factory';
+import { LinesFactory } from './geometry/lines-factory';
+import { PointsFactory } from './geometry/points-factory';
 
 @Injectable()
 export class LayersFactoryService {
 
-  constructor(private dataService: StaticDataService) {
+  constructor(private dataService: StaticDataService,
+              private axialCurvesFactory: AxialCurvesFactory,
+              private linesFactory: LinesFactory,
+              private pointsFactory: PointsFactory) {
 
   }
 
   private initConstellationBoundariesLayer(layer: LayersTreeNode): Observable<RenderableLayer> {
     return this.dataService.getConstellationBoundaries().map(
-      (rawBoundaries: number[][]) => new ConstellationBoundariesLayer(layer, rawBoundaries)
+      (rawBoundaries: number[][]) => new ConstellationBoundariesLayer(layer, rawBoundaries, this.axialCurvesFactory)
     );
   }
 
   private initConstellationLinesLayer(layer: LayersTreeNode): Observable<RenderableLayer> {
     return this.dataService.getConstellationLines().map(
-      (rawSegments: number[][]) => new ConstellationLinesLayer(layer, rawSegments)
+      (rawSegments: number[][]) => new ConstellationLinesLayer(layer, rawSegments, this.linesFactory)
     );
   }
 
@@ -47,7 +53,7 @@ export class LayersFactoryService {
     }
     const magClass = parseFloat(layer.code.substr(Layers.STARS.length + '-mag'.length));
     return this.dataService.getStarsByMagnitudeClass(magClass).map(
-      (rawStars: any[][]) => new StarsMagnitudeLayer(layer, magClass, rawStars)
+      (rawStars: any[][]) => new StarsMagnitudeLayer(layer, magClass, rawStars, this.pointsFactory)
     );
   }
 
@@ -57,7 +63,7 @@ export class LayersFactoryService {
     }
     switch (layer.code) {
       case Layers.SKY_GRID: {
-        return Observable.of(new SkyGridLayer(layer));
+        return Observable.of(new SkyGridLayer(layer, this.axialCurvesFactory));
       }
       case Layers.CONSTELLATIONS: {
         return Observable.of(new RenderableLayer(layer));

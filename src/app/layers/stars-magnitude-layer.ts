@@ -28,10 +28,10 @@ export class StarsMagnitudeLayer extends LabelledLayer {
 
   constructor(tree: LayersTreeNode,
               public readonly magClass: number,
-              rawStars: number[][]) {
+              rawStars: number[][],
+              objectsFactory: PointsFactory) {
     super(tree);
-    const offset = Constants.getWorldRadiusForLayer(Layers.STARS);
-    this.stars = new PointsFactory(rawStars, offset).createObject3D();
+    this.stars = objectsFactory.createObject3D(Layers.STARS, rawStars);
     this.namesHtmls = new Array<HTMLElement>();
     this.initProperNameLabels(rawStars);
     this.initStandardNameLabels(rawStars);

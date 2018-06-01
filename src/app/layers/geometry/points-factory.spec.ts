@@ -1,3 +1,4 @@
+import { TestBed } from '@angular/core/testing';
 import { PointsFactory } from './points-factory';
 import { Constants } from '../../core/constants';
 import { Object3D, BufferGeometry } from 'three';
@@ -5,26 +6,24 @@ import { Layers } from '../../core/layers';
 
 describe('PointsFactory', () => {
 
-  const worldRadius = Constants.getWorldRadiusForLayer(undefined);
+  const layer = Layers.STARS;
 
-  // TODO
-  const newMergedPoints = (segs: number[][], radius?: number): PointsFactory => {
-    return new PointsFactory(segs, radius);
-  };
+  let service: PointsFactory;
 
-  it('#constructor should throw expected error if segments arg is undefined', () => {
-    expect(() => newMergedPoints(undefined, worldRadius))
+  beforeEach(() => {
+    TestBed.configureTestingModule(
+      { providers: [ PointsFactory ] });
+    service = TestBed.get(PointsFactory);
+  });
+
+  it('#createObject3D should throw expected error if segments arg is undefined', () => {
+    expect(() => service.createObject3D(layer, undefined))
       .toThrow(new Error('segments arg must be defined, but was \'undefined\''));
   });
 
-  it('#constructor should throw expected error if segments arg is empty', () => {
-    expect(() => newMergedPoints([], worldRadius))
+  it('#createObject3D should throw expected error if segments arg is empty', () => {
+    expect(() => service.createObject3D(layer, []))
       .toThrow(new Error('segments arg must be defined, but was \'[]\''));
-  });
-
-  it('#constructor should throw expected error if radius arg is undefined', () => {
-    expect(() => newMergedPoints([[ 37.95, 89.26 ]]))
-      .toThrow(new Error('radius arg must be defined, but was \'undefined\''));
   });
 
   const assertGeometryExpected = (checked: BufferGeometry, expected: number[][]): void => {
@@ -40,19 +39,19 @@ describe('PointsFactory', () => {
   };
 
   it('#toObject3D should return expected object for a single point', () => {
-    const expected = [[ 0.020, 0.016, 2.0 ]];
-    const merged = newMergedPoints([[ 37.95, 89.26 ]], worldRadius).createObject3D();
+    const expected = [[ 0.020, 0.016, 1.960 ]];
+    const merged = service.createObject3D(layer, [[ 37.95, 89.26 ]]);
     assertGeometryExpected(<BufferGeometry> merged.geometry, expected);
   });
 
   it('#toObject3D should return expected object for multiple points', () => {
-    const expected = [[ 0.020, 0.016, 2.0 ], [ 0.390, 1.941, -0.285]];
-    const merged = newMergedPoints([[ 37.95, 89.26 ], [ 78.63, -8.2 ]], worldRadius).createObject3D();
+    const expected = [[ 0.020, 0.016, 1.960 ], [ 0.382, 1.902, -0.280]];
+    const merged = service.createObject3D(layer, [[ 37.95, 89.26 ], [ 78.63, -8.2 ]]);
     assertGeometryExpected(<BufferGeometry> merged.geometry, expected);
   });
 
   it('#toObject3D should throw expected error if at least one sud-array is invalid', () => {
-    expect(() => newMergedPoints([[ 0.020, 0.016, 2.0 ], []], worldRadius).createObject3D())
+    expect(() => service.createObject3D(layer, [[ 0.020, 0.016, 2.0 ], []]))
       .toThrow(new Error('invalid point definition: \'\''));
   });
 

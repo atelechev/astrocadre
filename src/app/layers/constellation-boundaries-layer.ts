@@ -3,7 +3,6 @@ import { Object3D, LineSegments } from 'three';
 import { AxialCurvesFactory } from './geometry/axial-curves-factory';
 import { Layers } from '../core/layers';
 import { Theme } from '../core/theme/theme';
-import { Constants } from '../core/constants';
 import { LayersTreeNode } from '../core/layer/layers-tree-node';
 
 export class ConstellationBoundariesLayer extends RenderableLayer {
@@ -13,10 +12,10 @@ export class ConstellationBoundariesLayer extends RenderableLayer {
   private objects: Object3D[];
 
   constructor(tree: LayersTreeNode,
-              rawSegments: number[][]) {
+              rawSegments: number[][],
+              objectsFactory: AxialCurvesFactory) {
     super(tree);
-    const offset = Constants.getWorldRadiusForLayer(Layers.CONSTELLATION_BOUNDARIES);
-    this.mergedCurves = new AxialCurvesFactory(rawSegments, offset).createObject3D();
+    this.mergedCurves = objectsFactory.createObject3D(Layers.CONSTELLATION_BOUNDARIES, rawSegments);
     this.objects = [ this.mergedCurves ];
   }
 

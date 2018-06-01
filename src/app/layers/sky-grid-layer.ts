@@ -9,8 +9,6 @@ import { LayersTreeNode } from '../core/layer/layers-tree-node';
 
 export class SkyGridLayer extends RenderableLayer {
 
-  private gridRadius = Constants.getWorldRadiusForLayer(Layers.SKY_GRID);
-
   private gridStepMeridians = 15;
 
   private gridStepParallels = 10;
@@ -27,7 +25,8 @@ export class SkyGridLayer extends RenderableLayer {
 
   private objects: Object3D[];
 
-  constructor(tree: LayersTreeNode) {
+  constructor(tree: LayersTreeNode,
+              private objectsFactory: AxialCurvesFactory) {
     super(tree);
     this.commonMeridians = this.generateCommonMeridianSegments();
     this.commonParallels = this.generateCommonParallelSegments();
@@ -41,9 +40,13 @@ export class SkyGridLayer extends RenderableLayer {
     ];
   }
 
+  private createLineSegmentsWith(segments: number[][]): LineSegments {
+    return this.objectsFactory.createObject3D(Layers.SKY_GRID, segments);
+  }
+
   private generateReferenceMeridianSegments(): LineSegments {
     const refSegments = [ this.meridianSegment(0), this.meridianSegment(180)];
-    return new AxialCurvesFactory(refSegments, this.gridRadius).createObject3D();
+    return this.createLineSegmentsWith(refSegments);
   }
 
   private meridianSegment(ra: number): number[] {
@@ -58,7 +61,7 @@ export class SkyGridLayer extends RenderableLayer {
       }
       segments.push(this.meridianSegment(i));
     }
-    return new AxialCurvesFactory(segments, this.gridRadius).createObject3D();
+    return this.createLineSegmentsWith(segments);
   }
 
   private parallelSegment(decl: number): number[] {
@@ -67,7 +70,7 @@ export class SkyGridLayer extends RenderableLayer {
 
   private generateReferenceParallelSegments(): LineSegments {
     const refSegments = [ this.parallelSegment(0) ];
-    return new AxialCurvesFactory(refSegments, this.gridRadius).createObject3D();
+    return this.createLineSegmentsWith(refSegments);
   }
 
   private generateCommonParallelSegments(): LineSegments {
@@ -76,7 +79,7 @@ export class SkyGridLayer extends RenderableLayer {
       segments.push(this.parallelSegment(par));
       segments.push(this.parallelSegment(-par));
     }
-    return new AxialCurvesFactory(segments, this.gridRadius).createObject3D();
+    return this.createLineSegmentsWith(segments);
   }
 
   public getObjects(): Object3D[] {

@@ -1,19 +1,16 @@
 import { Vector3, Points, BufferGeometry, Object3D } from 'three';
 import { toVector3 } from '../../core/layer/vector-utils';
 import { Object3DFactory } from './object3d-factory';
+import { Injectable } from '@angular/core';
 
+@Injectable()
 export class PointsFactory extends Object3DFactory<Points> {
 
-  constructor(segments: number[][],
-              radius: number) {
-    super(segments, radius);
-  }
-
-  protected segmentToVertices(segment: number[]): Vector3[] {
+  protected segmentToVertices(segment: number[], radius: number): Vector3[] {
     if (!segment || segment.length < 2) {
       throw new Error(`invalid point definition: \'${segment}\'`);
     }
-    const p0 = toVector3(segment[0], segment[1], this.radius);
+    const p0 = toVector3(segment[0], segment[1], radius);
     return [ p0 ];
   }
 

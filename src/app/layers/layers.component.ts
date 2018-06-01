@@ -9,12 +9,18 @@ import { LayersTreeNode } from '../core/layer/layers-tree-node';
 import { Layers } from '../core/layers';
 import { StarsMagnitudeLayer } from './stars-magnitude-layer';
 import { LabelledLayer } from '../core/layer/labelled-layer';
+import { PointsFactory } from './geometry/points-factory';
+import { LinesFactory } from './geometry/lines-factory';
+import { AxialCurvesFactory } from './geometry/axial-curves-factory';
 
 @Component({
   selector: 'app-sky-view-layers',
   template: ``,
   providers: [
-    LayersFactoryService
+    LayersFactoryService,
+    PointsFactory,
+    LinesFactory,
+    AxialCurvesFactory
   ]
 })
 export class LayersComponent implements ThemeAware, OnInit {

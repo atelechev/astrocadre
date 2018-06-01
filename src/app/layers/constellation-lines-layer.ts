@@ -13,10 +13,10 @@ export class ConstellationLinesLayer extends RenderableLayer {
   private objects: Object3D[];
 
   constructor(tree: LayersTreeNode,
-              rawSegments: number[][]) {
+              rawSegments: number[][],
+              objectsFactory: LinesFactory) {
     super(tree);
-    const offset = Constants.getWorldRadiusForLayer(Layers.CONSTELLATION_LINES);
-    this.mergedLines = new LinesFactory(rawSegments, offset).createObject3D();
+    this.mergedLines = objectsFactory.createObject3D(Layers.CONSTELLATION_LINES, rawSegments);
     this.objects = [ this.mergedLines ];
   }
 
