@@ -30,7 +30,8 @@ export class StarsMagnitudeLayer extends LabelledLayer {
               public readonly magClass: number,
               rawStars: number[][]) {
     super(tree);
-    this.stars = new MergedPoints(rawStars, Constants.WORLD_RADIUS - 0.04).createObject3D();
+    const offset = Constants.getWorldRadiusForLayer(Layers.STARS);
+    this.stars = new MergedPoints(rawStars, offset).createObject3D();
     this.namesHtmls = new Array<HTMLElement>();
     this.initProperNameLabels(rawStars);
     this.initStandardNameLabels(rawStars);
@@ -80,7 +81,7 @@ export class StarsMagnitudeLayer extends LabelledLayer {
   }
 
   private toNameRenderableText(rawStar: any[], styleKey: string, name: string, offsetPolicy: TextOffsetPolicy): RenderableText {
-    const center = toVector3(rawStar[0], rawStar[1], Constants.WORLD_RADIUS);
+    const center = toVector3(rawStar[0], rawStar[1], Constants.getWorldRadiusForLayer(Layers.STARS));
     return new RenderableText(this.getName(), styleKey, center, name, offsetPolicy);
   }
 

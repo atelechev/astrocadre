@@ -9,7 +9,7 @@ import { LayersTreeNode } from '../core/layer/layers-tree-node';
 
 export class SkyGridLayer extends RenderableLayer {
 
-  private gridRadius = Constants.WORLD_RADIUS;
+  private gridRadius = Constants.getWorldRadiusForLayer(Layers.SKY_GRID);
 
   private gridStepMeridians = 15;
 

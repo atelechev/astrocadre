@@ -15,7 +15,8 @@ export class ConstellationBoundariesLayer extends RenderableLayer {
   constructor(tree: LayersTreeNode,
               rawSegments: number[][]) {
     super(tree);
-    this.mergedCurves = new MergedAxialCurves(rawSegments, Constants.WORLD_RADIUS - 0.02).createObject3D();
+    const offset = Constants.getWorldRadiusForLayer(Layers.CONSTELLATION_BOUNDARIES);
+    this.mergedCurves = new MergedAxialCurves(rawSegments, offset).createObject3D();
     this.objects = [ this.mergedCurves ];
   }
 

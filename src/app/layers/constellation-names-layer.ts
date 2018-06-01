@@ -7,6 +7,7 @@ import { toVector3 } from '../core/layer/vector-utils';
 import { Constants } from '../core/constants';
 import { RenderableText } from '../core/layer/label/renderable-text';
 import { TextOffsetPolicies } from '../core/layer/label/text-offset-policy';
+import { Layers } from '../core/layers';
 
 export class ConstellationNamesLayer extends LabelledLayer {
 
@@ -32,7 +33,7 @@ export class ConstellationNamesLayer extends LabelledLayer {
   }
 
   private toRenderableText(constMeta: ConstellationMetadata): RenderableText {
-    const center = toVector3(constMeta.ra, constMeta.dec, Constants.WORLD_RADIUS);
+    const center = toVector3(constMeta.ra, constMeta.dec, Constants.getWorldRadiusForLayer(Layers.CONSTELLATION_NAMES));
     return new RenderableText(this.getName(), 'labels', center, constMeta.names[0], TextOffsetPolicies.CENTERED);
   }
 

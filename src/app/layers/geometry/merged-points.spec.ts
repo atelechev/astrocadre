@@ -1,20 +1,23 @@
 import { MergedPoints } from './merged-points';
 import { Constants } from '../../core/constants';
 import { Object3D, BufferGeometry } from 'three';
+import { Layers } from '../../core/layers';
 
 describe('MergedPoints', () => {
+
+  const worldRadius = Constants.getWorldRadiusForLayer(undefined);
 
   const newMergedPoints = (segs: number[][], radius?: number): MergedPoints => {
     return new MergedPoints(segs, radius);
   };
 
   it('#constructor should throw expected error if segments arg is undefined', () => {
-    expect(() => newMergedPoints(undefined, Constants.WORLD_RADIUS))
+    expect(() => newMergedPoints(undefined, worldRadius))
       .toThrow(new Error('segments arg must be defined, but was \'undefined\''));
   });
 
   it('#constructor should throw expected error if segments arg is empty', () => {
-    expect(() => newMergedPoints([], Constants.WORLD_RADIUS))
+    expect(() => newMergedPoints([], worldRadius))
       .toThrow(new Error('segments arg must be defined, but was \'[]\''));
   });
 
@@ -37,18 +40,18 @@ describe('MergedPoints', () => {
 
   it('#toObject3D should return expected object for a single point', () => {
     const expected = [[ 0.020, 0.016, 2.0 ]];
-    const merged = newMergedPoints([[ 37.95, 89.26 ]], Constants.WORLD_RADIUS).createObject3D();
+    const merged = newMergedPoints([[ 37.95, 89.26 ]], worldRadius).createObject3D();
     assertGeometryExpected(<BufferGeometry> merged.geometry, expected);
   });
 
   it('#toObject3D should return expected object for multiple points', () => {
     const expected = [[ 0.020, 0.016, 2.0 ], [ 0.390, 1.941, -0.285]];
-    const merged = newMergedPoints([[ 37.95, 89.26 ], [ 78.63, -8.2 ]], Constants.WORLD_RADIUS).createObject3D();
+    const merged = newMergedPoints([[ 37.95, 89.26 ], [ 78.63, -8.2 ]], worldRadius).createObject3D();
     assertGeometryExpected(<BufferGeometry> merged.geometry, expected);
   });
 
   it('#toObject3D should throw expected error if at least one sud-array is invalid', () => {
-    expect(() => newMergedPoints([[ 0.020, 0.016, 2.0 ], []], Constants.WORLD_RADIUS).createObject3D())
+    expect(() => newMergedPoints([[ 0.020, 0.016, 2.0 ], []], worldRadius).createObject3D())
       .toThrow(new Error('invalid point definition: \'\''));
   });
 
