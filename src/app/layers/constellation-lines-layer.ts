@@ -1,6 +1,6 @@
 import { RenderableLayer } from '../core/layer/renderable-layer';
 import { Object3D, LineSegments } from 'three';
-import { MergedLines } from './geometry/merged-lines';
+import { LinesFactory } from './geometry/lines-factory';
 import { Layers } from '../core/layers';
 import { Theme } from '../core/theme/theme';
 import { Constants } from '../core/constants';
@@ -16,7 +16,7 @@ export class ConstellationLinesLayer extends RenderableLayer {
               rawSegments: number[][]) {
     super(tree);
     const offset = Constants.getWorldRadiusForLayer(Layers.CONSTELLATION_LINES);
-    this.mergedLines = new MergedLines(rawSegments, offset).createObject3D();
+    this.mergedLines = new LinesFactory(rawSegments, offset).createObject3D();
     this.objects = [ this.mergedLines ];
   }
 

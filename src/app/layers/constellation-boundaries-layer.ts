@@ -1,6 +1,6 @@
 import { RenderableLayer } from '../core/layer/renderable-layer';
 import { Object3D, LineSegments } from 'three';
-import { MergedAxialCurves } from './geometry/merged-axial-curves';
+import { AxialCurvesFactory } from './geometry/axial-curves-factory';
 import { Layers } from '../core/layers';
 import { Theme } from '../core/theme/theme';
 import { Constants } from '../core/constants';
@@ -16,7 +16,7 @@ export class ConstellationBoundariesLayer extends RenderableLayer {
               rawSegments: number[][]) {
     super(tree);
     const offset = Constants.getWorldRadiusForLayer(Layers.CONSTELLATION_BOUNDARIES);
-    this.mergedCurves = new MergedAxialCurves(rawSegments, offset).createObject3D();
+    this.mergedCurves = new AxialCurvesFactory(rawSegments, offset).createObject3D();
     this.objects = [ this.mergedCurves ];
   }
 

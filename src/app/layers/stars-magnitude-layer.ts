@@ -2,7 +2,7 @@ import { Layers } from '../core/layers';
 import { Theme } from '../core/theme/theme';
 import { Constants } from '../core/constants';
 import { Points, Object3D } from 'three';
-import { MergedPoints } from './geometry/merged-points';
+import { PointsFactory } from './geometry/points-factory';
 import { LayersTreeNode } from '../core/layer/layers-tree-node';
 import { LabelledLayer } from '../core/layer/labelled-layer';
 import { RenderableText } from '../core/layer/label/renderable-text';
@@ -31,7 +31,7 @@ export class StarsMagnitudeLayer extends LabelledLayer {
               rawStars: number[][]) {
     super(tree);
     const offset = Constants.getWorldRadiusForLayer(Layers.STARS);
-    this.stars = new MergedPoints(rawStars, offset).createObject3D();
+    this.stars = new PointsFactory(rawStars, offset).createObject3D();
     this.namesHtmls = new Array<HTMLElement>();
     this.initProperNameLabels(rawStars);
     this.initStandardNameLabels(rawStars);

@@ -1,7 +1,7 @@
 import { Object3D, Material, LineSegments } from 'three';
 
 import { RenderableLayer } from '../core/layer/renderable-layer';
-import { MergedAxialCurves } from './geometry/merged-axial-curves';
+import { AxialCurvesFactory } from './geometry/axial-curves-factory';
 import { Layers } from '../core/layers';
 import { Theme } from '../core/theme/theme';
 import { Constants } from '../core/constants';
@@ -43,7 +43,7 @@ export class SkyGridLayer extends RenderableLayer {
 
   private generateReferenceMeridianSegments(): LineSegments {
     const refSegments = [ this.meridianSegment(0), this.meridianSegment(180)];
-    return new MergedAxialCurves(refSegments, this.gridRadius).createObject3D();
+    return new AxialCurvesFactory(refSegments, this.gridRadius).createObject3D();
   }
 
   private meridianSegment(ra: number): number[] {
@@ -58,7 +58,7 @@ export class SkyGridLayer extends RenderableLayer {
       }
       segments.push(this.meridianSegment(i));
     }
-    return new MergedAxialCurves(segments, this.gridRadius).createObject3D();
+    return new AxialCurvesFactory(segments, this.gridRadius).createObject3D();
   }
 
   private parallelSegment(decl: number): number[] {
@@ -67,7 +67,7 @@ export class SkyGridLayer extends RenderableLayer {
 
   private generateReferenceParallelSegments(): LineSegments {
     const refSegments = [ this.parallelSegment(0) ];
-    return new MergedAxialCurves(refSegments, this.gridRadius).createObject3D();
+    return new AxialCurvesFactory(refSegments, this.gridRadius).createObject3D();
   }
 
   private generateCommonParallelSegments(): LineSegments {
@@ -76,7 +76,7 @@ export class SkyGridLayer extends RenderableLayer {
       segments.push(this.parallelSegment(par));
       segments.push(this.parallelSegment(-par));
     }
-    return new MergedAxialCurves(segments, this.gridRadius).createObject3D();
+    return new AxialCurvesFactory(segments, this.gridRadius).createObject3D();
   }
 
   public getObjects(): Object3D[] {

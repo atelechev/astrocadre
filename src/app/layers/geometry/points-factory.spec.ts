@@ -1,14 +1,15 @@
-import { MergedPoints } from './merged-points';
+import { PointsFactory } from './points-factory';
 import { Constants } from '../../core/constants';
 import { Object3D, BufferGeometry } from 'three';
 import { Layers } from '../../core/layers';
 
-describe('MergedPoints', () => {
+describe('PointsFactory', () => {
 
   const worldRadius = Constants.getWorldRadiusForLayer(undefined);
 
-  const newMergedPoints = (segs: number[][], radius?: number): MergedPoints => {
-    return new MergedPoints(segs, radius);
+  // TODO
+  const newMergedPoints = (segs: number[][], radius?: number): PointsFactory => {
+    return new PointsFactory(segs, radius);
   };
 
   it('#constructor should throw expected error if segments arg is undefined', () => {

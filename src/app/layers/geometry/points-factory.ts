@@ -2,7 +2,7 @@ import { Vector3, Points, BufferGeometry, Object3D } from 'three';
 import { toVector3 } from '../../core/layer/vector-utils';
 import { Object3DFactory } from './object3d-factory';
 
-export class MergedPoints extends Object3DFactory<Points> {
+export class PointsFactory extends Object3DFactory<Points> {
 
   constructor(segments: number[][],
               radius: number) {

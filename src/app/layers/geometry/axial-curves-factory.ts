@@ -2,7 +2,7 @@ import { Vector3, LineSegments, BufferGeometry, Object3D } from 'three';
 import { AxialCurveCalculator } from './axial-curve-calculator';
 import { Object3DFactory } from './object3d-factory';
 
-export class MergedAxialCurves extends Object3DFactory<LineSegments> {
+export class AxialCurvesFactory extends Object3DFactory<LineSegments> {
 
   private axialCurveCalculator: AxialCurveCalculator;
 
