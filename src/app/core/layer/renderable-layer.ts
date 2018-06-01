@@ -7,7 +7,7 @@ import { ensureArgDefined } from './arg-validation-utils';
 /**
  * Represents a layer of objects that can be rendered/visualized in the view.
  */
-export abstract class RenderableLayer implements ThemeAware {
+export class RenderableLayer implements ThemeAware {
 
   private visible: boolean;
 
@@ -27,7 +27,9 @@ export abstract class RenderableLayer implements ThemeAware {
   /**
    * Returns the array of Three.Object3D that should be rendered in the view.
    */
-  abstract getObjects(): Object3D[];
+  public getObjects(): Object3D[] {
+    return [];
+  }
 
   /**
    * Applies the specified theme on this layer.
@@ -44,7 +46,9 @@ export abstract class RenderableLayer implements ThemeAware {
    *
    * @param theme the theme to apply.
    */
-  protected abstract useThemeForThis(theme: Theme): void;
+  protected useThemeForThis(theme: Theme): void {
+    // no own graphics, all are in sub-layers
+  }
 
   /**
    * Sets this layer visible.

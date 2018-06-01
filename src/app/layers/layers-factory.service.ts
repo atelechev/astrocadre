@@ -7,8 +7,6 @@ import { SkyGridLayer } from './sky-grid-layer';
 import { StaticDataService } from '../core/static-data-service';
 import { ConstellationBoundariesLayer } from './constellation-boundaries-layer';
 import { ConstellationLinesLayer } from './constellation-lines-layer';
-import { StarsLayer } from './stars-layer';
-import { ConstellationsLayer } from './constellations-layer';
 import { StarsMagnitudeLayer } from './stars-magnitude-layer';
 import { LayersTreeNode } from '../core/layer/layers-tree-node';
 import { ConstellationNamesLayer } from './constellation-names-layer';
@@ -45,7 +43,7 @@ export class LayersFactoryService {
 
   private initStarLayers(layer: LayersTreeNode): Observable<RenderableLayer> {
     if (layer.code === Layers.STARS) {
-      return Observable.of(new StarsLayer(layer));
+      return Observable.of(new RenderableLayer(layer));
     }
     const magClass = parseFloat(layer.code.substr(Layers.STARS.length + '-mag'.length));
     return this.dataService.getStarsByMagnitudeClass(magClass).map(
@@ -62,7 +60,7 @@ export class LayersFactoryService {
         return Observable.of(new SkyGridLayer(layer));
       }
       case Layers.CONSTELLATIONS: {
-        return Observable.of(new ConstellationsLayer(layer));
+        return Observable.of(new RenderableLayer(layer));
       }
       case Layers.CONSTELLATION_BOUNDARIES: {
         return this.initConstellationBoundariesLayer(layer);
