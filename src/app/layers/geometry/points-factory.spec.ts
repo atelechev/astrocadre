@@ -1,7 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 import { PointsFactory } from './points-factory';
-import { Constants } from '../../core/constants';
-import { Object3D, BufferGeometry } from 'three';
+import { BufferGeometry } from 'three';
 import { Layers } from '../../core/layers';
 import { assertSegmentsArgMustBeDefined, assertSegmentsArgMustNotBeEmpty, assertGeometryExpected } from './object3d-factory.spec';
 
