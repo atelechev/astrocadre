@@ -3,6 +3,7 @@ import { PointsFactory } from './points-factory';
 import { Constants } from '../../core/constants';
 import { Object3D, BufferGeometry } from 'three';
 import { Layers } from '../../core/layers';
+import { assertSegmentsArgMustBeDefined, assertSegmentsArgMustNotBeEmpty, assertGeometryExpected } from './object3d-factory.spec';
 
 describe('PointsFactory', () => {
 
@@ -11,32 +12,17 @@ describe('PointsFactory', () => {
   let service: PointsFactory;
 
   beforeEach(() => {
-    TestBed.configureTestingModule(
-      { providers: [ PointsFactory ] });
+    TestBed.configureTestingModule({ providers: [ PointsFactory ] });
     service = TestBed.get(PointsFactory);
   });
 
   it('#createObject3D should throw expected error if segments arg is undefined', () => {
-    expect(() => service.createObject3D(layer, undefined))
-      .toThrow(new Error('segments arg must be defined, but was \'undefined\''));
+    assertSegmentsArgMustBeDefined(() => service.createObject3D(layer, undefined));
   });
 
   it('#createObject3D should throw expected error if segments arg is empty', () => {
-    expect(() => service.createObject3D(layer, []))
-      .toThrow(new Error('segments arg must be defined, but was \'[]\''));
+    assertSegmentsArgMustNotBeEmpty(() => service.createObject3D(layer, []));
   });
-
-  const assertGeometryExpected = (checked: BufferGeometry, expected: number[][]): void => {
-    const vertices = checked.getAttribute('position').array;
-    const precision = 3;
-    expect(vertices.length).toBe(expected.length * 3);
-    for (let i = 0; i < expected.length; i++) {
-      const vertex = expected[i];
-      expect(vertices[i * 3]).toBeCloseTo(vertex[0], precision);
-      expect(vertices[i * 3 + 1]).toBeCloseTo(vertex[1], precision);
-      expect(vertices[i * 3 + 2]).toBeCloseTo(vertex[2], precision);
-    }
-  };
 
   it('#toObject3D should return expected object for a single point', () => {
     const expected = [[ 0.020, 0.016, 1.960 ]];
