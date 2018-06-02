@@ -3,11 +3,14 @@ import { Theme } from '../theme/theme';
 import { ThemeAware } from '../theme/theme-aware';
 import { LayersTreeNode } from './layers-tree-node';
 import { ensureArgDefined } from './arg-validation-utils';
+import { RenderableText } from './label/renderable-text';
 
 /**
  * Represents a layer of objects that can be rendered/visualized in the view.
  */
 export class RenderableLayer implements ThemeAware {
+
+  private labelsShown: boolean;
 
   private visible: boolean;
 
@@ -91,6 +94,36 @@ export class RenderableLayer implements ThemeAware {
       return false;
     }
     return other.isParentOf(this);
+  }
+
+  /**
+   * Returns the array of HTMLElements with text contents to show for this layer.
+   */
+  public getTextElements(): Array<HTMLElement> {
+    return [];
+  }
+
+  /**
+   * Returns the Map of existing RenderableText items and their identifiers, registered for this layer.
+   */
+  public getRenderableLabels(): Map<string, RenderableText> {
+    return new Map<string, RenderableText>();
+  }
+
+  /**
+   * Returns true if the text/labels associated with this layer should be shown.
+   */
+  public isLabelsShown(): boolean {
+    return this.labelsShown;
+  }
+
+  /**
+   * Sets the visibility of text/labels assiciated with this layer.
+   *
+   * @param show true to show the labels.
+   */
+  public setLabelsShown(show: boolean): void {
+    this.labelsShown = show;
   }
 
 }

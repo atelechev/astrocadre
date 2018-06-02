@@ -1,4 +1,3 @@
-import { LabelledLayer } from '../core/layer/labelled-layer';
 import { Object3D } from 'three';
 import { Theme } from '../core/theme/theme';
 import { LayersTreeNode } from '../core/layer/layers-tree-node';
@@ -8,8 +7,9 @@ import { Constants } from '../core/constants';
 import { RenderableText } from '../core/layer/label/renderable-text';
 import { TextOffsetPolicies } from '../core/layer/label/text-offset-policy';
 import { Layers } from '../core/layers';
+import { RenderableLayer } from '../core/layer/renderable-layer';
 
-export class ConstellationNamesLayer extends LabelledLayer {
+export class ConstellationNamesLayer extends RenderableLayer {
 
   private renderableLabels: Map<string, RenderableText>;
 

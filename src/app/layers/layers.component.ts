@@ -8,7 +8,6 @@ import { LayerVisibility } from '../core/layer/layer-visibility';
 import { LayersTreeNode } from '../core/layer/layers-tree-node';
 import { Layers } from '../core/layers';
 import { StarsMagnitudeLayer } from './stars-magnitude-layer';
-import { LabelledLayer } from '../core/layer/labelled-layer';
 import { PointsFactory } from './geometry/points-factory';
 import { LinesFactory } from './geometry/lines-factory';
 import { AxialCurvesFactory } from './geometry/axial-curves-factory';
@@ -33,14 +32,12 @@ export class LayersComponent implements ThemeAware, OnInit {
     this.loadedLayers = new Map<string, RenderableLayer>();
   }
 
-  public getLayer(layer: string): RenderableLayer {
-    return this.loadedLayers.get(layer);
+  public getLayers(): Array<RenderableLayer> {
+    return Array.from(this.loadedLayers.values());
   }
 
-  public getLabelledLayers(): Array<LabelledLayer> {
-    return Array.from(this.loadedLayers.values())
-                .filter(layer => layer instanceof LabelledLayer)
-                .map(layer => <LabelledLayer> layer);
+  public getLayer(layer: string): RenderableLayer {
+    return this.loadedLayers.get(layer);
   }
 
   public getStarsMagnitudeLayers(): Array<StarsMagnitudeLayer> {

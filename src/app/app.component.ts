@@ -9,9 +9,9 @@ import { ThemesEventService } from './core/theme/themes-event.service';
 import { ViewportEventService } from './core/viewport/viewport-event.service';
 import { Layers } from './core/layers';
 import { ConstellationNamesLayer } from './layers/constellation-names-layer';
-import { LabelledLayer } from './core/layer/labelled-layer';
 import { StarLabelVisibility } from './core/layer/star-label-visibility';
 import { StarsMagnitudeLayer } from './layers/stars-magnitude-layer';
+import { RenderableLayer } from './core/layer/renderable-layer';
 
 @Component({
   selector: `app-sky-view`,
@@ -52,9 +52,7 @@ export class AppComponent implements OnInit {
           layer.useTheme(theme);
         }
         this.viewportManager.addObjects(layer.getObjects());
-        if (layer instanceof LabelledLayer) {
-          this.viewportManager.addTextElements((<LabelledLayer> layer).getTextElements());
-        }
+        this.viewportManager.addTextElements(layer.getTextElements());
       }
     );
   }
@@ -78,12 +76,12 @@ export class AppComponent implements OnInit {
   }
 
   private updateLabelsVisibilityForAllLayers(): void {
-    this.layersManager.getLabelledLayers().forEach(
-      (layer: LabelledLayer) => this.updateLabelsVisibilityForLayer(layer, undefined)
+    this.layersManager.getLayers().forEach(
+      (layer: RenderableLayer) => this.updateLabelsVisibilityForLayer(layer, undefined)
     );
   }
 
-  private updateLabelsVisibilityForLayer(layer: LabelledLayer, lv: LayerVisibility): void {
+  private updateLabelsVisibilityForLayer(layer: RenderableLayer, lv: LayerVisibility): void {
     if (lv) {
       layer.setLabelsShown(lv.visible); // TODO refactor + 2nd param
     }
@@ -148,8 +146,8 @@ export class AppComponent implements OnInit {
       (lv: LayerVisibility) => {
         this.layersManager.updateLayerVisibility(lv);
         const layer = this.layersManager.getLayer(lv.layer);
-        if (layer && layer instanceof LabelledLayer) {
-          this.updateLabelsVisibilityForLayer(<LabelledLayer> layer, lv);
+        if (layer) {
+          this.updateLabelsVisibilityForLayer(layer, lv);
         }
       }
     );

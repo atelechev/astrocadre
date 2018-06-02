@@ -4,13 +4,13 @@ import { Constants } from '../core/constants';
 import { Points, Object3D } from 'three';
 import { PointsFactory } from './geometry/points-factory';
 import { LayersTreeNode } from '../core/layer/layers-tree-node';
-import { LabelledLayer } from '../core/layer/labelled-layer';
 import { RenderableText } from '../core/layer/label/renderable-text';
 import { toVector3 } from '../core/layer/vector-utils';
 import { TextOffsetPolicies, TextOffsetPolicy } from '../core/layer/label/text-offset-policy';
 import { extractStandardName, extractProperName, toGreekLetter } from './star-name-utils';
+import { RenderableLayer } from '../core/layer/renderable-layer';
 
-export class StarsMagnitudeLayer extends LabelledLayer {
+export class StarsMagnitudeLayer extends RenderableLayer {
 
   public static readonly LABELTYPE_NAME_PROPER = 'names-proper';
 
