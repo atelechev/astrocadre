@@ -8,29 +8,11 @@ describe('RenderableLayer', () => {
   const childNode = new LayersTreeNode('child1', []);
   const parentNode = new LayersTreeNode('parent', [ childNode ]);
 
-  class MinLayerImpl extends RenderableLayer {
-
-    private objects = [ new Object3D(), new Object3D() ];
-
-    constructor(protected readonly tree: LayersTreeNode) {
-      super(tree);
-    }
-
-    public getObjects(): Object3D[] {
-      return this.objects;
-    }
-
-    protected useThemeForThis(theme: Theme): void {
-      // nothing
-    }
-
-  }
-
-  const parentLayer = new MinLayerImpl(parentNode);
-  const childLayer = new MinLayerImpl(childNode);
+  const parentLayer = new RenderableLayer(parentNode);
+  const childLayer = new RenderableLayer(childNode);
 
   it('#constructor should throw expected error if tree arg is undefined', () => {
-    expect(() => new MinLayerImpl(undefined))
+    expect(() => new RenderableLayer(undefined))
       .toThrow(new Error('tree arg must be defined, but was \'undefined\''));
   });
 
@@ -87,6 +69,24 @@ describe('RenderableLayer', () => {
 
   it('#isChildOf should return true if the layer is child of the one from the argument', () => {
     expect(childLayer.isChildOf(parentLayer)).toBeTruthy();
+  });
+
+  it('#getObjects should return an empty array', () => {
+    const objects = parentLayer.getObjects();
+    expect(objects).toBeDefined();
+    expect(objects.length).toBe(0);
+  });
+
+  it('#getTextElements should return an empty array', () => {
+    const texts = parentLayer.getTextElements();
+    expect(texts).toBeDefined();
+    expect(texts.length).toBe(0);
+  });
+
+  it('#getRenderableLabels should return an empty array', () => {
+    const labels = parentLayer.getRenderableLabels();
+    expect(labels).toBeDefined();
+    expect(labels.size).toBe(0);
   });
 
 });
