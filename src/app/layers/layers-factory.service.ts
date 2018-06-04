@@ -16,6 +16,7 @@ import { SkyGridLayerFactory } from './sky-grid-layer-factory';
 import { RenderableLayerFactory } from './renderable-layer-factory';
 import { ConstellationBoundariesLayerFactory } from './constellation-boundaries-layer-factory';
 import { ConstellationLinesLayerFactory } from './constellation-lines-layer-factory';
+import { ConstellationNamesLayerFactory } from './constellation-names-layer-factory';
 
 @Injectable()
 export class LayersFactoryService {
@@ -26,14 +27,9 @@ export class LayersFactoryService {
               private renderableLayerFactory: RenderableLayerFactory,
               private skyGridLayerFactory: SkyGridLayerFactory,
               private constellationBoundariesLayerFactory: ConstellationBoundariesLayerFactory,
-              private constellationLinesLayerFactory: ConstellationLinesLayerFactory) {
+              private constellationLinesLayerFactory: ConstellationLinesLayerFactory,
+              private constellationNamesLayerFactory: ConstellationNamesLayerFactory) {
 
-  }
-
-  private initConstellationNamesLayer(layer: LayersTreeNode): Observable<RenderableLayer> {
-    return this.dataService.getConstellationsMetadata().map(
-      (rawMetadata: ConstellationMetadata[]) => new ConstellationNamesLayer(layer, rawMetadata)
-    );
   }
 
   private isStarLayer(layer: string): boolean {
@@ -69,7 +65,7 @@ export class LayersFactoryService {
         return this.constellationLinesLayerFactory.newLayer(layer);
       }
       case Layers.CONSTELLATION_NAMES: {
-        return this.initConstellationNamesLayer(layer);
+        return this.constellationNamesLayerFactory.newLayer(layer);
       }
       default: {
         throw new Error(`Unsupported layer: ${layer.code}`);
