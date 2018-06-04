@@ -11,6 +11,7 @@ import { StarsMagnitudeLayer } from './stars-magnitude-layer';
 import { PointsFactory } from './geometry/points-factory';
 import { LinesFactory } from './geometry/lines-factory';
 import { AxialCurvesFactory } from './geometry/axial-curves-factory';
+import { SkyGridLayerFactory } from './sky-grid-layer-factory';
 
 @Component({
   selector: 'app-sky-view-layers',
@@ -19,7 +20,8 @@ import { AxialCurvesFactory } from './geometry/axial-curves-factory';
     LayersFactoryService,
     PointsFactory,
     LinesFactory,
-    AxialCurvesFactory
+    AxialCurvesFactory,
+    SkyGridLayerFactory
   ]
 })
 export class LayersComponent implements ThemeAware, OnInit {

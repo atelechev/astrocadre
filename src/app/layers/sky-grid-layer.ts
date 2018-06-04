@@ -1,85 +1,24 @@
 import { Object3D, Material, LineSegments } from 'three';
-
 import { RenderableLayer } from '../core/layer/renderable-layer';
-import { AxialCurvesFactory } from './geometry/axial-curves-factory';
-import { Layers } from '../core/layers';
 import { Theme } from '../core/theme/theme';
-import { Constants } from '../core/constants';
 import { LayersTreeNode } from '../core/layer/layers-tree-node';
 
 export class SkyGridLayer extends RenderableLayer {
 
-  private gridStepMeridians = 15;
-
-  private gridStepParallels = 10;
-
-  private absMeridianLineDeclination = 89;
-
-  private commonMeridians: LineSegments;
-
-  private commonParallels: LineSegments;
-
-  private referenceMeridian: LineSegments;
-
-  private referenceParallel: LineSegments;
-
   private objects: Object3D[];
 
   constructor(tree: LayersTreeNode,
-              private objectsFactory: AxialCurvesFactory) {
+              private commonMeridians: LineSegments,
+              private commonParallels: LineSegments,
+              private referenceMeridian: LineSegments,
+              private referenceParallel: LineSegments) {
     super(tree);
-    this.commonMeridians = this.generateCommonMeridianSegments();
-    this.commonParallels = this.generateCommonParallelSegments();
-    this.referenceMeridian = this.generateReferenceMeridianSegments();
-    this.referenceParallel = this.generateReferenceParallelSegments();
     this.objects = [
       this.commonParallels,
       this.commonMeridians,
       this.referenceParallel,
       this.referenceMeridian
     ];
-  }
-
-  private createLineSegmentsWith(segments: number[][]): LineSegments {
-    return this.objectsFactory.createObject3D(Layers.SKY_GRID, segments);
-  }
-
-  private generateReferenceMeridianSegments(): LineSegments {
-    const refSegments = [ this.meridianSegment(0), this.meridianSegment(180)];
-    return this.createLineSegmentsWith(refSegments);
-  }
-
-  private meridianSegment(ra: number): number[] {
-    return [ ra, this.absMeridianLineDeclination, ra, -this.absMeridianLineDeclination ];
-  }
-
-  private generateCommonMeridianSegments(): LineSegments {
-    const segments = new Array<number[]>();
-    for (let i = 0; i < 360; i += this.gridStepMeridians) {
-      if (i === 0 || i === 180) {
-        continue;
-      }
-      segments.push(this.meridianSegment(i));
-    }
-    return this.createLineSegmentsWith(segments);
-  }
-
-  private parallelSegment(decl: number): number[] {
-    return [ 0.01, decl, 359.99, decl ];
-  }
-
-  private generateReferenceParallelSegments(): LineSegments {
-    const refSegments = [ this.parallelSegment(0) ];
-    return this.createLineSegmentsWith(refSegments);
-  }
-
-  private generateCommonParallelSegments(): LineSegments {
-    const segments = new Array<number[]>();
-    for (let par = this.gridStepParallels; par < 90; par += this.gridStepParallels) {
-      segments.push(this.parallelSegment(par));
-      segments.push(this.parallelSegment(-par));
-    }
-    return this.createLineSegmentsWith(segments);
   }
 
   public getObjects(): Object3D[] {

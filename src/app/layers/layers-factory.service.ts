@@ -14,6 +14,7 @@ import { ConstellationMetadata } from '../core/layer/constellation-metadata';
 import { AxialCurvesFactory } from './geometry/axial-curves-factory';
 import { LinesFactory } from './geometry/lines-factory';
 import { PointsFactory } from './geometry/points-factory';
+import { SkyGridLayerFactory } from './sky-grid-layer-factory';
 
 @Injectable()
 export class LayersFactoryService {
@@ -21,7 +22,8 @@ export class LayersFactoryService {
   constructor(private dataService: StaticDataService,
               private axialCurvesFactory: AxialCurvesFactory,
               private linesFactory: LinesFactory,
-              private pointsFactory: PointsFactory) {
+              private pointsFactory: PointsFactory,
+              private skyGridLayerFactory: SkyGridLayerFactory) {
 
   }
 
@@ -63,7 +65,7 @@ export class LayersFactoryService {
     }
     switch (layer.code) {
       case Layers.SKY_GRID: {
-        return Observable.of(new SkyGridLayer(layer, this.axialCurvesFactory));
+        return this.skyGridLayerFactory.newLayer(layer, this.axialCurvesFactory);
       }
       case Layers.CONSTELLATIONS: {
         return Observable.of(new RenderableLayer(layer));
