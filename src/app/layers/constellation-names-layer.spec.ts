@@ -70,7 +70,7 @@ describe('ConstellationNamesLayer', () => {
     expect(texts.length).toBe(2);
   });
 
-  it('#getRenderableLabels should return an empty map', () => {
+  it('#getRenderableLabels should return expected value', () => {
     const layer = new ConstellationNamesLayer(treeNode, renderables);
     const labels = layer.getRenderableLabels();
     expect(labels).toBeDefined();

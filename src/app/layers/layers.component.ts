@@ -16,6 +16,7 @@ import { RenderableLayerFactory } from './renderable-layer-factory';
 import { ConstellationBoundariesLayerFactory } from './constellation-boundaries-layer-factory';
 import { ConstellationLinesLayerFactory } from './constellation-lines-layer-factory';
 import { ConstellationNamesLayerFactory } from './constellation-names-layer-factory';
+import { StarsMagnitudeLayerFactory } from './stars-magnitude-layer-factory';
 
 @Component({
   selector: 'app-sky-view-layers',
@@ -29,7 +30,8 @@ import { ConstellationNamesLayerFactory } from './constellation-names-layer-fact
     RenderableLayerFactory,
     ConstellationBoundariesLayerFactory,
     ConstellationLinesLayerFactory,
-    ConstellationNamesLayerFactory
+    ConstellationNamesLayerFactory,
+    StarsMagnitudeLayerFactory
   ]
 })
 export class LayersComponent implements ThemeAware, OnInit {

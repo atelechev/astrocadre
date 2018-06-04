@@ -1,10 +1,16 @@
 import { RenderableLayer } from '../core/layer/renderable-layer';
 import { LayersTreeNode } from '../core/layer/layers-tree-node';
 import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/observable/of';
 
+/**
+ * Provides a method allowing to initialize a RenderableLayer.
+ */
 export interface LayerFactory<T extends RenderableLayer> {
 
-  newLayer(tree: LayersTreeNode, ...args: any[]): Observable<T>;
+  /**
+   * Creates and returns a new layer wrapped into Observable.
+   * @param tree the tree node of the layer to create.
+   */
+  newLayer(tree: LayersTreeNode): Observable<T>;
 
 }

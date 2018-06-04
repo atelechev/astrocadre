@@ -1,14 +1,11 @@
 import { Layers } from '../core/layers';
 import { Theme } from '../core/theme/theme';
-import { Constants } from '../core/constants';
 import { Points, Object3D } from 'three';
 import { PointsFactory } from './geometry/points-factory';
 import { LayersTreeNode } from '../core/layer/layers-tree-node';
 import { RenderableText } from '../core/layer/label/renderable-text';
-import { toVector3 } from '../core/layer/vector-utils';
-import { TextOffsetPolicies, TextOffsetPolicy } from '../core/layer/label/text-offset-policy';
-import { extractStandardName, extractProperName, toGreekLetter } from './star-name-utils';
 import { RenderableLayer } from '../core/layer/renderable-layer';
+import { ensureArgDefined } from '../core/layer/arg-validation-utils';
 
 export class StarsMagnitudeLayer extends RenderableLayer {
 
@@ -16,73 +13,33 @@ export class StarsMagnitudeLayer extends RenderableLayer {
 
   public static readonly LABELTYPE_NAME_STANDARD = 'names-standard';
 
-  private stars: Points;
-
-  private properNameLabels: Map<string, RenderableText>;
-
   private namesHtmls: Array<HTMLElement>;
-
-  private standardNameLabels: Map<string, RenderableText>;
 
   private shownLabelsType: string;
 
   constructor(tree: LayersTreeNode,
               public readonly magClass: number,
-              rawStars: number[][],
-              objectsFactory: PointsFactory) {
+              private readonly stars: Points,
+              private readonly properNameLabels: Map<string, RenderableText>,
+              private readonly standardNameLabels: Map<string, RenderableText>) {
     super(tree);
-    this.stars = objectsFactory.createObject3D(Layers.STARS, rawStars);
+    ensureArgDefined(magClass, 'magClass');
+    ensureArgDefined(stars, 'stars');
+    ensureArgDefined(properNameLabels, 'properNameLabels');
+    ensureArgDefined(standardNameLabels, 'standardNameLabels');
+    this.extractHtmls();
+  }
+
+  private extractHtmls(): void {
     this.namesHtmls = new Array<HTMLElement>();
-    this.initProperNameLabels(rawStars);
-    this.initStandardNameLabels(rawStars);
+    this.extractHtmlsFrom(this.properNameLabels);
+    this.extractHtmlsFrom(this.standardNameLabels);
   }
 
-  private initStandardNameLabels(rawStars: any[][]): void {
-    this.standardNameLabels = new Map<string, RenderableText>();
-    rawStars.forEach(
-      (rawStar: any[]) => {
-        const name = extractStandardName(rawStar);
-        if (name) {
-          const renderable = this.toStandardNameRenderableText(rawStar, name);
-          this.standardNameLabels.set(name, renderable);
-          this.namesHtmls.push(renderable.getHtmlElement());
-        }
-      }
+  private extractHtmlsFrom(labels: Map<string, RenderableText>): void {
+    labels.forEach(
+      (renderable: RenderableText, key: string) => this.namesHtmls.push(renderable.getHtmlElement())
     );
-  }
-
-  private toStandardNameRenderableText(rawStar: any[], name: string): RenderableText {
-    const greekLetter = toGreekLetter(name);
-    return this.toNameRenderableText(rawStar,
-                                     StarsMagnitudeLayer.LABELTYPE_NAME_STANDARD,
-                                     greekLetter,
-                                     TextOffsetPolicies.CLOSE_RIGHT);
-  }
-
-  private initProperNameLabels(rawStars: any[][]): void {
-    this.properNameLabels = new Map<string, RenderableText>();
-    rawStars.forEach(
-      (rawStar: any[]) => {
-        const name = extractProperName(rawStar);
-        if (name) {
-          const renderable = this.toProperNameRenderableText(rawStar, name);
-          this.properNameLabels.set(name, renderable);
-          this.namesHtmls.push(renderable.getHtmlElement());
-        }
-      }
-    );
-  }
-
-  private toProperNameRenderableText(rawStar: any[], name): RenderableText {
-    return this.toNameRenderableText(rawStar,
-                                     StarsMagnitudeLayer.LABELTYPE_NAME_PROPER,
-                                     name,
-                                     TextOffsetPolicies.TOP_RIGHT);
-  }
-
-  private toNameRenderableText(rawStar: any[], styleKey: string, name: string, offsetPolicy: TextOffsetPolicy): RenderableText {
-    const center = toVector3(rawStar[0], rawStar[1], Constants.getWorldRadiusForLayer(Layers.STARS));
-    return new RenderableText(this.getName(), styleKey, center, name, offsetPolicy);
   }
 
   public useThemeForThis(theme: Theme): void {
@@ -98,11 +55,10 @@ export class StarsMagnitudeLayer extends RenderableLayer {
   }
 
   private useThemeForLabels(theme: Theme): void {
-    this.properNameLabels.forEach(
-      (renderable: RenderableText, code: string) => renderable.useTheme(theme)
-    );
-    this.standardNameLabels.forEach(
-      (renderable: RenderableText, code: string) => renderable.useTheme(theme)
+    [ this.properNameLabels, this.standardNameLabels].forEach(
+      (labels: Map<string, RenderableText>) => labels.forEach(
+        (renderable: RenderableText, code: string) => renderable.useTheme(theme)
+      )
     );
   }
 
