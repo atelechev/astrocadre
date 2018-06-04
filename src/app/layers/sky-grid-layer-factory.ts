@@ -22,7 +22,7 @@ export class SkyGridLayerFactory implements LayerFactory<SkyGridLayer> {
 
   }
 
-  public newLayer(tree: LayersTreeNode, objectsFactory: AxialCurvesFactory): Observable<SkyGridLayer> {
+  public newLayer(tree: LayersTreeNode): Observable<SkyGridLayer> {
     const commonMeridians = this.generateCommonMeridianSegments();
     const commonParallels = this.generateCommonParallelSegments();
     const referenceMeridian = this.generateReferenceMeridianSegments();

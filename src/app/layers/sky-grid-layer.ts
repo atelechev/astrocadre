@@ -2,6 +2,7 @@ import { Object3D, Material, LineSegments } from 'three';
 import { RenderableLayer } from '../core/layer/renderable-layer';
 import { Theme } from '../core/theme/theme';
 import { LayersTreeNode } from '../core/layer/layers-tree-node';
+import { ensureArgDefined } from '../core/layer/arg-validation-utils';
 
 export class SkyGridLayer extends RenderableLayer {
 
@@ -13,6 +14,10 @@ export class SkyGridLayer extends RenderableLayer {
               private referenceMeridian: LineSegments,
               private referenceParallel: LineSegments) {
     super(tree);
+    ensureArgDefined(commonMeridians, 'commonMeridians');
+    ensureArgDefined(commonParallels, 'commonParallels');
+    ensureArgDefined(referenceMeridian, 'referenceMeridian');
+    ensureArgDefined(referenceParallel, 'referenceParallel');
     this.objects = [
       this.commonParallels,
       this.commonMeridians,
