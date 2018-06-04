@@ -13,6 +13,7 @@ import { LinesFactory } from './geometry/lines-factory';
 import { AxialCurvesFactory } from './geometry/axial-curves-factory';
 import { SkyGridLayerFactory } from './sky-grid-layer-factory';
 import { RenderableLayerFactory } from './renderable-layer-factory';
+import { ConstellationBoundariesLayerFactory } from './constellation-boundaries-layer-factory';
 
 @Component({
   selector: 'app-sky-view-layers',
@@ -23,7 +24,8 @@ import { RenderableLayerFactory } from './renderable-layer-factory';
     LinesFactory,
     AxialCurvesFactory,
     SkyGridLayerFactory,
-    RenderableLayerFactory
+    RenderableLayerFactory,
+    ConstellationBoundariesLayerFactory
   ]
 })
 export class LayersComponent implements ThemeAware, OnInit {

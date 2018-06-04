@@ -16,6 +16,7 @@ import { LinesFactory } from './geometry/lines-factory';
 import { PointsFactory } from './geometry/points-factory';
 import { SkyGridLayerFactory } from './sky-grid-layer-factory';
 import { RenderableLayerFactory } from './renderable-layer-factory';
+import { ConstellationBoundariesLayerFactory } from './constellation-boundaries-layer-factory';
 
 @Injectable()
 export class LayersFactoryService {
@@ -26,14 +27,9 @@ export class LayersFactoryService {
               private linesFactory: LinesFactory,
               private pointsFactory: PointsFactory,
               private renderableLayerFactory: RenderableLayerFactory,
-              private skyGridLayerFactory: SkyGridLayerFactory) {
+              private skyGridLayerFactory: SkyGridLayerFactory,
+              private constellationBoundariesLayerFactory: ConstellationBoundariesLayerFactory) {
 
-  }
-
-  private initConstellationBoundariesLayer(layer: LayersTreeNode): Observable<RenderableLayer> {
-    return this.dataService.getConstellationBoundaries().map(
-      (rawBoundaries: number[][]) => new ConstellationBoundariesLayer(layer, rawBoundaries, this.axialCurvesFactory)
-    );
   }
 
   private initConstellationLinesLayer(layer: LayersTreeNode): Observable<RenderableLayer> {
@@ -75,7 +71,7 @@ export class LayersFactoryService {
         return this.renderableLayerFactory.newLayer(layer);
       }
       case Layers.CONSTELLATION_BOUNDARIES: {
-        return this.initConstellationBoundariesLayer(layer);
+        return this.constellationBoundariesLayerFactory.newLayer(layer);
       }
       case Layers.CONSTELLATION_LINES: {
         return this.initConstellationLinesLayer(layer);
