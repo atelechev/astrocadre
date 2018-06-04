@@ -15,14 +15,17 @@ import { AxialCurvesFactory } from './geometry/axial-curves-factory';
 import { LinesFactory } from './geometry/lines-factory';
 import { PointsFactory } from './geometry/points-factory';
 import { SkyGridLayerFactory } from './sky-grid-layer-factory';
+import { RenderableLayerFactory } from './renderable-layer-factory';
 
 @Injectable()
 export class LayersFactoryService {
 
+  // TODO remove geometry factories args, leave only layers factories
   constructor(private dataService: StaticDataService,
               private axialCurvesFactory: AxialCurvesFactory,
               private linesFactory: LinesFactory,
               private pointsFactory: PointsFactory,
+              private renderableLayerFactory: RenderableLayerFactory,
               private skyGridLayerFactory: SkyGridLayerFactory) {
 
   }
@@ -51,7 +54,7 @@ export class LayersFactoryService {
 
   private initStarLayers(layer: LayersTreeNode): Observable<RenderableLayer> {
     if (layer.code === Layers.STARS) {
-      return Observable.of(new RenderableLayer(layer));
+      return this.renderableLayerFactory.newLayer(layer);
     }
     const magClass = parseFloat(layer.code.substr(Layers.STARS.length + '-mag'.length));
     return this.dataService.getStarsByMagnitudeClass(magClass).map(
@@ -63,12 +66,13 @@ export class LayersFactoryService {
     if (this.isStarLayer(layer.code)) {
       return this.initStarLayers(layer);
     }
+    // TODO represent factories as MAP
     switch (layer.code) {
       case Layers.SKY_GRID: {
-        return this.skyGridLayerFactory.newLayer(layer, this.axialCurvesFactory);
+        return this.skyGridLayerFactory.newLayer(layer);
       }
       case Layers.CONSTELLATIONS: {
-        return Observable.of(new RenderableLayer(layer));
+        return this.renderableLayerFactory.newLayer(layer);
       }
       case Layers.CONSTELLATION_BOUNDARIES: {
         return this.initConstellationBoundariesLayer(layer);
