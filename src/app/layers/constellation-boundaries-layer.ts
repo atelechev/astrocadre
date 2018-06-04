@@ -9,7 +9,7 @@ export class ConstellationBoundariesLayer extends RenderableLayer {
   private objects: Object3D[];
 
   constructor(tree: LayersTreeNode,
-              private boundaries: LineSegments) {
+              private readonly boundaries: LineSegments) {
     super(tree);
     ensureArgDefined(boundaries, 'boundaries');
     this.objects = [ this.boundaries ];

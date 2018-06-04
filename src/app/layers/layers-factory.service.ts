@@ -11,31 +11,23 @@ import { StarsMagnitudeLayer } from './stars-magnitude-layer';
 import { LayersTreeNode } from '../core/layer/layers-tree-node';
 import { ConstellationNamesLayer } from './constellation-names-layer';
 import { ConstellationMetadata } from '../core/layer/constellation-metadata';
-import { AxialCurvesFactory } from './geometry/axial-curves-factory';
-import { LinesFactory } from './geometry/lines-factory';
 import { PointsFactory } from './geometry/points-factory';
 import { SkyGridLayerFactory } from './sky-grid-layer-factory';
 import { RenderableLayerFactory } from './renderable-layer-factory';
 import { ConstellationBoundariesLayerFactory } from './constellation-boundaries-layer-factory';
+import { ConstellationLinesLayerFactory } from './constellation-lines-layer-factory';
 
 @Injectable()
 export class LayersFactoryService {
 
   // TODO remove geometry factories args, leave only layers factories
   constructor(private dataService: StaticDataService,
-              private axialCurvesFactory: AxialCurvesFactory,
-              private linesFactory: LinesFactory,
               private pointsFactory: PointsFactory,
               private renderableLayerFactory: RenderableLayerFactory,
               private skyGridLayerFactory: SkyGridLayerFactory,
-              private constellationBoundariesLayerFactory: ConstellationBoundariesLayerFactory) {
+              private constellationBoundariesLayerFactory: ConstellationBoundariesLayerFactory,
+              private constellationLinesLayerFactory: ConstellationLinesLayerFactory) {
 
-  }
-
-  private initConstellationLinesLayer(layer: LayersTreeNode): Observable<RenderableLayer> {
-    return this.dataService.getConstellationLines().map(
-      (rawSegments: number[][]) => new ConstellationLinesLayer(layer, rawSegments, this.linesFactory)
-    );
   }
 
   private initConstellationNamesLayer(layer: LayersTreeNode): Observable<RenderableLayer> {
@@ -74,7 +66,7 @@ export class LayersFactoryService {
         return this.constellationBoundariesLayerFactory.newLayer(layer);
       }
       case Layers.CONSTELLATION_LINES: {
-        return this.initConstellationLinesLayer(layer);
+        return this.constellationLinesLayerFactory.newLayer(layer);
       }
       case Layers.CONSTELLATION_NAMES: {
         return this.initConstellationNamesLayer(layer);

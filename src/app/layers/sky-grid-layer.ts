@@ -9,10 +9,10 @@ export class SkyGridLayer extends RenderableLayer {
   private objects: Object3D[];
 
   constructor(tree: LayersTreeNode,
-              private commonMeridians: LineSegments,
-              private commonParallels: LineSegments,
-              private referenceMeridian: LineSegments,
-              private referenceParallel: LineSegments) {
+              private readonly commonMeridians: LineSegments,
+              private readonly commonParallels: LineSegments,
+              private readonly referenceMeridian: LineSegments,
+              private readonly referenceParallel: LineSegments) {
     super(tree);
     ensureArgDefined(commonMeridians, 'commonMeridians');
     ensureArgDefined(commonParallels, 'commonParallels');
