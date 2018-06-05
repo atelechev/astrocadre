@@ -10,6 +10,7 @@ import { ConstellationLinesLayerFactory } from './constellation-lines-layer-fact
 import { ConstellationNamesLayerFactory } from './constellation-names-layer-factory';
 import { StarsMagnitudeLayerFactory } from './stars-magnitude-layer-factory';
 import { LayerFactory } from './layer-factory';
+import { ensureArgDefined } from '../core/layer/arg-validation-utils';
 
 /**
  * Wraps factories for supported layers.
@@ -45,6 +46,7 @@ export class LayersFactoryService {
   }
 
   public newRenderableLayer(layer: LayersTreeNode): Observable<RenderableLayer> {
+    ensureArgDefined(layer, 'layer');
     if (this.isStarMagnitudeLayer(layer.code)) {
       return this.starsMagnitudeLayerFactory.newLayer(layer);
     }
