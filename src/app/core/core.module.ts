@@ -4,6 +4,7 @@ import { ThemesEventService } from './theme/themes-event.service';
 import { ViewportEventService } from './viewport/viewport-event.service';
 import { LayersEventService } from './layer/layers-event.service';
 import { StaticDataService } from './static-data-service';
+import { SearchService } from './search/search.service';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import { StaticDataService } from './static-data-service';
     StaticDataService,
     ThemesEventService,
     ViewportEventService,
-    LayersEventService
+    LayersEventService,
+    SearchService
   ]
 })
 export class CoreModule {

@@ -1,8 +1,6 @@
-import { Component, AfterViewInit } from '@angular/core';
-import { SearchableItem } from '../core/search/searchable-item';
-import { StaticDataService } from '../core/static-data-service';
+import { Component } from '@angular/core';
 import { ViewportEventService } from '../core/viewport/viewport-event.service';
-import { SkyCoordinate } from '../core/viewport/sky-coordinate';
+import { SearchService } from '../core/search/search.service';
 
 @Component({
   selector: `app-sky-view-controls-go-to`,
@@ -10,9 +8,7 @@ import { SkyCoordinate } from '../core/viewport/sky-coordinate';
   styleUrls: [ './controls.component.css', './go-to.component.css' ],
   providers: []
 })
-export class GoToComponent implements AfterViewInit {
-
-  private readonly coordinates = /(\d+(?:[.,]\d*)?)\s+(-?\d+(?:[.,]\d*)?)/i;
+export class GoToComponent {
 
   private searchText: string;
 
@@ -20,10 +16,8 @@ export class GoToComponent implements AfterViewInit {
 
   private goToButtonDisabled: boolean;
 
-  private searchableItems: Map<string, SearchableItem>;
-
-  constructor(private dataService: StaticDataService,
-              private viewportEventService: ViewportEventService) {
+  constructor(private viewportEventService: ViewportEventService,
+              private searchService: SearchService) {
     this.goToButtonDisabled = true;
   }
 
@@ -36,7 +30,7 @@ export class GoToComponent implements AfterViewInit {
     if (this.goToButtonDisabled) {
       return;
     }
-    const goToCoord = this.parseSearchText();
+    const goToCoord = this.searchService.search(this.searchText);
     if (goToCoord) {
       this.resetSearchInputCssClass();
       this.viewportEventService.centerViewRequested(goToCoord);
@@ -45,56 +39,8 @@ export class GoToComponent implements AfterViewInit {
     }
   }
 
-  private parseSearchText(): SkyCoordinate {
-    const directCoordinates = this.searchTextToCoordinate();
-    if (directCoordinates) {
-      return directCoordinates;
-    }
-    const searchTextNormalized = this.normalizeString(this.searchText);
-    if (this.searchableItems.has(searchTextNormalized)) {
-      const item = this.searchableItems.get(searchTextNormalized);
-      return this.toSkyCoordinate(item.ra, item.dec);
-    }
-    return undefined;
-  }
-
-  private toSkyCoordinate(ra: number, dec: number): SkyCoordinate {
-    return { rightAscension: ra, declination: dec };
-  }
-
-  private searchTextToCoordinate(): SkyCoordinate {
-    const matches = this.searchText.match(this.coordinates);
-    if (matches && matches.length === 3) {
-      return this.toSkyCoordinate(parseFloat(matches[0]), parseFloat(matches[1]));
-    }
-    return undefined;
-  }
-
-  private normalizeString(value: string): string {
-    const replaceExpr = /\s+/gi;
-    return value.replace(replaceExpr, '').toUpperCase();
-  }
-
   private resetSearchInputCssClass(): void {
     this.searchNoResultsClass = '';
-  }
-
-  private initSearchableItemsMap(items: SearchableItem[]): void {
-    this.searchableItems = new Map<string, SearchableItem>();
-    items.forEach(item => {
-        this.searchableItems.set(this.normalizeString(item.code), item);
-        if (item.names) {
-          item.names.forEach(name => this.searchableItems.set(this.normalizeString(name), item));
-        }
-      }
-    );
-  }
-
-  public ngAfterViewInit(): void {
-    this.dataService.getSearchableItems().subscribe(
-      (items: SearchableItem[]) => this.initSearchableItemsMap(items),
-      (error: any) => console.log(`Failed to retrieve searchable items: ${error}`)
-    );
   }
 
 }
