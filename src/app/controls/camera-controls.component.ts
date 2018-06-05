@@ -1,6 +1,7 @@
 import { Component, AfterViewInit } from '@angular/core';
 import { Math as ThreeMath } from 'three';
 import { ViewportEventService } from '../core/viewport/viewport-event.service';
+import { toRadians } from '../core/layer/vector-utils';
 
 @Component({
   selector: `app-sky-view-controls-camera`,
@@ -14,22 +15,18 @@ export class CameraControlsComponent implements AfterViewInit {
 
   }
 
-  private toRadians(degrees: number): number {
-    return ThreeMath.degToRad(degrees);
-  }
-
-  private rotateView(x: number, y: number, z: number): void {
-    const data = { rx: this.toRadians(x),
-                   ry: this.toRadians(y),
-                   rz: this.toRadians(z) };
+  public rotateView(x: number, y: number, z: number): void {
+    const data = { rx: toRadians(x),
+                   ry: toRadians(y),
+                   rz: toRadians(z) };
     this.viewportService.axialRotationRequested(data);
   }
 
-  private changeFov(angle: number): void {
+  public changeFov(angle: number): void {
     this.viewportService.fovRequested(angle);
   }
 
-  private alignNSAxis(): void {
+  public alignNSAxis(): void {
     this.viewportService.axisAlignmentRequested();
   }
 

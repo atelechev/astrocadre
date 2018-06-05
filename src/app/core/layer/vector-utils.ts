@@ -9,3 +9,7 @@ export const toVector3 = (ra: number, decl: number, radius: number): Vector3 => 
   const z = radius * Math.cos(theta);
   return new Vector3(x, y, z);
 };
+
+export const toRadians = (degrees: number): number => {
+  return ThreeMath.degToRad(degrees);
+};

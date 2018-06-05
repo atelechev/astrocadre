@@ -1,4 +1,4 @@
-import { toVector3 } from './vector-utils';
+import { toVector3, toRadians } from './vector-utils';
 import { Vector3 } from 'three';
 
 describe('vector-utils', () => {
@@ -130,6 +130,31 @@ describe('vector-utils', () => {
 
   it('#toVector3 should return expected Vector3 for (90, -45, 1)', () => {
     assertVectorExected(toVector3(90, -45, 1), 0, 0.707, -0.707);
+  });
+
+
+  it('#toRadians should convert 0 degrees expected value in radians', () => {
+    expect(toRadians(0)).toBe(0);
+  });
+
+  it('#toRadians should convert 45 degrees expected value in radians', () => {
+    expect(toRadians(45)).toBeCloseTo(Math.PI / 4, 3);
+  });
+
+  it('#toRadians should convert 90 degrees expected value in radians', () => {
+    expect(toRadians(90)).toBeCloseTo(Math.PI / 2, 3);
+  });
+
+  it('#toRadians should convert 180 degrees expected value in radians', () => {
+    expect(toRadians(180)).toBeCloseTo(Math.PI, 3);
+  });
+
+  it('#toRadians should convert 270 degrees expected value in radians', () => {
+    expect(toRadians(270)).toBeCloseTo(Math.PI + Math.PI / 2, 3);
+  });
+
+  it('#toRadians should convert 360 degrees expected value in radians', () => {
+    expect(toRadians(0)).toBe(0);
   });
 
 });
