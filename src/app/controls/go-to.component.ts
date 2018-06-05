@@ -10,11 +10,11 @@ import { SearchService } from '../core/search/search.service';
 })
 export class GoToComponent {
 
-  private searchText: string;
+  public searchText: string;
 
-  private searchNoResultsClass: string;
+  public searchNoResultsClass: string;
 
-  private goToButtonDisabled: boolean;
+  public goToButtonDisabled: boolean;
 
   constructor(private viewportEventService: ViewportEventService,
               private searchService: SearchService) {
