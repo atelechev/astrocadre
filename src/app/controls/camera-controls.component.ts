@@ -31,6 +31,7 @@ export class CameraControlsComponent implements AfterViewInit {
   }
 
   public ngAfterViewInit(): void {
+    // TODO decide where to point to as the initial view
     this.rotateView(90, 0, 0);
   }
 
