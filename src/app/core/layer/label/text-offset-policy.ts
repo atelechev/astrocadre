@@ -49,7 +49,7 @@ class CenteredText implements TextOffsetPolicy {
 
   private calculateHeightOffset(htmlElement: HTMLElement): number {
     const fontSize = htmlElement.style.fontSize;
-    return parseInt(fontSize.substring(0, fontSize.length - 2), 10) / 2;
+    return -parseInt(fontSize.substring(0, fontSize.length - 2), 10) / 2;
   }
 
   private calculateWidthOffset(text: string, htmlElement: HTMLElement): number {
@@ -57,7 +57,7 @@ class CenteredText implements TextOffsetPolicy {
     context.font = this.getFontStyleForMetrics(htmlElement);
     const textWidth = context.measureText(text).width;
     if (textWidth) {
-      return Math.ceil(textWidth) / 2;
+      return -Math.ceil(textWidth) / 2;
     }
     return 0;
   }
