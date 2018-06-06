@@ -1,9 +1,7 @@
-import { Injectable } from '@angular/core';
 import { LayersTreeNode } from '../layer/layers-tree-node';
 import { ensureArgDefined } from '../layer/arg-validation-utils';
 
 
-@Injectable()
 export class LayersTreeValidator {
 
   public validateTree(treeNode: LayersTreeNode): void {

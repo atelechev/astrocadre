@@ -6,6 +6,7 @@ import { StaticDataService } from '../core/static-data-service';
 import { SectionMetadata } from '../core/controls/section-metadata';
 import { LayersTreeNode } from '../core/layer/layers-tree-node';
 import { LayersTreeValidator } from '../core/controls/layers-tree-validator';
+import { SelectableItemFinder } from '../core/controls/selectable-item-finder';
 
 
 @Component({
@@ -18,10 +19,15 @@ export class SelectorLayersComponent implements AfterViewInit {
 
   public availableLayers: Array<SelectableItem>;
 
+  private layersTreeValidator: LayersTreeValidator;
+
+  private itemsFinder: SelectableItemFinder;
+
   constructor(private dataService: StaticDataService,
-              private layersEventService: LayersEventService,
-              private layersTreeValidator: LayersTreeValidator) {
+              private layersEventService: LayersEventService) {
+    this.layersTreeValidator = new LayersTreeValidator();
     this.availableLayers = new Array<SelectableItem>();
+    this.itemsFinder = new SelectableItemFinder();
   }
 
   private initAvailableLayers(): void {
@@ -65,27 +71,10 @@ export class SelectorLayersComponent implements AfterViewInit {
     }
   }
 
-  private findLayerInSelectableItems(layer: string, items: Array<SelectableItem>): SelectableItem {
-    if (items) {
-      for (let i = 0; i < items.length; i++) {
-        const item = items[i];
-        if (item.code === layer) {
-          return item;
-        } else {
-          const foundAmongChildren = this.findLayerInSelectableItems(layer, item.items);
-          if (foundAmongChildren) {
-            return foundAmongChildren;
-          }
-        }
-      }
-    }
-    return undefined;
-  }
-
   private subscribeLayerLoaded(): void {
     this.layersEventService.broadcastLayerLoaded$.subscribe(
       (layer: string) => {
-        const layerItem = this.findLayerInSelectableItems(layer, this.availableLayers);
+        const layerItem = this.itemsFinder.findInSelectableItems(layer, this.availableLayers);
         if (layerItem) {
           this.fireLayerChangedEvent(layer, layerItem.selected);
         }

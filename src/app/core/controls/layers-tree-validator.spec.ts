@@ -1,15 +1,9 @@
 import { LayersTreeValidator } from './layers-tree-validator';
-import { TestBed } from '@angular/core/testing';
 import { LayersTreeNode } from '../layer/layers-tree-node';
 
 describe('LayersTreeValidator', () => {
 
-  let validator: LayersTreeValidator;
-
-  beforeEach(() => {
-    TestBed.configureTestingModule({ providers: [ LayersTreeValidator] });
-    validator = TestBed.get(LayersTreeValidator);
-  });
+  const validator = new LayersTreeValidator();
 
   it('#validateTree should throw expected error if arg is undefined', () => {
     expect(() => validator.validateTree(undefined))

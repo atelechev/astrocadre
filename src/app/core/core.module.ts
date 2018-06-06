@@ -20,8 +20,7 @@ import { LayersTreeValidator } from './controls/layers-tree-validator';
     ThemesEventService,
     ViewportEventService,
     LayersEventService,
-    SearchService,
-    LayersTreeValidator
+    SearchService
   ]
 })
 export class CoreModule {
