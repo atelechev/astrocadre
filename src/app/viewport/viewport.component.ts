@@ -26,9 +26,9 @@ export class ViewportComponent implements AfterViewInit, ThemeAware {
   @ViewChild('skyViewViewport')
   private skyViewViewport: ElementRef;
 
-  private viewportWidth: string;
+  public viewportWidth: string;
 
-  private viewportHeight: string;
+  public viewportHeight: string;
 
   constructor(private dimensionService: ViewportDimensionService,
               private sceneManager: SceneManager,

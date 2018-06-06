@@ -1,14 +1,11 @@
 import { NgModule } from '@angular/core';
 import { ThemesComponent } from './themes.component';
-import { HttpModule } from '@angular/Http';
 
 @NgModule({
   declarations: [
     ThemesComponent
   ],
-  imports: [
-    HttpModule
-  ],
+  imports: [],
   exports: [
     ThemesComponent
   ],

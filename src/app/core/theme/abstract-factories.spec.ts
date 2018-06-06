@@ -109,14 +109,6 @@ export const assertPointsMaterialBuilt = (materials: Map<string, Material>,
   assertPointsMaterialExpected(material, expectedMaterial);
 };
 
-export const assertTextStyleBuilt = (styles: Map<string, TextStyle>,
-                                     key: string,
-                                     expectedStyle: TextStyle) => {
-  expect(styles.has(key)).toBeTruthy();
-  const style = styles.get(key);
-  assertTextStyleExpected(style, expectedStyle);
-};
-
 export const assertTextStyleExpected = (checked: TextStyle, expected: TextStyle) => {
   expect(checked).toBeDefined();
   expect(checked.color).toBe(expected.color);
@@ -124,6 +116,14 @@ export const assertTextStyleExpected = (checked: TextStyle, expected: TextStyle)
   expect(checked.fontSize).toBe(expected.fontSize);
   expect(checked.fontStyle).toBe(expected.fontStyle);
   expect(checked.fontWeight).toBe(expected.fontWeight);
+};
+
+export const assertTextStyleBuilt = (styles: Map<string, TextStyle>,
+                                     key: string,
+                                     expectedStyle: TextStyle) => {
+  expect(styles.has(key)).toBeTruthy();
+  const style = styles.get(key);
+  assertTextStyleExpected(style, expectedStyle);
 };
 
 export function asyncData<T>(data: T) {

@@ -1,4 +1,3 @@
-import { Response, Http } from '@angular/Http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
@@ -8,6 +7,7 @@ import { ConstellationMetadata } from './layer/constellation-metadata';
 import { SectionMetadata } from './controls/section-metadata';
 import { SearchableItem } from './search/searchable-item';
 import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 
 /**
  * Provides access to all static server side resources.
@@ -15,7 +15,7 @@ import { Injectable } from '@angular/core';
 @Injectable()
 export class StaticDataService {
 
-  constructor(private http: Http) {
+  constructor(private httpClient: HttpClient) {
 
   }
 
@@ -86,7 +86,7 @@ export class StaticDataService {
   }
 
   private execGetRequestForUrl(url: string): Observable<any> {
-    return this.http.get(url)
+    return this.httpClient.get(url)
                     .map((res: Response) => res.json ? res.json() : res)
                     .catch(this.handleError);
   }

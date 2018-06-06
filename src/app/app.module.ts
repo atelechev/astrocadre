@@ -2,7 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
-import { HttpModule } from '@angular/Http';
+import { HttpClientModule } from '@angular/common/http';
 import { CoreModule } from './core/core.module';
 import { ControlsModule } from './controls/controls.module';
 import { ThemesModule } from './themes/themes.module';
@@ -16,7 +16,7 @@ import { LayersModule } from './layers/layers.module';
   ],
   imports: [
     BrowserModule,
-    HttpModule,
+    HttpClientModule,
     CoreModule,
     ThemesModule,
     LayersModule,
