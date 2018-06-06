@@ -1,6 +1,5 @@
 import { Component, AfterViewInit } from '@angular/core';
 import { SelectableItem } from '../core/controls/selectable-item';
-import { Layers } from '../core/layers';
 import { LayersEventService } from '../core/layer/layers-event.service';
 import { StaticDataService } from '../core/static-data-service';
 import { SectionMetadata } from '../core/controls/section-metadata';

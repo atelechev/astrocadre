@@ -1,6 +1,6 @@
 import { BufferGeometry } from 'three';
 import { Vector3, Object3D } from 'three';
-import { ensureArgDefined, ensureArgArrayDefinedNotEmpty } from '../../core/layer/arg-validation-utils';
+import { ensureArgArrayDefinedNotEmpty } from '../../core/layer/arg-validation-utils';
 import { Constants } from '../../core/constants';
 
 /**

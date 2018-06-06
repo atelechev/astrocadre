@@ -1,4 +1,4 @@
-import { Vector3, LineSegments, BufferGeometry, Object3D } from 'three';
+import { Vector3, LineSegments, BufferGeometry } from 'three';
 import { toVector3 } from '../../core/layer/vector-utils';
 import { Object3DFactory } from './object3d-factory';
 import { Injectable } from '@angular/core';

@@ -1,7 +1,6 @@
-import { ElementRef, Injectable } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { RenderableText } from '../core/layer/label/renderable-text';
-import { Object3D, Camera, Frustum, Matrix4, Vector3 } from 'three';
-import { Constants } from '../core/constants';
+import { Camera, Frustum, Matrix4, Vector3 } from 'three';
 import { WorldOriginCameraService } from './world-origin-camera.service';
 import { ViewportDimensionService } from './viewport-dimension.service';
 import { ScreenCoordinate } from '../core/viewport/screen-coordinate';

@@ -1,5 +1,4 @@
 import { Component, AfterViewInit } from '@angular/core';
-import { Math as ThreeMath } from 'three';
 import { ViewportEventService } from '../core/viewport/viewport-event.service';
 import { toRadians } from '../core/layer/vector-utils';
 

@@ -1,7 +1,6 @@
 import { Layers } from '../core/layers';
 import { Theme } from '../core/theme/theme';
 import { Points, Object3D } from 'three';
-import { PointsFactory } from './geometry/points-factory';
 import { LayersTreeNode } from '../core/layer/layers-tree-node';
 import { RenderableText } from '../core/layer/label/renderable-text';
 import { RenderableLayer } from '../core/layer/renderable-layer';

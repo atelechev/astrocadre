@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Object3D, Material, LineSegments } from 'three';
+import { LineSegments } from 'three';
 import { AxialCurvesFactory } from './geometry/axial-curves-factory';
 import { Layers } from '../core/layers';
 import { LayerFactory } from './layer-factory';

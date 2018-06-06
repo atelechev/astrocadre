@@ -1,9 +1,6 @@
 import { RenderableLayer } from '../core/layer/renderable-layer';
 import { Object3D, LineSegments } from 'three';
-import { LinesFactory } from './geometry/lines-factory';
-import { Layers } from '../core/layers';
 import { Theme } from '../core/theme/theme';
-import { Constants } from '../core/constants';
 import { LayersTreeNode } from '../core/layer/layers-tree-node';
 import { ensureArgDefined } from '../core/layer/arg-validation-utils';
 
