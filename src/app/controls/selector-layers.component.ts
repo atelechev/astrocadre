@@ -5,6 +5,7 @@ import { LayersEventService } from '../core/layer/layers-event.service';
 import { StaticDataService } from '../core/static-data-service';
 import { SectionMetadata } from '../core/controls/section-metadata';
 import { LayersTreeNode } from '../core/layer/layers-tree-node';
+import { LayersTreeValidator } from '../core/controls/layers-tree-validator';
 
 
 @Component({
@@ -18,7 +19,8 @@ export class SelectorLayersComponent implements AfterViewInit {
   public availableLayers: Array<SelectableItem>;
 
   constructor(private dataService: StaticDataService,
-              private layersEventService: LayersEventService) {
+              private layersEventService: LayersEventService,
+              private layersTreeValidator: LayersTreeValidator) {
     this.availableLayers = new Array<SelectableItem>();
   }
 
@@ -29,29 +31,14 @@ export class SelectorLayersComponent implements AfterViewInit {
           return SelectableItem.from(item);
         });
         if (this.availableLayers) {
-          this.ensureLayersTreeValid();
+          const wrappedWithRoot = new LayersTreeNode('root',
+                                                     this.availableLayers.map(item => item.asLayersTree()));
+          this.layersTreeValidator.validateTree(wrappedWithRoot);
           this.availableLayers.forEach(layer => this.initAvailableLayer(layer));
         }
       },
       (error: any) => console.error(`Failed to load layers metadata: ${error}`)
     );
-  }
-
-  // TODO tree processing should be extracted into dedicated utilities
-  private extractCodes(node: LayersTreeNode): string[] {
-    const childCodes = node.children.map(n => this.extractCodes(n))
-                                    .reduce((prev, curr) => prev.concat(curr), []);
-    return [ node.code ].concat(childCodes);
-  }
-
-  private ensureLayersTreeValid(): void {
-    const items = this.availableLayers.map(item => item.asLayersTree());
-    const allCodes = items.map(item => this.extractCodes(item))
-                          .reduce((prev, curr) => prev.concat(curr), []);
-    const asSet = new Set(allCodes);
-    if (allCodes.length !== asSet.size) {
-      throw new Error(`Duplicate layer codes detected: ${allCodes}`);
-    }
   }
 
   private initAvailableLayer(layer: SelectableItem): void {
