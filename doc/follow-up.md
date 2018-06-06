@@ -116,14 +116,20 @@ To start the app:
 * SV-017: Release preparation
   * refactoring, clean-up, tests and inline doc in app/layers and related
 
-### Next Steps
+### June 6th, 2018
 
 * SV-018: Release preparation
-  * refactoring and clean-up of the main app
-  * tests of the main app
-  * inline documentation where necessary
+  * more refactoring, clean-up, tests and inline doc in various parts. Refactoring preps phase is now complete.
+  * ensure NPM commands complete successfully.
+  * remove Protractor stubs, because e2e tests are meaningless at this stage of the project.
+
+### Next Steps
+
+* SV-019: Release preparation
   * detailed README.md
   * refactor, clean-up and document tools/data-import
+
+* SV-020: Resizable viewport feature
 
 #### Major Features
 
@@ -131,7 +137,6 @@ _None scheduled currently before first public release is done._
 
 #### TODOs for Release and Distribution
 
-* Find an optimal solution for packaging (minification, bundle...)
 * API to insert SkyView in a Web page
 
 #### Features after First Public Release
@@ -146,5 +151,4 @@ _None scheduled currently before first public release is done._
 * theme definition: pre-defined star magnitudes shown
 * 'night' and 'exoplorer' themes
 * star colors depending on their class/temperature
-* flexible canvas size (?)
-* Show the name of the constellation or another significant object that is most close to the center of the viewport
+* show the name of the constellation or another significant object that is most close to the center of the viewport
