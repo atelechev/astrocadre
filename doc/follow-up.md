@@ -127,9 +127,12 @@ To start the app:
 
 * SV-019: Release preparation
   * detailed README.md
+  * add night-view theme
+
+* SV-020: Release preparation
   * refactor, clean-up and document tools/data-import
 
-* SV-020: Resizable viewport feature
+* SV-021: Resizable viewport feature
 
 #### Major Features
 
@@ -145,10 +148,14 @@ _None scheduled currently before first public release is done._
 * Current position of the Sun and of the Moon (probably, the planets also) - new layer
 * Messier objects layer
 
+* Theme extensions (config through JSON theme definition):
+  * configurable step for coordinate lines
+  * 
+
 #### Low priority improvements for POC
 
 * S-N direction arrow
 * theme definition: pre-defined star magnitudes shown
-* 'night' and 'exoplorer' themes
+* 'exoplorer' theme
 * star colors depending on their class/temperature
 * show the name of the constellation or another significant object that is most close to the center of the viewport
