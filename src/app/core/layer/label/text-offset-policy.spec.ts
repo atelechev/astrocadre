@@ -87,45 +87,45 @@ describe('TextOffsetPolicy', () => {
 
   it('#TextOffsetPolicies.CENTERED should return expected offsets for one character text', () => {
     const offsets = centeredPolicy.calculateOffsets('a', newStyledHtmlElement());
-    assertOffsetsExpected(3, 5, offsets);
+    assertOffsetsExpected(-3, -5, offsets);
   });
 
   it('#TextOffsetPolicies.CENTERED should return expected offsets for a short word', () => {
     const offsets = centeredPolicy.calculateOffsets('test', newStyledHtmlElement());
-    assertOffsetsExpected(8.5, 5, offsets);
+    assertOffsetsExpected(-8.5, -5, offsets);
   });
 
   it('#TextOffsetPolicies.CENTERED should return expected offsets for longer text', () => {
     const offsets = centeredPolicy.calculateOffsets('lorem ipsum dolor sit amet', newStyledHtmlElement());
-    assertOffsetsExpected(59, 5, offsets);
+    assertOffsetsExpected(-59, -5, offsets);
   });
 
   it('#TextOffsetPolicies.CENTERED should take into account fontSize property for Y offset', () => {
     const element = newStyledHtmlElement();
     element.style.fontSize = '20px';
     const offsets = centeredPolicy.calculateOffsets('test', element);
-    assertOffsetsExpected(16.5, 10, offsets);
+    assertOffsetsExpected(-16.5, -10, offsets);
   });
 
   it('#TextOffsetPolicies.CENTERED should take into account fontWeight property for X offset', () => {
     const element = newStyledHtmlElement();
     element.style.fontWeight = 'bold';
     const offsets = centeredPolicy.calculateOffsets('test', element);
-    assertOffsetsExpected(9, 5, offsets);
+    assertOffsetsExpected(-9, -5, offsets);
   });
 
   it('#TextOffsetPolicies.CENTERED should take into account fontStyle property for X offset', () => {
     const element = newStyledHtmlElement();
     element.style.fontStyle = 'italic';
     const offsets = centeredPolicy.calculateOffsets('test', element);
-    assertOffsetsExpected(8.5, 5, offsets);
+    assertOffsetsExpected(-8.5, -5, offsets);
   });
 
   it('#TextOffsetPolicies.CENTERED should take into account fontFamily property for X offset', () => {
     const element = newStyledHtmlElement();
     element.style.fontFamily = 'dialog';
     const offsets = centeredPolicy.calculateOffsets('test', element);
-    assertOffsetsExpected(7, 5, offsets);
+    assertOffsetsExpected(-7, -5, offsets);
   });
 
 

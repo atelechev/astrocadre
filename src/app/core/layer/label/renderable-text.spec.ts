@@ -61,14 +61,14 @@ describe('RenderableText', () => {
   it('#getOffsetX should return the expected X and Y offsets', () => {
     const renderable = new RenderableText(Layers.CONSTELLATION_NAMES, 'labels', newVector(), 'test5', TextOffsetPolicies.CENTERED);
     renderable.useTheme(theme);
-    ensureOffsetsExpected(16, 8, renderable);
+    ensureOffsetsExpected(-16, -8, renderable);
   });
 
   it('#useTheme should recalculate the offsets', () => {
     const renderable = new RenderableText(Layers.CONSTELLATION_NAMES, 'labels', newVector(), 'test6', TextOffsetPolicies.CENTERED);
     ensureOffsetsExpected(0, 0, renderable);
     renderable.useTheme(theme);
-    ensureOffsetsExpected(16, 8, renderable);
+    ensureOffsetsExpected(-16, -8, renderable);
   });
 
 });
