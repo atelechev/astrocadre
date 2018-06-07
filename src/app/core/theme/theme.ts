@@ -87,8 +87,8 @@ export class Theme {
     return this.backgroundColor;
   }
 
-  public getName(): string {
-    return this.themeDef.name;
+  public getCode(): string {
+    return this.themeDef.code;
   }
 
   public getRenderedStarMagnitudes(): number[] {

@@ -2,7 +2,7 @@ import { TextStyle } from './text-style';
 
 export interface ThemeDefinition {
 
-  name: string;
+  code: string;
   background: {
     color: string;
   };

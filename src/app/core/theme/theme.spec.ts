@@ -12,7 +12,7 @@ describe('Theme', () => {
   const sizeMultiplier = 1;
 
   const themeDef: ThemeDefinition = {
-    name: 'test1',
+    code: 'test1',
     background: {
       color: 'rgb(0,0,0)'
     },
@@ -55,7 +55,7 @@ describe('Theme', () => {
   });
 
   it('#getName should return expected name', () => {
-    expect(theme.getName()).toBe('test1');
+    expect(theme.getCode()).toBe('test1');
   });
 
   it('#getBackgroundColor should return expected color', () => {
