@@ -2,10 +2,16 @@
   "selectable": true,
   "items": [
     {
+      "code": "wiki",
+      "label": "Wikipedia",
+      "description": "Theme resembling the one often used in Wikipedia to for sky charts.",
+      "selected": true
+    },
+    {
       "code": "dev",
       "label": "Dev",
       "description": "\"Development\" phase theme. Uses highly contrasted and often incompatible colors in order to make rendered items more visible.",
-      "selected": true
+      "selected": false
     },
     {
       "code": "sky-chart",

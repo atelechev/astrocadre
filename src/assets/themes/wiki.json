@@ -1,0 +1,54 @@
+{
+  "code": "wiki",
+  "background": {
+    "color": "rgb(0, 0, 102)"
+  },
+  "skyGrid": {
+    "line": {
+      "common": "rgb(0, 51, 102)",
+      "reference": "rgb(0, 71, 122)"
+    }
+  },
+  "constellation": {
+    "boundaries": {
+      "line": {
+        "common": "rgb(255, 255, 0)"
+      }
+    },
+    "lines": {
+      "line": {
+        "common": "rgb(0, 204, 0)"
+      }
+    },
+    "names": {
+      "fontSize": "30px",
+      "fontFamily": "arial",
+      "fontStyle": "normal",
+      "fontWeight": "bold",
+      "color": "rgb(102, 102, 204)"
+    }
+  },
+  "stars": {
+    "magnitudes": [ 2, 2.5, 3, 3.5, 4, 4.5, 5, 5.5, 6 ],
+    "texture": {
+      "image": "assets/textures/star_white.png",
+      "sizeMultiplier": 3
+    },
+    "names": {
+      "proper": {
+        "fontSize": "16px",
+        "fontFamily": "arial",
+        "fontStyle": "normal",
+        "fontWeight": "normal",
+        "color": "rgb(0, 255, 255)"
+      },
+      "standard": {
+        "fontSize": "16px",
+        "fontFamily": "arial",
+        "fontStyle": "normal",
+        "fontWeight": "normal",
+        "color": "rgb(0, 255, 255)"
+      }
+    }
+  }
+}

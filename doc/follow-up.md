@@ -127,7 +127,8 @@ To start the app:
 
 * SV-019: Release preparation
   * detailed README.md
-  * add night-view theme
+  * add 'night-view' and 'wiki' themes
+  * replace ugly control buttons with textured ones.
 
 * SV-020: Release preparation
   * refactor, clean-up and document tools/data-import
@@ -150,12 +151,11 @@ _None scheduled currently before first public release is done._
 
 * Theme extensions (config through JSON theme definition):
   * configurable step for coordinate lines
-  * 
+  * configurable line width and dash style
+  * pre-defined star magnitudes shown
 
 #### Low priority improvements for POC
 
 * S-N direction arrow
-* theme definition: pre-defined star magnitudes shown
-* 'exoplorer' theme
 * star colors depending on their class/temperature
 * show the name of the constellation or another significant object that is most close to the center of the viewport
