@@ -5,9 +5,9 @@
   "scripts": {
     "clean": "del-cli -f ./dist",
     "ng": "ng",
-    "start": "npm run clean && npm run build:dev && ng serve",
+    "start": "npm run build:dev && ng serve",
     "build:dev": "ng build",
-    "build:prod": "npm run clean && ng build --prod && ng serve --prod",
+    "build:prod": "npm run clean && ng build --prod",
     "test": "ng test",
     "lint": "ng lint"
   },
