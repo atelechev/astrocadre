@@ -14,3 +14,8 @@
   text-align: center;
   vertical-align: middle;
 }
+
+td > input {
+  height: 32px;
+  width: 32px;
+}

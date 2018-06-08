@@ -4,49 +4,63 @@
       <tr>
         <td>
           <!-- down-left arrow -->
-          <button type="button"
-                  title="Rotate counter-clockwise"
-                  (click)="rotateView(0, 0, -cameraChangeStep.value)">&#8601;</button>
+          <input type="image"
+                 alt="&#8601;"
+                 src="assets/textures/arrow_rotate_left.png"
+                 title="Rotate counter-clockwise"
+                 (click)="rotateView(0, 0, -cameraChangeStep.value)" />
         </td>
         <td>
           <!-- up arrow -->
-          <button type="button"
-                  title="Move upwards"
-                  (click)="rotateView(cameraChangeStep.value, 0, 0)">&#8593;</button>
+          <input type="image"
+                 alt="&#8593;"
+                 src="assets/textures/arrow_up.png"
+                 title="Move upwards"
+                 (click)="rotateView(cameraChangeStep.value, 0, 0)" />
         </td>
         <td>
           <!-- down-right arrow -->
-          <button type="button"
-                  title="Rotate clockwise"
-                  (click)="rotateView(0, 0, cameraChangeStep.value)">&#8600;</button>
+          <input type="image"
+                 alt="&#8600;"
+                 src="assets/textures/arrow_rotate_right.png"
+                 title="Rotate clockwise"
+                 (click)="rotateView(0, 0, cameraChangeStep.value)" />
         </td>
       </tr>
       <tr>
         <td>
           <!-- left arrow -->
-          <button type="button"
+          <input type="image"
+                  alt="&#8592;"
+                  src="assets/textures/arrow_left.png"
                   title="Move leftwards"
-                  (click)="rotateView(0, cameraChangeStep.value, 0)">&#8592;</button>
+                  (click)="rotateView(0, cameraChangeStep.value, 0)" />
         </td>
         <td>
           <!-- down arrow -->
-          <button type="button"
-                  title="Move downwards"
-                  (click)="rotateView(-cameraChangeStep.value, 0, 0)">&#8595;</button>
+          <input type="image"
+                 alt="&#8595;"
+                 src="assets/textures/arrow_down.png"
+                 title="Move downwards"
+                 (click)="rotateView(-cameraChangeStep.value, 0, 0)" />
         </td>
         <td>
           <!-- right arrow -->
-          <button type="button"
-                  title="Move rightwards"
-                  (click)="rotateView(0, -cameraChangeStep.value, 0)">&#8594;</button>
+          <input type="image"
+                 alt="&#8594;"
+                 src="assets/textures/arrow_right.png"
+                 title="Move rightwards"
+                 (click)="rotateView(0, -cameraChangeStep.value, 0)" />
         </td>
       </tr>
       <tr>
         <td>
           <!-- empty square symbol -->
-          <button type="button"
+          <input type="image"
+                 alt="&#9633;"
+                 src="assets/textures/square.png"
                   title="Adjust the field of view to the selected range"
-                  (click)="changeFov(cameraChangeStep.value)">&#9633;</button>
+                  (click)="changeFov(cameraChangeStep.value)" />
         </td>
         <td>
           <input class="selector_view_step"
@@ -60,9 +74,11 @@
         </td>
         <td>
           <!-- pipe symbol -->
-          <button type="button"
-                  title="Align the view on the North-Sourth axis"
-                  (click)="alignNSAxis()">&#124;</button>
+          <input type="image"
+                 alt="&#124;"
+                 src="assets/textures/align.png"
+                 title="Align the view on the North-Sourth axis"
+                 (click)="alignNSAxis()" />
         </td>
       </tr>
     </tbody>
