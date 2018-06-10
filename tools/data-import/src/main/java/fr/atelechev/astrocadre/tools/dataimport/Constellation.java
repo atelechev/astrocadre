@@ -1,12 +1,10 @@
-package fr.atelechev.skyview.tools.dataimport;
+package fr.atelechev.astrocadre.tools.dataimport;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import lombok.Data;
 
 import java.util.List;
-
-import static fr.atelechev.skyview.tools.dataimport.CsvUtil.parseDouble;
 
 @Data
 @JsonPropertyOrder({ "type", "code", "ra", "dec", "names" })
@@ -23,8 +21,8 @@ public class Constellation extends SearchableItem {
     final Constellation constellation = new Constellation();
     constellation.setType("constellation");
     constellation.setCode(rowSplit[3]);
-    constellation.setCenterRa(parseDouble(rowSplit[1], false));
-    constellation.setCenterDec(parseDouble(rowSplit[2], false));
+    constellation.setCenterRa(CsvUtil.parseDouble(rowSplit[1], false));
+    constellation.setCenterDec(CsvUtil.parseDouble(rowSplit[2], false));
     return constellation;
   }
 

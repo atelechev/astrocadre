@@ -10,7 +10,7 @@ import { ViewportDimensionService } from './viewport-dimension.service';
 import { MouseEventsHandler } from './mouse-events-handler';
 
 @Component({
-  selector: `app-sky-view-viewport`,
+  selector: `app-astrocadre-viewport`,
   templateUrl: './viewport.component.html',
   styleUrls: [ './viewport.component.css' ],
   providers: [
@@ -23,8 +23,8 @@ import { MouseEventsHandler } from './mouse-events-handler';
 })
 export class ViewportComponent implements AfterViewInit, ThemeAware {
 
-  @ViewChild('skyViewViewport')
-  private skyViewViewport: ElementRef;
+  @ViewChild('astrocadreViewport')
+  private astrocadreViewport: ElementRef;
 
   public viewportWidth: string;
 
@@ -41,13 +41,13 @@ export class ViewportComponent implements AfterViewInit, ThemeAware {
 
   private appendCanvas(): void {
     const canvas = this.sceneManager.getDomElement();
-    this.skyViewViewport.nativeElement.appendChild(canvas);
+    this.astrocadreViewport.nativeElement.appendChild(canvas);
   }
 
   public ngAfterViewInit(): void {
     this.appendCanvas();
     this.sceneManager.render();
-    this.mouseEventHandler.initMouseListenersOn(this.skyViewViewport.nativeElement);
+    this.mouseEventHandler.initMouseListenersOn(this.astrocadreViewport.nativeElement);
   }
 
   public useTheme(theme: Theme): void {
@@ -59,18 +59,18 @@ export class ViewportComponent implements AfterViewInit, ThemeAware {
   }
 
   public addTextElements(htmlElements: HTMLElement[]): void {
-    const nativeWrapper = this.skyViewViewport.nativeElement;
+    const nativeWrapper = this.astrocadreViewport.nativeElement;
     htmlElements.forEach(htmlElement => {
       nativeWrapper.appendChild(htmlElement);
     });
   }
 
   public hideLabelsByLayer(layer: string): void {
-    this.labelsManager.hideLabelsByLayer(layer, this.skyViewViewport.nativeElement);
+    this.labelsManager.hideLabelsByLayer(layer, this.astrocadreViewport.nativeElement);
   }
 
   public showVisibleLabels(layer: string, labels: Map<string, RenderableText>): void {
-    this.labelsManager.showVisibleLabels(layer, labels, this.skyViewViewport.nativeElement);
+    this.labelsManager.showVisibleLabels(layer, labels, this.astrocadreViewport.nativeElement);
   }
 
 }

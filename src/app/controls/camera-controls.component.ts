@@ -3,7 +3,7 @@ import { ViewportEventService } from '../core/viewport/viewport-event.service';
 import { toRadians } from '../core/layer/vector-utils';
 
 @Component({
-  selector: `app-sky-view-controls-camera`,
+  selector: `app-astrocadre-controls-camera`,
   templateUrl: './camera-controls.component.html',
   styleUrls: [ './controls.component.css', './camera-controls.component.css' ],
   providers: []

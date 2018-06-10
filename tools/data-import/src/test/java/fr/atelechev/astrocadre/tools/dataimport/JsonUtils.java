@@ -1,11 +1,10 @@
-package fr.atelechev.skyview.tools.dataimport;
+package fr.atelechev.astrocadre.tools.dataimport;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 
 import java.io.IOException;
 import java.nio.file.Files;
-import java.nio.file.OpenOption;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;

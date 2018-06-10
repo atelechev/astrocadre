@@ -1,4 +1,4 @@
-package fr.atelechev.skyview.tools.dataimport;
+package fr.atelechev.astrocadre.tools.dataimport;
 
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.SerializerProvider;
@@ -6,7 +6,7 @@ import com.fasterxml.jackson.databind.ser.std.StdSerializer;
 
 import java.io.IOException;
 
-import static fr.atelechev.skyview.tools.dataimport.NumberUtil.round;
+import static fr.atelechev.astrocadre.tools.dataimport.NumberUtil.round;
 
 public class StarSerializer extends StdSerializer<Star> {
 
@@ -17,9 +17,9 @@ public class StarSerializer extends StdSerializer<Star> {
   @Override
   public void serialize(Star star, JsonGenerator jsonGenerator, SerializerProvider serializerProvider) throws IOException {
     jsonGenerator.writeStartArray();
-    jsonGenerator.writeNumber(round(star.getRa()));
-    jsonGenerator.writeNumber(round(star.getDec()));
-    jsonGenerator.writeNumber(round(star.getMagnitude(), 1));
+    jsonGenerator.writeNumber(NumberUtil.round(star.getRa()));
+    jsonGenerator.writeNumber(NumberUtil.round(star.getDec()));
+    jsonGenerator.writeNumber(NumberUtil.round(star.getMagnitude(), 1));
     writeStarName(star, jsonGenerator);
     jsonGenerator.writeEndArray();
   }

@@ -1,4 +1,4 @@
-package fr.atelechev.skyview.tools.dataimport;
+package fr.atelechev.astrocadre.tools.dataimport;
 
 import java.util.function.Function;
 

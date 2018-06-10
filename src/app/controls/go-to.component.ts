@@ -3,7 +3,7 @@ import { ViewportEventService } from '../core/viewport/viewport-event.service';
 import { SearchService } from '../core/search/search.service';
 
 @Component({
-  selector: `app-sky-view-controls-go-to`,
+  selector: `app-astrocadre-controls-go-to`,
   templateUrl: './go-to.component.html',
   styleUrls: [ './controls.component.css', './go-to.component.css' ],
   providers: []

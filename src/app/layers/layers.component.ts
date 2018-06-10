@@ -19,7 +19,7 @@ import { ConstellationNamesLayerFactory } from './constellation-names-layer-fact
 import { StarsMagnitudeLayerFactory } from './stars-magnitude-layer-factory';
 
 @Component({
-  selector: 'app-sky-view-layers',
+  selector: 'app-astrocadre-layers',
   template: ``,
   providers: [
     LayersFactoryService,

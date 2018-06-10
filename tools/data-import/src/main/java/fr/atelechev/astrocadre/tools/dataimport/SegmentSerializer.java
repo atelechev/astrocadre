@@ -1,4 +1,4 @@
-package fr.atelechev.skyview.tools.dataimport;
+package fr.atelechev.astrocadre.tools.dataimport;
 
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.SerializerProvider;
@@ -6,7 +6,7 @@ import com.fasterxml.jackson.databind.ser.std.StdSerializer;
 
 import java.io.IOException;
 
-import static fr.atelechev.skyview.tools.dataimport.NumberUtil.round;
+import static fr.atelechev.astrocadre.tools.dataimport.NumberUtil.round;
 
 public class SegmentSerializer extends StdSerializer<Segment> {
 
@@ -16,10 +16,10 @@ public class SegmentSerializer extends StdSerializer<Segment> {
 
   @Override
   public void serialize(Segment segment, JsonGenerator jsonGenerator, SerializerProvider serializerProvider) throws IOException {
-    final double[] coords = { round(segment.getRa0()),
-                              round(segment.getDecl0()),
-                              round(segment.getRa1()),
-                              round(segment.getDecl1())};
+    final double[] coords = { NumberUtil.round(segment.getRa0()),
+                              NumberUtil.round(segment.getDecl0()),
+                              NumberUtil.round(segment.getRa1()),
+                              NumberUtil.round(segment.getDecl1())};
     jsonGenerator.writeArray(coords, 0, coords.length);
   }
 

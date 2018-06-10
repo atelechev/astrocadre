@@ -1,4 +1,4 @@
-# SkyView
+# AstroCadre
 
 _Astronomy sky charts viewer application_
 
@@ -21,9 +21,13 @@ The application has been designed keeping in mind to make it flexible and provid
   * helper UI tool for astronomical catalogues or presentations.
   * any other usage you can imagine it for :)
 
+---
+
 ## UI Controls
 
 TODO
+
+---
 
 ## Upcoming Features
 
@@ -34,6 +38,8 @@ As of June, 2018, these features have been scheduled for further development:
   * Make objects selectable in the view.
   * Export the view as raster images.
   * More layers: Solar system objects, Messier objects...
+
+---
 
 ## Recommended Environment
 
@@ -52,6 +58,8 @@ The following VSC extensions are also recommended:
 For the tools/data processing part, any IDE supporting Java+Maven projects may be used. However, [IntelliJ IDEA CE](https://www.jetbrains.com/idea/download) was used for development.
 
 Currently, there the application does not have a no specific back-end part. All the served resources are static and they are generated with `./tools/data-import` sub-project (see below).
+
+---
 
 ## NPM Commands and Tasks
 
@@ -73,6 +81,8 @@ The following commands runnable with `npm {command}` or `npm run {command}` are 
 Quickstart: after cloning the source repository, `npm start` command should launch the application at `localhost:4200`.
 
 The commands above should work equally from VSC integrated terminals or from any terminal/CLI tools.
+
+---
 
 ## Project Structure
 
@@ -99,6 +109,7 @@ The project is structured as follows:
 
 `./tools/data-import` contains a Maven project written in Java, allowing to generate static resource JSON files with stellar and other data used in the application. The generated files are placed into `./src/assets` folder and then included into the distribution. For more information about how to generate the static resources and their format, please check the respective `README.md` file in `./tools/data-import`.
 
+---
 
 ## Configuration
 
@@ -221,11 +232,15 @@ Themes have the following configurable properties:
 }
 ```
 
+---
+
 ## Release History
 
 * The POC development started on April 15th, 2018.
 
 * The sources were made public on Github on June TODO, 2018, with version number 0.18.6.
+
+---
 
 ## License
 
@@ -233,5 +248,6 @@ This software is distributed under MIT license conditions.
 
 Please check more details in `LICENSE` file.
 
+--- 
 
 (c) 2018 Anton Telechev

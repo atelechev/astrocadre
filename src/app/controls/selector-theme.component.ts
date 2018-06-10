@@ -6,7 +6,7 @@ import { SectionMetadata } from '../core/controls/section-metadata';
 
 
 @Component({
-  selector: `app-sky-view-controls-select-theme`,
+  selector: `app-astrocadre-controls-select-theme`,
   templateUrl: './selector-theme.component.html',
   styleUrls: [ './controls.component.css' ],
   providers: []

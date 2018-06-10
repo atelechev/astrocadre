@@ -1,4 +1,4 @@
-package fr.atelechev.skyview.tools.dataimport;
+package fr.atelechev.astrocadre.tools.dataimport;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.Test;
@@ -12,7 +12,7 @@ public class ConstellationLinesReaderTest {
 
   private List<ConstellationLine> loadConstellationLines() {
     try {
-      final String file = PathUtil.getResourceFilePath("/skyview/constellation_lines.csv");
+      final String file = PathUtil.getResourceFilePath("/astrocadre/constellation_lines.csv");
       final ConstellationLinesReader reader = new ConstellationLinesReader();
       return reader.readLines(file);
     } catch (IOException ex) {

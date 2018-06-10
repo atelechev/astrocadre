@@ -1,4 +1,4 @@
-package fr.atelechev.skyview.tools.dataimport;
+package fr.atelechev.astrocadre.tools.dataimport;
 
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.SerializerProvider;
@@ -6,7 +6,7 @@ import com.fasterxml.jackson.databind.ser.std.StdSerializer;
 
 import java.io.IOException;
 
-import static fr.atelechev.skyview.tools.dataimport.NumberUtil.round;
+import static fr.atelechev.astrocadre.tools.dataimport.NumberUtil.round;
 
 public class NodeSerializer extends StdSerializer<Node> {
 
@@ -41,7 +41,7 @@ public class NodeSerializer extends StdSerializer<Node> {
     final double y = DISTANCE * Math.cos(declRad) * Math.sin(raRad);
     final double z = DISTANCE * Math.sin(declRad);
     final int nbDecimals = 3;
-    return new double[] { round(x, nbDecimals), round(y, nbDecimals), round(z, nbDecimals) };
+    return new double[] { NumberUtil.round(x, nbDecimals), NumberUtil.round(y, nbDecimals), NumberUtil.round(z, nbDecimals) };
   }
 
   private static double raToAngle(double ra) {

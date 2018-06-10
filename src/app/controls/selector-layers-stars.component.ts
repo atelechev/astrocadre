@@ -4,7 +4,7 @@ import { LayerVisibility } from '../core/layer/layer-visibility';
 import { Layers } from '../core/layers';
 
 @Component({
-  selector: `app-sky-view-controls-select-stars`,
+  selector: `app-astrocadre-controls-select-stars`,
   templateUrl: './selector-layers-stars.component.html',
   styleUrls: [ './controls.component.css',
                './selector-layers.component.css',

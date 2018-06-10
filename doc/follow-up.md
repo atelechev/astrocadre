@@ -129,11 +129,9 @@ To start the app:
   * detailed README.md
   * add 'night-view', 'wiki' and 'tiny' themes
   * replace ugly control buttons with textured ones.
-
-* SV-020: Release preparation
   * refactor, clean-up and document tools/data-import
 
-* SV-021: Resizable viewport feature
+* SV-020: Resizable viewport feature
 
 #### Major Features
 
@@ -141,7 +139,7 @@ _None scheduled currently before first public release is done._
 
 #### TODOs for Release and Distribution
 
-* API to insert SkyView in a Web page
+* API to insert AstroCadre in a Web page
 
 #### Features after First Public Release
 

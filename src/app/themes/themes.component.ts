@@ -5,7 +5,7 @@ import { ThemeDefinition } from '../core/theme/theme-definition';
 import { ThemesEventService } from '../core/theme/themes-event.service';
 
 @Component({
-  selector: 'app-sky-view-themes',
+  selector: 'app-astrocadre-themes',
   template: ``,
   providers: []
 })

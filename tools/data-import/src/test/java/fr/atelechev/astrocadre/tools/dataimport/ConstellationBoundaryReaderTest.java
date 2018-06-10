@@ -1,24 +1,21 @@
-package fr.atelechev.skyview.tools.dataimport;
+package fr.atelechev.astrocadre.tools.dataimport;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.Ignore;
 import org.junit.Test;
 
-import java.io.File;
 import java.io.IOException;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.*;
 import java.util.stream.Collectors;
 
-import static fr.atelechev.skyview.tools.dataimport.JsonUtils.initObjectMapper;
-import static fr.atelechev.skyview.tools.dataimport.JsonUtils.outputJson;
+import static fr.atelechev.astrocadre.tools.dataimport.JsonUtils.initObjectMapper;
+import static fr.atelechev.astrocadre.tools.dataimport.JsonUtils.outputJson;
 import static org.junit.Assert.assertEquals;
 
 public class ConstellationBoundaryReaderTest {
 
   private List<Boundary> readBoundaries() {
-    final String file = PathUtil.getResourceFilePath("/skyview/constellations_bounds_18.properties");
+    final String file = PathUtil.getResourceFilePath("/astrocadre/constellations_bounds_18.properties");
     final ConstellationBoundaryReader reader = new ConstellationBoundaryReader();
     return reader.readBoundaries(file);
   }

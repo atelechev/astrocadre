@@ -1,6 +1,5 @@
-package fr.atelechev.skyview.tools.dataimport;
+package fr.atelechev.astrocadre.tools.dataimport;
 
-import java.nio.file.Path;
 import java.nio.file.Paths;
 
 public class PathUtil {

@@ -9,7 +9,7 @@ import { SelectableItemFinder } from '../core/controls/selectable-item-finder';
 
 
 @Component({
-  selector: `app-sky-view-controls-select-layers`,
+  selector: `app-astrocadre-controls-select-layers`,
   templateUrl: './selector-layers.component.html',
   styleUrls: [ './controls.component.css', './selector-layers.component.css' ],
   providers: []

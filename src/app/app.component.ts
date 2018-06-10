@@ -13,7 +13,7 @@ import { StarsMagnitudeLayer } from './layers/stars-magnitude-layer';
 import { RenderableLayer } from './core/layer/renderable-layer';
 
 @Component({
-  selector: `app-sky-view`,
+  selector: `app-astrocadre`,
   templateUrl: './app.component.html',
   styleUrls: [ './app.component.css' ],
   providers: [
