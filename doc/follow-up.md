@@ -127,7 +127,7 @@ To start the app:
 
 * SV-019: Release preparation
   * detailed README.md
-  * add 'night-view' and 'wiki' themes
+  * add 'night-view', 'wiki' and 'tiny' themes
   * replace ugly control buttons with textured ones.
 
 * SV-020: Release preparation

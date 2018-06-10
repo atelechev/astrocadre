@@ -22,7 +22,7 @@ export const textStyle = (fSize: string = IRRELEVANT,
 export const emptyTextStyle: TextStyle = textStyle();
 
 export const emptyThemeDef: ThemeDefinition = {
-  name: 'test',
+  code: 'test',
   background: {
     color: IRRELEVANT
   },
