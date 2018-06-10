@@ -24,6 +24,12 @@
       "label": "Night view",
       "description": "Dim and low contrast theme preserving the eyes from agressive light, that might be useful at night.",
       "selected": false
+    },
+    {
+      "code": "tiny",
+      "label": "Tiny",
+      "description": "Does not accentuate objects, helper lines and labels are low contrasted. Just a calm an pleasant view of the sky.",
+      "selected": false
     }
   ]
 }
