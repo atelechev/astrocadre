@@ -1,12 +1,16 @@
 package fr.atelechev.astrocadre.tools.dataimport;
 
 import fr.atelechev.astrocadre.tools.dataimport.model.Constellation;
+import fr.atelechev.astrocadre.tools.dataimport.model.SearchableItem;
+import fr.atelechev.astrocadre.tools.dataimport.model.Star;
+import fr.atelechev.astrocadre.tools.dataimport.model.StarSearchable;
 import fr.atelechev.astrocadre.tools.dataimport.util.CoordinatesUtil;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -18,10 +22,13 @@ public class SearchableItemsReader extends SourceDataReader {
 
   private String inputFileConstellationLabels;
 
+  private String inputFileStars;
+
   @Override
   public void setInputFiles(Map<String, String> inputFiles) {
     this.inputFileConstellationCenters = inputFiles.get("file.constellations.centers");
     this.inputFileConstellationLabels = inputFiles.get("file.constellations.labels");
+    this.inputFileStars = inputFiles.get("file.stars");
   }
 
   @Override
@@ -29,7 +36,33 @@ public class SearchableItemsReader extends SourceDataReader {
     log.info("Reading searchable items");
     final List<Object> items = new ArrayList<>();
     readConstellations(items);
+    readStars(items);
     return items;
+  }
+
+  private void readStars(List<Object> allItems) {
+    log.info("Reading stars file {}", this.inputFileStars);
+
+    final StarsReader starsReader = new StarsReader();
+    final Map<String, String> starsInputMap = new HashMap<>();
+    starsInputMap.put("file", this.inputFileStars);
+    starsReader.setInputFiles(starsInputMap);
+
+    final List<SearchableItem> stars = starsReader.readSourceData().stream()
+      .map(obj -> (Star) obj)
+      .filter(star -> star.getProperName() != null && !star.getProperName().trim().isEmpty())
+      .map(this::toSearchableItem)
+      .collect(Collectors.toList());
+    log.info("Read {} stars as searchable items.", stars.size());
+    allItems.addAll(stars);
+  }
+
+  private SearchableItem toSearchableItem(Star star) {
+    final SearchableItem item = new StarSearchable();
+    item.setCode(star.getProperName());
+    item.setCenterRa(star.getRa());
+    item.setCenterDec(star.getDec());
+    return item;
   }
 
   private void readConstellations(List<Object> allItems) {

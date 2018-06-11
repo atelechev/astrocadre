@@ -49,6 +49,7 @@ public class DataImporter {
     final Map<String, String> fileMap = new HashMap<>();
     fileMap.put("file.constellations.centers", withPath("constellations_18.csv"));
     fileMap.put("file.constellations.labels", withPath("constellations_names.csv"));
+    fileMap.put("file.stars", withPath("stars_hyg_v3_mag6.csv"));
     reader.setInputFiles(fileMap);
     return reader;
   }
