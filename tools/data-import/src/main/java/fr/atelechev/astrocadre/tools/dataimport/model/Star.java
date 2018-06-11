@@ -1,12 +1,15 @@
-package fr.atelechev.astrocadre.tools.dataimport;
+package fr.atelechev.astrocadre.tools.dataimport.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import fr.atelechev.astrocadre.tools.dataimport.util.CsvUtil;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
+@EqualsAndHashCode(of = { "id" })
 public class Star {
 
   @JsonIgnore

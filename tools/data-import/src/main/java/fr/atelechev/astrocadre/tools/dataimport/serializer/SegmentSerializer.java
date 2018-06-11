@@ -1,12 +1,14 @@
-package fr.atelechev.astrocadre.tools.dataimport;
+package fr.atelechev.astrocadre.tools.dataimport.serializer;
 
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.SerializerProvider;
 import com.fasterxml.jackson.databind.ser.std.StdSerializer;
+import fr.atelechev.astrocadre.tools.dataimport.model.Segment;
+import fr.atelechev.astrocadre.tools.dataimport.util.NumberUtil;
 
 import java.io.IOException;
 
-import static fr.atelechev.astrocadre.tools.dataimport.NumberUtil.round;
+import static fr.atelechev.astrocadre.tools.dataimport.util.NumberUtil.round;
 
 public class SegmentSerializer extends StdSerializer<Segment> {
 

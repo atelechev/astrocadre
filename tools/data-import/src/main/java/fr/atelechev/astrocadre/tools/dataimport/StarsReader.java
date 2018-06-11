@@ -1,36 +1,33 @@
 package fr.atelechev.astrocadre.tools.dataimport;
 
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
+import fr.atelechev.astrocadre.tools.dataimport.model.Star;
+import fr.atelechev.astrocadre.tools.dataimport.util.CoordinatesUtil;
+import lombok.extern.slf4j.Slf4j;
+
+import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-public class StarsReader {
+@Slf4j
+public class StarsReader extends SourceDataReader {
 
-  private static final double[] MAGNITUDE_STEPS = { 2d, 2.5d, 3d, 3.5d, 4d, 4.5d, 5d, 5.5d, 6d };
+  private String inputFileName;
 
-  public List<Star> readStars(String fromFilePath) throws IOException {
-    final List<String> rawLines = Files.readAllLines(Paths.get(fromFilePath));
-    rawLines.remove(0); // the header
-    return rawLines.stream().map(Star::fromCsvRow)
+  @Override
+  public void setInputFiles(Map<String, String> inputFiles) {
+    this.inputFileName = inputFiles.get("file");
+  }
+
+  @Override
+  public Collection<Object> readSourceData() {
+    log.info("Reading stars");
+    final List<String> rawLines = readCsvDropHeader(this.inputFileName);
+    final Collection<Object> stars = rawLines.stream().map(Star::fromCsvRow)
       .peek(CoordinatesUtil::convertRa)
       .collect(Collectors.toList());
-  }
-
-  public Map<Double, List<Star>> readStarsClassifyingByMagnitude(String fromFilePath) throws IOException {
-    return readStars(fromFilePath).stream()
-      .collect(Collectors.groupingBy(star -> classifyByMagnitude(star.getMagnitude())));
-  }
-
-  private double classifyByMagnitude(double magnitude) {
-    for (double magClass: MAGNITUDE_STEPS) {
-      if (magnitude <= magClass) {
-        return magClass;
-      }
-    }
-    return MAGNITUDE_STEPS[MAGNITUDE_STEPS.length - 1];
+    log.info("Read {} star entries.", stars.size());
+    return stars;
   }
 
 }

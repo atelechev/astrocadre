@@ -1,4 +1,4 @@
-package fr.atelechev.astrocadre.tools.dataimport;
+package fr.atelechev.astrocadre.tools.dataimport.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
@@ -10,12 +10,12 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Boundary {
+public class ConstellationLine {
 
   @JsonProperty("code")
   private String constellationCode;
 
-  @JsonProperty("boundary")
-  private List<List<Node>> boundary;
+  @JsonProperty("lines")
+  private List<Segment> lines;
 
 }

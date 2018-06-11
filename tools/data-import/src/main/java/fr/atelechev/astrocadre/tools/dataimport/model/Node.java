@@ -1,4 +1,4 @@
-package fr.atelechev.astrocadre.tools.dataimport;
+package fr.atelechev.astrocadre.tools.dataimport.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

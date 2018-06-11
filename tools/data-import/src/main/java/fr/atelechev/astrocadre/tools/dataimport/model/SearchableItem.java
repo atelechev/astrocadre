@@ -1,4 +1,4 @@
-package fr.atelechev.astrocadre.tools.dataimport;
+package fr.atelechev.astrocadre.tools.dataimport.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;

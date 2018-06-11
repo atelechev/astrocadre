@@ -1,10 +1,10 @@
-package fr.atelechev.astrocadre.tools.dataimport;
+package fr.atelechev.astrocadre.tools.dataimport.util;
 
 import java.util.function.Function;
 
 public final class CsvUtil {
 
-  protected static String[] split(String csvRow, int nbCells) {
+  public static String[] split(String csvRow, int nbCells) {
     final String[] rowSplit = csvRow.split(",");
     if (rowSplit.length != nbCells) {
       throw new IllegalArgumentException(String.format("Invalid number of cells: %1$s for row '%2$s'", rowSplit.length, csvRow));
@@ -12,11 +12,11 @@ public final class CsvUtil {
     return rowSplit;
   }
 
-  protected static Double parseDouble(String value, boolean nullable) {
+  public static Double parseDouble(String value, boolean nullable) {
     return parseNumber(value, nullable, Double::parseDouble);
   }
 
-  protected static Integer parseInt(String value, boolean nullable) {
+  public static Integer parseInt(String value, boolean nullable) {
     return parseNumber(value, nullable, Integer::parseInt);
   }
 

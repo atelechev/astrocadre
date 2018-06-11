@@ -1,56 +1,65 @@
 package fr.atelechev.astrocadre.tools.dataimport;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import org.junit.Test;
+import fr.atelechev.astrocadre.tools.dataimport.model.Star;
 
-import java.io.IOException;
+import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
-import java.util.Map;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 
-public class StarsReaderTest {
-
-  private static final String STARS_FILE = PathUtil.getResourceFilePath("/astrocadre/stars_hyg_v3_mag6.csv");
-
-  private static final ObjectMapper MAPPER = JsonUtils.initObjectMapper();
+public class StarsReaderTest extends DataTransformationTest<StarsReader> {
 
 
-  private final StarsReader reader = new StarsReader();
-
-  @Test
-  public void parseAllStars() throws IOException {
-    final List<Star> allStars = reader.readStars(STARS_FILE);
-    assertEquals(5017, allStars.size());
+  public StarsReaderTest() {
+    super(StarsReader.class);
   }
 
-  @Test
-  public void parseAndClassify() throws IOException {
-    final Map<Double, List<Star>> stars = reader.readStarsClassifyingByMagnitude(STARS_FILE);
-    assertEquals(50, stars.get(2d).size());
-    assertEquals(44, stars.get(2.5d).size());
-    assertEquals(85, stars.get(3.0d).size());
-    assertEquals(112, stars.get(3.5d).size());
-    assertEquals(232, stars.get(4d).size());
-    assertEquals(402, stars.get(4.5d).size());
-    assertEquals(712, stars.get(5.0d).size());
-    assertEquals(1228, stars.get(5.5d).size());
-    assertEquals(2152, stars.get(6.0d).size());
-
-    stars.entrySet().forEach(entry -> {
-      saveStarsForMagnitude(entry.getValue(), entry.getKey());
-    });
+  @Override
+  protected void initInputFileNames() {
+    reader.setInputFiles(singleInputFile("stars_test.csv"));
   }
 
-  private void saveStarsForMagnitude(List<Star> stars, double magClass) {
-    try {
-      System.out.println(String.format("%1$s stars for magnitude class %2$s", stars.size(), magClass));
-      final String json = MAPPER.writeValueAsString(stars);
-      final String fileName = String.format("stars-mag%1$s", magClass);
-      JsonUtils.outputJson(json, fileName);
-    } catch (IOException ex) {
-      throw new IllegalStateException(ex);
-    }
+  @Override
+  public void readTestData() {
+    final Collection<Object> stars = reader.readSourceData();
+    assertNotNull(stars);
+
+    final List<Star> expected = Arrays.asList(
+      star(88, "Tau Phe", 0.269115, -48.809876, 5.71),
+      star(676, "Alp And", 2.096865, 29.090432, 2.07),
+      star(744, "Bet Cas", 2.293305, 59.14978, 2.28),
+      star(763, "Eps Phe", 2.35254, -45.747426, 3.88),
+      star(1559, "Iot Cet", 4.856985, -8.823921, 3.56),
+      star(2076, "Alp Phe", 6.5708400000000005, -42.305981, 2.4),
+      star(2914, "Zet Cas", 9.24282, 53.896909, 3.69),
+      star(3172, "Alp Cas", 10.126740000000002, 56.537331, 2.24),
+      star(3293, "Xi  Cas", 10.516214999999999, 50.512526, 4.8),
+      star(3413, "Bet Cet", 10.89735, -17.986605, 2.04)
+    );
+
+    assertEquals(expected.size(), stars.size());
+    stars.forEach(star ->
+      assertTrue(String.format("Star %1$s not found among expected %2$s", star, expected), expected.contains(star))
+    );
+  }
+
+  private Star star(int id, String stdName, double ra, double dec, double magnitude) {
+    final Star star = new Star();
+    star.setId(id);
+    star.setStandardName(stdName);
+    star.setRa(ra);
+    star.setDec(dec);
+    star.setMagnitude(magnitude);
+    return star;
+  }
+
+  @Override
+  public void produceExpectedJson() {
+    final Collection<Object> stars = reader.readSourceData();
+    final String json = JSON_PRODUCER.toJson(stars);
+    final String expected = "[[0.27,-48.81,5.7,\"TAU PHE\"],[2.1,29.09,2.1,\"Alpheratz\",\"ALP AND\"],[2.29,59.15,2.3,\"Caph\",\"BET CAS\"],[2.35,-45.75,3.9,\"EPS PHE\"],[4.86,-8.82,3.6,\"IOT CET\"],[6.57,-42.31,2.4,\"Ankaa\",\"ALP PHE\"],[9.24,53.9,3.7,\"ZET CAS\"],[10.13,56.54,2.2,\"Shedir\",\"ALP CAS\"],[10.52,50.51,4.8,\"XI CAS\"],[10.9,-17.99,2.0,\"Diphda\",\"BET CET\"]]";
+    assertEquals(expected, json);
   }
 
 }

@@ -1,4 +1,4 @@
-package fr.atelechev.astrocadre.tools.dataimport;
+package fr.atelechev.astrocadre.tools.dataimport.util;
 
 public class NumberUtil {
 

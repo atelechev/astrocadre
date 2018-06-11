@@ -1,6 +1,10 @@
-package fr.atelechev.astrocadre.tools.dataimport;
+package fr.atelechev.astrocadre.tools.dataimport.util;
 
-import static fr.atelechev.astrocadre.tools.dataimport.NumberUtil.round;
+import fr.atelechev.astrocadre.tools.dataimport.model.Constellation;
+import fr.atelechev.astrocadre.tools.dataimport.model.Segment;
+import fr.atelechev.astrocadre.tools.dataimport.model.Star;
+
+import static fr.atelechev.astrocadre.tools.dataimport.util.NumberUtil.round;
 
 public class CoordinatesUtil {
 

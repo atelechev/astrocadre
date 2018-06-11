@@ -1,4 +1,4 @@
-package fr.atelechev.astrocadre.tools.dataimport;
+package fr.atelechev.astrocadre.tools.dataimport.model;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -9,9 +9,9 @@ public class Segment {
 
   private double ra0;
 
-  private double ra1;
-
   private double decl0;
+
+  private double ra1;
 
   private double decl1;
 
