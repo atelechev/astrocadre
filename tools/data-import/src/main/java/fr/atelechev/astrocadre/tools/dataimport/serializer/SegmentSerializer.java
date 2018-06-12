@@ -5,12 +5,16 @@ import com.fasterxml.jackson.databind.SerializerProvider;
 import com.fasterxml.jackson.databind.ser.std.StdSerializer;
 import fr.atelechev.astrocadre.tools.dataimport.model.Segment;
 import fr.atelechev.astrocadre.tools.dataimport.util.NumberUtil;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 
-import static fr.atelechev.astrocadre.tools.dataimport.util.NumberUtil.round;
-
+@Component
 public class SegmentSerializer extends StdSerializer<Segment> {
+
+  @Autowired
+  private NumberUtil numberUtil;
 
   public SegmentSerializer() {
     super(Segment.class);
@@ -18,10 +22,10 @@ public class SegmentSerializer extends StdSerializer<Segment> {
 
   @Override
   public void serialize(Segment segment, JsonGenerator jsonGenerator, SerializerProvider serializerProvider) throws IOException {
-    final double[] coords = { NumberUtil.round(segment.getRa0()),
-                              NumberUtil.round(segment.getDecl0()),
-                              NumberUtil.round(segment.getRa1()),
-                              NumberUtil.round(segment.getDecl1())};
+    final double[] coords = { numberUtil.round(segment.getRa0()),
+                              numberUtil.round(segment.getDecl0()),
+                              numberUtil.round(segment.getRa1()),
+                              numberUtil.round(segment.getDecl1())};
     jsonGenerator.writeArray(coords, 0, coords.length);
   }
 

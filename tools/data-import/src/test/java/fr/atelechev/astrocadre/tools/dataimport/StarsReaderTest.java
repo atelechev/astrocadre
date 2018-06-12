@@ -1,6 +1,8 @@
 package fr.atelechev.astrocadre.tools.dataimport;
 
 import fr.atelechev.astrocadre.tools.dataimport.model.Star;
+import fr.atelechev.astrocadre.tools.dataimport.pipeline.StarsReader;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -8,17 +10,10 @@ import java.util.List;
 
 import static org.junit.Assert.*;
 
-public class StarsReaderTest extends DataTransformationTest<StarsReader> {
+public class StarsReaderTest extends DataTransformationTest {
 
-
-  public StarsReaderTest() {
-    super(StarsReader.class);
-  }
-
-  @Override
-  protected void initInputFileNames() {
-    reader.setInputFiles(singleInputFile("stars_test.csv"));
-  }
+  @Autowired
+  private StarsReader reader;
 
   @Override
   public void readTestData() {
@@ -57,7 +52,7 @@ public class StarsReaderTest extends DataTransformationTest<StarsReader> {
   @Override
   public void produceExpectedJson() {
     final Collection<Object> stars = reader.readSourceData();
-    final String json = JSON_PRODUCER.toJson(stars);
+    final String json = jsonProducer.toJson(stars);
     final String expected = "[[0.27,-48.81,5.7,\"TAU PHE\"],[2.1,29.09,2.1,\"Alpheratz\",\"ALP AND\"],[2.29,59.15,2.3,\"Caph\",\"BET CAS\"],[2.35,-45.75,3.9,\"EPS PHE\"],[4.86,-8.82,3.6,\"IOT CET\"],[6.57,-42.31,2.4,\"Ankaa\",\"ALP PHE\"],[9.24,53.9,3.7,\"ZET CAS\"],[10.13,56.54,2.2,\"Shedir\",\"ALP CAS\"],[10.52,50.51,4.8,\"XI CAS\"],[10.9,-17.99,2.0,\"Diphda\",\"BET CET\"]]";
     assertEquals(expected, json);
   }

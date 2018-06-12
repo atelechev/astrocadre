@@ -1,10 +1,12 @@
 package fr.atelechev.astrocadre.tools.dataimport.model;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
+@EqualsAndHashCode
 public class Segment {
 
   private double ra0;

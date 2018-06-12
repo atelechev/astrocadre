@@ -5,12 +5,16 @@ import com.fasterxml.jackson.databind.SerializerProvider;
 import com.fasterxml.jackson.databind.ser.std.StdSerializer;
 import fr.atelechev.astrocadre.tools.dataimport.model.Star;
 import fr.atelechev.astrocadre.tools.dataimport.util.NumberUtil;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 
-import static fr.atelechev.astrocadre.tools.dataimport.util.NumberUtil.round;
-
+@Component
 public class StarSerializer extends StdSerializer<Star> {
+
+  @Autowired
+  private NumberUtil numberUtil;
 
   public StarSerializer() {
     super(Star.class);
@@ -19,9 +23,9 @@ public class StarSerializer extends StdSerializer<Star> {
   @Override
   public void serialize(Star star, JsonGenerator jsonGenerator, SerializerProvider serializerProvider) throws IOException {
     jsonGenerator.writeStartArray();
-    jsonGenerator.writeNumber(NumberUtil.round(star.getRa()));
-    jsonGenerator.writeNumber(NumberUtil.round(star.getDec()));
-    jsonGenerator.writeNumber(NumberUtil.round(star.getMagnitude(), 1));
+    jsonGenerator.writeNumber(numberUtil.round(star.getRa()));
+    jsonGenerator.writeNumber(numberUtil.round(star.getDec()));
+    jsonGenerator.writeNumber(numberUtil.round(star.getMagnitude(), 1));
     writeStarName(star, jsonGenerator);
     jsonGenerator.writeEndArray();
   }

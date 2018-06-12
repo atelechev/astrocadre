@@ -1,6 +1,8 @@
 package fr.atelechev.astrocadre.tools.dataimport;
 
 import fr.atelechev.astrocadre.tools.dataimport.model.Segment;
+import fr.atelechev.astrocadre.tools.dataimport.pipeline.ConstellationBoundaryReader;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -8,16 +10,10 @@ import java.util.List;
 
 import static org.junit.Assert.*;
 
-public class ConstellationBoundariesTests extends DataTransformationTest<ConstellationBoundaryReader> {
+public class ConstellationBoundariesTests extends DataTransformationTest {
 
-  public ConstellationBoundariesTests() {
-    super(ConstellationBoundaryReader.class);
-  }
-
-  @Override
-  protected void initInputFileNames() {
-    reader.setInputFiles(singleInputFile("constellations_bounds_test.properties"));
-  }
+  @Autowired
+  private ConstellationBoundaryReader reader;
 
   @Override
   public void readTestData() {
@@ -42,7 +38,7 @@ public class ConstellationBoundariesTests extends DataTransformationTest<Constel
   @Override
   public void produceExpectedJson() {
     final Collection<Object> boundaries = reader.readSourceData();
-    final String json = JSON_PRODUCER.toJson(boundaries);
+    final String json = jsonProducer.toJson(boundaries);
     final String expected = "[[350.0,52.5,343.0,34.5],[140.5,-24.0,146.25,-24.0],[343.0,52.5,350.0,52.5],[146.25,-24.0,140.5,-24.0],[343.0,34.5,343.0,52.5]]";
     assertEquals(expected, json);
   }

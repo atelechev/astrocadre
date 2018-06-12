@@ -1,35 +1,41 @@
-package fr.atelechev.astrocadre.tools.dataimport;
+package fr.atelechev.astrocadre.tools.dataimport.pipeline;
 
 import fr.atelechev.astrocadre.tools.dataimport.model.Constellation;
+import fr.atelechev.astrocadre.tools.dataimport.model.ConstellationFactory;
 import fr.atelechev.astrocadre.tools.dataimport.model.SearchableItem;
 import fr.atelechev.astrocadre.tools.dataimport.model.Star;
 import fr.atelechev.astrocadre.tools.dataimport.model.StarSearchable;
 import fr.atelechev.astrocadre.tools.dataimport.util.CoordinatesUtil;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
 @Slf4j
+@Component
 public class SearchableItemsReader extends SourceDataReader {
 
+  @Autowired
+  private StarsReader starsReader;
+
+  @Autowired
+  private ConstellationFactory constellationFactory;
+
+  @Autowired
+  private CoordinatesUtil coordinatesUtil;
+
+  @Value("${file.source.searchable-items.constellations.centers}")
   private String inputFileConstellationCenters;
 
+  @Value("${file.source.searchable-items.constellations.labels}")
   private String inputFileConstellationLabels;
-
-  private String inputFileStars;
-
-  @Override
-  public void setInputFiles(Map<String, String> inputFiles) {
-    this.inputFileConstellationCenters = inputFiles.get("file.constellations.centers");
-    this.inputFileConstellationLabels = inputFiles.get("file.constellations.labels");
-    this.inputFileStars = inputFiles.get("file.stars");
-  }
 
   @Override
   public Collection<Object> readSourceData() {
@@ -41,19 +47,13 @@ public class SearchableItemsReader extends SourceDataReader {
   }
 
   private void readStars(List<Object> allItems) {
-    log.info("Reading stars file {}", this.inputFileStars);
-
-    final StarsReader starsReader = new StarsReader();
-    final Map<String, String> starsInputMap = new HashMap<>();
-    starsInputMap.put("file", this.inputFileStars);
-    starsReader.setInputFiles(starsInputMap);
-
+    log.info("Reading stars file {}", this.starsReader.getInputFileName());
     final List<SearchableItem> stars = starsReader.readSourceData().stream()
       .map(obj -> (Star) obj)
       .filter(star -> star.getProperName() != null && !star.getProperName().trim().isEmpty())
       .map(this::toSearchableItem)
       .collect(Collectors.toList());
-    log.info("Read {} stars as searchable items.", stars.size());
+    log.info("Took {} stars as searchable items.", stars.size());
     allItems.addAll(stars);
   }
 
@@ -113,8 +113,8 @@ public class SearchableItemsReader extends SourceDataReader {
   private List<Constellation> readMainFile(String mainFilePath) {
     log.info("Reading constellation centers file {}", mainFilePath);
     final List<String> rawLines = readCsvDropHeader(mainFilePath);
-    return rawLines.stream().map(Constellation::fromCsvRow)
-      .peek(CoordinatesUtil::convertCoords)
+    return rawLines.stream().map(constellationFactory::fromCsvRow)
+      .peek(coordinatesUtil::convertCoords)
       .collect(Collectors.toList());
   }
 

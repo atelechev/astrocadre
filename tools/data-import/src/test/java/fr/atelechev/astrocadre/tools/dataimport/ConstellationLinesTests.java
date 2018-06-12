@@ -1,6 +1,8 @@
 package fr.atelechev.astrocadre.tools.dataimport;
 
 import fr.atelechev.astrocadre.tools.dataimport.model.Segment;
+import fr.atelechev.astrocadre.tools.dataimport.pipeline.ConstellationLinesReader;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -8,17 +10,11 @@ import java.util.List;
 
 import static org.junit.Assert.*;
 
-public class ConstellationLinesTests extends DataTransformationTest<ConstellationLinesReader> {
 
+public class ConstellationLinesTests extends DataTransformationTest {
 
-  public ConstellationLinesTests() {
-    super(ConstellationLinesReader.class);
-  }
-
-  @Override
-  protected void initInputFileNames() {
-    reader.setInputFiles(singleInputFile("constellation_lines_test.csv"));
-  }
+  @Autowired
+  private ConstellationLinesReader reader;
 
   @Override
   public void readTestData() {
@@ -40,7 +36,7 @@ public class ConstellationLinesTests extends DataTransformationTest<Constellatio
   @Override
   public void produceExpectedJson() {
     final Collection<Object> lines = reader.readSourceData();
-    final String json = JSON_PRODUCER.toJson(lines);
+    final String json = jsonProducer.toJson(lines);
     final String expected = "[[72.46,6.95,72.65,8.9],[72.8,5.6,72.46,6.95],[98.22,7.33,100.24,9.88]]";
     assertEquals(expected, json);
   }

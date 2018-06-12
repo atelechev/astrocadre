@@ -1,7 +1,9 @@
-package fr.atelechev.astrocadre.tools.dataimport;
+package fr.atelechev.astrocadre.tools.dataimport.pipeline;
 
 import fr.atelechev.astrocadre.tools.dataimport.model.Star;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
 
 import java.util.Collection;
 import java.util.List;
@@ -9,12 +11,16 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 @Slf4j
+@Component
 public class StarsWriter extends ParsedDataWriter {
 
   private static final double[] MAGNITUDE_STEPS = {2d, 2.5d, 3d, 3.5d, 4d, 4.5d, 5d, 5.5d, 6d};
 
+  @Value("${file.target.stars.format}")
+  private String targetFileNamePattern;
+
   private String getFileNameForMagnitudeClass(double magnitude) {
-    return String.format("stars-mag%1$s.json", magnitude);
+    return String.format(targetFileNamePattern, magnitude);
   }
 
   private double classifyByMagnitude(double magnitude) {

@@ -1,8 +1,9 @@
-package fr.atelechev.astrocadre.tools.dataimport;
+package fr.atelechev.astrocadre.tools.dataimport.pipeline;
 
 import fr.atelechev.astrocadre.tools.dataimport.util.JsonProducer;
 import fr.atelechev.astrocadre.tools.dataimport.util.ProjectPathResolver;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -14,20 +15,17 @@ import java.util.Collection;
 @Slf4j
 public abstract class ParsedDataWriter {
 
-  private final ProjectPathResolver pathResolver;
+  @Autowired
+  private ProjectPathResolver pathResolver;
 
-  protected final JsonProducer jsonProducer;
-
-  public ParsedDataWriter() {
-    this.jsonProducer = new JsonProducer();
-    this.pathResolver = new ProjectPathResolver();
-  }
+  @Autowired
+  protected JsonProducer jsonProducer;
 
   public abstract void writeData(Collection<Object> data);
 
 
   protected void outputJson(String json, String outputFileName) {
-    final String outputFolder = pathResolver.getTargetJsonOutputFolder();
+    final String outputFolder = pathResolver.getTargetJsonOutputAbsolutePath();
     final Path outputTo = Paths.get(outputFolder, outputFileName);
     log.info("JSON output file: {}", outputTo);
     try {

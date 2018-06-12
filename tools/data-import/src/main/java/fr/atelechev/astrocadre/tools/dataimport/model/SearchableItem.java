@@ -3,11 +3,13 @@ package fr.atelechev.astrocadre.tools.dataimport.model;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import java.util.List;
 
 @Data
-public class SearchableItem {
+@EqualsAndHashCode(of = { "type", "code", "ra", "dec" })
+public abstract class SearchableItem {
 
   @JsonProperty("type")
   private final String type;

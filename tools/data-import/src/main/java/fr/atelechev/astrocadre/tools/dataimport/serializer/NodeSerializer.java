@@ -5,12 +5,16 @@ import com.fasterxml.jackson.databind.SerializerProvider;
 import com.fasterxml.jackson.databind.ser.std.StdSerializer;
 import fr.atelechev.astrocadre.tools.dataimport.model.Node;
 import fr.atelechev.astrocadre.tools.dataimport.util.NumberUtil;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 
-import static fr.atelechev.astrocadre.tools.dataimport.util.NumberUtil.round;
-
+@Component
 public class NodeSerializer extends StdSerializer<Node> {
+
+  @Autowired
+  private NumberUtil numberUtil;
 
   private static final double DISTANCE = 2d;
 
@@ -20,7 +24,7 @@ public class NodeSerializer extends StdSerializer<Node> {
 
   @Override
   public void serialize(Node node, JsonGenerator jsonGenerator, SerializerProvider serializerProvider) throws IOException {
-    jsonGenerator.writeArray(new double[] { node.getRa(), node.getDec() }, 0, 2);
+    jsonGenerator.writeArray(new double[]{node.getRa(), node.getDec()}, 0, 2);
   }
 
   /*
@@ -43,7 +47,7 @@ public class NodeSerializer extends StdSerializer<Node> {
     final double y = DISTANCE * Math.cos(declRad) * Math.sin(raRad);
     final double z = DISTANCE * Math.sin(declRad);
     final int nbDecimals = 3;
-    return new double[] { NumberUtil.round(x, nbDecimals), NumberUtil.round(y, nbDecimals), NumberUtil.round(z, nbDecimals) };
+    return new double[]{numberUtil.round(x, nbDecimals), numberUtil.round(y, nbDecimals), numberUtil.round(z, nbDecimals)};
   }
 
   private static double raToAngle(double ra) {
