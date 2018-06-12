@@ -123,13 +123,15 @@ To start the app:
   * ensure NPM commands complete successfully.
   * remove Protractor stubs, because e2e tests are meaningless at this stage of the project.
 
-### Next Steps
+### June 12th, 2018
 
 * SV-019: Release preparation
   * detailed README.md
   * add 'night-view', 'wiki' and 'tiny' themes
   * replace ugly control buttons with textured ones.
   * refactor, clean-up and document tools/data-import
+
+### Next Steps
 
 * SV-020: Resizable viewport feature
 

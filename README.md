@@ -240,6 +240,8 @@ Themes have the following configurable properties:
 
 * The sources were made public on Github on June TODO, 2018, with version number 0.18.6.
 
+The detailed project history and notes are available in [follow-up documentation](./doc/follow-up.md).
+
 ---
 
 ## License
