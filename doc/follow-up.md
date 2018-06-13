@@ -28,37 +28,37 @@ To start the app:
 
 * ThreeJS is used as 3D rendering lib. A simple animation is implemented to check how it works with Angular & TypeScript. The dedicated branch is `setup-threejs`, it might be reused for other experiences as quick starter project.
 
-* SV-001: stub for a scrollable sky view. Wireframe of the sky sphere, with meridians and parallels. The viewport is in the center and the image is scrollable in all directions.
+* AC-001: stub for a scrollable sky view. Wireframe of the sky sphere, with meridians and parallels. The viewport is in the center and the image is scrollable in all directions.
 
 ### April 21st, 2018
 
-* SV-002 - Render constellation boundaries.
+* AC-002 - Render constellation boundaries.
   * Static JSON asset contains constellation boundaries coordinates.
   * Constellation boundaries are rendered in the view.
   * Style changes in the view.
 
-* SV-003 - Render constallation lines.
+* AC-003 - Render constallation lines.
   * Static JSON asset contains constellation lines coordinates.
   * Constellation lines are rendered in the view.
 
 ### April 23rd, 2018
 
-* SV-004 - Render stars of magnitudes down to level 6
+* AC-004 - Render stars of magnitudes down to level 6
 
 ### April 24th, 2018
 
-* SV-005 - Add graphic themes support. Introduce SkyChart theme.
+* AC-005 - Add graphic themes support. Introduce SkyChart theme.
 
 ### May 2nd, 2018
 
-* SV-006: - Primitive UI controls allowing to:
+* AC-006: - Primitive UI controls allowing to:
   * toggle layers
   * change themes
 * Complete refactoring of all components, now using event driven communication, with very few dependencies between components left.
 
 ### May 3rd, 2018
 
-* SV-007: - Viewport UI control support:
+* AC-007: - Viewport UI control support:
   * camera control buttons allow to navigate in the view (N, E, S, W)
   * the view is rotatable (configurable angle of rotation)
   * the field of view angle is configurable
@@ -66,74 +66,78 @@ To start the app:
 
 ### May 4th, 2018
 
-* SV-008: - Initial intention: define an "internal sphere" camera to allow better view projections. But: discovered and understood miscalculations in coordinates conversion between sky coordinates and XYZ. Corrected the issue and the world origin view projection became usable.
+* AC-008: - Initial intention: define an "internal sphere" camera to allow better view projections. But: discovered and understood miscalculations in coordinates conversion between sky coordinates and XYZ. Corrected the issue and the world origin view projection became usable.
 * Refactoring in different parts.
 * Tests for VectorUtil class.
 
 ### May 8th, 2018
 
-* SV-009: - Deciced to remove the center screen position indicator from UI controls, because it does not bring much.
+* AC-009: - Deciced to remove the center screen position indicator from UI controls, because it does not bring much.
   * Refactoring of all events processing into shared services.
   * Removed last remainign enums in favor of string identifiers.
 
 ### May 9th, 2018
 
-* SV-010: - Load available themes and layers lists from static JSON instead of using hardcoded in controls.
+* AC-010: - Load available themes and layers lists from static JSON instead of using hardcoded in controls.
 
 ### May 11th, 2018
 
-* SV-011: - GoTo feature in UI controls
+* AC-011: - GoTo feature in UI controls
   * Search by constellation codes: the view is centered on the typed constellation.
   * extra: view alignment with NS axis, depending on hemisphere.
 
 ### May 17th, 2018
 
-* SV-012:
+* AC-012:
   * Layers model refactored to support hierarchical structures.
   * Constellation code labels are rendered in the view.
 
-* SV-013:
+* AC-013:
   * Constellation names instead of codes are used in labels.
   * GoTo support selection by name, alongside with the selection by code.
   * GoTo allows selection by RA/DEC coordinates.
 
-* SV-014:
+* AC-014:
   * Show star names for those that have own names, as an enablable layer.
   * Show Greek letters for stars identified with letters, as an enablable layer.
 
 ### May 28th, 2018
 
-* SV-015: Release preparation
+* AC-015: Release preparation
   * refactoring, clean-up, tests and inline doc in app/core
 
 ### May 31st, 2018
 
-* SV-016: Release preparation
+* AC-016: Release preparation
   * refactoring, clean-up, tests and inline doc in app/viewport and related
 
 ### June 4th, 2018
 
-* SV-017: Release preparation
+* AC-017: Release preparation
   * refactoring, clean-up, tests and inline doc in app/layers and related
 
 ### June 6th, 2018
 
-* SV-018: Release preparation
+* AC-018: Release preparation
   * more refactoring, clean-up, tests and inline doc in various parts. Refactoring preps phase is now complete.
   * ensure NPM commands complete successfully.
   * remove Protractor stubs, because e2e tests are meaningless at this stage of the project.
 
 ### June 12th, 2018
 
-* SV-019: Release preparation
+* AC-019: Release preparation
   * detailed README.
   * add 'night-view', 'wiki' and 'tiny' themes.
   * replace ugly control buttons with textured ones.
   * refactor, clean-up and document tools/data-import.
 
+### June 13th, 2018
+
+* AC-020: Resizable viewport
+
 ### Next Steps
 
-* SV-020: Resizable viewport feature
+* AC-021: Draggable and hidable UI controls
 
 #### Features after First Public Release
 
