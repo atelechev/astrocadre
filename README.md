@@ -57,7 +57,7 @@ The following VSC extensions are also recommended:
 
 For the tools/data processing part, any IDE supporting Java+Maven projects may be used. However, [IntelliJ IDEA CE](https://www.jetbrains.com/idea/download) was used for development.
 
-Currently, there the application does not have a no specific back-end part. All the served resources are static and they are generated with `./tools/data-import` sub-project (see below).
+Currently, there the application does not have a no specific back-end part. All the served resources are static and they are generated with `./tools/data-import` sub-project.
 
 ---
 
@@ -107,7 +107,7 @@ The project is structured as follows:
  |- {other configuration files}
 ```
 
-`./tools/data-import` contains a Maven project written in Java, allowing to generate static resource JSON files with stellar and other data used in the application. The generated files are placed into `./src/assets` folder and then included into the distribution. For more information about how to generate the static resources and their format, please check the respective `README.md` file in `./tools/data-import`.
+`./tools/data-import` contains a Maven project written in Java, allowing to generate static resource JSON files with stellar and other data used in the application. The generated files are placed into `./src/assets` folder and then included into the distribution. For more information about how to generate the static resources and their format, please check the respective `README.md` file in [`./tools/data-import`](./tools/data-import/README.md).
 
 ---
 
@@ -241,6 +241,18 @@ Themes have the following configurable properties:
 * The sources were made public on Github on June TODO, 2018, with version number 0.18.6.
 
 The detailed project history and notes are available in [follow-up documentation](./doc/follow-up.md).
+
+---
+
+## Version Control and Workflow
+
+The most recent validated version of the project is available on the `master` branch.
+
+Features/user stories/issues are identified with the pattern `AC-{number}`.
+
+When a feature/user story/issue is finished, a tag must be created, named with the respective identifier.
+
+Development branches should be named `dev-AC-{number}`.
 
 ---
 
