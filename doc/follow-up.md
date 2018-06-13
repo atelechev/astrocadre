@@ -126,28 +126,21 @@ To start the app:
 ### June 12th, 2018
 
 * SV-019: Release preparation
-  * detailed README.md
-  * add 'night-view', 'wiki' and 'tiny' themes
+  * detailed README.
+  * add 'night-view', 'wiki' and 'tiny' themes.
   * replace ugly control buttons with textured ones.
-  * refactor, clean-up and document tools/data-import
+  * refactor, clean-up and document tools/data-import.
 
 ### Next Steps
 
 * SV-020: Resizable viewport feature
-
-#### Major Features
-
-_None scheduled currently before first public release is done._
-
-#### TODOs for Release and Distribution
-
-* API to insert AstroCadre in a Web page
 
 #### Features after First Public Release
 
 * Export of current view as image
 * Current position of the Sun and of the Moon (probably, the planets also) - new layer
 * Messier objects layer
+* API to insert AstroCadre in a Web page
 
 * Theme extensions (config through JSON theme definition):
   * configurable step for coordinate lines

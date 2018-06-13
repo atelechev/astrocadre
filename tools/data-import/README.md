@@ -110,7 +110,7 @@ _Output_
 
 The output file is `searchable-items.json`. It contains an array of objects having the following structure:
 
-```json
+```
 [
   {
     "type": "constellation",

@@ -1,6 +1,6 @@
 # AstroCadre
 
-_Astronomy sky charts viewer application_
+_Astronomy sky charts browsing application_
 
 
 ## Description
@@ -140,7 +140,7 @@ Themes allow to switch easily between different sets of graphical representation
 
 All available graphic themes are described in `/src/assets/themes/themes.json` file. To add a new theme definition, the following structure should be appended to the `items` array:
 
-```json
+```
 {
   "code": "theme-code",         // mandatory, should be alphanumeric, without spaces.
   "label": "Theme label",       // optinal, the label to show in the UI controls.
@@ -157,7 +157,7 @@ For each theme item declared in `themes.json`, a corresponding `.json` file must
 
 Themes have the following configurable properties:
 
-```json
+```
 {
   "code": "string",    // redundant with respective "code" value from themes.json
   "background": {
