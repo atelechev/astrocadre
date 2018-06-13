@@ -9,12 +9,12 @@ export class Constants {
   /**
    * The width of the main view in pixels.
    */
-  public static readonly VIEW_WIDTH: number = 700;
+  public static readonly VIEW_WIDTH: number = Constants.roundToUpperHundred(window.screen.width * 2 / 3);
 
   /**
    * The height of the main view in pixels.
    */
-  public static readonly VIEW_HEIGHT: number = 700;
+  public static readonly VIEW_HEIGHT: number = Constants.roundToUpperHundred(window.screen.height * 2 / 3);
 
   /**
    * The radius of the 3D world sky sphere, in Three coordinate units.
@@ -40,6 +40,16 @@ export class Constants {
     offsets.set(Layers.CONSTELLATION_LINES, 0.02);
     offsets.set(Layers.CONSTELLATION_BOUNDARIES, 0.01);
     return offsets;
+  }
+
+  private static roundToUpperHundred(num: number): number {
+    if (num < 100) {
+      return 100;
+    }
+    if (num % 100 === 0) {
+      return num;
+    }
+    return (Math.floor(num / 100) + 1) * 100;
   }
 
   /**

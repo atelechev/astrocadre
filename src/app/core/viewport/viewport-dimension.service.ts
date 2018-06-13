@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Constants } from '../constants';
 import { ScreenCoordinate } from './screen-coordinate';
+import { Dimension } from './dimension';
+import { Subject } from 'rxjs/Subject';
 
 /**
  * Provides access to the dimensions of the current viewport.
@@ -10,13 +12,19 @@ export class ViewportDimensionService {
 
   private static readonly MAX_SIZE = 16384;
 
+  private broadcastDimensionChanged = new Subject<null>();
+
   private width: number;
 
   private height: number;
 
+  /**
+   * Observable to subscribe to intercept events fired when the viewport dimension changes.
+   */
+  public readonly broadcastDimensionChanged$ = this.broadcastDimensionChanged.asObservable();
+
   constructor() {
-    this.width = Constants.VIEW_WIDTH;
-    this.height = Constants.VIEW_HEIGHT;
+    this.setDimension({ width: Constants.VIEW_WIDTH, height: Constants.VIEW_HEIGHT });
   }
 
   /**
@@ -44,23 +52,18 @@ export class ViewportDimensionService {
   }
 
   /**
-   * Setter for the width.
+   * Sets the width and the height from the specified dimension.
    *
-   * @param w must not be less than 1 or greater than MAX_SIZE.
+   * @param dim the dimension to set.
    */
-  public setWidth(w: number): void {
-    this.ensureSizeArgValid(w, 'width');
-    this.width = w;
-  }
-
-  /**
-   * Setter for the height.
-   *
-   * @param h must not be less than 1 or greater than MAX_SIZE.
-   */
-  public setHeight(h: number): void {
-    this.ensureSizeArgValid(h, 'height');
-    this.height = h;
+  public setDimension(dim: Dimension): void {
+    if (dim && (dim.width !== this.width || dim.height !== this.height)) {
+      this.ensureSizeArgValid(dim.width, 'dimension.width');
+      this.ensureSizeArgValid(dim.height, 'dimension.height');
+      this.width = Math.floor(dim.width);
+      this.height = Math.floor(dim.height);
+      this.broadcastDimensionChanged.next();
+    }
   }
 
   /**

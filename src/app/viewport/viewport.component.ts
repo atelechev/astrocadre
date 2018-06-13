@@ -34,6 +34,17 @@ export class ViewportComponent implements AfterViewInit, ThemeAware {
               private cameraService: WorldOriginCameraService,
               private labelsManager: LabelsVisibilityManager,
               private mouseEventHandler: MouseEventsHandler) {
+    this.updateViewportDimension();
+    this.subscribeViewportDimensionChangeEvent();
+  }
+
+  private subscribeViewportDimensionChangeEvent(): void {
+    this.dimensionService.broadcastDimensionChanged$.subscribe(
+      () => this.updateViewportDimension()
+    );
+  }
+
+  private updateViewportDimension(): void {
     this.viewportWidth = this.dimensionService.getWidth() + 'px';
     this.viewportHeight = this.dimensionService.getHeight() + 'px';
   }

@@ -1,5 +1,7 @@
 import { ViewportDimensionService } from './viewport-dimension.service';
 import { TestBed } from '@angular/core/testing';
+import { Dimension } from './dimension';
+import { Constants } from '../constants';
 
 
 describe('ViewportDimensionService', () => {
@@ -15,48 +17,51 @@ describe('ViewportDimensionService', () => {
   const height = 'height';
 
   const assertErrorExpected = (setterFunct: () => void, axis: string) => {
-    expect(() => setterFunct()).toThrow(new Error(`${axis} must be in range [1, 16384]`));
+    expect(() => setterFunct()).toThrow(new Error(`dimension.${axis} must be in range [1, 16384]`));
   };
 
-  it('#setWidth must throw expected error for negative arg', () => {
-    assertErrorExpected(() => service.setWidth(-1), width);
+  const dimension = (w: number, h: number): Dimension => {
+    return { width: w, height: h  };
+  };
+
+  it('#setDimension must throw expected error for negative arg', () => {
+    assertErrorExpected(() => service.setDimension(dimension(-1, 100)), width);
   });
 
-  it('#setWidth must throw expected error for zero arg', () => {
-    assertErrorExpected(() => service.setWidth(0), width);
+  it('#setDimension must throw expected error for zero arg', () => {
+    assertErrorExpected(() => service.setDimension(dimension(0, 100)), width);
   });
 
-  it('#setWidth must throw expected error for arg greater than max supported', () => {
-    assertErrorExpected(() => service.setWidth(16385), width);
+  it('#setDimension must throw expected error for arg greater than max supported', () => {
+    assertErrorExpected(() => service.setDimension(dimension(16385, 100)), width);
   });
 
-  it('#setWidth should set the width from valid value', () => {
+  it('#setDimension should set the width from valid value', () => {
     const value = 100;
-    service.setWidth(value);
+    service.setDimension(dimension(value, 100));
     expect(service.getWidth()).toBe(value);
   });
 
-  it('#setHeight must throw expected error for negative arg', () => {
-    assertErrorExpected(() => service.setHeight(-1), height);
+  it('#setDimension must throw expected error for negative arg', () => {
+    assertErrorExpected(() => service.setDimension(dimension(100, -1)), height);
   });
 
-  it('#setHeight must throw expected error for zero arg', () => {
-    assertErrorExpected(() => service.setHeight(0), height);
+  it('#setDimension must throw expected error for zero arg', () => {
+    assertErrorExpected(() => service.setDimension(dimension(100, 0)), height);
   });
 
-  it('#setHeight must throw expected error for arg greater than max supported', () => {
-    assertErrorExpected(() => service.setHeight(16385), height);
+  it('#setDimension must throw expected error for arg greater than max supported', () => {
+    assertErrorExpected(() => service.setDimension(dimension(100, 16385)), height);
   });
 
-  it('#setHeight should set the height from valid value', () => {
+  it('#setDimension should set the height from valid value', () => {
     const value = 100;
-    service.setHeight(value);
+    service.setDimension(dimension(100, value));
     expect(service.getHeight()).toBe(value);
   });
 
   const ensureViewportDimenstion = (w: number, h: number) => {
-    service.setWidth(w);
-    service.setHeight(h);
+    service.setDimension(dimension(w, h));
   };
 
   const coord = (x: number, y: number) => {
@@ -121,6 +126,62 @@ describe('ViewportDimensionService', () => {
   it('#getAspect returns 2 when width is two times greater than height', () => {
     ensureViewportDimenstion(200, 100);
     expect(service.getAspect()).toBeCloseTo(2, 3);
+  });
+
+  it('#broadcastDimensionChanged should broadcast dimension change', () => {
+    const dim = dimension(1000, 1000);
+    expect(service.getWidth()).toBe(Constants.VIEW_WIDTH);
+    expect(service.getHeight()).toBe(Constants.VIEW_HEIGHT);
+    const subscribed = service.broadcastDimensionChanged$.subscribe(
+      () => {
+        expect(service.getWidth()).toBe(dim.width);
+        expect(service.getHeight()).toBe(dim.height);
+      }
+    );
+    service.setDimension(dim);
+    subscribed.unsubscribe();
+  });
+
+  it('#broadcastDimensionChanged should not broadcast event if arg is undefined', () => {
+    const subscribed = service.broadcastDimensionChanged$.subscribe(
+      () => {
+        throw new Error('event must not have been broadcasted!');
+      }
+    );
+    service.setDimension(undefined);
+    subscribed.unsubscribe();
+  });
+
+  it('#broadcastDimensionChanged should not broadcast event if arg is same as current dimension', () => {
+    const subscribed = service.broadcastDimensionChanged$.subscribe(
+      () => {
+        throw new Error('event must not have been broadcasted!');
+      }
+    );
+    service.setDimension(dimension(Constants.VIEW_WIDTH, Constants.VIEW_HEIGHT));
+    subscribed.unsubscribe();
+  });
+
+  it('#broadcastDimensionChanged should not broadcast event if width is invalid', () => {
+    const subscribed = service.broadcastDimensionChanged$.subscribe(
+      () => {
+        throw new Error('event must not have been broadcasted!');
+      }
+    );
+    const newDim = dimension(-1, Constants.VIEW_HEIGHT);
+    assertErrorExpected(() => service.setDimension(newDim), width);
+    subscribed.unsubscribe();
+  });
+
+  it('#broadcastDimensionChanged should not broadcast event if height is invalid', () => {
+    const subscribed = service.broadcastDimensionChanged$.subscribe(
+      () => {
+        throw new Error('event must not have been broadcasted!');
+      }
+    );
+    const newDim = dimension(Constants.VIEW_WIDTH, -1);
+    assertErrorExpected(() => service.setDimension(newDim), height);
+    subscribed.unsubscribe();
   });
 
 });

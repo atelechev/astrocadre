@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs/Subject';
 import { AxialRotation } from './axial-rotation';
 import { SkyCoordinate } from './sky-coordinate';
-import { Dimension } from './dimension';
 
 /**
  * Used to exchange events and messages related with the main viewport area.
@@ -17,8 +16,6 @@ export class ViewportEventService {
   private requestFov = new Subject<number>();
 
   private requestAxisAlignment = new Subject<null>();
-
-  private requestResizeView = new Subject<Dimension>();
 
   private broadcastViewportChanged = new Subject<null>();
 
@@ -41,11 +38,6 @@ export class ViewportEventService {
    * Observable to subscribe to when the camera is requested to align with the South-North axis.
    */
   public readonly requestAxisAlignment$ = this.requestAxisAlignment.asObservable();
-
-  /**
-   * Observable to subscribe to when the vieport is requested to be resized.
-   */
-  public readonly requestResizeView$ = this.requestResizeView.asObservable();
 
   /**
    * Observable to subscribe to intercept events fired when a viewport change is completed.
@@ -84,15 +76,6 @@ export class ViewportEventService {
    */
   public axisAlignmentRequested(): void {
     this.requestAxisAlignment.next();
-  }
-
-  /**
-   * Broadcast an event to request the viewport to be resized.
-   *
-   * @param dimension the new dimension of the viewport.
-   */
-  public resizeViewRequested(dimension: Dimension): void {
-    this.requestResizeView.next(dimension);
   }
 
   /**

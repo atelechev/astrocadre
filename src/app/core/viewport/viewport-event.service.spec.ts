@@ -47,24 +47,11 @@ describe('ViewportEventService', () => {
     subscribed.unsubscribe();
   });
 
-  it('#resizeViewRequested should broadcast the event', () => {
-    const newDim: Dimension = { width: 100, height: 200 };
-    const subscribed = service.requestResizeView$.subscribe(
-      (dim: Dimension) => {
-        expect(dim.width).toBe(newDim.width);
-        expect(dim.height).toBe(newDim.height);
-      }
-    );
-    service.resizeViewRequested(newDim);
-    subscribed.unsubscribe();
-  });
-
   it('#viewportChanged should broadcast the event', () => {
     const subscribed = service.broadcastViewportChanged$.subscribe(
       () => {} // TODO how to test it?
     );
     subscribed.unsubscribe();
   });
-
 
 });

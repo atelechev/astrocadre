@@ -12,9 +12,9 @@ import { ScreenCoordinate } from '../core/viewport/screen-coordinate';
 @Injectable()
 export class LabelsVisibilityManager {
 
-  private readonly halfWidth: number;
+  private halfWidth: number;
 
-  private readonly halfHeight: number;
+  private halfHeight: number;
 
   private readonly camera: Camera;
 
@@ -22,10 +22,21 @@ export class LabelsVisibilityManager {
 
   constructor(private dimensionService: ViewportDimensionService,
               cameraService: WorldOriginCameraService) {
-    this.halfWidth = this.dimensionService.getWidth() / 2;
-    this.halfHeight = this.dimensionService.getHeight() / 2;
+    this.updateHalfDimensions();
     this.frustum = new Frustum();
     this.camera = cameraService.getCamera();
+    this.subscribeViewportDimensionChangeEvent();
+  }
+
+  private subscribeViewportDimensionChangeEvent(): void {
+    this.dimensionService.broadcastDimensionChanged$.subscribe(
+      () => this.updateHalfDimensions()
+    );
+  }
+
+  private updateHalfDimensions(): void {
+    this.halfWidth = this.dimensionService.getWidth() / 2;
+    this.halfHeight = this.dimensionService.getHeight() / 2;
   }
 
   /**

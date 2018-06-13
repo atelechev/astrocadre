@@ -2,3 +2,8 @@
 .selector_size {
   width: 45px;
 }
+
+#button_resize_view {
+  width: 75px;
+  height: 30px;
+}

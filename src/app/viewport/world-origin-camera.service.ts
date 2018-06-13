@@ -21,9 +21,9 @@ export class WorldOriginCameraService {
   private camera: PerspectiveCamera;
 
   constructor(private viewportService: ViewportEventService,
-              dimensionService: ViewportDimensionService) {
+              private dimensionService: ViewportDimensionService) {
     this.camera = new PerspectiveCamera(this.initialFov,
-                                        dimensionService.getAspect(),
+                                        this.dimensionService.getAspect(),
                                         this.nearPlane,
                                         this.farPlane);
     this.coordsMarkerObject = this.initCoordsMarkerObject();
@@ -32,6 +32,16 @@ export class WorldOriginCameraService {
     this.subscribeFovChangeEvent();
     this.subscribeViewCenterChangeEvent();
     this.subscribeAxisAlignmentEvent();
+    this.subscribeViewportDimensionChangeEvent();
+  }
+
+  private subscribeViewportDimensionChangeEvent(): void {
+    this.dimensionService.broadcastDimensionChanged$.subscribe(
+      () => {
+        this.camera.aspect = this.dimensionService.getAspect();
+        this.camera.updateProjectionMatrix();
+      }
+    );
   }
 
   private subscribeAxialRotationEvent(): void {

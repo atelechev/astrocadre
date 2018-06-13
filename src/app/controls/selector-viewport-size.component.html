@@ -1,18 +1,40 @@
 
 <div class="ui-section">
-  <span>w=</span>
-  <input type="number"
-         title="The width of the viewport, in pixels"
-         class="selector_size"
-         min="100"
-         max="1600"
-         step="100"/>px&nbsp;
-  <span>h=</span>
-  <input type="number"
-         title="The height of the viewport, in pixels"
-         class="selector_size"
-         min="100"
-         max="900"
-         step="100"/>px&nbsp;
-  <button type="button">Resize</button>
+  <table>
+    <tbody>
+      <tr>
+        <td>
+            <span>width =</span>&nbsp;
+            <input type="number"
+                   title="The width of the viewport, in pixels"
+                   class="selector_size"
+                   [(ngModel)]="width"
+                   (change)="dimensionChanged()"
+                   min="100"
+                   max="1600"
+                   step="100"/>&nbsp;px
+        </td>
+        <td rowspan="2">
+            <button type="button"
+                    id="button_resize_view"
+                    [disabled]="!enabled"
+                    (click)="fireResizeEvent()">Resize</button>
+        </td>
+      </tr>
+      <tr>
+        <td>
+            <span>height =</span>&nbsp;
+            <input type="number"
+                   title="The height of the viewport, in pixels"
+                   class="selector_size"
+                   [(ngModel)]="height"
+                   (change)="dimensionChanged()"
+                   min="100"
+                   max="900"
+                   step="100"/>&nbsp;px
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
 </div>

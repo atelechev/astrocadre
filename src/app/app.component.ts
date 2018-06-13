@@ -11,11 +11,12 @@ import { Layers } from './core/layers';
 import { StarLabelVisibility } from './core/layer/star-label-visibility';
 import { StarsMagnitudeLayer } from './layers/stars-magnitude-layer';
 import { RenderableLayer } from './core/layer/renderable-layer';
+import { ViewportDimensionService } from './core/viewport/viewport-dimension.service';
 
 @Component({
   selector: `app-astrocadre`,
   templateUrl: './app.component.html',
-  styleUrls: [ './app.component.css' ],
+  styleUrls: [ ],
   providers: [
     ViewportComponent,
     ThemesComponent,
@@ -38,8 +39,15 @@ export class AppComponent implements OnInit {
   constructor(private changeDetector: ChangeDetectorRef,
               private layersEventService: LayersEventService,
               private themesEventService: ThemesEventService,
-              private viewportEventService: ViewportEventService) {
+              private viewportEventService: ViewportEventService,
+              private viewportDimensionService: ViewportDimensionService) {
     this.themeAwareComponents = new Array<ThemeAware>();
+  }
+
+  private subscribeViewportDimensionChangeEvent(): void {
+    this.viewportDimensionService.broadcastDimensionChanged$.subscribe(
+      () => this.updateLabelsVisibilityForAllLayers()
+    );
   }
 
   private subscribeLayerLoadedEvent(): void {
@@ -162,6 +170,7 @@ export class AppComponent implements OnInit {
     this.subscribeStarsMagnitudeRequestEvent();
     this.subscribeStarsLabelsVisibilityRequestEvent();
     this.subscribeStarsLabelsTypeRequestEvent();
+    this.subscribeViewportDimensionChangeEvent();
     // necessary to avoid the nasty "Expression has changed after it was checked." error:
     this.changeDetector.detectChanges();
   }

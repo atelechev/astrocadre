@@ -14,12 +14,23 @@ export class SceneManager {
 
   private renderer: WebGLRenderer;
 
-  constructor(dimensionService: ViewportDimensionService,
+  constructor(private dimensionService: ViewportDimensionService,
               private cameraService: WorldOriginCameraService) {
     this.scene = new Scene();
     this.renderer = new WebGLRenderer();
-    this.renderer.setSize(dimensionService.getWidth(),
-                          dimensionService.getHeight());
+    this.updateCanvasSize();
+    this.subscribeViewportDimensionChangeEvent();
+  }
+
+  private subscribeViewportDimensionChangeEvent(): void {
+    this.dimensionService.broadcastDimensionChanged$.subscribe(
+      () => this.updateCanvasSize()
+    );
+  }
+
+  private updateCanvasSize(): void {
+    this.renderer.setSize(this.dimensionService.getWidth(),
+                          this.dimensionService.getHeight());
   }
 
   private addObject(object: Object3D): void {
