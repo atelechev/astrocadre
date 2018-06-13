@@ -7,6 +7,7 @@ import { CameraControlsComponent } from './camera-controls.component';
 import { FormsModule } from '@angular/forms';
 import { GoToComponent } from './go-to.component';
 import { SelectorLayersStarsComponent } from './selector-layers-stars.component';
+import { SelectorViewportSizeComponent } from './selector-viewport-size.component';
 
 @NgModule({
   declarations: [
@@ -15,7 +16,8 @@ import { SelectorLayersStarsComponent } from './selector-layers-stars.component'
     SelectorLayersComponent,
     SelectorLayersStarsComponent,
     CameraControlsComponent,
-    GoToComponent
+    GoToComponent,
+    SelectorViewportSizeComponent
   ],
   exports: [
     ControlsComponent
@@ -29,7 +31,8 @@ import { SelectorLayersStarsComponent } from './selector-layers-stars.component'
     SelectorThemeComponent,
     SelectorLayersComponent,
     SelectorLayersStarsComponent,
-    GoToComponent
+    GoToComponent,
+    SelectorViewportSizeComponent
   ]
 })
 export class ControlsModule {
