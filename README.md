@@ -5,7 +5,15 @@ _Astronomy sky charts browsing application_
 
 ## Description
 
-TODO
+This is an application that allows to view sky maps using a Web browser:
+
+<img src="doc/screenshots/demo_01.png" alt="Full view screenshot" width="600">
+
+It provides various possibilities for showing different layers and easily changing graphical appearance:
+
+<img src="doc/screenshots/demo_03.png" alt="demo screenshot 3" width="300"> <img src="doc/screenshots/demo_04.png" alt="demo screenshot 4" width="300">
+
+It is written in Angular/TypeScript and should work in any modern Web browser.
 
 ## What is This Thing for?
 
@@ -25,7 +33,28 @@ The application has been designed keeping in mind to make it flexible and provid
 
 ## UI Controls
 
-TODO
+The main viewport is interactive:
+  * dragging with the mouse allows to navigate in all directions of the view.
+  * a double click in the view aligns it on the North or South axis to the top, depending on the hemisphere where the view is centered.
+
+The UI controls component provide more features:
+
+<img src="doc/screenshots/ui_controls.png" alt="UI controls" width="240">
+
+All elements of the UI controls have tool tips. All their functionalities can be summarized as follows:
+
+* "GoTo" section: type a constellation code ('and'), name ('andromeda'), star name ('sirius') or sky coordinate in decimal degrees ('185 -60') to center the view on the requested point.
+
+* "Theme" drop-down: selection of graphical theme for the main view.
+
+* "Layers" section: toggle the display of available layers, labels and stars by magnitude. Either proper ('Antares', 'Deneb'...) or standard/Bayer ('Alpha', 'Beta', 'Gamma'...) stellar names can be shown.
+
+* Navigation buttons: 
+  * top row: rotate clockwise, go up, rotate counter-clockwise buttons.
+  * middle row: go left, down or right buttons.
+  * bottom row: change the field of view, actions step in degrees, align with S-N axis buttons.
+
+* Viewport size controls: select the width and the height of the viewport.
 
 ---
 
@@ -57,7 +86,7 @@ The following VSC extensions are also recommended:
 
 For the tools/data processing part, any IDE supporting Java+Maven projects may be used. However, [IntelliJ IDEA CE](https://www.jetbrains.com/idea/download) was used for development.
 
-Currently, there the application does not have a no specific back-end part. All the served resources are static and they are generated with `./tools/data-import` sub-project.
+Currently, the application does not have a specific back-end part. All the served resources are static and they are generated using `./tools/data-import` sub-project.
 
 ---
 
@@ -74,11 +103,11 @@ The following commands runnable with `npm {command}` or `npm run {command}` are 
 * `clean`: removes the contents of the current `dist` directory, supposed to contain last production build files.
 * `start`: executes a build in _development_ mode and launches the server on `http://localhost:4200`.
 * `build:dev`: executes a build in _development_ mode, without starting the server.
-* `build:prod`: cleans the current distribution files and exeutes a build in _production_ mode. The resulting files are placed in the `./dist` folder.
+* `build:prod`: cleans the current distribution files and executes a build in _production_ mode. The resulting files are placed in the `./dist` folder.
 * `test`: executes the unit tests.
 * `lint`: executes linting checks.
 
-Quickstart: after cloning the source repository, `npm start` command should launch the application at `localhost:4200`.
+_Quickstart_: after cloning the source repository, `npm start` command should launch the application at `localhost:4200`.
 
 The commands above should work equally from VSC integrated terminals or from any terminal/CLI tools.
 
@@ -138,7 +167,7 @@ Themes allow to switch easily between different sets of graphical representation
 
 ### Theme Metadata
 
-All available graphic themes are described in `/src/assets/themes/themes.json` file. To add a new theme definition, the following structure should be appended to the `items` array:
+All available graphic themes are described in `/src/assets/themes/themes.json` file. To add a new theme definition, the following structure should be appended to its `items` array:
 
 ```
 {
@@ -238,7 +267,7 @@ Themes have the following configurable properties:
 
 * The POC development started on April 15th, 2018.
 
-* The sources were made public on Github on June TODO, 2018, with version number 0.18.6.
+* The sources were made public on Github on June 14th, 2018, with version number 0.18.6.
 
 The detailed project history and notes are available in [follow-up documentation](./doc/follow-up.md).
 
