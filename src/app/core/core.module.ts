@@ -6,6 +6,7 @@ import { LayersEventService } from './layer/layers-event.service';
 import { StaticDataService } from './static-data-service';
 import { SearchService } from './search/search.service';
 import { LayersTreeValidator } from './controls/layers-tree-validator';
+import { ViewportDimensionService } from './viewport/viewport-dimension.service';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { LayersTreeValidator } from './controls/layers-tree-validator';
     ThemesEventService,
     ViewportEventService,
     LayersEventService,
-    SearchService
+    SearchService,
+    ViewportDimensionService
   ]
 })
 export class CoreModule {

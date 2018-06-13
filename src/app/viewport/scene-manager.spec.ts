@@ -3,7 +3,7 @@ import { TestBed } from '@angular/core/testing';
 import { Scene, Color, Object3D } from 'three';
 import { Theme } from '../core/theme/theme';
 import { emptyThemeDef, assertColorsSame } from '../core/theme/abstract-factories.spec';
-import { ViewportDimensionService } from './viewport-dimension.service';
+import { ViewportDimensionService } from '../core/viewport/viewport-dimension.service';
 import { WorldOriginCameraService } from './world-origin-camera.service';
 import { ViewportEventService } from '../core/viewport/viewport-event.service';
 

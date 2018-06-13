@@ -6,15 +6,14 @@ import { ThemeAware } from '../core/theme/theme-aware';
 import { Object3D } from 'three';
 import { RenderableText } from '../core/layer/label/renderable-text';
 import { LabelsVisibilityManager } from './labels-visibility-manager';
-import { ViewportDimensionService } from './viewport-dimension.service';
 import { MouseEventsHandler } from './mouse-events-handler';
+import { ViewportDimensionService } from '../core/viewport/viewport-dimension.service';
 
 @Component({
   selector: `app-astrocadre-viewport`,
   templateUrl: './viewport.component.html',
   styleUrls: [ './viewport.component.css' ],
   providers: [
-    ViewportDimensionService,
     SceneManager,
     WorldOriginCameraService,
     LabelsVisibilityManager,

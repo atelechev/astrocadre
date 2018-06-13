@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { RenderableText } from '../core/layer/label/renderable-text';
 import { Camera, Frustum, Matrix4, Vector3 } from 'three';
 import { WorldOriginCameraService } from './world-origin-camera.service';
-import { ViewportDimensionService } from './viewport-dimension.service';
+import { ViewportDimensionService } from '../core/viewport/viewport-dimension.service';
 import { ScreenCoordinate } from '../core/viewport/screen-coordinate';
 
 /**

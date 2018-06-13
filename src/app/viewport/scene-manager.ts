@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Scene, Object3D, WebGLRenderer } from 'three';
 import { Theme } from '../core/theme/theme';
-import { ViewportDimensionService } from './viewport-dimension.service';
+import { ViewportDimensionService } from '../core/viewport/viewport-dimension.service';
 import { WorldOriginCameraService } from './world-origin-camera.service';
 
 /**

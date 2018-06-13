@@ -2,12 +2,13 @@ import { ViewportEventService } from './viewport-event.service';
 import { TestBed } from '@angular/core/testing';
 import { AxialRotation } from './axial-rotation';
 import { SkyCoordinate } from './sky-coordinate';
+import { Dimension } from './dimension';
 
 describe('ViewportEventService', () => {
 
   let service: ViewportEventService;
 
-  beforeAll(() => {
+  beforeEach(() => {
     TestBed.configureTestingModule({ providers: [ViewportEventService] });
     service = TestBed.get(ViewportEventService);
   });
@@ -43,6 +44,18 @@ describe('ViewportEventService', () => {
     const subscribed = service.requestAxisAlignment$.subscribe(
       () => {} // TODO how to test it?
     );
+    subscribed.unsubscribe();
+  });
+
+  it('#resizeViewRequested should broadcast the event', () => {
+    const newDim: Dimension = { width: 100, height: 200 };
+    const subscribed = service.requestResizeView$.subscribe(
+      (dim: Dimension) => {
+        expect(dim.width).toBe(newDim.width);
+        expect(dim.height).toBe(newDim.height);
+      }
+    );
+    service.resizeViewRequested(newDim);
     subscribed.unsubscribe();
   });
 
