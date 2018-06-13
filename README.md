@@ -5,11 +5,11 @@ _Astronomy sky charts browsing application_
 
 ## Description
 
-This is an application that allows to view sky maps using a Web browser:
+This application allows to view sky maps using a Web browser:
 
 <img src="doc/screenshots/demo_01.png" alt="Full view screenshot" width="600">
 
-It provides various possibilities for showing different layers and easily changing graphical appearance:
+It provides various possibilities for showing different layers and for easily changing graphical appearance:
 
 <img src="doc/screenshots/demo_03.png" alt="demo screenshot 3" width="300"> <img src="doc/screenshots/demo_04.png" alt="demo screenshot 4" width="300">
 
