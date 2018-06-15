@@ -1,14 +1,14 @@
 
-.ui-section table {
+.ui-controls-section table {
   width: 100%;
 }
 
 
-.ui-section table td {
+.ui-controls-section table td {
   text-align: center;
 }
 
-.ui-section button {
+.ui-controls-section button {
   width: 30px;
   height: 30px;
   text-align: center;
