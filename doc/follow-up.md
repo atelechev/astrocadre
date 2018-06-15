@@ -135,9 +135,15 @@ To start the app:
 
 * AC-020: Resizable viewport
 
+### June 15th, 2018
+
+* AC-021: View/Navigation using URL query params
+
+
 ### Next Steps
 
-* AC-021: Draggable and hidable UI controls
+* AC-022: Draggable and hidable UI controls
+
 
 #### Features after First Public Release
 
