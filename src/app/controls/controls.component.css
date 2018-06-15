@@ -9,13 +9,25 @@
   font-size: 11px;
   z-index: 1000;
   width: auto;
+  min-width: 245px;
 }
 
-.ui-section {
-  border: 1px solid gray;
-  border-radius: 5px;
+.ui-controls-section, .ui-controls-head {
   margin: 10px;
   padding: 5px;
+}
+
+.ui-controls-head {
+  text-align: center;
+}
+
+.ui-controls-head input {
+  float: right;
+}
+
+.ui-controls-section {
+  border: 1px solid gray;
+  border-radius: 5px;
 }
 
 .selector_magnitude, .selector_view_step {

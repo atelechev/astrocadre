@@ -2,14 +2,25 @@
 <div id="astrocadre-controls"
       #astrocadreControls>
 
-  <app-astrocadre-controls-go-to></app-astrocadre-controls-go-to>
+  <div class="ui-controls-head">
+    <span>AstroCadre</span>
+    <input type="checkbox"
+           [checked]="toolsVisible"
+           (change)="toggleToolsVisibility()"
+           title="Toggle UI controls visibility"/>
+  </div>
 
-  <app-astrocadre-controls-select-theme></app-astrocadre-controls-select-theme>
+  <div class="ui-controls-tools"
+       [hidden]="!toolsVisible">
+    <app-astrocadre-controls-go-to></app-astrocadre-controls-go-to>
 
-  <app-astrocadre-controls-select-layers></app-astrocadre-controls-select-layers>
+    <app-astrocadre-controls-select-theme></app-astrocadre-controls-select-theme>
 
-  <app-astrocadre-controls-camera></app-astrocadre-controls-camera>
+    <app-astrocadre-controls-select-layers></app-astrocadre-controls-select-layers>
 
-  <app-astrocadre-controls-select-viewport-size></app-astrocadre-controls-select-viewport-size>
+    <app-astrocadre-controls-camera></app-astrocadre-controls-camera>
+
+    <app-astrocadre-controls-select-viewport-size></app-astrocadre-controls-select-viewport-size>
+  </div>
 
 </div>

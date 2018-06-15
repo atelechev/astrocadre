@@ -8,4 +8,14 @@ import { Component } from '@angular/core';
 })
 export class ControlsComponent {
 
+  public toolsVisible: boolean;
+
+  constructor() {
+    this.toolsVisible = true;
+  }
+
+  public toggleToolsVisibility(): void {
+    this.toolsVisible = !this.toolsVisible;
+  }
+
 }
