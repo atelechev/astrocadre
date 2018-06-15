@@ -1,6 +1,6 @@
 import { Layers } from '../core/layers';
 import { RenderableLayer } from '../core/layer/renderable-layer';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { LayersTreeNode } from '../core/layer/layers-tree-node';
 import { SkyGridLayerFactory } from './sky-grid-layer-factory';

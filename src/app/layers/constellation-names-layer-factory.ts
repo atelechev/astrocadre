@@ -2,8 +2,9 @@ import { Injectable } from '@angular/core';
 import { LayerFactory } from './layer-factory';
 import { ConstellationNamesLayer } from './constellation-names-layer';
 import { LayersTreeNode } from '../core/layer/layers-tree-node';
-import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/observable/of';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+
 import { StaticDataService } from '../core/static-data-service';
 import { ConstellationMetadata } from '../core/layer/constellation-metadata';
 import { RenderableText } from '../core/layer/label/renderable-text';
@@ -19,11 +20,11 @@ export class ConstellationNamesLayerFactory implements LayerFactory<Constellatio
   }
 
   public newLayer(tree: LayersTreeNode): Observable<ConstellationNamesLayer> {
-    return this.dataService.getConstellationsMetadata().map(
-      (rawMetadata: ConstellationMetadata[]) => {
+    return this.dataService.getConstellationsMetadata().pipe(
+      map((rawMetadata: ConstellationMetadata[]) => {
         const labels = this.initRenderableLabels(tree.code, rawMetadata);
         return new ConstellationNamesLayer(tree, labels);
-      }
+      })
     );
   }
 

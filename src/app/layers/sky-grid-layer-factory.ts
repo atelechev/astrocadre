@@ -1,3 +1,5 @@
+
+import {of as observableOf,  Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { LineSegments } from 'three';
 import { AxialCurvesFactory } from './geometry/axial-curves-factory';
@@ -5,8 +7,7 @@ import { Layers } from '../core/layers';
 import { LayerFactory } from './layer-factory';
 import { SkyGridLayer } from './sky-grid-layer';
 import { LayersTreeNode } from '../core/layer/layers-tree-node';
-import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/observable/of';
+
 
 
 @Injectable()
@@ -28,7 +29,7 @@ export class SkyGridLayerFactory implements LayerFactory<SkyGridLayer> {
     const referenceMeridian = this.generateReferenceMeridianSegments();
     const referenceParallel = this.generateReferenceParallelSegments();
     const layer = new SkyGridLayer(tree, commonMeridians, commonParallels, referenceMeridian, referenceParallel);
-    return Observable.of(layer);
+    return observableOf(layer);
   }
 
   private generateCommonMeridianSegments(): LineSegments {

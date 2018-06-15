@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Subject } from 'rxjs/Subject';
+import { Subject } from 'rxjs';
 import { AxialRotation } from './axial-rotation';
 import { SkyCoordinate } from './sky-coordinate';
 

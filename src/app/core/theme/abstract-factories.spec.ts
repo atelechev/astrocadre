@@ -1,7 +1,7 @@
 import { Material, LineBasicMaterial, Color, PointsMaterial, TextureLoader } from 'three';
 import { TextStyle } from './text-style';
 import { ThemeDefinition } from './theme-definition';
-import { defer } from 'rxjs/observable/defer';
+import { defer } from 'rxjs';
 
 export const IRRELEVANT = 'irrelevant';
 
