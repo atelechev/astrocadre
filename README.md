@@ -31,11 +31,15 @@ The application has been designed keeping in mind to make it flexible and provid
 
 ---
 
-## UI Controls
+## The User Interface
+
+### Main Viewport
 
 The main viewport is interactive:
   * dragging with the mouse allows to navigate in all directions of the view.
   * a double click in the view aligns it on the North or South axis to the top, depending on the hemisphere where the view is centered.
+
+### Control Panel / Tools
 
 The UI controls component provide more features:
 
@@ -55,6 +59,16 @@ All elements of the UI controls have tool tips. All their functionalities can be
   * bottom row: change the field of view, actions step in degrees, align with S-N axis buttons.
 
 * Viewport size controls: select the width and the height of the viewport.
+
+### Navigation
+
+The navigation is also possible using URL query parameter `goto`, for example:
+
+```text
+http://localhost:4200/?goto=dolphin
+```
+
+Will center the view on _Delphinus_ constellation.
 
 ---
 
@@ -107,7 +121,9 @@ The following commands runnable with `npm {command}` or `npm run {command}` are 
 * `test`: executes the unit tests.
 * `lint`: executes linting checks.
 
-_Quickstart_: after cloning the source repository, `npm start` command should launch the application at `localhost:4200`.
+_Quickstart after cloning the source repository:_
+  * `npm install` to retrieve all the necessary dependencies.
+  * `npm start` command should launch the application at `http://localhost:4200`.
 
 The commands above should work equally from VSC integrated terminals or from any terminal/CLI tools.
 

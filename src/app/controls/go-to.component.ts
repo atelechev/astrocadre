@@ -25,11 +25,18 @@ export class GoToComponent {
   private subscribeGotoInitialPosition(): void {
     this.searchService.broadcastItemsLoaded$.subscribe(
       () => {
-        this.searchText = 'Orion';
-        this.goToButtonDisabled = false;
-        this.execGoToSearchRequest();
+        const gotoQueryParam = this.getInitialPositionFromUrlQueryParam();
+        this.goto(gotoQueryParam ? gotoQueryParam : 'Orion');
       }
     );
+  }
+
+  private goto(position: string): void {
+    if (position) {
+      this.searchText = position;
+      this.goToButtonDisabled = false;
+      this.execGoToSearchRequest();
+    }
   }
 
   public updateGoToButtonState(): void {
@@ -52,6 +59,12 @@ export class GoToComponent {
 
   private resetSearchInputCssClass(): void {
     this.searchNoResultsClass = '';
+  }
+
+  private getInitialPositionFromUrlQueryParam(): string {
+    const url = new URL(window.location.href);
+    const searchParams = new URLSearchParams(url.search);
+    return searchParams.get('goto');
   }
 
 }
