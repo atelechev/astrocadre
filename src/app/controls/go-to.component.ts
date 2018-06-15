@@ -19,6 +19,17 @@ export class GoToComponent {
   constructor(private viewportEventService: ViewportEventService,
               private searchService: SearchService) {
     this.goToButtonDisabled = true;
+    this.subscribeGotoInitialPosition();
+  }
+
+  private subscribeGotoInitialPosition(): void {
+    this.searchService.broadcastItemsLoaded$.subscribe(
+      () => {
+        this.searchText = 'Orion';
+        this.goToButtonDisabled = false;
+        this.execGoToSearchRequest();
+      }
+    );
   }
 
   public updateGoToButtonState(): void {

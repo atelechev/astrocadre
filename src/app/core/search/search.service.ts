@@ -3,13 +3,21 @@ import { StaticDataService } from '../static-data-service';
 import { SearchableItem } from './searchable-item';
 import { ensureArgDefined } from '../layer/arg-validation-utils';
 import { SkyCoordinate } from '../viewport/sky-coordinate';
+import { Subject } from 'rxjs/Subject';
 
 @Injectable()
 export class SearchService {
 
   private readonly coordinatesPattern = /(\d+(?:[.,]\d*)?)\s+(-?\d+(?:[.,]\d*)?)/i;
 
+  private broadcastItemsLoaded = new Subject<null>();
+
   private searchableItems: Map<string, SearchableItem>;
+
+  /**
+   * Observable to subscribe to intercept events fired when the items are loaded.
+   */
+  public readonly broadcastItemsLoaded$ = this.broadcastItemsLoaded.asObservable();
 
   constructor(private dataService: StaticDataService) {
     this.initSearchableItems();
@@ -31,6 +39,7 @@ export class SearchService {
               }
             }
           );
+          this.broadcastItemsLoaded.next();
         },
       (error: any) => console.log(`Failed to retrieve searchable items: ${error}`)
     );

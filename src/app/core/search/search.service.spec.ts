@@ -21,7 +21,7 @@ describe('SearchService', () => {
 
   let service: SearchService;
 
-  beforeAll(() => {
+  beforeEach(() => {
     TestBed.configureTestingModule({
       providers: [
         SearchService,
