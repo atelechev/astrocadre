@@ -3,7 +3,7 @@ import { StaticDataService } from '../static-data-service';
 import { SearchableItem } from './searchable-item';
 import { ensureArgDefined } from '../layer/arg-validation-utils';
 import { SkyCoordinate } from '../viewport/sky-coordinate';
-import { Subject } from 'rxjs/Subject';
+import { Subject } from 'rxjs';
 
 @Injectable()
 export class SearchService {

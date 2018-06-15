@@ -1,6 +1,7 @@
+
+import {of as observableOf,  Observable } from 'rxjs';
 import { TestBed } from '@angular/core/testing';
-import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/observable/of';
+
 import { SearchableItem } from './searchable-item';
 import { SearchService } from './search.service';
 import { StaticDataService } from '../static-data-service';
@@ -12,7 +13,7 @@ class MockStaticData {
     const data = [
       { type: 'constellation', code: 'AND', ra: 8.532, dec: 38.906, names: [ 'Andromeda', 'other name']}
     ];
-    return Observable.of(data);
+    return observableOf(data);
   }
 
 }

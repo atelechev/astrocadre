@@ -23,7 +23,7 @@
     "@angular/platform-browser-dynamic": "^6.0.5",
     "@angular/router": "^6.0.5",
     "core-js": "^2.4.1",
-    "rxjs": "^5.6.0-forward-compat.5",
+    "rxjs": "^6.2.1",
     "three": "^0.91.0",
     "zone.js": "^0.8.19"
   },

@@ -1,6 +1,9 @@
-import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/operator/catch';
-import 'rxjs/add/operator/map';
+
+import {throwError as observableThrowError,  Observable } from 'rxjs';
+
+import {catchError, map} from 'rxjs/operators';
+
+
 import { ThemeDefinition } from './theme/theme-definition';
 import { Layers } from './layers';
 import { ConstellationMetadata } from './layer/constellation-metadata';
@@ -47,7 +50,7 @@ export class StaticDataService {
   }
 
   public getConstellationsMetadata(): Observable<ConstellationMetadata[]> {
-    return this.getSearchableItems().map(
+    return this.getSearchableItems().pipe(map(
       (searchables: SearchableItem[]) => {
         return searchables.filter(
           item => item.type === 'constellation'
@@ -56,7 +59,7 @@ export class StaticDataService {
             new ConstellationMetadata(item.code, item.ra, item.dec, item.names)
         );
       }
-    );
+    ));
   }
 
   public getAvailableThemes(): Observable<SectionMetadata> {
@@ -77,18 +80,18 @@ export class StaticDataService {
   private handleError(res: Response | any): Observable<any> {
     if (res instanceof Response) {
       const body = res.json() || '';
-      return Observable.throw(res);
+      return observableThrowError(res);
     }
     if (res.error) {
-      return Observable.throw(res.error);
+      return observableThrowError(res.error);
     }
-    return Observable.throw('Failed to retrieve data JSON from server.');
+    return observableThrowError('Failed to retrieve data JSON from server.');
   }
 
   private execGetRequestForUrl(url: string): Observable<any> {
-    return this.httpClient.get(url)
-                    .map((res: Response) => res.json ? res.json() : res)
-                    .catch(this.handleError);
+    return this.httpClient.get(url).pipe(
+                    map((res: Response) => res.json ? res.json() : res),
+                    catchError(this.handleError),);
   }
 
 }

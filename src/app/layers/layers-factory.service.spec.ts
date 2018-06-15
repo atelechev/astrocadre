@@ -1,3 +1,5 @@
+
+import {of as observableOf,  Observable } from 'rxjs';
 import { LayersFactoryService } from './layers-factory.service';
 import { TestBed } from '@angular/core/testing';
 import { SkyGridLayerFactory } from './sky-grid-layer-factory';
@@ -10,8 +12,7 @@ import { AxialCurvesFactory } from './geometry/axial-curves-factory';
 import { LinesFactory } from './geometry/lines-factory';
 import { PointsFactory } from './geometry/points-factory';
 import { StaticDataService } from '../core/static-data-service';
-import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/observable/of';
+
 import { ConstellationMetadata } from '../core/layer/constellation-metadata';
 import { Layers } from '../core/layers';
 import { LayersTreeNode } from '../core/layer/layers-tree-node';
@@ -29,7 +30,7 @@ class MockStaticData {
       [ 90.0, -61.0, 82.5, -61.0 ],
       [ 350.0, -37.0, 345.0, -37.0 ]
     ];
-    return Observable.of(data);
+    return observableOf(data);
   }
 
   public getConstellationLines(): Observable<number[][]> {
@@ -37,7 +38,7 @@ class MockStaticData {
       [ 56.05, -64.8, 63.6, -62.47 ],
       [ 59.69, -61.4, 56.05, -64.8 ]
     ];
-    return Observable.of(data);
+    return observableOf(data);
   }
 
   public getStarsByMagnitudeClass(magnitudeClass: number): Observable<any[][]> {
@@ -45,7 +46,7 @@ class MockStaticData {
       [ 24.43, -57.24, 0.5, 'Achernar', 'ALP ERI' ],
       [ 37.95, 89.26, 2.0, 'Polaris', 'ALP UMI' ]
     ];
-    return Observable.of(data);
+    return observableOf(data);
   }
 
   public getConstellationsMetadata(): Observable<ConstellationMetadata[]> {
@@ -53,7 +54,7 @@ class MockStaticData {
       { type: 'constellation', code: 'AND', ra: 8.532, dec: 38.906, names: [ 'Andromeda', 'Andromeda' ] },
       { type: 'constellation', code: 'ANT', ra: 150.722, dec: -33.231, names: [ 'Antlia', 'Pump' ] }
     ];
-    return Observable.of(data);
+    return observableOf(data);
   }
 
 }

@@ -1,10 +1,11 @@
+
+import {of as observableOf,  Observable } from 'rxjs';
 import { TestBed } from '@angular/core/testing';
 import { ViewportEventService } from '../core/viewport/viewport-event.service';
 import { GoToComponent } from './go-to.component';
 import { SearchService } from '../core/search/search.service';
 import { StaticDataService } from '../core/static-data-service';
-import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/observable/of';
+
 import { SearchableItem } from '../core/search/searchable-item';
 import { SkyCoordinate } from '../core/viewport/sky-coordinate';
 
@@ -14,7 +15,7 @@ class MockStaticData {
     const data = [
       { type: 'constellation', code: 'AND', ra: 8.532, dec: 38.906, names: [ 'Andromeda', 'other name']}
     ];
-    return Observable.of(data);
+    return observableOf(data);
   }
 
 }
