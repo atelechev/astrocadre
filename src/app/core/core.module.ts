@@ -5,8 +5,8 @@ import { ViewportEventService } from './viewport/viewport-event.service';
 import { LayersEventService } from './layer/layers-event.service';
 import { StaticDataService } from './static-data-service';
 import { SearchService } from './search/search.service';
-import { LayersTreeValidator } from './controls/layers-tree-validator';
 import { ViewportDimensionService } from './viewport/viewport-dimension.service';
+import { DraggableElementsHandler } from './controls/draggable-elements-handler';
 
 @NgModule({
   declarations: [
@@ -22,7 +22,8 @@ import { ViewportDimensionService } from './viewport/viewport-dimension.service'
     ViewportEventService,
     LayersEventService,
     SearchService,
-    ViewportDimensionService
+    ViewportDimensionService,
+    DraggableElementsHandler
   ]
 })
 export class CoreModule {
