@@ -147,10 +147,12 @@ To start the app:
 
 ### Next Steps
 
-AC-023: Export of current view as image
+AC-023: Layers loading: there should not be intermediate SelectableItem objects, use the layers tree directly. All available layers should be shown by default on loading.
 
-#### Features after First Public Release
+#### New Features to Implement
 
+* Export of current view as image
+* Possibility to add markers at any position in the viewport
 * Current position of the Sun and of the Moon (probably, the planets also) - new layer
 * Messier objects layer
 * API to insert AstroCadre in a Web page
@@ -160,7 +162,11 @@ AC-023: Export of current view as image
   * configurable line width and dash style
   * pre-defined star magnitudes shown
 
-#### Low priority improvements for POC
+#### Refactoring
+
+(To be defined, there are many things to refactor!)
+
+#### Low Priority Improvements
 
 * S-N direction arrow
 * star colors depending on their class/temperature
