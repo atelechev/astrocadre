@@ -3,8 +3,8 @@ import { TestBed } from '@angular/core/testing';
 import { HttpClient } from '@angular/common/http';
 import { HttpErrorResponse } from '@angular/common/http';
 import { emptyThemeDef, asyncData, asyncError } from './theme/abstract-factories.spec';
-import 'rxjs/add/observable/throw';
-import { Observable } from 'rxjs/Observable';
+
+import { Observable } from 'rxjs';
 import { ConstellationMetadata } from './layer/constellation-metadata';
 
 describe('StaticDataService', () => {

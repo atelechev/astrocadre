@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Subject } from 'rxjs/Subject';
+import { Subject } from 'rxjs';
 import { LayerVisibility } from './layer-visibility';
 import { StarLabelVisibility } from './star-label-visibility';
 import { LayersTreeNode } from './layers-tree-node';

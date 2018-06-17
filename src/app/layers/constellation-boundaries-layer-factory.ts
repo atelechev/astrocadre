@@ -2,8 +2,9 @@ import { Injectable } from '@angular/core';
 import { ConstellationBoundariesLayer } from './constellation-boundaries-layer';
 import { LayerFactory } from './layer-factory';
 import { LayersTreeNode } from '../core/layer/layers-tree-node';
-import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/observable/of';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+
 import { AxialCurvesFactory } from './geometry/axial-curves-factory';
 import { StaticDataService } from '../core/static-data-service';
 import { Layers } from '../core/layers';
@@ -17,11 +18,11 @@ export class ConstellationBoundariesLayerFactory implements LayerFactory<Constel
   }
 
   public newLayer(tree: LayersTreeNode): Observable<ConstellationBoundariesLayer> {
-    return this.dataService.getConstellationBoundaries().map(
-      (rawBoundaries: number[][]) => {
-        const boundaries = this.objectsFactory.createObject3D(Layers.CONSTELLATION_BOUNDARIES, rawBoundaries);
-        return new ConstellationBoundariesLayer(tree, boundaries);
-      }
+    return this.dataService.getConstellationBoundaries().pipe(
+      map((rawBoundaries: number[][]) => {
+          const boundaries = this.objectsFactory.createObject3D(Layers.CONSTELLATION_BOUNDARIES, rawBoundaries);
+          return new ConstellationBoundariesLayer(tree, boundaries);
+      })
     );
   }
 

@@ -139,15 +139,18 @@ To start the app:
 
 * AC-021: View/Navigation using URL query params
 
+### June 17th, 2018
+
+* AC-022:
+  * Draggable and hidable UI controls.
+  * Migrated on Angular 6 and RxJs 6.
 
 ### Next Steps
 
-* AC-022: Draggable and hidable UI controls
-
+AC-023: Export of current view as image
 
 #### Features after First Public Release
 
-* Export of current view as image
 * Current position of the Sun and of the Moon (probably, the planets also) - new layer
 * Messier objects layer
 * API to insert AstroCadre in a Web page
