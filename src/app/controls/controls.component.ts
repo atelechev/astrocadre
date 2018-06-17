@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
+import { DraggableElementsHandler } from '../core/controls/draggable-elements-handler';
 
 @Component({
   selector: 'app-astrocadre-controls',
@@ -6,16 +7,23 @@ import { Component } from '@angular/core';
   styleUrls: ['./controls.component.css'],
   providers: []
 })
-export class ControlsComponent {
+export class ControlsComponent implements AfterViewInit {
+
+  @ViewChild('astrocadreControls')
+  private astrocadreControls: ElementRef;
 
   public toolsVisible: boolean;
 
-  constructor() {
+  constructor(private draggableElementsHandler: DraggableElementsHandler) {
     this.toolsVisible = true;
   }
 
   public toggleToolsVisibility(): void {
     this.toolsVisible = !this.toolsVisible;
+  }
+
+  public ngAfterViewInit(): void {
+    this.draggableElementsHandler.makeDraggable(this.astrocadreControls.nativeElement);
   }
 
 }
