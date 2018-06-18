@@ -1,9 +1,9 @@
 import { LayersEventService } from './layers-event.service';
 import { TestBed } from '@angular/core/testing';
-import { LayersTreeNode } from './layers-tree-node';
+import { TreeNode } from '../tree-node';
 import { LayerVisibility } from './layer-visibility';
 import { StarLabelVisibility } from './star-label-visibility';
-import { newLayersTreeNode } from './layers-tree-node.spec';
+import { newTreeNode } from '../tree-node.spec';
 
 describe('ViewportEventService', () => {
 
@@ -24,9 +24,9 @@ describe('ViewportEventService', () => {
   });
 
   it('#loadLayerRequested should broadcast event for the specified params', () => {
-    const params = newLayersTreeNode('test_layer_2', []);
+    const params = newTreeNode('test_layer_2', []);
     const subscribed = service.requestLayerLoad$.subscribe(
-      (l: LayersTreeNode) => expect(l).toBe(params)
+      (l: TreeNode) => expect(l).toBe(params)
     );
     service.loadLayerRequested(params);
     subscribed.unsubscribe();

@@ -1,12 +1,11 @@
-import { LayersTreeNode } from '../core/layer/layers-tree-node';
 import { Layers } from '../core/layers';
 import { SkyGridLayer } from './sky-grid-layer';
 import { LineSegments } from 'three';
-import { newLayersTreeNode } from '../core/layer/layers-tree-node.spec';
+import { newTreeNode } from '../core/tree-node.spec';
 
 describe('SkyGridLayer', () => {
 
-  const treeNode = newLayersTreeNode(Layers.SKY_GRID, []);
+  const treeNode = newTreeNode(Layers.SKY_GRID, []);
 
   const ls = new LineSegments();
 

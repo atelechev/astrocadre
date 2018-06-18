@@ -1,8 +1,8 @@
 import { Object3D } from 'three';
 import { Theme } from '../theme/theme';
 import { ThemeAware } from '../theme/theme-aware';
-import { LayersTreeNode } from './layers-tree-node';
-import { ensureArgDefined } from './arg-validation-utils';
+import { TreeNode } from '../tree-node';
+import { ensureArgDefined } from '../arg-validation-utils';
 import { RenderableText } from './label/renderable-text';
 
 /**
@@ -12,7 +12,7 @@ export class RenderableLayer implements ThemeAware {
 
   private labelsShown: boolean;
 
-  constructor(protected readonly tree: LayersTreeNode) {
+  constructor(protected readonly tree: TreeNode) {
     ensureArgDefined(tree, 'tree');
     this.labelsShown = true;
   }
@@ -77,8 +77,8 @@ export class RenderableLayer implements ThemeAware {
     if (!other) {
       return false;
     }
-    if (this.tree.layers) {
-      const foundAmongChildren = this.tree.layers.find(child => child.code === other.tree.code);
+    if (this.tree.children) {
+      const foundAmongChildren = this.tree.children.find(child => child.code === other.tree.code);
       return foundAmongChildren !== undefined;
     }
     return false;

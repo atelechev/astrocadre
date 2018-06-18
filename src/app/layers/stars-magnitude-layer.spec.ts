@@ -1,5 +1,3 @@
-import { LayersTreeNode } from '../core/layer/layers-tree-node';
-import { Layers } from '../core/layers';
 import { StarsMagnitudeLayerFactory } from './stars-magnitude-layer-factory';
 import { RenderableText } from '../core/layer/label/renderable-text';
 import { toVector3 } from '../core/layer/vector-utils';
@@ -7,13 +5,13 @@ import { Constants } from '../core/constants';
 import { TextOffsetPolicies } from '../core/layer/label/text-offset-policy';
 import { StarsMagnitudeLayer } from './stars-magnitude-layer';
 import { Points } from 'three';
-import { newLayersTreeNode } from '../core/layer/layers-tree-node.spec';
+import { newTreeNode } from '../core/tree-node.spec';
 
 describe('StarsMagnitudeLayer', () => {
 
   const layerName = StarsMagnitudeLayerFactory.LAYER_PREFIX + '1.0';
 
-  const treeNode = newLayersTreeNode(layerName, []);
+  const treeNode = newTreeNode(layerName, []);
 
   const emptyNames = new Map<string, RenderableText>();
 

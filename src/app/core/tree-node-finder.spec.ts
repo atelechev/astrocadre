@@ -1,25 +1,25 @@
-import { LayerNodeFinder } from './layer-node-finder';
+import { TreeNodeFinder } from './tree-node-finder';
 import { TestBed } from '@angular/core/testing';
-import { LayersTreeNode } from './layers-tree-node';
+import { TreeNode } from './tree-node';
 
-describe('LayerNodeFinder', () => {
+describe('TreeNodeFinder', () => {
 
-  let service: LayerNodeFinder;
+  let service: TreeNodeFinder;
 
   beforeEach(() => {
-    TestBed.configureTestingModule({ providers: [LayerNodeFinder] });
-    service = TestBed.get(LayerNodeFinder);
+    TestBed.configureTestingModule({ providers: [TreeNodeFinder] });
+    service = TestBed.get(TreeNodeFinder);
   });
 
-  const newItem = (code: string, children: Array<LayersTreeNode> = []): LayersTreeNode => {
-    return new LayersTreeNode(code, code, undefined, children);
+  const newItem = (code: string, children: Array<TreeNode> = []): TreeNode => {
+    return new TreeNode(code, code, undefined, children);
   };
 
-  it('#findInTree should return undefined if layerCode arg is undefined', () => {
+  it('#findInTree should return undefined if code arg is undefined', () => {
     expect(service.findInTree(undefined, newItem('test'))).toBeUndefined();
   });
 
-  it('#findInTree should return undefined if layerNode arg is undefined', () => {
+  it('#findInTree should return undefined if node arg is undefined', () => {
     expect(service.findInTree('test', undefined)).toBeUndefined();
   });
 

@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { LayersEventService } from '../core/layer/layers-event.service';
-import { LayersTreeNode } from '../core/layer/layers-tree-node';
-import { LayerNodeFinder } from '../core/layer/layer-node-finder';
+import { TreeNode } from '../core/tree-node';
+import { TreeNodeFinder } from '../core/tree-node-finder';
 
 
 @Component({
@@ -12,12 +12,12 @@ import { LayerNodeFinder } from '../core/layer/layer-node-finder';
 })
 export class SelectorLayersComponent {
 
-  public rootLayer: LayersTreeNode;
+  public rootLayer: TreeNode;
 
   constructor(private layersEventService: LayersEventService,
-              private layerNodeFinder: LayerNodeFinder) {
+              private layerNodeFinder: TreeNodeFinder) {
     this.layersEventService.broadcastLayersTreeLoaded$.subscribe(
-      (root: LayersTreeNode) => this.rootLayer = root
+      (root: TreeNode) => this.rootLayer = root
     );
   }
 
@@ -32,12 +32,12 @@ export class SelectorLayersComponent {
     this.layersEventService.layerVisibleRequested({ layer: layerCode, visible: visible });
   }
 
-  private updateSelectorRecursively(layer: LayersTreeNode, visible: boolean): void {
+  private updateSelectorRecursively(layer: TreeNode, visible: boolean): void {
     if (layer) {
       this.requestLayerVisibility(layer.code, visible);
       layer.selected = visible;
-      if (layer.layers) {
-        layer.layers.forEach(subLayer => {
+      if (layer.children) {
+        layer.children.forEach(subLayer => {
           this.updateSelectorRecursively(subLayer, visible);
         });
       }

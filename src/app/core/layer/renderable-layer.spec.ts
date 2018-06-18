@@ -1,11 +1,11 @@
 import { RenderableLayer } from './renderable-layer';
 import { Object3D } from 'three';
-import { newLayersTreeNode } from '../layer/layers-tree-node.spec';
+import { newTreeNode } from '../tree-node.spec';
 
 describe('RenderableLayer', () => {
 
-  const childNode = newLayersTreeNode('child1', []);
-  const parentNode = newLayersTreeNode('parent', [ childNode ]);
+  const childNode = newTreeNode('child1', []);
+  const parentNode = newTreeNode('parent', [ childNode ]);
 
   const parentLayer = new RenderableLayer(parentNode);
   const childLayer = new RenderableLayer(childNode);

@@ -8,7 +8,7 @@ import { SearchService } from './search/search.service';
 import { ViewportDimensionService } from './viewport/viewport-dimension.service';
 import { DraggableElementsHandler } from './controls/draggable-elements-handler';
 import { LayersTreeValidator } from './layer/layers-tree-validator';
-import { LayerNodeFinder } from './layer/layer-node-finder';
+import { TreeNodeFinder } from './tree-node-finder';
 
 @NgModule({
   declarations: [
@@ -27,7 +27,7 @@ import { LayerNodeFinder } from './layer/layer-node-finder';
     ViewportDimensionService,
     DraggableElementsHandler,
     LayersTreeValidator,
-    LayerNodeFinder
+    TreeNodeFinder
   ]
 })
 export class CoreModule {

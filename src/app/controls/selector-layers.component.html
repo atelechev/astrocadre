@@ -2,14 +2,14 @@
 <div class="ui-controls-section">
   <span>Layers:</span><br>
   <ul *ngIf="rootLayer">
-    <li *ngFor="let layer of rootLayer.layers">
+    <li *ngFor="let layer of rootLayer.children">
       <input type="checkbox"
              [checked]="layer.selected"
              (change)="fireLayerChangedEvent(layer.code, $event.target.checked)"
              title="{{layer.description}}"
              name="show_layer_{{layer.code}}">{{ layer.label }}<br>
-      <ul *ngIf="layer.layers && layer.code !== 'stars'">
-        <li *ngFor="let subLayer of layer.layers">
+      <ul *ngIf="layer.children && layer.code !== 'stars'">
+        <li *ngFor="let subLayer of layer.children">
           <!-- TODO refactor to fill it recursively -->
           <input type="checkbox"
                  [checked]="subLayer.selected"
@@ -19,7 +19,7 @@
                  name="show_layer_{{subLayer.code}}">{{ subLayer.label }}<br>
         </li>
       </ul>
-      <ul *ngIf="layer.layers && layer.code === 'stars'">
+      <ul *ngIf="layer.children && layer.code === 'stars'">
         <app-astrocadre-controls-select-stars></app-astrocadre-controls-select-stars>
       </ul>
     </li>

@@ -1,10 +1,10 @@
 import { Layers } from '../core/layers';
 import { Theme } from '../core/theme/theme';
 import { Points, Object3D } from 'three';
-import { LayersTreeNode } from '../core/layer/layers-tree-node';
+import { TreeNode } from '../core/tree-node';
 import { RenderableText } from '../core/layer/label/renderable-text';
 import { RenderableLayer } from '../core/layer/renderable-layer';
-import { ensureArgDefined } from '../core/layer/arg-validation-utils';
+import { ensureArgDefined } from '../core/arg-validation-utils';
 
 export class StarsMagnitudeLayer extends RenderableLayer {
 
@@ -16,7 +16,7 @@ export class StarsMagnitudeLayer extends RenderableLayer {
 
   private shownLabelsType: string;
 
-  constructor(tree: LayersTreeNode,
+  constructor(tree: TreeNode,
               public readonly magClass: number,
               private readonly stars: Points,
               private readonly properNameLabels: Map<string, RenderableText>,

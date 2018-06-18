@@ -1,15 +1,15 @@
 import { SelectableItem } from './selectable-item';
-import { LayersTreeNode } from '../layer/layers-tree-node';
+import { TreeNode } from '../tree-node';
 
 describe('SelectableItem', () => {
 
-  const assertLayerNodeExpected = (node: LayersTreeNode,
+  const assertLayerNodeExpected = (node: TreeNode,
                                    expectedCode: string,
                                    expectedChildrenCount: number) => {
     expect(node).toBeDefined();
     expect(node.code).toBe(expectedCode);
-    expect(node.layers).toBeDefined();
-    expect(node.layers.length).toBe(expectedChildrenCount);
+    expect(node.children).toBeDefined();
+    expect(node.children.length).toBe(expectedChildrenCount);
   };
 
   it('#from should return expected SelectableItem', () => {

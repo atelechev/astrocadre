@@ -1,10 +1,9 @@
 import { LayerFactory } from './layer-factory';
 import { StarsMagnitudeLayer } from './stars-magnitude-layer';
 import { Injectable } from '@angular/core';
-import { LayersTreeNode } from '../core/layer/layers-tree-node';
+import { TreeNode } from '../core/tree-node';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-
 import { StaticDataService } from '../core/static-data-service';
 import { Layers } from '../core/layers';
 import { PointsFactory } from './geometry/points-factory';
@@ -52,7 +51,7 @@ export class StarsMagnitudeLayerFactory implements LayerFactory<StarsMagnitudeLa
     return new RenderableText(layerName, styleKey, center, name, offsetPolicy);
   }
 
-  public newLayer(tree: LayersTreeNode): Observable<StarsMagnitudeLayer> {
+  public newLayer(tree: TreeNode): Observable<StarsMagnitudeLayer> {
     const magClass = parseFloat(tree.code.substr(StarsMagnitudeLayerFactory.LAYER_PREFIX.length));
     return this.dataService.getStarsByMagnitudeClass(magClass).pipe(
       map((rawStars: any[][]) => {

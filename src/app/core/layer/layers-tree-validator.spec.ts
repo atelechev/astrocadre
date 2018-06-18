@@ -1,5 +1,5 @@
 import { LayersTreeValidator } from './layers-tree-validator';
-import { LayersTreeNode } from '../layer/layers-tree-node';
+import { TreeNode } from '../tree-node';
 import { TestBed } from '@angular/core/testing';
 
 describe('LayersTreeValidator', () => {
@@ -11,8 +11,8 @@ describe('LayersTreeValidator', () => {
     service = TestBed.get(LayersTreeValidator);
   });
 
-  const newNode = (code: string, children: Array<LayersTreeNode>): LayersTreeNode => {
-    return new LayersTreeNode(code, undefined, undefined, children);
+  const newNode = (code: string, children: Array<TreeNode>): TreeNode => {
+    return new TreeNode(code, undefined, undefined, children);
   };
 
   it('#validateTree should throw expected error if arg is undefined', () => {

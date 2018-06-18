@@ -1,14 +1,14 @@
 import { Object3D, Material, LineSegments } from 'three';
 import { RenderableLayer } from '../core/layer/renderable-layer';
 import { Theme } from '../core/theme/theme';
-import { LayersTreeNode } from '../core/layer/layers-tree-node';
-import { ensureArgDefined } from '../core/layer/arg-validation-utils';
+import { TreeNode } from '../core/tree-node';
+import { ensureArgDefined } from '../core/arg-validation-utils';
 
 export class SkyGridLayer extends RenderableLayer {
 
   private objects: Object3D[];
 
-  constructor(tree: LayersTreeNode,
+  constructor(tree: TreeNode,
               private readonly commonMeridians: LineSegments,
               private readonly commonParallels: LineSegments,
               private readonly referenceMeridian: LineSegments,

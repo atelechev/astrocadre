@@ -3,7 +3,7 @@ import { Theme } from '../../theme/theme';
 import { TextOffsetPolicy, TextOffsets } from './text-offset-policy';
 import { applyStyleOn } from './text-utils';
 import { HtmlElementFactory } from './html-element-factory';
-import { ensureArgDefined } from '../arg-validation-utils';
+import { ensureArgDefined } from '../../arg-validation-utils';
 
 /**
  * Wraps data about text that can be rendered in the view.

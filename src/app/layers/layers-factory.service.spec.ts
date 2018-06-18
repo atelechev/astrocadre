@@ -1,5 +1,4 @@
-
-import {of as observableOf,  Observable } from 'rxjs';
+import { of as observableOf, Observable } from 'rxjs';
 import { LayersFactoryService } from './layers-factory.service';
 import { TestBed } from '@angular/core/testing';
 import { SkyGridLayerFactory } from './sky-grid-layer-factory';
@@ -12,17 +11,16 @@ import { AxialCurvesFactory } from './geometry/axial-curves-factory';
 import { LinesFactory } from './geometry/lines-factory';
 import { PointsFactory } from './geometry/points-factory';
 import { StaticDataService } from '../core/static-data-service';
-
 import { ConstellationMetadata } from '../core/layer/constellation-metadata';
 import { Layers } from '../core/layers';
-import { LayersTreeNode } from '../core/layer/layers-tree-node';
+import { TreeNode } from '../core/tree-node';
 import { SkyGridLayer } from './sky-grid-layer';
 import { RenderableLayer } from '../core/layer/renderable-layer';
 import { ConstellationBoundariesLayer } from './constellation-boundaries-layer';
 import { ConstellationLinesLayer } from './constellation-lines-layer';
 import { ConstellationNamesLayer } from './constellation-names-layer';
 import { StarsMagnitudeLayer } from './stars-magnitude-layer';
-import { newLayersTreeNode } from '../core/layer/layers-tree-node.spec';
+import { newTreeNode } from '../core/tree-node.spec';
 
 class MockStaticData {
   public getConstellationBoundaries(): Observable<number[][]> {
@@ -82,8 +80,8 @@ describe('LayersFactoryService', () => {
     service = TestBed.get(LayersFactoryService);
   });
 
-  const layerNode = (code: string): LayersTreeNode => {
-    return newLayersTreeNode(code, []);
+  const layerNode = (code: string): TreeNode => {
+    return newTreeNode(code, []);
   };
 
   it('#newRenderableLayer should throw expected error if arg is undefined', () => {

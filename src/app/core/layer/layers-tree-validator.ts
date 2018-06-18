@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
-import { LayersTreeNode } from './layers-tree-node';
-import { ensureArgDefined } from '../layer/arg-validation-utils';
+import { TreeNode } from '../tree-node';
+import { ensureArgDefined } from '../arg-validation-utils';
 
 @Injectable()
 export class LayersTreeValidator {
 
-  public validateTree(treeNode: LayersTreeNode): void {
+  public validateTree(treeNode: TreeNode): void {
     ensureArgDefined(treeNode, 'treeNode');
     const allCodes = this.extractCodes(treeNode).reduce((prev, curr) => prev.concat(curr), []);
     const asSet = new Set(allCodes);
@@ -14,10 +14,10 @@ export class LayersTreeValidator {
     }
   }
 
-  private extractCodes(node: LayersTreeNode): string[] {
+  private extractCodes(node: TreeNode): string[] {
     const ownCode = [ node.code ];
-    if (node.layers) {
-      const childCodes = node.layers.map(n => this.extractCodes(n))
+    if (node.children) {
+      const childCodes = node.children.map(n => this.extractCodes(n))
                                       .reduce((prev, curr) => prev.concat(curr), []);
       return ownCode.concat(childCodes);
     }

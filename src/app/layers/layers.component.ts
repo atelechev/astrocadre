@@ -5,7 +5,7 @@ import { Theme } from '../core/theme/theme';
 import { LayersFactoryService } from './layers-factory.service';
 import { LayersEventService } from '../core/layer/layers-event.service';
 import { LayerVisibility } from '../core/layer/layer-visibility';
-import { LayersTreeNode } from '../core/layer/layers-tree-node';
+import { TreeNode } from '../core/tree-node';
 import { Layers } from '../core/layers';
 import { StarsMagnitudeLayer } from './stars-magnitude-layer';
 import { PointsFactory } from './geometry/points-factory';
@@ -71,23 +71,23 @@ export class LayersComponent implements ThemeAware, OnInit {
 
   private loadLayers(): void {
     this.dataService.getAvailableLayers().subscribe(
-      (rootLayer: LayersTreeNode) => {
+      (rootLayer: TreeNode) => {
         this.layersTreeValidator.validateTree(rootLayer);
-        const rootCopy = LayersTreeNode.from(rootLayer);
+        const rootCopy = TreeNode.from(rootLayer);
         this.layersEventService.layersTreeLoaded(rootCopy);
-        rootCopy.layers.forEach(layer => this.loadLayer(layer));
+        rootCopy.children.forEach(layer => this.loadLayer(layer));
       },
       (error) => console.error(`Failed to load layers from source data: ${error}`)
     );
   }
 
-  private loadLayer(layer: LayersTreeNode): void {
+  private loadLayer(layer: TreeNode): void {
     this.layersFactory.newRenderableLayer(layer).subscribe(
       (loadedLayer: RenderableLayer) => {
         this.loadedLayers.set(loadedLayer.getName(), loadedLayer);
         this.layersEventService.layerLoaded(loadedLayer.getName());
-        if (layer.layers) {
-          layer.layers.forEach(subLayer => this.loadLayer(subLayer));
+        if (layer.children) {
+          layer.children.forEach(subLayer => this.loadLayer(subLayer));
         }
       },
       (error) => console.error(`Failed to load layer '${layer.code}': ${error}`)
@@ -105,7 +105,7 @@ export class LayersComponent implements ThemeAware, OnInit {
 
   private subscribeLayerLoadRequestEvent(): void {
     this.layersEventService.requestLayerLoad$.subscribe(
-      (layer: LayersTreeNode) => this.loadLayer(layer)
+      (layer: TreeNode) => this.loadLayer(layer)
     );
   }
 
