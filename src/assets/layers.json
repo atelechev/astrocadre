@@ -2,7 +2,7 @@
   "code": "root",
   "label": "Root layer (hidden)",
   "description": "Hidden entry layer.",
-  "children": [
+  "nodes": [
     {
       "code": "sky-grid",
       "label": "Coordinates grid",
@@ -12,7 +12,7 @@
       "code": "constellations",
       "label": "Constellations",
       "description": "Constellations visualisation and data",
-      "children": [
+      "nodes": [
         {
           "code": "constellation-boundaries",
           "label": "Boundaries",
@@ -34,7 +34,7 @@
       "code": "stars",
       "label": "Stars",
       "description": "Stars visualisation and data",
-      "children": [
+      "nodes": [
         {
           "code": "stars-mag2.0",
           "label": "Magnitude < 2.0",

@@ -36,8 +36,8 @@ export class SelectorLayersComponent {
     if (layer) {
       this.requestLayerVisibility(layer.code, visible);
       layer.selected = visible;
-      if (layer.children) {
-        layer.children.forEach(subLayer => {
+      if (layer.nodes) {
+        layer.nodes.forEach(subLayer => {
           this.updateSelectorRecursively(subLayer, visible);
         });
       }

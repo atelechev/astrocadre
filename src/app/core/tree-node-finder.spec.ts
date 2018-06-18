@@ -11,8 +11,8 @@ describe('TreeNodeFinder', () => {
     service = TestBed.get(TreeNodeFinder);
   });
 
-  const newItem = (code: string, children: Array<TreeNode> = []): TreeNode => {
-    return new TreeNode(code, code, undefined, children);
+  const newItem = (code: string, childNodes: Array<TreeNode> = []): TreeNode => {
+    return new TreeNode(code, code, undefined, childNodes);
   };
 
   it('#findInTree should return undefined if code arg is undefined', () => {

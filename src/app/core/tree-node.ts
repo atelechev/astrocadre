@@ -10,7 +10,7 @@ export class TreeNode {
   constructor(public readonly code: string,
               public readonly label: string,
               public readonly description?: string,
-              public readonly children?: TreeNode[]) {
+              public readonly nodes?: TreeNode[]) {
     ensureStringDefinedNotEmpty(code, 'code');
     this.selected = true;
   }
@@ -24,7 +24,7 @@ export class TreeNode {
   // TODO add tests
   public static from(node: TreeNode): TreeNode {
     ensureArgDefined(node, 'node');
-    const subLayers = !node.children ? [] : node.children.map(sl => TreeNode.from(sl));
+    const subLayers = !node.nodes ? [] : node.nodes.map(sl => TreeNode.from(sl));
     return new TreeNode(node.code, node.label, node.description, subLayers);
   }
 

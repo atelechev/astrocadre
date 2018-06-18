@@ -75,7 +75,7 @@ export class LayersComponent implements ThemeAware, OnInit {
         this.layersTreeValidator.validateTree(rootLayer);
         const rootCopy = TreeNode.from(rootLayer);
         this.layersEventService.layersTreeLoaded(rootCopy);
-        rootCopy.children.forEach(layer => this.loadLayer(layer));
+        rootCopy.nodes.forEach(layer => this.loadLayer(layer));
       },
       (error) => console.error(`Failed to load layers from source data: ${error}`)
     );
@@ -86,8 +86,8 @@ export class LayersComponent implements ThemeAware, OnInit {
       (loadedLayer: RenderableLayer) => {
         this.loadedLayers.set(loadedLayer.getName(), loadedLayer);
         this.layersEventService.layerLoaded(loadedLayer.getName());
-        if (layer.children) {
-          layer.children.forEach(subLayer => this.loadLayer(subLayer));
+        if (layer.nodes) {
+          layer.nodes.forEach(subLayer => this.loadLayer(subLayer));
         }
       },
       (error) => console.error(`Failed to load layer '${layer.code}': ${error}`)

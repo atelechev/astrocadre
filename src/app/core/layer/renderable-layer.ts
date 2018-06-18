@@ -77,8 +77,8 @@ export class RenderableLayer implements ThemeAware {
     if (!other) {
       return false;
     }
-    if (this.tree.children) {
-      const foundAmongChildren = this.tree.children.find(child => child.code === other.tree.code);
+    if (this.tree.nodes) {
+      const foundAmongChildren = this.tree.nodes.find(child => child.code === other.tree.code);
       return foundAmongChildren !== undefined;
     }
     return false;

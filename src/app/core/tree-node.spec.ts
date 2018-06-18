@@ -1,7 +1,7 @@
 import { TreeNode } from './tree-node';
 
-export const newTreeNode = (code: string, children: Array<TreeNode>): TreeNode => {
-  return new TreeNode(code, undefined, undefined, children);
+export const newTreeNode = (code: string, childNodes: Array<TreeNode>): TreeNode => {
+  return new TreeNode(code, undefined, undefined, childNodes);
 };
 
 describe('TreeNode', () => {

@@ -16,8 +16,8 @@ export class LayersTreeValidator {
 
   private extractCodes(node: TreeNode): string[] {
     const ownCode = [ node.code ];
-    if (node.children) {
-      const childCodes = node.children.map(n => this.extractCodes(n))
+    if (node.nodes) {
+      const childCodes = node.nodes.map(n => this.extractCodes(n))
                                       .reduce((prev, curr) => prev.concat(curr), []);
       return ownCode.concat(childCodes);
     }

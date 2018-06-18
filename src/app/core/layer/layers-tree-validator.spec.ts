@@ -11,8 +11,8 @@ describe('LayersTreeValidator', () => {
     service = TestBed.get(LayersTreeValidator);
   });
 
-  const newNode = (code: string, children: Array<TreeNode>): TreeNode => {
-    return new TreeNode(code, undefined, undefined, children);
+  const newNode = (code: string, childNodes: Array<TreeNode>): TreeNode => {
+    return new TreeNode(code, undefined, undefined, childNodes);
   };
 
   it('#validateTree should throw expected error if arg is undefined', () => {

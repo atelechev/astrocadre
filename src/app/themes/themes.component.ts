@@ -3,6 +3,7 @@ import { Theme } from '../core/theme/theme';
 import { StaticDataService } from '../core/static-data-service';
 import { ThemeDefinition } from '../core/theme/theme-definition';
 import { ThemesEventService } from '../core/theme/themes-event.service';
+import { TreeNode } from '../core/tree-node';
 
 @Component({
   selector: 'app-astrocadre-themes',
@@ -18,6 +19,7 @@ export class ThemesComponent implements OnInit {
   constructor(private dataService: StaticDataService,
               private themesEventService: ThemesEventService) {
     this.loadedThemes = new Map<string, Theme>();
+    this.loadThemes();
   }
 
   private loadTheme(theme: string): void {
@@ -28,6 +30,25 @@ export class ThemesComponent implements OnInit {
         this.themesEventService.themeLoaded(theme);
       },
       (error) => console.error(`Failed to load theme '${theme}': ${error}`)
+    );
+  }
+
+  private loadThemes(): void {
+    this.dataService.getAvailableThemes().subscribe(
+      (themes: TreeNode[]) => {
+        const copyThemes = themes.map(item => {
+          const themeNode = TreeNode.from(item);
+          themeNode.selected = false;
+          return themeNode;
+        });
+        if (copyThemes.length > 0) {
+          copyThemes[0].selected = true;
+          this.loadTheme(copyThemes[0].code);
+          this.themesEventService.themesListLoaded(copyThemes);
+        } else {
+          throw new Error('Unexpected state: no themes registered as available!');
+        }
+      }
     );
   }
 

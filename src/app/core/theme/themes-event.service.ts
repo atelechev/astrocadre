@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
+import { TreeNode } from '../tree-node';
 
 /**
  * Used to exchange events and messages related with Themes.
@@ -7,9 +8,16 @@ import { Subject } from 'rxjs';
 @Injectable()
 export class ThemesEventService {
 
+  private broadcastThemesListLoaded = new Subject<Array<TreeNode>>();
+
   private broadcastThemeLoaded = new Subject<string>();
 
   private requestThemeLoad = new Subject<string>();
+
+  /**
+   * Observable to subscribe to when a component should react on all available Themes list loading event.
+   */
+  public readonly broadcastThemesListLoaded$ = this.broadcastThemesListLoaded.asObservable();
 
   /**
    * Observable to subscribe to when a component should react on Theme loaded event.
@@ -20,6 +28,16 @@ export class ThemesEventService {
    * Observable to subscribe to when a component should react on a request to load a Theme.
    */
   public readonly requestThemeLoad$ = this.requestThemeLoad.asObservable();
+
+
+  /**
+   * Broadcasts an event when the list of available Themes is loaded.
+   *
+   * @param themes the list of loaded themes to broadcast.
+   */
+  public themesListLoaded(themes: Array<TreeNode>): void {
+    this.broadcastThemesListLoaded.next(themes);
+  }
 
   /**
    * Broadcasts an event when a Theme is loaded.
