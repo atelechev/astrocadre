@@ -145,13 +145,16 @@ To start the app:
   * Draggable and hidable UI controls.
   * Migrated on Angular 6 and RxJs 6.
 
+### June 19th, 2018
+
+* AC-023: Refactor layers and themes loading. Decoupled from controls and improved events handling.
+
 ### Next Steps
 
-AC-023: Layers loading: there should not be intermediate SelectableItem objects, use the layers tree directly. All available layers should be shown by default on loading.
+* AC-024: Export of current view as image
 
 #### New Features to Implement
 
-* Export of current view as image
 * Possibility to add markers at any position in the viewport
 * Current position of the Sun and of the Moon (probably, the planets also) - new layer
 * Messier objects layer
