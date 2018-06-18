@@ -1,29 +1,26 @@
 
 <div class="ui-controls-section">
   <span>Layers:</span><br>
-  <ul>
-    <li *ngFor="let layer of availableLayers">
+  <ul *ngIf="rootLayer">
+    <li *ngFor="let layer of rootLayer.layers">
       <input type="checkbox"
-              [checked]="layer.selected"
-              (change)="fireLayerChangedEvent(layer.code, $event.target.checked)"
-              title="{{layer.description}}"
-              name="show_layer_{{layer.code}}">{{ layer.label }}<br>
-      <ul *ngIf="layer.items && layer.code !== 'stars'">
-        <li *ngFor="let subLayer of layer.items">
+             [checked]="layer.selected"
+             (change)="fireLayerChangedEvent(layer.code, $event.target.checked)"
+             title="{{layer.description}}"
+             name="show_layer_{{layer.code}}">{{ layer.label }}<br>
+      <ul *ngIf="layer.layers && layer.code !== 'stars'">
+        <li *ngFor="let subLayer of layer.layers">
           <!-- TODO refactor to fill it recursively -->
           <input type="checkbox"
-            [checked]="subLayer.selected"
-            [disabled]="!layer.selected"
-            (change)="fireLayerChangedEvent(subLayer.code, $event.target.checked)"
-            title="{{subLayer.description}}"
-            name="show_layer_{{subLayer.code}}">{{ subLayer.label }}<br>
+                 [checked]="subLayer.selected"
+                 [disabled]="!layer.selected"
+                 (change)="fireLayerChangedEvent(subLayer.code, $event.target.checked)"
+                 title="{{subLayer.description}}"
+                 name="show_layer_{{subLayer.code}}">{{ subLayer.label }}<br>
         </li>
       </ul>
-      <ul *ngIf="layer.items && layer.code === 'stars'">
-        <app-astrocadre-controls-select-stars
-            [enabled]="layer.selected"
-            [showNames]="layer.selected">
-        </app-astrocadre-controls-select-stars>
+      <ul *ngIf="layer.layers && layer.code === 'stars'">
+        <app-astrocadre-controls-select-stars></app-astrocadre-controls-select-stars>
       </ul>
     </li>
   </ul>

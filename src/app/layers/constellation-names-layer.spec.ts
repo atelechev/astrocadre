@@ -6,12 +6,13 @@ import { RenderableText } from '../core/layer/label/renderable-text';
 import { toVector3 } from '../core/layer/vector-utils';
 import { Constants } from '../core/constants';
 import { TextOffsetPolicies } from '../core/layer/label/text-offset-policy';
+import { newLayersTreeNode } from '../core/layer/layers-tree-node.spec';
 
 describe('ConstellationNamesLayer', () => {
 
   const layerName = Layers.CONSTELLATION_NAMES;
 
-  const treeNode = new LayersTreeNode(layerName, []);
+  const treeNode = newLayersTreeNode(layerName, []);
 
   const initTestRenderables = () => {
     const map = new Map<string, RenderableText>();

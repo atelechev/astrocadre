@@ -60,6 +60,7 @@ export class AppComponent implements OnInit {
         }
         this.viewportManager.addObjects(layer.getObjects());
         this.viewportManager.addTextElements(layer.getTextElements());
+        this.updateLabelsVisibilityForLayer(layer);
       }
     );
   }
@@ -84,14 +85,11 @@ export class AppComponent implements OnInit {
 
   private updateLabelsVisibilityForAllLayers(): void {
     this.layersManager.getLayers().forEach(
-      (layer: RenderableLayer) => this.updateLabelsVisibilityForLayer(layer, undefined)
+      (layer: RenderableLayer) => this.updateLabelsVisibilityForLayer(layer)
     );
   }
 
-  private updateLabelsVisibilityForLayer(layer: RenderableLayer, lv: LayerVisibility): void {
-    if (lv) {
-      layer.setLabelsShown(lv.visible); // TODO refactor + 2nd param
-    }
+  private updateLabelsVisibilityForLayer(layer: RenderableLayer): void {
     if (layer.isVisible() && layer.isLabelsShown()) {
       this.viewportManager.showVisibleLabels(layer.getName(), layer.getRenderableLabels());
     } else {
@@ -154,7 +152,7 @@ export class AppComponent implements OnInit {
         this.layersManager.updateLayerVisibility(lv);
         const layer = this.layersManager.getLayer(lv.layer);
         if (layer) {
-          this.updateLabelsVisibilityForLayer(layer, lv);
+          this.updateLabelsVisibilityForLayer(layer);
         }
       }
     );

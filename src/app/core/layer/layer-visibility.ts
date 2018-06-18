@@ -2,6 +2,7 @@
 /**
  * Wraps parameters defining the visibility of a layer.
  */
+// TODO refactor: this object should be removed, the LayerTreeNode.selected can be used instead
 export interface LayerVisibility {
 
   /**

@@ -22,6 +22,7 @@ import { ConstellationBoundariesLayer } from './constellation-boundaries-layer';
 import { ConstellationLinesLayer } from './constellation-lines-layer';
 import { ConstellationNamesLayer } from './constellation-names-layer';
 import { StarsMagnitudeLayer } from './stars-magnitude-layer';
+import { newLayersTreeNode } from '../core/layer/layers-tree-node.spec';
 
 class MockStaticData {
   public getConstellationBoundaries(): Observable<number[][]> {
@@ -82,7 +83,7 @@ describe('LayersFactoryService', () => {
   });
 
   const layerNode = (code: string): LayersTreeNode => {
-    return new LayersTreeNode(code, []);
+    return newLayersTreeNode(code, []);
   };
 
   it('#newRenderableLayer should throw expected error if arg is undefined', () => {

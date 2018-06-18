@@ -1,6 +1,4 @@
 import { StaticDataService } from './static-data-service';
-import { TestBed } from '@angular/core/testing';
-import { HttpClient } from '@angular/common/http';
 import { HttpErrorResponse } from '@angular/common/http';
 import { emptyThemeDef, asyncData, asyncError } from './theme/abstract-factories.spec';
 

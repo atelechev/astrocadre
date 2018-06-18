@@ -12,10 +12,9 @@ export class RenderableLayer implements ThemeAware {
 
   private labelsShown: boolean;
 
-  private visible: boolean;
-
   constructor(protected readonly tree: LayersTreeNode) {
     ensureArgDefined(tree, 'tree');
+    this.labelsShown = true;
   }
 
   /**
@@ -59,12 +58,12 @@ export class RenderableLayer implements ThemeAware {
    * @param visible true to show, false to hide this layer.
    */
   public setVisible(visible: boolean): void {
-    this.visible = visible;
+    this.tree.selected = visible;
     this.getObjects().forEach(object => object.visible = visible);
   }
 
   public isVisible(): boolean {
-    return this.visible;
+    return this.tree.selected;
   }
 
   /**
@@ -78,8 +77,11 @@ export class RenderableLayer implements ThemeAware {
     if (!other) {
       return false;
     }
-    const foundAmongChildren = this.tree.children.find(child => child.code === other.tree.code);
-    return foundAmongChildren !== undefined;
+    if (this.tree.layers) {
+      const foundAmongChildren = this.tree.layers.find(child => child.code === other.tree.code);
+      return foundAmongChildren !== undefined;
+    }
+    return false;
   }
 
   /**

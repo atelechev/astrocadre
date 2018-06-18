@@ -17,6 +17,8 @@ import { ConstellationBoundariesLayerFactory } from './constellation-boundaries-
 import { ConstellationLinesLayerFactory } from './constellation-lines-layer-factory';
 import { ConstellationNamesLayerFactory } from './constellation-names-layer-factory';
 import { StarsMagnitudeLayerFactory } from './stars-magnitude-layer-factory';
+import { StaticDataService } from '../core/static-data-service';
+import { LayersTreeValidator } from '../core/layer/layers-tree-validator';
 
 @Component({
   selector: 'app-astrocadre-layers',
@@ -40,8 +42,11 @@ export class LayersComponent implements ThemeAware, OnInit {
   private loadedLayers: Map<string, RenderableLayer>;
 
   constructor(private layersFactory: LayersFactoryService,
-              private layersEventService: LayersEventService) {
+              private layersEventService: LayersEventService,
+              private dataService: StaticDataService,
+              private layersTreeValidator: LayersTreeValidator) {
     this.loadedLayers = new Map<string, RenderableLayer>();
+    this.loadLayers();
   }
 
   public getLayers(): Array<RenderableLayer> {
@@ -64,11 +69,26 @@ export class LayersComponent implements ThemeAware, OnInit {
     });
   }
 
+  private loadLayers(): void {
+    this.dataService.getAvailableLayers().subscribe(
+      (rootLayer: LayersTreeNode) => {
+        this.layersTreeValidator.validateTree(rootLayer);
+        const rootCopy = LayersTreeNode.from(rootLayer);
+        this.layersEventService.layersTreeLoaded(rootCopy);
+        rootCopy.layers.forEach(layer => this.loadLayer(layer));
+      },
+      (error) => console.error(`Failed to load layers from source data: ${error}`)
+    );
+  }
+
   private loadLayer(layer: LayersTreeNode): void {
     this.layersFactory.newRenderableLayer(layer).subscribe(
       (loadedLayer: RenderableLayer) => {
         this.loadedLayers.set(loadedLayer.getName(), loadedLayer);
         this.layersEventService.layerLoaded(loadedLayer.getName());
+        if (layer.layers) {
+          layer.layers.forEach(subLayer => this.loadLayer(subLayer));
+        }
       },
       (error) => console.error(`Failed to load layer '${layer.code}': ${error}`)
     );

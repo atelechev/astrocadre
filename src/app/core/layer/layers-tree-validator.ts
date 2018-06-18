@@ -1,7 +1,8 @@
-import { LayersTreeNode } from '../layer/layers-tree-node';
+import { Injectable } from '@angular/core';
+import { LayersTreeNode } from './layers-tree-node';
 import { ensureArgDefined } from '../layer/arg-validation-utils';
 
-
+@Injectable()
 export class LayersTreeValidator {
 
   public validateTree(treeNode: LayersTreeNode): void {
@@ -14,9 +15,13 @@ export class LayersTreeValidator {
   }
 
   private extractCodes(node: LayersTreeNode): string[] {
-    const childCodes = node.children.map(n => this.extractCodes(n))
-                                    .reduce((prev, curr) => prev.concat(curr), []);
-    return [ node.code ].concat(childCodes);
+    const ownCode = [ node.code ];
+    if (node.layers) {
+      const childCodes = node.layers.map(n => this.extractCodes(n))
+                                      .reduce((prev, curr) => prev.concat(curr), []);
+      return ownCode.concat(childCodes);
+    }
+    return ownCode;
   }
 
 }

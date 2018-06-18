@@ -1,4 +1,3 @@
-import { LayersTreeNode } from '../layer/layers-tree-node';
 
 export class SelectableItem {
 
@@ -17,11 +16,6 @@ export class SelectableItem {
                               selectable.description,
                               selectable.selected,
                               children);
-  }
-
-  public asLayersTree(): LayersTreeNode {
-    const children = this.items ? this.items.map(item => SelectableItem.from(item).asLayersTree()) : [];
-    return new LayersTreeNode(this.code, children);
   }
 
 }

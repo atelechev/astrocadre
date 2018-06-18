@@ -18,15 +18,15 @@ export class SelectorLayersStarsComponent implements AfterViewInit {
 
   public magnitude: number = this.initialMagnitude;
 
-  @Input()
   public showNames: boolean;
 
-  @Input()
   public enabled: boolean;
 
   public checkProperNames = true;
 
   constructor(private layersEventService: LayersEventService) {
+    this.showNames = true;
+    this.enabled = true;
     this.layersEventService.requestLayerVisibility$.subscribe(
       (lv: LayerVisibility) => {
         if (lv.layer === Layers.STARS) {
@@ -48,9 +48,6 @@ export class SelectorLayersStarsComponent implements AfterViewInit {
 
   public ngAfterViewInit(): void {
     this.subscribeLayerLoadedEvent();
-    this.fireStarsMagnitudeChangedEvent();
-    this.fireStarsLabelsTypeChangeEvent();
-    this.fireStarsLabelsVisibilityChangeEvent();
   }
 
   public fireStarsMagnitudeChangedEvent(): void {

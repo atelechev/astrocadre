@@ -10,6 +10,8 @@ import { LayersTreeNode } from './layers-tree-node';
 @Injectable()
 export class LayersEventService {
 
+  private broadcastLayersTreeLoaded = new Subject<LayersTreeNode>();
+
   private broadcastLayerLoaded = new Subject<string>();
 
   private requestLayerLoad = new Subject<LayersTreeNode>();
@@ -21,6 +23,11 @@ export class LayersEventService {
   private requestStarsLabelsVisibility = new Subject<StarLabelVisibility>();
 
   private requestStarsLabelsType = new Subject<string>();
+
+  /**
+   * Observable to subscribe to intercept event of loading the layers tree.
+   */
+  public readonly broadcastLayersTreeLoaded$ = this.broadcastLayersTreeLoaded.asObservable();
 
   /**
    * Observable to subscribe to intercept events when layers are loaded.
@@ -59,6 +66,15 @@ export class LayersEventService {
    */
   public layerLoaded(layer: string): void {
     this.broadcastLayerLoaded.next(layer);
+  }
+
+  /**
+   * Broadcast an event when the layers tree is loaded.
+   *
+   * @param tree the layers tree.
+   */
+  public layersTreeLoaded(tree: LayersTreeNode): void {
+    this.broadcastLayersTreeLoaded.next(tree);
   }
 
   /**

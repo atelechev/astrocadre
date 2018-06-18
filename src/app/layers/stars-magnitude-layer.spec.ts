@@ -7,12 +7,13 @@ import { Constants } from '../core/constants';
 import { TextOffsetPolicies } from '../core/layer/label/text-offset-policy';
 import { StarsMagnitudeLayer } from './stars-magnitude-layer';
 import { Points } from 'three';
+import { newLayersTreeNode } from '../core/layer/layers-tree-node.spec';
 
 describe('StarsMagnitudeLayer', () => {
 
   const layerName = StarsMagnitudeLayerFactory.LAYER_PREFIX + '1.0';
 
-  const treeNode = new LayersTreeNode(layerName, []);
+  const treeNode = newLayersTreeNode(layerName, []);
 
   const emptyNames = new Map<string, RenderableText>();
 
