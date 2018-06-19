@@ -29,13 +29,16 @@ export class SelectorLayersComponent {
   }
 
   private requestLayerVisibility(layerCode: string, visible: boolean): void {
-    this.layersEventService.layerVisibleRequested({ layer: layerCode, visible: visible });
+    const layer = this.layerNodeFinder.findInTree(layerCode, this.rootLayer);
+    layer.selected = visible;
+    if (layer) {
+      this.layersEventService.layerVisibleRequested(layer);
+    }
   }
 
   private updateSelectorRecursively(layer: TreeNode, visible: boolean): void {
     if (layer) {
       this.requestLayerVisibility(layer.code, visible);
-      layer.selected = visible;
       if (layer.nodes) {
         layer.nodes.forEach(subLayer => {
           this.updateSelectorRecursively(subLayer, visible);

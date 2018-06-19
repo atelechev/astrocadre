@@ -1,7 +1,6 @@
 import { LayersEventService } from './layers-event.service';
 import { TestBed } from '@angular/core/testing';
 import { TreeNode } from '../tree-node';
-import { LayerVisibility } from './layer-visibility';
 import { StarLabelVisibility } from './star-label-visibility';
 import { newTreeNode } from '../tree-node.spec';
 
@@ -45,11 +44,16 @@ describe('ViewportEventService', () => {
   });
 
   it('#layerVisibleRequested should broadcast event for the specified params', () => {
-    const params = { layer: 'test_layer_3', visible: true };
+    const layer = newTreeNode('layer', []);
+    layer.selected = false;
     const subscribed = service.requestLayerVisibility$.subscribe(
-      (lv: LayerVisibility) => expect(lv).toBe(params)
+      (broadcastedNode: TreeNode) => {
+        expect(broadcastedNode).toBeDefined();
+        expect(broadcastedNode.code).toBe(layer.code);
+        expect(broadcastedNode.selected).toBeFalsy();
+      }
     );
-    service.layerVisibleRequested(params);
+    service.layerVisibleRequested(layer);
     subscribed.unsubscribe();
   });
 

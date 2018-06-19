@@ -4,7 +4,6 @@ import { ThemeAware } from '../core/theme/theme-aware';
 import { Theme } from '../core/theme/theme';
 import { LayersFactoryService } from './layers-factory.service';
 import { LayersEventService } from '../core/layer/layers-event.service';
-import { LayerVisibility } from '../core/layer/layer-visibility';
 import { TreeNode } from '../core/tree-node';
 import { Layers } from '../core/layers';
 import { StarsMagnitudeLayer } from './stars-magnitude-layer';
@@ -109,10 +108,10 @@ export class LayersComponent implements ThemeAware, OnInit {
     );
   }
 
-  public updateLayerVisibility(lv: LayerVisibility): void {
-    const layer = this.getLayer(lv.layer);
+  public updateLayerVisibility(node: TreeNode): void {
+    const layer = this.getLayer(node.code);
     if (layer) {
-      this.updateHierachicalVisibility(layer, lv.visible);
+      this.updateHierachicalVisibility(layer, node.selected);
     }
   }
 

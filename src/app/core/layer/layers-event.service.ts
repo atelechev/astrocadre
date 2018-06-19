@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
-import { LayerVisibility } from './layer-visibility';
 import { StarLabelVisibility } from './star-label-visibility';
 import { TreeNode } from '../tree-node';
 
@@ -16,7 +15,7 @@ export class LayersEventService {
 
   private requestLayerLoad = new Subject<TreeNode>();
 
-  private requestLayerVisibility = new Subject<LayerVisibility>();
+  private requestLayerVisibility = new Subject<TreeNode>();
 
   private requestStarsMagnitude = new Subject<number>();
 
@@ -87,12 +86,12 @@ export class LayersEventService {
   }
 
   /**
-   * Broadcast an event when a layer is requested to show or hide.
+   * Broadcast an event when a layer was requested to show or hide (selected/unselected).
    *
-   * @param layerVisibility layer visibility parameters.
+   * @param layer the node of the layer, with its 'selected' property set to requested visibility.
    */
-  public layerVisibleRequested(layerVisibility: LayerVisibility): void {
-    this.requestLayerVisibility.next(layerVisibility);
+  public layerVisibleRequested(layer: TreeNode): void {
+    this.requestLayerVisibility.next(layer);
   }
 
   /**
