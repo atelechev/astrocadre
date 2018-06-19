@@ -10,7 +10,6 @@ import { TreeNode } from '../tree-node';
 @Injectable()
 export class LayersEventService {
 
-  // TODO add test
   private broadcastLayersTreeLoaded = new Subject<TreeNode>();
 
   private broadcastLayerLoaded = new Subject<string>();

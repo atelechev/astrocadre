@@ -47,6 +47,7 @@ export class SelectorLayersStarsComponent implements AfterViewInit {
   }
 
   public ngAfterViewInit(): void {
+    // TODO find a way to avoid calling it on init
     this.subscribeLayerLoadedEvent();
   }
 

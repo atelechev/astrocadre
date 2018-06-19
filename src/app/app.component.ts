@@ -141,7 +141,7 @@ export class AppComponent implements OnInit {
         const starsPerMagnitude = this.layersManager.getStarsMagnitudeLayers();
         const labelTypeNoPrefix = labelType.substring(Layers.STARS.length + 1);
         starsPerMagnitude.forEach(layer => layer.setShownLabelsType(labelTypeNoPrefix));
-        this.updateLabelsVisibilityForAllLayers(); // TODO
+        this.updateLabelsVisibilityForAllLayers();
       }
     );
   }

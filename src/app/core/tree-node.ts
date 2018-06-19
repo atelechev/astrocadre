@@ -21,11 +21,10 @@ export class TreeNode {
    *
    * @param node the original node to instantiate a new one from.
    */
-  // TODO add tests
   public static from(node: TreeNode): TreeNode {
     ensureArgDefined(node, 'node');
-    const subLayers = !node.nodes ? [] : node.nodes.map(sl => TreeNode.from(sl));
-    return new TreeNode(node.code, node.label, node.description, subLayers);
+    const children = !node.nodes ? [] : node.nodes.map(sl => TreeNode.from(sl));
+    return new TreeNode(node.code, node.label, node.description, children);
   }
 
 }

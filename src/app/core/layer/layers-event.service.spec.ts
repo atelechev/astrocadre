@@ -9,9 +9,21 @@ describe('ViewportEventService', () => {
 
   let service: LayersEventService;
 
-  beforeAll(() => {
+  beforeEach(() => {
     TestBed.configureTestingModule({ providers: [LayersEventService] });
     service = TestBed.get(LayersEventService);
+  });
+
+  it('#layersTreeLoaded should broadcast event for the specified tree', () => {
+    const tree = newTreeNode('root', []);
+    const subscribed = service.broadcastLayersTreeLoaded$.subscribe(
+      (broadcastedTree: TreeNode) => {
+        expect(broadcastedTree).toBeDefined();
+        expect(broadcastedTree.code).toBe('root');
+      }
+    );
+    service.layersTreeLoaded(tree);
+    subscribed.unsubscribe();
   });
 
   it('#layerLoaded should broadcast event for the specified params', () => {
