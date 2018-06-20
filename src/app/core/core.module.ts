@@ -7,6 +7,8 @@ import { StaticDataService } from './static-data-service';
 import { SearchService } from './search/search.service';
 import { ViewportDimensionService } from './viewport/viewport-dimension.service';
 import { DraggableElementsHandler } from './controls/draggable-elements-handler';
+import { LayersTreeValidator } from './layer/layers-tree-validator';
+import { TreeNodeFinder } from './tree-node-finder';
 
 @NgModule({
   declarations: [
@@ -23,7 +25,9 @@ import { DraggableElementsHandler } from './controls/draggable-elements-handler'
     LayersEventService,
     SearchService,
     ViewportDimensionService,
-    DraggableElementsHandler
+    DraggableElementsHandler,
+    LayersTreeValidator,
+    TreeNodeFinder
   ]
 })
 export class CoreModule {

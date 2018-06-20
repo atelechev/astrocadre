@@ -1,7 +1,7 @@
 import { Component, AfterViewInit, Input } from '@angular/core';
 import { LayersEventService } from '../core/layer/layers-event.service';
-import { LayerVisibility } from '../core/layer/layer-visibility';
 import { Layers } from '../core/layers';
+import { TreeNode } from '../core/tree-node';
 
 @Component({
   selector: `app-astrocadre-controls-select-stars`,
@@ -18,19 +18,19 @@ export class SelectorLayersStarsComponent implements AfterViewInit {
 
   public magnitude: number = this.initialMagnitude;
 
-  @Input()
   public showNames: boolean;
 
-  @Input()
   public enabled: boolean;
 
   public checkProperNames = true;
 
   constructor(private layersEventService: LayersEventService) {
+    this.showNames = true;
+    this.enabled = true;
     this.layersEventService.requestLayerVisibility$.subscribe(
-      (lv: LayerVisibility) => {
-        if (lv.layer === Layers.STARS) {
-          this.enabled = lv.visible;
+      (node: TreeNode) => {
+        if (node.code === Layers.STARS) {
+          this.enabled = node.selected;
         }
       }
     );
@@ -47,10 +47,8 @@ export class SelectorLayersStarsComponent implements AfterViewInit {
   }
 
   public ngAfterViewInit(): void {
+    // TODO find a way to avoid calling it on init
     this.subscribeLayerLoadedEvent();
-    this.fireStarsMagnitudeChangedEvent();
-    this.fireStarsLabelsTypeChangeEvent();
-    this.fireStarsLabelsVisibilityChangeEvent();
   }
 
   public fireStarsMagnitudeChangedEvent(): void {

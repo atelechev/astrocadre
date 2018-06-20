@@ -1,16 +1,12 @@
-
-import {throwError as observableThrowError,  Observable } from 'rxjs';
-
-import {catchError, map} from 'rxjs/operators';
-
-
+import { throwError as observableThrowError,  Observable } from 'rxjs';
+import { catchError, map } from 'rxjs/operators';
 import { ThemeDefinition } from './theme/theme-definition';
 import { Layers } from './layers';
 import { ConstellationMetadata } from './layer/constellation-metadata';
-import { SectionMetadata } from './controls/section-metadata';
 import { SearchableItem } from './search/searchable-item';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { TreeNode } from './tree-node';
 
 /**
  * Provides access to all static server side resources.
@@ -62,12 +58,12 @@ export class StaticDataService {
     ));
   }
 
-  public getAvailableThemes(): Observable<SectionMetadata> {
+  public getAvailableThemes(): Observable<TreeNode[]> {
     const url = this.getPathToJson('themes', 'themes');
     return this.execGetRequestForUrl(url);
   }
 
-  public getAvailableLayers(): Observable<SectionMetadata> {
+  public getAvailableLayers(): Observable<TreeNode> {
     const url = this.getPathToJson('', 'layers');
     return this.execGetRequestForUrl(url);
   }
@@ -91,7 +87,7 @@ export class StaticDataService {
   private execGetRequestForUrl(url: string): Observable<any> {
     return this.httpClient.get(url).pipe(
                     map((res: Response) => res.json ? res.json() : res),
-                    catchError(this.handleError),);
+                    catchError(this.handleError));
   }
 
 }

@@ -1,14 +1,14 @@
 import { RenderableLayer } from '../core/layer/renderable-layer';
 import { Object3D, LineSegments } from 'three';
 import { Theme } from '../core/theme/theme';
-import { LayersTreeNode } from '../core/layer/layers-tree-node';
-import { ensureArgDefined } from '../core/layer/arg-validation-utils';
+import { TreeNode } from '../core/tree-node';
+import { ensureArgDefined } from '../core/arg-validation-utils';
 
 export class ConstellationLinesLayer extends RenderableLayer {
 
   private objects: Object3D[];
 
-  constructor(tree: LayersTreeNode,
+  constructor(tree: TreeNode,
               private readonly lines: LineSegments) {
     super(tree);
     ensureArgDefined(lines, 'lines');

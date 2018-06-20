@@ -4,7 +4,6 @@ import { ThemesComponent } from './themes/themes.component';
 import { ThemeAware } from './core/theme/theme-aware';
 import { LayersComponent } from './layers/layers.component';
 import { LayersEventService } from './core/layer/layers-event.service';
-import { LayerVisibility } from './core/layer/layer-visibility';
 import { ThemesEventService } from './core/theme/themes-event.service';
 import { ViewportEventService } from './core/viewport/viewport-event.service';
 import { Layers } from './core/layers';
@@ -12,6 +11,7 @@ import { StarLabelVisibility } from './core/layer/star-label-visibility';
 import { StarsMagnitudeLayer } from './layers/stars-magnitude-layer';
 import { RenderableLayer } from './core/layer/renderable-layer';
 import { ViewportDimensionService } from './core/viewport/viewport-dimension.service';
+import { TreeNode } from './core/tree-node';
 
 @Component({
   selector: `app-astrocadre`,
@@ -60,6 +60,7 @@ export class AppComponent implements OnInit {
         }
         this.viewportManager.addObjects(layer.getObjects());
         this.viewportManager.addTextElements(layer.getTextElements());
+        this.updateLabelsVisibilityForLayer(layer);
       }
     );
   }
@@ -84,14 +85,11 @@ export class AppComponent implements OnInit {
 
   private updateLabelsVisibilityForAllLayers(): void {
     this.layersManager.getLayers().forEach(
-      (layer: RenderableLayer) => this.updateLabelsVisibilityForLayer(layer, undefined)
+      (layer: RenderableLayer) => this.updateLabelsVisibilityForLayer(layer)
     );
   }
 
-  private updateLabelsVisibilityForLayer(layer: RenderableLayer, lv: LayerVisibility): void {
-    if (lv) {
-      layer.setLabelsShown(lv.visible); // TODO refactor + 2nd param
-    }
+  private updateLabelsVisibilityForLayer(layer: RenderableLayer): void {
     if (layer.isVisible() && layer.isLabelsShown()) {
       this.viewportManager.showVisibleLabels(layer.getName(), layer.getRenderableLabels());
     } else {
@@ -143,18 +141,18 @@ export class AppComponent implements OnInit {
         const starsPerMagnitude = this.layersManager.getStarsMagnitudeLayers();
         const labelTypeNoPrefix = labelType.substring(Layers.STARS.length + 1);
         starsPerMagnitude.forEach(layer => layer.setShownLabelsType(labelTypeNoPrefix));
-        this.updateLabelsVisibilityForAllLayers(); // TODO
+        this.updateLabelsVisibilityForAllLayers();
       }
     );
   }
 
   private subscribeLayerVisibilityEvent(): void {
     this.layersEventService.requestLayerVisibility$.subscribe(
-      (lv: LayerVisibility) => {
-        this.layersManager.updateLayerVisibility(lv);
-        const layer = this.layersManager.getLayer(lv.layer);
+      (node: TreeNode) => {
+        this.layersManager.updateLayerVisibility(node);
+        const layer = this.layersManager.getLayer(node.code);
         if (layer) {
-          this.updateLabelsVisibilityForLayer(layer, lv);
+          this.updateLabelsVisibilityForLayer(layer);
         }
       }
     );

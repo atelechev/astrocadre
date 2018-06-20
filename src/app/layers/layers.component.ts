@@ -4,8 +4,7 @@ import { ThemeAware } from '../core/theme/theme-aware';
 import { Theme } from '../core/theme/theme';
 import { LayersFactoryService } from './layers-factory.service';
 import { LayersEventService } from '../core/layer/layers-event.service';
-import { LayerVisibility } from '../core/layer/layer-visibility';
-import { LayersTreeNode } from '../core/layer/layers-tree-node';
+import { TreeNode } from '../core/tree-node';
 import { Layers } from '../core/layers';
 import { StarsMagnitudeLayer } from './stars-magnitude-layer';
 import { PointsFactory } from './geometry/points-factory';
@@ -17,6 +16,8 @@ import { ConstellationBoundariesLayerFactory } from './constellation-boundaries-
 import { ConstellationLinesLayerFactory } from './constellation-lines-layer-factory';
 import { ConstellationNamesLayerFactory } from './constellation-names-layer-factory';
 import { StarsMagnitudeLayerFactory } from './stars-magnitude-layer-factory';
+import { StaticDataService } from '../core/static-data-service';
+import { LayersTreeValidator } from '../core/layer/layers-tree-validator';
 
 @Component({
   selector: 'app-astrocadre-layers',
@@ -40,8 +41,11 @@ export class LayersComponent implements ThemeAware, OnInit {
   private loadedLayers: Map<string, RenderableLayer>;
 
   constructor(private layersFactory: LayersFactoryService,
-              private layersEventService: LayersEventService) {
+              private layersEventService: LayersEventService,
+              private dataService: StaticDataService,
+              private layersTreeValidator: LayersTreeValidator) {
     this.loadedLayers = new Map<string, RenderableLayer>();
+    this.loadLayers();
   }
 
   public getLayers(): Array<RenderableLayer> {
@@ -64,11 +68,26 @@ export class LayersComponent implements ThemeAware, OnInit {
     });
   }
 
-  private loadLayer(layer: LayersTreeNode): void {
+  private loadLayers(): void {
+    this.dataService.getAvailableLayers().subscribe(
+      (rootLayer: TreeNode) => {
+        this.layersTreeValidator.validateTree(rootLayer);
+        const rootCopy = TreeNode.from(rootLayer);
+        this.layersEventService.layersTreeLoaded(rootCopy);
+        rootCopy.nodes.forEach(layer => this.loadLayer(layer));
+      },
+      (error) => console.error(`Failed to load layers from source data: ${error}`)
+    );
+  }
+
+  private loadLayer(layer: TreeNode): void {
     this.layersFactory.newRenderableLayer(layer).subscribe(
       (loadedLayer: RenderableLayer) => {
         this.loadedLayers.set(loadedLayer.getName(), loadedLayer);
         this.layersEventService.layerLoaded(loadedLayer.getName());
+        if (layer.nodes) {
+          layer.nodes.forEach(subLayer => this.loadLayer(subLayer));
+        }
       },
       (error) => console.error(`Failed to load layer '${layer.code}': ${error}`)
     );
@@ -85,14 +104,14 @@ export class LayersComponent implements ThemeAware, OnInit {
 
   private subscribeLayerLoadRequestEvent(): void {
     this.layersEventService.requestLayerLoad$.subscribe(
-      (layer: LayersTreeNode) => this.loadLayer(layer)
+      (layer: TreeNode) => this.loadLayer(layer)
     );
   }
 
-  public updateLayerVisibility(lv: LayerVisibility): void {
-    const layer = this.getLayer(lv.layer);
+  public updateLayerVisibility(node: TreeNode): void {
+    const layer = this.getLayer(node.code);
     if (layer) {
-      this.updateHierachicalVisibility(layer, lv.visible);
+      this.updateHierachicalVisibility(layer, node.selected);
     }
   }
 

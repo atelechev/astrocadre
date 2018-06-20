@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
-import { LayerVisibility } from './layer-visibility';
 import { StarLabelVisibility } from './star-label-visibility';
-import { LayersTreeNode } from './layers-tree-node';
+import { TreeNode } from '../tree-node';
 
 /**
  * Used to exchange events and messages related with layers rendered in the main viewport.
@@ -10,17 +9,24 @@ import { LayersTreeNode } from './layers-tree-node';
 @Injectable()
 export class LayersEventService {
 
+  private broadcastLayersTreeLoaded = new Subject<TreeNode>();
+
   private broadcastLayerLoaded = new Subject<string>();
 
-  private requestLayerLoad = new Subject<LayersTreeNode>();
+  private requestLayerLoad = new Subject<TreeNode>();
 
-  private requestLayerVisibility = new Subject<LayerVisibility>();
+  private requestLayerVisibility = new Subject<TreeNode>();
 
   private requestStarsMagnitude = new Subject<number>();
 
   private requestStarsLabelsVisibility = new Subject<StarLabelVisibility>();
 
   private requestStarsLabelsType = new Subject<string>();
+
+  /**
+   * Observable to subscribe to intercept event of loading the layers tree.
+   */
+  public readonly broadcastLayersTreeLoaded$ = this.broadcastLayersTreeLoaded.asObservable();
 
   /**
    * Observable to subscribe to intercept events when layers are loaded.
@@ -62,21 +68,30 @@ export class LayersEventService {
   }
 
   /**
+   * Broadcast an event when the layers tree is loaded.
+   *
+   * @param tree the layers tree.
+   */
+  public layersTreeLoaded(tree: TreeNode): void {
+    this.broadcastLayersTreeLoaded.next(tree);
+  }
+
+  /**
    * Broadcast an event when a layer is requested to load.
    *
    * @param layer the node of the layer to load in the whole layers tree.
    */
-  public loadLayerRequested(layer: LayersTreeNode): void {
+  public loadLayerRequested(layer: TreeNode): void {
     this.requestLayerLoad.next(layer);
   }
 
   /**
-   * Broadcast an event when a layer is requested to show or hide.
+   * Broadcast an event when a layer was requested to show or hide (selected/unselected).
    *
-   * @param layerVisibility layer visibility parameters.
+   * @param layer the node of the layer, with its 'selected' property set to requested visibility.
    */
-  public layerVisibleRequested(layerVisibility: LayerVisibility): void {
-    this.requestLayerVisibility.next(layerVisibility);
+  public layerVisibleRequested(layer: TreeNode): void {
+    this.requestLayerVisibility.next(layer);
   }
 
   /**

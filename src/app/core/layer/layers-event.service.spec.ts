@@ -1,16 +1,28 @@
 import { LayersEventService } from './layers-event.service';
 import { TestBed } from '@angular/core/testing';
-import { LayersTreeNode } from './layers-tree-node';
-import { LayerVisibility } from './layer-visibility';
+import { TreeNode } from '../tree-node';
 import { StarLabelVisibility } from './star-label-visibility';
+import { newTreeNode } from '../tree-node.spec';
 
 describe('ViewportEventService', () => {
 
   let service: LayersEventService;
 
-  beforeAll(() => {
+  beforeEach(() => {
     TestBed.configureTestingModule({ providers: [LayersEventService] });
     service = TestBed.get(LayersEventService);
+  });
+
+  it('#layersTreeLoaded should broadcast event for the specified tree', () => {
+    const tree = newTreeNode('root', []);
+    const subscribed = service.broadcastLayersTreeLoaded$.subscribe(
+      (broadcastedTree: TreeNode) => {
+        expect(broadcastedTree).toBeDefined();
+        expect(broadcastedTree.code).toBe('root');
+      }
+    );
+    service.layersTreeLoaded(tree);
+    subscribed.unsubscribe();
   });
 
   it('#layerLoaded should broadcast event for the specified params', () => {
@@ -23,20 +35,25 @@ describe('ViewportEventService', () => {
   });
 
   it('#loadLayerRequested should broadcast event for the specified params', () => {
-    const params = new LayersTreeNode('test_layer_2', []);
+    const params = newTreeNode('test_layer_2', []);
     const subscribed = service.requestLayerLoad$.subscribe(
-      (l: LayersTreeNode) => expect(l).toBe(params)
+      (l: TreeNode) => expect(l).toBe(params)
     );
     service.loadLayerRequested(params);
     subscribed.unsubscribe();
   });
 
   it('#layerVisibleRequested should broadcast event for the specified params', () => {
-    const params = { layer: 'test_layer_3', visible: true };
+    const layer = newTreeNode('layer', []);
+    layer.selected = false;
     const subscribed = service.requestLayerVisibility$.subscribe(
-      (lv: LayerVisibility) => expect(lv).toBe(params)
+      (broadcastedNode: TreeNode) => {
+        expect(broadcastedNode).toBeDefined();
+        expect(broadcastedNode.code).toBe(layer.code);
+        expect(broadcastedNode.selected).toBeFalsy();
+      }
     );
-    service.layerVisibleRequested(params);
+    service.layerVisibleRequested(layer);
     subscribed.unsubscribe();
   });
 

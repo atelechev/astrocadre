@@ -1,11 +1,11 @@
-import { LayersTreeNode } from '../core/layer/layers-tree-node';
 import { Layers } from '../core/layers';
 import { ConstellationBoundariesLayer } from './constellation-boundaries-layer';
 import { LineSegments } from 'three';
+import { newTreeNode } from '../core/tree-node.spec';
 
 describe('ConstellationBoundariesLayer', () => {
 
-  const treeNode = new LayersTreeNode(Layers.CONSTELLATION_BOUNDARIES, []);
+  const treeNode = newTreeNode(Layers.CONSTELLATION_BOUNDARIES, []);
 
   const ls = new LineSegments();
 

@@ -1,8 +1,7 @@
 import { Component, AfterViewInit } from '@angular/core';
-import { SelectableItem } from '../core/controls/selectable-item';
 import { ThemesEventService } from '../core/theme/themes-event.service';
 import { StaticDataService } from '../core/static-data-service';
-import { SectionMetadata } from '../core/controls/section-metadata';
+import { TreeNode } from '../core/tree-node';
 
 
 @Component({
@@ -11,37 +10,18 @@ import { SectionMetadata } from '../core/controls/section-metadata';
   styleUrls: [ './controls.component.css' ],
   providers: []
 })
-export class SelectorThemeComponent implements AfterViewInit {
+export class SelectorThemeComponent {
 
-  public availableThemes: Array<SelectableItem>;
+  public availableThemes: Array<TreeNode>;
 
-  constructor(private dataService: StaticDataService,
-              private themesEventService: ThemesEventService) {
-    this.availableThemes = new Array<SelectableItem>();
-  }
-
-  private initAvailableThemes(): void {
-    this.dataService.getAvailableThemes().subscribe(
-      (metadata: SectionMetadata) => {
-        this.availableThemes = metadata.items.map(item => {
-          return SelectableItem.from(item);
-        });
-        if (this.availableThemes && this.availableThemes.length > 0) {
-          this.fireThemeChangedEvent(this.availableThemes[0].code);
-        } else {
-          throw new Error('Unexpected state: no themes registered as available!');
-        }
-      },
-      (error: any) => console.error(`Failed to load themes metadata: ${error}`)
+  constructor(private themesEventService: ThemesEventService) {
+    this.themesEventService.broadcastThemesListLoaded$.subscribe(
+      (themes: Array<TreeNode>) => this.availableThemes = themes
     );
   }
 
   public fireThemeChangedEvent(themeCode: string): void {
     this.themesEventService.loadThemeRequested(themeCode);
-  }
-
-  public ngAfterViewInit(): void {
-    this.initAvailableThemes();
   }
 
 }

@@ -45,15 +45,4 @@ describe('CameraControlsComponent', () => {
     component.rotateView(1, 2, 3);
   });
 
-  it('#ngAfterViewInit should trigger camera rotation request event', () => {
-    viewportEventService.requestAxialRotation$.subscribe(
-      (rotation) => {
-        expect(rotation.rx).toBeCloseTo(Math.PI / 2, precision);
-        expect(rotation.ry).toBe(0);
-        expect(rotation.rz).toBe(0);
-      }
-    );
-    component.ngAfterViewInit();
-  });
-
 });

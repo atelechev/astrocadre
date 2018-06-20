@@ -1,15 +1,15 @@
 import { Object3D } from 'three';
 import { Theme } from '../core/theme/theme';
-import { LayersTreeNode } from '../core/layer/layers-tree-node';
+import { TreeNode } from '../core/tree-node';
 import { RenderableText } from '../core/layer/label/renderable-text';
 import { RenderableLayer } from '../core/layer/renderable-layer';
-import { ensureArgDefined } from '../core/layer/arg-validation-utils';
+import { ensureArgDefined } from '../core/arg-validation-utils';
 
 export class ConstellationNamesLayer extends RenderableLayer {
 
   private allHtmls: Array<HTMLElement>;
 
-  constructor(tree: LayersTreeNode,
+  constructor(tree: TreeNode,
               private renderableLabels: Map<string, RenderableText>) {
     super(tree);
     ensureArgDefined(renderableLabels, 'renderableLabels');

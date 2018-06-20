@@ -145,12 +145,17 @@ To start the app:
   * Draggable and hidable UI controls.
   * Migrated on Angular 6 and RxJs 6.
 
+### June 19th, 2018
+
+* AC-023: Refactor layers and themes loading. Decoupled from controls and improved events handling.
+
 ### Next Steps
 
-AC-023: Export of current view as image
+* AC-024: Export of current view as image
 
-#### Features after First Public Release
+#### New Features to Implement
 
+* Possibility to add markers at any position in the viewport
 * Current position of the Sun and of the Moon (probably, the planets also) - new layer
 * Messier objects layer
 * API to insert AstroCadre in a Web page
@@ -160,7 +165,11 @@ AC-023: Export of current view as image
   * configurable line width and dash style
   * pre-defined star magnitudes shown
 
-#### Low priority improvements for POC
+#### Refactoring
+
+(To be defined, there are many things to refactor!)
+
+#### Low Priority Improvements
 
 * S-N direction arrow
 * star colors depending on their class/temperature

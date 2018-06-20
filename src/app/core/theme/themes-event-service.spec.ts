@@ -1,13 +1,29 @@
 import { ThemesEventService } from './themes-event.service';
 import { TestBed } from '@angular/core/testing';
+import { newTreeNode } from '../tree-node.spec';
+import { TreeNode } from '../tree-node';
 
 describe('ThemesEventService', () => {
 
   let service: ThemesEventService;
 
-  beforeAll(() => {
+  beforeEach(() => {
     TestBed.configureTestingModule({ providers: [ThemesEventService] });
     service = TestBed.get(ThemesEventService);
+  });
+
+  it('#themesListLoaded should broadcast event for the specified themes', () => {
+    const themes = [ newTreeNode('theme1', []), newTreeNode('theme2', []) ];
+    const subscribed = service.broadcastThemesListLoaded$.subscribe(
+      (broadcastedThemes: Array<TreeNode>) => {
+        expect(broadcastedThemes).toBeDefined();
+        expect(broadcastedThemes.length).toBe(2);
+        expect(broadcastedThemes[0].code).toBe('theme1');
+        expect(broadcastedThemes[1].code).toBe('theme2');
+      }
+    );
+    service.themesListLoaded(themes);
+    subscribed.unsubscribe();
   });
 
   it('#themeLoaded should broadcast event for the specified theme', () => {

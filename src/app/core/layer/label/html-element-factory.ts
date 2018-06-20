@@ -1,4 +1,4 @@
-import { ensureStringDefinedNotEmpty } from '../arg-validation-utils';
+import { ensureStringDefinedNotEmpty } from '../../arg-validation-utils';
 
 /**
  * Factory utility class allowing to instantiate HTML elements.

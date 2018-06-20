@@ -1,5 +1,5 @@
 import { TextStyle } from '../../theme/text-style';
-import { ensureArgDefined } from '../arg-validation-utils';
+import { ensureArgDefined } from '../../arg-validation-utils';
 
 /**
  * Sets the specified text style properties on the specified HTML element.

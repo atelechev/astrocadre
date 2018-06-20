@@ -183,18 +183,19 @@ Themes allow to switch easily between different sets of graphical representation
 
 ### Theme Metadata
 
-All available graphic themes are described in `/src/assets/themes/themes.json` file. To add a new theme definition, the following structure should be appended to its `items` array:
-
+All available graphic themes are described in `/src/assets/themes/themes.json` file. To add a new theme definition, the following structure should be appended to the JSON array:
+  
 ```
 {
   "code": "theme-code",         // mandatory, should be alphanumeric, without spaces.
   "label": "Theme label",       // optinal, the label to show in the UI controls.
   "description": "description", // optional description shown in the UI controls.
-  "selected": false             // optional, only the first 'true' value in the list of items is taken into account.
 }
 ```
 
-To remove an existing theme, simply delete the respective JSON object from `items` list.
+To remove an existing theme, simply delete the respective JSON object from the array.
+
+The first item of the array is the theme loaded by default when the application starts.
 
 ### Theme Properties Definition
 
