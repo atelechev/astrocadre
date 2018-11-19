@@ -94,7 +94,7 @@ The following VSC extensions are also recommended:
 
 * EditorConfig for VS Code (v.0.12.4+), uses the `./.editorconfig` file.
 * ESLint (v1.4.12+), with default configuration.
-* TSLint (v.1.0.30+), uses the `./tsconfig.json`, `./tslint.json` and `./src/tsconfig.*.json` files.
+* TSLint (v1.0.30+), uses the `./tsconfig.json`, `./tslint.json` and `./src/tsconfig.*.json` files.
 
 ### Back-End & Tools
 
@@ -122,8 +122,9 @@ The following commands runnable with `npm {command}` or `npm run {command}` are 
 * `lint`: executes linting checks.
 
 _Quickstart after cloning the source repository:_
-  * `npm install` to retrieve all the necessary dependencies.
-  * `npm start` command should launch the application at `http://localhost:4200`.
+
+* `npm install` to retrieve all the necessary dependencies.
+* `npm start` command should launch the application at `http://localhost:4200`.
 
 The commands above should work equally from VSC integrated terminals or from any terminal/CLI tools.
 
