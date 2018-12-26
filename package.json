@@ -9,6 +9,7 @@
     "build:dev": "ng build",
     "build:prod": "npm run clean && ng build --prod --base-href /astrocadre --deploy-url /astrocadre/",
     "test": "ng test",
+    "test-headless": "ng test --watch=false --browsers=ChromeHeadless",
     "lint": "ng lint"
   },
   "private": true,
