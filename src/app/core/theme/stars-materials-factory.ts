@@ -2,7 +2,7 @@ import { MaterialsFactory } from './abstract-factories';
 import { Layers } from '../layers';
 import { ThemeDefinition } from './theme-definition';
 import { Material, TextureLoader, PointsMaterial } from 'three';
-
+import { environment } from '../../../environments/environment';
 
 export class StarsMaterialsFactory extends MaterialsFactory {
 
@@ -16,7 +16,7 @@ export class StarsMaterialsFactory extends MaterialsFactory {
   protected buildMaterialsWith(themeDef: ThemeDefinition): Map<string, Material> {
     const materials = new Map<string, Material>();
     const sizeMultiplier = themeDef.stars.texture.sizeMultiplier;
-    const textureFile = themeDef.stars.texture.image;
+    const textureFile = environment.pathInContext(themeDef.stars.texture.image);
     themeDef.stars.magnitudes.forEach(magClass => {
       const materialKey = 'star-' + magClass.toFixed(1);
       const material = this.getMaterialForMagnitudeClass(magClass, textureFile, sizeMultiplier);

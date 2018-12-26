@@ -7,7 +7,7 @@ import { SearchableItem } from './search/searchable-item';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { TreeNode } from './tree-node';
-import { isDevMode } from '@angular/core';
+import { environment } from '../../environments/environment';
 
 /**
  * Provides access to all static server side resources.
@@ -20,11 +20,9 @@ export class StaticDataService {
   }
 
   private getPathToJson(subPath: string, resourceName: string): string {
-    const prefix = isDevMode() ? '' : '/astrocadre';
-    if (subPath) {
-      return `${prefix}/assets/${subPath}/${resourceName}.json`;
-    }
-    return `${prefix}/assets/${resourceName}.json`;
+    const url = subPath ? `/assets/${subPath}/${resourceName}.json` :
+                          `/assets/${resourceName}.json`;
+    return environment.pathInContext(url);
   }
 
   public getThemeDefinition(theme: string): Observable<ThemeDefinition> {

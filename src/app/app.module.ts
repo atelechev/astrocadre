@@ -9,7 +9,6 @@ import { ThemesModule } from './themes/themes.module';
 import { ViewportModule } from './viewport/viewport.module';
 import { LayersModule } from './layers/layers.module';
 
-
 @NgModule({
   declarations: [
     AppComponent
