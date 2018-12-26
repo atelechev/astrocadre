@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { ViewportEventService } from '../core/viewport/viewport-event.service';
 import { toRadians } from '../core/layer/vector-utils';
+import { environment } from '../../environments/environment';
 
 @Component({
   selector: `app-astrocadre-controls-camera`,
@@ -27,6 +28,10 @@ export class CameraControlsComponent {
 
   public alignNSAxis(): void {
     this.viewportService.axisAlignmentRequested();
+  }
+
+  public getPathToResource(resourceBaseName: string): string {
+    return environment.pathInContext(`assets/textures/${resourceBaseName}.png`);
   }
 
 }

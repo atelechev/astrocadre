@@ -128,6 +128,12 @@ _Quickstart after cloning the source repository:_
 
 The commands above should work equally from VSC integrated terminals or from any terminal/CLI tools.
 
+### Production Build
+
+When the command `build:prod` is issued, the build sequence adds a prefix to the URLs handled by the application. This is done by passing ` --base-href /astrocadre --deploy-url /astrocadre/` args to `ng build --prod` command in `package.json`.
+
+All the paths to the assets are also processed by using `environment.pathInContext` function (from `environments/environment[.prod].ts`), which appends the prefix depending on the build target.
+
 ---
 
 ## Project Structure
