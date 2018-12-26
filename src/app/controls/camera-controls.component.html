@@ -6,7 +6,7 @@
           <!-- down-left arrow -->
           <input type="image"
                  alt="&#8601;"
-                 src="assets/textures/arrow_rotate_left.png"
+                 src="{{ getPathToResource('arrow_rotate_left') }}"
                  title="Rotate counter-clockwise"
                  (click)="rotateView(0, 0, -cameraChangeStep.value)" />
         </td>
@@ -14,7 +14,7 @@
           <!-- up arrow -->
           <input type="image"
                  alt="&#8593;"
-                 src="assets/textures/arrow_up.png"
+                 src="{{ getPathToResource('arrow_up') }}"
                  title="Move upwards"
                  (click)="rotateView(cameraChangeStep.value, 0, 0)" />
         </td>
@@ -22,7 +22,7 @@
           <!-- down-right arrow -->
           <input type="image"
                  alt="&#8600;"
-                 src="assets/textures/arrow_rotate_right.png"
+                 src="{{ getPathToResource('arrow_rotate_right') }}"
                  title="Rotate clockwise"
                  (click)="rotateView(0, 0, cameraChangeStep.value)" />
         </td>
@@ -32,7 +32,7 @@
           <!-- left arrow -->
           <input type="image"
                   alt="&#8592;"
-                  src="assets/textures/arrow_left.png"
+                  src="{{ getPathToResource('arrow_left') }}"
                   title="Move leftwards"
                   (click)="rotateView(0, cameraChangeStep.value, 0)" />
         </td>
@@ -40,7 +40,7 @@
           <!-- down arrow -->
           <input type="image"
                  alt="&#8595;"
-                 src="assets/textures/arrow_down.png"
+                 src="{{ getPathToResource('arrow_down') }}"
                  title="Move downwards"
                  (click)="rotateView(-cameraChangeStep.value, 0, 0)" />
         </td>
@@ -48,7 +48,7 @@
           <!-- right arrow -->
           <input type="image"
                  alt="&#8594;"
-                 src="assets/textures/arrow_right.png"
+                 src="{{ getPathToResource('arrow_right') }}"
                  title="Move rightwards"
                  (click)="rotateView(0, -cameraChangeStep.value, 0)" />
         </td>
@@ -58,7 +58,7 @@
           <!-- empty square symbol -->
           <input type="image"
                  alt="&#9633;"
-                 src="assets/textures/square.png"
+                 src="{{ getPathToResource('square') }}"
                   title="Adjust the field of view to the selected range"
                   (click)="changeFov(cameraChangeStep.value)" />
         </td>
@@ -76,7 +76,7 @@
           <!-- pipe symbol -->
           <input type="image"
                  alt="&#124;"
-                 src="assets/textures/align.png"
+                 src="{{ getPathToResource('align') }}"
                  title="Align the view on the North-Sourth axis"
                  (click)="alignNSAxis()" />
         </td>
