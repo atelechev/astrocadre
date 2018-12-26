@@ -50,7 +50,7 @@ describe('SceneManager', () => {
 
     const bgrAfer = service.getScene().background;
     expect(bgrAfer).toBeDefined();
-    assertColorsSame(bgrAfer, new Color(1, 0, 0));
+    assertColorsSame(<Color> bgrAfer, new Color(1, 0, 0));
   });
 
   it('#addObjects should add objects to the underlying Scene', () => {
