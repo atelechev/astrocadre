@@ -9,12 +9,12 @@ export class Constants {
   /**
    * The width of the main view in pixels.
    */
-  public static readonly VIEW_WIDTH: number = Constants.roundToUpperHundred(window.screen.width * 2 / 3);
+  public static readonly VIEW_WIDTH: number = Constants.roundToUpperHundred(window.screen.width * 3 / 4);
 
   /**
    * The height of the main view in pixels.
    */
-  public static readonly VIEW_HEIGHT: number = Constants.roundToUpperHundred(window.screen.height * 2 / 3);
+  public static readonly VIEW_HEIGHT: number = Constants.roundToUpperHundred(window.screen.height * 3 / 4);
 
   /**
    * The radius of the 3D world sky sphere, in Three coordinate units.
