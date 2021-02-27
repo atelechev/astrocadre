@@ -21,22 +21,11 @@ export class LabelsVisibilityManager {
   private readonly frustum: Frustum;
 
   constructor(private dimensionService: ViewportDimensionService,
-              cameraService: WorldOriginCameraService) {
+    cameraService: WorldOriginCameraService) {
     this.updateHalfDimensions();
     this.frustum = new Frustum();
     this.camera = cameraService.getCamera();
     this.subscribeViewportDimensionChangeEvent();
-  }
-
-  private subscribeViewportDimensionChangeEvent(): void {
-    this.dimensionService.broadcastDimensionChanged$.subscribe(
-      () => this.updateHalfDimensions()
-    );
-  }
-
-  private updateHalfDimensions(): void {
-    this.halfWidth = this.dimensionService.getWidth() / 2;
-    this.halfHeight = this.dimensionService.getHeight() / 2;
   }
 
   /**
@@ -50,7 +39,7 @@ export class LabelsVisibilityManager {
     const allChildren = labelsDomRoot.children;
     const length = allChildren.length;
     for (let i = 0; i < length; i++) {
-      const child = <HTMLElement> allChildren.item(i);
+      const child = allChildren.item(i) as HTMLElement;
       if (child) {
         const cssClass = child.getAttribute('class');
         if (cssClass && cssClass.startsWith(labelClassPrefix)) {
@@ -58,12 +47,6 @@ export class LabelsVisibilityManager {
         }
       }
     }
-  }
-
-  private hideLabel(style: CSSStyleDeclaration): void {
-    style.display = 'none';
-    style.top = '';
-    style.left = '';
   }
 
   /**
@@ -91,9 +74,28 @@ export class LabelsVisibilityManager {
     );
   }
 
+  private subscribeViewportDimensionChangeEvent(): void {
+    this.dimensionService.broadcastDimensionChanged$.subscribe(
+      () => this.updateHalfDimensions()
+    );
+  }
+
+  private updateHalfDimensions(): void {
+    this.halfWidth = this.dimensionService.getWidth() / 2;
+    this.halfHeight = this.dimensionService.getHeight() / 2;
+  }
+
+
+  private hideLabel(style: CSSStyleDeclaration): void {
+    style.display = 'none';
+    style.top = '';
+    style.left = '';
+  }
+
+
   private updateFrustum(): void {
     const matrix = new Matrix4().multiplyMatrices(this.camera.projectionMatrix, this.camera.matrixWorldInverse);
-    this.frustum.setFromMatrix(matrix);
+    this.frustum.setFromProjectionMatrix(matrix);
   }
 
   private isPointBehind(point: Vector3): boolean {

@@ -16,7 +16,7 @@ import { TreeNode } from './core/tree-node';
 @Component({
   selector: `app-astrocadre`,
   templateUrl: './app.component.html',
-  styleUrls: [ ],
+  styleUrls: [],
   providers: [
     ViewportComponent,
     ThemesComponent,
@@ -37,11 +37,26 @@ export class AppComponent implements OnInit {
   private themeAwareComponents: Array<ThemeAware>;
 
   constructor(private changeDetector: ChangeDetectorRef,
-              private layersEventService: LayersEventService,
-              private themesEventService: ThemesEventService,
-              private viewportEventService: ViewportEventService,
-              private viewportDimensionService: ViewportDimensionService) {
+    private layersEventService: LayersEventService,
+    private themesEventService: ThemesEventService,
+    private viewportEventService: ViewportEventService,
+    private viewportDimensionService: ViewportDimensionService) {
     this.themeAwareComponents = new Array<ThemeAware>();
+  }
+
+  public ngOnInit(): void {
+    this.themeAwareComponents.push(this.viewportManager);
+    this.themeAwareComponents.push(this.layersManager);
+    this.subscribeLayerLoadedEvent();
+    this.subscribeThemeLoadedEvent();
+    this.subscribeLayerVisibilityEvent();
+    this.subscribeCameraChangeEvent();
+    this.subscribeStarsMagnitudeRequestEvent();
+    this.subscribeStarsLabelsVisibilityRequestEvent();
+    this.subscribeStarsLabelsTypeRequestEvent();
+    this.subscribeViewportDimensionChangeEvent();
+    // necessary to avoid the nasty "Expression has changed after it was checked." error:
+    this.changeDetector.detectChanges();
   }
 
   private subscribeViewportDimensionChangeEvent(): void {
@@ -108,7 +123,7 @@ export class AppComponent implements OnInit {
 
   private hideMagnitudeLabels(starsPerMagnitude: Array<StarsMagnitudeLayer>, slv: StarLabelVisibility): void {
     const hiddenMagnitudes =
-        slv.visible ? starsPerMagnitude.filter(layer => layer.magClass > slv.magnitude) : starsPerMagnitude;
+      slv.visible ? starsPerMagnitude.filter(layer => layer.magClass > slv.magnitude) : starsPerMagnitude;
     hiddenMagnitudes.forEach(
       (layer) => this.viewportManager.hideLabelsByLayer(layer.getName())
     );
@@ -116,7 +131,7 @@ export class AppComponent implements OnInit {
 
   private showMagnitudeLabels(starsPerMagnitude: Array<StarsMagnitudeLayer>, slv: StarLabelVisibility): void {
     const visibleMagnitudes =
-        slv.visible ? starsPerMagnitude.filter(layer => layer.magClass <= slv.magnitude) : [];
+      slv.visible ? starsPerMagnitude.filter(layer => layer.magClass <= slv.magnitude) : [];
     visibleMagnitudes.forEach(
       (layer) => this.viewportManager.showVisibleLabels(layer.getName(), layer.getRenderableLabels())
     );
@@ -156,21 +171,6 @@ export class AppComponent implements OnInit {
         }
       }
     );
-  }
-
-  public ngOnInit(): void {
-    this.themeAwareComponents.push(this.viewportManager);
-    this.themeAwareComponents.push(this.layersManager);
-    this.subscribeLayerLoadedEvent();
-    this.subscribeThemeLoadedEvent();
-    this.subscribeLayerVisibilityEvent();
-    this.subscribeCameraChangeEvent();
-    this.subscribeStarsMagnitudeRequestEvent();
-    this.subscribeStarsLabelsVisibilityRequestEvent();
-    this.subscribeStarsLabelsTypeRequestEvent();
-    this.subscribeViewportDimensionChangeEvent();
-    // necessary to avoid the nasty "Expression has changed after it was checked." error:
-    this.changeDetector.detectChanges();
   }
 
 }
