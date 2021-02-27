@@ -93,8 +93,7 @@ As of June, 2018, these features have been scheduled for further development:
 The following VSC extensions are also recommended:
 
 * EditorConfig for VS Code (v.0.12.4+), uses the `./.editorconfig` file.
-* ESLint (v1.4.12+), with default configuration.
-* TSLint (v1.0.30+), uses the `./tsconfig.json`, `./tslint.json` and `./src/tsconfig.*.json` files.
+* ESLint (v1.4.12+), with default configuration
 
 ### Back-End & Tools
 
