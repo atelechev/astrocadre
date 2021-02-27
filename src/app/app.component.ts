@@ -85,7 +85,7 @@ export class AppComponent implements OnInit {
       (themeCode: string) => {
         const theme = this.themesManager.getActiveTheme();
         if (theme) {
-          this.themeAwareComponents.forEach(component => component.useTheme(theme));
+          this.themeAwareComponents.forEach(component => component?.useTheme(theme));
           this.viewportEventService.viewportChanged();
         }
       }
