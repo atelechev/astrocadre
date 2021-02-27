@@ -1,5 +1,10 @@
 [
   {
+    "code": "tiny",
+    "label": "Tiny",
+    "description": "Does not accentuate objects, helper lines and labels are low contrasted. Just a calm an pleasant view of the sky."
+  },
+  {
     "code": "wiki",
     "label": "Wikipedia",
     "description": "Theme resembling the one often used in Wikipedia for sky charts."
@@ -18,10 +23,5 @@
     "code": "night-view",
     "label": "Night view",
     "description": "Dim and low contrast theme preserving the eyes from agressive light, that might be useful at night."
-  },
-  {
-    "code": "tiny",
-    "label": "Tiny",
-    "description": "Does not accentuate objects, helper lines and labels are low contrasted. Just a calm an pleasant view of the sky."
   }
 ]
