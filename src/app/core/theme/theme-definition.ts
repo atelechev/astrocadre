@@ -34,7 +34,7 @@ export interface ThemeDefinition {
     names: {
       proper: TextStyle;
       standard: TextStyle;
-    }
+    };
   };
 
 }

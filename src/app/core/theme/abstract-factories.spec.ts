@@ -128,10 +128,14 @@ export const assertTextStyleBuilt = (styles: Map<string, TextStyle>,
   assertTextStyleExpected(style, expectedStyle);
 };
 
+// FIXME use const
+// eslint-disable-next-line
 export function asyncData<T>(data: T) {
   return defer(() => Promise.resolve(data));
 }
 
-export function asyncError<T>(errorObject: any) {
+// FIXME use const
+// eslint-disable-next-line
+export function asyncError(errorObject: any) {
   return defer(() => Promise.reject(errorObject));
 }

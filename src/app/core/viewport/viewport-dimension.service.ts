@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Subject } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { Constants } from '#core/constants';
 import { ScreenCoordinate } from '#core-viewport/screen-coordinate';
 import { Dimension } from '#core-viewport/dimension';
@@ -12,19 +12,21 @@ export class ViewportDimensionService {
 
   private static readonly MAX_SIZE = 16384;
 
-  private broadcastDimensionChanged = new Subject<null>();
+  private broadcastDimensionChanged = new Subject<void>();
 
   private width: number;
 
   private height: number;
 
+  constructor() {
+    this.setDimension({ width: Constants.VIEW_WIDTH, height: Constants.VIEW_HEIGHT });
+  }
+
   /**
    * Observable to subscribe to intercept events fired when the viewport dimension changes.
    */
-  public readonly broadcastDimensionChanged$ = this.broadcastDimensionChanged.asObservable();
-
-  constructor() {
-    this.setDimension({ width: Constants.VIEW_WIDTH, height: Constants.VIEW_HEIGHT });
+  public get broadcastDimensionChanged$(): Observable<void> {
+    return this.broadcastDimensionChanged;
   }
 
   /**

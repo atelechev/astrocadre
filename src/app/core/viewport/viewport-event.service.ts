@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Subject } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { AxialRotation } from '#core-viewport/axial-rotation';
 import { SkyCoordinate } from '#core-viewport/sky-coordinate';
 
@@ -15,34 +15,44 @@ export class ViewportEventService {
 
   private requestFov = new Subject<number>();
 
-  private requestAxisAlignment = new Subject<null>();
+  private requestAxisAlignment = new Subject<void>();
 
-  private broadcastViewportChanged = new Subject<null>();
+  private broadcastViewportChanged = new Subject<void>();
 
   /**
    * Observable to subscribe to when the camera is requested to rotate around its axes.
    */
-  public readonly requestAxialRotation$ = this.requestAxialRotation.asObservable();
+  public get requestAxialRotation$(): Observable<AxialRotation> {
+    return this.requestAxialRotation;
+  }
 
   /**
    * Observable to subscribe to when the camera is requested to center on a specific coordinate.
    */
-  public readonly requestCenterView$ = this.requestCenterView.asObservable();
+  public get requestCenterView$(): Observable<SkyCoordinate> {
+    return this.requestCenterView;
+  }
 
   /**
    * Observable to subscribe to when the camera is requested to change the field of view width angle.
    */
-  public readonly requestFov$ = this.requestFov.asObservable();
+  public get requestFov$(): Observable<number> {
+    return this.requestFov;
+  }
 
   /**
    * Observable to subscribe to when the camera is requested to align with the South-North axis.
    */
-  public readonly requestAxisAlignment$ = this.requestAxisAlignment.asObservable();
+  public get requestAxisAlignment$(): Observable<void> {
+    return this.requestAxisAlignment;
+  }
 
   /**
    * Observable to subscribe to intercept events fired when a viewport change is completed.
    */
-  public readonly broadcastViewportChanged$ = this.broadcastViewportChanged.asObservable();
+  public get broadcastViewportChanged$(): Observable<void> {
+    return this.broadcastViewportChanged;
+  }
 
   /**
    * Broadcast an event to request the camera to rotate around its axes.

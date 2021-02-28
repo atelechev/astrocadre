@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Subject } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { StarLabelVisibility } from '#core-layer/star-label-visibility';
 import { TreeNode } from '#core/tree-node';
 
@@ -26,37 +26,51 @@ export class LayersEventService {
   /**
    * Observable to subscribe to intercept event of loading the layers tree.
    */
-  public readonly broadcastLayersTreeLoaded$ = this.broadcastLayersTreeLoaded.asObservable();
+  public get broadcastLayersTreeLoaded$(): Observable<TreeNode> {
+    return this.broadcastLayersTreeLoaded;
+  }
 
   /**
    * Observable to subscribe to intercept events when layers are loaded.
    */
-  public readonly broadcastLayerLoaded$ = this.broadcastLayerLoaded.asObservable();
+  public get broadcastLayerLoaded$(): Observable<string> {
+    return this.broadcastLayerLoaded;
+  }
 
   /**
    * Observable to subscribe to when a layer is requested to be loaded.
    */
-  public readonly requestLayerLoad$ = this.requestLayerLoad.asObservable();
+  public get requestLayerLoad$(): Observable<TreeNode> {
+    return this.requestLayerLoad;
+  }
 
   /**
    * Observable to subscribe to when a layer is requested to show or hide.
    */
-  public readonly requestLayerVisibility$ = this.requestLayerVisibility.asObservable();
+  public get requestLayerVisibility$(): Observable<TreeNode> {
+    return this.requestLayerVisibility;
+  }
 
   /**
    * Observable to subscribe to when a stars layer with specific magnitude is requested to show or hide.
    */
-  public readonly requestStarsMagnitude$ = this.requestStarsMagnitude.asObservable();
+  public get requestStarsMagnitude$(): Observable<number> {
+    return this.requestStarsMagnitude.asObservable();
+  };
 
   /**
    * Observable to subscribe to when star labels are requested to show or hide.
    */
-  public readonly requestStarsLabelsVisibility$ = this.requestStarsLabelsVisibility.asObservable();
+  public get requestStarsLabelsVisibility$(): Observable<StarLabelVisibility> {
+    return this.requestStarsLabelsVisibility;
+  }
 
   /**
    * Observable to subscribe to request star labels type change.
    */
-  public readonly requestStarsLabelsType$ = this.requestStarsLabelsType.asObservable();
+  public get requestStarsLabelsType$(): Observable<string> {
+    return this.requestStarsLabelsType.asObservable();
+  }
 
   /**
    * Broadcast an event when a layer is loaded.

@@ -44,15 +44,6 @@ export class RenderableLayer implements ThemeAware {
   }
 
   /**
-   * Applies the specified theme on this layer only, excluding its sub-layers.
-   *
-   * @param theme the theme to apply.
-   */
-  protected useThemeForThis(theme: Theme): void {
-    // no own graphics, all are in sub-layers
-  }
-
-  /**
    * Sets this layer visible.
    *
    * @param visible true to show, false to hide this layer.
@@ -126,6 +117,15 @@ export class RenderableLayer implements ThemeAware {
    */
   public setLabelsShown(show: boolean): void {
     this.labelsShown = show;
+  }
+
+  /**
+   * Applies the specified theme on this layer only, excluding its sub-layers.
+   *
+   * @param theme the theme to apply.
+   */
+  protected useThemeForThis(theme: Theme): void {
+    // no own graphics, all are in sub-layers
   }
 
 }

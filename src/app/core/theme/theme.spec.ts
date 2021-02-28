@@ -36,10 +36,10 @@ describe('Theme', () => {
       names: textStyle('size1', 'fam1', 'style1', 'weight1', 'rgb(5,5,5)')
     },
     stars: {
-      magnitudes: magnitudes,
+      magnitudes,
       texture: {
         image: 'test/path/1',
-        sizeMultiplier: sizeMultiplier
+        sizeMultiplier
       },
       names: {
         proper: textStyle('size2', 'fam2', 'style2', 'weight2', 'rgb(6,6,6)'),

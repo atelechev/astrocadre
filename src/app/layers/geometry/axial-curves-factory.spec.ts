@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 import { BufferGeometry } from 'three';
-import { assertGeometryExpected, assertSegmentsArgMustBeDefined, assertSegmentsArgMustNotBeEmpty } from '#layers/object3d-factory.spec';
+import { assertGeometryExpected, assertSegmentsArgMustBeDefined, assertSegmentsArgMustNotBeEmpty } from '#layers/geometry/object3d-factory.spec';
 import { Layers } from '#core/layers';
 import { AxialCurvesFactory } from '#layers/geometry/axial-curves-factory';
 

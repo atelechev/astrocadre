@@ -76,11 +76,9 @@ export class SceneManager {
   }
 
   private removeObject(object: Object3D): void {
-    for (let i = 0; i < this.scene.children.length; i++) {
-      if (object === this.scene.children[i]) {
-        this.scene.remove(object);
-        return;
-      }
+    const foundObject = this.scene.children.find((obj: Object3D) => object === obj);
+    if (foundObject) {
+      this.scene.remove(foundObject);
     }
   }
 
@@ -102,12 +100,8 @@ export class SceneManager {
   }
 
   private isObjectShown(object: Object3D): boolean {
-    for (let i = 0; i < this.scene.children.length; i++) {
-      if (object === this.scene.children[i]) {
-        return true;
-      }
-    }
-    return false;
+    const foundObject = this.scene.children.find((obj: Object3D) => object === obj);
+    return !!foundObject;
   }
 
 }

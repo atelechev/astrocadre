@@ -1,7 +1,8 @@
 {
   "root": true,
   "ignorePatterns": [
-    "projects/**/*"
+    "projects/**/*",
+    "src/typings.d.ts"
   ],
   "overrides": [
     {
@@ -34,6 +35,21 @@
             "type": "attribute",
             "prefix": "app",
             "style": "camelCase"
+          }
+        ],
+        "@typescript-eslint/naming-convention": [
+          "error",
+          {
+            "selector": "classProperty",
+            "modifiers": ["static"],
+            "format": ["UPPER_CASE"]
+          }
+        ],
+        "max-len": [
+          "error",
+          {
+            "code": 160,
+            "ignoreUrls": true
           }
         ]
       }

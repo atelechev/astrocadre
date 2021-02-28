@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Subject } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { StaticDataService } from '#core/static-data-service';
 import { SearchableItem } from '#core-search/searchable-item';
 import { SkyCoordinate } from '#core/viewport/sky-coordinate';
@@ -9,17 +9,40 @@ export class SearchService {
 
   private readonly coordinatesPattern = /(\d+(?:[.,]\d*)?)\s+(-?\d+(?:[.,]\d*)?)/i;
 
-  private broadcastItemsLoaded = new Subject<null>();
+  private broadcastItemsLoaded = new Subject<void>();
 
   private searchableItems: Map<string, SearchableItem>;
+
+  constructor(private dataService: StaticDataService) {
+    this.initSearchableItems();
+  }
 
   /**
    * Observable to subscribe to intercept events fired when the items are loaded.
    */
-  public readonly broadcastItemsLoaded$ = this.broadcastItemsLoaded.asObservable();
+  public get broadcastItemsLoaded$(): Observable<void> {
+    return this.broadcastItemsLoaded;
+  }
 
-  constructor(private dataService: StaticDataService) {
-    this.initSearchableItems();
+  /**
+   * Returns the SkyCoordinate that corresponds to the specified search query.
+   *
+   * @param query the query string
+   */
+  public search(query: string): SkyCoordinate {
+    if (!query) {
+      return undefined;
+    }
+    const directCoordinates = this.attemptDirectParseToCoordinate(query);
+    if (directCoordinates) {
+      return directCoordinates;
+    }
+    const searchTextNormalized = this.normalizeSearchString(query);
+    if (this.searchableItems.has(searchTextNormalized)) {
+      const item = this.searchableItems.get(searchTextNormalized);
+      return this.toSkyCoordinate(item.ra, item.dec);
+    }
+    return undefined;
   }
 
   private normalizeSearchString(value: string): string {
@@ -46,27 +69,6 @@ export class SearchService {
 
   private toSkyCoordinate(ra: number, dec: number): SkyCoordinate {
     return { rightAscension: ra, declination: dec };
-  }
-
-  /**
-   * Returns the SkyCoordinate that corresponds to the specified search query.
-   *
-   * @param query the query string
-   */
-  public search(query: string): SkyCoordinate {
-    if (!query) {
-      return undefined;
-    }
-    const directCoordinates = this.attemptDirectParseToCoordinate(query);
-    if (directCoordinates) {
-      return directCoordinates;
-    }
-    const searchTextNormalized = this.normalizeSearchString(query);
-    if (this.searchableItems.has(searchTextNormalized)) {
-      const item = this.searchableItems.get(searchTextNormalized);
-      return this.toSkyCoordinate(item.ra, item.dec);
-    }
-    return undefined;
   }
 
   private attemptDirectParseToCoordinate(query: string): SkyCoordinate {

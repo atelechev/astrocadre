@@ -10,8 +10,8 @@ export class TreeNodeFinder {
         return node;
       }
       if (node.nodes) {
-        for (let i = 0; i < node.nodes.length; i++) {
-          const foundAmongChildren = this.findInTree(code, node.nodes[i]);
+        for (const n of node.nodes) {
+          const foundAmongChildren = this.findInTree(code, n);
           if (foundAmongChildren) {
             return foundAmongChildren;
           }
