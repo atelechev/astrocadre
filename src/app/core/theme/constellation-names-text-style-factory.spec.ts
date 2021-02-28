@@ -15,21 +15,25 @@ describe('ConstellationNamesTextStylesFactory', () => {
 
   themeDef.constellation.names = textStyle('size1', 'fam1', 'style1', 'weight1', 'color1');
 
-  it('#constructor should initialize targetLayerName field', () => {
+  it('constructor should initialize targetLayerName field', () => {
     expect(factory.layerName).toBe(Layers.CONSTELLATION_NAMES);
   });
 
-  it('#buildTextStyles should throw expected error if themeDef is undefined', () => {
-    const expectedMessage = 'Missing theme definition in ConstellationNamesTextStylesFactory';
-    expect(() => factory.buildTextStyles(undefined)).toThrow(new Error(expectedMessage));
-  });
+  describe('buildTextStyles should', () => {
 
-  it('#buildTextStyles should return expected text styles map', () => {
-    const styles = factory.buildTextStyles(themeDef);
-    expect(styles).toBeDefined();
-    expect(styles.size).toBe(1);
-    const expectedStyle = textStyle('size1', 'fam1', 'style1', 'weight1', 'color1');
-    assertTextStyleBuilt(styles, 'labels', expectedStyle);
+    it('throw expected error if themeDef is undefined', () => {
+      const expectedMessage = 'Missing theme definition in ConstellationNamesTextStylesFactory';
+      expect(() => factory.buildTextStyles(undefined)).toThrow(new Error(expectedMessage));
+    });
+
+    it('return expected text styles map', () => {
+      const styles = factory.buildTextStyles(themeDef);
+      expect(styles).toBeDefined();
+      expect(styles.size).toBe(1);
+      const expectedStyle = textStyle('size1', 'fam1', 'style1', 'weight1', 'color1');
+      assertTextStyleBuilt(styles, 'labels', expectedStyle);
+    });
+
   });
 
 });

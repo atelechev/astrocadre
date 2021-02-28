@@ -19,26 +19,26 @@ describe('SceneManager', () => {
         WorldOriginCameraService,
         SceneManager]
     });
-    service = TestBed.get(SceneManager);
+    service = TestBed.inject(SceneManager);
   });
 
   const assertObjectsCount = (expectedObjectsCount: number) => {
     expect(service.getScene().children.length).toBe(expectedObjectsCount);
   };
 
-  it('#getScene should return a defined Scene instance', () => {
+  it('getScene should return a defined Scene instance', () => {
     const scene = service.getScene();
     expect(scene).toBeDefined();
     expect(scene instanceof Scene).toBeTruthy();
   });
 
-  it('#getDomElement should return a defined HTMLCanvasElement', () => {
+  it('getDomElement should return a defined HTMLCanvasElement', () => {
     const canvas = service.getDomElement();
     expect(canvas).toBeDefined();
     expect(canvas instanceof HTMLCanvasElement).toBeTruthy();
   });
 
-  it('#updateForTheme updates the background of the underlying scene', () => {
+  it('updateForTheme updates the background of the underlying scene', () => {
     const themeDef = Object.create(emptyThemeDef);
     themeDef.background.color = 'rgb(255, 0, 0)';
     const theme = new Theme(themeDef);
@@ -53,34 +53,38 @@ describe('SceneManager', () => {
     assertColorsSame(bgrAfer as Color, new Color(1, 0, 0));
   });
 
-  it('#addObjects should add objects to the underlying Scene', () => {
-    const objects = [new Object3D()];
-    assertObjectsCount(0);
+  describe('addObjects should', () => {
 
-    service.addObjects(objects);
-    assertObjectsCount(1);
+    it('add objects to the underlying Scene', () => {
+      const objects = [new Object3D()];
+      assertObjectsCount(0);
+
+      service.addObjects(objects);
+      assertObjectsCount(1);
+    });
+
+    it('add same object only once', () => {
+      assertObjectsCount(0);
+
+      const objects = [new Object3D()];
+      service.addObjects(objects);
+      assertObjectsCount(1);
+
+      service.addObjects(objects);
+      assertObjectsCount(1);
+    });
+
+    it('not add undefined objects', () => {
+      assertObjectsCount(0);
+
+      const objects = [undefined];
+      service.addObjects(objects);
+      assertObjectsCount(0);
+    });
+
   });
 
-  it('#addObjects should add same object only once', () => {
-    assertObjectsCount(0);
-
-    const objects = [new Object3D()];
-    service.addObjects(objects);
-    assertObjectsCount(1);
-
-    service.addObjects(objects);
-    assertObjectsCount(1);
-  });
-
-  it('#addObjects should not add undefined objects', () => {
-    assertObjectsCount(0);
-
-    const objects = [undefined];
-    service.addObjects(objects);
-    assertObjectsCount(0);
-  });
-
-  it('#removeObject should remove existing object from the underlying Scene', () => {
+  it('removeObject should remove existing object from the underlying Scene', () => {
     assertObjectsCount(0);
 
     const objects = [new Object3D()];

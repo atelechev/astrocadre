@@ -9,10 +9,10 @@ describe('ThemesEventService', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({ providers: [ThemesEventService] });
-    service = TestBed.get(ThemesEventService);
+    service = TestBed.inject(ThemesEventService);
   });
 
-  it('#themesListLoaded should broadcast event for the specified themes', () => {
+  it('themesListLoaded should broadcast event for the specified themes', () => {
     const themes = [newTreeNode('theme1', []), newTreeNode('theme2', [])];
     const subscribed = service.broadcastThemesListLoaded$.subscribe(
       (broadcastedThemes: Array<TreeNode>) => {
@@ -26,7 +26,7 @@ describe('ThemesEventService', () => {
     subscribed.unsubscribe();
   });
 
-  it('#themeLoaded should broadcast event for the specified theme', () => {
+  it('themeLoaded should broadcast event for the specified theme', () => {
     const themeName = 'test_theme_1';
     const subscribed = service.broadcastThemeLoaded$.subscribe(
       (theme: string) => expect(theme).toBe(themeName)
@@ -35,7 +35,7 @@ describe('ThemesEventService', () => {
     subscribed.unsubscribe();
   });
 
-  it('#loadThemeRequested should broadcast event for the specified theme', () => {
+  it('loadThemeRequested should broadcast event for the specified theme', () => {
     const themeName = 'test_theme_2';
     const subscribed = service.requestThemeLoad$.subscribe(
       (theme: string) => expect(theme).toBe(themeName)

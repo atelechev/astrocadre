@@ -62,7 +62,7 @@ describe('LayersFactoryService', () => {
 
   let service: LayersFactoryService;
 
-  beforeAll(() => {
+  beforeEach(() => {
     TestBed.configureTestingModule({
       providers: [
         LayersFactoryService,
@@ -78,20 +78,10 @@ describe('LayersFactoryService', () => {
         { provide: StaticDataService, useClass: MockStaticData }
       ]
     });
-    service = TestBed.get(LayersFactoryService);
+    service = TestBed.inject(LayersFactoryService);
   });
 
   const layerNode = (code: string): TreeNode => newTreeNode(code, []);
-
-  it('#newRenderableLayer should throw expected error if arg is undefined', () => {
-    expect(() => service.newRenderableLayer(undefined))
-      .toThrow(new Error('layer arg must be defined, but was \'undefined\''));
-  });
-
-  it('#newRenderableLayer should throw expected error if layer name is unexpected', () => {
-    expect(() => service.newRenderableLayer(layerNode('test')))
-      .toThrow(new Error('Unsupported layer: test'));
-  });
 
   const assertLayerRetrieved = (layerName: string, checkFunct: (l: RenderableLayer) => boolean): void => {
     const observedLayer = service.newRenderableLayer(layerNode(layerName));
@@ -101,36 +91,59 @@ describe('LayersFactoryService', () => {
     );
   };
 
-  it('#newRenderableLayer should return a defined instance of SkyGrid layer', () => {
-    assertLayerRetrieved(Layers.SKY_GRID, (l) => l instanceof SkyGridLayer);
-  });
+  describe('newRenderableLayer', () => {
 
-  it('#newRenderableLayer should return a defined instance of Stars layer', () => {
-    assertLayerRetrieved(Layers.STARS, (l) => l instanceof RenderableLayer);
-  });
+    describe('should throw expected error', () => {
 
-  it('#newRenderableLayer should return a defined instance of Constellations layer', () => {
-    assertLayerRetrieved(Layers.CONSTELLATIONS, (l) => l instanceof RenderableLayer);
-  });
+      it('if arg is undefined', () => {
+        expect(() => service.newRenderableLayer(undefined))
+          .toThrow(new Error('layer arg must be defined, but was \'undefined\''));
+      });
 
-  it('#newRenderableLayer should return a defined instance of ConstellationBoundaries layer', () => {
-    assertLayerRetrieved(Layers.CONSTELLATION_BOUNDARIES, (l) => l instanceof ConstellationBoundariesLayer);
-  });
+      it('if layer name is unexpected', () => {
+        expect(() => service.newRenderableLayer(layerNode('test')))
+          .toThrow(new Error('Unsupported layer: test'));
+      });
 
-  it('#newRenderableLayer should return a defined instance of ConstellationLines layer', () => {
-    assertLayerRetrieved(Layers.CONSTELLATION_LINES, (l) => l instanceof ConstellationLinesLayer);
-  });
+    });
 
-  it('#newRenderableLayer should return a defined instance of ConstellationNames layer', () => {
-    assertLayerRetrieved(Layers.CONSTELLATION_NAMES, (l) => l instanceof ConstellationNamesLayer);
-  });
+    describe('should return', () => {
 
-  it('#newRenderableLayer should return defined instances of StarsMagnitude layers', () => {
-    [2.0, 2.5, 3.0].forEach(
-      (magnitude: number) => {
-        assertLayerRetrieved(`stars-mag${magnitude}`, (l) => l instanceof StarsMagnitudeLayer);
-      }
-    );
+
+      it('a defined instance of SkyGrid layer', () => {
+        assertLayerRetrieved(Layers.SKY_GRID, (l) => l instanceof SkyGridLayer);
+      });
+
+      it('a defined instance of Stars layer', () => {
+        assertLayerRetrieved(Layers.STARS, (l) => l instanceof RenderableLayer);
+      });
+
+      it('a defined instance of Constellations layer', () => {
+        assertLayerRetrieved(Layers.CONSTELLATIONS, (l) => l instanceof RenderableLayer);
+      });
+
+      it('a defined instance of ConstellationBoundaries layer', () => {
+        assertLayerRetrieved(Layers.CONSTELLATION_BOUNDARIES, (l) => l instanceof ConstellationBoundariesLayer);
+      });
+
+      it('a defined instance of ConstellationLines layer', () => {
+        assertLayerRetrieved(Layers.CONSTELLATION_LINES, (l) => l instanceof ConstellationLinesLayer);
+      });
+
+      it('a defined instance of ConstellationNames layer', () => {
+        assertLayerRetrieved(Layers.CONSTELLATION_NAMES, (l) => l instanceof ConstellationNamesLayer);
+      });
+
+      it('defined instances of StarsMagnitude layers', () => {
+        [2.0, 2.5, 3.0].forEach(
+          (magnitude: number) => {
+            assertLayerRetrieved(`stars-mag${magnitude}`, (l) => l instanceof StarsMagnitudeLayer);
+          }
+        );
+      });
+
+    });
+
   });
 
 });

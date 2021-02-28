@@ -42,54 +42,60 @@ describe('ConstellationNamesLayer', () => {
 
   const renderables = initTestRenderables();
 
+  describe('constructor should throw expected exception', () => {
 
-  it('#constructor should throw expected exception if tree arg is not defined', () => {
-    expect(() => new ConstellationNamesLayer(undefined, new Map()))
-      .toThrow(new Error('tree arg must be defined, but was \'undefined\''));
+    it('if tree arg is not defined', () => {
+      expect(() => new ConstellationNamesLayer(undefined, new Map()))
+        .toThrow(new Error('tree arg must be defined, but was \'undefined\''));
+    });
+
+    it('if renderableLabels arg is not defined', () => {
+      expect(() => new ConstellationNamesLayer(treeNode, undefined))
+        .toThrow(new Error('renderableLabels arg must be defined, but was \'undefined\''));
+    });
+
   });
 
-  it('#constructor should throw expected exception if renderableLabels arg is not defined', () => {
-    expect(() => new ConstellationNamesLayer(treeNode, undefined))
-      .toThrow(new Error('renderableLabels arg must be defined, but was \'undefined\''));
-  });
-
-  it('#getObjects should return an empty array', () => {
+  it('getObjects should return an empty array', () => {
     const layer = new ConstellationNamesLayer(treeNode, new Map());
     const objects = layer.getObjects();
     expect(objects).toBeDefined();
     expect(objects.length).toBe(0);
   });
 
-  it('#getName should return expected value', () => {
+  it('getName should return expected value', () => {
     const layer = new ConstellationNamesLayer(treeNode, new Map());
     expect(layer.getName()).toBe(layerName);
   });
 
-  it('#getTextElements should return expected value', () => {
-    const layer = new ConstellationNamesLayer(treeNode, renderables);
-    const texts = layer.getTextElements();
-    expect(texts).toBeDefined();
-    expect(texts.length).toBe(2);
-  });
+  describe('getTextElements should', () => {
 
-  it('#getRenderableLabels should return expected value', () => {
+    it('return expected value', () => {
+      const layer = new ConstellationNamesLayer(treeNode, renderables);
+      const texts = layer.getTextElements();
+      expect(texts).toBeDefined();
+      expect(texts.length).toBe(2);
+    });
+
+    it('contain all elements from renderableLabels', () => {
+      const layer = new ConstellationNamesLayer(treeNode, renderables);
+      const texts = layer.getTextElements();
+      const labels = layer.getRenderableLabels();
+      expect(texts.length).toBe(labels.size);
+      labels.forEach(
+        (renderable: RenderableText, key: string) => {
+          const foundItem = texts.find(text => text.innerText === renderable.getHtmlElement().innerText);
+          expect(foundItem).toBeDefined();
+        }
+      );
+    });
+
+  });
+  it('getRenderableLabels should return expected value', () => {
     const layer = new ConstellationNamesLayer(treeNode, renderables);
     const labels = layer.getRenderableLabels();
     expect(labels).toBeDefined();
     expect(labels.size).toBe(2);
-  });
-
-  it('#getTextElements should contain all elements from renderableLabels', () => {
-    const layer = new ConstellationNamesLayer(treeNode, renderables);
-    const texts = layer.getTextElements();
-    const labels = layer.getRenderableLabels();
-    expect(texts.length).toBe(labels.size);
-    labels.forEach(
-      (renderable: RenderableText, key: string) => {
-        const foundItem = texts.find(text => text.innerText === renderable.getHtmlElement().innerText);
-        expect(foundItem).toBeDefined();
-      }
-    );
   });
 
 });

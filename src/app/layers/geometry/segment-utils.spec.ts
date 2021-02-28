@@ -2,64 +2,91 @@ import { isParallelSegment, isMeridionalSegment, isCrossingInitialMeridian } fro
 
 describe('segment-utils', () => {
 
-  it('#isParallelSegment should return false if arg is not defined', () => {
-    expect(isParallelSegment(undefined)).toBeFalsy();
+  describe('isParallelSegment should return', () => {
+
+    describe('false', () => {
+
+      it('if arg is not defined', () => {
+        expect(isParallelSegment(undefined)).toBeFalsy();
+      });
+
+      it('if arg length is lower than expected', () => {
+        expect(isParallelSegment([])).toBeFalsy();
+      });
+
+      it('if segment does not represent a parallel', () => {
+        const segment = [1, 2, 3, 4];
+        expect(isParallelSegment(segment)).toBeFalsy();
+      });
+
+    });
+
+    it('true if segment represents a parallel', () => {
+      const segment = [1, 2, 3, 2];
+      expect(isParallelSegment(segment)).toBeTruthy();
+    });
+
   });
 
-  it('#isParallelSegment should return false if arg length is lower than expected', () => {
-    expect(isParallelSegment([])).toBeFalsy();
+  describe('isMeridionalSegment should return', () => {
+
+    describe('false', () => {
+
+      it('if arg is not defined', () => {
+        expect(isMeridionalSegment(undefined)).toBeFalsy();
+      });
+
+      it('if arg length is lower than expected', () => {
+        expect(isMeridionalSegment([])).toBeFalsy();
+      });
+
+      it('if segment does not represent a meridian', () => {
+        const segment = [1, 2, 3, 4];
+        expect(isMeridionalSegment(segment)).toBeFalsy();
+      });
+
+    });
+
+    it('true if segment represents a meridian', () => {
+      const segment = [1, 2, 1, 4];
+      expect(isMeridionalSegment(segment)).toBeTruthy();
+    });
+
   });
 
-  it('#isParallelSegment should return false if segment does not represent a parallel', () => {
-    const segment = [1, 2, 3, 4];
-    expect(isParallelSegment(segment)).toBeFalsy();
-  });
+  describe('isCrossingInitialMeridian should return', () => {
 
-  it('#isParallelSegment should return true if segment represents a parallel', () => {
-    const segment = [1, 2, 3, 2];
-    expect(isParallelSegment(segment)).toBeTruthy();
-  });
+    describe('false', () => {
 
-  it('#isMeridionalSegment should return false if arg is not defined', () => {
-    expect(isMeridionalSegment(undefined)).toBeFalsy();
-  });
+      it('if arg is not defined', () => {
+        expect(isCrossingInitialMeridian(undefined)).toBeFalsy();
+      });
 
-  it('#isMeridionalSegment should return false if arg length is lower than expected', () => {
-    expect(isMeridionalSegment([])).toBeFalsy();
-  });
+      it('if arg length is lower than expected', () => {
+        expect(isCrossingInitialMeridian([])).toBeFalsy();
+      });
 
-  it('#isMeridionalSegment should return false if segment does not represent a meridian', () => {
-    const segment = [1, 2, 3, 4];
-    expect(isMeridionalSegment(segment)).toBeFalsy();
-  });
+      it('if segment does not cross the initial meridian', () => {
+        const segment = [25, 10, 50, 10];
+        expect(isCrossingInitialMeridian(segment)).toBeFalsy();
+      });
 
-  it('#isMeridionalSegment should return true if segment represents a meridian', () => {
-    const segment = [1, 2, 1, 4];
-    expect(isMeridionalSegment(segment)).toBeTruthy();
-  });
+    });
 
+    describe('true', () => {
 
-  it('#isCrossingInitialMeridian should return false if arg is not defined', () => {
-    expect(isCrossingInitialMeridian(undefined)).toBeFalsy();
-  });
+      it('if segment is at initial meridian, leftwards', () => {
+        const segment = [0, 10, 360, 10];
+        expect(isCrossingInitialMeridian(segment)).toBeTruthy();
+      });
 
-  it('#isCrossingInitialMeridian should return false if arg length is lower than expected', () => {
-    expect(isCrossingInitialMeridian([])).toBeFalsy();
-  });
+      it('if segment is at initial meridian, rightwards', () => {
+        const segment = [360, 10, 0, 10];
+        expect(isCrossingInitialMeridian(segment)).toBeTruthy();
+      });
 
-  it('#isCrossingInitialMeridian should return false if segment does not cross the initial meridian', () => {
-    const segment = [25, 10, 50, 10];
-    expect(isCrossingInitialMeridian(segment)).toBeFalsy();
-  });
+    });
 
-  it('#isCrossingInitialMeridian should return true if segment is at initial meridian, leftwards', () => {
-    const segment = [0, 10, 360, 10];
-    expect(isCrossingInitialMeridian(segment)).toBeTruthy();
-  });
-
-  it('#isCrossingInitialMeridian should return true if segment is at initial meridian, rightwards', () => {
-    const segment = [360, 10, 0, 10];
-    expect(isCrossingInitialMeridian(segment)).toBeTruthy();
   });
 
 });

@@ -17,20 +17,24 @@ describe('ConstellationBoundariesMaterialsFactory', () => {
     }
   };
 
-  it('#constructor should initialize targetLayerName field', () => {
+  it('constructor should initialize targetLayerName field', () => {
     expect(factory.layerName).toBe(Layers.CONSTELLATION_BOUNDARIES);
   });
 
-  it('#buildMaterials should throw expected error if themeDef is undefined', () => {
-    const expectedMessage = 'Missing theme definition in ConstellationBoundariesMaterialsFactory';
-    expect(() => factory.buildMaterials(undefined)).toThrow(new Error(expectedMessage));
-  });
+  describe('buildMaterials should', () => {
 
-  it('#buildMaterials should return expected materials map', () => {
-    const materials = factory.buildMaterials(themeDef);
-    expect(materials).toBeDefined();
-    expect(materials.size).toBe(1);
-    assertLineBasicMaterialBuilt(materials, 'line-common', new LineBasicMaterial({ color: 'rgb(3, 3, 3)' }));
+    it('throw expected error if themeDef is undefined', () => {
+      const expectedMessage = 'Missing theme definition in ConstellationBoundariesMaterialsFactory';
+      expect(() => factory.buildMaterials(undefined)).toThrow(new Error(expectedMessage));
+    });
+
+    it('return expected materials map', () => {
+      const materials = factory.buildMaterials(themeDef);
+      expect(materials).toBeDefined();
+      expect(materials.size).toBe(1);
+      assertLineBasicMaterialBuilt(materials, 'line-common', new LineBasicMaterial({ color: 'rgb(3, 3, 3)' }));
+    });
+
   });
 
 });

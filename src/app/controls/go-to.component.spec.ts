@@ -20,6 +20,10 @@ class MockStaticData {
 
 }
 
+const errorOnUnexpectedSearchResults = (center: SkyCoordinate): void => {
+  throw new Error(`Center view should not have been requested, but was for ra=${center.rightAscension} dec=${center.declination}`);
+};
+
 describe('GoToComponent', () => {
 
   let component: GoToComponent;
@@ -36,62 +40,66 @@ describe('GoToComponent', () => {
         { provide: StaticDataService, useClass: MockStaticData }
       ]
     });
-    component = TestBed.get(GoToComponent);
-    viewportEventService = TestBed.get(ViewportEventService);
+    component = TestBed.inject(GoToComponent);
+    viewportEventService = TestBed.inject(ViewportEventService);
   });
 
-  it('#goToButtonDisabled should be initialized in disabled state', () => {
+  it('goToButtonDisabled should be initialized in disabled state', () => {
     expect(component.goToButtonDisabled).toBeTruthy();
   });
 
-  it('#updateGoToButtonState should set goToButtonDisabled to false if search text is defined and not empty', () => {
-    expect(component.goToButtonDisabled).toBeTruthy();
-    component.searchText = 'test';
-    component.updateGoToButtonState();
-    expect(component.goToButtonDisabled).toBeFalsy();
+  describe('updateGoToButtonState should', () => {
+
+    it('set goToButtonDisabled to false if search text is defined and not empty', () => {
+      expect(component.goToButtonDisabled).toBeTruthy();
+      component.searchText = 'test';
+      component.updateGoToButtonState();
+      expect(component.goToButtonDisabled).toBeFalsy();
+    });
+
+    it('reset searchNoResultsClass', () => {
+      component.searchNoResultsClass = 'error';
+      expect(component.goToButtonDisabled).toBeTruthy();
+      component.searchText = 'test';
+      component.updateGoToButtonState();
+      expect(component.searchNoResultsClass).toBe('');
+    });
+
   });
 
-  it('#updateGoToButtonState should reset searchNoResultsClass', () => {
-    component.searchNoResultsClass = 'error';
-    expect(component.goToButtonDisabled).toBeTruthy();
-    component.searchText = 'test';
-    component.updateGoToButtonState();
-    expect(component.searchNoResultsClass).toBe('');
-  });
+  describe('execGoToSearchRequest should', () => {
 
-  const errorOnUnexpectedSearchResults = (center: SkyCoordinate): void => {
-    throw new Error(`Center view should not have been requested, but was for ra=${center.rightAscension} dec=${center.declination}`);
-  };
+    it('not execute search request if search text is not defined', () => {
+      component.goToButtonDisabled = false;
+      component.searchText = undefined;
+      viewportEventService.requestCenterView$.subscribe(
+        (center) => errorOnUnexpectedSearchResults(center)
+      );
+      component.execGoToSearchRequest();
+    });
 
-  it('#execGoToSearchRequest should not execute search request if search text is not defined', () => {
-    component.goToButtonDisabled = false;
-    component.searchText = undefined;
-    viewportEventService.requestCenterView$.subscribe(
-      (center) => errorOnUnexpectedSearchResults(center)
-    );
-    component.execGoToSearchRequest();
-  });
+    it('execute search request and trigger expected center view event', () => {
+      component.goToButtonDisabled = false;
+      component.searchText = 'and';
+      viewportEventService.requestCenterView$.subscribe(
+        (center) => {
+          expect(center.rightAscension).toBeCloseTo(8.532, precision);
+          expect(center.declination).toBeCloseTo(38.906, precision);
+        }
+      );
+      component.execGoToSearchRequest();
+    });
 
-  it('#execGoToSearchRequest should execute search request and trigger expected center view event', () => {
-    component.goToButtonDisabled = false;
-    component.searchText = 'and';
-    viewportEventService.requestCenterView$.subscribe(
-      (center) => {
-        expect(center.rightAscension).toBeCloseTo(8.532, precision);
-        expect(center.declination).toBeCloseTo(38.906, precision);
-      }
-    );
-    component.execGoToSearchRequest();
-  });
+    it('set searchNoResultsClass to expected value if there were no search results', () => {
+      component.goToButtonDisabled = false;
+      component.searchText = 'test';
+      viewportEventService.requestCenterView$.subscribe(
+        (center) => errorOnUnexpectedSearchResults(center)
+      );
+      component.execGoToSearchRequest();
+      expect(component.searchNoResultsClass).toBe('searchtext-input-invalid');
+    });
 
-  it('#execGoToSearchRequest should set searchNoResultsClass to expected value if there were no search results', () => {
-    component.goToButtonDisabled = false;
-    component.searchText = 'test';
-    viewportEventService.requestCenterView$.subscribe(
-      (center) => errorOnUnexpectedSearchResults(center)
-    );
-    component.execGoToSearchRequest();
-    expect(component.searchNoResultsClass).toBe('searchtext-input-invalid');
   });
 
 });

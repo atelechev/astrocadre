@@ -31,52 +31,8 @@ describe('StarsMagnitudeLayer', () => {
     );
   };
 
-  beforeAll(() => {
+  beforeEach(() => {
     initTestStars();
-  });
-
-  it('#constructor should throw expected error if tree arg is undefined', () => {
-    expect(() => new StarsMagnitudeLayer(undefined, 1, new Points(), emptyNames, emptyNames))
-      .toThrow(new Error('tree arg must be defined, but was \'undefined\''));
-  });
-
-  it('#constructor should throw expected error if magClass arg is undefined', () => {
-    expect(() => new StarsMagnitudeLayer(treeNode, undefined, new Points(), emptyNames, emptyNames))
-      .toThrow(new Error('magClass arg must be defined, but was \'undefined\''));
-  });
-
-  it('#constructor should throw expected error if stars arg is undefined', () => {
-    expect(() => new StarsMagnitudeLayer(treeNode, 1, undefined, emptyNames, emptyNames))
-      .toThrow(new Error('stars arg must be defined, but was \'undefined\''));
-  });
-
-  it('#constructor should throw expected error if properNameLabels arg is undefined', () => {
-    expect(() => new StarsMagnitudeLayer(treeNode, 1, new Points(), undefined, emptyNames))
-      .toThrow(new Error('properNameLabels arg must be defined, but was \'undefined\''));
-  });
-
-  it('#constructor should throw expected error if standardNameLabels arg is undefined', () => {
-    expect(() => new StarsMagnitudeLayer(treeNode, 1, new Points(), emptyNames, undefined))
-      .toThrow(new Error('standardNameLabels arg must be defined, but was \'undefined\''));
-  });
-
-  it('#getObjects should return expected value', () => {
-    const layer = new StarsMagnitudeLayer(treeNode, 1, new Points(), testProperNames, testStandardNames);
-    const objects = layer.getObjects();
-    expect(objects).toBeDefined();
-    expect(objects.length).toBe(1);
-  });
-
-  it('#getName should return expected value', () => {
-    const layer = new StarsMagnitudeLayer(treeNode, 1, new Points(), testProperNames, testStandardNames);
-    expect(layer.getName()).toBe(layerName);
-  });
-
-  it('#getTextElements should return expected value', () => {
-    const layer = new StarsMagnitudeLayer(treeNode, 1, new Points(), testProperNames, testStandardNames);
-    const texts = layer.getTextElements();
-    expect(texts).toBeDefined();
-    expect(texts.length).toBe(4);
   });
 
   const assertLabelsExpected = (labels: Map<string, RenderableText>, expected: Array<string>): void => {
@@ -89,30 +45,82 @@ describe('StarsMagnitudeLayer', () => {
     );
   };
 
-  it('#getRenderableLabels should return proper name labels if shown label types is set to names-proper', () => {
-    const layer = new StarsMagnitudeLayer(treeNode, 1, new Points(), testProperNames, testStandardNames);
-    layer.setShownLabelsType(StarsMagnitudeLayer.LABELTYPE_NAME_PROPER);
-    const labels = layer.getRenderableLabels();
-    expect(labels).toBeDefined();
-    expect(labels.size).toBe(2);
-    assertLabelsExpected(labels, ['Achernar', 'Polaris']);
+  describe('constructor should throw expected error', () => {
+
+    it('if tree arg is undefined', () => {
+      expect(() => new StarsMagnitudeLayer(undefined, 1, new Points(), emptyNames, emptyNames))
+        .toThrow(new Error('tree arg must be defined, but was \'undefined\''));
+    });
+
+    it('if magClass arg is undefined', () => {
+      expect(() => new StarsMagnitudeLayer(treeNode, undefined, new Points(), emptyNames, emptyNames))
+        .toThrow(new Error('magClass arg must be defined, but was \'undefined\''));
+    });
+
+    it('if stars arg is undefined', () => {
+      expect(() => new StarsMagnitudeLayer(treeNode, 1, undefined, emptyNames, emptyNames))
+        .toThrow(new Error('stars arg must be defined, but was \'undefined\''));
+    });
+
+    it('if properNameLabels arg is undefined', () => {
+      expect(() => new StarsMagnitudeLayer(treeNode, 1, new Points(), undefined, emptyNames))
+        .toThrow(new Error('properNameLabels arg must be defined, but was \'undefined\''));
+    });
+
+    it('if standardNameLabels arg is undefined', () => {
+      expect(() => new StarsMagnitudeLayer(treeNode, 1, new Points(), emptyNames, undefined))
+        .toThrow(new Error('standardNameLabels arg must be defined, but was \'undefined\''));
+    });
+
   });
 
-  it('#getRenderableLabels should return standard name labels if shown label types is set to names-standard', () => {
+  it('getObjects should return expected value', () => {
     const layer = new StarsMagnitudeLayer(treeNode, 1, new Points(), testProperNames, testStandardNames);
-    layer.setShownLabelsType(StarsMagnitudeLayer.LABELTYPE_NAME_STANDARD);
-    const labels = layer.getRenderableLabels();
-    expect(labels).toBeDefined();
-    expect(labels.size).toBe(2);
-    assertLabelsExpected(labels, ['ALP ERI', 'ALP UMI']);
+    const objects = layer.getObjects();
+    expect(objects).toBeDefined();
+    expect(objects.length).toBe(1);
   });
 
-  it('#getRenderableLabels should return empty map if shown label types is not set', () => {
+  it('getName should return expected value', () => {
     const layer = new StarsMagnitudeLayer(treeNode, 1, new Points(), testProperNames, testStandardNames);
-    layer.setShownLabelsType(undefined);
-    const labels = layer.getRenderableLabels();
-    expect(labels).toBeDefined();
-    expect(labels.size).toBe(0);
+    expect(layer.getName()).toBe(layerName);
+  });
+
+  it('getTextElements should return expected value', () => {
+    const layer = new StarsMagnitudeLayer(treeNode, 1, new Points(), testProperNames, testStandardNames);
+    const texts = layer.getTextElements();
+    expect(texts).toBeDefined();
+    expect(texts.length).toBe(4);
+  });
+
+  describe('getRenderableLabels should return', () => {
+
+    it('proper name labels if shown label types is set to names-proper', () => {
+      const layer = new StarsMagnitudeLayer(treeNode, 1, new Points(), testProperNames, testStandardNames);
+      layer.setShownLabelsType(StarsMagnitudeLayer.LABELTYPE_NAME_PROPER);
+      const labels = layer.getRenderableLabels();
+      expect(labels).toBeDefined();
+      expect(labels.size).toBe(2);
+      assertLabelsExpected(labels, ['Achernar', 'Polaris']);
+    });
+
+    it('standard name labels if shown label types is set to names-standard', () => {
+      const layer = new StarsMagnitudeLayer(treeNode, 1, new Points(), testProperNames, testStandardNames);
+      layer.setShownLabelsType(StarsMagnitudeLayer.LABELTYPE_NAME_STANDARD);
+      const labels = layer.getRenderableLabels();
+      expect(labels).toBeDefined();
+      expect(labels.size).toBe(2);
+      assertLabelsExpected(labels, ['ALP ERI', 'ALP UMI']);
+    });
+
+    it('empty map if shown label types is not set', () => {
+      const layer = new StarsMagnitudeLayer(treeNode, 1, new Points(), testProperNames, testStandardNames);
+      layer.setShownLabelsType(undefined);
+      const labels = layer.getRenderableLabels();
+      expect(labels).toBeDefined();
+      expect(labels.size).toBe(0);
+    });
+
   });
 
 });

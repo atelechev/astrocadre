@@ -10,10 +10,10 @@ describe('ViewportEventService', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({ providers: [LayersEventService] });
-    service = TestBed.get(LayersEventService);
+    service = TestBed.inject(LayersEventService);
   });
 
-  it('#layersTreeLoaded should broadcast event for the specified tree', () => {
+  it('layersTreeLoaded should broadcast event for the specified tree', () => {
     const tree = newTreeNode('root', []);
     const subscribed = service.broadcastLayersTreeLoaded$.subscribe(
       (broadcastedTree: TreeNode) => {
@@ -25,7 +25,7 @@ describe('ViewportEventService', () => {
     subscribed.unsubscribe();
   });
 
-  it('#layerLoaded should broadcast event for the specified params', () => {
+  it('layerLoaded should broadcast event for the specified params', () => {
     const params = 'test_layer_1';
     const subscribed = service.broadcastLayerLoaded$.subscribe(
       (l: string) => expect(l).toBe(params)
@@ -34,7 +34,7 @@ describe('ViewportEventService', () => {
     subscribed.unsubscribe();
   });
 
-  it('#loadLayerRequested should broadcast event for the specified params', () => {
+  it('loadLayerRequested should broadcast event for the specified params', () => {
     const params = newTreeNode('test_layer_2', []);
     const subscribed = service.requestLayerLoad$.subscribe(
       (l: TreeNode) => expect(l).toBe(params)
@@ -43,7 +43,7 @@ describe('ViewportEventService', () => {
     subscribed.unsubscribe();
   });
 
-  it('#layerVisibleRequested should broadcast event for the specified params', () => {
+  it('layerVisibleRequested should broadcast event for the specified params', () => {
     const layer = newTreeNode('layer', []);
     layer.selected = false;
     const subscribed = service.requestLayerVisibility$.subscribe(
@@ -57,7 +57,7 @@ describe('ViewportEventService', () => {
     subscribed.unsubscribe();
   });
 
-  it('#starsMagnitudeRequested should broadcast event for the specified params', () => {
+  it('starsMagnitudeRequested should broadcast event for the specified params', () => {
     const params = 10;
     const subscribed = service.requestStarsMagnitude$.subscribe(
       (m: number) => expect(m).toBe(params)
@@ -66,7 +66,7 @@ describe('ViewportEventService', () => {
     subscribed.unsubscribe();
   });
 
-  it('#starsLabelsVisibleRequested should broadcast event for the specified params', () => {
+  it('starsLabelsVisibleRequested should broadcast event for the specified params', () => {
     const params = { magnitude: 11, visible: true };
     const subscribed = service.requestStarsLabelsVisibility$.subscribe(
       (mv: StarLabelVisibility) => expect(mv).toBe(params)
@@ -75,7 +75,7 @@ describe('ViewportEventService', () => {
     subscribed.unsubscribe();
   });
 
-  it('#starsLabelsTypeRequested should broadcast event for the specified params', () => {
+  it('starsLabelsTypeRequested should broadcast event for the specified params', () => {
     const params = 'test_label_type';
     const subscribed = service.requestStarsLabelsType$.subscribe(
       (lt: string) => expect(lt).toBe(params)

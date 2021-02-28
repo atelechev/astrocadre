@@ -12,32 +12,44 @@ describe('PointsFactory', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({ providers: [PointsFactory] });
-    service = TestBed.get(PointsFactory);
+    service = TestBed.inject(PointsFactory);
   });
 
-  it('#createObject3D should throw expected error if segments arg is undefined', () => {
-    assertSegmentsArgMustBeDefined(() => service.createObject3D(layer, undefined));
+  describe('createObject3D should throw expected error', () => {
+
+    it('if segments arg is undefined', () => {
+      assertSegmentsArgMustBeDefined(() => service.createObject3D(layer, undefined));
+    });
+
+    it('if segments arg is empty', () => {
+      assertSegmentsArgMustNotBeEmpty(() => service.createObject3D(layer, []));
+    });
+
   });
 
-  it('#createObject3D should throw expected error if segments arg is empty', () => {
-    assertSegmentsArgMustNotBeEmpty(() => service.createObject3D(layer, []));
-  });
+  describe('toObject3D should', () => {
 
-  it('#toObject3D should return expected object for a single point', () => {
-    const expected = [[0.020, 0.016, 1.960]];
-    const merged = service.createObject3D(layer, [[37.95, 89.26]]);
-    assertGeometryExpected(merged.geometry as BufferGeometry, expected);
-  });
+    describe('return expected object', () => {
 
-  it('#toObject3D should return expected object for multiple points', () => {
-    const expected = [[0.020, 0.016, 1.960], [0.382, 1.902, -0.280]];
-    const merged = service.createObject3D(layer, [[37.95, 89.26], [78.63, -8.2]]);
-    assertGeometryExpected(merged.geometry as BufferGeometry, expected);
-  });
+      it('for a single point', () => {
+        const expected = [[0.020, 0.016, 1.960]];
+        const merged = service.createObject3D(layer, [[37.95, 89.26]]);
+        assertGeometryExpected(merged.geometry as BufferGeometry, expected);
+      });
 
-  it('#toObject3D should throw expected error if at least one sud-array is invalid', () => {
-    expect(() => service.createObject3D(layer, [[0.020, 0.016, 2.0], []]))
-      .toThrow(new Error('invalid point definition: \'\''));
+      it('for multiple points', () => {
+        const expected = [[0.020, 0.016, 1.960], [0.382, 1.902, -0.280]];
+        const merged = service.createObject3D(layer, [[37.95, 89.26], [78.63, -8.2]]);
+        assertGeometryExpected(merged.geometry as BufferGeometry, expected);
+      });
+
+    });
+
+    it('throw expected error if at least one sud-array is invalid', () => {
+      expect(() => service.createObject3D(layer, [[0.020, 0.016, 2.0], []]))
+        .toThrow(new Error('invalid point definition: \'\''));
+    });
+
   });
 
 });
