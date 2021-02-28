@@ -1,5 +1,4 @@
 import { NgModule } from '@angular/core';
-import { CoreComponent } from '#core/core.component';
 import { StaticDataService } from '#core/static-data-service';
 import { TreeNodeFinder } from '#core/tree-node-finder';
 import { DraggableElementsHandler } from '#core-controls/draggable-elements-handler';
@@ -11,14 +10,7 @@ import { ViewportEventService } from '#core-viewport/viewport-event.service';
 import { LayersEventService } from '#core-layer/layers-event.service';
 
 @NgModule({
-  declarations: [
-    CoreComponent
-  ],
-  exports: [
-    CoreComponent
-  ],
   providers: [
-    CoreComponent,
     StaticDataService,
     ThemesEventService,
     ViewportEventService,
