@@ -7,7 +7,7 @@ import { LayersEventService } from '#core-layer/layers-event.service';
 @Component({
   selector: `app-astrocadre-controls-select-layers`,
   templateUrl: './selector-layers.component.html',
-  styleUrls: ['./controls.component.css', './selector-layers.component.css'],
+  styleUrls: ['../controls/controls.component.css', './selector-layers.component.css'],
   providers: []
 })
 export class SelectorLayersComponent {

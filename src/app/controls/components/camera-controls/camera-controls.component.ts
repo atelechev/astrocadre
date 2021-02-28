@@ -6,7 +6,7 @@ import { ViewportEventService } from '#core-viewport/viewport-event.service';
 @Component({
   selector: `app-astrocadre-controls-camera`,
   templateUrl: './camera-controls.component.html',
-  styleUrls: ['./controls.component.css', './camera-controls.component.css'],
+  styleUrls: ['../controls/controls.component.css', './camera-controls.component.css'],
   providers: []
 })
 export class CameraControlsComponent {

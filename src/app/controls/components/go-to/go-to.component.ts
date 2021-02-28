@@ -5,7 +5,7 @@ import { ViewportEventService } from '#core-viewport/viewport-event.service';
 @Component({
   selector: `app-astrocadre-controls-go-to`,
   templateUrl: './go-to.component.html',
-  styleUrls: ['./controls.component.css', './go-to.component.css'],
+  styleUrls: ['../controls/controls.component.css', './go-to.component.css'],
   providers: []
 })
 export class GoToComponent {

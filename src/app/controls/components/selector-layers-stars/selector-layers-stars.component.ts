@@ -6,8 +6,8 @@ import { TreeNode } from '#core/tree-node';
 @Component({
   selector: `app-astrocadre-controls-select-stars`,
   templateUrl: './selector-layers-stars.component.html',
-  styleUrls: ['./controls.component.css',
-    './selector-layers.component.css',
+  styleUrls: ['../controls/controls.component.css',
+    '../selector-layers/selector-layers.component.css',
     './selector-layers-stars.component.css'],
   providers: []
 })

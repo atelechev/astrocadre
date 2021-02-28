@@ -9,7 +9,7 @@ import { DraggableElementsHandler } from '#core-controls/draggable-elements-hand
 @Component({
   selector: 'app-astrocadre-controls',
   templateUrl: './controls.component.html',
-  styleUrls: ['./controls.component.css'],
+  styleUrls: ['../controls/controls.component.css'],
   providers: []
 })
 export class ControlsComponent implements AfterViewInit {
