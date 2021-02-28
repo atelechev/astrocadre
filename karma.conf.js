@@ -10,7 +10,8 @@ module.exports = function (config) {
       require('karma-chrome-launcher'),
       require('karma-jasmine-html-reporter'),
       require('karma-coverage'),
-      require('@angular-devkit/build-angular/plugins/karma')
+      require('@angular-devkit/build-angular/plugins/karma'),
+      require('karma-spec-reporter')
     ],
     client: {
       jasmine: {
@@ -29,14 +30,22 @@ module.exports = function (config) {
         { type: 'text-summary' }
       ]
     },
-
-    reporters: ['progress', 'kjhtml'],
+    reporters: ['kjhtml', 'spec'],
     port: 9876,
     colors: true,
     logLevel: config.LOG_INFO,
     autoWatch: true,
     browsers: ['Chrome', 'Chromium'],
     singleRun: false,
-    restartOnFileChange: true
+    restartOnFileChange: true,
+    specReporter: {
+      maxLogLines: 5,
+      suppressErrorSummary: false,
+      suppressFailed: false,
+      suppressPassed: false,
+      suppressSkipped: true,
+      showSpecTiming: false,
+      failFast: false
+    }
   });
 };
