@@ -23,6 +23,41 @@
     "noFallthroughCasesInSwitch": true,
     "downlevelIteration": true,
     "importHelpers": true,
+    "paths": {
+      "#controls/*": [
+        "./src/app/controls/*"
+      ],
+      "#core-controls/*": [
+        "./src/app/core/controls/*"
+      ],
+      "#core-layer/*": [
+        "./src/app/core/layer/*"
+      ],
+      "#core-search/*": [
+        "./src/app/core/search/*"
+      ],
+      "#core-theme/*": [
+        "./src/app/core/theme/*"
+      ],
+      "#core-viewport/*": [
+        "./src/app/core/viewport/*"
+      ],
+      "#core/*": [
+        "./src/app/core/*"
+      ],
+      "#environments/*": [
+        "./src/environments/*"
+      ],
+      "#layers/*": [
+        "./src/app/layers/*"
+      ],
+      "#themes/*": [
+        "./src/app/themes/*"
+      ],
+      "#viewport/*": [
+        "./src/app/viewport/*"
+      ]
+    }
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,

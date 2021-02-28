@@ -1,4 +1,4 @@
-import { TextOffsets, TextOffsetPolicies } from './text-offset-policy';
+import { TextOffsets, TextOffsetPolicies } from '#core-layer/label/text-offset-policy';
 
 describe('TextOffsetPolicy', () => {
 
@@ -11,8 +11,8 @@ describe('TextOffsetPolicy', () => {
   const centeredPolicy = TextOffsetPolicies.CENTERED;
 
   const assertOffsetsExpected = (expectedOffsetX: number,
-                                 expectedOffsetY: number,
-                                 checkedOffsets: TextOffsets) => {
+    expectedOffsetY: number,
+    checkedOffsets: TextOffsets) => {
     expect(checkedOffsets.offsetX).toBe(expectedOffsetX);
     expect(checkedOffsets.offsetY).toBe(expectedOffsetY);
   };
@@ -42,7 +42,7 @@ describe('TextOffsetPolicy', () => {
   });
 
   it('#TextOffsetPolicies.CLOSE_RIGHT should return offset of (6, -5) for any element', () => {
-    const texts = [ 'a', 'test', 'test test test' ];
+    const texts = ['a', 'test', 'test test test'];
     texts.forEach(
       (text: string) => {
         const element = document.createElement('div');
@@ -64,7 +64,7 @@ describe('TextOffsetPolicy', () => {
   });
 
   it('#TextOffsetPolicies.TOP_RIGHT should return offset of (9, -12) for any element', () => {
-    const texts = [ 'a', 'test', 'test test test' ];
+    const texts = ['a', 'test', 'test test test'];
     texts.forEach(
       (text: string) => {
         const element = document.createElement('div');

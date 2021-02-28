@@ -1,11 +1,11 @@
-import { StarsMagnitudeLayerFactory } from './stars-magnitude-layer-factory';
-import { RenderableText } from '../core/layer/label/renderable-text';
-import { toVector3 } from '../core/layer/vector-utils';
-import { Constants } from '../core/constants';
-import { TextOffsetPolicies } from '../core/layer/label/text-offset-policy';
-import { StarsMagnitudeLayer } from './stars-magnitude-layer';
 import { Points } from 'three';
-import { newTreeNode } from '../core/tree-node.spec';
+import { StarsMagnitudeLayer } from '#layers/stars-magnitude-layer';
+import { StarsMagnitudeLayerFactory } from '#layers/stars-magnitude-layer-factory';
+import { Constants } from '#core/constants';
+import { newTreeNode } from '#core/tree-node.spec';
+import { RenderableText } from '#core-layer/label/renderable-text';
+import { toVector3 } from '#core-layer/vector-utils';
+import { TextOffsetPolicies } from '#core-layer/label/text-offset-policy';
 
 describe('StarsMagnitudeLayer', () => {
 
@@ -19,16 +19,16 @@ describe('StarsMagnitudeLayer', () => {
   const testStandardNames = new Map<string, RenderableText>();
 
   const initTestStars = () => {
-    [ [ 24.43, -57.24, 0.5, 'Achernar', 'ALP ERI' ],
-      [ 37.95,  89.26, 2.0, 'Polaris', 'ALP UMI' ] ].forEach(
-        (rawStar: any[]) => {
-          const center = toVector3(rawStar[0], rawStar[1], Constants.getWorldRadiusForLayer(layerName));
-          const properName = new RenderableText(layerName, 'labels', center, rawStar[3], TextOffsetPolicies.CENTERED);
-          testProperNames.set(rawStar[3], properName);
-          const standardName = new RenderableText(layerName, 'labels', center, rawStar[4], TextOffsetPolicies.CENTERED);
-          testStandardNames.set(rawStar[4], standardName);
-        }
-      );
+    [[24.43, -57.24, 0.5, 'Achernar', 'ALP ERI'],
+    [37.95, 89.26, 2.0, 'Polaris', 'ALP UMI']].forEach(
+      (rawStar: any[]) => {
+        const center = toVector3(rawStar[0], rawStar[1], Constants.getWorldRadiusForLayer(layerName));
+        const properName = new RenderableText(layerName, 'labels', center, rawStar[3], TextOffsetPolicies.CENTERED);
+        testProperNames.set(rawStar[3], properName);
+        const standardName = new RenderableText(layerName, 'labels', center, rawStar[4], TextOffsetPolicies.CENTERED);
+        testStandardNames.set(rawStar[4], standardName);
+      }
+    );
   };
 
   beforeAll(() => {
@@ -95,7 +95,7 @@ describe('StarsMagnitudeLayer', () => {
     const labels = layer.getRenderableLabels();
     expect(labels).toBeDefined();
     expect(labels.size).toBe(2);
-    assertLabelsExpected(labels, [ 'Achernar', 'Polaris' ]);
+    assertLabelsExpected(labels, ['Achernar', 'Polaris']);
   });
 
   it('#getRenderableLabels should return standard name labels if shown label types is set to names-standard', () => {
@@ -104,7 +104,7 @@ describe('StarsMagnitudeLayer', () => {
     const labels = layer.getRenderableLabels();
     expect(labels).toBeDefined();
     expect(labels.size).toBe(2);
-    assertLabelsExpected(labels, [ 'ALP ERI', 'ALP UMI' ]);
+    assertLabelsExpected(labels, ['ALP ERI', 'ALP UMI']);
   });
 
   it('#getRenderableLabels should return empty map if shown label types is not set', () => {

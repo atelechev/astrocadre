@@ -1,9 +1,14 @@
 import { Injectable } from '@angular/core';
-import { RenderableText } from '../core/layer/label/renderable-text';
-import { Camera, Frustum, Matrix4, Vector3 } from 'three';
-import { WorldOriginCameraService } from './world-origin-camera.service';
-import { ViewportDimensionService } from '../core/viewport/viewport-dimension.service';
-import { ScreenCoordinate } from '../core/viewport/screen-coordinate';
+import {
+  Camera,
+  Frustum,
+  Matrix4,
+  Vector3
+  } from 'three';
+import { WorldOriginCameraService } from '#viewport/world-origin-camera.service';
+import { RenderableText } from '#core-layer/label/renderable-text';
+import { ViewportDimensionService } from '#core-viewport/viewport-dimension.service';
+import { ScreenCoordinate } from '#core-viewport/screen-coordinate';
 
 /**
  * Provides methods to text/labels onscreen visibility.

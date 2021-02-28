@@ -1,8 +1,8 @@
 import { TestBed } from '@angular/core/testing';
-import { WorldOriginCameraService } from './world-origin-camera.service';
-import { ViewportDimensionService } from '../core/viewport/viewport-dimension.service';
-import { ViewportEventService } from '../core/viewport/viewport-event.service';
 import { Vector3 } from 'three';
+import { WorldOriginCameraService } from '#viewport/world-origin-camera.service';
+import { ViewportDimensionService } from '#core-viewport/viewport-dimension.service';
+import { ViewportEventService } from '#core-viewport/viewport-event.service';
 
 describe('WorldOriginCameraService', () => {
 
@@ -10,11 +10,13 @@ describe('WorldOriginCameraService', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule(
-      { providers: [
+      {
+        providers: [
           ViewportEventService,
           ViewportDimensionService,
           WorldOriginCameraService
-        ] });
+        ]
+      });
     service = TestBed.get(WorldOriginCameraService);
   });
 

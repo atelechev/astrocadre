@@ -1,11 +1,11 @@
-
-import { of as observableOf, Observable } from 'rxjs';
 import { TestBed } from '@angular/core/testing';
+import { Observable, of as observableOf } from 'rxjs';
+import { StaticDataService } from '#core/static-data-service';
+import { SkyCoordinate } from '#core/viewport/sky-coordinate';
+import { SearchService } from '#core-search/search.service';
 
-import { SearchableItem } from './searchable-item';
-import { SearchService } from './search.service';
-import { StaticDataService } from '../static-data-service';
-import { SkyCoordinate } from '../viewport/sky-coordinate';
+
+import { SearchableItem } from '#core-search/searchable-item';
 
 class MockStaticData {
 

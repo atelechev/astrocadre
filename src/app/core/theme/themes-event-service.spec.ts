@@ -1,7 +1,7 @@
-import { ThemesEventService } from './themes-event.service';
 import { TestBed } from '@angular/core/testing';
-import { newTreeNode } from '../tree-node.spec';
-import { TreeNode } from '../tree-node';
+import { TreeNode } from '#core/tree-node';
+import { newTreeNode } from '#core/tree-node.spec';
+import { ThemesEventService } from '#core-theme/themes-event.service';
 
 describe('ThemesEventService', () => {
 
@@ -13,7 +13,7 @@ describe('ThemesEventService', () => {
   });
 
   it('#themesListLoaded should broadcast event for the specified themes', () => {
-    const themes = [ newTreeNode('theme1', []), newTreeNode('theme2', []) ];
+    const themes = [newTreeNode('theme1', []), newTreeNode('theme2', [])];
     const subscribed = service.broadcastThemesListLoaded$.subscribe(
       (broadcastedThemes: Array<TreeNode>) => {
         expect(broadcastedThemes).toBeDefined();

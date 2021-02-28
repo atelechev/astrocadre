@@ -1,13 +1,18 @@
-import { Component, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
-import { WorldOriginCameraService } from './world-origin-camera.service';
-import { SceneManager } from './scene-manager';
-import { Theme } from '../core/theme/theme';
-import { ThemeAware } from '../core/theme/theme-aware';
+import {
+  AfterViewInit,
+  Component,
+  ElementRef,
+  ViewChild
+  } from '@angular/core';
 import { Object3D } from 'three';
-import { RenderableText } from '../core/layer/label/renderable-text';
-import { LabelsVisibilityManager } from './labels-visibility-manager';
-import { MouseEventsHandler } from './mouse-events-handler';
-import { ViewportDimensionService } from '../core/viewport/viewport-dimension.service';
+import { LabelsVisibilityManager } from '#viewport/labels-visibility-manager';
+import { MouseEventsHandler } from '#viewport/mouse-events-handler';
+import { SceneManager } from '#viewport/scene-manager';
+import { WorldOriginCameraService } from '#viewport/world-origin-camera.service';
+import { RenderableText } from '#core-layer/label/renderable-text';
+import { Theme } from '#core-theme/theme';
+import { ThemeAware } from '#core-theme/theme-aware';
+import { ViewportDimensionService } from '#core-viewport/viewport-dimension.service';
 
 @Component({
   selector: `app-astrocadre-viewport`,

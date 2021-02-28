@@ -1,9 +1,8 @@
-import { StarsMaterialsFactory } from './stars-materials-factory';
-import { ThemeDefinition } from './theme-definition';
-import { Layers } from '../layers';
-import { LineBasicMaterial } from 'three';
-import { assertColorsSame, assertLineBasicMaterialBuilt, emptyTextStyle, pointsMaterial } from './abstract-factories.spec';
-import { emptyThemeDef, textStyle, assertPointsMaterialBuilt } from './abstract-factories.spec';
+import { Layers } from '#core/layers';
+import { StarsMaterialsFactory } from '#core-theme/stars-materials-factory';
+import { ThemeDefinition } from '#core-theme/theme-definition';
+import { pointsMaterial } from '#core-theme/abstract-factories.spec';
+import { emptyThemeDef, textStyle, assertPointsMaterialBuilt } from '#core-theme/abstract-factories.spec';
 
 
 describe('StarsMaterialsFactory', () => {
@@ -12,7 +11,7 @@ describe('StarsMaterialsFactory', () => {
 
   const themeDef: ThemeDefinition = Object.create(emptyThemeDef);
 
-  const magnitudes = [ 1, 2 ];
+  const magnitudes = [1, 2];
 
   const multiplier = 1;
 

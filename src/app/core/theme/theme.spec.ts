@@ -1,9 +1,9 @@
-import { ThemeDefinition } from './theme-definition';
-import { textStyle, assertColorsSame, assertLineBasicMaterialExpected, assertTextStyleExpected } from './abstract-factories.spec';
-import { lineBasicMaterial, assertPointsMaterialExpected, pointsMaterial } from './abstract-factories.spec';
-import { Theme } from './theme';
 import { Color } from 'three';
-import { Layers } from '../layers';
+import { Layers } from '#core/layers';
+import { ThemeDefinition } from '#core-theme/theme-definition';
+import { textStyle, assertColorsSame, assertLineBasicMaterialExpected, assertTextStyleExpected } from '#core-theme/abstract-factories.spec';
+import { lineBasicMaterial, assertPointsMaterialExpected, pointsMaterial } from '#core-theme/abstract-factories.spec';
+import { Theme } from '#core-theme/theme';
 
 describe('Theme', () => {
 

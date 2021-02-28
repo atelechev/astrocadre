@@ -1,7 +1,7 @@
-import { ViewportDimensionService } from './viewport-dimension.service';
 import { TestBed } from '@angular/core/testing';
-import { Dimension } from './dimension';
-import { Constants } from '../constants';
+import { ViewportDimensionService } from '#core-viewport/viewport-dimension.service';
+import { Dimension } from '#core-viewport/dimension';
+import { Constants } from '#core/constants';
 
 
 describe('ViewportDimensionService', () => {

@@ -1,5 +1,5 @@
-import { extractStandardName, extractProperName } from './star-name-utils';
-import { toGreekLetter, isStandardName } from './star-name-utils';
+import { extractStandardName, extractProperName } from '#layers/star-name-utils';
+import { toGreekLetter, isStandardName } from '#layers/star-name-utils';
 
 describe('star-name-utils', () => {
 
@@ -148,22 +148,22 @@ describe('star-name-utils', () => {
   });
 
   it('#extractStandardName should return undefined if arg does not contain names', () => {
-    const rawStar = [ 0.33, -50.34, 5.5 ];
+    const rawStar = [0.33, -50.34, 5.5];
     expect(extractStandardName(rawStar)).toBeUndefined();
   });
 
   it('#extractStandardName should return undefined if arg contains proper name only', () => {
-    const rawStar = [ 1.99, -59.99, 5.7, 'test' ];
+    const rawStar = [1.99, -59.99, 5.7, 'test'];
     expect(extractStandardName(rawStar)).toBeUndefined();
   });
 
   it('#extractStandardName should return expected standard name if only standard name is present', () => {
-    const rawStar = [ 0.27, -48.81, 5.7, 'TAU PHE' ];
+    const rawStar = [0.27, -48.81, 5.7, 'TAU PHE'];
     expect(extractStandardName(rawStar)).toBe('TAU PHE');
   });
 
   it('#extractStandardName should return expected standard name if both standard and proper names are present', () => {
-    const rawStar = [ 0.27, -48.81, 5.7, 'test', 'TAU PHE' ];
+    const rawStar = [0.27, -48.81, 5.7, 'test', 'TAU PHE'];
     expect(extractStandardName(rawStar)).toBe('TAU PHE');
   });
 
@@ -172,22 +172,22 @@ describe('star-name-utils', () => {
   });
 
   it('#extractProperName should return undefined if arg does not contain names', () => {
-    const rawStar = [ 0.33, -50.34, 5.5 ];
+    const rawStar = [0.33, -50.34, 5.5];
     expect(extractProperName(rawStar)).toBeUndefined();
   });
 
   it('#extractProperName should return undefined if arg contains standard name only', () => {
-    const rawStar = [ 0.27, -48.81, 5.7, 'TAU PHE' ];
+    const rawStar = [0.27, -48.81, 5.7, 'TAU PHE'];
     expect(extractProperName(rawStar)).toBeUndefined();
   });
 
   it('#extractProperName should return expected proper name if only proper name is present', () => {
-    const rawStar = [ 1.99, -59.99, 5.7, 'test' ];
+    const rawStar = [1.99, -59.99, 5.7, 'test'];
     expect(extractProperName(rawStar)).toBe('test');
   });
 
   it('#extractProperName should return expected proper name if both proper and standard names are present', () => {
-    const rawStar = [ 1.99, -59.99, 5.7, 'test', 'TAU ZXE' ];
+    const rawStar = [1.99, -59.99, 5.7, 'test', 'TAU ZXE'];
     expect(extractProperName(rawStar)).toBe('test');
   });
 

@@ -1,9 +1,9 @@
 import { Object3D } from 'three';
-import { Theme } from '../core/theme/theme';
-import { TreeNode } from '../core/tree-node';
-import { RenderableText } from '../core/layer/label/renderable-text';
-import { RenderableLayer } from '../core/layer/renderable-layer';
-import { ensureArgDefined } from '../core/arg-validation-utils';
+import { ensureArgDefined } from '#core/arg-validation-utils';
+import { TreeNode } from '#core/tree-node';
+import { RenderableText } from '#core-layer/label/renderable-text';
+import { RenderableLayer } from '#core-layer/renderable-layer';
+import { Theme } from '#core-theme/theme';
 
 export class ConstellationNamesLayer extends RenderableLayer {
 

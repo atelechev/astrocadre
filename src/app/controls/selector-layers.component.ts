@@ -1,13 +1,13 @@
 import { Component } from '@angular/core';
-import { LayersEventService } from '../core/layer/layers-event.service';
-import { TreeNode } from '../core/tree-node';
-import { TreeNodeFinder } from '../core/tree-node-finder';
+import { TreeNode } from '#core/tree-node';
+import { TreeNodeFinder } from '#core/tree-node-finder';
+import { LayersEventService } from '#core-layer/layers-event.service';
 
 
 @Component({
   selector: `app-astrocadre-controls-select-layers`,
   templateUrl: './selector-layers.component.html',
-  styleUrls: [ './controls.component.css', './selector-layers.component.css' ],
+  styleUrls: ['./controls.component.css', './selector-layers.component.css'],
   providers: []
 })
 export class SelectorLayersComponent {
@@ -15,7 +15,7 @@ export class SelectorLayersComponent {
   public rootLayer: TreeNode;
 
   constructor(private layersEventService: LayersEventService,
-              private layerNodeFinder: TreeNodeFinder) {
+    private layerNodeFinder: TreeNodeFinder) {
     this.layersEventService.broadcastLayersTreeLoaded$.subscribe(
       (root: TreeNode) => this.rootLayer = root
     );

@@ -1,4 +1,4 @@
-import { HtmlElementFactory } from './html-element-factory';
+import { HtmlElementFactory } from '#core-layer/label/html-element-factory';
 
 describe('HtmlElementFactory', () => {
 

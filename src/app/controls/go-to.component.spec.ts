@@ -1,19 +1,19 @@
-
-import {of as observableOf,  Observable } from 'rxjs';
 import { TestBed } from '@angular/core/testing';
-import { ViewportEventService } from '../core/viewport/viewport-event.service';
-import { GoToComponent } from './go-to.component';
-import { SearchService } from '../core/search/search.service';
-import { StaticDataService } from '../core/static-data-service';
+import { Observable, of as observableOf } from 'rxjs';
+import { StaticDataService } from '#core/static-data-service';
+import { GoToComponent } from '#controls/go-to.component';
+import { SearchService } from '#core-search/search.service';
+import { SearchableItem } from '#core-search/searchable-item';
 
-import { SearchableItem } from '../core/search/searchable-item';
-import { SkyCoordinate } from '../core/viewport/sky-coordinate';
+import { ViewportEventService } from '#core-viewport/viewport-event.service';
+
+import { SkyCoordinate } from '#core-viewport/sky-coordinate';
 
 class MockStaticData {
 
   public getSearchableItems(): Observable<SearchableItem[]> {
     const data = [
-      { type: 'constellation', code: 'AND', ra: 8.532, dec: 38.906, names: [ 'Andromeda', 'other name']}
+      { type: 'constellation', code: 'AND', ra: 8.532, dec: 38.906, names: ['Andromeda', 'other name'] }
     ];
     return observableOf(data);
   }
@@ -34,7 +34,8 @@ describe('GoToComponent', () => {
         ViewportEventService,
         SearchService,
         { provide: StaticDataService, useClass: MockStaticData }
-      ] });
+      ]
+    });
     component = TestBed.get(GoToComponent);
     viewportEventService = TestBed.get(ViewportEventService);
   });

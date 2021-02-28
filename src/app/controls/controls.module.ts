@@ -1,13 +1,13 @@
 import { NgModule } from '@angular/core';
-import { ControlsComponent } from './controls.component';
-import { SelectorThemeComponent } from './selector-theme.component';
-import { BrowserModule } from '@angular/platform-browser';
-import { SelectorLayersComponent } from './selector-layers.component';
-import { CameraControlsComponent } from './camera-controls.component';
 import { FormsModule } from '@angular/forms';
-import { GoToComponent } from './go-to.component';
-import { SelectorLayersStarsComponent } from './selector-layers-stars.component';
-import { SelectorViewportSizeComponent } from './selector-viewport-size.component';
+import { BrowserModule } from '@angular/platform-browser';
+import { ControlsComponent } from '#controls/controls.component';
+import { SelectorThemeComponent } from '#controls/selector-theme.component';
+import { SelectorLayersComponent } from '#controls/selector-layers.component';
+import { CameraControlsComponent } from '#controls/camera-controls.component';
+import { GoToComponent } from '#controls/go-to.component';
+import { SelectorLayersStarsComponent } from '#controls/selector-layers-stars.component';
+import { SelectorViewportSizeComponent } from '#controls/selector-viewport-size.component';
 
 @NgModule({
   declarations: [

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { TreeNode } from '../tree-node';
-import { ensureArgDefined } from '../arg-validation-utils';
+import { TreeNode } from '#core/tree-node';
+import { ensureArgDefined } from '#core/arg-validation-utils';
 
 @Injectable()
 export class LayersTreeValidator {
@@ -15,10 +15,10 @@ export class LayersTreeValidator {
   }
 
   private extractCodes(node: TreeNode): string[] {
-    const ownCode = [ node.code ];
+    const ownCode = [node.code];
     if (node.nodes) {
       const childCodes = node.nodes.map(n => this.extractCodes(n))
-                                      .reduce((prev, curr) => prev.concat(curr), []);
+        .reduce((prev, curr) => prev.concat(curr), []);
       return ownCode.concat(childCodes);
     }
     return ownCode;

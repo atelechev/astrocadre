@@ -1,14 +1,14 @@
 import { NgModule } from '@angular/core';
-import { CoreComponent } from './core.component';
-import { ThemesEventService } from './theme/themes-event.service';
-import { ViewportEventService } from './viewport/viewport-event.service';
-import { LayersEventService } from './layer/layers-event.service';
-import { StaticDataService } from './static-data-service';
-import { SearchService } from './search/search.service';
-import { ViewportDimensionService } from './viewport/viewport-dimension.service';
-import { DraggableElementsHandler } from './controls/draggable-elements-handler';
-import { LayersTreeValidator } from './layer/layers-tree-validator';
-import { TreeNodeFinder } from './tree-node-finder';
+import { CoreComponent } from '#core/core.component';
+import { StaticDataService } from '#core/static-data-service';
+import { TreeNodeFinder } from '#core/tree-node-finder';
+import { DraggableElementsHandler } from '#core-controls/draggable-elements-handler';
+import { LayersTreeValidator } from '#core-layer/layers-tree-validator';
+import { SearchService } from '#core-search/search.service';
+import { ThemesEventService } from '#core-theme/themes-event.service';
+import { ViewportDimensionService } from '#core-viewport/viewport-dimension.service';
+import { ViewportEventService } from '#core-viewport/viewport-event.service';
+import { LayersEventService } from '#core-layer/layers-event.service';
 
 @NgModule({
   declarations: [

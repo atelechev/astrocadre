@@ -1,17 +1,22 @@
-import { Component, ViewChild, OnInit, ChangeDetectorRef } from '@angular/core';
-import { ViewportComponent } from './viewport/viewport.component';
-import { ThemesComponent } from './themes/themes.component';
-import { ThemeAware } from './core/theme/theme-aware';
-import { LayersComponent } from './layers/layers.component';
-import { LayersEventService } from './core/layer/layers-event.service';
-import { ThemesEventService } from './core/theme/themes-event.service';
-import { ViewportEventService } from './core/viewport/viewport-event.service';
-import { Layers } from './core/layers';
-import { StarLabelVisibility } from './core/layer/star-label-visibility';
-import { StarsMagnitudeLayer } from './layers/stars-magnitude-layer';
-import { RenderableLayer } from './core/layer/renderable-layer';
-import { ViewportDimensionService } from './core/viewport/viewport-dimension.service';
-import { TreeNode } from './core/tree-node';
+import {
+  ChangeDetectorRef,
+  Component,
+  OnInit,
+  ViewChild
+  } from '@angular/core';
+import { Layers } from '#core/layers';
+import { TreeNode } from '#core/tree-node';
+import { ThemesComponent } from '#themes/themes.component';
+import { LayersComponent } from '#layers/layers.component';
+import { StarsMagnitudeLayer } from '#layers/stars-magnitude-layer';
+import { LayersEventService } from '#core-layer/layers-event.service';
+import { RenderableLayer } from '#core-layer/renderable-layer';
+import { StarLabelVisibility } from '#core-layer/star-label-visibility';
+import { ThemeAware } from '#core-theme/theme-aware';
+import { ThemesEventService } from '#core-theme/themes-event.service';
+import { ViewportDimensionService } from '#core-viewport/viewport-dimension.service';
+import { ViewportEventService } from '#core-viewport/viewport-event.service';
+import { ViewportComponent } from '#viewport/viewport.component';
 
 @Component({
   selector: `app-astrocadre`,

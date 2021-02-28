@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import { StaticDataService } from '../static-data-service';
-import { SearchableItem } from './searchable-item';
-import { SkyCoordinate } from '../viewport/sky-coordinate';
 import { Subject } from 'rxjs';
+import { StaticDataService } from '#core/static-data-service';
+import { SearchableItem } from '#core-search/searchable-item';
+import { SkyCoordinate } from '#core/viewport/sky-coordinate';
 
 @Injectable()
 export class SearchService {
@@ -31,15 +31,15 @@ export class SearchService {
     this.searchableItems = new Map<string, SearchableItem>();
     this.dataService.getSearchableItems().subscribe(
       (items: SearchableItem[]) => {
-          items.forEach(item => {
-              this.searchableItems.set(this.normalizeSearchString(item.code), item);
-              if (item.names) {
-                item.names.forEach(name => this.searchableItems.set(this.normalizeSearchString(name), item));
-              }
-            }
-          );
-          this.broadcastItemsLoaded.next();
-        },
+        items.forEach(item => {
+          this.searchableItems.set(this.normalizeSearchString(item.code), item);
+          if (item.names) {
+            item.names.forEach(name => this.searchableItems.set(this.normalizeSearchString(name), item));
+          }
+        }
+        );
+        this.broadcastItemsLoaded.next();
+      },
       (error: any) => console.log(`Failed to retrieve searchable items: ${error}`)
     );
   }

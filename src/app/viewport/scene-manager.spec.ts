@@ -1,11 +1,11 @@
-import { SceneManager } from './scene-manager';
 import { TestBed } from '@angular/core/testing';
-import { Scene, Color, Object3D } from 'three';
-import { Theme } from '../core/theme/theme';
-import { emptyThemeDef, assertColorsSame } from '../core/theme/abstract-factories.spec';
-import { ViewportDimensionService } from '../core/viewport/viewport-dimension.service';
-import { WorldOriginCameraService } from './world-origin-camera.service';
-import { ViewportEventService } from '../core/viewport/viewport-event.service';
+import { Color, Object3D, Scene } from 'three';
+import { SceneManager } from '#viewport/scene-manager';
+import { WorldOriginCameraService } from '#viewport/world-origin-camera.service';
+import { assertColorsSame, emptyThemeDef } from '#core-theme/abstract-factories.spec';
+import { Theme } from '#core-theme/theme';
+import { ViewportDimensionService } from '#core-viewport/viewport-dimension.service';
+import { ViewportEventService } from '#core-viewport/viewport-event.service';
 
 describe('SceneManager', () => {
 

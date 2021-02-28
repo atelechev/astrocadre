@@ -1,13 +1,13 @@
-import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
-
 import { AppComponent } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
-import { CoreModule } from './core/core.module';
-import { ControlsModule } from './controls/controls.module';
-import { ThemesModule } from './themes/themes.module';
-import { ViewportModule } from './viewport/viewport.module';
-import { LayersModule } from './layers/layers.module';
+import { NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
+import { CoreModule } from '#core/core.module';
+import { ThemesModule } from '#themes/themes.module';
+import { LayersModule } from '#layers/layers.module';
+
+import { ControlsModule } from '#controls/controls.module';
+import { ViewportModule } from '#viewport/viewport.module';
 
 @NgModule({
   declarations: [
@@ -23,7 +23,7 @@ import { LayersModule } from './layers/layers.module';
     ViewportModule
   ],
   providers: [],
-  bootstrap: [ AppComponent ]
+  bootstrap: [AppComponent]
 })
 export class AppModule {
 

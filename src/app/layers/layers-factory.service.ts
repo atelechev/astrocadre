@@ -1,16 +1,16 @@
-import { Layers } from '../core/layers';
-import { RenderableLayer } from '../core/layer/renderable-layer';
-import { Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
-import { TreeNode } from '../core/tree-node';
-import { SkyGridLayerFactory } from './sky-grid-layer-factory';
-import { RenderableLayerFactory } from './renderable-layer-factory';
-import { ConstellationBoundariesLayerFactory } from './constellation-boundaries-layer-factory';
-import { ConstellationLinesLayerFactory } from './constellation-lines-layer-factory';
-import { ConstellationNamesLayerFactory } from './constellation-names-layer-factory';
-import { StarsMagnitudeLayerFactory } from './stars-magnitude-layer-factory';
-import { LayerFactory } from './layer-factory';
-import { ensureArgDefined } from '../core/arg-validation-utils';
+import { Observable } from 'rxjs';
+import { ConstellationBoundariesLayerFactory } from '#layers/constellation-boundaries-layer-factory';
+import { ConstellationLinesLayerFactory } from '#layers/constellation-lines-layer-factory';
+import { ConstellationNamesLayerFactory } from '#layers/constellation-names-layer-factory';
+import { LayerFactory } from '#layers/layer-factory';
+import { RenderableLayerFactory } from '#layers/renderable-layer-factory';
+import { SkyGridLayerFactory } from '#layers/sky-grid-layer-factory';
+import { StarsMagnitudeLayerFactory } from '#layers/stars-magnitude-layer-factory';
+import { ensureArgDefined } from '#core/arg-validation-utils';
+import { Layers } from '#core/layers';
+import { TreeNode } from '#core/tree-node';
+import { RenderableLayer } from '#core-layer/renderable-layer';
 
 /**
  * Wraps factories for supported layers.

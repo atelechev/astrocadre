@@ -1,5 +1,5 @@
-import { DraggableElementsHandler } from './draggable-elements-handler';
 import { TestBed } from '@angular/core/testing';
+import { DraggableElementsHandler } from '#core-controls/draggable-elements-handler';
 
 describe('DraggableElementsHandler', () => {
 

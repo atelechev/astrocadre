@@ -1,8 +1,7 @@
-import { ViewportEventService } from './viewport-event.service';
 import { TestBed } from '@angular/core/testing';
-import { AxialRotation } from './axial-rotation';
-import { SkyCoordinate } from './sky-coordinate';
-import { Dimension } from './dimension';
+import { ViewportEventService } from '#core-viewport/viewport-event.service';
+import { AxialRotation } from '#core-viewport/axial-rotation';
+import { SkyCoordinate } from '#core-viewport/sky-coordinate';
 
 describe('ViewportEventService', () => {
 
@@ -42,14 +41,14 @@ describe('ViewportEventService', () => {
 
   it('#axisAlignmentRequested should broadcast the event', () => {
     const subscribed = service.requestAxisAlignment$.subscribe(
-      () => {} // TODO how to test it?
+      () => { } // TODO how to test it?
     );
     subscribed.unsubscribe();
   });
 
   it('#viewportChanged should broadcast the event', () => {
     const subscribed = service.broadcastViewportChanged$.subscribe(
-      () => {} // TODO how to test it?
+      () => { } // TODO how to test it?
     );
     subscribed.unsubscribe();
   });

@@ -1,8 +1,8 @@
-import { ConstellationBoundariesMaterialsFactory } from './constellation-boundaries-materials-factory';
-import { ThemeDefinition } from './theme-definition';
-import { Layers } from '../layers';
 import { LineBasicMaterial } from 'three';
-import { assertColorsSame, assertLineBasicMaterialBuilt, emptyTextStyle, emptyThemeDef } from './abstract-factories.spec';
+import { assertLineBasicMaterialBuilt, emptyThemeDef } from '#core-theme/abstract-factories.spec';
+import { ConstellationBoundariesMaterialsFactory } from '#core-theme/constellation-boundaries-materials-factory';
+import { ThemeDefinition } from '#core-theme/theme-definition';
+import { Layers } from '#core/layers';
 
 
 describe('ConstellationBoundariesMaterialsFactory', () => {
@@ -12,10 +12,10 @@ describe('ConstellationBoundariesMaterialsFactory', () => {
   const themeDef: ThemeDefinition = Object.create(emptyThemeDef);
 
   themeDef.constellation.boundaries = {
-      line: {
-        common: 'rgb(3, 3, 3)'
-      }
-    };
+    line: {
+      common: 'rgb(3, 3, 3)'
+    }
+  };
 
   it('#constructor should initialize targetLayerName field', () => {
     expect(factory.layerName).toBe(Layers.CONSTELLATION_BOUNDARIES);

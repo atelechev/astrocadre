@@ -1,18 +1,18 @@
-import { RenderableLayer } from '../core/layer/renderable-layer';
-import { Object3D, LineSegments } from 'three';
-import { Theme } from '../core/theme/theme';
-import { TreeNode } from '../core/tree-node';
-import { ensureArgDefined } from '../core/arg-validation-utils';
+import { LineSegments, Object3D } from 'three';
+import { ensureArgDefined } from '#core/arg-validation-utils';
+import { TreeNode } from '#core/tree-node';
+import { RenderableLayer } from '#core-layer/renderable-layer';
+import { Theme } from '#core-theme/theme';
 
 export class ConstellationBoundariesLayer extends RenderableLayer {
 
   private objects: Object3D[];
 
   constructor(tree: TreeNode,
-              private readonly boundaries: LineSegments) {
+    private readonly boundaries: LineSegments) {
     super(tree);
     ensureArgDefined(boundaries, 'boundaries');
-    this.objects = [ this.boundaries ];
+    this.objects = [this.boundaries];
   }
 
   public getObjects(): Object3D[] {

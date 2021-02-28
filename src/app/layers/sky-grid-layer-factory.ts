@@ -1,11 +1,11 @@
-import { of as observableOf, Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
+import { Observable, of as observableOf } from 'rxjs';
 import { LineSegments } from 'three';
-import { AxialCurvesFactory } from './geometry/axial-curves-factory';
-import { Layers } from '../core/layers';
-import { LayerFactory } from './layer-factory';
-import { SkyGridLayer } from './sky-grid-layer';
-import { TreeNode } from '../core/tree-node';
+import { AxialCurvesFactory } from '#layers/geometry/axial-curves-factory';
+import { LayerFactory } from '#layers/layer-factory';
+import { SkyGridLayer } from '#layers/sky-grid-layer';
+import { Layers } from '#core/layers';
+import { TreeNode } from '#core/tree-node';
 
 
 
@@ -43,7 +43,7 @@ export class SkyGridLayerFactory implements LayerFactory<SkyGridLayer> {
   }
 
   private meridianSegment(ra: number): number[] {
-    return [ ra, this.absMaxMeridianLineDeclination, ra, -this.absMaxMeridianLineDeclination ];
+    return [ra, this.absMaxMeridianLineDeclination, ra, -this.absMaxMeridianLineDeclination];
   }
 
   private createLineSegmentsWith(segments: number[][]): LineSegments {
@@ -60,16 +60,16 @@ export class SkyGridLayerFactory implements LayerFactory<SkyGridLayer> {
   }
 
   private parallelSegment(decl: number): number[] {
-    return [ 0.01, decl, 359.99, decl ];
+    return [0.01, decl, 359.99, decl];
   }
 
   private generateReferenceMeridianSegments(): LineSegments {
-    const refSegments = [ this.meridianSegment(0), this.meridianSegment(180)];
+    const refSegments = [this.meridianSegment(0), this.meridianSegment(180)];
     return this.createLineSegmentsWith(refSegments);
   }
 
   private generateReferenceParallelSegments(): LineSegments {
-    const refSegments = [ this.parallelSegment(0) ];
+    const refSegments = [this.parallelSegment(0)];
     return this.createLineSegmentsWith(refSegments);
   }
 

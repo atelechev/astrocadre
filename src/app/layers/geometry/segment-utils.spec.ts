@@ -1,4 +1,4 @@
-import { isParallelSegment, isMeridionalSegment, isCrossingInitialMeridian } from './segment-utils';
+import { isParallelSegment, isMeridionalSegment, isCrossingInitialMeridian } from '#layers/geometry/segment-utils';
 
 describe('segment-utils', () => {
 
@@ -11,12 +11,12 @@ describe('segment-utils', () => {
   });
 
   it('#isParallelSegment should return false if segment does not represent a parallel', () => {
-    const segment = [ 1, 2, 3, 4 ];
+    const segment = [1, 2, 3, 4];
     expect(isParallelSegment(segment)).toBeFalsy();
   });
 
   it('#isParallelSegment should return true if segment represents a parallel', () => {
-    const segment = [ 1, 2, 3, 2 ];
+    const segment = [1, 2, 3, 2];
     expect(isParallelSegment(segment)).toBeTruthy();
   });
 
@@ -29,12 +29,12 @@ describe('segment-utils', () => {
   });
 
   it('#isMeridionalSegment should return false if segment does not represent a meridian', () => {
-    const segment = [ 1, 2, 3, 4 ];
+    const segment = [1, 2, 3, 4];
     expect(isMeridionalSegment(segment)).toBeFalsy();
   });
 
   it('#isMeridionalSegment should return true if segment represents a meridian', () => {
-    const segment = [ 1, 2, 1, 4 ];
+    const segment = [1, 2, 1, 4];
     expect(isMeridionalSegment(segment)).toBeTruthy();
   });
 
@@ -48,17 +48,17 @@ describe('segment-utils', () => {
   });
 
   it('#isCrossingInitialMeridian should return false if segment does not cross the initial meridian', () => {
-    const segment = [ 25, 10, 50, 10 ];
+    const segment = [25, 10, 50, 10];
     expect(isCrossingInitialMeridian(segment)).toBeFalsy();
   });
 
   it('#isCrossingInitialMeridian should return true if segment is at initial meridian, leftwards', () => {
-    const segment = [ 0, 10, 360, 10 ];
+    const segment = [0, 10, 360, 10];
     expect(isCrossingInitialMeridian(segment)).toBeTruthy();
   });
 
   it('#isCrossingInitialMeridian should return true if segment is at initial meridian, rightwards', () => {
-    const segment = [ 360, 10, 0, 10 ];
+    const segment = [360, 10, 0, 10];
     expect(isCrossingInitialMeridian(segment)).toBeTruthy();
   });
 

@@ -1,5 +1,5 @@
-import { applyStyleOn } from './text-utils';
-import { textStyle, IRRELEVANT } from '../../theme/abstract-factories.spec';
+import { IRRELEVANT, textStyle } from '#core-theme/abstract-factories.spec';
+import { applyStyleOn } from '#core-layer/label/text-utils';
 
 describe('TextStyleAssigner', () => {
 

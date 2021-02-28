@@ -1,7 +1,7 @@
-import { TextStylesFactory } from './abstract-factories';
-import { ThemeDefinition } from './theme-definition';
-import { TextStyle } from './text-style';
-import { Layers } from '../layers';
+import { Layers } from '#core/layers';
+import { TextStylesFactory } from '#core-theme/abstract-factories';
+import { ThemeDefinition } from '#core-theme/theme-definition';
+import { TextStyle } from '#core-theme/text-style';
 
 export class StarsTextStyleFactory extends TextStylesFactory {
 

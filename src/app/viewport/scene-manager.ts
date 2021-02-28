@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import { Scene, Object3D, WebGLRenderer } from 'three';
-import { Theme } from '../core/theme/theme';
-import { ViewportDimensionService } from '../core/viewport/viewport-dimension.service';
-import { WorldOriginCameraService } from './world-origin-camera.service';
+import { Object3D, Scene, WebGLRenderer } from 'three';
+import { WorldOriginCameraService } from '#viewport/world-origin-camera.service';
+import { Theme } from '#core-theme/theme';
+import { ViewportDimensionService } from '#core-viewport/viewport-dimension.service';
 
 /**
  * Provides methods to handle actions related with Three's Scene object and rendering.

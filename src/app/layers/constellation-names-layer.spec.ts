@@ -1,11 +1,11 @@
-import { Layers } from '../core/layers';
-import { ConstellationNamesLayer } from './constellation-names-layer';
-import { ConstellationMetadata } from '../core/layer/constellation-metadata';
-import { RenderableText } from '../core/layer/label/renderable-text';
-import { toVector3 } from '../core/layer/vector-utils';
-import { Constants } from '../core/constants';
-import { TextOffsetPolicies } from '../core/layer/label/text-offset-policy';
-import { newTreeNode } from '../core/tree-node.spec';
+import { ConstellationNamesLayer } from '#layers/constellation-names-layer';
+import { Constants } from '#core/constants';
+import { Layers } from '#core/layers';
+import { newTreeNode } from '#core/tree-node.spec';
+import { ConstellationMetadata } from '#core-layer/constellation-metadata';
+import { RenderableText } from '#core-layer/label/renderable-text';
+import { toVector3 } from '#core-layer/vector-utils';
+import { TextOffsetPolicies } from '#core-layer/label/text-offset-policy';
 
 describe('ConstellationNamesLayer', () => {
 
@@ -16,17 +16,19 @@ describe('ConstellationNamesLayer', () => {
   const initTestRenderables = () => {
     const map = new Map<string, RenderableText>();
     [
-      { type: 'constellation',
+      {
+        type: 'constellation',
         code: 'AND',
         ra: 8.532,
         dec: 38.906,
-        names: [ 'Andromeda', 'Andromeda' ]
+        names: ['Andromeda', 'Andromeda']
       },
-      { type: 'constellation',
+      {
+        type: 'constellation',
         code: 'ANT',
         ra: 150.722,
         dec: -33.231,
-        names: [ 'Antlia', 'Pump' ]
+        names: ['Antlia', 'Pump']
       }
     ].forEach(
       (meta: ConstellationMetadata) => {

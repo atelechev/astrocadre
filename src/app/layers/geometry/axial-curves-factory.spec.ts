@@ -1,8 +1,8 @@
-import { Layers } from '../../core/layers';
 import { TestBed } from '@angular/core/testing';
-import { AxialCurvesFactory } from './axial-curves-factory';
-import { assertSegmentsArgMustBeDefined, assertSegmentsArgMustNotBeEmpty, assertGeometryExpected } from './object3d-factory.spec';
-import { BufferGeometry, LineSegments } from 'three';
+import { BufferGeometry } from 'three';
+import { assertGeometryExpected, assertSegmentsArgMustBeDefined, assertSegmentsArgMustNotBeEmpty } from '#layers/object3d-factory.spec';
+import { Layers } from '#core/layers';
+import { AxialCurvesFactory } from '#layers/geometry/axial-curves-factory';
 
 describe('AxialCurvesFactory', () => {
 

@@ -1,7 +1,11 @@
-import { ConstellationNamesTextStylesFactory } from './constellation-names-text-style-factory';
-import { ThemeDefinition } from './theme-definition';
-import { emptyTextStyle, emptyThemeDef, textStyle, assertTextStyleBuilt } from './abstract-factories.spec';
-import { Layers } from '../layers';
+import { Layers } from '#core/layers';
+import { ThemeDefinition } from '#core-theme/theme-definition';
+import {
+  assertTextStyleBuilt,
+  emptyThemeDef,
+  textStyle
+} from '#core-theme/abstract-factories.spec';
+import { ConstellationNamesTextStylesFactory } from '#core-theme/constellation-names-text-style-factory';
 
 describe('ConstellationNamesTextStylesFactory', () => {
 

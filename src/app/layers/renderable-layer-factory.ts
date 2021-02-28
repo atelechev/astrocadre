@@ -1,9 +1,9 @@
-
-import { of as observableOf, Observable } from 'rxjs';
-import { LayerFactory } from './layer-factory';
-import { RenderableLayer } from '../core/layer/renderable-layer';
-import { TreeNode } from '../core/tree-node';
 import { Injectable } from '@angular/core';
+import { Observable, of as observableOf } from 'rxjs';
+import { LayerFactory } from '#layers/layer-factory';
+import { TreeNode } from '#core/tree-node';
+
+import { RenderableLayer } from '#core-layer/renderable-layer';
 
 @Injectable()
 export class RenderableLayerFactory implements LayerFactory<RenderableLayer> {

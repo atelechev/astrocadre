@@ -1,17 +1,17 @@
-import { LayerFactory } from './layer-factory';
-import { StarsMagnitudeLayer } from './stars-magnitude-layer';
 import { Injectable } from '@angular/core';
-import { TreeNode } from '../core/tree-node';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { StaticDataService } from '../core/static-data-service';
-import { Layers } from '../core/layers';
-import { PointsFactory } from './geometry/points-factory';
-import { RenderableText } from '../core/layer/label/renderable-text';
-import { extractStandardName, extractProperName, toGreekLetter } from './star-name-utils';
-import { toVector3 } from '../core/layer/vector-utils';
-import { TextOffsetPolicies, TextOffsetPolicy } from '../core/layer/label/text-offset-policy';
-import { Constants } from '../core/constants';
+import { PointsFactory } from '#layers/geometry/points-factory';
+import { LayerFactory } from '#layers/layer-factory';
+import { extractProperName, extractStandardName, toGreekLetter } from '#layers/star-name-utils';
+import { StarsMagnitudeLayer } from '#layers/stars-magnitude-layer';
+import { Constants } from '#core/constants';
+import { Layers } from '#core/layers';
+import { StaticDataService } from '#core/static-data-service';
+import { TreeNode } from '#core/tree-node';
+import { RenderableText } from '#core-layer/label/renderable-text';
+import { toVector3 } from '#core-layer/vector-utils';
+import { TextOffsetPolicies, TextOffsetPolicy } from '#core-layer/label/text-offset-policy';
 
 
 @Injectable()
@@ -20,7 +20,7 @@ export class StarsMagnitudeLayerFactory implements LayerFactory<StarsMagnitudeLa
   public static readonly LAYER_PREFIX = Layers.STARS + '-mag';
 
   constructor(private dataService: StaticDataService,
-              private pointsFactory: PointsFactory) {
+    private pointsFactory: PointsFactory) {
 
   }
 
@@ -28,25 +28,25 @@ export class StarsMagnitudeLayerFactory implements LayerFactory<StarsMagnitudeLa
   private static toStandardNameRenderableText(layerName: string, rawStar: any[], name: string): RenderableText {
     const greekLetter = toGreekLetter(name);
     return StarsMagnitudeLayerFactory.toNameRenderableText(layerName,
-                                     rawStar,
-                                     StarsMagnitudeLayer.LABELTYPE_NAME_STANDARD,
-                                     greekLetter,
-                                     TextOffsetPolicies.CLOSE_RIGHT);
+      rawStar,
+      StarsMagnitudeLayer.LABELTYPE_NAME_STANDARD,
+      greekLetter,
+      TextOffsetPolicies.CLOSE_RIGHT);
   }
 
   private static toProperNameRenderableText(layerName: string, rawStar: any[], name): RenderableText {
     return StarsMagnitudeLayerFactory.toNameRenderableText(layerName,
-                                     rawStar,
-                                     StarsMagnitudeLayer.LABELTYPE_NAME_PROPER,
-                                     name,
-                                     TextOffsetPolicies.TOP_RIGHT);
+      rawStar,
+      StarsMagnitudeLayer.LABELTYPE_NAME_PROPER,
+      name,
+      TextOffsetPolicies.TOP_RIGHT);
   }
 
   private static toNameRenderableText(layerName: string,
-                               rawStar: any[],
-                               styleKey: string,
-                               name: string,
-                               offsetPolicy: TextOffsetPolicy): RenderableText {
+    rawStar: any[],
+    styleKey: string,
+    name: string,
+    offsetPolicy: TextOffsetPolicy): RenderableText {
     const center = toVector3(rawStar[0], rawStar[1], Constants.getWorldRadiusForLayer(Layers.STARS));
     return new RenderableText(layerName, styleKey, center, name, offsetPolicy);
   }
@@ -65,22 +65,22 @@ export class StarsMagnitudeLayerFactory implements LayerFactory<StarsMagnitudeLa
 
   private initProperNameLabels(layerName: string, rawStars: any[][]): Map<string, RenderableText> {
     return this.initLabels(layerName,
-                           rawStars,
-                           extractProperName,
-                           StarsMagnitudeLayerFactory.toProperNameRenderableText);
+      rawStars,
+      extractProperName,
+      StarsMagnitudeLayerFactory.toProperNameRenderableText);
   }
 
   private initStandardNameLabels(layerName: string, rawStars: any[][]): Map<string, RenderableText> {
     return this.initLabels(layerName,
-                           rawStars,
-                           extractStandardName,
-                           StarsMagnitudeLayerFactory.toStandardNameRenderableText);
+      rawStars,
+      extractStandardName,
+      StarsMagnitudeLayerFactory.toStandardNameRenderableText);
   }
 
   private initLabels(layerName: string,
-                     rawStars: any[][],
-                     extractNameFunct: (rawStar: any[]) => string,
-                     toRenderableFunct: (ln: string, rawStar: any[], name: string) => RenderableText): Map<string, RenderableText> {
+    rawStars: any[][],
+    extractNameFunct: (rawStar: any[]) => string,
+    toRenderableFunct: (ln: string, rawStar: any[], name: string) => RenderableText): Map<string, RenderableText> {
     const labels = new Map<string, RenderableText>();
     rawStars.forEach(
       (rawStar: any[]) => {

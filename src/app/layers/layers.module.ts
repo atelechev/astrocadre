@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { LayersComponent } from './layers.component';
+import { LayersComponent } from '#layers/layers.component';
 
 @NgModule({
   declarations: [

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
-import { StarLabelVisibility } from './star-label-visibility';
-import { TreeNode } from '../tree-node';
+import { StarLabelVisibility } from '#core-layer/star-label-visibility';
+import { TreeNode } from '#core/tree-node';
 
 /**
  * Used to exchange events and messages related with layers rendered in the main viewport.

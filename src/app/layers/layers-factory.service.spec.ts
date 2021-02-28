@@ -1,26 +1,26 @@
-import { of as observableOf, Observable } from 'rxjs';
-import { LayersFactoryService } from './layers-factory.service';
 import { TestBed } from '@angular/core/testing';
-import { SkyGridLayerFactory } from './sky-grid-layer-factory';
-import { RenderableLayerFactory } from './renderable-layer-factory';
-import { ConstellationBoundariesLayerFactory } from './constellation-boundaries-layer-factory';
-import { ConstellationLinesLayerFactory } from './constellation-lines-layer-factory';
-import { ConstellationNamesLayerFactory } from './constellation-names-layer-factory';
-import { StarsMagnitudeLayerFactory } from './stars-magnitude-layer-factory';
-import { AxialCurvesFactory } from './geometry/axial-curves-factory';
-import { LinesFactory } from './geometry/lines-factory';
-import { PointsFactory } from './geometry/points-factory';
-import { StaticDataService } from '../core/static-data-service';
-import { ConstellationMetadata } from '../core/layer/constellation-metadata';
-import { Layers } from '../core/layers';
-import { TreeNode } from '../core/tree-node';
-import { SkyGridLayer } from './sky-grid-layer';
-import { RenderableLayer } from '../core/layer/renderable-layer';
-import { ConstellationBoundariesLayer } from './constellation-boundaries-layer';
-import { ConstellationLinesLayer } from './constellation-lines-layer';
-import { ConstellationNamesLayer } from './constellation-names-layer';
-import { StarsMagnitudeLayer } from './stars-magnitude-layer';
-import { newTreeNode } from '../core/tree-node.spec';
+import { Observable, of as observableOf } from 'rxjs';
+import { ConstellationBoundariesLayer } from '#layers/constellation-boundaries-layer';
+import { ConstellationBoundariesLayerFactory } from '#layers/constellation-boundaries-layer-factory';
+import { ConstellationLinesLayer } from '#layers/constellation-lines-layer';
+import { ConstellationLinesLayerFactory } from '#layers/constellation-lines-layer-factory';
+import { ConstellationNamesLayer } from '#layers/constellation-names-layer';
+import { ConstellationNamesLayerFactory } from '#layers/constellation-names-layer-factory';
+import { AxialCurvesFactory } from '#layers/geometry/axial-curves-factory';
+import { LinesFactory } from '#layers/geometry/lines-factory';
+import { PointsFactory } from '#layers/geometry/points-factory';
+import { LayersFactoryService } from '#layers/layers-factory.service';
+import { RenderableLayerFactory } from '#layers/renderable-layer-factory';
+import { SkyGridLayer } from '#layers/sky-grid-layer';
+import { SkyGridLayerFactory } from '#layers/sky-grid-layer-factory';
+import { StarsMagnitudeLayer } from '#layers/stars-magnitude-layer';
+import { StarsMagnitudeLayerFactory } from '#layers/stars-magnitude-layer-factory';
+import { Layers } from '#core/layers';
+import { StaticDataService } from '#core/static-data-service';
+import { TreeNode } from '#core/tree-node';
+import { newTreeNode } from '#core/tree-node.spec';
+import { ConstellationMetadata } from '#core-layer/constellation-metadata';
+import { RenderableLayer } from '#core-layer/renderable-layer';
 
 class MockStaticData {
   public getConstellationBoundaries(): Observable<number[][]> {

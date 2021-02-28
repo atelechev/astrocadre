@@ -1,9 +1,9 @@
 import { Vector3 } from 'three';
-import { Theme } from '../../theme/theme';
-import { TextOffsetPolicy, TextOffsets } from './text-offset-policy';
-import { applyStyleOn } from './text-utils';
-import { HtmlElementFactory } from './html-element-factory';
-import { ensureArgDefined } from '../../arg-validation-utils';
+import { HtmlElementFactory } from '#core-layer/label/html-element-factory';
+import { TextOffsetPolicy, TextOffsets } from '#core-layer/label/text-offset-policy';
+import { Theme } from '#core-theme/theme';
+import { applyStyleOn } from '#core-layer/label/text-utils';
+import { ensureArgDefined } from '#core/arg-validation-utils';
 
 /**
  * Wraps data about text that can be rendered in the view.
@@ -15,10 +15,10 @@ export class RenderableText {
   private offsets: TextOffsets;
 
   constructor(private readonly parentLayer: string,
-              private readonly styleKey: string,
-              public readonly position: Vector3,
-              private text: string,
-              private offsetPolicy: TextOffsetPolicy) {
+    private readonly styleKey: string,
+    public readonly position: Vector3,
+    private text: string,
+    private offsetPolicy: TextOffsetPolicy) {
     ensureArgDefined(position, 'position');
     ensureArgDefined(offsetPolicy, 'offsetPolicy');
     this.htmlElement = HtmlElementFactory.newLabel(parentLayer, styleKey, text);

@@ -1,7 +1,7 @@
-import { StarsTextStyleFactory } from './stars-text-style-factory';
-import { ThemeDefinition } from './theme-definition';
-import { emptyTextStyle, emptyThemeDef, textStyle, assertTextStyleBuilt } from './abstract-factories.spec';
-import { Layers } from '../layers';
+import { Layers } from '#core/layers';
+import { StarsTextStyleFactory } from '#core-theme/stars-text-style-factory';
+import { ThemeDefinition } from '#core-theme/theme-definition';
+import { emptyThemeDef, textStyle, assertTextStyleBuilt } from '#core-theme/abstract-factories.spec';
 
 describe('StarsTextStyleFactory', () => {
 

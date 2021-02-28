@@ -1,7 +1,7 @@
-import { Layers } from '../core/layers';
-import { SkyGridLayer } from './sky-grid-layer';
 import { LineSegments } from 'three';
-import { newTreeNode } from '../core/tree-node.spec';
+import { SkyGridLayer } from '#layers/sky-grid-layer';
+import { Layers } from '#core/layers';
+import { newTreeNode } from '#core/tree-node.spec';
 
 describe('SkyGridLayer', () => {
 

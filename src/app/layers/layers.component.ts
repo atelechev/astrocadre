@@ -1,23 +1,23 @@
 import { Component, OnInit } from '@angular/core';
-import { RenderableLayer } from '../core/layer/renderable-layer';
-import { ThemeAware } from '../core/theme/theme-aware';
-import { Theme } from '../core/theme/theme';
-import { LayersFactoryService } from './layers-factory.service';
-import { LayersEventService } from '../core/layer/layers-event.service';
-import { TreeNode } from '../core/tree-node';
-import { Layers } from '../core/layers';
-import { StarsMagnitudeLayer } from './stars-magnitude-layer';
-import { PointsFactory } from './geometry/points-factory';
-import { LinesFactory } from './geometry/lines-factory';
-import { AxialCurvesFactory } from './geometry/axial-curves-factory';
-import { SkyGridLayerFactory } from './sky-grid-layer-factory';
-import { RenderableLayerFactory } from './renderable-layer-factory';
-import { ConstellationBoundariesLayerFactory } from './constellation-boundaries-layer-factory';
-import { ConstellationLinesLayerFactory } from './constellation-lines-layer-factory';
-import { ConstellationNamesLayerFactory } from './constellation-names-layer-factory';
-import { StarsMagnitudeLayerFactory } from './stars-magnitude-layer-factory';
-import { StaticDataService } from '../core/static-data-service';
-import { LayersTreeValidator } from '../core/layer/layers-tree-validator';
+import { ConstellationBoundariesLayerFactory } from '#layers/constellation-boundaries-layer-factory';
+import { ConstellationLinesLayerFactory } from '#layers/constellation-lines-layer-factory';
+import { ConstellationNamesLayerFactory } from '#layers/constellation-names-layer-factory';
+import { AxialCurvesFactory } from '#layers/geometry/axial-curves-factory';
+import { LinesFactory } from '#layers/geometry/lines-factory';
+import { PointsFactory } from '#layers/geometry/points-factory';
+import { LayersFactoryService } from '#layers/layers-factory.service';
+import { RenderableLayerFactory } from '#layers/renderable-layer-factory';
+import { SkyGridLayerFactory } from '#layers/sky-grid-layer-factory';
+import { StarsMagnitudeLayer } from '#layers/stars-magnitude-layer';
+import { StarsMagnitudeLayerFactory } from '#layers/stars-magnitude-layer-factory';
+import { Layers } from '#core/layers';
+import { StaticDataService } from '#core/static-data-service';
+import { TreeNode } from '#core/tree-node';
+import { LayersEventService } from '#core-layer/layers-event.service';
+import { LayersTreeValidator } from '#core-layer/layers-tree-validator';
+import { RenderableLayer } from '#core-layer/renderable-layer';
+import { ThemeAware } from '#core-theme/theme-aware';
+import { Theme } from '#core-theme/theme';
 
 @Component({
   selector: 'app-astrocadre-layers',

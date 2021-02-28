@@ -1,5 +1,5 @@
-import { TreeNode } from './tree-node';
 import { Injectable } from '@angular/core';
+import { TreeNode } from '#core/tree-node';
 
 @Injectable()
 export class TreeNodeFinder {

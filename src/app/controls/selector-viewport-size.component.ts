@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
-import { ViewportDimensionService } from '../core/viewport/viewport-dimension.service';
+import { ViewportDimensionService } from '#core-viewport/viewport-dimension.service';
 
 @Component({
   selector: `app-astrocadre-controls-select-viewport-size`,
   templateUrl: './selector-viewport-size.component.html',
-  styleUrls: [ './controls.component.css', './selector-viewport-size.component.css' ],
+  styleUrls: ['./controls.component.css', './selector-viewport-size.component.css'],
   providers: []
 })
 export class SelectorViewportSizeComponent {
@@ -29,7 +29,7 @@ export class SelectorViewportSizeComponent {
 
   public dimensionChanged(): void {
     this.enabled = this.width !== this.viewportDimensionService.getWidth() ||
-                   this.height !== this.viewportDimensionService.getHeight();
+      this.height !== this.viewportDimensionService.getHeight();
   }
 
 }

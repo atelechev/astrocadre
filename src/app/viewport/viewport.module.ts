@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { ViewportComponent } from './viewport.component';
+import { ViewportComponent } from '#viewport/viewport.component';
 
 @NgModule({
   declarations: [

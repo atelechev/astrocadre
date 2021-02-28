@@ -1,5 +1,10 @@
-import { Component, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
-import { DraggableElementsHandler } from '../core/controls/draggable-elements-handler';
+import {
+  AfterViewInit,
+  Component,
+  ElementRef,
+  ViewChild
+  } from '@angular/core';
+import { DraggableElementsHandler } from '#core-controls/draggable-elements-handler';
 
 @Component({
   selector: 'app-astrocadre-controls',

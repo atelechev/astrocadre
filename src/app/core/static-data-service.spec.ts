@@ -1,9 +1,9 @@
-import { StaticDataService } from './static-data-service';
 import { HttpErrorResponse } from '@angular/common/http';
-import { emptyThemeDef, asyncData, asyncError } from './theme/abstract-factories.spec';
-
 import { Observable } from 'rxjs';
-import { ConstellationMetadata } from './layer/constellation-metadata';
+import { ConstellationMetadata } from '#core-layer/constellation-metadata';
+import { StaticDataService } from '#core/static-data-service';
+import { emptyThemeDef, asyncData, asyncError } from '#core-theme/abstract-factories.spec';
+
 
 describe('StaticDataService', () => {
 

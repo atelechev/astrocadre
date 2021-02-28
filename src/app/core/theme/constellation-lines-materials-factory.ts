@@ -1,7 +1,7 @@
-import { MaterialsFactory } from './abstract-factories';
-import { Layers } from '../layers';
-import { ThemeDefinition } from './theme-definition';
-import { Material, LineBasicMaterial } from 'three';
+import { LineBasicMaterial, Material } from 'three';
+import { Layers } from '#core/layers';
+import { ThemeDefinition } from '#core-theme/theme-definition';
+import { MaterialsFactory } from '#core-theme/abstract-factories';
 
 export class ConstellationLinesMaterialsFactory extends MaterialsFactory {
 
@@ -11,7 +11,7 @@ export class ConstellationLinesMaterialsFactory extends MaterialsFactory {
 
   protected buildMaterialsWith(themeDef: ThemeDefinition): Map<string, Material> {
     const materials = new Map<string, Material>();
-    materials.set('line-common', new LineBasicMaterial({ color : themeDef.constellation.lines.line.common }));
+    materials.set('line-common', new LineBasicMaterial({ color: themeDef.constellation.lines.line.common }));
     return materials;
   }
 

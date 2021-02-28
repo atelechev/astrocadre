@@ -1,4 +1,4 @@
-import { Theme } from './theme';
+import { Theme } from '#core-theme/theme';
 
 /**
  * Should be implemented by entities whose rendering properties depend on Theme definitions.

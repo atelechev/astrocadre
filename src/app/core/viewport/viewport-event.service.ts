@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
-import { AxialRotation } from './axial-rotation';
-import { SkyCoordinate } from './sky-coordinate';
+import { AxialRotation } from '#core-viewport/axial-rotation';
+import { SkyCoordinate } from '#core-viewport/sky-coordinate';
 
 /**
  * Used to exchange events and messages related with the main viewport area.

@@ -1,13 +1,12 @@
-import { Component, AfterViewInit } from '@angular/core';
-import { ThemesEventService } from '../core/theme/themes-event.service';
-import { StaticDataService } from '../core/static-data-service';
-import { TreeNode } from '../core/tree-node';
+import { Component } from '@angular/core';
+import { TreeNode } from '#core/tree-node';
+import { ThemesEventService } from '#core-theme/themes-event.service';
 
 
 @Component({
   selector: `app-astrocadre-controls-select-theme`,
   templateUrl: './selector-theme.component.html',
-  styleUrls: [ './controls.component.css' ],
+  styleUrls: ['./controls.component.css'],
   providers: []
 })
 export class SelectorThemeComponent {

@@ -1,9 +1,9 @@
 import { Object3D } from 'three';
-import { Theme } from '../theme/theme';
-import { ThemeAware } from '../theme/theme-aware';
-import { TreeNode } from '../tree-node';
-import { ensureArgDefined } from '../arg-validation-utils';
-import { RenderableText } from './label/renderable-text';
+import { Theme } from '#core-theme/theme';
+import { ThemeAware } from '#core-theme/theme-aware';
+import { TreeNode } from '#core/tree-node';
+import { ensureArgDefined } from '#core/arg-validation-utils';
+import { RenderableText } from '#core-layer/label/renderable-text';
 
 /**
  * Represents a layer of objects that can be rendered/visualized in the view.

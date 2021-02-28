@@ -1,14 +1,14 @@
 import { Color, Material } from 'three';
-import { Layers } from '../../core/layers';
-import { ThemeDefinition } from './theme-definition';
-import { TextStyle } from './text-style';
-import { MaterialsFactory, TextStylesFactory } from './abstract-factories';
-import { SkyGridMaterialsFactory } from './sky-grid-materials-factory';
-import { ConstellationBoundariesMaterialsFactory } from './constellation-boundaries-materials-factory';
-import { ConstellationLinesMaterialsFactory } from './constellation-lines-materials-factory';
-import { StarsMaterialsFactory } from './stars-materials-factory';
-import { ConstellationNamesTextStylesFactory } from './constellation-names-text-style-factory';
-import { StarsTextStyleFactory } from './stars-text-style-factory';
+import { Layers } from '#core/layers';
+import { ThemeDefinition } from '#core-theme/theme-definition';
+import { TextStyle } from '#core-theme/text-style';
+import { MaterialsFactory, TextStylesFactory } from '#core-theme/abstract-factories';
+import { SkyGridMaterialsFactory } from '#core-theme/sky-grid-materials-factory';
+import { ConstellationBoundariesMaterialsFactory } from '#core-theme/constellation-boundaries-materials-factory';
+import { ConstellationLinesMaterialsFactory } from '#core-theme/constellation-lines-materials-factory';
+import { StarsMaterialsFactory } from '#core-theme/stars-materials-factory';
+import { ConstellationNamesTextStylesFactory } from '#core-theme/constellation-names-text-style-factory';
+import { StarsTextStyleFactory } from '#core-theme/stars-text-style-factory';
 
 /**
  * Wraps a ThemeDefinition in order to transform its input raw data into objects

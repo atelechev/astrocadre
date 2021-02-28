@@ -1,4 +1,4 @@
-import { TreeNode } from './tree-node';
+import { TreeNode } from '#core/tree-node';
 
 export const newTreeNode = (code: string, childNodes: Array<TreeNode>): TreeNode => new TreeNode(code, undefined, undefined, childNodes);
 

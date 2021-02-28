@@ -1,10 +1,10 @@
-import { Layers } from '../core/layers';
-import { Theme } from '../core/theme/theme';
-import { Points, Object3D } from 'three';
-import { TreeNode } from '../core/tree-node';
-import { RenderableText } from '../core/layer/label/renderable-text';
-import { RenderableLayer } from '../core/layer/renderable-layer';
-import { ensureArgDefined } from '../core/arg-validation-utils';
+import { Object3D, Points } from 'three';
+import { ensureArgDefined } from '#core/arg-validation-utils';
+import { Layers } from '#core/layers';
+import { TreeNode } from '#core/tree-node';
+import { RenderableText } from '#core-layer/label/renderable-text';
+import { RenderableLayer } from '#core-layer/renderable-layer';
+import { Theme } from '#core-theme/theme';
 
 export class StarsMagnitudeLayer extends RenderableLayer {
 

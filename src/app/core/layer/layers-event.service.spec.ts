@@ -1,8 +1,8 @@
-import { LayersEventService } from './layers-event.service';
 import { TestBed } from '@angular/core/testing';
-import { TreeNode } from '../tree-node';
-import { StarLabelVisibility } from './star-label-visibility';
-import { newTreeNode } from '../tree-node.spec';
+import { LayersEventService } from '#core-layer/layers-event.service';
+import { TreeNode } from '#core/tree-node';
+import { StarLabelVisibility } from '#core-layer/star-label-visibility';
+import { newTreeNode } from '#core/tree-node.spec';
 
 describe('ViewportEventService', () => {
 

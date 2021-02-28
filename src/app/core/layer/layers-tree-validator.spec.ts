@@ -1,6 +1,6 @@
-import { LayersTreeValidator } from './layers-tree-validator';
-import { TreeNode } from '../tree-node';
 import { TestBed } from '@angular/core/testing';
+import { LayersTreeValidator } from '#core-layer/layers-tree-validator';
+import { TreeNode } from '#core/tree-node';
 
 describe('LayersTreeValidator', () => {
 

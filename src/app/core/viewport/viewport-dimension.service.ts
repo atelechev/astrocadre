@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import { Constants } from '../constants';
-import { ScreenCoordinate } from './screen-coordinate';
-import { Dimension } from './dimension';
 import { Subject } from 'rxjs';
+import { Constants } from '#core/constants';
+import { ScreenCoordinate } from '#core-viewport/screen-coordinate';
+import { Dimension } from '#core-viewport/dimension';
 
 /**
  * Provides access to the dimensions of the current viewport.

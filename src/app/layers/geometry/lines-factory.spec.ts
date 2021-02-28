@@ -1,8 +1,8 @@
-import { LinesFactory } from './lines-factory';
 import { TestBed } from '@angular/core/testing';
-import { assertSegmentsArgMustBeDefined, assertSegmentsArgMustNotBeEmpty, assertGeometryExpected } from './object3d-factory.spec';
-import { Layers } from '../../core/layers';
-import { Object3D, BufferGeometry } from 'three';
+import { BufferGeometry } from 'three';
+import { assertGeometryExpected, assertSegmentsArgMustBeDefined, assertSegmentsArgMustNotBeEmpty } from '#layers/geometry/object3d-factory.spec';
+import { LinesFactory } from '#layers/geometry/lines-factory';
+import { Layers } from '#core/layers';
 
 describe('LinesFactory', () => {
 

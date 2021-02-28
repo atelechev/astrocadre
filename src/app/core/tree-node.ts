@@ -1,4 +1,4 @@
-import { ensureStringDefinedNotEmpty, ensureArgDefined } from './arg-validation-utils';
+import { ensureStringDefinedNotEmpty, ensureArgDefined } from '#core/arg-validation-utils';
 
 /**
  * Represents a node in a tree forming a hierarchy of nodes.
@@ -8,9 +8,9 @@ export class TreeNode {
   public selected: boolean;
 
   constructor(public readonly code: string,
-              public readonly label: string,
-              public readonly description?: string,
-              public readonly nodes?: TreeNode[]) {
+    public readonly label: string,
+    public readonly description?: string,
+    public readonly nodes?: TreeNode[]) {
     ensureStringDefinedNotEmpty(code, 'code');
     this.selected = true;
   }

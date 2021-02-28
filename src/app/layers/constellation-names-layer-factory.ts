@@ -1,15 +1,15 @@
 import { Injectable } from '@angular/core';
-import { LayerFactory } from './layer-factory';
-import { ConstellationNamesLayer } from './constellation-names-layer';
-import { TreeNode } from '../core/tree-node';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { StaticDataService } from '../core/static-data-service';
-import { ConstellationMetadata } from '../core/layer/constellation-metadata';
-import { RenderableText } from '../core/layer/label/renderable-text';
-import { toVector3 } from '../core/layer/vector-utils';
-import { Constants } from '../core/constants';
-import { TextOffsetPolicies } from '../core/layer/label/text-offset-policy';
+import { ConstellationNamesLayer } from '#layers/constellation-names-layer';
+import { LayerFactory } from '#layers/layer-factory';
+import { Constants } from '#core/constants';
+import { StaticDataService } from '#core/static-data-service';
+import { TreeNode } from '#core/tree-node';
+import { ConstellationMetadata } from '#core-layer/constellation-metadata';
+import { RenderableText } from '#core-layer/label/renderable-text';
+import { toVector3 } from '#core-layer/vector-utils';
+import { TextOffsetPolicies } from '#core-layer/label/text-offset-policy';
 
 @Injectable()
 export class ConstellationNamesLayerFactory implements LayerFactory<ConstellationNamesLayer> {

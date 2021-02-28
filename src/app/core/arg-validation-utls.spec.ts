@@ -1,4 +1,4 @@
-import { ensureArgDefined, ensureStringDefinedNotEmpty, ensureArgArrayDefinedNotEmpty } from './arg-validation-utils';
+import { ensureArgDefined, ensureStringDefinedNotEmpty, ensureArgArrayDefinedNotEmpty } from '#core/arg-validation-utils';
 
 describe('ArgValidator', () => {
 

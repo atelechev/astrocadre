@@ -1,5 +1,5 @@
-import { DraggableElement } from './draggable-element';
 import { Injectable } from '@angular/core';
+import { DraggableElement } from '#core-controls/draggable-element';
 
 /**
  * Provides a possibility to make any DOM element draggable.

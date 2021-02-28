@@ -1,8 +1,11 @@
-import { ConstellationLinesMaterialsFactory } from './constellation-lines-materials-factory';
-import { ThemeDefinition } from './theme-definition';
-import { Layers } from '../layers';
 import { LineBasicMaterial } from 'three';
-import { assertColorsSame, assertLineBasicMaterialBuilt, emptyTextStyle, emptyThemeDef } from './abstract-factories.spec';
+import { Layers } from '#core/layers';
+import { ThemeDefinition } from '#core-theme/theme-definition';
+import {
+  assertLineBasicMaterialBuilt,
+  emptyThemeDef
+} from '#core-theme/abstract-factories.spec';
+import { ConstellationLinesMaterialsFactory } from '#core-theme/constellation-lines-materials-factory';
 
 
 describe('ConstellationLinesMaterialsFactory', () => {
@@ -12,10 +15,10 @@ describe('ConstellationLinesMaterialsFactory', () => {
   const themeDef: ThemeDefinition = Object.create(emptyThemeDef);
 
   themeDef.constellation.lines = {
-      line: {
-        common: 'rgb(4, 4, 4)'
-      }
-    };
+    line: {
+      common: 'rgb(4, 4, 4)'
+    }
+  };
 
   it('#constructor should initialize targetLayerName field', () => {
     expect(factory.layerName).toBe(Layers.CONSTELLATION_LINES);

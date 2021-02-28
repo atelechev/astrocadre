@@ -1,8 +1,8 @@
-import { MaterialsFactory } from './abstract-factories';
-import { Layers } from '../layers';
-import { ThemeDefinition } from './theme-definition';
-import { Material, TextureLoader, PointsMaterial } from 'three';
-import { environment } from '../../../environments/environment';
+import { Material, PointsMaterial, TextureLoader } from 'three';
+import { Layers } from '#core/layers';
+import { MaterialsFactory } from '#core-theme/abstract-factories';
+import { ThemeDefinition } from '#core-theme/theme-definition';
+import { environment } from '#environments/environment';
 
 export class StarsMaterialsFactory extends MaterialsFactory {
 
@@ -26,16 +26,18 @@ export class StarsMaterialsFactory extends MaterialsFactory {
   }
 
   private getMaterialForMagnitudeClass(magClass: number,
-                                       textureFile: string,
-                                       sizeMultiplier: number,
-                                       ): Material {
+    textureFile: string,
+    sizeMultiplier: number,
+  ): Material {
     const dotSize = (6.5 - magClass) * sizeMultiplier;
-    return new PointsMaterial({ size: dotSize,
-                                sizeAttenuation: false,
-                                transparent: true,
-                                opacity: 0.95,
-                                alphaTest: 0.05,
-                                map: this.textureLoader.load(textureFile) } );
+    return new PointsMaterial({
+      size: dotSize,
+      sizeAttenuation: false,
+      transparent: true,
+      opacity: 0.95,
+      alphaTest: 0.05,
+      map: this.textureLoader.load(textureFile)
+    });
   }
 
 }

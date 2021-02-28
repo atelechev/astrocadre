@@ -1,13 +1,13 @@
-import { throwError as observableThrowError, Observable } from 'rxjs';
-import { catchError, map } from 'rxjs/operators';
-import { ThemeDefinition } from './theme/theme-definition';
-import { Layers } from './layers';
-import { ConstellationMetadata } from './layer/constellation-metadata';
-import { SearchableItem } from './search/searchable-item';
-import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { TreeNode } from './tree-node';
-import { environment } from '../../environments/environment';
+import { Injectable } from '@angular/core';
+import { Observable, throwError as observableThrowError } from 'rxjs';
+import { catchError, map } from 'rxjs/operators';
+import { ConstellationMetadata } from '#core-layer/constellation-metadata';
+import { Layers } from '#core/layers';
+import { SearchableItem } from '#core-search/searchable-item';
+import { ThemeDefinition } from '#core-theme/theme-definition';
+import { TreeNode } from '#core/tree-node';
+import { environment } from '#environments/environment';
 
 /**
  * Provides access to all static server side resources.

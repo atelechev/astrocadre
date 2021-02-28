@@ -1,7 +1,13 @@
-import { Material, LineBasicMaterial, Color, PointsMaterial, TextureLoader } from 'three';
-import { TextStyle } from './text-style';
-import { ThemeDefinition } from './theme-definition';
 import { defer } from 'rxjs';
+import {
+  Color,
+  LineBasicMaterial,
+  Material,
+  PointsMaterial,
+  TextureLoader
+  } from 'three';
+import { TextStyle } from '#core-theme/text-style';
+import { ThemeDefinition } from '#core-theme/theme-definition';
 
 export const IRRELEVANT = 'irrelevant';
 

@@ -1,10 +1,10 @@
-import { RenderableText } from './renderable-text';
 import { Vector3 } from 'three';
-import { TextOffsetPolicies } from './text-offset-policy';
-import { emptyThemeDef, textStyle } from '../../theme/abstract-factories.spec';
-import { ThemeDefinition } from '../../theme/theme-definition';
-import { Theme } from '../../theme/theme';
-import { Layers } from '../../layers';
+import { Layers } from '#core/layers';
+import { emptyThemeDef, textStyle } from '#core-theme/abstract-factories.spec';
+import { Theme } from '#core-theme/theme';
+import { ThemeDefinition } from '#core-theme/theme-definition';
+import { RenderableText } from '#core-layer/label/renderable-text';
+import { TextOffsetPolicies } from '#core-layer/label/text-offset-policy';
 
 describe('RenderableText', () => {
 

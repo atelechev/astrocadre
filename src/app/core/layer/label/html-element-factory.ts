@@ -1,4 +1,4 @@
-import { ensureStringDefinedNotEmpty } from '../../arg-validation-utils';
+import { ensureStringDefinedNotEmpty } from '#core/arg-validation-utils';
 
 /**
  * Factory utility class allowing to instantiate HTML elements.
@@ -15,8 +15,8 @@ export class HtmlElementFactory {
    * @returns HTMLElement the instantiated label element.
    */
   public static newLabel(layerName: string,
-                         styleKey: string,
-                         text: string): HTMLElement {
+    styleKey: string,
+    text: string): HTMLElement {
     ensureStringDefinedNotEmpty(layerName, 'layerName');
     ensureStringDefinedNotEmpty(styleKey, 'styleKey');
     const element = document.createElement('div');

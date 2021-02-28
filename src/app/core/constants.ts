@@ -1,5 +1,5 @@
 import { Vector3 } from 'three';
-import { Layers } from './layers';
+import { Layers } from '#core/layers';
 
 /**
  * Contains constant values that might be used anywhere across the entire application.

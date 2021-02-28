@@ -1,6 +1,6 @@
-import { TreeNodeFinder } from './tree-node-finder';
 import { TestBed } from '@angular/core/testing';
-import { TreeNode } from './tree-node';
+import { TreeNodeFinder } from '#core/tree-node-finder';
+import { TreeNode } from '#core/tree-node';
 
 describe('TreeNodeFinder', () => {
 
@@ -24,19 +24,19 @@ describe('TreeNodeFinder', () => {
   });
 
   it('#findInTree should return undefined if layer was not found', () => {
-    const tree = newItem('root', [ newItem('i1'), newItem('i2') ]);
+    const tree = newItem('root', [newItem('i1'), newItem('i2')]);
     expect(service.findInTree('i0', tree)).toBeUndefined();
   });
 
   it('#findInTree should return expected layer if it is present in root level of the array', () => {
-    const tree = newItem('root', [ newItem('i1'), newItem('i2') ]);
+    const tree = newItem('root', [newItem('i1'), newItem('i2')]);
     const found = service.findInTree('root', tree);
     expect(found).toBeDefined();
     expect(found.code).toBe('root');
   });
 
   it('#findInTree should return expected layer if it is present among children', () => {
-    const tree = newItem('root', [ newItem('i1', [ newItem('i1c1') ]), newItem('i2', [ newItem('i2c1') ]) ]);
+    const tree = newItem('root', [newItem('i1', [newItem('i1c1')]), newItem('i2', [newItem('i2c1')])]);
     const found = service.findInTree('i2c1', tree);
     expect(found).toBeDefined();
     expect(found.code).toBe('i2c1');

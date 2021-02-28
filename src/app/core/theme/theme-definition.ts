@@ -1,4 +1,4 @@
-import { TextStyle } from './text-style';
+import { TextStyle } from '#core-theme/text-style';
 
 export interface ThemeDefinition {
 

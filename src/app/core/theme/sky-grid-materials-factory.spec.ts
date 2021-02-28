@@ -1,8 +1,8 @@
-import { SkyGridMaterialsFactory } from './sky-grid-materials-factory';
-import { ThemeDefinition } from './theme-definition';
-import { Layers } from '../layers';
 import { LineBasicMaterial } from 'three';
-import { assertColorsSame, assertLineBasicMaterialBuilt, emptyTextStyle, emptyThemeDef } from './abstract-factories.spec';
+import { Layers } from '#core/layers';
+import { SkyGridMaterialsFactory } from '#core-theme/sky-grid-materials-factory';
+import { ThemeDefinition } from '#core-theme/theme-definition';
+import { assertLineBasicMaterialBuilt, emptyThemeDef } from '#core-theme/abstract-factories.spec';
 
 
 describe('SkyGridMaterialsFactory', () => {
@@ -12,11 +12,11 @@ describe('SkyGridMaterialsFactory', () => {
   const themeDef: ThemeDefinition = Object.create(emptyThemeDef);
 
   themeDef.skyGrid = {
-      line: {
-        common: 'rgb(1, 1, 1)',
-        reference: 'rgb(2, 2, 2)'
-      }
-    };
+    line: {
+      common: 'rgb(1, 1, 1)',
+      reference: 'rgb(2, 2, 2)'
+    }
+  };
 
   it('#constructor should initialize targetLayerName field', () => {
     expect(factory.layerName).toBe(Layers.SKY_GRID);

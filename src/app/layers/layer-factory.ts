@@ -1,6 +1,6 @@
-import { RenderableLayer } from '../core/layer/renderable-layer';
-import { TreeNode } from '../core/tree-node';
 import { Observable } from 'rxjs';
+import { TreeNode } from '#core/tree-node';
+import { RenderableLayer } from '#core-layer/renderable-layer';
 
 /**
  * Provides a method allowing to initialize a RenderableLayer.

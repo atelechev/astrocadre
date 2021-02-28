@@ -1,7 +1,7 @@
-import { MaterialsFactory } from './abstract-factories';
-import { Layers } from '../layers';
-import { ThemeDefinition } from './theme-definition';
-import { Material, LineBasicMaterial } from 'three';
+import { LineBasicMaterial, Material } from 'three';
+import { Layers } from '#core/layers';
+import { MaterialsFactory } from '#core-theme/abstract-factories';
+import { ThemeDefinition } from '#core-theme/theme-definition';
 
 export class SkyGridMaterialsFactory extends MaterialsFactory {
 
@@ -11,8 +11,8 @@ export class SkyGridMaterialsFactory extends MaterialsFactory {
 
   protected buildMaterialsWith(themeDef: ThemeDefinition): Map<string, Material> {
     const materials = new Map<string, Material>();
-    materials.set('line-common', new LineBasicMaterial({ color : themeDef.skyGrid.line.common }));
-    materials.set('line-reference', new LineBasicMaterial({ color : themeDef.skyGrid.line.reference }));
+    materials.set('line-common', new LineBasicMaterial({ color: themeDef.skyGrid.line.common }));
+    materials.set('line-reference', new LineBasicMaterial({ color: themeDef.skyGrid.line.reference }));
     return materials;
   }
 
