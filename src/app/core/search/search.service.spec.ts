@@ -1,5 +1,5 @@
 
-import {of as observableOf,  Observable } from 'rxjs';
+import { of as observableOf, Observable } from 'rxjs';
 import { TestBed } from '@angular/core/testing';
 
 import { SearchableItem } from './searchable-item';
@@ -11,7 +11,7 @@ class MockStaticData {
 
   public getSearchableItems(): Observable<SearchableItem[]> {
     const data = [
-      { type: 'constellation', code: 'AND', ra: 8.532, dec: 38.906, names: [ 'Andromeda', 'other name']}
+      { type: 'constellation', code: 'AND', ra: 8.532, dec: 38.906, names: ['Andromeda', 'other name'] }
     ];
     return observableOf(data);
   }
@@ -27,16 +27,15 @@ describe('SearchService', () => {
       providers: [
         SearchService,
         { provide: StaticDataService, useClass: MockStaticData }
-      ] });
+      ]
+    });
     service = TestBed.get(SearchService);
   });
 
-  const coords = (ra: number, dec: number): SkyCoordinate => {
-    return {
-      rightAscension: ra,
-      declination: dec
-    };
-  };
+  const coords = (ra: number, dec: number): SkyCoordinate => ({
+    rightAscension: ra,
+    declination: dec
+  });
 
   const assertCoordsExpected = (checked: SkyCoordinate, expected: SkyCoordinate): void => {
     expect(checked).toBeDefined();

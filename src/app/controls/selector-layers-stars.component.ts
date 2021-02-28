@@ -6,17 +6,14 @@ import { TreeNode } from '../core/tree-node';
 @Component({
   selector: `app-astrocadre-controls-select-stars`,
   templateUrl: './selector-layers-stars.component.html',
-  styleUrls: [ './controls.component.css',
-               './selector-layers.component.css',
-               './selector-layers-stars.component.css' ],
+  styleUrls: ['./controls.component.css',
+    './selector-layers.component.css',
+    './selector-layers-stars.component.css'],
   providers: []
 })
 export class SelectorLayersStarsComponent implements AfterViewInit {
 
-
-  private readonly initialMagnitude = 6;
-
-  public magnitude: number = this.initialMagnitude;
+  public magnitude: number;
 
   public showNames: boolean;
 
@@ -24,23 +21,17 @@ export class SelectorLayersStarsComponent implements AfterViewInit {
 
   public checkProperNames = true;
 
+  private readonly initialMagnitude: number;
+
   constructor(private layersEventService: LayersEventService) {
+    this.initialMagnitude = 6;
+    this.magnitude = this.initialMagnitude;
     this.showNames = true;
     this.enabled = true;
     this.layersEventService.requestLayerVisibility$.subscribe(
       (node: TreeNode) => {
         if (node.code === Layers.STARS) {
           this.enabled = node.selected;
-        }
-      }
-    );
-  }
-
-  private subscribeLayerLoadedEvent(): void {
-    this.layersEventService.broadcastLayerLoaded$.subscribe(
-      (layer: string) => {
-        if (layer.startsWith(Layers.STARS + '-')) {
-          this.fireStarsLabelsVisibilityChangeEvent();
         }
       }
     );
@@ -64,6 +55,16 @@ export class SelectorLayersStarsComponent implements AfterViewInit {
   public fireStarsLabelsTypeChangeEvent(): void {
     const data = this.checkProperNames ? 'stars-names-proper' : 'stars-names-standard';
     this.layersEventService.starsLabelsTypeRequested(data);
+  }
+
+  private subscribeLayerLoadedEvent(): void {
+    this.layersEventService.broadcastLayerLoaded$.subscribe(
+      (layer: string) => {
+        if (layer.startsWith(Layers.STARS + '-')) {
+          this.fireStarsLabelsVisibilityChangeEvent();
+        }
+      }
+    );
   }
 
 }

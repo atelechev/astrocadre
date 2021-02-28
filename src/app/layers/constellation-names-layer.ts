@@ -10,17 +10,10 @@ export class ConstellationNamesLayer extends RenderableLayer {
   private allHtmls: Array<HTMLElement>;
 
   constructor(tree: TreeNode,
-              private renderableLabels: Map<string, RenderableText>) {
+    private renderableLabels: Map<string, RenderableText>) {
     super(tree);
     ensureArgDefined(renderableLabels, 'renderableLabels');
     this.extractHtmls();
-  }
-
-  private extractHtmls(): void {
-    this.allHtmls = new Array<HTMLElement>();
-    this.renderableLabels.forEach(
-      (renderable: RenderableText, key: string) => this.allHtmls.push(renderable.getHtmlElement())
-    );
   }
 
   public getObjects(): Array<Object3D> {
@@ -39,6 +32,13 @@ export class ConstellationNamesLayer extends RenderableLayer {
 
   public getRenderableLabels(): Map<string, RenderableText> {
     return this.renderableLabels;
+  }
+
+  private extractHtmls(): void {
+    this.allHtmls = new Array<HTMLElement>();
+    this.renderableLabels.forEach(
+      (renderable: RenderableText, key: string) => this.allHtmls.push(renderable.getHtmlElement())
+    );
   }
 
 }

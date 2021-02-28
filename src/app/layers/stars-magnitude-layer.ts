@@ -17,10 +17,10 @@ export class StarsMagnitudeLayer extends RenderableLayer {
   private shownLabelsType: string;
 
   constructor(tree: TreeNode,
-              public readonly magClass: number,
-              private readonly stars: Points,
-              private readonly properNameLabels: Map<string, RenderableText>,
-              private readonly standardNameLabels: Map<string, RenderableText>) {
+    public readonly magClass: number,
+    private readonly stars: Points,
+    private readonly properNameLabels: Map<string, RenderableText>,
+    private readonly standardNameLabels: Map<string, RenderableText>) {
     super(tree);
     ensureArgDefined(magClass, 'magClass');
     ensureArgDefined(stars, 'stars');
@@ -29,40 +29,13 @@ export class StarsMagnitudeLayer extends RenderableLayer {
     this.extractHtmls();
   }
 
-  private extractHtmls(): void {
-    this.namesHtmls = new Array<HTMLElement>();
-    this.extractHtmlsFrom(this.properNameLabels);
-    this.extractHtmlsFrom(this.standardNameLabels);
-  }
-
-  private extractHtmlsFrom(labels: Map<string, RenderableText>): void {
-    labels.forEach(
-      (renderable: RenderableText, key: string) => this.namesHtmls.push(renderable.getHtmlElement())
-    );
-  }
-
   public useThemeForThis(theme: Theme): void {
     this.useThemeForObjects(theme);
     this.useThemeForLabels(theme);
   }
 
-  private useThemeForObjects(theme: Theme): void {
-    const materialKey = 'star-' + this.magClass.toFixed(1);
-    const material = theme.getMaterialForLayer(Layers.STARS, materialKey);
-    this.stars.material = material;
-    material.needsUpdate = true;
-  }
-
-  private useThemeForLabels(theme: Theme): void {
-    [ this.properNameLabels, this.standardNameLabels].forEach(
-      (labels: Map<string, RenderableText>) => labels.forEach(
-        (renderable: RenderableText, code: string) => renderable.useTheme(theme)
-      )
-    );
-  }
-
   public getObjects(): Array<Object3D> {
-    return [ this.stars ];
+    return [this.stars];
   }
 
   public getTextElements(): Array<HTMLElement> {
@@ -82,6 +55,34 @@ export class StarsMagnitudeLayer extends RenderableLayer {
 
   public setShownLabelsType(labelsType: string): void {
     this.shownLabelsType = labelsType;
+  }
+
+
+  private extractHtmls(): void {
+    this.namesHtmls = new Array<HTMLElement>();
+    this.extractHtmlsFrom(this.properNameLabels);
+    this.extractHtmlsFrom(this.standardNameLabels);
+  }
+
+  private extractHtmlsFrom(labels: Map<string, RenderableText>): void {
+    labels.forEach(
+      (renderable: RenderableText, key: string) => this.namesHtmls.push(renderable.getHtmlElement())
+    );
+  }
+
+  private useThemeForObjects(theme: Theme): void {
+    const materialKey = 'star-' + this.magClass.toFixed(1);
+    const material = theme.getMaterialForLayer(Layers.STARS, materialKey);
+    this.stars.material = material;
+    material.needsUpdate = true;
+  }
+
+  private useThemeForLabels(theme: Theme): void {
+    [this.properNameLabels, this.standardNameLabels].forEach(
+      (labels: Map<string, RenderableText>) => labels.forEach(
+        (renderable: RenderableText, code: string) => renderable.useTheme(theme)
+      )
+    );
   }
 
 }

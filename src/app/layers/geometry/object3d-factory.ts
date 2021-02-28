@@ -8,10 +8,6 @@ import { Constants } from '../../core/constants';
  */
 export abstract class Object3DFactory<T extends Object3D> {
 
-  protected abstract segmentToVertices(segment: number[], radius: number): Vector3[];
-
-  protected abstract toTargetObject3D(geometry: BufferGeometry): T;
-
   public createObject3D(layer: string, segments: number[][]): T {
     ensureArgArrayDefinedNotEmpty(segments, 'segments');
 
@@ -25,5 +21,9 @@ export abstract class Object3DFactory<T extends Object3D> {
     geometry.setFromPoints(pointPairs);
     return this.toTargetObject3D(geometry);
   }
+
+  protected abstract segmentToVertices(segment: number[], radius: number): Vector3[];
+
+  protected abstract toTargetObject3D(geometry: BufferGeometry): T;
 
 }

@@ -45,12 +45,6 @@ export class ViewportDimensionService {
     return this.height;
   }
 
-  private ensureSizeArgValid(size: number, axis: string): void {
-    if (size < 1 || size > ViewportDimensionService.MAX_SIZE) {
-      throw new Error(`${axis} must be in range [1, ${ViewportDimensionService.MAX_SIZE}]`);
-    }
-  }
-
   /**
    * Sets the width and the height from the specified dimension.
    *
@@ -73,8 +67,8 @@ export class ViewportDimensionService {
    */
   public isInBounds(coordinate: ScreenCoordinate): boolean {
     return coordinate.x >= 0 && coordinate.y >= 0 &&
-           coordinate.x < this.width &&
-           coordinate.y < this.height;
+      coordinate.x < this.width &&
+      coordinate.y < this.height;
   }
 
   /**
@@ -84,6 +78,12 @@ export class ViewportDimensionService {
    */
   public getAspect(): number {
     return this.width / this.height;
+  }
+
+  private ensureSizeArgValid(size: number, axis: string): void {
+    if (size < 1 || size > ViewportDimensionService.MAX_SIZE) {
+      throw new Error(`${axis} must be in range [1, ${ViewportDimensionService.MAX_SIZE}]`);
+    }
   }
 
 }

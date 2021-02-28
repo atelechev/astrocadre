@@ -51,38 +51,6 @@ export class Theme {
     return factories;
   }
 
-  private buildMaterialsForLayer(layer: string): Map<string, Material> {
-    return Theme.FACTORIES_MATERIALS.get(layer).buildMaterials(this.themeDef);
-  }
-
-  private initMaterialsMap(): Map<string, Map<string, Material>> {
-    const materials = new Map<string, Map<string, Material>>();
-    const layers = [ Layers.SKY_GRID,
-                     Layers.CONSTELLATION_BOUNDARIES,
-                     Layers.CONSTELLATION_LINES,
-                     Layers.STARS ];
-    layers.forEach(
-      (layer: string) => materials.set(layer, this.buildMaterialsForLayer(layer))
-    );
-    return materials;
-  }
-
-  private buildTextStylesForLayer(layer: string): Map<string, TextStyle> {
-    return Theme.FACTORIES_TEXTSTYLES.get(layer).buildTextStyles(this.themeDef);
-  }
-
-  private initTextStyles(): Map<string, Map<string, TextStyle>> {
-    const styles = new Map<string, Map<string, TextStyle>>();
-    const layers = [
-      Layers.CONSTELLATION_NAMES,
-      Layers.STARS
-    ];
-    layers.forEach(
-      (layer: string) => styles.set(layer, this.buildTextStylesForLayer(layer))
-    );
-    return styles;
-  }
-
   public getBackgroundColor(): Color {
     return this.backgroundColor;
   }
@@ -109,24 +77,10 @@ export class Theme {
     return this.materialsByLayer.get(layer);
   }
 
-  private ensureLayerKeyPresent(map: Map<string, any>, layerKey: string): void {
-    if (!map.has(layerKey)) {
-      throw new Error(`Unexpected layer name: '${layerKey}'`);
-    }
-  }
-
   public getTextStylesForLayer(layer: string): Map<string, TextStyle> {
     const starsNormalizedLayer = this.getLayerNameWithoutStarsMag(layer);
     this.ensureLayerKeyPresent(this.textStylesByLayer, starsNormalizedLayer);
     return this.textStylesByLayer.get(starsNormalizedLayer);
-  }
-
-  private ensureMaterialOrStyleKeyPresent(map: Map<string, any>,
-                                          layerKey: string,
-                                          targetKey: string): void {
-    if (!map.has(targetKey)) {
-      throw new Error(`Unexpected key '${targetKey}' for layer '${layerKey}'`);
-    }
   }
 
   public getMaterialForLayer(layer: string, materialKey: string): Material {
@@ -135,14 +89,60 @@ export class Theme {
     return layerMaterials.get(materialKey);
   }
 
-  private getLayerNameWithoutStarsMag(layer: string): string {
-    return layer && layer.startsWith(Layers.STARS + '-mag') ? Layers.STARS : layer;
-  }
-
   public getTextStyleForLayer(layer: string, styleKey: string): TextStyle {
     const layerStyles = this.getTextStylesForLayer(layer);
     this.ensureMaterialOrStyleKeyPresent(layerStyles, layer, styleKey);
     return layerStyles.get(styleKey);
+  }
+
+  private buildMaterialsForLayer(layer: string): Map<string, Material> {
+    return Theme.FACTORIES_MATERIALS.get(layer).buildMaterials(this.themeDef);
+  }
+
+  private initMaterialsMap(): Map<string, Map<string, Material>> {
+    const materials = new Map<string, Map<string, Material>>();
+    const layers = [Layers.SKY_GRID,
+    Layers.CONSTELLATION_BOUNDARIES,
+    Layers.CONSTELLATION_LINES,
+    Layers.STARS];
+    layers.forEach(
+      (layer: string) => materials.set(layer, this.buildMaterialsForLayer(layer))
+    );
+    return materials;
+  }
+
+  private buildTextStylesForLayer(layer: string): Map<string, TextStyle> {
+    return Theme.FACTORIES_TEXTSTYLES.get(layer).buildTextStyles(this.themeDef);
+  }
+
+  private initTextStyles(): Map<string, Map<string, TextStyle>> {
+    const styles = new Map<string, Map<string, TextStyle>>();
+    const layers = [
+      Layers.CONSTELLATION_NAMES,
+      Layers.STARS
+    ];
+    layers.forEach(
+      (layer: string) => styles.set(layer, this.buildTextStylesForLayer(layer))
+    );
+    return styles;
+  }
+
+  private ensureLayerKeyPresent(map: Map<string, any>, layerKey: string): void {
+    if (!map.has(layerKey)) {
+      throw new Error(`Unexpected layer name: '${layerKey}'`);
+    }
+  }
+
+  private ensureMaterialOrStyleKeyPresent(map: Map<string, any>,
+    layerKey: string,
+    targetKey: string): void {
+    if (!map.has(targetKey)) {
+      throw new Error(`Unexpected key '${targetKey}' for layer '${layerKey}'`);
+    }
+  }
+
+  private getLayerNameWithoutStarsMag(layer: string): string {
+    return layer && layer.startsWith(Layers.STARS + '-mag') ? Layers.STARS : layer;
   }
 
 }

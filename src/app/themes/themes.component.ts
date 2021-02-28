@@ -17,9 +17,17 @@ export class ThemesComponent implements OnInit {
   private activeTheme: string;
 
   constructor(private dataService: StaticDataService,
-              private themesEventService: ThemesEventService) {
+    private themesEventService: ThemesEventService) {
     this.loadedThemes = new Map<string, Theme>();
     this.loadThemes();
+  }
+
+  public getActiveTheme(): Theme {
+    return this.loadedThemes.get(this.activeTheme);
+  }
+
+  public ngOnInit(): void {
+    this.subscribeThemeLoadRequestEvent();
   }
 
   private loadTheme(theme: string): void {
@@ -52,10 +60,6 @@ export class ThemesComponent implements OnInit {
     );
   }
 
-  public getActiveTheme(): Theme {
-    return this.loadedThemes.get(this.activeTheme);
-  }
-
   private subscribeThemeLoadRequestEvent(): void {
     this.themesEventService.requestThemeLoad$.subscribe(
       (theme: string) => {
@@ -67,10 +71,6 @@ export class ThemesComponent implements OnInit {
         }
       }
     );
-  }
-
-  public ngOnInit(): void {
-    this.subscribeThemeLoadRequestEvent();
   }
 
 }

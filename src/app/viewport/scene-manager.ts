@@ -15,28 +15,11 @@ export class SceneManager {
   private renderer: WebGLRenderer;
 
   constructor(private dimensionService: ViewportDimensionService,
-              private cameraService: WorldOriginCameraService) {
+    private cameraService: WorldOriginCameraService) {
     this.scene = new Scene();
     this.renderer = new WebGLRenderer();
     this.updateCanvasSize();
     this.subscribeViewportDimensionChangeEvent();
-  }
-
-  private subscribeViewportDimensionChangeEvent(): void {
-    this.dimensionService.broadcastDimensionChanged$.subscribe(
-      () => this.updateCanvasSize()
-    );
-  }
-
-  private updateCanvasSize(): void {
-    this.renderer.setSize(this.dimensionService.getWidth(),
-                          this.dimensionService.getHeight());
-  }
-
-  private addObject(object: Object3D): void {
-    if (!this.isObjectShown(object)) {
-      this.scene.add(object);
-    }
   }
 
   /**
@@ -49,15 +32,6 @@ export class SceneManager {
     objects.forEach(object => this.addObject(object));
   }
 
-  private removeObject(object: Object3D): void {
-    for (let i = 0; i < this.scene.children.length; i++) {
-      if (object === this.scene.children[i]) {
-        this.scene.remove(object);
-        return;
-      }
-    }
-  }
-
   /**
    * Removes the specified objects from the underlying Scene.
    *
@@ -65,15 +39,6 @@ export class SceneManager {
    */
   public removeObjects(objects: Object3D[]): void {
     objects.forEach(object => this.removeObject(object));
-  }
-
-  private isObjectShown(object: Object3D): boolean {
-    for (let i = 0; i < this.scene.children.length; i++) {
-      if (object === this.scene.children[i]) {
-        return true;
-      }
-    }
-    return false;
   }
 
   /**
@@ -108,6 +73,41 @@ export class SceneManager {
       this.renderer.render(this.scene, this.cameraService.getCamera());
     };
     animate();
+  }
+
+  private removeObject(object: Object3D): void {
+    for (let i = 0; i < this.scene.children.length; i++) {
+      if (object === this.scene.children[i]) {
+        this.scene.remove(object);
+        return;
+      }
+    }
+  }
+
+  private subscribeViewportDimensionChangeEvent(): void {
+    this.dimensionService.broadcastDimensionChanged$.subscribe(
+      () => this.updateCanvasSize()
+    );
+  }
+
+  private updateCanvasSize(): void {
+    this.renderer.setSize(this.dimensionService.getWidth(),
+      this.dimensionService.getHeight());
+  }
+
+  private addObject(object: Object3D): void {
+    if (!this.isObjectShown(object)) {
+      this.scene.add(object);
+    }
+  }
+
+  private isObjectShown(object: Object3D): boolean {
+    for (let i = 0; i < this.scene.children.length; i++) {
+      if (object === this.scene.children[i]) {
+        return true;
+      }
+    }
+    return false;
   }
 
 }

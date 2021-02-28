@@ -20,9 +20,7 @@ describe('ViewportDimensionService', () => {
     expect(() => setterFunct()).toThrow(new Error(`dimension.${axis} must be in range [1, 16384]`));
   };
 
-  const dimension = (w: number, h: number): Dimension => {
-    return { width: w, height: h  };
-  };
+  const dimension = (w: number, h: number): Dimension => ({ width: w, height: h });
 
   it('#setDimension must throw expected error for negative arg', () => {
     assertErrorExpected(() => service.setDimension(dimension(-1, 100)), width);
@@ -64,9 +62,7 @@ describe('ViewportDimensionService', () => {
     service.setDimension(dimension(w, h));
   };
 
-  const coord = (x: number, y: number) => {
-    return { x: x, y: y };
-  };
+  const coord = (x: number, y: number) => ({ x, y });
 
   it('#isInBounds should return false for a point to the top of the viewport', () => {
     ensureViewportDimenstion(10, 10);

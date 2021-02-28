@@ -10,13 +10,11 @@ describe('StaticDataService', () => {
   let httpClientSpy: { get: jasmine.Spy };
   let service: StaticDataService;
 
-  const errorResponse = (code: number, cause: string) => {
-    return new HttpErrorResponse({
-      error: `${code} ${cause}`,
-      status: code,
-      statusText: cause
-    });
-  };
+  const errorResponse = (code: number, cause: string) => new HttpErrorResponse({
+    error: `${code} ${cause}`,
+    status: code,
+    statusText: cause
+  });
 
   const errorNotFound = errorResponse(404, 'Not found');
 
@@ -24,12 +22,12 @@ describe('StaticDataService', () => {
 
   beforeEach(() => {
     httpClientSpy = jasmine.createSpyObj('HttpClient', ['get']);
-    service = new StaticDataService(<any> httpClientSpy);
+    service = new StaticDataService(httpClientSpy as any);
   });
 
   const expectSuccessfulRequest = (reqFunct: () => Observable<any>,
-                                   expectedData: any,
-                                   nbCalls: number) => {
+    expectedData: any,
+    nbCalls: number) => {
     reqFunct().subscribe(
       retrieved => expect(retrieved).toEqual(expectedData),
       fail
@@ -40,7 +38,7 @@ describe('StaticDataService', () => {
   const execFailingRequest = (reqFunct: () => Observable<any>, expectedMessage: string) => {
     reqFunct().subscribe(
       retrieved => fail('Expected an error, but got successful response'),
-      error  => expect(error).toContain(expectedMessage)
+      error => expect(error).toContain(expectedMessage)
     );
   };
 
@@ -105,9 +103,9 @@ describe('StaticDataService', () => {
   });
 
   it('#getConstellationsMetadata should return expected data', () => {
-    const serviceResponseData = [{type: 'constellation', code: 'AND', ra: 8.532, dec: 38.906, names: [ 'Andromeda' ]}];
+    const serviceResponseData = [{ type: 'constellation', code: 'AND', ra: 8.532, dec: 38.906, names: ['Andromeda'] }];
     prepareExpectedGetData(serviceResponseData);
-    const expectedData = [ new ConstellationMetadata('AND', 8.532, 38.906, [ 'Andromeda' ])];
+    const expectedData = [new ConstellationMetadata('AND', 8.532, 38.906, ['Andromeda'])];
 
     expectSuccessfulRequest(() => service.getConstellationsMetadata(), expectedData, 1);
   });
@@ -119,7 +117,7 @@ describe('StaticDataService', () => {
   });
 
   it('#getAvailableThemes should return expected data', () => {
-    const expectedData = {selectable: true, items: [{ code: 'test', label: 'Test', description: null, selected: true }]};
+    const expectedData = { selectable: true, items: [{ code: 'test', label: 'Test', description: null, selected: true }] };
     prepareExpectedGetData(expectedData);
 
     expectSuccessfulRequest(() => service.getAvailableThemes(), expectedData, 1);
@@ -132,8 +130,10 @@ describe('StaticDataService', () => {
   });
 
   it('#getAvailableLayers should return expected data', () => {
-    const expectedData = { selectable: true,
-                           items: [{ code: 'sky-grid', label: 'Coordinates grid', description: null, selected: true }]};
+    const expectedData = {
+      selectable: true,
+      items: [{ code: 'sky-grid', label: 'Coordinates grid', description: null, selected: true }]
+    };
     prepareExpectedGetData(expectedData);
 
     expectSuccessfulRequest(() => service.getAvailableLayers(), expectedData, 1);
@@ -146,7 +146,7 @@ describe('StaticDataService', () => {
   });
 
   it('#getSearchableItems should return expected data', () => {
-    const expectedData = [{type: 'constellation', code: 'AND', ra: 8.532, dec: 38.906, names: [ 'Andromeda' ]}];
+    const expectedData = [{ type: 'constellation', code: 'AND', ra: 8.532, dec: 38.906, names: ['Andromeda'] }];
     prepareExpectedGetData(expectedData);
 
     expectSuccessfulRequest(() => service.getSearchableItems(), expectedData, 1);

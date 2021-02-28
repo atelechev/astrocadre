@@ -7,25 +7,6 @@ export class DraggableElement {
 
   private positionLeft: number;
 
-  private mouseUpHandler = (): void => {
-    this.mousePressed = false;
-  }
-
-  private mouseDownHandler = (): void => {
-    this.positionTop = this.element.offsetTop;
-    this.positionLeft = this.element.offsetLeft;
-    this.mousePressed = true;
-  }
-
-  private mouseMoveHandler = (event: any): void => {
-    if (this.mousePressed) {
-      this.positionLeft = this.positionLeft + event.movementX;
-      this.positionTop = this.positionTop + event.movementY;
-      this.element.style.top = this.positionTop + 'px';
-      this.element.style.left = this.positionLeft + 'px';
-    }
-  }
-
   constructor(private element: HTMLElement) {
     this.mousePressed = false;
     this.element.style.position = 'absolute';
@@ -44,5 +25,24 @@ export class DraggableElement {
     this.element.removeEventListener('mouseup', this.mouseUpHandler);
     this.element.removeEventListener('mouseleave', this.mouseUpHandler);
   }
+
+  private mouseUpHandler = (): void => {
+    this.mousePressed = false;
+  };
+
+  private mouseDownHandler = (): void => {
+    this.positionTop = this.element.offsetTop;
+    this.positionLeft = this.element.offsetLeft;
+    this.mousePressed = true;
+  };
+
+  private mouseMoveHandler = (event: any): void => {
+    if (this.mousePressed) {
+      this.positionLeft = this.positionLeft + event.movementX;
+      this.positionTop = this.positionTop + event.movementY;
+      this.element.style.top = this.positionTop + 'px';
+      this.element.style.left = this.positionLeft + 'px';
+    }
+  };
 
 }

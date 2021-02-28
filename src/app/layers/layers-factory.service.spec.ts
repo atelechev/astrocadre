@@ -25,33 +25,33 @@ import { newTreeNode } from '../core/tree-node.spec';
 class MockStaticData {
   public getConstellationBoundaries(): Observable<number[][]> {
     const data = [
-      [ 305.0, -57.0, 305.0, -45.5 ],
-      [ 90.0, -61.0, 82.5, -61.0 ],
-      [ 350.0, -37.0, 345.0, -37.0 ]
+      [305.0, -57.0, 305.0, -45.5],
+      [90.0, -61.0, 82.5, -61.0],
+      [350.0, -37.0, 345.0, -37.0]
     ];
     return observableOf(data);
   }
 
   public getConstellationLines(): Observable<number[][]> {
     const data = [
-      [ 56.05, -64.8, 63.6, -62.47 ],
-      [ 59.69, -61.4, 56.05, -64.8 ]
+      [56.05, -64.8, 63.6, -62.47],
+      [59.69, -61.4, 56.05, -64.8]
     ];
     return observableOf(data);
   }
 
   public getStarsByMagnitudeClass(magnitudeClass: number): Observable<any[][]> {
     const data = [
-      [ 24.43, -57.24, 0.5, 'Achernar', 'ALP ERI' ],
-      [ 37.95, 89.26, 2.0, 'Polaris', 'ALP UMI' ]
+      [24.43, -57.24, 0.5, 'Achernar', 'ALP ERI'],
+      [37.95, 89.26, 2.0, 'Polaris', 'ALP UMI']
     ];
     return observableOf(data);
   }
 
   public getConstellationsMetadata(): Observable<ConstellationMetadata[]> {
     const data = [
-      { type: 'constellation', code: 'AND', ra: 8.532, dec: 38.906, names: [ 'Andromeda', 'Andromeda' ] },
-      { type: 'constellation', code: 'ANT', ra: 150.722, dec: -33.231, names: [ 'Antlia', 'Pump' ] }
+      { type: 'constellation', code: 'AND', ra: 8.532, dec: 38.906, names: ['Andromeda', 'Andromeda'] },
+      { type: 'constellation', code: 'ANT', ra: 150.722, dec: -33.231, names: ['Antlia', 'Pump'] }
     ];
     return observableOf(data);
   }
@@ -76,13 +76,12 @@ describe('LayersFactoryService', () => {
         LinesFactory,
         PointsFactory,
         { provide: StaticDataService, useClass: MockStaticData }
-      ] });
+      ]
+    });
     service = TestBed.get(LayersFactoryService);
   });
 
-  const layerNode = (code: string): TreeNode => {
-    return newTreeNode(code, []);
-  };
+  const layerNode = (code: string): TreeNode => newTreeNode(code, []);
 
   it('#newRenderableLayer should throw expected error if arg is undefined', () => {
     expect(() => service.newRenderableLayer(undefined))
@@ -127,7 +126,7 @@ describe('LayersFactoryService', () => {
   });
 
   it('#newRenderableLayer should return defined instances of StarsMagnitude layers', () => {
-    [ 2.0, 2.5, 3.0 ].forEach(
+    [2.0, 2.5, 3.0].forEach(
       (magnitude: number) => {
         assertLayerRetrieved(`stars-mag${magnitude}`, (l) => l instanceof StarsMagnitudeLayer);
       }

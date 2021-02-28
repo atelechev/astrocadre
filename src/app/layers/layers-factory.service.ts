@@ -22,12 +22,24 @@ export class LayersFactoryService {
   private layerFactories: Map<string, LayerFactory<any>>;
 
   constructor(private renderableLayerFactory: RenderableLayerFactory,
-              private skyGridLayerFactory: SkyGridLayerFactory,
-              private constellationBoundariesLayerFactory: ConstellationBoundariesLayerFactory,
-              private constellationLinesLayerFactory: ConstellationLinesLayerFactory,
-              private constellationNamesLayerFactory: ConstellationNamesLayerFactory,
-              private starsMagnitudeLayerFactory: StarsMagnitudeLayerFactory) {
-     this.layerFactories = this.initLayerFactories();
+    private skyGridLayerFactory: SkyGridLayerFactory,
+    private constellationBoundariesLayerFactory: ConstellationBoundariesLayerFactory,
+    private constellationLinesLayerFactory: ConstellationLinesLayerFactory,
+    private constellationNamesLayerFactory: ConstellationNamesLayerFactory,
+    private starsMagnitudeLayerFactory: StarsMagnitudeLayerFactory) {
+    this.layerFactories = this.initLayerFactories();
+  }
+
+  public newRenderableLayer(layer: TreeNode): Observable<RenderableLayer> {
+    ensureArgDefined(layer, 'layer');
+    if (this.isStarMagnitudeLayer(layer.code)) {
+      return this.starsMagnitudeLayerFactory.newLayer(layer);
+    }
+    const factory = this.layerFactories.get(layer.code);
+    if (factory) {
+      return factory.newLayer(layer);
+    }
+    throw new Error(`Unsupported layer: ${layer.code}`);
   }
 
   private initLayerFactories(): Map<string, LayerFactory<any>> {
@@ -43,18 +55,6 @@ export class LayersFactoryService {
 
   private isStarMagnitudeLayer(layerName: string): boolean {
     return layerName && layerName.startsWith(StarsMagnitudeLayerFactory.LAYER_PREFIX);
-  }
-
-  public newRenderableLayer(layer: TreeNode): Observable<RenderableLayer> {
-    ensureArgDefined(layer, 'layer');
-    if (this.isStarMagnitudeLayer(layer.code)) {
-      return this.starsMagnitudeLayerFactory.newLayer(layer);
-    }
-    const factory = this.layerFactories.get(layer.code);
-    if (factory) {
-      return factory.newLayer(layer);
-    }
-    throw new Error(`Unsupported layer: ${layer.code}`);
   }
 
 }

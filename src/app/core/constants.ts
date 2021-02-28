@@ -31,8 +31,17 @@ export class Constants {
    */
   public static readonly SOUTH = new Vector3(0, 0, -Constants.WORLD_RADIUS);
 
-
   private static readonly LAYER_RADIUS_OFFSETS = Constants.initLayerRadiusOffsets();
+
+  /**
+   * Returns the world radius offset to apply for the specified layer.
+   *
+   * @param layer the name of the latyer to retrieve world radius offset for.
+   */
+  public static getWorldRadiusForLayer(layer: string): number {
+    const offset = this.LAYER_RADIUS_OFFSETS.get(layer);
+    return this.WORLD_RADIUS - (offset ? offset : 0);
+  }
 
   private static initLayerRadiusOffsets(): Map<string, number> {
     const offsets = new Map<string, number>();
@@ -50,16 +59,6 @@ export class Constants {
       return num;
     }
     return (Math.floor(num / 100) + 1) * 100;
-  }
-
-  /**
-   * Returns the world radius offset to apply for the specified layer.
-   *
-   * @param layer the name of the latyer to retrieve world radius offset for.
-   */
-  public static getWorldRadiusForLayer(layer: string): number {
-    const offset = this.LAYER_RADIUS_OFFSETS.get(layer);
-    return this.WORLD_RADIUS - (offset ? offset : 0);
   }
 
 }

@@ -1,8 +1,6 @@
 import { TreeNode } from './tree-node';
 
-export const newTreeNode = (code: string, childNodes: Array<TreeNode>): TreeNode => {
-  return new TreeNode(code, undefined, undefined, childNodes);
-};
+export const newTreeNode = (code: string, childNodes: Array<TreeNode>): TreeNode => new TreeNode(code, undefined, undefined, childNodes);
 
 describe('TreeNode', () => {
 
@@ -33,7 +31,7 @@ describe('TreeNode', () => {
 
   it('#from should return expected TreeNode at child level', () => {
     const child = new TreeNode('c1', 'l1', 'd1');
-    const root = new TreeNode('root', 'l', 'd', [ child ]);
+    const root = new TreeNode('root', 'l', 'd', [child]);
     const built = TreeNode.from(root);
     expect(built).toBeDefined();
     expect(built.nodes).toBeDefined();

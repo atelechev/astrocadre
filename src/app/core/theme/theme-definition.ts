@@ -10,18 +10,18 @@ export interface ThemeDefinition {
     line: {
       common: string;
       reference: string;
-    }
+    };
   };
   constellation: {
     boundaries: {
       line: {
         common: string;
-      }
+      };
     };
     lines: {
       line: {
         common: string;
-      }
+      };
     };
     names: TextStyle;
   };
@@ -30,7 +30,7 @@ export interface ThemeDefinition {
     texture: {
       image: string;
       sizeMultiplier: number;
-    },
+    };
     names: {
       proper: TextStyle;
       standard: TextStyle;

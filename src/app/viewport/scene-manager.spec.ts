@@ -17,7 +17,7 @@ describe('SceneManager', () => {
         ViewportEventService,
         ViewportDimensionService,
         WorldOriginCameraService,
-        SceneManager ]
+        SceneManager]
     });
     service = TestBed.get(SceneManager);
   });
@@ -50,11 +50,11 @@ describe('SceneManager', () => {
 
     const bgrAfer = service.getScene().background;
     expect(bgrAfer).toBeDefined();
-    assertColorsSame(<Color> bgrAfer, new Color(1, 0, 0));
+    assertColorsSame(bgrAfer as Color, new Color(1, 0, 0));
   });
 
   it('#addObjects should add objects to the underlying Scene', () => {
-    const objects = [ new Object3D() ];
+    const objects = [new Object3D()];
     assertObjectsCount(0);
 
     service.addObjects(objects);
@@ -64,7 +64,7 @@ describe('SceneManager', () => {
   it('#addObjects should add same object only once', () => {
     assertObjectsCount(0);
 
-    const objects = [ new Object3D() ];
+    const objects = [new Object3D()];
     service.addObjects(objects);
     assertObjectsCount(1);
 
@@ -75,7 +75,7 @@ describe('SceneManager', () => {
   it('#addObjects should not add undefined objects', () => {
     assertObjectsCount(0);
 
-    const objects = [ undefined ];
+    const objects = [undefined];
     service.addObjects(objects);
     assertObjectsCount(0);
   });
@@ -83,7 +83,7 @@ describe('SceneManager', () => {
   it('#removeObject should remove existing object from the underlying Scene', () => {
     assertObjectsCount(0);
 
-    const objects = [ new Object3D() ];
+    const objects = [new Object3D()];
     service.addObjects(objects);
     assertObjectsCount(1);
 

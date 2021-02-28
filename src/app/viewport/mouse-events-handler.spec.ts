@@ -7,13 +7,11 @@ describe('MouseEventsHandler', () => {
   let service: MouseEventsHandler;
 
   beforeEach(() => {
-    TestBed.configureTestingModule({ providers: [ ViewportEventService, MouseEventsHandler ] });
+    TestBed.configureTestingModule({ providers: [ViewportEventService, MouseEventsHandler] });
     service = TestBed.get(MouseEventsHandler);
   });
 
-  const newElement = () => {
-    return document.createElement('div');
-  };
+  const newElement = () => document.createElement('div');
 
   it('#initMouseListenersOn should initialize mouse down event', () => {
     const element = newElement();

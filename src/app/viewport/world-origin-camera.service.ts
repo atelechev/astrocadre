@@ -21,11 +21,11 @@ export class WorldOriginCameraService {
   private camera: PerspectiveCamera;
 
   constructor(private viewportService: ViewportEventService,
-              private dimensionService: ViewportDimensionService) {
+    private dimensionService: ViewportDimensionService) {
     this.camera = new PerspectiveCamera(this.initialFov,
-                                        this.dimensionService.getAspect(),
-                                        this.nearPlane,
-                                        this.farPlane);
+      this.dimensionService.getAspect(),
+      this.nearPlane,
+      this.farPlane);
     this.coordsMarkerObject = this.initCoordsMarkerObject();
     this.setUpCamera();
     this.subscribeAxialRotationEvent();
@@ -33,6 +33,44 @@ export class WorldOriginCameraService {
     this.subscribeViewCenterChangeEvent();
     this.subscribeAxisAlignmentEvent();
     this.subscribeViewportDimensionChangeEvent();
+  }
+
+  public getCamera(): PerspectiveCamera {
+    return this.camera;
+  }
+
+  public centerView(coords: SkyCoordinate): void {
+    this.camera.up = this.getAlignmentPoleCoordinate(coords.declination);
+    this.camera.lookAt(toVector3(coords.rightAscension, coords.declination, Constants.WORLD_RADIUS));
+    this.camera.updateMatrixWorld(true);
+    this.viewportService.viewportChanged();
+  }
+
+  public rotate(rotation: AxialRotation): void {
+    this.camera.rotateX(rotation.rx);
+    this.camera.rotateY(rotation.ry);
+    this.camera.rotateZ(rotation.rz);
+    this.viewportService.viewportChanged();
+  }
+
+  public setFoV(range: number): void {
+    this.camera.fov = range;
+    this.camera.updateProjectionMatrix();
+    this.viewportService.viewportChanged();
+  }
+
+  public alignNSAxis(): void {
+    const viewCenter = this.getViewCenterCoordinates();
+    this.camera.up = this.getAlignmentPoleCoordinate(viewCenter.z);
+    this.camera.lookAt(viewCenter);
+    this.viewportService.viewportChanged();
+  }
+
+  public getViewCenterCoordinates(): Vector3 {
+    const viewCenter = new Vector3();
+    this.coordsMarkerObject.updateMatrixWorld(true);
+    viewCenter.setFromMatrixPosition(this.coordsMarkerObject.matrixWorld);
+    return viewCenter;
   }
 
   private subscribeViewportDimensionChangeEvent(): void {
@@ -75,9 +113,6 @@ export class WorldOriginCameraService {
     this.camera.position.y = origin;
   }
 
-  public getCamera(): PerspectiveCamera {
-    return this.camera;
-  }
 
   private getAlignmentPoleCoordinate(declination: number): Vector3 {
     if (declination < 0) {
@@ -86,46 +121,12 @@ export class WorldOriginCameraService {
     return Constants.NORTH;
   }
 
-  public centerView(coords: SkyCoordinate): void {
-    this.camera.up = this.getAlignmentPoleCoordinate(coords.declination);
-    this.camera.lookAt(toVector3(coords.rightAscension, coords.declination, Constants.WORLD_RADIUS));
-    this.camera.updateMatrixWorld(true);
-    this.viewportService.viewportChanged();
-  }
-
-  public rotate(rotation: AxialRotation): void {
-    this.camera.rotateX(rotation.rx);
-    this.camera.rotateY(rotation.ry);
-    this.camera.rotateZ(rotation.rz);
-    this.viewportService.viewportChanged();
-  }
-
-  public setFoV(range: number): void {
-    this.camera.fov = range;
-    this.camera.updateProjectionMatrix();
-    this.viewportService.viewportChanged();
-  }
-
-  public alignNSAxis(): void {
-    const viewCenter = this.getViewCenterCoordinates();
-    this.camera.up = this.getAlignmentPoleCoordinate(viewCenter.z);
-    this.camera.lookAt(viewCenter);
-    this.viewportService.viewportChanged();
-  }
-
   private initCoordsMarkerObject(): Object3D {
     const marker = new Object3D();
     marker.position.set(0, 0, -(Constants.WORLD_RADIUS + 0.1));
     this.camera.add(marker);
     this.camera.updateMatrixWorld(true);
     return marker;
-  }
-
-  public getViewCenterCoordinates(): Vector3 {
-    const viewCenter = new Vector3();
-    this.coordsMarkerObject.updateMatrixWorld(true);
-    viewCenter.setFromMatrixPosition(this.coordsMarkerObject.matrixWorld);
-    return viewCenter;
   }
 
 }

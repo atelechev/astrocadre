@@ -12,7 +12,7 @@ import { ViewportDimensionService } from '../core/viewport/viewport-dimension.se
 @Component({
   selector: `app-astrocadre-viewport`,
   templateUrl: './viewport.component.html',
-  styleUrls: [ './viewport.component.css' ],
+  styleUrls: ['./viewport.component.css'],
   providers: [
     SceneManager,
     WorldOriginCameraService,
@@ -30,28 +30,12 @@ export class ViewportComponent implements AfterViewInit, ThemeAware {
   public viewportHeight: string;
 
   constructor(private dimensionService: ViewportDimensionService,
-              private sceneManager: SceneManager,
-              private cameraService: WorldOriginCameraService,
-              private labelsManager: LabelsVisibilityManager,
-              private mouseEventHandler: MouseEventsHandler) {
+    private sceneManager: SceneManager,
+    private cameraService: WorldOriginCameraService,
+    private labelsManager: LabelsVisibilityManager,
+    private mouseEventHandler: MouseEventsHandler) {
     this.updateViewportDimension();
     this.subscribeViewportDimensionChangeEvent();
-  }
-
-  private subscribeViewportDimensionChangeEvent(): void {
-    this.dimensionService.broadcastDimensionChanged$.subscribe(
-      () => this.updateViewportDimension()
-    );
-  }
-
-  private updateViewportDimension(): void {
-    this.viewportWidth = this.dimensionService.getWidth() + 'px';
-    this.viewportHeight = this.dimensionService.getHeight() + 'px';
-  }
-
-  private appendCanvas(): void {
-    const canvas = this.sceneManager.getDomElement();
-    this.astrocadreViewport.nativeElement.appendChild(canvas);
   }
 
   public ngAfterViewInit(): void {
@@ -81,6 +65,22 @@ export class ViewportComponent implements AfterViewInit, ThemeAware {
 
   public showVisibleLabels(layer: string, labels: Map<string, RenderableText>): void {
     this.labelsManager.showVisibleLabels(layer, labels, this.astrocadreViewport.nativeElement);
+  }
+
+  private subscribeViewportDimensionChangeEvent(): void {
+    this.dimensionService.broadcastDimensionChanged$.subscribe(
+      () => this.updateViewportDimension()
+    );
+  }
+
+  private updateViewportDimension(): void {
+    this.viewportWidth = this.dimensionService.getWidth() + 'px';
+    this.viewportHeight = this.dimensionService.getHeight() + 'px';
+  }
+
+  private appendCanvas(): void {
+    const canvas = this.sceneManager.getDomElement();
+    this.astrocadreViewport.nativeElement.appendChild(canvas);
   }
 
 }

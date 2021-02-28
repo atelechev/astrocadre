@@ -29,10 +29,10 @@ export class AxialCurvesFactory extends Object3DFactory<LineSegments> {
   }
 
   private calculateAxisPointsBetween(varAxis0: number,
-                                     varAxis1: number,
-                                     constAxis: number,
-                                     directionMultiplier: number,
-                                     toVectorFunct: (varAxis: number, constAxis: number) => Vector3): Vector3[] {
+    varAxis1: number,
+    constAxis: number,
+    directionMultiplier: number,
+    toVectorFunct: (vAxis: number, cAxis: number) => Vector3): Vector3[] {
     const points = new Array<Vector3>();
     const range = Math.abs(varAxis0 - varAxis1);
     const nbPoints = Math.floor(range / this.intermediatePointsDensity);

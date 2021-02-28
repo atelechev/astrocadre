@@ -5,7 +5,7 @@ import { SearchService } from '../core/search/search.service';
 @Component({
   selector: `app-astrocadre-controls-go-to`,
   templateUrl: './go-to.component.html',
-  styleUrls: [ './controls.component.css', './go-to.component.css' ],
+  styleUrls: ['./controls.component.css', './go-to.component.css'],
   providers: []
 })
 export class GoToComponent {
@@ -17,26 +17,9 @@ export class GoToComponent {
   public goToButtonDisabled: boolean;
 
   constructor(private viewportEventService: ViewportEventService,
-              private searchService: SearchService) {
+    private searchService: SearchService) {
     this.goToButtonDisabled = true;
     this.subscribeGotoInitialPosition();
-  }
-
-  private subscribeGotoInitialPosition(): void {
-    this.searchService.broadcastItemsLoaded$.subscribe(
-      () => {
-        const gotoQueryParam = this.getInitialPositionFromUrlQueryParam();
-        this.goto(gotoQueryParam ? gotoQueryParam : 'Orion');
-      }
-    );
-  }
-
-  private goto(position: string): void {
-    if (position) {
-      this.searchText = position;
-      this.goToButtonDisabled = false;
-      this.execGoToSearchRequest();
-    }
   }
 
   public updateGoToButtonState(): void {
@@ -54,6 +37,23 @@ export class GoToComponent {
       this.viewportEventService.centerViewRequested(goToCoord);
     } else {
       this.searchNoResultsClass = 'searchtext-input-invalid';
+    }
+  }
+
+  private subscribeGotoInitialPosition(): void {
+    this.searchService.broadcastItemsLoaded$.subscribe(
+      () => {
+        const gotoQueryParam = this.getInitialPositionFromUrlQueryParam();
+        this.goto(gotoQueryParam ? gotoQueryParam : 'Orion');
+      }
+    );
+  }
+
+  private goto(position: string): void {
+    if (position) {
+      this.searchText = position;
+      this.goToButtonDisabled = false;
+      this.execGoToSearchRequest();
     }
   }
 

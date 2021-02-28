@@ -1,4 +1,4 @@
-import { throwError as observableThrowError,  Observable } from 'rxjs';
+import { throwError as observableThrowError, Observable } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { ThemeDefinition } from './theme/theme-definition';
 import { Layers } from './layers';
@@ -17,12 +17,6 @@ export class StaticDataService {
 
   constructor(private httpClient: HttpClient) {
 
-  }
-
-  private getPathToJson(subPath: string, resourceName: string): string {
-    const url = subPath ? `/assets/${subPath}/${resourceName}.json` :
-                          `/assets/${resourceName}.json`;
-    return environment.pathInContext(url);
   }
 
   public getThemeDefinition(theme: string): Observable<ThemeDefinition> {
@@ -47,14 +41,12 @@ export class StaticDataService {
 
   public getConstellationsMetadata(): Observable<ConstellationMetadata[]> {
     return this.getSearchableItems().pipe(map(
-      (searchables: SearchableItem[]) => {
-        return searchables.filter(
-          item => item.type === 'constellation'
-        ).map(
-          (item: SearchableItem) =>
-            new ConstellationMetadata(item.code, item.ra, item.dec, item.names)
-        );
-      }
+      (searchables: SearchableItem[]) => searchables.filter(
+        item => item.type === 'constellation'
+      ).map(
+        (item: SearchableItem) =>
+          new ConstellationMetadata(item.code, item.ra, item.dec, item.names)
+      )
     ));
   }
 
@@ -73,6 +65,12 @@ export class StaticDataService {
     return this.execGetRequestForUrl(url);
   }
 
+  private getPathToJson(subPath: string, resourceName: string): string {
+    const url = subPath ? `/assets/${subPath}/${resourceName}.json` :
+      `/assets/${resourceName}.json`;
+    return environment.pathInContext(url);
+  }
+
   private handleError(res: Response | any): Observable<any> {
     if (res instanceof Response) {
       const body = res.json() || '';
@@ -86,8 +84,8 @@ export class StaticDataService {
 
   private execGetRequestForUrl(url: string): Observable<any> {
     return this.httpClient.get(url).pipe(
-                    map((res: Response) => res.json ? res.json() : res),
-                    catchError(this.handleError));
+      map((res: Response) => res.json ? res.json() : res),
+      catchError(this.handleError));
   }
 
 }

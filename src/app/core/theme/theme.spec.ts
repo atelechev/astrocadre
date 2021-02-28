@@ -2,12 +2,12 @@ import { ThemeDefinition } from './theme-definition';
 import { textStyle, assertColorsSame, assertLineBasicMaterialExpected, assertTextStyleExpected } from './abstract-factories.spec';
 import { lineBasicMaterial, assertPointsMaterialExpected, pointsMaterial } from './abstract-factories.spec';
 import { Theme } from './theme';
-import { Color, LineBasicMaterial } from 'three';
+import { Color } from 'three';
 import { Layers } from '../layers';
 
 describe('Theme', () => {
 
-  const magnitudes = [ -1, 0, 1, 2 ];
+  const magnitudes = [-1, 0, 1, 2];
 
   const sizeMultiplier = 1;
 

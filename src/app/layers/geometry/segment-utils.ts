@@ -17,12 +17,11 @@ export const isMeridionalSegment = (segment: number[]): boolean => {
   return ra0 === ra1 || (ra0 === 360 && ra1 === 0) || (ra0 === 0 && ra1 === 360);
 };
 
-export const isCrossingInitialMeridian = (segment: number[]): boolean => {
-  /*
+/*
     Work-around for helper segments like [ 360, 10, 0, 10] that are not rendered,
     but used to join polygons on both sides of the reference meridian.
   */
-  return isParallelSegment(segment) &&
-          ((segment[0] === 360 && segment[2] === 0) || (segment[0] === 0  && segment[2] === 360));
-};
+export const isCrossingInitialMeridian = (segment: number[]): boolean =>
+  isParallelSegment(segment) &&
+  ((segment[0] === 360 && segment[2] === 0) || (segment[0] === 0 && segment[2] === 360));
 

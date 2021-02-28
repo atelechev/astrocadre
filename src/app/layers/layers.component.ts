@@ -41,9 +41,9 @@ export class LayersComponent implements ThemeAware, OnInit {
   private loadedLayers: Map<string, RenderableLayer>;
 
   constructor(private layersFactory: LayersFactoryService,
-              private layersEventService: LayersEventService,
-              private dataService: StaticDataService,
-              private layersTreeValidator: LayersTreeValidator) {
+    private layersEventService: LayersEventService,
+    private dataService: StaticDataService,
+    private layersTreeValidator: LayersTreeValidator) {
     this.loadedLayers = new Map<string, RenderableLayer>();
     this.loadLayers();
   }
@@ -58,14 +58,38 @@ export class LayersComponent implements ThemeAware, OnInit {
 
   public getStarsMagnitudeLayers(): Array<StarsMagnitudeLayer> {
     return Array.from(this.loadedLayers.values())
-                .filter(layer => layer instanceof StarsMagnitudeLayer)
-                .map(layer => <StarsMagnitudeLayer> layer);
+      .filter(layer => layer instanceof StarsMagnitudeLayer)
+      .map(layer => layer as StarsMagnitudeLayer);
   }
 
   public useTheme(theme: Theme): void {
     this.loadedLayers.forEach((layer: RenderableLayer, key: string) => {
       layer.useTheme(theme);
     });
+  }
+
+  public updateLayerVisibility(node: TreeNode): void {
+    const layer = this.getLayer(node.code);
+    if (layer) {
+      this.updateHierachicalVisibility(layer, node.selected);
+    }
+  }
+
+  public ensureStarMagnitudesVisibleDownTo(magnitude: number): void {
+    const starsLayer = this.getLayer(Layers.STARS);
+    if (starsLayer) {
+      this.collectChildren(starsLayer)
+        .filter(layer => layer instanceof StarsMagnitudeLayer)
+        .map(layer => layer as StarsMagnitudeLayer)
+        .forEach(layer => {
+          const visible = layer.magClass <= magnitude;
+          layer.setVisible(visible);
+        });
+    }
+  }
+
+  public ngOnInit(): void {
+    this.subscribeLayerLoadRequestEvent();
   }
 
   private loadLayers(): void {
@@ -106,30 +130,6 @@ export class LayersComponent implements ThemeAware, OnInit {
     this.layersEventService.requestLayerLoad$.subscribe(
       (layer: TreeNode) => this.loadLayer(layer)
     );
-  }
-
-  public updateLayerVisibility(node: TreeNode): void {
-    const layer = this.getLayer(node.code);
-    if (layer) {
-      this.updateHierachicalVisibility(layer, node.selected);
-    }
-  }
-
-  public ensureStarMagnitudesVisibleDownTo(magnitude: number): void {
-    const starsLayer = this.getLayer(Layers.STARS);
-    if (starsLayer) {
-      this.collectChildren(starsLayer)
-          .filter(layer => layer instanceof StarsMagnitudeLayer)
-          .map(layer => <StarsMagnitudeLayer> layer)
-          .forEach(layer => {
-            const visible = layer.magClass <= magnitude;
-            layer.setVisible(visible);
-          });
-    }
-  }
-
-  public ngOnInit(): void {
-    this.subscribeLayerLoadRequestEvent();
   }
 
 }
