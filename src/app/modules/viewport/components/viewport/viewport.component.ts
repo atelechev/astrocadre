@@ -5,10 +5,9 @@ import {
   ViewChild
   } from '@angular/core';
 import { Object3D } from 'three';
-import { LabelsVisibilityManager } from '#viewport/labels-visibility-manager';
-import { MouseEventsHandler } from '#viewport/mouse-events-handler';
-import { SceneManager } from '#viewport/scene-manager';
-import { WorldOriginCameraService } from '#viewport/world-origin-camera.service';
+import { LabelsVisibilityManager } from '#viewport/services/labels-visibility-manager';
+import { MouseEventsHandler } from '#viewport/services/mouse-events-handler';
+import { SceneManager } from '#viewport/services/scene-manager';
 import { RenderableText } from '#core-layer/label/renderable-text';
 import { Theme } from '#core-theme/theme';
 import { ThemeAware } from '#core-theme/theme-aware';
@@ -17,13 +16,7 @@ import { ViewportDimensionService } from '#core-viewport/viewport-dimension.serv
 @Component({
   selector: `app-astrocadre-viewport`,
   templateUrl: './viewport.component.html',
-  styleUrls: ['./viewport.component.css'],
-  providers: [
-    SceneManager,
-    WorldOriginCameraService,
-    LabelsVisibilityManager,
-    MouseEventsHandler
-  ]
+  styleUrls: ['./viewport.component.css']
 })
 export class ViewportComponent implements AfterViewInit, ThemeAware {
 
@@ -36,7 +29,6 @@ export class ViewportComponent implements AfterViewInit, ThemeAware {
 
   constructor(private dimensionService: ViewportDimensionService,
     private sceneManager: SceneManager,
-    private cameraService: WorldOriginCameraService,
     private labelsManager: LabelsVisibilityManager,
     private mouseEventHandler: MouseEventsHandler) {
     this.updateViewportDimension();

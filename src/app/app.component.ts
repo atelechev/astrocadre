@@ -4,6 +4,7 @@ import {
   OnInit,
   ViewChild
   } from '@angular/core';
+import { ViewportComponent } from '#viewport/components/viewport/viewport.component';
 import { Layers } from '#core/layers';
 import { TreeNode } from '#core/tree-node';
 import { ThemesComponent } from '#themes/themes.component';
@@ -16,7 +17,6 @@ import { ThemeAware } from '#core-theme/theme-aware';
 import { ThemesEventService } from '#core-theme/themes-event.service';
 import { ViewportDimensionService } from '#core-viewport/viewport-dimension.service';
 import { ViewportEventService } from '#core-viewport/viewport-event.service';
-import { ViewportComponent } from '#viewport/viewport.component';
 
 @Component({
   selector: `app-astrocadre`,

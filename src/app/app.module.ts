@@ -2,12 +2,12 @@ import { AppComponent } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { ControlsModule } from '#controls/controls.module';
+import { ViewportModule } from '#viewport/viewport.module';
 import { CoreModule } from '#core/core.module';
 import { ThemesModule } from '#themes/themes.module';
 import { LayersModule } from '#layers/layers.module';
 
-import { ControlsModule } from '#controls/controls.module';
-import { ViewportModule } from '#viewport/viewport.module';
 
 @NgModule({
   declarations: [

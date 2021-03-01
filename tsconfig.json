@@ -25,7 +25,7 @@
     "importHelpers": true,
     "paths": {
       "#controls/*": [
-        "./src/app/controls/*"
+        "src/app/modules/controls/*"
       ],
       "#core-controls/*": [
         "./src/app/core/controls/*"
@@ -49,13 +49,13 @@
         "./src/environments/*"
       ],
       "#layers/*": [
-        "./src/app/layers/*"
+        "src/app/modules/layers/*"
       ],
       "#themes/*": [
-        "./src/app/themes/*"
+        "src/app/modules/themes/*"
       ],
       "#viewport/*": [
-        "./src/app/viewport/*"
+        "src/app/modules/viewport/*"
       ]
     }
   },

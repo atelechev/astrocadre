@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 import { Vector3 } from 'three';
-import { WorldOriginCameraService } from '#viewport/world-origin-camera.service';
+import { WorldOriginCameraService } from '#viewport/services/world-origin-camera.service';
 import { ViewportDimensionService } from '#core-viewport/viewport-dimension.service';
 import { ViewportEventService } from '#core-viewport/viewport-event.service';
 

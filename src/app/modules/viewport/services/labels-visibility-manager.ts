@@ -5,7 +5,7 @@ import {
   Matrix4,
   Vector3
   } from 'three';
-import { WorldOriginCameraService } from '#viewport/world-origin-camera.service';
+import { WorldOriginCameraService } from '#viewport/services/world-origin-camera.service';
 import { RenderableText } from '#core-layer/label/renderable-text';
 import { ViewportDimensionService } from '#core-viewport/viewport-dimension.service';
 import { ScreenCoordinate } from '#core-viewport/screen-coordinate';
