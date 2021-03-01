@@ -1,8 +1,8 @@
 import { TestBed } from '@angular/core/testing';
 import { BufferGeometry } from 'three';
+import { Layers } from '#core/models/layers';
 import { assertGeometryExpected, assertSegmentsArgMustBeDefined, assertSegmentsArgMustNotBeEmpty } from '#layers/services/object3d-factory.spec';
 import { PointsFactory } from '#layers/services/points-factory';
-import { Layers } from '#core/models/layers';
 
 describe('PointsFactory', () => {
 

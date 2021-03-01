@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BufferGeometry, LineSegments, Vector3 } from 'three';
-import { Object3DFactory } from '#layers/services/object3d-factory';
 import { toVector3 } from '#core/utils/vector-utils';
+import { Object3DFactory } from '#layers/services/object3d-factory';
 
 @Injectable()
 export class LinesFactory extends Object3DFactory<LineSegments> {

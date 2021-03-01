@@ -4,19 +4,19 @@ import {
   OnInit,
   ViewChild
   } from '@angular/core';
-import { ViewportComponent } from '#viewport/components/viewport/viewport.component';
 import { Layers } from '#core/models/layers';
-import { TreeNode } from '#core/models/tree-node';
-import { ThemesComponent } from '#themes/components/themes/themes.component';
-import { LayersComponent } from '#layers/components/layers/layers.component';
-import { StarsMagnitudeLayer } from '#layers/models/stars-magnitude-layer';
-import { LayersEventService } from '#core/services/layers-event.service';
 import { RenderableLayer } from '#core/models/renderable-layer';
 import { StarLabelVisibility } from '#core/models/star-label-visibility';
 import { ThemeAware } from '#core/models/theme-aware';
+import { TreeNode } from '#core/models/tree-node';
+import { LayersEventService } from '#core/services/layers-event.service';
 import { ThemesEventService } from '#core/services/themes-event.service';
 import { ViewportDimensionService } from '#core/services/viewport-dimension.service';
 import { ViewportEventService } from '#core/services/viewport-event.service';
+import { ViewportComponent } from '#viewport/components/viewport/viewport.component';
+import { ThemesComponent } from '#themes/components/themes/themes.component';
+import { LayersComponent } from '#layers/components/layers/layers.component';
+import { StarsMagnitudeLayer } from '#layers/models/stars-magnitude-layer';
 
 @Component({
   selector: `app-astrocadre`,

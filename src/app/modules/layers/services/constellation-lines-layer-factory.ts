@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { Layers } from '#core/models/layers';
+import { TreeNode } from '#core/models/tree-node';
+import { StaticDataService } from '#core/services/static-data.service';
 import { ConstellationLinesLayer } from '#layers/models/constellation-lines-layer';
 import { LinesFactory } from '#layers/services/lines-factory';
 import { LayerFactory } from '#layers/services/layer-factory';
-import { TreeNode } from '#core/models/tree-node';
-import { StaticDataService } from '#core/services/static-data.service';
-import { Layers } from '#core/models/layers';
 
 @Injectable()
 export class ConstellationLinesLayerFactory implements LayerFactory<ConstellationLinesLayer> {

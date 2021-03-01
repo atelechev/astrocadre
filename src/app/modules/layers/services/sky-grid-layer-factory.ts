@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
 import { Observable, of as observableOf } from 'rxjs';
 import { LineSegments } from 'three';
+import { Layers } from '#core/models/layers';
+import { TreeNode } from '#core/models/tree-node';
 import { AxialCurvesFactory } from '#layers/services/axial-curves-factory';
 import { LayerFactory } from '#layers/services/layer-factory';
 import { SkyGridLayer } from '#layers/models/sky-grid-layer';
-import { Layers } from '#core/models/layers';
-import { TreeNode } from '#core/models/tree-node';
 
 
 

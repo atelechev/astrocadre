@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { StaticDataService } from '#core/services/static-data.service';
-import { TreeNode } from '#core/models/tree-node';
 import { Theme } from '#core/models/theme';
 import { ThemeDefinition } from '#core/models/theme-definition';
+import { TreeNode } from '#core/models/tree-node';
+import { StaticDataService } from '#core/services/static-data.service';
 import { ThemesEventService } from '#core/services/themes-event.service';
 
 @Component({

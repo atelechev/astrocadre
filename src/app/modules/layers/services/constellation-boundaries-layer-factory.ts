@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { Layers } from '#core/models/layers';
+import { TreeNode } from '#core/models/tree-node';
+import { StaticDataService } from '#core/services/static-data.service';
 import { AxialCurvesFactory } from '#layers/services/axial-curves-factory';
 import { LayerFactory } from '#layers/services/layer-factory';
-import { Layers } from '#core/models/layers';
-import { StaticDataService } from '#core/services/static-data.service';
-import { TreeNode } from '#core/models/tree-node';
 import { ConstellationBoundariesLayer } from '#layers/models/constellation-boundaries-layer';
 
 @Injectable()

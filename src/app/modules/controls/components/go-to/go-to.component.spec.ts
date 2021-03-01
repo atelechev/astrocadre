@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 import { Observable, of as observableOf } from 'rxjs';
-import { GoToComponent } from '#controls/components/go-to/go-to.component';
-import { StaticDataService } from '#core/services/static-data.service';
-import { SearchService } from '#core/services/search.service';
 import { SearchableItem } from '#core/models/searchable-item';
-
-import { ViewportEventService } from '#core/services/viewport-event.service';
-
 import { SkyCoordinate } from '#core/models/sky-coordinate';
+import { SearchService } from '#core/services/search.service';
+import { StaticDataService } from '#core/services/static-data.service';
+import { ViewportEventService } from '#core/services/viewport-event.service';
+import { GoToComponent } from '#controls/components/go-to/go-to.component';
+
+
 
 class MockStaticData {
 

@@ -1,11 +1,11 @@
 import { TestBed } from '@angular/core/testing';
 import { Color, Object3D, Scene } from 'three';
-import { SceneManager } from '#viewport/services/scene-manager';
-import { WorldOriginCameraService } from '#viewport/services/world-origin-camera.service';
 import { assertColorsSame, emptyThemeDef } from '#core/models/abstract-factories.spec';
 import { Theme } from '#core/models/theme';
 import { ViewportDimensionService } from '#core/services/viewport-dimension.service';
 import { ViewportEventService } from '#core/services/viewport-event.service';
+import { SceneManager } from '#viewport/services/scene-manager';
+import { WorldOriginCameraService } from '#viewport/services/world-origin-camera.service';
 
 describe('SceneManager', () => {
 

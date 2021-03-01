@@ -1,17 +1,17 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { Constants } from '#core/models/constants';
+import { Layers } from '#core/models/layers';
+import { RenderableText } from '#core/models/renderable-text';
+import { TextOffsetPolicies, TextOffsetPolicy } from '#core/models/text-offset-policy';
+import { TreeNode } from '#core/models/tree-node';
+import { StaticDataService } from '#core/services/static-data.service';
+import { toVector3 } from '#core/utils/vector-utils';
 import { PointsFactory } from '#layers/services/points-factory';
 import { LayerFactory } from '#layers/services/layer-factory';
 import { extractProperName, extractStandardName, toGreekLetter } from '#layers/utils/star-name-utils';
 import { StarsMagnitudeLayer } from '#layers/models/stars-magnitude-layer';
-import { Constants } from '#core/models/constants';
-import { Layers } from '#core/models/layers';
-import { StaticDataService } from '#core/services/static-data.service';
-import { TreeNode } from '#core/models/tree-node';
-import { RenderableText } from '#core/models/renderable-text';
-import { toVector3 } from '#core/utils/vector-utils';
-import { TextOffsetPolicies, TextOffsetPolicy } from '#core/models/text-offset-policy';
 
 
 @Injectable()

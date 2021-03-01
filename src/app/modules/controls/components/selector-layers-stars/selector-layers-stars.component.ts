@@ -1,7 +1,7 @@
 import { AfterViewInit, Component, Input } from '@angular/core';
-import { LayersEventService } from '#core/services/layers-event.service';
 import { Layers } from '#core/models/layers';
 import { TreeNode } from '#core/models/tree-node';
+import { LayersEventService } from '#core/services/layers-event.service';
 
 @Component({
   selector: `app-astrocadre-controls-select-stars`,

@@ -1,5 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { Layers } from '#core/models/layers';
+import { RenderableLayer } from '#core/models/renderable-layer';
+import { TreeNode } from '#core/models/tree-node';
+import { ensureArgDefined } from '#core/utils/arg-validation-utils';
 import { ConstellationBoundariesLayerFactory } from '#layers/services/constellation-boundaries-layer-factory';
 import { ConstellationLinesLayerFactory } from '#layers/services/constellation-lines-layer-factory';
 import { ConstellationNamesLayerFactory } from '#layers/services/constellation-names-layer-factory';
@@ -7,10 +11,6 @@ import { LayerFactory } from '#layers/services/layer-factory';
 import { RenderableLayerFactory } from '#layers/services/renderable-layer-factory';
 import { SkyGridLayerFactory } from '#layers/services/sky-grid-layer-factory';
 import { StarsMagnitudeLayerFactory } from '#layers/services/stars-magnitude-layer-factory';
-import { ensureArgDefined } from '#core/utils/arg-validation-utils';
-import { Layers } from '#core/models/layers';
-import { TreeNode } from '#core/models/tree-node';
-import { RenderableLayer } from '#core/models/renderable-layer';
 
 /**
  * Wraps factories for supported layers.

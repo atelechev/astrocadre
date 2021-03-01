@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
-import { MouseEventsHandler } from '#viewport/services/mouse-events-handler';
 import { ViewportEventService } from '#core/services/viewport-event.service';
+import { MouseEventsHandler } from '#viewport/services/mouse-events-handler';
 
 describe('MouseEventsHandler', () => {
 

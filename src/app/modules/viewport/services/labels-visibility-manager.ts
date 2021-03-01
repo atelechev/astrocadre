@@ -5,10 +5,10 @@ import {
   Matrix4,
   Vector3
   } from 'three';
-import { WorldOriginCameraService } from '#viewport/services/world-origin-camera.service';
 import { RenderableText } from '#core/models/renderable-text';
-import { ViewportDimensionService } from '#core/services/viewport-dimension.service';
 import { ScreenCoordinate } from '#core/models/screen-coordinate';
+import { ViewportDimensionService } from '#core/services/viewport-dimension.service';
+import { WorldOriginCameraService } from '#viewport/services/world-origin-camera.service';
 
 /**
  * Provides methods to text/labels onscreen visibility.

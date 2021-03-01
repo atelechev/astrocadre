@@ -1,14 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import { LayersFactoryService } from '#layers/services/layers-factory.service';
-import { StarsMagnitudeLayer } from '#layers/models/stars-magnitude-layer';
 import { Layers } from '#core/models/layers';
-import { StaticDataService } from '#core/services/static-data.service';
+import { RenderableLayer } from '#core/models/renderable-layer';
+import { Theme } from '#core/models/theme';
+import { ThemeAware } from '#core/models/theme-aware';
 import { TreeNode } from '#core/models/tree-node';
 import { LayersEventService } from '#core/services/layers-event.service';
 import { LayersTreeValidator } from '#core/services/layers-tree-validator';
-import { RenderableLayer } from '#core/models/renderable-layer';
-import { ThemeAware } from '#core/models/theme-aware';
-import { Theme } from '#core/models/theme';
+import { StaticDataService } from '#core/services/static-data.service';
+import { LayersFactoryService } from '#layers/services/layers-factory.service';
+import { StarsMagnitudeLayer } from '#layers/models/stars-magnitude-layer';
 
 @Component({
   selector: 'app-astrocadre-layers',
