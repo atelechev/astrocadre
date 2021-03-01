@@ -7,8 +7,7 @@ import { ThemesEventService } from '#core-theme/themes-event.service';
 
 @Component({
   selector: 'app-astrocadre-themes',
-  template: ``,
-  providers: []
+  template: ``
 })
 export class ThemesComponent implements OnInit {
 

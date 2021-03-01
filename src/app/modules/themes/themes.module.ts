@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { ThemesComponent } from '#themes/themes.component';
+import { ThemesComponent } from '#themes/components/themes/themes.component';
 
 @NgModule({
   declarations: [
@@ -9,9 +9,7 @@ import { ThemesComponent } from '#themes/themes.component';
   exports: [
     ThemesComponent
   ],
-  providers: [
-    ThemesComponent
-  ]
+  providers: []
 })
 export class ThemesModule {
 

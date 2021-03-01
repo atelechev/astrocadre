@@ -7,7 +7,7 @@ import {
 import { ViewportComponent } from '#viewport/components/viewport/viewport.component';
 import { Layers } from '#core/layers';
 import { TreeNode } from '#core/tree-node';
-import { ThemesComponent } from '#themes/themes.component';
+import { ThemesComponent } from '#themes/components/themes/themes.component';
 import { LayersComponent } from '#layers/layers.component';
 import { StarsMagnitudeLayer } from '#layers/stars-magnitude-layer';
 import { LayersEventService } from '#core-layer/layers-event.service';
@@ -23,7 +23,7 @@ import { ViewportEventService } from '#core-viewport/viewport-event.service';
   templateUrl: './app.component.html',
   styleUrls: [],
   providers: [
-    ViewportComponent,
+    ViewportComponent, // FIXME
     ThemesComponent,
     LayersComponent
   ]
