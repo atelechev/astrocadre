@@ -8,10 +8,10 @@ import { Object3D } from 'three';
 import { LabelsVisibilityManager } from '#viewport/services/labels-visibility-manager';
 import { MouseEventsHandler } from '#viewport/services/mouse-events-handler';
 import { SceneManager } from '#viewport/services/scene-manager';
-import { RenderableText } from '#core-layer/label/renderable-text';
-import { Theme } from '#core-theme/theme';
-import { ThemeAware } from '#core-theme/theme-aware';
-import { ViewportDimensionService } from '#core-viewport/viewport-dimension.service';
+import { RenderableText } from '#core/models/renderable-text';
+import { Theme } from '#core/models/theme';
+import { ThemeAware } from '#core/models/theme-aware';
+import { ViewportDimensionService } from '#core/services/viewport-dimension.service';
 
 @Component({
   selector: `app-astrocadre-viewport`,

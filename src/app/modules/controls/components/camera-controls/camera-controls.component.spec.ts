@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 import { CameraControlsComponent } from '#controls/components/camera-controls/camera-controls.component';
-import { ViewportEventService } from '#core-viewport/viewport-event.service';
+import { ViewportEventService } from '#core/services/viewport-event.service';
 
 describe('CameraControlsComponent', () => {
 

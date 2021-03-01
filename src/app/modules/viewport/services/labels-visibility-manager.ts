@@ -6,9 +6,9 @@ import {
   Vector3
   } from 'three';
 import { WorldOriginCameraService } from '#viewport/services/world-origin-camera.service';
-import { RenderableText } from '#core-layer/label/renderable-text';
-import { ViewportDimensionService } from '#core-viewport/viewport-dimension.service';
-import { ScreenCoordinate } from '#core-viewport/screen-coordinate';
+import { RenderableText } from '#core/models/renderable-text';
+import { ViewportDimensionService } from '#core/services/viewport-dimension.service';
+import { ScreenCoordinate } from '#core/models/screen-coordinate';
 
 /**
  * Provides methods to text/labels onscreen visibility.

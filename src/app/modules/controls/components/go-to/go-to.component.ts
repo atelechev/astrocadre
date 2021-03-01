@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { SearchService } from '#core-search/search.service';
-import { ViewportEventService } from '#core-viewport/viewport-event.service';
+import { SearchService } from '#core/services/search.service';
+import { ViewportEventService } from '#core/services/viewport-event.service';
 
 @Component({
   selector: `app-astrocadre-controls-go-to`,

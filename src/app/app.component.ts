@@ -5,18 +5,18 @@ import {
   ViewChild
   } from '@angular/core';
 import { ViewportComponent } from '#viewport/components/viewport/viewport.component';
-import { Layers } from '#core/layers';
-import { TreeNode } from '#core/tree-node';
+import { Layers } from '#core/models/layers';
+import { TreeNode } from '#core/models/tree-node';
 import { ThemesComponent } from '#themes/components/themes/themes.component';
 import { LayersComponent } from '#layers/components/layers/layers.component';
 import { StarsMagnitudeLayer } from '#layers/models/stars-magnitude-layer';
-import { LayersEventService } from '#core-layer/layers-event.service';
-import { RenderableLayer } from '#core-layer/renderable-layer';
-import { StarLabelVisibility } from '#core-layer/star-label-visibility';
-import { ThemeAware } from '#core-theme/theme-aware';
-import { ThemesEventService } from '#core-theme/themes-event.service';
-import { ViewportDimensionService } from '#core-viewport/viewport-dimension.service';
-import { ViewportEventService } from '#core-viewport/viewport-event.service';
+import { LayersEventService } from '#core/services/layers-event.service';
+import { RenderableLayer } from '#core/models/renderable-layer';
+import { StarLabelVisibility } from '#core/models/star-label-visibility';
+import { ThemeAware } from '#core/models/theme-aware';
+import { ThemesEventService } from '#core/services/themes-event.service';
+import { ViewportDimensionService } from '#core/services/viewport-dimension.service';
+import { ViewportEventService } from '#core/services/viewport-event.service';
 
 @Component({
   selector: `app-astrocadre`,

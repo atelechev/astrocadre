@@ -7,10 +7,10 @@ import { LayerFactory } from '#layers/services/layer-factory';
 import { RenderableLayerFactory } from '#layers/services/renderable-layer-factory';
 import { SkyGridLayerFactory } from '#layers/services/sky-grid-layer-factory';
 import { StarsMagnitudeLayerFactory } from '#layers/services/stars-magnitude-layer-factory';
-import { ensureArgDefined } from '#core/arg-validation-utils';
-import { Layers } from '#core/layers';
-import { TreeNode } from '#core/tree-node';
-import { RenderableLayer } from '#core-layer/renderable-layer';
+import { ensureArgDefined } from '#core/utils/arg-validation-utils';
+import { Layers } from '#core/models/layers';
+import { TreeNode } from '#core/models/tree-node';
+import { RenderableLayer } from '#core/models/renderable-layer';
 
 /**
  * Wraps factories for supported layers.

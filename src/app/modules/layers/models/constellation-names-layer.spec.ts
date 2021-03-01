@@ -1,11 +1,11 @@
 import { ConstellationNamesLayer } from '#layers/constellation-names-layer';
-import { Constants } from '#core/constants';
-import { Layers } from '#core/layers';
-import { newTreeNode } from '#core/tree-node.spec';
-import { ConstellationMetadata } from '#core-layer/constellation-metadata';
-import { RenderableText } from '#core-layer/label/renderable-text';
-import { toVector3 } from '#core-layer/vector-utils';
-import { TextOffsetPolicies } from '#core-layer/label/text-offset-policy';
+import { Constants } from '#core/models/constants';
+import { Layers } from '#core/models/layers';
+import { newTreeNode } from '#core/models/tree-node.spec';
+import { ConstellationMetadata } from '#core/models/constellation-metadata';
+import { RenderableText } from '#core/models/renderable-text';
+import { toVector3 } from '#core/utils/vector-utils';
+import { TextOffsetPolicies } from '#core/models/text-offset-policy';
 
 describe('ConstellationNamesLayer', () => {
 

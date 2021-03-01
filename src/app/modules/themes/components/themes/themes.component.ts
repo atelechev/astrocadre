@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { StaticDataService } from '#core/static-data.service';
-import { TreeNode } from '#core/tree-node';
-import { Theme } from '#core-theme/theme';
-import { ThemeDefinition } from '#core-theme/theme-definition';
-import { ThemesEventService } from '#core-theme/themes-event.service';
+import { StaticDataService } from '#core/services/static-data.service';
+import { TreeNode } from '#core/models/tree-node';
+import { Theme } from '#core/models/theme';
+import { ThemeDefinition } from '#core/models/theme-definition';
+import { ThemesEventService } from '#core/services/themes-event.service';
 
 @Component({
   selector: 'app-astrocadre-themes',

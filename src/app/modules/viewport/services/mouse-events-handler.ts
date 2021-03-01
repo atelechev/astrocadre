@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { MathUtils } from 'three';
-import { ViewportEventService } from '#core-viewport/viewport-event.service';
+import { ViewportEventService } from '#core/services/viewport-event.service';
 
 /**
  * Provides a method to bind mouse event listeners to a DOM element.

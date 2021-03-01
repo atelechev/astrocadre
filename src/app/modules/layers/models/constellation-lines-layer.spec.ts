@@ -1,7 +1,7 @@
 import { LineSegments } from 'three';
 import { ConstellationLinesLayer } from '#layers/constellation-lines-layer';
-import { Layers } from '#core/layers';
-import { newTreeNode } from '#core/tree-node.spec';
+import { Layers } from '#core/models/layers';
+import { newTreeNode } from '#core/models/tree-node.spec';
 
 describe('ConstellationLinesLayer', () => {
 

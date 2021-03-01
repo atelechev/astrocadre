@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { BufferGeometry, LineSegments, Vector3 } from 'three';
 import { isCrossingInitialMeridian, isMeridionalSegment, isParallelSegment } from '#layers/utils/segment-utils';
 import { Object3DFactory } from '#layers/services/object3d-factory';
-import { toVector3 } from '#core-layer/vector-utils';
+import { toVector3 } from '#core/utils/vector-utils';
 
 @Injectable()
 export class AxialCurvesFactory extends Object3DFactory<LineSegments> {

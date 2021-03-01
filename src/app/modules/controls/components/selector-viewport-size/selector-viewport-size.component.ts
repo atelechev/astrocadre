@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ViewportDimensionService } from '#core-viewport/viewport-dimension.service';
+import { ViewportDimensionService } from '#core/services/viewport-dimension.service';
 
 @Component({
   selector: `app-astrocadre-controls-select-viewport-size`,

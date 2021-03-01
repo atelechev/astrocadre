@@ -3,13 +3,13 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { ConstellationNamesLayer } from '#layers/models/constellation-names-layer';
 import { LayerFactory } from '#layers/services/layer-factory';
-import { Constants } from '#core/constants';
-import { StaticDataService } from '#core/static-data.service';
-import { TreeNode } from '#core/tree-node';
-import { ConstellationMetadata } from '#core-layer/constellation-metadata';
-import { RenderableText } from '#core-layer/label/renderable-text';
-import { toVector3 } from '#core-layer/vector-utils';
-import { TextOffsetPolicies } from '#core-layer/label/text-offset-policy';
+import { Constants } from '#core/models/constants';
+import { StaticDataService } from '#core/services/static-data.service';
+import { TreeNode } from '#core/models/tree-node';
+import { ConstellationMetadata } from '#core/models/constellation-metadata';
+import { RenderableText } from '#core/models/renderable-text';
+import { toVector3 } from '#core/utils/vector-utils';
+import { TextOffsetPolicies } from '#core/models/text-offset-policy';
 
 @Injectable()
 export class ConstellationNamesLayerFactory implements LayerFactory<ConstellationNamesLayer> {

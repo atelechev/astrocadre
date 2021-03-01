@@ -15,12 +15,12 @@ import { SkyGridLayer } from '#layers/models/sky-grid-layer';
 import { SkyGridLayerFactory } from '#layers/services/sky-grid-layer-factory';
 import { StarsMagnitudeLayer } from '#layers/models/stars-magnitude-layer';
 import { StarsMagnitudeLayerFactory } from '#layers/services/stars-magnitude-layer-factory';
-import { Layers } from '#core/layers';
-import { StaticDataService } from '#core/static-data.service';
-import { TreeNode } from '#core/tree-node';
-import { newTreeNode } from '#core/tree-node.spec';
-import { ConstellationMetadata } from '#core-layer/constellation-metadata';
-import { RenderableLayer } from '#core-layer/renderable-layer';
+import { Layers } from '#core/models/layers';
+import { StaticDataService } from '#core/services/static-data.service';
+import { TreeNode } from '#core/models/tree-node';
+import { newTreeNode } from '#core/models/tree-node.spec';
+import { ConstellationMetadata } from '#core/models/constellation-metadata';
+import { RenderableLayer } from '#core/models/renderable-layer';
 
 class MockStaticData {
   public getConstellationBoundaries(): Observable<number[][]> {

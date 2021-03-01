@@ -1,7 +1,7 @@
 import { BufferGeometry } from 'three';
 import { Object3D, Vector3 } from 'three';
-import { ensureArgArrayDefinedNotEmpty } from '#core/arg-validation-utils';
-import { Constants } from '#core/constants';
+import { ensureArgArrayDefinedNotEmpty } from '#core/utils/arg-validation-utils';
+import { Constants } from '#core/models/constants';
 
 /**
  * Base class for factories producing Three's Object3D instances.

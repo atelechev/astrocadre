@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { TreeNode } from '#core/tree-node';
-import { ThemesEventService } from '#core-theme/themes-event.service';
+import { TreeNode } from '#core/models/tree-node';
+import { ThemesEventService } from '#core/services/themes-event.service';
 
 
 @Component({

@@ -1,8 +1,8 @@
 import { LineSegments, Material, Object3D } from 'three';
-import { ensureArgDefined } from '#core/arg-validation-utils';
-import { TreeNode } from '#core/tree-node';
-import { RenderableLayer } from '#core-layer/renderable-layer';
-import { Theme } from '#core-theme/theme';
+import { ensureArgDefined } from '#core/utils/arg-validation-utils';
+import { TreeNode } from '#core/models/tree-node';
+import { RenderableLayer } from '#core/models/renderable-layer';
+import { Theme } from '#core/models/theme';
 
 export class SkyGridLayer extends RenderableLayer {
 

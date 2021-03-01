@@ -4,8 +4,8 @@ import { LineSegments } from 'three';
 import { AxialCurvesFactory } from '#layers/services/axial-curves-factory';
 import { LayerFactory } from '#layers/services/layer-factory';
 import { SkyGridLayer } from '#layers/models/sky-grid-layer';
-import { Layers } from '#core/layers';
-import { TreeNode } from '#core/tree-node';
+import { Layers } from '#core/models/layers';
+import { TreeNode } from '#core/models/tree-node';
 
 
 

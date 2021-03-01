@@ -1,11 +1,11 @@
 import { Points } from 'three';
 import { StarsMagnitudeLayer } from '#layers/stars-magnitude-layer';
 import { StarsMagnitudeLayerFactory } from '#layers/services/stars-magnitude-layer-factory';
-import { Constants } from '#core/constants';
-import { newTreeNode } from '#core/tree-node.spec';
-import { RenderableText } from '#core-layer/label/renderable-text';
-import { toVector3 } from '#core-layer/vector-utils';
-import { TextOffsetPolicies } from '#core-layer/label/text-offset-policy';
+import { Constants } from '#core/models/constants';
+import { newTreeNode } from '#core/models/tree-node.spec';
+import { RenderableText } from '#core/models/renderable-text';
+import { toVector3 } from '#core/utils/vector-utils';
+import { TextOffsetPolicies } from '#core/models/text-offset-policy';
 
 describe('StarsMagnitudeLayer', () => {
 

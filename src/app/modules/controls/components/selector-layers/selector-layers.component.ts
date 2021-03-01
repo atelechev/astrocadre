@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
-import { TreeNode } from '#core/tree-node';
-import { TreeNodeFinder } from '#core/tree-node-finder';
-import { LayersEventService } from '#core-layer/layers-event.service';
+import { TreeNode } from '#core/models/tree-node';
+import { TreeNodeFinder } from '#core/services/tree-node-finder';
+import { LayersEventService } from '#core/services/layers-event.service';
 
 
 @Component({

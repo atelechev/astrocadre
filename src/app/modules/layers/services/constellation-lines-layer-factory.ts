@@ -4,9 +4,9 @@ import { map } from 'rxjs/operators';
 import { ConstellationLinesLayer } from '#layers/models/constellation-lines-layer';
 import { LinesFactory } from '#layers/services/lines-factory';
 import { LayerFactory } from '#layers/services/layer-factory';
-import { TreeNode } from '#core/tree-node';
-import { StaticDataService } from '#core/static-data.service';
-import { Layers } from '#core/layers';
+import { TreeNode } from '#core/models/tree-node';
+import { StaticDataService } from '#core/services/static-data.service';
+import { Layers } from '#core/models/layers';
 
 @Injectable()
 export class ConstellationLinesLayerFactory implements LayerFactory<ConstellationLinesLayer> {

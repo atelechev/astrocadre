@@ -4,7 +4,7 @@ import {
   ElementRef,
   ViewChild
   } from '@angular/core';
-import { DraggableElementsHandler } from '#core-controls/draggable-elements-handler';
+import { DraggableElementsHandler } from '#core/services/draggable-elements-handler';
 
 @Component({
   selector: 'app-astrocadre-controls',

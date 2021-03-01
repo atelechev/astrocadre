@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { environment } from '#environments/environment';
-import { toRadians } from '#core-layer/vector-utils';
-import { ViewportEventService } from '#core-viewport/viewport-event.service';
+import { toRadians } from '#core/utils/vector-utils';
+import { ViewportEventService } from '#core/services/viewport-event.service';
 
 @Component({
   selector: `app-astrocadre-controls-camera`,
