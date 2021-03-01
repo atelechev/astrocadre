@@ -1,4 +1,4 @@
-import { isParallelSegment, isMeridionalSegment, isCrossingInitialMeridian } from '#layers/geometry/segment-utils';
+import { isParallelSegment, isMeridionalSegment, isCrossingInitialMeridian } from '#layers/utils/segment-utils';
 
 describe('segment-utils', () => {
 

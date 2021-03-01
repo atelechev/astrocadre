@@ -1,5 +1,5 @@
-import { extractStandardName, extractProperName } from '#layers/star-name-utils';
-import { toGreekLetter, isStandardName } from '#layers/star-name-utils';
+import { extractStandardName, extractProperName } from '#layers/utils/star-name-utils';
+import { toGreekLetter, isStandardName } from '#layers/utils/star-name-utils';
 
 describe('star-name-utils', () => {
 

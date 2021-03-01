@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { ConstellationNamesLayer } from '#layers/constellation-names-layer';
-import { LayerFactory } from '#layers/layer-factory';
+import { ConstellationNamesLayer } from '#layers/models/constellation-names-layer';
+import { LayerFactory } from '#layers/services/layer-factory';
 import { Constants } from '#core/constants';
 import { StaticDataService } from '#core/static-data.service';
 import { TreeNode } from '#core/tree-node';

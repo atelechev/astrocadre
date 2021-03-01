@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { PointsFactory } from '#layers/geometry/points-factory';
-import { LayerFactory } from '#layers/layer-factory';
-import { extractProperName, extractStandardName, toGreekLetter } from '#layers/star-name-utils';
-import { StarsMagnitudeLayer } from '#layers/stars-magnitude-layer';
+import { PointsFactory } from '#layers/services/points-factory';
+import { LayerFactory } from '#layers/services/layer-factory';
+import { extractProperName, extractStandardName, toGreekLetter } from '#layers/utils/star-name-utils';
+import { StarsMagnitudeLayer } from '#layers/models/stars-magnitude-layer';
 import { Constants } from '#core/constants';
 import { Layers } from '#core/layers';
 import { StaticDataService } from '#core/static-data.service';

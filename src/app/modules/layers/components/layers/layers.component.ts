@@ -1,15 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { ConstellationBoundariesLayerFactory } from '#layers/constellation-boundaries-layer-factory';
-import { ConstellationLinesLayerFactory } from '#layers/constellation-lines-layer-factory';
-import { ConstellationNamesLayerFactory } from '#layers/constellation-names-layer-factory';
-import { AxialCurvesFactory } from '#layers/geometry/axial-curves-factory';
-import { LinesFactory } from '#layers/geometry/lines-factory';
-import { PointsFactory } from '#layers/geometry/points-factory';
-import { LayersFactoryService } from '#layers/layers-factory.service';
-import { RenderableLayerFactory } from '#layers/renderable-layer-factory';
-import { SkyGridLayerFactory } from '#layers/sky-grid-layer-factory';
-import { StarsMagnitudeLayer } from '#layers/stars-magnitude-layer';
-import { StarsMagnitudeLayerFactory } from '#layers/stars-magnitude-layer-factory';
+import { LayersFactoryService } from '#layers/services/layers-factory.service';
+import { StarsMagnitudeLayer } from '#layers/models/stars-magnitude-layer';
 import { Layers } from '#core/layers';
 import { StaticDataService } from '#core/static-data.service';
 import { TreeNode } from '#core/tree-node';
@@ -21,19 +12,7 @@ import { Theme } from '#core-theme/theme';
 
 @Component({
   selector: 'app-astrocadre-layers',
-  template: ``,
-  providers: [
-    LayersFactoryService,
-    PointsFactory,
-    LinesFactory,
-    AxialCurvesFactory,
-    SkyGridLayerFactory,
-    RenderableLayerFactory,
-    ConstellationBoundariesLayerFactory,
-    ConstellationLinesLayerFactory,
-    ConstellationNamesLayerFactory,
-    StarsMagnitudeLayerFactory
-  ]
+  template: ``
 })
 export class LayersComponent implements ThemeAware, OnInit {
 

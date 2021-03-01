@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { ConstellationLinesLayer } from '#layers/constellation-lines-layer';
-import { LinesFactory } from '#layers/geometry/lines-factory';
-import { LayerFactory } from '#layers/layer-factory';
+import { ConstellationLinesLayer } from '#layers/models/constellation-lines-layer';
+import { LinesFactory } from '#layers/services/lines-factory';
+import { LayerFactory } from '#layers/services/layer-factory';
 import { TreeNode } from '#core/tree-node';
 import { StaticDataService } from '#core/static-data.service';
 import { Layers } from '#core/layers';

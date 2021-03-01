@@ -8,8 +8,8 @@ import { ViewportComponent } from '#viewport/components/viewport/viewport.compon
 import { Layers } from '#core/layers';
 import { TreeNode } from '#core/tree-node';
 import { ThemesComponent } from '#themes/components/themes/themes.component';
-import { LayersComponent } from '#layers/layers.component';
-import { StarsMagnitudeLayer } from '#layers/stars-magnitude-layer';
+import { LayersComponent } from '#layers/components/layers/layers.component';
+import { StarsMagnitudeLayer } from '#layers/models/stars-magnitude-layer';
 import { LayersEventService } from '#core-layer/layers-event.service';
 import { RenderableLayer } from '#core-layer/renderable-layer';
 import { StarLabelVisibility } from '#core-layer/star-label-visibility';

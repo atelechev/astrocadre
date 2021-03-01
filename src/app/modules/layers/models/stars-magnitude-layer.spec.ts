@@ -1,6 +1,6 @@
 import { Points } from 'three';
 import { StarsMagnitudeLayer } from '#layers/stars-magnitude-layer';
-import { StarsMagnitudeLayerFactory } from '#layers/stars-magnitude-layer-factory';
+import { StarsMagnitudeLayerFactory } from '#layers/services/stars-magnitude-layer-factory';
 import { Constants } from '#core/constants';
 import { newTreeNode } from '#core/tree-node.spec';
 import { RenderableText } from '#core-layer/label/renderable-text';
