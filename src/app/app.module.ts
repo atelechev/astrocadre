@@ -1,4 +1,4 @@
-import { AppComponent } from './app.component';
+import { AppComponent } from './components/app.component';
 import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
