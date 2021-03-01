@@ -16,7 +16,7 @@ import { SkyGridLayerFactory } from '#layers/sky-grid-layer-factory';
 import { StarsMagnitudeLayer } from '#layers/stars-magnitude-layer';
 import { StarsMagnitudeLayerFactory } from '#layers/stars-magnitude-layer-factory';
 import { Layers } from '#core/layers';
-import { StaticDataService } from '#core/static-data-service';
+import { StaticDataService } from '#core/static-data.service';
 import { TreeNode } from '#core/tree-node';
 import { newTreeNode } from '#core/tree-node.spec';
 import { ConstellationMetadata } from '#core-layer/constellation-metadata';

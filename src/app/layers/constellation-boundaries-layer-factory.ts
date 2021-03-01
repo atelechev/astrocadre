@@ -4,7 +4,7 @@ import { map } from 'rxjs/operators';
 import { AxialCurvesFactory } from '#layers/geometry/axial-curves-factory';
 import { LayerFactory } from '#layers/layer-factory';
 import { Layers } from '#core/layers';
-import { StaticDataService } from '#core/static-data-service';
+import { StaticDataService } from '#core/static-data.service';
 import { TreeNode } from '#core/tree-node';
 import { ConstellationBoundariesLayer } from '#layers/constellation-boundaries-layer';
 

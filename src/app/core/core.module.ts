@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { StaticDataService } from '#core/static-data-service';
+import { StaticDataService } from '#core/static-data.service';
 import { TreeNodeFinder } from '#core/tree-node-finder';
 import { DraggableElementsHandler } from '#core-controls/draggable-elements-handler';
 import { LayersTreeValidator } from '#core-layer/layers-tree-validator';

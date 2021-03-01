@@ -11,7 +11,7 @@ import { SkyGridLayerFactory } from '#layers/sky-grid-layer-factory';
 import { StarsMagnitudeLayer } from '#layers/stars-magnitude-layer';
 import { StarsMagnitudeLayerFactory } from '#layers/stars-magnitude-layer-factory';
 import { Layers } from '#core/layers';
-import { StaticDataService } from '#core/static-data-service';
+import { StaticDataService } from '#core/static-data.service';
 import { TreeNode } from '#core/tree-node';
 import { LayersEventService } from '#core-layer/layers-event.service';
 import { LayersTreeValidator } from '#core-layer/layers-tree-validator';

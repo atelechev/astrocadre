@@ -7,7 +7,7 @@ import { extractProperName, extractStandardName, toGreekLetter } from '#layers/s
 import { StarsMagnitudeLayer } from '#layers/stars-magnitude-layer';
 import { Constants } from '#core/constants';
 import { Layers } from '#core/layers';
-import { StaticDataService } from '#core/static-data-service';
+import { StaticDataService } from '#core/static-data.service';
 import { TreeNode } from '#core/tree-node';
 import { RenderableText } from '#core-layer/label/renderable-text';
 import { toVector3 } from '#core-layer/vector-utils';

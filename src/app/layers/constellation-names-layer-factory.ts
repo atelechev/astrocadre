@@ -4,7 +4,7 @@ import { map } from 'rxjs/operators';
 import { ConstellationNamesLayer } from '#layers/constellation-names-layer';
 import { LayerFactory } from '#layers/layer-factory';
 import { Constants } from '#core/constants';
-import { StaticDataService } from '#core/static-data-service';
+import { StaticDataService } from '#core/static-data.service';
 import { TreeNode } from '#core/tree-node';
 import { ConstellationMetadata } from '#core-layer/constellation-metadata';
 import { RenderableText } from '#core-layer/label/renderable-text';

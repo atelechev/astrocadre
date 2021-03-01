@@ -1,7 +1,7 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { ConstellationMetadata } from '#core-layer/constellation-metadata';
-import { StaticDataService } from '#core/static-data-service';
+import { StaticDataService } from '#core/static-data.service';
 import { emptyThemeDef, asyncData, asyncError } from '#core-theme/abstract-factories.spec';
 
 

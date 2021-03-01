@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
-import { StaticDataService } from '#core/static-data-service';
+import { StaticDataService } from '#core/static-data.service';
 import { SearchableItem } from '#core-search/searchable-item';
 import { SkyCoordinate } from '#core/viewport/sky-coordinate';
 

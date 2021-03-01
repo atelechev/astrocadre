@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 import { Observable, of as observableOf } from 'rxjs';
-import { StaticDataService } from '#core/static-data-service';
+import { StaticDataService } from '#core/static-data.service';
 import { SkyCoordinate } from '#core/viewport/sky-coordinate';
 import { SearchService } from '#core-search/search.service';
 

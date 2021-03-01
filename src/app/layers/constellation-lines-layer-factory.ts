@@ -5,7 +5,7 @@ import { ConstellationLinesLayer } from '#layers/constellation-lines-layer';
 import { LinesFactory } from '#layers/geometry/lines-factory';
 import { LayerFactory } from '#layers/layer-factory';
 import { TreeNode } from '#core/tree-node';
-import { StaticDataService } from '#core/static-data-service';
+import { StaticDataService } from '#core/static-data.service';
 import { Layers } from '#core/layers';
 
 @Injectable()

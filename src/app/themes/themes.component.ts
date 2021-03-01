@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { StaticDataService } from '#core/static-data-service';
+import { StaticDataService } from '#core/static-data.service';
 import { TreeNode } from '#core/tree-node';
 import { Theme } from '#core-theme/theme';
 import { ThemeDefinition } from '#core-theme/theme-definition';

@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 import { Observable, of as observableOf } from 'rxjs';
-import { StaticDataService } from '#core/static-data-service';
+import { StaticDataService } from '#core/static-data.service';
 import { GoToComponent } from '#controls/components/go-to/go-to.component';
 import { SearchService } from '#core-search/search.service';
 import { SearchableItem } from '#core-search/searchable-item';
