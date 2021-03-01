@@ -1,7 +1,7 @@
 import { LineSegments } from 'three';
 import { Layers } from '#core/models/layers';
 import { newTreeNode } from '#core/models/tree-node.spec';
-import { ConstellationBoundariesLayer } from '#layers/constellation-boundaries-layer';
+import { ConstellationBoundariesLayer } from '#layers/models/constellation-boundaries-layer';
 
 describe('ConstellationBoundariesLayer', () => {
 

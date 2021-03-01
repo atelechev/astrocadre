@@ -4,7 +4,7 @@ import { RenderableText } from '#core/models/renderable-text';
 import { TextOffsetPolicies } from '#core/models/text-offset-policy';
 import { newTreeNode } from '#core/models/tree-node.spec';
 import { toVector3 } from '#core/utils/vector-utils';
-import { StarsMagnitudeLayer } from '#layers/stars-magnitude-layer';
+import { StarsMagnitudeLayer } from '#layers/models/stars-magnitude-layer';
 import { StarsMagnitudeLayerFactory } from '#layers/services/stars-magnitude-layer-factory';
 
 describe('StarsMagnitudeLayer', () => {

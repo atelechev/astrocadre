@@ -5,7 +5,7 @@ import { RenderableText } from '#core/models/renderable-text';
 import { TextOffsetPolicies } from '#core/models/text-offset-policy';
 import { newTreeNode } from '#core/models/tree-node.spec';
 import { toVector3 } from '#core/utils/vector-utils';
-import { ConstellationNamesLayer } from '#layers/constellation-names-layer';
+import { ConstellationNamesLayer } from '#layers/models/constellation-names-layer';
 
 describe('ConstellationNamesLayer', () => {
 

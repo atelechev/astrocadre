@@ -7,9 +7,12 @@ describe('ConstellationNamesTextStylesFactory', () => {
 
   const factory = new ConstellationNamesTextStylesFactory();
 
-  const themeDef: ThemeDefinition = Object.create(emptyThemeDef);
+  let themeDef: ThemeDefinition;
 
-  themeDef.constellation.names = textStyle('size1', 'fam1', 'style1', 'weight1', 'color1');
+  beforeEach(() => {
+    themeDef = Object.create(emptyThemeDef);
+    themeDef.constellation.names = textStyle('size1', 'fam1', 'style1', 'weight1', 'color1');
+  });
 
   it('constructor should initialize targetLayerName field', () => {
     expect(factory.layerName).toBe(Layers.CONSTELLATION_NAMES);
