@@ -1,4 +1,3 @@
-import { AppComponent } from './components/app/app.component';
 import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
@@ -8,7 +7,6 @@ import { CoreModule } from 'src/app/modules2/core/core.module';
 
 @NgModule({
   declarations: [
-    AppComponent,
     AstrocadreComponent
   ],
   exports: [
