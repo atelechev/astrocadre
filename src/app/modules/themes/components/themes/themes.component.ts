@@ -6,7 +6,7 @@ import { StaticDataService } from '#core/services/static-data.service';
 import { ThemesEventService } from '#core/services/themes-event.service';
 
 @Component({
-  selector: 'app-astrocadre-themes',
+  selector: 'ac-themes',
   template: ``
 })
 export class ThemesComponent implements OnInit {

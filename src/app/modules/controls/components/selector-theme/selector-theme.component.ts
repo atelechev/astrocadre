@@ -4,10 +4,9 @@ import { ThemesEventService } from '#core/services/themes-event.service';
 
 
 @Component({
-  selector: `app-astrocadre-controls-select-theme`,
+  selector: `ac-controls-select-theme`,
   templateUrl: './selector-theme.component.html',
-  styleUrls: ['../controls/controls.component.css'],
-  providers: []
+  styleUrls: ['../controls/controls.component.css']
 })
 export class SelectorThemeComponent {
 

@@ -7,10 +7,9 @@ import {
 import { DraggableElementsHandler } from '#core/services/draggable-elements-handler';
 
 @Component({
-  selector: 'app-astrocadre-controls',
+  selector: 'ac-controls',
   templateUrl: './controls.component.html',
-  styleUrls: ['../controls/controls.component.css'],
-  providers: []
+  styleUrls: ['../controls/controls.component.css']
 })
 export class ControlsComponent implements AfterViewInit {
 

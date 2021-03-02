@@ -4,10 +4,9 @@ import { toRadians } from '#core/utils/vector-utils';
 import { environment } from '#environments/environment';
 
 @Component({
-  selector: `app-astrocadre-controls-camera`,
+  selector: `ac-controls-camera`,
   templateUrl: './camera-controls.component.html',
-  styleUrls: ['../controls/controls.component.css', './camera-controls.component.css'],
-  providers: []
+  styleUrls: ['../controls/controls.component.css', './camera-controls.component.css']
 })
 export class CameraControlsComponent {
 

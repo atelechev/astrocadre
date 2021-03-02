@@ -11,7 +11,7 @@ import { LayersFactoryService } from '#layers/services/layers-factory.service';
 import { StarsMagnitudeLayer } from '#layers/models/stars-magnitude-layer';
 
 @Component({
-  selector: 'app-astrocadre-layers',
+  selector: 'ac-layers',
   template: ``
 })
 export class LayersComponent implements ThemeAware, OnInit {

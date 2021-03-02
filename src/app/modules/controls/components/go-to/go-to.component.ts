@@ -3,10 +3,9 @@ import { SearchService } from '#core/services/search.service';
 import { ViewportEventService } from '#core/services/viewport-event.service';
 
 @Component({
-  selector: `app-astrocadre-controls-go-to`,
+  selector: `ac-controls-go-to`,
   templateUrl: './go-to.component.html',
-  styleUrls: ['../controls/controls.component.css', './go-to.component.css'],
-  providers: []
+  styleUrls: ['../controls/controls.component.css', './go-to.component.css']
 })
 export class GoToComponent {
 

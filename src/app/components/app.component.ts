@@ -19,7 +19,7 @@ import { LayersComponent } from '#layers/components/layers/layers.component';
 import { StarsMagnitudeLayer } from '#layers/models/stars-magnitude-layer';
 
 @Component({
-  selector: `app-astrocadre`,
+  selector: `ac-app`,
   templateUrl: './app.component.html',
   styleUrls: [],
   providers: [

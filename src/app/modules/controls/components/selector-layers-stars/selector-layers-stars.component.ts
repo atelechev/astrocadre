@@ -4,12 +4,11 @@ import { TreeNode } from '#core/models/tree-node';
 import { LayersEventService } from '#core/services/layers-event.service';
 
 @Component({
-  selector: `app-astrocadre-controls-select-stars`,
+  selector: `ac-controls-select-stars`,
   templateUrl: './selector-layers-stars.component.html',
   styleUrls: ['../controls/controls.component.css',
     '../selector-layers/selector-layers.component.css',
-    './selector-layers-stars.component.css'],
-  providers: []
+    './selector-layers-stars.component.css']
 })
 export class SelectorLayersStarsComponent implements AfterViewInit {
 

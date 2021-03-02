@@ -14,7 +14,7 @@ import { MouseEventsHandler } from '#viewport/services/mouse-events-handler';
 import { SceneManager } from '#viewport/services/scene-manager';
 
 @Component({
-  selector: `app-astrocadre-viewport`,
+  selector: `ac-viewport`,
   templateUrl: './viewport.component.html',
   styleUrls: ['./viewport.component.css']
 })

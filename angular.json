@@ -116,11 +116,11 @@
   "defaultProject": "astrocadre",
   "schematics": {
     "@schematics/angular:component": {
-      "prefix": "app",
+      "prefix": "ac",
       "styleext": "css"
     },
     "@schematics/angular:directive": {
-      "prefix": "app"
+      "prefix": "ac"
     }
   }
 }

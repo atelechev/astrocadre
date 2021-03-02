@@ -5,10 +5,9 @@ import { TreeNodeFinder } from '#core/services/tree-node-finder';
 
 
 @Component({
-  selector: `app-astrocadre-controls-select-layers`,
+  selector: `ac-controls-select-layers`,
   templateUrl: './selector-layers.component.html',
-  styleUrls: ['../controls/controls.component.css', './selector-layers.component.css'],
-  providers: []
+  styleUrls: ['../controls/controls.component.css', './selector-layers.component.css']
 })
 export class SelectorLayersComponent {
 
