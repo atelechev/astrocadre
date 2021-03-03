@@ -43,6 +43,12 @@
             "selector": "classProperty",
             "modifiers": ["static"],
             "format": ["UPPER_CASE"]
+          },
+          {
+            "selector": "classProperty",
+            "modifiers": ["private"],
+            "format": ["camelCase"],
+            "leadingUnderscore": "require"
           }
         ],
         "max-len": [
@@ -51,7 +57,8 @@
             "code": 160,
             "ignoreUrls": true
           }
-        ]
+        ],
+        "no-underscore-dangle": "off"
       }
     },
     {
