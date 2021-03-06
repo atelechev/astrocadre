@@ -54,6 +54,18 @@ export class SceneService {
     objects.forEach(object => this.removeObject(object));
   }
 
+  /**
+   * Triggers the rendering of the underlying Scene.
+   */
+  public render(): void {
+    // TODO
+    // const animate = () => {
+    //   requestAnimationFrame(animate);
+    //   this._renderer.render(this.scene, this.cameraService.getCamera());
+    // };
+    // animate();
+  }
+
   private addObject(object: Object3D): void {
     if (!this.existsObject(object)) {
       this._scene.add(object);
