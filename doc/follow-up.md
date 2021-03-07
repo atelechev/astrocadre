@@ -149,9 +149,16 @@ To start the app:
 
 * AC-023: Refactor layers and themes loading. Decoupled from controls and improved events handling.
 
+### February, 2021
+
+Started an update and a deep refactoring of the entire project. Three years ago that was my
+first extensive experience with Angular, many things have changed and the initial implementation now seems completely obsolete and very immature!
+
+**All the current code on the `master` branch should now be considered as deprecated.**
+
 ### Next Steps
 
-* AC-024: Export of current view as image
+* AC-024: Export of current view as image - _postponed_
 
 #### New Features to Implement
 

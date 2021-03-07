@@ -3,6 +3,8 @@
 _Astronomy sky charts browsing application_
 
 
+**NB! This project is under updates and refactoring now. The documentation below will change.**
+
 ## Description
 
 This application allows to view sky maps using a Web browser:
@@ -296,15 +298,12 @@ The detailed project history and notes are available in [follow-up documentation
 
 ---
 
-## Version Control and Workflow
+## Workflow
 
 The most recent validated version of the project is available on the `master` branch.
 
-Features/user stories/issues are identified with the pattern `AC-{number}`.
-
-When a feature/user story/issue is finished, a tag must be created, named with the respective identifier.
-
-Development branches should be named `dev-AC-{number}`.
+Development branches should be prefixed with `dev-`. When a feature is implemented on its `dev` branch, a
+pull request should be created in order to review and merge it.
 
 ---
 
