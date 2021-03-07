@@ -6,7 +6,8 @@ import { ThemeService } from 'src/app/modules2/core/services/theme.service';
 
 @Component({
   selector: `ac-controls-select-theme`,
-  templateUrl: './selector-theme.component.html'
+  templateUrl: './selector-theme.component.html',
+  styleUrls: ['../controls-common.css']
 })
 export class SelectorThemeComponent {
 

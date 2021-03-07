@@ -28,3 +28,8 @@
   cursor: pointer;
   text-decoration: underline;
 }
+
+.ac-ui-controls-tools {
+  display: flex;
+  flex-direction: column;
+}

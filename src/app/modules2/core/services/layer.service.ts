@@ -18,6 +18,10 @@ export class LayerService {
     this._allLayers = new Map<string, Layer>();
   }
 
+  public get rootLayer(): Layer {
+    return this._rootLayer;
+  }
+
   public loadLayers(): void {
     this._dataService
       .getLayersTree()
