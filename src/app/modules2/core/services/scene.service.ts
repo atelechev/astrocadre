@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Dimension } from 'src/app/modules2/core/models/dimension';
 import { Theme } from 'src/app/modules2/core/models/theme';
+import { CameraService } from 'src/app/modules2/core/services/camera.service';
 import { EventsService } from 'src/app/modules2/core/services/events.service';
 import { Object3D, Scene, WebGLRenderer } from 'three';
 import { Color } from 'three';
@@ -13,7 +14,8 @@ export class SceneService {
   private readonly _renderer: WebGLRenderer;
 
   constructor(
-    private readonly _eventsService: EventsService
+    private readonly _eventsService: EventsService,
+    private readonly _cameraService: CameraService
   ) {
     this._scene = new Scene();
     this._renderer = new WebGLRenderer();
@@ -58,12 +60,11 @@ export class SceneService {
    * Triggers the rendering of the underlying Scene.
    */
   public render(): void {
-    // TODO
-    // const animate = () => {
-    //   requestAnimationFrame(animate);
-    //   this._renderer.render(this.scene, this.cameraService.getCamera());
-    // };
-    // animate();
+    const animate = () => {
+      requestAnimationFrame(animate);
+      this._renderer.render(this.scene, this._cameraService.camera);
+    };
+    animate();
   }
 
   private addObject(object: Object3D): void {
