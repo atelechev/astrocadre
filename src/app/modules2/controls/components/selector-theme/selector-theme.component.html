@@ -1,0 +1,10 @@
+
+<div class="ac-ui-controls-section">
+  <span>Theme:</span>&nbsp;
+  <select name="theme"
+          (change)="themeSelected($event.target.value)">
+    <option *ngFor="let theme of themes"
+            [value]="theme.code"
+            title="{{theme.description}}">{{ theme.label }}</option>
+  </select>
+</div>
