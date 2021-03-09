@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { Dimension } from 'src/app/modules2/core/models/dimension';
 import { Layer } from 'src/app/modules2/core/models/layer';
+import { RenderableLayer } from 'src/app/modules2/core/models/layers/renderable-layer';
 import { Theme } from 'src/app/modules2/core/models/theme';
 
 @Injectable()
@@ -9,7 +10,9 @@ export class EventsService {
 
   private readonly _themeLoaded: BehaviorSubject<Theme> = new BehaviorSubject<Theme>(undefined);
 
-  private readonly _layerLoaded: BehaviorSubject<Layer> = new BehaviorSubject<Layer>(undefined);
+  private readonly _layerShown: BehaviorSubject<RenderableLayer> = new BehaviorSubject<RenderableLayer>(undefined);
+
+  private readonly _layerHidden: BehaviorSubject<RenderableLayer> = new BehaviorSubject<RenderableLayer>(undefined);
 
   private readonly _viewportSizeChanged: BehaviorSubject<Dimension> = new BehaviorSubject<Dimension>(undefined);
 
@@ -22,12 +25,20 @@ export class EventsService {
     return this._themeLoaded;
   }
 
-  public fireLayerLoaded(layer: Layer): void {
-    this._layerLoaded.next(layer);
+  public fireLayerShown(layer: RenderableLayer): void {
+    this._layerShown.next(layer);
   }
 
-  public get layerLoaded(): Observable<Layer> {
-    return this._layerLoaded;
+  public get layerShown(): Observable<RenderableLayer> {
+    return this._layerShown;
+  }
+
+  public fireLayerHidden(layer: RenderableLayer): void {
+    this._layerHidden.next(layer);
+  }
+
+  public get layerHidden(): Observable<RenderableLayer> {
+    return this._layerHidden;
   }
 
   public fireViewportSizeChanged(size: Dimension) {

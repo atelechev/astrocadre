@@ -1,4 +1,5 @@
 <input type="checkbox"
-      checked="true"
+      (change)="toggleLayerShown()"
+      [checked]="isShown"
       title="{{ layer.description }}"
       name="show_layer_{{layer.code}}">{{ layer.label }}<br>

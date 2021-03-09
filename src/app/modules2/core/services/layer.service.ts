@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Layer } from 'src/app/modules2/core/models/layer';
+import { RenderableLayer } from 'src/app/modules2/core/models/layers/renderable-layer';
 import { EventsService } from 'src/app/modules2/core/services/events.service';
+import { LayersFactoryService } from 'src/app/modules2/core/services/layers-factory.service';
 import { StaticDataService } from 'src/app/modules2/core/services/static-data.service';
 
 @Injectable()
@@ -8,18 +10,40 @@ export class LayerService {
 
   private _rootLayer: Layer;
 
-  private readonly _allLayers: Map<string, Layer>;
+  private readonly _layerModels: Map<string, Layer>;
+
+  private readonly _renderableLayers: Map<string, RenderableLayer>;
+
+  private readonly _shownLayers: Set<string>;
 
   constructor(
     private readonly _dataService: StaticDataService,
-    private readonly _eventsService: EventsService
+    private readonly _eventsService: EventsService,
+    private readonly _layersFactory: LayersFactoryService
   ) {
     this._rootLayer = undefined;
-    this._allLayers = new Map<string, Layer>();
+    this._layerModels = new Map<string, Layer>();
+    this._renderableLayers = new Map<string, RenderableLayer>();
+    this._shownLayers = new Set<string>();
   }
 
   public get rootLayer(): Layer {
     return this._rootLayer;
+  }
+
+  public isShown(layer: string): boolean {
+    return layer && this._shownLayers.has(layer);
+  }
+
+  public toggleLayerShown(layer: string): void {
+    if (!layer) {
+      return;
+    }
+    if (this._shownLayers.has(layer)) {
+      this.hideLayer(layer);
+    } else {
+      this.showLayer(layer);
+    }
   }
 
   public loadLayers(): void {
@@ -34,14 +58,15 @@ export class LayerService {
   }
 
   public getLayer(code: string): Layer {
-    return this._allLayers.get(code);
+    return this._layerModels.get(code);
   }
 
   private processLoadedLayer(layer: Layer): void {
     if (!layer) {
       return;
     }
-    this._allLayers.set(layer.code, layer);
+    this._layerModels.set(layer.code, layer);
+    this.toggleLayerShown(layer.code);
     this.loadLayerObjects(layer);
     layer.subLayers?.forEach(
       (subLayer: Layer) => this.processLoadedLayer(subLayer)
@@ -56,16 +81,34 @@ export class LayerService {
         .then(
           (objs: Array<any>) => {
             layer.objects = objs || [];
-            this.fireLayerLoaded(layer);
+            this.buildRenderable(layer);
           }
         );
     } else {
-      this.fireLayerLoaded(layer);
+      this.buildRenderable(layer);
     }
   }
 
-  private fireLayerLoaded(layer: Layer): void {
-    this._eventsService.fireLayerLoaded(layer);
+  private buildRenderable(layer: Layer): void {
+    const renderable = this._layersFactory.buildRenderableLayer(layer);
+    this._renderableLayers.set(layer.code, renderable);
+    this._eventsService.fireLayerShown(renderable);
+  }
+
+  private showLayer(layer: string): void {
+    this._shownLayers.add(layer);
+    const renderable = this._renderableLayers.get(layer);
+    if (renderable) {
+      this._eventsService.fireLayerShown(renderable);
+    }
+  }
+
+  private hideLayer(layer: string): void {
+    this._shownLayers.delete(layer);
+    const renderable = this._renderableLayers.get(layer);
+    if (renderable) {
+      this._eventsService.fireLayerHidden(renderable);
+    }
   }
 
 }

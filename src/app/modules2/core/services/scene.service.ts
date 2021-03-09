@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Dimension } from 'src/app/modules2/core/models/dimension';
+import { RenderableLayer } from 'src/app/modules2/core/models/layers/renderable-layer';
 import { Theme } from 'src/app/modules2/core/models/theme';
 import { CameraService } from 'src/app/modules2/core/services/camera.service';
 import { EventsService } from 'src/app/modules2/core/services/events.service';
@@ -21,6 +22,8 @@ export class SceneService {
     this._renderer = new WebGLRenderer();
     this.subscribeViewportSizeChange();
     this.subscribeThemeLoaded();
+    this.subscribeLayerShown();
+    this.subscribeLayerHidden();
   }
 
   /**
@@ -53,7 +56,7 @@ export class SceneService {
    * @param objects the objects to remove.
    */
   public removeObjects(objects: Object3D[]): void {
-    objects.forEach(object => this.removeObject(object));
+    objects?.forEach(object => this.removeObject(object));
   }
 
   /**
@@ -103,6 +106,22 @@ export class SceneService {
       .themeLoaded
       .subscribe(
         (theme: Theme) => this.updateSceneBackground(theme)
+      );
+  }
+
+  private subscribeLayerShown(): void {
+    this._eventsService
+      .layerShown
+      .subscribe(
+        (layer: RenderableLayer) => this.addObjects(layer?.objects)
+      );
+  }
+
+  private subscribeLayerHidden(): void {
+    this._eventsService
+      .layerHidden
+      .subscribe(
+        (layer: RenderableLayer) => this.removeObjects(layer?.objects)
       );
   }
 
