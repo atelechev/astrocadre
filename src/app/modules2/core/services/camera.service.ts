@@ -1,12 +1,11 @@
 import { Injectable } from '@angular/core';
+import { WorldConstants } from 'src/app/modules2/core/models/world-constants';
 import { ViewportService } from 'src/app/modules2/core/services/viewport.service';
 import { Object3D, PerspectiveCamera } from 'three';
 
 
 @Injectable()
 export class CameraService {
-
-  private readonly _worldRadius = 2;
 
   private readonly _nearPlane = 0.1;
 
@@ -43,7 +42,7 @@ export class CameraService {
 
   private initCoordsMarker(): Object3D {
     const marker = new Object3D();
-    marker.position.set(0, 0, -(this._worldRadius + 0.1));
+    marker.position.set(0, 0, -(WorldConstants.WORLD_RADIUS + 0.1));
     this._camera.add(marker);
     this._camera.updateMatrixWorld(true);
     return marker;
