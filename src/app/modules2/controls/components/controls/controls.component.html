@@ -10,7 +10,7 @@
   </div>
 
   <div class="ac-ui-controls-tools"
-       [hidden]="!toolsExpanded">
+       *ngIf="toolsExpanded">
     <ac-controls-select-theme></ac-controls-select-theme>
 
     <ac-controls-layers></ac-controls-layers>
