@@ -1,11 +1,23 @@
 import { Injectable } from '@angular/core';
+import { AxialRotation } from 'src/app/modules2/core/models/axial-rotation';
 import { WorldConstants } from 'src/app/modules2/core/models/world-constants';
 import { ViewportService } from 'src/app/modules2/core/services/viewport.service';
-import { Object3D, PerspectiveCamera } from 'three';
+import { Object3D, PerspectiveCamera, Vector3 } from 'three';
 
 
 @Injectable()
 export class CameraService {
+
+  /**
+   * The coordinate of the North pole in the 3D world.
+   */
+  private readonly _north = new Vector3(0, 0, WorldConstants.WORLD_RADIUS);
+
+  /**
+   * The coordinate of the South pole in the 3D world.
+   */
+  private readonly _south = new Vector3(0, 0, -WorldConstants.WORLD_RADIUS);
+
 
   private readonly _nearPlane = 0.1;
 
@@ -26,6 +38,34 @@ export class CameraService {
 
   public get camera(): PerspectiveCamera {
     return this._camera;
+  }
+
+  public rotate(rotation: AxialRotation): void {
+    this.camera.rotateX(rotation.rx);
+    this.camera.rotateY(rotation.ry);
+    this.camera.rotateZ(rotation.rz);
+    // this.viewportService.viewportChanged(); // TODO enable
+  }
+
+  public alignNSAxis(): void {
+    const viewCenter = this.getViewCenterCoordinates();
+    this.camera.up = this.getAlignmentPoleCoordinate(viewCenter.z);
+    this.camera.lookAt(viewCenter);
+    // this.viewportService.viewportChanged(); // TODO enable
+  }
+
+  private getViewCenterCoordinates(): Vector3 {
+    const viewCenter = new Vector3();
+    this._coordsMarker.updateMatrixWorld(true);
+    viewCenter.setFromMatrixPosition(this._coordsMarker.matrixWorld);
+    return viewCenter;
+  }
+
+  private getAlignmentPoleCoordinate(declination: number): Vector3 {
+    if (declination < 0) {
+      return this._south;
+    }
+    return this._north;
   }
 
   private initializeCamera(): PerspectiveCamera {

@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { Dimension } from 'src/app/modules2/core/models/dimension';
-import { Layer } from 'src/app/modules2/core/models/layer';
 import { RenderableLayer } from 'src/app/modules2/core/models/layers/renderable-layer';
 import { Theme } from 'src/app/modules2/core/models/theme';
 
