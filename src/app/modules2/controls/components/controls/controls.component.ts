@@ -18,7 +18,7 @@ export class ControlsComponent {
   }
 
   public get toggleToolsLabel(): string {
-    return this._toolsExpanded ? 'hide' : 'show';
+    return this._toolsExpanded ? '\u25B2' : '\u25BC';
   }
 
   public get toolsExpanded(): boolean {

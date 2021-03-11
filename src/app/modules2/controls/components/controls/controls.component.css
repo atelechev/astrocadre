@@ -26,7 +26,8 @@
 
 .ac-ui-controls-toggle {
   cursor: pointer;
-  text-decoration: underline;
+  text-decoration: none;
+  margin-right: 4px;
 }
 
 .ac-ui-controls-tools {
