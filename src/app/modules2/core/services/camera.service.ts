@@ -54,6 +54,12 @@ export class CameraService {
     // this.viewportService.viewportChanged(); // TODO enable
   }
 
+  public setFoV(range: number): void {
+    this.camera.fov = range;
+    this.camera.updateProjectionMatrix();
+    // this.viewportService.viewportChanged(); // TODO enable
+  }
+
   private getViewCenterCoordinates(): Vector3 {
     const viewCenter = new Vector3();
     this._coordsMarker.updateMatrixWorld(true);
