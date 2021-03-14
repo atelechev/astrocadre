@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { SupportedLayers } from 'src/app/modules2/core/models/supported-layers';
 import { ThemeService } from 'src/app/modules2/core/services/theme.service';
 import { LineBasicMaterial, Material } from 'three';
 
@@ -12,8 +13,8 @@ export class MaterialsService {
 
   public getMaterialsForLayer(code: string): Map<string, Material> {
     switch (code) {
-      case 'sky-grid': return this.buildSkyGridMaterials();
-      case 'constellation-boundaries': return this.buildConstellationBoundariesMaterials();
+      case SupportedLayers.SKY_GRID: return this.buildSkyGridMaterials();
+      case SupportedLayers.CONSTELLATION_BOUNDARIES: return this.buildConstellationBoundariesMaterials();
       default: throw new Error(`Unsupported layer: ${code}`);
     }
   }
