@@ -1,0 +1,14 @@
+.ac-ui-controls-section {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.ac-resize-input {
+  width: 60px;
+}
+
+.ac-resize-button {
+  height: 30px;
+}

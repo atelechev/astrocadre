@@ -1,0 +1,23 @@
+<div class="ac-ui-controls-section">
+  <input type="number"
+          #viewportWidthInput
+          placeholder="width"
+          title="The width of the viewport, in pixels"
+          class="ac-resize-input"
+          [value]="width"
+          min="100"
+          max="4000"
+          step="100"/>
+  <input type="number"
+          #viewportHeightInput
+          placeholder="height"
+          title="The height of the viewport, in pixels"
+          class="ac-resize-input"
+          [value]="height"
+          min="100"
+          max="2000"
+          step="100"/>
+  <button type="button"
+          class="ac-resize-button"
+          (click)="resizeViewport()">Resize</button>
+</div>
