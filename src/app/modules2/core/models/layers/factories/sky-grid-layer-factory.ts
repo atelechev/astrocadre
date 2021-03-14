@@ -15,14 +15,13 @@ export class SkyGridLayerFactory implements LayerFactory {
 
   private readonly _absMaxMeridianLineDeclination = 89;
 
-  private readonly _curvesFactory: AxialCurvesFactory;
-
   constructor(
     private readonly _layerModel: Layer,
     private readonly _materialsService: MaterialsService,
-    private readonly _eventsService: EventsService
+    private readonly _eventsService: EventsService,
+    private readonly _curvesFactory: AxialCurvesFactory
   ) {
-    this._curvesFactory = new AxialCurvesFactory();
+
   }
 
   public buildRenderableLayer(): SkyGrid {

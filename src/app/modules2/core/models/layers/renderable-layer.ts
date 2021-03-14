@@ -17,7 +17,6 @@ export abstract class RenderableLayer {
     private readonly _eventsService: EventsService
   ) {
     this._textShown = true;
-    this.subscribeThemeLoaded();
   }
 
   /**
@@ -111,7 +110,7 @@ export abstract class RenderableLayer {
     return this._eventsService;
   }
 
-  private subscribeThemeLoaded(): void {
+  protected subscribeThemeLoaded(): void {
     this.eventsService
       .themeLoaded
       .subscribe(

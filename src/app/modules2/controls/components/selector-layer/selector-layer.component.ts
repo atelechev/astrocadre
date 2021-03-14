@@ -5,7 +5,8 @@ import { LayerService } from 'src/app/modules2/core/services/layer.service';
 
 @Component({
   selector: 'ac-controls-select-layer',
-  templateUrl: './selector-layer.component.html'
+  templateUrl: './selector-layer.component.html',
+  styleUrls: ['./selector-layer.component.css']
 })
 export class SelectorLayerComponent {
 
@@ -30,6 +31,10 @@ export class SelectorLayerComponent {
 
   public toggleLayerShown(): void {
     this._layerService.toggleLayerShown(this._layer.code);
+  }
+
+  public get subLayers(): Array<Layer> {
+    return this._layer?.subLayers || [];
   }
 
 }
