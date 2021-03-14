@@ -66,7 +66,7 @@ export class LayerService {
       return;
     }
     this._layerModels.set(layer.code, layer);
-    this.toggleLayerShown(layer.code);
+    this.showLayer(layer.code);
     this.loadLayerObjects(layer);
     layer.subLayers?.forEach(
       (subLayer: Layer) => this.processLoadedLayer(subLayer)
@@ -101,6 +101,7 @@ export class LayerService {
     if (renderable) {
       this._eventsService.fireLayerShown(renderable);
     }
+    this.processSubLayersVisibility(layer, true);
   }
 
   private hideLayer(layer: string): void {
@@ -108,6 +109,23 @@ export class LayerService {
     const renderable = this._renderableLayers.get(layer);
     if (renderable) {
       this._eventsService.fireLayerHidden(renderable);
+    }
+    this.processSubLayersVisibility(layer, false);
+  }
+
+  private processSubLayersVisibility(layer: string, visible: boolean): void {
+    const model = this._layerModels.get(layer);
+    if (model?.subLayers) {
+      model.subLayers
+        .forEach(
+          (subLayer: Layer) => {
+            if (visible) {
+              this.showLayer(subLayer.code);
+            } else {
+              this.hideLayer(subLayer.code);
+            }
+          }
+        );
     }
   }
 

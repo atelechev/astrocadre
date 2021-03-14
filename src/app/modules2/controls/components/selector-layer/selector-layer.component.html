@@ -1,5 +1,8 @@
 <input type="checkbox"
       (change)="toggleLayerShown()"
       [checked]="isShown"
-      title="{{ layer.description }}"
-      name="show_layer_{{layer.code}}">{{ layer.label }}<br>
+      title="{{ layer.description }}">{{ layer.label }}<br>
+<div class="ac-ui-controls-sublayers">
+  <ac-controls-select-layer *ngFor="let subLayer of subLayers"
+    [layer]="subLayer"></ac-controls-select-layer>
+</div>
