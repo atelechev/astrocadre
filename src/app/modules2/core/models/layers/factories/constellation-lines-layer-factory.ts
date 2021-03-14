@@ -1,5 +1,5 @@
 import { Layer } from 'src/app/modules2/core/models/layer';
-import { ConstellationBoundaries } from 'src/app/modules2/core/models/layers/constellation-boundaries';
+import { ConstellationLines } from 'src/app/modules2/core/models/layers/constellation-lines';
 import { AxialCurvesFactory } from 'src/app/modules2/core/models/layers/factories/axial-curves-factory';
 import { LayerFactory } from 'src/app/modules2/core/models/layers/factories/layer-factory';
 import { SupportedLayers } from 'src/app/modules2/core/models/supported-layers';
@@ -7,7 +7,7 @@ import { EventsService } from 'src/app/modules2/core/services/events.service';
 import { MaterialsService } from 'src/app/modules2/core/services/materials.service';
 
 
-export class ConstellationBoundariesLayerFactory implements LayerFactory {
+export class ConstellationLinesLayerFactory implements LayerFactory {
 
   constructor(
     private readonly _layerModel: Layer,
@@ -18,17 +18,17 @@ export class ConstellationBoundariesLayerFactory implements LayerFactory {
 
   }
 
-  public buildRenderableLayer(): ConstellationBoundaries {
-    const boundaries = this._curvesFactory
+  public buildRenderableLayer(): ConstellationLines {
+    const lines = this._curvesFactory
       .createObject3D(
-        SupportedLayers.CONSTELLATION_BOUNDARIES,
+        SupportedLayers.CONSTELLATION_LINES,
         this._layerModel.objects
       );
-    return new ConstellationBoundaries(
+    return new ConstellationLines(
       this._layerModel,
       this._materialsService,
       this._eventsService,
-      boundaries
+      lines
     );
   }
 

@@ -15,6 +15,7 @@ export class MaterialsService {
     switch (code) {
       case SupportedLayers.SKY_GRID: return this.buildSkyGridMaterials();
       case SupportedLayers.CONSTELLATION_BOUNDARIES: return this.buildConstellationBoundariesMaterials();
+      case SupportedLayers.CONSTELLATION_LINES: return this.buildConstellationLinesMaterials();
       default: throw new Error(`Unsupported layer: ${code}`);
     }
   }
@@ -33,6 +34,13 @@ export class MaterialsService {
     const materials = new Map<string, Material>();
     const theme = this._themeService.theme;
     materials.set('line-common', new LineBasicMaterial({ color: theme.constellation.boundaries.line.common }));
+    return materials;
+  }
+
+  private buildConstellationLinesMaterials(): Map<string, Material> {
+    const materials = new Map<string, Material>();
+    const theme = this._themeService.theme;
+    materials.set('line-common', new LineBasicMaterial({ color: theme.constellation.lines.line.common }));
     return materials;
   }
 

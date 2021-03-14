@@ -66,7 +66,7 @@ export class AxialCurvesFactory extends Object3DFactory<LineSegments> {
       const dirMultipl = this.getDirectionMultiplier(decl0, decl1);
       return this.calculateAxisPointsBetween(decl0, decl1, ra0, dirMultipl, toVectorFunct);
     }
-    console.warn(`Skipping intermediate points for unexpected segment: ${segment}`);
+    // console.warn(`Skipping intermediate points for unexpected segment: ${segment}`); // TODO is it necessary?
     return [];
   }
 

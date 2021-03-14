@@ -1,3 +1,4 @@
+import { SupportedLayers } from 'src/app/modules2/core/models/supported-layers';
 import { WorldConstants } from 'src/app/modules2/core/models/world-constants';
 import { BufferGeometry } from 'three';
 import { Object3D, Vector3 } from 'three';
@@ -26,9 +27,9 @@ export abstract class Object3DFactory<T extends Object3D> {
 
   private getLayerRadiusOffset(layer: string): number {
     switch (layer) {
-      case 'stars': return 0.04;
-      case 'constellation-lines': return 0.02;
-      case 'constellation-boundaries': return 0.01;
+      case SupportedLayers.STARS: return 0.04;
+      case SupportedLayers.CONSTELLATION_LINES: return 0.02;
+      case SupportedLayers.CONSTELLATION_BOUNDARIES: return 0.01;
       default: return 0;
     }
   }
