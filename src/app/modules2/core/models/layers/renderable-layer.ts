@@ -1,4 +1,5 @@
 import { Layer } from 'src/app/modules2/core/models/layer';
+import { RenderableText } from 'src/app/modules2/core/models/layers/renderable-text';
 import { Theme } from 'src/app/modules2/core/models/theme';
 import { EventsService } from 'src/app/modules2/core/services/events.service';
 import { MaterialsService } from 'src/app/modules2/core/services/materials.service';
@@ -9,30 +10,12 @@ import { Object3D } from 'three';
  */
 export abstract class RenderableLayer {
 
-  private _textShown: boolean;
-
   constructor(
     private readonly _model: Layer,
     private readonly _materialsService: MaterialsService,
     private readonly _eventsService: EventsService
   ) {
-    this._textShown = true;
-  }
 
-  /**
-   * Returns true if the text/labels associated with this layer should be shown.
-   */
-  public get isTextShown(): boolean {
-    return this._textShown;
-  }
-
-  /**
-   * Sets the visibility of text/labels assiciated with this layer.
-   *
-   * @param show true to show the labels.
-   */
-  public set textShown(show: boolean) {
-    this._textShown = show;
   }
 
   /**
@@ -48,6 +31,13 @@ export abstract class RenderableLayer {
    * Returns the array of Three.Object3D that should be rendered in the view for this layer.
    */
   public get objects(): Array<Object3D> {
+    return [];
+  }
+
+  /**
+   * Returns the array of RenderableTexts to show for this layer.
+   */
+  public get texts(): Array<RenderableText> {
     return [];
   }
 
@@ -84,13 +74,6 @@ export abstract class RenderableLayer {
    */
   public isChildOf(other: RenderableLayer): boolean {
     return other && other.isParentOf(this);
-  }
-
-  /**
-   * Returns the array of HTMLElements with text contents to show for this layer.
-   */
-  public getTextElements(): Array<HTMLElement> {
-    return [];
   }
 
   /**

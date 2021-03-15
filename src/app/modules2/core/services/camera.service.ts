@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AxialRotation } from 'src/app/modules2/core/models/axial-rotation';
 import { WorldConstants } from 'src/app/modules2/core/models/world-constants';
+import { EventsService } from 'src/app/modules2/core/services/events.service';
 import { ViewportService } from 'src/app/modules2/core/services/viewport.service';
 import { Object3D, PerspectiveCamera, Vector3 } from 'three';
 
@@ -30,6 +31,7 @@ export class CameraService {
   private readonly _camera: PerspectiveCamera;
 
   constructor(
+    private readonly _eventsService: EventsService,
     private readonly _viewportService: ViewportService
   ) {
     this._camera = this.initializeCamera();
@@ -44,20 +46,20 @@ export class CameraService {
     this.camera.rotateX(rotation.rx);
     this.camera.rotateY(rotation.ry);
     this.camera.rotateZ(rotation.rz);
-    // this.viewportService.viewportChanged(); // TODO enable
+    this._eventsService.fireViewportChanged();
   }
 
   public alignNSAxis(): void {
     const viewCenter = this.getViewCenterCoordinates();
     this.camera.up = this.getAlignmentPoleCoordinate(viewCenter.z);
     this.camera.lookAt(viewCenter);
-    // this.viewportService.viewportChanged(); // TODO enable
+    this._eventsService.fireViewportChanged();
   }
 
   public setFoV(range: number): void {
     this.camera.fov = range;
     this.camera.updateProjectionMatrix();
-    // this.viewportService.viewportChanged(); // TODO enable
+    this._eventsService.fireViewportChanged();
   }
 
   private getViewCenterCoordinates(): Vector3 {

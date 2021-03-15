@@ -48,7 +48,7 @@ export class ViewportService {
     this._height = this.isSizeInRange(size?.height) ? Math.floor(size.height) : this._defaultHeight;
     this._width = this.isSizeInRange(size?.width) ? Math.floor(size.width) : this._defaultWidth;
     if (this._height !== previousHeight || this._width !== previousWidth) {
-      this._eventsService.fireViewportSizeChanged(this.size);
+      this._eventsService.fireViewportChanged(this.size);
     }
   }
 

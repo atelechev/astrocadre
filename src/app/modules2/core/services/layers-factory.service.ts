@@ -3,6 +3,7 @@ import { Layer } from 'src/app/modules2/core/models/layer';
 import { AxialCurvesFactory } from 'src/app/modules2/core/models/layers/factories/axial-curves-factory';
 import { ConstellationBoundariesLayerFactory } from 'src/app/modules2/core/models/layers/factories/constellation-boundaries-layer-factory';
 import { ConstellationLinesLayerFactory } from 'src/app/modules2/core/models/layers/factories/constellation-lines-layer-factory';
+import { ConstellationNamesLayerFactory } from 'src/app/modules2/core/models/layers/factories/constellation-names-layer-factory';
 import { LayerFactory } from 'src/app/modules2/core/models/layers/factories/layer-factory';
 import { SkyGridLayerFactory } from 'src/app/modules2/core/models/layers/factories/sky-grid-layer-factory';
 import { RenderableLayer } from 'src/app/modules2/core/models/layers/renderable-layer';
@@ -51,6 +52,13 @@ export class LayersFactoryService {
           this._eventsService,
           this._curvesFactory
         );
+      case SupportedLayers.CONSTELLATION_NAMES: {
+        return new ConstellationNamesLayerFactory(
+          layer,
+          this._materialsService,
+          this._eventsService
+        );
+      }
       // default: throw new Error(`Unsupported layer: ${layer.code}`); // FIXME enable
       default: return undefined;
     }

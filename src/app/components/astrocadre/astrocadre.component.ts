@@ -38,9 +38,9 @@ export class AstrocadreComponent implements OnInit, AfterViewInit {
   }
 
   public ngAfterViewInit(): void {
-    this.appendCanvas();
-    this._sceneService.render();
-    this._mouseEventsHandler.initMouseListenersOn(this._astrocadreViewport.nativeElement);
+    const viewportRoot = this._astrocadreViewport.nativeElement as HTMLDivElement;
+    this._sceneService.viewportRootElement = viewportRoot;
+    this._mouseEventsHandler.initMouseListenersOn(viewportRoot);
   }
 
   public get viewportHeight(): string {
@@ -49,11 +49,6 @@ export class AstrocadreComponent implements OnInit, AfterViewInit {
 
   public get viewportWidth(): string {
     return `${this._viewportService.width}px`;
-  }
-
-  private appendCanvas(): void {
-    const canvas = this._sceneService.domElement;
-    this._astrocadreViewport.nativeElement.appendChild(canvas);
   }
 
 }
