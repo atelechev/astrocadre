@@ -6,6 +6,7 @@ import { LayersFactoryService } from 'src/app/modules2/core/services/layers-fact
 import { MaterialsService } from 'src/app/modules2/core/services/materials.service';
 import { MouseEventsHandler } from 'src/app/modules2/core/services/mouse-events-handler';
 import { SceneService } from 'src/app/modules2/core/services/scene.service';
+import { SearchService } from 'src/app/modules2/core/services/search.service';
 import { StaticDataService } from 'src/app/modules2/core/services/static-data.service';
 import { ThemeService } from 'src/app/modules2/core/services/theme.service';
 import { ViewportService } from 'src/app/modules2/core/services/viewport.service';
@@ -19,6 +20,7 @@ import { ViewportService } from 'src/app/modules2/core/services/viewport.service
     MaterialsService,
     MouseEventsHandler,
     SceneService,
+    SearchService,
     StaticDataService,
     ThemeService,
     ViewportService
