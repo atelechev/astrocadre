@@ -151,6 +151,8 @@ To start the app:
 
 ### February, 2021
 
+* AC-024: Complete refactoring and update of the whole project.
+
 Started an update and a deep refactoring of the entire project. Three years ago that was my
 first extensive experience with Angular, many things have changed and the initial implementation now seems completely obsolete and very immature!
 
@@ -158,7 +160,7 @@ first extensive experience with Angular, many things have changed and the initia
 
 ### Next Steps
 
-* AC-024: Export of current view as image - _postponed_
+* AC-???: Export of current view as image - _postponed_
 
 #### New Features to Implement
 
