@@ -91,8 +91,10 @@ export class LayerService {
 
   private buildRenderable(layer: Layer): void {
     const renderable = this._layersFactory.buildRenderableLayer(layer);
-    this._renderableLayers.set(layer.code, renderable);
-    this._eventsService.fireLayerShown(renderable);
+    if (renderable) {
+      this._renderableLayers.set(layer.code, renderable);
+      this._eventsService.fireLayerShown(renderable);
+    }
   }
 
   private showLayer(layer: string): void {

@@ -5,7 +5,9 @@ import { ConstellationBoundariesLayerFactory } from 'src/app/modules2/core/model
 import { ConstellationLinesLayerFactory } from 'src/app/modules2/core/models/layers/factories/constellation-lines-layer-factory';
 import { ConstellationNamesLayerFactory } from 'src/app/modules2/core/models/layers/factories/constellation-names-layer-factory';
 import { LayerFactory } from 'src/app/modules2/core/models/layers/factories/layer-factory';
+import { PointsFactory } from 'src/app/modules2/core/models/layers/factories/points-factory';
 import { SkyGridLayerFactory } from 'src/app/modules2/core/models/layers/factories/sky-grid-layer-factory';
+import { StarsLayerFactory } from 'src/app/modules2/core/models/layers/factories/stars-layer-factory';
 import { RenderableLayer } from 'src/app/modules2/core/models/layers/renderable-layer';
 import { SupportedLayers } from 'src/app/modules2/core/models/supported-layers';
 import { EventsService } from 'src/app/modules2/core/services/events.service';
@@ -17,20 +19,24 @@ export class LayersFactoryService {
 
   private readonly _curvesFactory: AxialCurvesFactory;
 
+  private readonly _pointsFactory: PointsFactory;
+
   constructor(
     private readonly _materialsService: MaterialsService,
     private readonly _eventsService: EventsService
   ) {
     this._curvesFactory = new AxialCurvesFactory();
+    this._pointsFactory = new PointsFactory();
   }
 
   public buildRenderableLayer(layer: Layer): RenderableLayer {
     const factory = this.getLayerFactory(layer);
-    return factory?.buildRenderableLayer(); // FIXME '?.'
+    return factory?.buildRenderableLayer();
   }
 
   private getLayerFactory(layer: Layer): LayerFactory {
-    switch (layer.code) {
+    const useCode = this.calculateTargetLayerCode(layer.code);
+    switch (useCode) {
       case SupportedLayers.SKY_GRID:
         return new SkyGridLayerFactory(
           layer,
@@ -58,10 +64,22 @@ export class LayersFactoryService {
           this._materialsService,
           this._eventsService
         );
+      };
+      case SupportedLayers.STARS: {
+        return new StarsLayerFactory(
+          layer,
+          this._materialsService,
+          this._eventsService,
+          this._pointsFactory
+        );
       }
-      // default: throw new Error(`Unsupported layer: ${layer.code}`); // FIXME enable
       default: return undefined;
     }
+  }
+
+  private calculateTargetLayerCode(fromCode: string): string {
+    const isStarsMagnitudeLayer = fromCode.startsWith(StarsLayerFactory.STARS_LAYER_CODE_PREFIX);
+    return isStarsMagnitudeLayer ? SupportedLayers.STARS : fromCode;
   }
 
 }

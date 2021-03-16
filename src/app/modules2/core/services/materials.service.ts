@@ -2,14 +2,22 @@ import { Injectable } from '@angular/core';
 import { SupportedLayers } from 'src/app/modules2/core/models/supported-layers';
 import { TextStyle } from 'src/app/modules2/core/models/text-style';
 import { ThemeService } from 'src/app/modules2/core/services/theme.service';
-import { LineBasicMaterial, Material } from 'three';
+import {
+  LineBasicMaterial,
+  Material,
+  PointsMaterial,
+  TextureLoader
+  } from 'three';
+import { environment } from '#environments/environment';
 
 
 @Injectable()
 export class MaterialsService {
 
-  constructor(private readonly _themeService: ThemeService) {
+  private readonly _textureLoader: TextureLoader;
 
+  constructor(private readonly _themeService: ThemeService) {
+    this._textureLoader = new TextureLoader();
   }
 
   public getMaterialsForLayer(code: string): Map<string, Material> {
@@ -17,6 +25,7 @@ export class MaterialsService {
       case SupportedLayers.SKY_GRID: return this.buildSkyGridMaterials();
       case SupportedLayers.CONSTELLATION_BOUNDARIES: return this.buildConstellationBoundariesMaterials();
       case SupportedLayers.CONSTELLATION_LINES: return this.buildConstellationLinesMaterials();
+      case SupportedLayers.STARS: return this.buildStarsMaterials();
       default: throw new Error(`Unsupported layer: ${code}`);
     }
   }
@@ -63,6 +72,35 @@ export class MaterialsService {
       styles.set('labels', theme.constellation.names);
     }
     return styles;
+  }
+
+  private buildStarsMaterials(): Map<string, Material> {
+    const materials = new Map<string, Material>();
+    const theme = this._themeService.theme;
+    const sizeMultiplier = theme.stars.texture.sizeMultiplier;
+    const textureFile = environment.pathInContext(theme.stars.texture.image);
+    theme.stars.magnitudes.forEach(magClass => {
+      const materialKey = 'star-' + magClass.toFixed(1);
+      const material = this.getMaterialForMagnitudeClass(magClass, textureFile, sizeMultiplier);
+      materials.set(materialKey, material);
+    });
+    return materials;
+  }
+
+  private getMaterialForMagnitudeClass(
+    magClass: number,
+    textureFile: string,
+    sizeMultiplier: number,
+  ): Material {
+    const dotSize = (6.5 - magClass) * sizeMultiplier;
+    return new PointsMaterial({
+      size: dotSize,
+      sizeAttenuation: false,
+      transparent: true,
+      opacity: 0.95,
+      alphaTest: 0.05,
+      map: this._textureLoader.load(textureFile)
+    });
   }
 
 }

@@ -1,4 +1,3 @@
-import { SupportedLayers } from 'src/app/modules2/core/models/supported-layers';
 import { WorldConstants } from 'src/app/modules2/core/models/world-constants';
 import { BufferGeometry } from 'three';
 import { Object3D, Vector3 } from 'three';
