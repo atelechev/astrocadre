@@ -51,7 +51,9 @@ export class SceneService {
     this.subscribeViewportChange();
     this.subscribeThemeLoaded();
     this.subscribeLayerShown();
+    this.subscribeTextsShown();
     this.subscribeLayerHidden();
+    this.subscribeTextsHidden();
   }
 
   /**
@@ -172,10 +174,26 @@ export class SceneService {
       .subscribe(
         (layer: RenderableLayer) => {
           this.addObjects(layer?.objects);
-          this.addTextElements(layer?.texts);
-          this.showVisibleLabels();
+          this.showTexts(layer?.texts);
         }
       );
+  }
+
+  private subscribeTextsShown(): void {
+    this._eventsService
+      .textsShown
+      .subscribe(
+        (layer: RenderableLayer) => {
+          this.showTexts(layer?.texts);
+        }
+      );
+  }
+
+  private showTexts(texts: Array<RenderableText>): void {
+    if (texts) {
+      this.addTextElements(texts);
+      this.showVisibleLabels();
+    }
   }
 
   private subscribeLayerHidden(): void {
@@ -184,10 +202,26 @@ export class SceneService {
       .subscribe(
         (layer: RenderableLayer) => {
           this.removeObjects(layer?.objects);
-          this.removeTextElements(layer?.texts);
-          this.showVisibleLabels();
+          this.hideTexts(layer?.texts);
         }
       );
+  }
+
+  private subscribeTextsHidden(): void {
+    this._eventsService
+      .textsHidden
+      .subscribe(
+        (layer: RenderableLayer) => {
+          this.hideTexts(layer?.texts);
+        }
+      );
+  }
+
+  private hideTexts(texts: Array<RenderableText>): void {
+    if (texts) {
+      this.removeTextElements(texts);
+      this.showVisibleLabels();
+    }
   }
 
   private updateSceneBackground(theme: Theme): void {

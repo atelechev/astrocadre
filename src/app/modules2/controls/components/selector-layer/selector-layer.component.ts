@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { Layer } from 'src/app/modules2/core/models/layer';
+import { SupportedLayers } from 'src/app/modules2/core/models/supported-layers';
 import { LayerService } from 'src/app/modules2/core/services/layer.service';
 
 
@@ -35,6 +36,10 @@ export class SelectorLayerComponent {
 
   public get subLayers(): Array<Layer> {
     return this._layer?.subLayers || [];
+  }
+
+  public get isStarsLayer(): boolean {
+    return this._layer?.code === SupportedLayers.STARS;
   }
 
 }

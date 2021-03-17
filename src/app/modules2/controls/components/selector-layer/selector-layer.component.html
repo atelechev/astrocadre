@@ -5,4 +5,9 @@
 <div class="ac-ui-controls-sublayers">
   <ac-controls-select-layer *ngFor="let subLayer of subLayers"
     [layer]="subLayer"></ac-controls-select-layer>
+
+  <div *ngIf="isStarsLayer">
+    <ac-controls-select-star-names></ac-controls-select-star-names>
+  </div>
+
 </div>

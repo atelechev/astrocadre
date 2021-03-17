@@ -10,12 +10,14 @@ import { Object3D } from 'three';
  */
 export abstract class RenderableLayer {
 
+  private _textsShown: boolean;
+
   constructor(
     private readonly _model: Layer,
     private readonly _materialsService: MaterialsService,
     private readonly _eventsService: EventsService
   ) {
-
+    this._textsShown = true;
   }
 
   /**
@@ -39,6 +41,18 @@ export abstract class RenderableLayer {
    */
   public get texts(): Array<RenderableText> {
     return [];
+  }
+
+  public get areTextsShown(): boolean {
+    return this._textsShown;
+  }
+
+  public showTexts(): void {
+    this._textsShown = true;
+  }
+
+  public hideTexts(): void {
+    this._textsShown = false;
   }
 
   /**

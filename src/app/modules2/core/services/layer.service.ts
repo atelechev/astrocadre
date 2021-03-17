@@ -61,6 +61,10 @@ export class LayerService {
     return this._layerModels.get(code);
   }
 
+  public getRenderableLayer(code: string): RenderableLayer {
+    return this._renderableLayers.get(code);
+  }
+
   private processLoadedLayer(layer: Layer): void {
     if (!layer) {
       return;

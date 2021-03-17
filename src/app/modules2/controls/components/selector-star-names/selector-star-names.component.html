@@ -1,0 +1,7 @@
+<input type="checkbox"
+      [disabled]="isDisabled"
+      (change)="toggleNamesShown(inputShowStarNames.checked)"
+      [checked]="areNamesShown"
+      title="Show the names of the stars"
+      #inputShowStarNames>Names<br>
+
