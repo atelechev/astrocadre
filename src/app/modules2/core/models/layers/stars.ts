@@ -9,24 +9,43 @@ import { Object3D, Points } from 'three';
 
 export class Stars extends RenderableLayer {
 
+  private readonly _properNames: Array<RenderableText>;
+
+  private readonly _standardNames: Array<RenderableText>;
+
+  private _properNamesShown: boolean;
+
   constructor(
     model: Layer,
     materialsService: MaterialsService,
     eventsService: EventsService,
     private readonly _magClass: number,
     private readonly _stars: Points,
-    private readonly _properNameLabels: Map<string, RenderableText>,
+    private readonly _properNameLabels: Map<string, RenderableText>, // TODO it should be ok to use Array<RenderableText>
     private readonly _standardNameLabels: Map<string, RenderableText>
   ) {
     super(model, materialsService, eventsService);
+    this._properNames = Array.from(this._properNameLabels.values());
+    this._standardNames = Array.from(this._standardNameLabels.values());
     this.subscribeThemeLoaded();
+    this.showStandardNames();
   }
 
   public get objects(): Array<Object3D> {
     return [this._stars];
   }
 
-  // TODO texts
+  public get texts(): Array<RenderableText> {
+    return this._properNamesShown ? this._properNames : this._standardNames;
+  }
+
+  public showProperNames(): void {
+    this._properNamesShown = true;
+  }
+
+  public showStandardNames(): void {
+    this._properNamesShown = false;
+  }
 
   protected applyTheme(): void {
     this.useThemeForObjects();
@@ -45,13 +64,12 @@ export class Stars extends RenderableLayer {
   }
 
   private useThemeForLabels(): void {
-    // TODO
-    // const styles = this.materialsService.getTextStyleForLayer(SupportedLayers.STARS);
-    // [this._properNameLabels, this._standardNameLabels].forEach(
-    //   (labels: Map<string, RenderableText>) => labels.forEach(
-    //     (renderable: RenderableText, _: string) => renderable.applyStyles(styles)
-    //   )
-    // );
+    const styles = this.materialsService.getTextStyleForLayer(SupportedLayers.STARS);
+    [this._properNames, this._standardNames].forEach(
+      (labels: Array<RenderableText>) => labels.forEach(
+        (renderable: RenderableText) => renderable.applyStyles(styles)
+      )
+    );
   }
 
 }

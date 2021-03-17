@@ -33,6 +33,7 @@ export class MaterialsService {
   public getTextStyleForLayer(code: string): Map<string, TextStyle> {
     switch (code) {
       case SupportedLayers.CONSTELLATION_NAMES: return this.buildConstellationNamesStyles();
+      case SupportedLayers.STARS: return this.buildStarsStyles();
       default: throw new Error(`Unsupported layer: ${code}`);
     }
   }
@@ -101,6 +102,16 @@ export class MaterialsService {
       alphaTest: 0.05,
       map: this._textureLoader.load(textureFile)
     });
+  }
+
+  private buildStarsStyles(): Map<string, TextStyle> {
+    const styles = new Map<string, TextStyle>();
+    const theme = this._themeService.theme;
+    if (theme) {
+      styles.set('names-proper', theme.stars.names.proper);
+      styles.set('names-standard', theme.stars.names.standard);
+    }
+    return styles;
   }
 
 }
