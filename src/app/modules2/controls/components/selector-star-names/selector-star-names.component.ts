@@ -7,10 +7,14 @@ import { LayerService } from 'src/app/modules2/core/services/layer.service';
 
 @Component({
   selector: 'ac-controls-select-star-names',
-  templateUrl: './selector-star-names.component.html'
+  templateUrl: './selector-star-names.component.html',
+  styleUrls: [
+    './selector-star-names.component.css'
+  ]
 })
 export class SelectorStarNamesComponent {
 
+  private _pr = true;
 
   constructor(
     private readonly _layerService: LayerService,
@@ -23,21 +27,30 @@ export class SelectorStarNamesComponent {
     return this._layerService.getRenderableLayer(SupportedLayers.STARS);
   }
 
-  public get areNamesShown(): boolean {
-    return this.renderableLayer.areTextsShown;
-  }
-
   public get isDisabled(): boolean {
     return !this._layerService.isShown(SupportedLayers.STARS);
   }
 
-  public toggleNamesShown(value: boolean): void {
+  public get namesShown(): boolean {
+    return this.renderableLayer.areTextsShown;
+  }
+
+  public set namesShown(shown: boolean) {
     const renderable = this.renderableLayer;
-    if (value) {
+    if (shown) {
       this.showTexts(renderable);
     } else {
       this.hideTexts(renderable);
     }
+  }
+
+  public get useProperNames(): boolean {
+    return this._pr;
+  }
+
+  public set useProperNames(use: boolean) {
+    console.log(use);
+    this._pr = use;
   }
 
   private showTexts(layer: RenderableLayer): void {

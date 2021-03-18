@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { CameraControlsComponent } from 'src/app/modules2/controls/components/camera-controls/camera-controls.component';
 import { ControlsComponent } from 'src/app/modules2/controls/components/controls/controls.component';
@@ -10,7 +11,8 @@ import { SelectorThemeComponent } from 'src/app/modules2/controls/components/sel
 
 @NgModule({
   imports: [
-    BrowserModule
+    BrowserModule,
+    FormsModule
   ],
   declarations: [
     CameraControlsComponent,

@@ -1,7 +1,22 @@
 <input type="checkbox"
       [disabled]="isDisabled"
-      (change)="toggleNamesShown(inputShowStarNames.checked)"
-      [checked]="areNamesShown"
-      title="Show the names of the stars"
-      #inputShowStarNames>Names<br>
-
+      [(ngModel)]="namesShown"
+      title="Show the names of the stars">Names<br>
+<ul class="ac-ui-controls-names-type">
+  <li>
+    <input type="radio"
+            [disabled]="isDisabled"
+            [value]="true"
+            [(ngModel)]="useProperNames"
+            title="Proper names: Vega, Sirius, Regel..."
+            name="selectStarNameType">Proper<br>
+  </li>
+  <li>
+    <input type="radio"
+            [disabled]="isDisabled"
+            [value]="false"
+            [(ngModel)]="useProperNames"
+            title="Standard/Bayer names: Alpha, Beta, Gamma..."
+            name="selectStarNameType">Standard<br>
+  </li>
+</ul>
