@@ -39,6 +39,10 @@ export class Stars extends RenderableLayer {
     return this._properNamesShown ? this._properNames : this._standardNames;
   }
 
+  public get properNamesShown(): boolean {
+    return this._properNamesShown;
+  }
+
   public showProperNames(): void {
     this._properNamesShown = true;
   }
