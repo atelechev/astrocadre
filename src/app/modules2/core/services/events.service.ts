@@ -13,6 +13,7 @@ export class EventsService {
 
   private readonly _layerHidden: BehaviorSubject<RenderableLayer> = new BehaviorSubject<RenderableLayer>(undefined);
 
+  // TODO the text* events are probably not necessary
   private readonly _textsShown: BehaviorSubject<RenderableLayer> = new BehaviorSubject<RenderableLayer>(undefined);
 
   private readonly _textsHidden: BehaviorSubject<RenderableLayer> = new BehaviorSubject<RenderableLayer>(undefined);

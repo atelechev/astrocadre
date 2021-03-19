@@ -6,6 +6,7 @@ import { ControlsComponent } from 'src/app/modules2/controls/components/controls
 import { LayersComponent } from 'src/app/modules2/controls/components/layers/layers.component';
 import { ResizeControlsComponent } from 'src/app/modules2/controls/components/resize-controls/resize-controls.component';
 import { SelectorLayerComponent } from 'src/app/modules2/controls/components/selector-layer/selector-layer.component';
+import { SelectorStarMagnitudeComponent } from 'src/app/modules2/controls/components/selector-star-magnitude/selector-star-magnitude.component';
 import { SelectorStarNamesComponent } from 'src/app/modules2/controls/components/selector-star-names/selector-star-names.component';
 import { SelectorThemeComponent } from 'src/app/modules2/controls/components/selector-theme/selector-theme.component';
 
@@ -19,6 +20,7 @@ import { SelectorThemeComponent } from 'src/app/modules2/controls/components/sel
     ControlsComponent,
     LayersComponent,
     ResizeControlsComponent,
+    SelectorStarMagnitudeComponent,
     SelectorStarNamesComponent,
     SelectorThemeComponent,
     SelectorLayerComponent

@@ -31,6 +31,10 @@ export class Stars extends RenderableLayer {
     this.showStandardNames();
   }
 
+  public get magnitudeClass(): number {
+    return this._magClass;
+  }
+
   public get objects(): Array<Object3D> {
     return [this._stars];
   }

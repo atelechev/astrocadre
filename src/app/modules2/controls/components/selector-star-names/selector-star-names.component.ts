@@ -73,7 +73,7 @@ export class SelectorStarNamesComponent {
       return;
     }
     layer.showTexts();
-    this._eventsService.fireTextsShown(layer);
+    this._eventsService.fireTextsShown(layer); // TODO call showLayer directly, no need to use the events
     layer.model.subLayers?.forEach(
       (subLayer: Layer) => {
         const renderable = this._layerService.getRenderableLayer(subLayer.code);

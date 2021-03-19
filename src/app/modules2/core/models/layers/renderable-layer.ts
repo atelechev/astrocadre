@@ -56,15 +56,6 @@ export abstract class RenderableLayer {
   }
 
   /**
-   * Sets this layer visible.
-   *
-   * @param visible true to show, false to hide this layer.
-   */
-  public setVisible(visible: boolean): void {
-    this.objects.forEach(object => object.visible = visible);
-  }
-
-  /**
    * Returns true if this layer is a parent of the specified layer.
    *
    * @param other the layer to test the relation with.

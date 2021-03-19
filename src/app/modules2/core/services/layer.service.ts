@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Layer } from 'src/app/modules2/core/models/layer';
 import { RenderableLayer } from 'src/app/modules2/core/models/layers/renderable-layer';
+import { Stars } from 'src/app/modules2/core/models/layers/stars';
+import { SupportedLayers } from 'src/app/modules2/core/models/supported-layers';
 import { EventsService } from 'src/app/modules2/core/services/events.service';
 import { LayersFactoryService } from 'src/app/modules2/core/services/layers-factory.service';
 import { StaticDataService } from 'src/app/modules2/core/services/static-data.service';
@@ -63,6 +65,25 @@ export class LayerService {
 
   public getRenderableLayer(code: string): RenderableLayer {
     return this._renderableLayers.get(code);
+  }
+
+  public showStarLayersDownToMagnitude(magnitude: number): void {
+    this.getAllStarsLayers().forEach(
+      (layer: Stars) => {
+        if (magnitude < layer.magnitudeClass) {
+          this.hideLayer(layer.model.code);
+        } else {
+          this.showLayer(layer.model.code);
+        }
+      }
+    );
+  }
+
+  private getAllStarsLayers(): Array<Stars> {
+    return this.getRenderableLayer(SupportedLayers.STARS)
+      .model.subLayers?.map(
+        (subLayer: Layer) => this.getRenderableLayer(subLayer.code) as Stars
+      ) || [];
   }
 
   private processLoadedLayer(layer: Layer): void {
