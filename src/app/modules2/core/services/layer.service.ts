@@ -79,11 +79,63 @@ export class LayerService {
     );
   }
 
+  public showTexts(layer: RenderableLayer): void {
+    if (!layer) {
+      return;
+    }
+    layer.showTexts();
+    this._eventsService.fireTextsShown(layer); // TODO call showLayer directly, no need to use the events
+    layer.model.subLayers?.forEach(
+      (subLayer: Layer) => {
+        const renderable = this.getRenderableLayer(subLayer.code);
+        this.showTexts(renderable);
+      }
+    );
+  }
+
+  public hideTexts(layer: RenderableLayer): void {
+    if (!layer) {
+      return;
+    }
+    layer.hideTexts();
+    this._eventsService.fireTextsHidden(layer);
+    layer.model.subLayers?.forEach(
+      (subLayer: Layer) => {
+        const renderable = this.getRenderableLayer(subLayer.code);
+        this.hideTexts(renderable);
+      }
+    );
+  }
+
+  public toggleNamesType(layer: Stars, useProper: boolean): void {
+    if (useProper) {
+      layer.showProperNames();
+    } else {
+      layer.showStandardNames();
+    }
+    layer.model.subLayers?.forEach(
+      (subLayer: Layer) => {
+        const starsSublayer = this.getRenderableLayer(subLayer.code) as Stars;
+        this.toggleNamesType(starsSublayer, useProper);
+      }
+    );
+  }
+
+  public showStarsProperNames(show: boolean): void {
+    const layer = this.starsLayer;
+    this.hideTexts(layer);
+    this.toggleNamesType(layer, show);
+    this.showTexts(layer);
+  }
+
+  private get starsLayer(): Stars {
+    return this.getRenderableLayer(SupportedLayers.STARS) as Stars;
+  }
+
   private getAllStarsLayers(): Array<Stars> {
-    return this.getRenderableLayer(SupportedLayers.STARS)
-      .model.subLayers?.map(
-        (subLayer: Layer) => this.getRenderableLayer(subLayer.code) as Stars
-      ) || [];
+    return this.starsLayer.model.subLayers?.map(
+      (subLayer: Layer) => this.getRenderableLayer(subLayer.code) as Stars
+    ) || [];
   }
 
   private processLoadedLayer(layer: Layer): void {
