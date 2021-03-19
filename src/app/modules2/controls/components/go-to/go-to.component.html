@@ -1,0 +1,10 @@
+<div class="ac-ui-controls-section">
+  <input type="text"
+         title="Type RA/DEC coordinate or constellation code or name to move the view to it"
+         [class]="searchNoResultsClass"
+         (keyup.enter)="execSearchRequest()"
+         [(ngModel)]="searchText"/>&nbsp;
+  <button type="button"
+          [disabled]="isDisabled"
+          (click)="execSearchRequest()">Go to</button>
+</div>
