@@ -28,7 +28,7 @@ export class Stars extends RenderableLayer {
     this._properNames = Array.from(this._properNameLabels.values());
     this._standardNames = Array.from(this._standardNameLabels.values());
     this.subscribeThemeLoaded();
-    this.showStandardNames();
+    this.showProperNames();
   }
 
   public get magnitudeClass(): number {

@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { skip } from 'rxjs/operators';
 import { CameraService } from 'src/app/modules2/core/services/camera.service';
 import { SearchService } from 'src/app/modules2/core/services/search.service';
 
@@ -22,6 +23,7 @@ export class GoToComponent {
     private readonly _cameraService: CameraService
   ) {
     this._hasSearchResults = true; // do not show error highlight when no search was made yet
+    this.subscribeSearchReady();
   }
 
   public get isDisabled(): boolean {
@@ -46,6 +48,19 @@ export class GoToComponent {
     if (goToCoord) {
       this._cameraService.centerView(goToCoord);
     }
+  }
+
+  private subscribeSearchReady(): void {
+    this._searchService
+      .searchReady()
+      .subscribe(
+        (ready: boolean) => {
+          if (ready) {
+            this._searchText = this._searchService.getRandomLocationName();
+            this.execSearchRequest();
+          }
+        }
+      );
   }
 
 }

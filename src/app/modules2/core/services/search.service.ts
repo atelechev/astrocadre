@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { Searchable } from 'src/app/modules2/core/models/searchable';
 import { SkyCoordinate } from 'src/app/modules2/core/models/sky-coordinate';
 import { StaticDataService } from 'src/app/modules2/core/services/static-data.service';
@@ -6,12 +7,15 @@ import { StaticDataService } from 'src/app/modules2/core/services/static-data.se
 @Injectable()
 export class SearchService {
 
-  private readonly _coordinatesPattern = /(\d+(?:[.,]\d*)?)\s+(-?\d+(?:[.,]\d*)?)/i;
+  private readonly _coordinatesPattern = /(\d+(?:[.,]\d*)?)\s+(-?\d+(?:[.,]\d*)?)/i; // two decimal numbers separated with spaces
 
   private _searchables: Map<string, Searchable>;
 
+  private readonly _searchReady: BehaviorSubject<boolean>;
+
   constructor(private readonly _dataService: StaticDataService) {
     this._searchables = new Map<string, Searchable>();
+    this._searchReady = new BehaviorSubject<boolean>(false);
     this.loadSearchables();
   }
 
@@ -24,9 +28,9 @@ export class SearchService {
     if (!query || query.trim().length === 0) {
       return undefined;
     }
-    const directCoordinates = this.directParseToCoordinate(query);
-    if (directCoordinates) {
-      return directCoordinates;
+    const maybeCoordinates = this.parseAsCoordinates(query);
+    if (maybeCoordinates) {
+      return maybeCoordinates;
     }
     const searchTextNormalized = this.normalizeSearchString(query);
     if (this._searchables.has(searchTextNormalized)) {
@@ -36,7 +40,18 @@ export class SearchService {
     return undefined;
   }
 
-  private directParseToCoordinate(query: string): SkyCoordinate {
+  public getRandomLocationName(): string {
+    const allSearchableQueries = Array.from(this._searchables.keys());
+    const randomQuery = allSearchableQueries[Math.floor(Math.random() * allSearchableQueries.length)];
+    const location = this._searchables.get(randomQuery);
+    return location.names?.length > 0 ? location.names[0] : location.code;
+  }
+
+  public searchReady(): Observable<boolean> {
+    return this._searchReady;
+  }
+
+  private parseAsCoordinates(query: string): SkyCoordinate {
     const matches = query.match(this._coordinatesPattern);
     if (matches && matches.length === 3) {
       return this.toSkyCoordinate(parseFloat(matches[1]), parseFloat(matches[2]));
@@ -56,11 +71,13 @@ export class SearchService {
   private loadSearchables(): void {
     this._dataService
       .getDataJson('searchable-items')
-      .subscribe(
+      .toPromise()
+      .then(
         (items: Array<Searchable>) => {
           items?.forEach(
             (item: Searchable) => this.registerSearchable(item)
           );
+          this._searchReady.next(true);
         }
       );
   }
