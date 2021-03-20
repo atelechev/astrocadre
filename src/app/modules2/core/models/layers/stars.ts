@@ -10,10 +10,6 @@ import { Object3D, Points } from 'three';
 
 export class Stars extends RenderableLayer {
 
-  private readonly _properNames: Array<RenderableText>;
-
-  private readonly _standardNames: Array<RenderableText>;
-
   private _properNamesShown: boolean;
 
   constructor(
@@ -22,13 +18,11 @@ export class Stars extends RenderableLayer {
     eventsService: EventsService,
     private readonly _magClass: number,
     private readonly _stars: Points,
-    private readonly _properNameLabels: Map<string, RenderableText>, // TODO it should be ok to use Array<RenderableText>
-    private readonly _standardNameLabels: Map<string, RenderableText>,
+    private readonly _properNames: Array<RenderableText>,
+    private readonly _standardNames: Array<RenderableText>,
     private readonly _searchables: Array<Searchable>
   ) {
     super(model, materialsService, eventsService);
-    this._properNames = Array.from(this._properNameLabels.values());
-    this._standardNames = Array.from(this._standardNameLabels.values());
     this.subscribeThemeLoaded();
     this.showProperNames();
   }

@@ -51,14 +51,14 @@ export class StarsLayerFactory implements LayerFactory {
   // TODO refactor these functions!
   private initLabels(
     extractNameFunct: (rawStar: any[]) => string,
-    toRenderableFunct: (ln: string, rawStar: any[], name: string) => RenderableText): Map<string, RenderableText> {
-    const labels = new Map<string, RenderableText>();
+    toRenderableFunct: (ln: string, rawStar: any[], name: string) => RenderableText): Array<RenderableText> {
+    const labels = new Array<RenderableText>();
     this._layerModel.objects?.forEach(
       (rawStar: any[]) => {
         const name = extractNameFunct(rawStar);
         if (name) {
           const renderable = toRenderableFunct(this._layerModel.code, rawStar, name);
-          labels.set(name, renderable);
+          labels.push(renderable);
         }
       }
     );

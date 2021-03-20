@@ -53,12 +53,10 @@ export class RenderableText {
 
   private applyStyle(style: TextStyle): void {
     const elementStyle = this.htmlElement.style;
-    // TODO try object destructuring?
-    elementStyle.fontFamily = style.fontFamily;
-    elementStyle.fontSize = style.fontSize;
-    elementStyle.fontStyle = style.fontStyle;
-    elementStyle.fontWeight = style.fontWeight;
-    elementStyle.color = style.color;
+    Object.keys(style)
+      .forEach(
+        (cssProperty: string) => elementStyle[cssProperty] = style[cssProperty]
+      );
   }
 
 }
