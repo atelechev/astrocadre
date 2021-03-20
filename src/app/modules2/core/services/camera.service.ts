@@ -1,8 +1,10 @@
 import { Injectable } from '@angular/core';
 import { AxialRotation } from 'src/app/modules2/core/models/axial-rotation';
+import { SkyCoordinate } from 'src/app/modules2/core/models/sky-coordinate';
 import { WorldConstants } from 'src/app/modules2/core/models/world-constants';
 import { EventsService } from 'src/app/modules2/core/services/events.service';
 import { ViewportService } from 'src/app/modules2/core/services/viewport.service';
+import { toVector3 } from 'src/app/modules2/core/utils/vector-utils';
 import { Object3D, PerspectiveCamera, Vector3 } from 'three';
 
 
@@ -59,6 +61,13 @@ export class CameraService {
   public setFoV(range: number): void {
     this.camera.fov = range;
     this.camera.updateProjectionMatrix();
+    this._eventsService.fireViewportChanged();
+  }
+
+  public centerView(coords: SkyCoordinate): void {
+    this.camera.up = this.getAlignmentPoleCoordinate(coords.declination);
+    this.camera.lookAt(toVector3(coords.rightAscension, coords.declination, WorldConstants.WORLD_RADIUS));
+    this.camera.updateMatrixWorld(true);
     this._eventsService.fireViewportChanged();
   }
 
