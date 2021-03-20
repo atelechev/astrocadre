@@ -1,5 +1,6 @@
 import { Layer } from 'src/app/modules2/core/models/layer';
 import { RenderableLayer } from 'src/app/modules2/core/models/layers/renderable-layer';
+import { Materials } from 'src/app/modules2/core/models/materials';
 import { EventsService } from 'src/app/modules2/core/services/events.service';
 import { MaterialsService } from 'src/app/modules2/core/services/materials.service';
 import { LineSegments, Object3D } from 'three';
@@ -28,7 +29,7 @@ export class ConstellationLines extends RenderableLayer {
 
   protected applyTheme(): void {
     const materials = this.materialsService.getMaterialsForLayer(this.code);
-    const material = materials.get('line-common'); // TODO
+    const material = materials.get(Materials.LINE_COMMON);
     this._lines.material = material;
     material.needsUpdate = true;
   }

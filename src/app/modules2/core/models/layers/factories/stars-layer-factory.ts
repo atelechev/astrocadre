@@ -4,6 +4,7 @@ import { PointsFactory } from 'src/app/modules2/core/models/layers/factories/poi
 import { TextOffsetPolicies } from 'src/app/modules2/core/models/layers/factories/text/text-offsets-policies';
 import { RenderableText } from 'src/app/modules2/core/models/layers/renderable-text';
 import { Stars } from 'src/app/modules2/core/models/layers/stars';
+import { Materials } from 'src/app/modules2/core/models/materials';
 import { Searchable } from 'src/app/modules2/core/models/searchable';
 import { SupportedLayers } from 'src/app/modules2/core/models/supported-layers';
 import { WorldConstants } from 'src/app/modules2/core/models/world-constants';
@@ -72,7 +73,13 @@ export class StarsLayerFactory implements LayerFactory {
       rawStar[1],
       WorldConstants.worldRadiusForLayer(SupportedLayers.STARS)
     );
-    return new RenderableText(layerName, 'names-standard', center, greekLetter, TextOffsetPolicies.CLOSE_RIGHT);
+    return new RenderableText(
+      layerName,
+      Materials.NAMES_STANDARD,
+      center,
+      greekLetter,
+      TextOffsetPolicies.CLOSE_RIGHT
+    );
   }
 
   private toProperNameRenderableText(
@@ -85,7 +92,13 @@ export class StarsLayerFactory implements LayerFactory {
       rawStar[1],
       WorldConstants.worldRadiusForLayer(SupportedLayers.STARS)
     );
-    return new RenderableText(layerName, 'names-proper', center, name, TextOffsetPolicies.TOP_RIGHT);
+    return new RenderableText(
+      layerName,
+      Materials.NAMES_PROPER,
+      center,
+      name,
+      TextOffsetPolicies.TOP_RIGHT
+    );
   }
 
   private extractSearchables(rawStars: Array<Array<any>>): Array<Searchable> {

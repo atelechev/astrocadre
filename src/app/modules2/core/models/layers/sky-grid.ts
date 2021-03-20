@@ -1,5 +1,6 @@
 import { Layer } from 'src/app/modules2/core/models/layer';
 import { RenderableLayer } from 'src/app/modules2/core/models/layers/renderable-layer';
+import { Materials } from 'src/app/modules2/core/models/materials';
 import { EventsService } from 'src/app/modules2/core/services/events.service';
 import { MaterialsService } from 'src/app/modules2/core/services/materials.service';
 import { LineSegments, Material, Object3D } from 'three';
@@ -34,8 +35,8 @@ export class SkyGrid extends RenderableLayer {
 
   protected applyTheme(): void {
     const materials = this.materialsService.getMaterialsForLayer(this.code);
-    this.setCommonLinesMaterial(materials.get('line-common')); // TODO extract constants
-    this.setReferenceLinesMaterial(materials.get('line-reference'));
+    this.setCommonLinesMaterial(materials.get(Materials.LINE_COMMON));
+    this.setReferenceLinesMaterial(materials.get(Materials.LINE_REFERENCE));
   }
 
   private setCommonLinesMaterial(material: Material): void {

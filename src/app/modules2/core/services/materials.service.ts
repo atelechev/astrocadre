@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Materials } from 'src/app/modules2/core/models/materials';
 import { SupportedLayers } from 'src/app/modules2/core/models/supported-layers';
 import { TextStyle } from 'src/app/modules2/core/models/text-style';
 import { ThemeService } from 'src/app/modules2/core/services/theme.service';
@@ -42,8 +43,8 @@ export class MaterialsService {
     const materials = new Map<string, Material>();
     const theme = this._themeService.theme;
     if (theme) {
-      materials.set('line-common', new LineBasicMaterial({ color: theme.skyGrid.line.common })); // TODO extract constant
-      materials.set('line-reference', new LineBasicMaterial({ color: theme.skyGrid.line.reference }));
+      materials.set(Materials.LINE_COMMON, new LineBasicMaterial({ color: theme.skyGrid.line.common }));
+      materials.set(Materials.LINE_REFERENCE, new LineBasicMaterial({ color: theme.skyGrid.line.reference }));
     }
     return materials;
   }
@@ -52,7 +53,7 @@ export class MaterialsService {
     const materials = new Map<string, Material>();
     const theme = this._themeService.theme;
     if (theme) {
-      materials.set('line-common', new LineBasicMaterial({ color: theme.constellation.boundaries.line.common }));
+      materials.set(Materials.LINE_COMMON, new LineBasicMaterial({ color: theme.constellation.boundaries.line.common }));
     }
     return materials;
   }
@@ -61,7 +62,7 @@ export class MaterialsService {
     const materials = new Map<string, Material>();
     const theme = this._themeService.theme;
     if (theme) {
-      materials.set('line-common', new LineBasicMaterial({ color: theme.constellation.lines.line.common }));
+      materials.set(Materials.LINE_COMMON, new LineBasicMaterial({ color: theme.constellation.lines.line.common }));
     }
     return materials;
   }
@@ -70,7 +71,7 @@ export class MaterialsService {
     const styles = new Map<string, TextStyle>();
     const theme = this._themeService.theme;
     if (theme) {
-      styles.set('labels', theme.constellation.names);
+      styles.set(Materials.LABELS, theme.constellation.names);
     }
     return styles;
   }
@@ -108,8 +109,8 @@ export class MaterialsService {
     const styles = new Map<string, TextStyle>();
     const theme = this._themeService.theme;
     if (theme) {
-      styles.set('names-proper', theme.stars.names.proper);
-      styles.set('names-standard', theme.stars.names.standard);
+      styles.set(Materials.NAMES_PROPER, theme.stars.names.proper);
+      styles.set(Materials.NAMES_STANDARD, theme.stars.names.standard);
     }
     return styles;
   }

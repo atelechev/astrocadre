@@ -1,5 +1,6 @@
 import { Layer } from 'src/app/modules2/core/models/layer';
 import { RenderableLayer } from 'src/app/modules2/core/models/layers/renderable-layer';
+import { Materials } from 'src/app/modules2/core/models/materials';
 import { EventsService } from 'src/app/modules2/core/services/events.service';
 import { MaterialsService } from 'src/app/modules2/core/services/materials.service';
 import { LineSegments, Object3D } from 'three';
@@ -27,7 +28,7 @@ export class ConstellationBoundaries extends RenderableLayer {
 
   protected applyTheme(): void {
     const materials = this.materialsService.getMaterialsForLayer(this.code);
-    const lineCommon = materials.get('line-common'); // TODO extract constants
+    const lineCommon = materials.get(Materials.LINE_COMMON);
     this._boundaries.material = lineCommon;
     lineCommon.needsUpdate = true;
   }

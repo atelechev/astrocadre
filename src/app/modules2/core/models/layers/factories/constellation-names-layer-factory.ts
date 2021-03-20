@@ -4,6 +4,7 @@ import { ConstellationNames } from 'src/app/modules2/core/models/layers/constell
 import { LayerFactory } from 'src/app/modules2/core/models/layers/factories/layer-factory';
 import { TextOffsetPolicies } from 'src/app/modules2/core/models/layers/factories/text/text-offsets-policies';
 import { RenderableText } from 'src/app/modules2/core/models/layers/renderable-text';
+import { Materials } from 'src/app/modules2/core/models/materials';
 import { WorldConstants } from 'src/app/modules2/core/models/world-constants';
 import { EventsService } from 'src/app/modules2/core/services/events.service';
 import { MaterialsService } from 'src/app/modules2/core/services/materials.service';
@@ -42,7 +43,13 @@ export class ConstellationNamesLayerFactory implements LayerFactory {
 
   private toRenderableText(layer: string, constMeta: ConstellationMeta): RenderableText {
     const center = toVector3(constMeta.ra, constMeta.dec, WorldConstants.worldRadiusForLayer(layer));
-    return new RenderableText(layer, 'labels', center, constMeta.names[0], TextOffsetPolicies.CENTERED);
+    return new RenderableText(
+      layer,
+      Materials.LABELS,
+      center,
+      constMeta.names[0],
+      TextOffsetPolicies.CENTERED
+    );
   }
 
 }
