@@ -5,6 +5,7 @@ import { Stars } from 'src/app/modules2/core/models/layers/stars';
 import { SupportedLayers } from 'src/app/modules2/core/models/supported-layers';
 import { EventsService } from 'src/app/modules2/core/services/events.service';
 import { LayersFactoryService } from 'src/app/modules2/core/services/layers-factory.service';
+import { SearchService } from 'src/app/modules2/core/services/search.service';
 import { StaticDataService } from 'src/app/modules2/core/services/static-data.service';
 
 @Injectable()
@@ -21,7 +22,8 @@ export class LayerService {
   constructor(
     private readonly _dataService: StaticDataService,
     private readonly _eventsService: EventsService,
-    private readonly _layersFactory: LayersFactoryService
+    private readonly _layersFactory: LayersFactoryService,
+    private readonly _searchService: SearchService
   ) {
     this._rootLayer = undefined;
     this._layerModels = new Map<string, Layer>();
@@ -170,6 +172,7 @@ export class LayerService {
     const renderable = this._layersFactory.buildRenderableLayer(layer);
     if (renderable) {
       this._renderableLayers.set(layer.code, renderable);
+      this._searchService.registerSearchables(renderable.searchables);
       this._eventsService.fireLayerShown(renderable);
     }
   }

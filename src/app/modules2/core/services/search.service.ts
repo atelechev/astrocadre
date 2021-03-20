@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { Searchable } from 'src/app/modules2/core/models/searchable';
 import { SkyCoordinate } from 'src/app/modules2/core/models/sky-coordinate';
+import { EventsService } from 'src/app/modules2/core/services/events.service';
+import { LayerService } from 'src/app/modules2/core/services/layer.service';
 import { StaticDataService } from 'src/app/modules2/core/services/static-data.service';
 
 @Injectable()
@@ -51,6 +53,15 @@ export class SearchService {
     return this._searchReady;
   }
 
+  public registerSearchables(items: Array<Searchable>): void {
+    if (!items) {
+      return;
+    }
+    items.forEach(
+      (item: Searchable) => this.registerSearchable(item)
+    );
+  }
+
   private parseAsCoordinates(query: string): SkyCoordinate {
     const matches = query.match(this._coordinatesPattern);
     if (matches && matches.length === 3) {
@@ -69,14 +80,13 @@ export class SearchService {
   }
 
   private loadSearchables(): void {
+    // TODO should not be loaded here, but registered by the respective layers.
     this._dataService
-      .getDataJson('searchable-items')
+      .getDataJson('searchable-items') // TODO fetch them inside the respective stars layers.
       .toPromise()
       .then(
         (items: Array<Searchable>) => {
-          items?.forEach(
-            (item: Searchable) => this.registerSearchable(item)
-          );
+          this.registerSearchables(items);
           this._searchReady.next(true);
         }
       );

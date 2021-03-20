@@ -1,5 +1,6 @@
 import { Layer } from 'src/app/modules2/core/models/layer';
 import { RenderableText } from 'src/app/modules2/core/models/layers/renderable-text';
+import { Searchable } from 'src/app/modules2/core/models/searchable';
 import { Theme } from 'src/app/modules2/core/models/theme';
 import { EventsService } from 'src/app/modules2/core/services/events.service';
 import { MaterialsService } from 'src/app/modules2/core/services/materials.service';
@@ -40,6 +41,11 @@ export abstract class RenderableLayer {
    * Returns the array of RenderableTexts to show for this layer.
    */
   public get texts(): Array<RenderableText> {
+    return [];
+  }
+
+  // TODO all searchables should be fetched within the jsons of the corresponding layers
+  public get searchables(): Array<Searchable> {
     return [];
   }
 
