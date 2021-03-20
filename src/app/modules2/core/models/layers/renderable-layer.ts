@@ -44,7 +44,6 @@ export abstract class RenderableLayer {
     return [];
   }
 
-  // TODO all searchables should be fetched within the jsons of the corresponding layers
   public get searchables(): Array<Searchable> {
     return [];
   }

@@ -2,9 +2,6 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { Searchable } from 'src/app/modules2/core/models/searchable';
 import { SkyCoordinate } from 'src/app/modules2/core/models/sky-coordinate';
-import { EventsService } from 'src/app/modules2/core/services/events.service';
-import { LayerService } from 'src/app/modules2/core/services/layer.service';
-import { StaticDataService } from 'src/app/modules2/core/services/static-data.service';
 
 @Injectable()
 export class SearchService {
@@ -13,12 +10,17 @@ export class SearchService {
 
   private _searchables: Map<string, Searchable>;
 
+  private readonly _expectedLayersWithSearchables: number;
+
+  private _registeredLayersWithSearchables: number;
+
   private readonly _searchReady: BehaviorSubject<boolean>;
 
-  constructor(private readonly _dataService: StaticDataService) {
+  constructor() {
+    this._expectedLayersWithSearchables = 10;
+    this._registeredLayersWithSearchables = 0;
     this._searchables = new Map<string, Searchable>();
     this._searchReady = new BehaviorSubject<boolean>(false);
-    this.loadSearchables();
   }
 
   /**
@@ -57,9 +59,15 @@ export class SearchService {
     if (!items) {
       return;
     }
+    if (items.length > 0) {
+      this._registeredLayersWithSearchables++;
+    }
     items.forEach(
       (item: Searchable) => this.registerSearchable(item)
     );
+    if (this._expectedLayersWithSearchables === this._registeredLayersWithSearchables) {
+      this._searchReady.next(true);
+    }
   }
 
   private parseAsCoordinates(query: string): SkyCoordinate {
@@ -77,19 +85,6 @@ export class SearchService {
   private normalizeSearchString(value: string): string {
     const replaceExpr = /\s+/gi;
     return value.replace(replaceExpr, '').toUpperCase();
-  }
-
-  private loadSearchables(): void {
-    // TODO should not be loaded here, but registered by the respective layers.
-    this._dataService
-      .getDataJson('searchable-items') // TODO fetch them inside the respective stars layers.
-      .toPromise()
-      .then(
-        (items: Array<Searchable>) => {
-          this.registerSearchables(items);
-          this._searchReady.next(true);
-        }
-      );
   }
 
   private registerSearchable(searchable: Searchable): void {

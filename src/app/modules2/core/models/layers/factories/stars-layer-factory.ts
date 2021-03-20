@@ -4,6 +4,7 @@ import { PointsFactory } from 'src/app/modules2/core/models/layers/factories/poi
 import { TextOffsetPolicies } from 'src/app/modules2/core/models/layers/factories/text/text-offsets-policies';
 import { RenderableText } from 'src/app/modules2/core/models/layers/renderable-text';
 import { Stars } from 'src/app/modules2/core/models/layers/stars';
+import { Searchable } from 'src/app/modules2/core/models/searchable';
 import { SupportedLayers } from 'src/app/modules2/core/models/supported-layers';
 import { WorldConstants } from 'src/app/modules2/core/models/world-constants';
 import { EventsService } from 'src/app/modules2/core/services/events.service';
@@ -30,6 +31,7 @@ export class StarsLayerFactory implements LayerFactory {
     const stars = this._pointsFactory.createObject3D(SupportedLayers.STARS, useObjects);
     const properNames = this.initLabels(extractProperName, this.toProperNameRenderableText);
     const stadardNames = this.initLabels(extractStandardName, this.toStandardNameRenderableText);
+    const searchables = this.extractSearchables(this._layerModel.objects);
     return new Stars(
       this._layerModel,
       this._materialsService,
@@ -37,7 +39,8 @@ export class StarsLayerFactory implements LayerFactory {
       magnitudeClass,
       stars,
       properNames,
-      stadardNames
+      stadardNames,
+      searchables
     );
   }
 
@@ -83,6 +86,28 @@ export class StarsLayerFactory implements LayerFactory {
       WorldConstants.worldRadiusForLayer(SupportedLayers.STARS)
     );
     return new RenderableText(layerName, 'names-proper', center, name, TextOffsetPolicies.TOP_RIGHT);
+  }
+
+  private extractSearchables(rawStars: Array<Array<any>>): Array<Searchable> {
+    return rawStars?.map((rs: Array<any>) => this.toSearchable(rs))
+      .filter((searchable: Searchable) => !!searchable) || [];
+  }
+
+  private toSearchable(rawStar: Array<any>): Searchable {
+    if (!rawStar || rawStar.length < 4) {
+      return undefined;
+    }
+    const ra = rawStar[0] as number;
+    const dec = rawStar[1] as number;
+    const code = rawStar.length === 5 ? rawStar[4] : rawStar[3];
+    const names = rawStar.length === 5 ? [rawStar[3]] : [];
+    return {
+      type: 'star',
+      ra,
+      dec,
+      code,
+      names
+    };
   }
 
 }

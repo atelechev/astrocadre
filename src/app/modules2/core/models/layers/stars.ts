@@ -1,6 +1,7 @@
 import { Layer } from 'src/app/modules2/core/models/layer';
 import { RenderableLayer } from 'src/app/modules2/core/models/layers/renderable-layer';
 import { RenderableText } from 'src/app/modules2/core/models/layers/renderable-text';
+import { Searchable } from 'src/app/modules2/core/models/searchable';
 import { SupportedLayers } from 'src/app/modules2/core/models/supported-layers';
 import { EventsService } from 'src/app/modules2/core/services/events.service';
 import { MaterialsService } from 'src/app/modules2/core/services/materials.service';
@@ -22,7 +23,8 @@ export class Stars extends RenderableLayer {
     private readonly _magClass: number,
     private readonly _stars: Points,
     private readonly _properNameLabels: Map<string, RenderableText>, // TODO it should be ok to use Array<RenderableText>
-    private readonly _standardNameLabels: Map<string, RenderableText>
+    private readonly _standardNameLabels: Map<string, RenderableText>,
+    private readonly _searchables: Array<Searchable>
   ) {
     super(model, materialsService, eventsService);
     this._properNames = Array.from(this._properNameLabels.values());
@@ -45,6 +47,10 @@ export class Stars extends RenderableLayer {
 
   public get properNamesShown(): boolean {
     return this._properNamesShown;
+  }
+
+  public get searchables(): Array<Searchable> {
+    return this._searchables;
   }
 
   public showProperNames(): void {
