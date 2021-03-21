@@ -1,7 +1,7 @@
-<input type="checkbox"
-      (change)="toggleLayerShown()"
-      [checked]="isShown"
-      title="{{ layer.description }}">{{ layer.label }}<br>
+<p-checkbox [(ngModel)]="isShown"
+            [label]="layer.label"
+            [binary]="true"
+            title="{{ layer.description }}"></p-checkbox>
 
 <div class="ac-ui-controls-sublayers">
 

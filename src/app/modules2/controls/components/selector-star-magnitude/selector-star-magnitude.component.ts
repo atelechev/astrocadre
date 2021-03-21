@@ -5,27 +5,29 @@ import { LayerService } from 'src/app/modules2/core/services/layer.service';
 
 @Component({
   selector: 'ac-controls-select-star-magnitude',
-  templateUrl: './selector-star-magnitude.component.html',
-  styleUrls: [
-    './selector-star-magnitude.component.css'
-  ]
+  templateUrl: './selector-star-magnitude.component.html'
 })
 export class SelectorStarMagnitudeComponent {
 
-  constructor(private readonly _layerService: LayerService) {
+  private _shownMagnitudeDownTo: number;
 
+  constructor(private readonly _layerService: LayerService) {
+    this._shownMagnitudeDownTo = 6;
   }
 
   public get isDisabled(): boolean {
     return !this._layerService.isShown(SupportedLayers.STARS);
   }
 
-  public get initialMagnitude(): number {
-    return 6;
+  public get shownMagnitudeDownTo(): number {
+    return this._shownMagnitudeDownTo;
   }
 
-  public showMagnitudesDownTo(mg: number) {
-    this._layerService.showStarLayersDownToMagnitude(mg);
+  public set shownMagnitudeDownTo(mg: number) {
+    if (mg && mg !== this._shownMagnitudeDownTo) {
+      this._shownMagnitudeDownTo = mg;
+      this._layerService.showStarLayersDownToMagnitude(this._shownMagnitudeDownTo);
+    }
   }
 
 }

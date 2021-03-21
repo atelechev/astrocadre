@@ -4,8 +4,7 @@ import { LayerService } from 'src/app/modules2/core/services/layer.service';
 
 @Component({
   selector: 'ac-controls-layers',
-  templateUrl: './layers.component.html',
-  styleUrls: ['../controls-common.css']
+  templateUrl: './layers.component.html'
 })
 export class LayersComponent {
 

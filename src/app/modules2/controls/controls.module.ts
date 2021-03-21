@@ -1,6 +1,13 @@
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
+import { ButtonModule } from 'primeng/button';
+import { CheckboxModule } from 'primeng/checkbox';
+import { DropdownModule } from 'primeng/dropdown';
+import { InputNumberModule } from 'primeng/inputnumber';
+import { InputTextModule } from 'primeng/inputtext';
+import { PanelModule } from 'primeng/panel';
+import { SliderModule } from 'primeng/slider';
 import { CameraControlsComponent } from 'src/app/modules2/controls/components/camera-controls/camera-controls.component';
 import { ControlsComponent } from 'src/app/modules2/controls/components/controls/controls.component';
 import { GoToComponent } from 'src/app/modules2/controls/components/go-to/go-to.component';
@@ -14,7 +21,14 @@ import { SelectorThemeComponent } from 'src/app/modules2/controls/components/sel
 @NgModule({
   imports: [
     BrowserModule,
-    FormsModule
+    FormsModule,
+    ButtonModule,
+    CheckboxModule,
+    DropdownModule,
+    InputNumberModule,
+    InputTextModule,
+    PanelModule,
+    SliderModule
   ],
   declarations: [
     CameraControlsComponent,

@@ -1,25 +1,16 @@
-<div id="ac-ui-controls">
+<p-panel id="ac-ui-panel-tools"
+         header="Astrocadre"
+         [toggleable]="true"
+         [collapsed]="!toolsExpanded">
 
-  <div class="ac-ui-controls-head">
-    <span class="ac-ui-controls-title">AstroCadre</span>
-    <span class="ac-ui-controls-toggle"
-         (click)="toggleTools()"
-          title="Toggle UI controls visibility">
-      {{ toggleToolsLabel }}
-    </span>
-  </div>
+  <ac-controls-go-to></ac-controls-go-to>
 
-  <div class="ac-ui-controls-tools"
-       *ngIf="toolsExpanded">
-    <ac-controls-go-to></ac-controls-go-to>
+  <ac-controls-select-theme></ac-controls-select-theme>
 
-    <ac-controls-select-theme></ac-controls-select-theme>
+  <ac-controls-layers></ac-controls-layers>
 
-    <ac-controls-layers></ac-controls-layers>
+  <ac-controls-camera></ac-controls-camera>
 
-    <ac-controls-camera></ac-controls-camera>
+  <ac-controls-resize></ac-controls-resize>
 
-    <ac-controls-resize></ac-controls-resize>
-  </div>
-
-</div>
+</p-panel>

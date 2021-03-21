@@ -1,23 +1,35 @@
-<div class="ac-ui-controls-section">
-  <input type="number"
-          #viewportWidthInput
-          placeholder="width"
-          title="The width of the viewport, in pixels"
-          class="ac-resize-input"
-          [value]="width"
-          min="100"
-          max="4000"
-          step="100"/>
-  <input type="number"
-          #viewportHeightInput
-          placeholder="height"
-          title="The height of the viewport, in pixels"
-          class="ac-resize-input"
-          [value]="height"
-          min="100"
-          max="2000"
-          step="100"/>
-  <button type="button"
-          class="ac-resize-button"
-          (click)="resizeViewport()">Resize</button>
-</div>
+<p-inputNumber [(ngModel)]="width"
+               [showButtons]="true"
+               [min]="100"
+               [max]="4000"
+               [step]="100"
+               [useGrouping]="false"
+               [maxFractionDigits]="0"
+               size="5"
+               suffix="px"
+               buttonLayout="horizontal"
+               spinnerMode="horizontal"
+               incrementButtonIcon="pi pi-plus"
+               decrementButtonIcon="pi pi-minus"
+               title="The width of the viewport, in pixels"></p-inputNumber>
+
+<p-inputNumber [(ngModel)]="height"
+               [showButtons]="true"
+               [min]="100"
+               [max]="2000"
+               [step]="100"
+               [useGrouping]="false"
+               [maxFractionDigits]="0"
+               size="5"
+               suffix="px"
+               buttonLayout="horizontal"
+               spinnerMode="horizontal"
+               incrementButtonIcon="pi pi-plus"
+               decrementButtonIcon="pi pi-minus"
+               title="The height of the viewport, in pixels"></p-inputNumber>
+
+<button type="button"
+          pButton
+          label="Resize"
+          class="p-button-text"
+          (click)="resizeViewport()"></button>

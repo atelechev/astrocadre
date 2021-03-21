@@ -130,6 +130,24 @@ export class LayerService {
     this.showTexts(layer);
   }
 
+  public showLayer(layer: string): void {
+    this._shownLayers.add(layer);
+    const renderable = this._renderableLayers.get(layer);
+    if (renderable) {
+      this._eventsService.fireLayerShown(renderable);
+    }
+    this.processSubLayersVisibility(layer, true);
+  }
+
+  public hideLayer(layer: string): void {
+    this._shownLayers.delete(layer);
+    const renderable = this._renderableLayers.get(layer);
+    if (renderable) {
+      this._eventsService.fireLayerHidden(renderable);
+    }
+    this.processSubLayersVisibility(layer, false);
+  }
+
   private get starsLayer(): Stars {
     return this.getRenderableLayer(SupportedLayers.STARS) as Stars;
   }
@@ -175,24 +193,6 @@ export class LayerService {
       this._searchService.registerSearchables(renderable.searchables);
       this._eventsService.fireLayerShown(renderable);
     }
-  }
-
-  private showLayer(layer: string): void {
-    this._shownLayers.add(layer);
-    const renderable = this._renderableLayers.get(layer);
-    if (renderable) {
-      this._eventsService.fireLayerShown(renderable);
-    }
-    this.processSubLayersVisibility(layer, true);
-  }
-
-  private hideLayer(layer: string): void {
-    this._shownLayers.delete(layer);
-    const renderable = this._renderableLayers.get(layer);
-    if (renderable) {
-      this._eventsService.fireLayerHidden(renderable);
-    }
-    this.processSubLayersVisibility(layer, false);
   }
 
   private processSubLayersVisibility(layer: string, visible: boolean): void {

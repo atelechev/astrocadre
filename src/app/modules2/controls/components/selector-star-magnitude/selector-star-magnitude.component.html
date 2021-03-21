@@ -1,9 +1,19 @@
-<span class="ac-star-magnitude-label">Magnitude down to:</span>&nbsp;
-<input type="number"
-        class="ac-star-magnitude-input"
-        [disabled]="isDisabled"
-        [value]="initialMagnitude"
-        (change)="showMagnitudesDownTo(inputStarsMagnitude.value)"
-        min="2"
-        max="6" step="0.5"
-        #inputStarsMagnitude><br>
+<div>
+  <span class="ac-star-magnitude-label">Magnitude:</span>&nbsp;
+
+  <p-inputNumber [(ngModel)]="shownMagnitudeDownTo"
+                [showButtons]="true"
+                [disabled]="isDisabled"
+                [min]="2"
+                [max]="6"
+                [step]="0.5"
+                [useGrouping]="false"
+                [maxFractionDigits]="1"
+                size="3"
+                buttonLayout="horizontal"
+                spinnerMode="horizontal"
+                incrementButtonIcon="pi pi-plus"
+                decrementButtonIcon="pi pi-minus"
+                title="Showing stars of magnitude down to: {{ shownMagnitudeDownTo }}"></p-inputNumber>
+
+</div>

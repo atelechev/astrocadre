@@ -1,75 +1,71 @@
-<div class="ac-ui-controls-section">
+<div class="ac-camera-controls-buttons">
 
-  <div class="ac-camera-controls-buttons">
-
-    <!-- first row -->
-    <input class="ac-camera-button"
-            type="image"
-            alt="&#8601;"
-            [src]="getPathToResource('arrow_rotate_left')"
-            title="Rotate counter-clockwise"
-            (click)="stepCounterClockwise()" />
-
-    <input class="ac-camera-button"
-            type="image"
-            alt="&#8593;"
-            [src]="getPathToResource('arrow_up')"
-            title="Move upwards"
-            (click)="stepUp()" />
-
-    <input class="ac-camera-button"
-            type="image"
-            alt="&#8600;"
-            [src]="getPathToResource('arrow_rotate_right')"
-            title="Rotate clockwise"
-            (click)="stepClockwise()" />
-
-    <!-- second row -->
-    <input class="ac-camera-button"
+  <!-- first row -->
+  <input class="ac-camera-button"
           type="image"
-          alt="&#8592;"
-          [src]="getPathToResource('arrow_left')"
-          title="Move leftwards"
-          (click)="stepLeft()" />
+          alt="&#8601;"
+          [src]="getPathToResource('arrow_rotate_left')"
+          title="Rotate counter-clockwise"
+          (click)="stepCounterClockwise()" />
 
-    <input class="ac-camera-button"
-            type="image"
-            alt="&#8595;"
-            [src]="getPathToResource('arrow_down')"
-            title="Move downwards"
-            (click)="stepDown()" />
+  <input class="ac-camera-button"
+          type="image"
+          alt="&#8593;"
+          [src]="getPathToResource('arrow_up')"
+          title="Move upwards"
+          (click)="stepUp()" />
 
-    <input class="ac-camera-button"
-            type="image"
-            alt="&#8594;"
-            [src]="getPathToResource('arrow_right')"
-            title="Move rightwards"
-            (click)="stepRight()" />
+  <input class="ac-camera-button"
+          type="image"
+          alt="&#8600;"
+          [src]="getPathToResource('arrow_rotate_right')"
+          title="Rotate clockwise"
+          (click)="stepClockwise()" />
 
-    <!-- third row -->
-    <input class="ac-camera-button"
-            type="image"
-            alt="&#9633;"
-            [src]="getPathToResource('square')"
-            title="Adjust the field of view to the selected range"
-            (click)="changeFov()" />
+  <!-- second row -->
+  <input class="ac-camera-button"
+        type="image"
+        alt="&#8592;"
+        [src]="getPathToResource('arrow_left')"
+        title="Move leftwards"
+        (click)="stepLeft()" />
 
-    <input class="ac-camera-button ac-camera-view-step-input"
-            type="number"
-            title="Select the step of button actions in degrees: rotation, movement or field of view range"
-            #cameraChangeStep
-            min="5"
-            max="90"
-            step="5"
-            value="5">
+  <input class="ac-camera-button"
+          type="image"
+          alt="&#8595;"
+          [src]="getPathToResource('arrow_down')"
+          title="Move downwards"
+          (click)="stepDown()" />
 
-    <input class="ac-camera-button"
-            type="image"
-            alt="&#124;"
-            [src]="getPathToResource('align')"
-            title="Align the view on the North-Sourth axis"
-            (click)="alignNSAxis()" />
+  <input class="ac-camera-button"
+          type="image"
+          alt="&#8594;"
+          [src]="getPathToResource('arrow_right')"
+          title="Move rightwards"
+          (click)="stepRight()" />
 
-  </div>
+  <!-- third row -->
+  <input class="ac-camera-button"
+          type="image"
+          alt="&#9633;"
+          [src]="getPathToResource('square')"
+          title="Adjust the field of view to the selected range"
+          (click)="changeFov()" />
+
+  <input class="ac-camera-button ac-camera-view-step-input"
+          type="number"
+          title="Select the step of button actions in degrees: rotation, movement or field of view range"
+          #cameraChangeStep
+          min="5"
+          max="90"
+          step="5"
+          value="5">
+
+  <input class="ac-camera-button"
+          type="image"
+          alt="&#124;"
+          [src]="getPathToResource('align')"
+          title="Align the view on the North-Sourth axis"
+          (click)="alignNSAxis()" />
 
 </div>

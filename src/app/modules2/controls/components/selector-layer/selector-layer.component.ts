@@ -30,8 +30,12 @@ export class SelectorLayerComponent {
     return this._layerService.isShown(this._layer.code);
   }
 
-  public toggleLayerShown(): void {
-    this._layerService.toggleLayerShown(this._layer.code);
+  public set isShown(show: boolean) {
+    if (show) {
+      this._layerService.showLayer(this._layer.code);
+    } else {
+      this._layerService.hideLayer(this._layer.code);
+    }
   }
 
   public get subLayers(): Array<Layer> {

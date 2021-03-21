@@ -1,16 +1,11 @@
 import { Component } from '@angular/core';
-import { skip } from 'rxjs/operators';
 import { CameraService } from 'src/app/modules2/core/services/camera.service';
 import { SearchService } from 'src/app/modules2/core/services/search.service';
 
 
 @Component({
   selector: 'ac-controls-go-to',
-  templateUrl: './go-to.component.html',
-  styleUrls: [
-    '../controls-common.css',
-    './go-to.component.css'
-  ]
+  templateUrl: './go-to.component.html'
 })
 export class GoToComponent {
 
@@ -39,7 +34,7 @@ export class GoToComponent {
   }
 
   public get searchNoResultsCssClass(): string {
-    return this._hasSearchResults ? '' : 'ac-searchtext-input-invalid';
+    return this._hasSearchResults ? '' : 'ng-invalid';
   }
 
   public execSearchRequest(): void {
