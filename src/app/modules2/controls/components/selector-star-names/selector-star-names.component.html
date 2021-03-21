@@ -1,9 +1,7 @@
-<span class="ac-star-names-label">{{ namesLabel }}</span>&nbsp;
+<span class="ac-star-names-label">Names:&nbsp;</span>
 
-<p-slider [(ngModel)]="showNamesLevel"
-          (onChange)="updateShownNames()"
-          [disabled]="isDisabled"
-          [min]="0"
-          [max]="2"
-          [step]="1"
-          [title]="title"></p-slider>
+<p-selectButton [options]="selectableNames"
+                [(ngModel)]="shownNames"
+                [disabled]="isDisabled"
+                optionLabel="label"
+                optionValue="value"></p-selectButton>

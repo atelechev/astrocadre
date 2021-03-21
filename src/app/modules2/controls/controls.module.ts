@@ -7,6 +7,7 @@ import { DropdownModule } from 'primeng/dropdown';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { InputTextModule } from 'primeng/inputtext';
 import { PanelModule } from 'primeng/panel';
+import { SelectButtonModule } from 'primeng/selectbutton';
 import { SliderModule } from 'primeng/slider';
 import { CameraControlsComponent } from 'src/app/modules2/controls/components/camera-controls/camera-controls.component';
 import { ControlsComponent } from 'src/app/modules2/controls/components/controls/controls.component';
@@ -28,6 +29,7 @@ import { SelectorThemeComponent } from 'src/app/modules2/controls/components/sel
     InputNumberModule,
     InputTextModule,
     PanelModule,
+    SelectButtonModule,
     SliderModule
   ],
   declarations: [

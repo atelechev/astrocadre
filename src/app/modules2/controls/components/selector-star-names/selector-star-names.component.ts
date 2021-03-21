@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { NameSelectionType } from 'src/app/modules2/controls/components/selector-star-names/name-selection-type';
 import { Stars } from 'src/app/modules2/core/models/layers/stars';
 import { SupportedLayers } from 'src/app/modules2/core/models/supported-layers';
 import { LayerService } from 'src/app/modules2/core/services/layer.service';
@@ -9,55 +10,63 @@ import { LayerService } from 'src/app/modules2/core/services/layer.service';
 })
 export class SelectorStarNamesComponent {
 
-  private _showNamesLevel: number; // 0=none, 1=proper, 2=standard
+  private readonly _selectableNames: Array<NameSelectionType>;
+
+  private _shownNames: number;
 
   constructor(
     private readonly _layerService: LayerService
   ) {
-    this._showNamesLevel = 1;
+    this._selectableNames = this.buildSelectionsList();
+    this._shownNames = this._selectableNames[1].value;
   }
 
-  public get showNamesLevel(): number {
-    return this._showNamesLevel;
+  public get selectableNames(): Array<NameSelectionType> {
+    return this._selectableNames;
   }
 
-  public set showNamesLevel(level: number) {
-    this._showNamesLevel = level;
+  public get shownNames(): number {
+    return this._shownNames;
   }
 
-  public get title(): string {
-    switch (this._showNamesLevel) {
-      case 0: return 'Do not show star names';
-      case 1: return 'Proper names: Vega, Sirius, Regel...';
-      case 2: return 'Standard/Bayer names: Alpha, Beta, Gamma...';
-      default: throw new Error(`Unexpected names level: ${this._showNamesLevel}`);
+  public set shownNames(sn: number) {
+    if (sn > -1 && sn !== this._shownNames) {
+      this._shownNames = sn;
+      this.updateShownNames();
     }
   }
 
-  public updateShownNames(): void {
+  public get isDisabled(): boolean {
+    return !this._layerService.isShown(SupportedLayers.STARS);
+  }
+
+  private updateShownNames(): void {
     this._layerService.hideTexts(this.starsLayer);
-    if (this._showNamesLevel > 0) {
-      const showProperNames = this._showNamesLevel === 1;
+    if (this._shownNames > 0) {
+      const showProperNames = this._shownNames === 1;
       this._layerService.showStarsProperNames(showProperNames);
       this._layerService.showTexts(this.starsLayer);
     }
   }
 
-  public get namesLabel(): string {
-    switch (this._showNamesLevel) {
-      case 0: return 'No names';
-      case 1: return 'Proper names';
-      case 2: return 'Standard names';
-      default: throw new Error(`Unexpected names level: ${this._showNamesLevel}`);
-    }
+  private buildSelectionsList(): Array<NameSelectionType> {
+    return [
+      {
+        label: 'None',
+        value: 0
+      },
+      {
+        label: 'Proper',
+        value: 1
+      },
+      {
+        label: 'Standard',
+        value: 2
+      }];
   }
 
   private get starsLayer(): Stars {
     return this._layerService.getRenderableLayer(SupportedLayers.STARS) as Stars;
-  }
-
-  public get isDisabled(): boolean {
-    return !this._layerService.isShown(SupportedLayers.STARS);
   }
 
 }
