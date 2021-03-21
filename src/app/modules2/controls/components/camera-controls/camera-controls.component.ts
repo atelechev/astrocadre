@@ -9,8 +9,7 @@ import { environment } from '#environments/environment';
   selector: 'ac-controls-camera',
   templateUrl: './camera-controls.component.html',
   styleUrls: [
-    './camera-controls.component.css',
-    '../controls-common.css'
+    './camera-controls.component.css'
   ]
 })
 export class CameraControlsComponent {
