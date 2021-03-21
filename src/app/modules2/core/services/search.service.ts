@@ -6,6 +6,8 @@ import { SkyCoordinate } from 'src/app/modules2/core/models/sky-coordinate';
 @Injectable()
 export class SearchService {
 
+  private readonly _starStandardNamePattern = /[A-Z]+\s+[A-Z]+/;
+
   private readonly _coordinatesPattern = /(\d+(?:[.,]\d*)?)\s+(-?\d+(?:[.,]\d*)?)/i; // two decimal numbers separated with spaces
 
   private _searchables: Map<string, Searchable>;
@@ -48,6 +50,11 @@ export class SearchService {
     const allSearchableQueries = Array.from(this._searchables.keys());
     const randomQuery = allSearchableQueries[Math.floor(Math.random() * allSearchableQueries.length)];
     const location = this._searchables.get(randomQuery);
+    // avoid showing to standard star names queries, they are ugly
+    const matchedStandardName = location.code.match(this._starStandardNamePattern);
+    if (matchedStandardName) {
+      return this.getRandomLocationName();
+    }
     return location.names?.length > 0 ? location.names[0] : location.code;
   }
 
