@@ -6,8 +6,7 @@ import { LayerService } from 'src/app/modules2/core/services/layer.service';
 
 @Component({
   selector: 'ac-controls-select-layer',
-  templateUrl: './selector-layer.component.html',
-  styleUrls: ['./selector-layer.component.css']
+  templateUrl: './selector-layer.component.html'
 })
 export class SelectorLayerComponent {
 

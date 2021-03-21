@@ -1,64 +1,59 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component } from '@angular/core';
 import { AxialRotation } from 'src/app/modules2/core/models/axial-rotation';
 import { CameraService } from 'src/app/modules2/core/services/camera.service';
 import { toRadians } from 'src/app/modules2/core/utils/vector-utils';
-import { environment } from '#environments/environment';
 
 
 @Component({
   selector: 'ac-controls-camera',
-  templateUrl: './camera-controls.component.html',
-  styleUrls: [
-    './camera-controls.component.css'
-  ]
+  templateUrl: './camera-controls.component.html'
 })
 export class CameraControlsComponent {
 
-  @ViewChild('cameraChangeStep')
-  private _cameraStepInput: any;
+  private _selectedStep: number;
 
   constructor(private readonly _cameraService: CameraService) {
-
+    this._selectedStep = 10;
   }
 
-  public getPathToResource(resourceBaseName: string): string {
-    return environment.pathInContext(`assets/textures/${resourceBaseName}.png`);
+  public get selectedStep(): number {
+    return this._selectedStep;
   }
 
-  public stepClockwise(): void {
-    this.rotateView(0, 0, this.cameraChangeStep);
-  }
-
-  public stepCounterClockwise(): void {
-    this.rotateView(0, 0, -this.cameraChangeStep);
-  }
-
-  public stepUp(): void {
-    this.rotateView(this.cameraChangeStep, 0, 0);
-  }
-
-  public stepDown(): void {
-    this.rotateView(-this.cameraChangeStep, 0, 0);
-  }
-
-  public stepLeft(): void {
-    this.rotateView(0, this.cameraChangeStep, 0);
-  }
-
-  public stepRight(): void {
-    this.rotateView(0, -this.cameraChangeStep, 0);
+  public set selectedStep(step: number) {
+    this._selectedStep = step;
   }
 
   public changeFov(): void {
-    this._cameraService.setFoV(this.cameraChangeStep);
+    this._cameraService.setFoV(this._selectedStep);
+  }
+
+  public stepClockwise(): void {
+    this.rotateView(0, 0, this._selectedStep);
+  }
+
+  public stepCounterClockwise(): void {
+    this.rotateView(0, 0, -this._selectedStep);
+  }
+
+  public stepUp(): void {
+    this.rotateView(this._selectedStep, 0, 0);
+  }
+
+  public stepDown(): void {
+    this.rotateView(-this._selectedStep, 0, 0);
+  }
+
+  public stepLeft(): void {
+    this.rotateView(0, this._selectedStep, 0);
+  }
+
+  public stepRight(): void {
+    this.rotateView(0, -this._selectedStep, 0);
   }
 
   public alignNSAxis(): void {
     this._cameraService.alignNSAxis();
-  }
-
-  private get cameraChangeStep(): number {
-    return this._cameraStepInput.nativeElement.value || 0;
   }
 
   private rotateView(x: number, y: number, z: number): void {

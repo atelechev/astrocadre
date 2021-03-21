@@ -1,14 +1,20 @@
-<div class="p-mb-2">
-  <input type="text"
-          pInputText
-          title="Type RA/DEC coordinate or constellation code or name to move the view to it"
-          [class]="searchNoResultsCssClass"
-          (keyup.enter)="execSearchRequest()"
-          [(ngModel)]="searchText"/>
-  <button type="button"
-          pButton
-          label="Go to"
-          [disabled]="isDisabled"
-          class="p-button-text"
-          (click)="execSearchRequest()"></button>
+<div class="p-grid">
+  <div class="p-col-9">
+    <input type="text"
+            pInputText
+            title="Type RA/DEC coordinate or constellation code or name to move the view to it"
+            [class]="searchNoResultsCssClass"
+            (keyup.enter)="execSearchRequest()"
+            [(ngModel)]="searchText"
+            style="width:100%"/>
+  </div>
+  <div class="p-col-3">
+    <button type="button"
+            pButton
+            label="Go to"
+            [disabled]="isDisabled"
+            class="p-button-text"
+            (click)="execSearchRequest()"
+            style="width:100%"></button>
+  </div>
 </div>

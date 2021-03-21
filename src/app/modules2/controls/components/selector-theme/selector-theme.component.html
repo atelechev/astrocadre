@@ -1,7 +1,11 @@
-<div>
-  <span>Theme:&nbsp;</span>
-  <p-dropdown [options]="themes"
-              [(ngModel)]="selectedTheme"
-              optionLabel="label"
-              [style]="{'width':'75%'}"></p-dropdown>
+<div class="p-grid">
+  <div class="p-col-2 p-d-flex p-ai-center">
+    Theme
+  </div>
+  <div class="p-col-10">
+    <p-dropdown [options]="themes"
+                [(ngModel)]="selectedTheme"
+                optionLabel="label"
+                [style]="{'width':'100%'}"></p-dropdown>
+  </div>
 </div>

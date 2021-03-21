@@ -19,8 +19,8 @@ export class ViewportService {
   private _width: number;
 
   constructor(private readonly _eventsService: EventsService) {
-    this._defaultHeight = roundToUpperHundred(window.screen.height * 3 / 4);
-    this._defaultWidth = roundToUpperHundred(window.screen.width * 3 / 4);
+    this._defaultHeight = window.screen.height;
+    this._defaultWidth = window.screen.width;
     this.size = {
       height: this._defaultHeight,
       width: this._defaultWidth

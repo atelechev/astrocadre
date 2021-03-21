@@ -1,6 +1,10 @@
-<div>
-  <span>Layers:</span>&nbsp;<br>
+<div class="p-grid">
+  <div class="p-col-2 p-d-flex p-ai-center">
+    Layers
+  </div>
 
-  <ac-controls-select-layer *ngFor="let layer of layers"
-    [layer]="layer"></ac-controls-select-layer>
+  <div class="p-col-10">
+    <ac-controls-select-layer *ngFor="let layer of layers"
+      [layer]="layer"></ac-controls-select-layer>
+  </div>
 </div>

@@ -1,9 +1,11 @@
-<p-checkbox [(ngModel)]="isShown"
-            [label]="layer.label"
-            [binary]="true"
-            title="{{ layer.description }}"></p-checkbox>
+<div class="p-mb-2">
+  <p-checkbox [(ngModel)]="isShown"
+              [label]="layer.label"
+              [binary]="true"
+              title="{{ layer.description }}"></p-checkbox>
+</div>
 
-<div class="ac-ui-controls-sublayers">
+<div class="p-ml-4">
 
   <div *ngIf="isStarsLayer; else showSubLayers">
     <ac-controls-select-star-magnitude></ac-controls-select-star-magnitude>

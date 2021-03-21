@@ -1,7 +1,15 @@
-<span class="ac-star-names-label">Names:&nbsp;</span>
+<div class="p-grid">
 
-<p-selectButton [options]="selectableNames"
-                [(ngModel)]="shownNames"
-                [disabled]="isDisabled"
-                optionLabel="label"
-                optionValue="value"></p-selectButton>
+  <div class="p-col-3 p-d-flex p-ai-center">
+    Names:
+  </div>
+
+  <div class="p-col-9">
+    <p-selectButton [options]="selectableNames"
+                    [(ngModel)]="shownNames"
+                    [disabled]="isDisabled"
+                    optionLabel="label"
+                    optionValue="value"></p-selectButton>
+  </div>
+
+</div>
