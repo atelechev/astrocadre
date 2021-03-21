@@ -18,6 +18,7 @@ import { SelectorLayerComponent } from 'src/app/modules2/controls/components/sel
 import { SelectorStarMagnitudeComponent } from 'src/app/modules2/controls/components/selector-star-magnitude/selector-star-magnitude.component';
 import { SelectorStarNamesComponent } from 'src/app/modules2/controls/components/selector-star-names/selector-star-names.component';
 import { SelectorThemeComponent } from 'src/app/modules2/controls/components/selector-theme/selector-theme.component';
+import { DraggableElementsHandler } from 'src/app/modules2/controls/services/draggable-elements-handler';
 
 @NgModule({
   imports: [
@@ -45,6 +46,9 @@ import { SelectorThemeComponent } from 'src/app/modules2/controls/components/sel
   ],
   exports: [
     ControlsComponent
+  ],
+  providers: [
+    DraggableElementsHandler
   ]
 })
 export class ControlsModule {

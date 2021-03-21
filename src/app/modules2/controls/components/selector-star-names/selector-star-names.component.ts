@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NameSelectionType } from 'src/app/modules2/controls/components/selector-star-names/name-selection-type';
+import { NameSelectionType } from 'src/app/modules2/controls/models/name-selection-type';
 import { Stars } from 'src/app/modules2/core/models/layers/stars';
 import { SupportedLayers } from 'src/app/modules2/core/models/supported-layers';
 import { LayerService } from 'src/app/modules2/core/services/layer.service';

@@ -5,3 +5,8 @@
   z-index: 1000;
   min-width: 300px;
 }
+
+.ap-panel-header {
+  font-weight: bolder;
+  cursor: pointer;
+}
