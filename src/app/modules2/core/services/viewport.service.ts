@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { ScreenCoordinate } from 'src/app/modules2/core/models/screen-coordinate';
 import { EventsService } from 'src/app/modules2/core/services/events.service';
-import { roundToUpperHundred } from 'src/app/modules2/core/utils/number-utils';
 import { Dimension } from '#core/models/dimension';
 
 
