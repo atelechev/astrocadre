@@ -88,7 +88,7 @@ export class ViewportService {
    * @param coordinate the coordinate to test.
    */
   public isInBounds(coordinate: ScreenCoordinate): boolean {
-    return coordinate &&
+    return !!coordinate &&
       coordinate.x >= 0 &&
       coordinate.y >= 0 &&
       coordinate.x < this._width &&
