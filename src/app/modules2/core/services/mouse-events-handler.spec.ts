@@ -1,22 +1,31 @@
 import { TestBed } from '@angular/core/testing';
-import { ViewportEventService } from '#core/services/viewport-event.service';
-import { MouseEventsHandler } from '#viewport/services/mouse-events-handler';
+import { CameraService } from 'src/app/modules2/core/services/camera.service';
+import { EventsService } from 'src/app/modules2/core/services/events.service';
+import { MouseEventsHandler } from 'src/app/modules2/core/services/mouse-events-handler';
+import { ViewportService } from 'src/app/modules2/core/services/viewport.service';
+
 
 describe('MouseEventsHandler', () => {
 
   let service: MouseEventsHandler;
+  let element: HTMLDivElement;
 
   beforeEach(() => {
-    TestBed.configureTestingModule({ providers: [ViewportEventService, MouseEventsHandler] });
+    TestBed.configureTestingModule({
+      providers: [
+        CameraService,
+        EventsService,
+        MouseEventsHandler,
+        ViewportService
+      ]
+    });
     service = TestBed.inject(MouseEventsHandler);
+    element = document.createElement('div');
   });
-
-  const newElement = () => document.createElement('div');
 
   describe('initMouseListenersOn should initialize', () => {
 
     it('mouse down event', () => {
-      const element = newElement();
       expect(element.onmousedown).toBeNull();
 
       service.initMouseListenersOn(element);
@@ -24,7 +33,6 @@ describe('MouseEventsHandler', () => {
     });
 
     it('mouse up event', () => {
-      const element = newElement();
       expect(element.onmouseup).toBeNull();
 
       service.initMouseListenersOn(element);
@@ -32,7 +40,6 @@ describe('MouseEventsHandler', () => {
     });
 
     it('mouse leave event', () => {
-      const element = newElement();
       expect(element.onmouseleave).toBeNull();
 
       service.initMouseListenersOn(element);
@@ -40,7 +47,6 @@ describe('MouseEventsHandler', () => {
     });
 
     it('mouse move event', () => {
-      const element = newElement();
       expect(element.onmousemove).toBeNull();
 
       service.initMouseListenersOn(element);
@@ -48,7 +54,6 @@ describe('MouseEventsHandler', () => {
     });
 
     it('double click event', () => {
-      const element = newElement();
       expect(element.ondblclick).toBeNull();
 
       service.initMouseListenersOn(element);
