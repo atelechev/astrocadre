@@ -48,12 +48,10 @@ export class SceneService {
     this._viewportRootElement = undefined;
     this._scene = new Scene();
     this._renderer = new WebGLRenderer();
-    this.subscribeViewportChange();
-    this.subscribeThemeLoaded();
+    this.subscribeViewportChanged();
+    this.subscribeThemeChanged();
     this.subscribeLayerShown();
-    this.subscribeTextsShown();
     this.subscribeLayerHidden();
-    this.subscribeTextsHidden();
   }
 
   public set viewportRootElement(viewportRoot: HTMLDivElement) {
@@ -62,6 +60,20 @@ export class SceneService {
       const canvas = this._renderer.domElement;
       this._viewportRootElement.appendChild(canvas);
       this.render();
+    }
+  }
+
+  public showTexts(texts: Array<RenderableText>): void {
+    if (texts) {
+      this.addTextElements(texts);
+      this.showVisibleLabels();
+    }
+  }
+
+  public hideTexts(texts: Array<RenderableText>): void {
+    if (texts) {
+      this.removeTextElements(texts);
+      this.showVisibleLabels();
     }
   }
 
@@ -133,7 +145,7 @@ export class SceneService {
     animate();
   }
 
-  private subscribeViewportChange(): void {
+  private subscribeViewportChanged(): void {
     this._eventsService
       .viewportChanged
       .subscribe(
@@ -153,7 +165,7 @@ export class SceneService {
     }
   }
 
-  private subscribeThemeLoaded(): void {
+  private subscribeThemeChanged(): void {
     this._eventsService
       .themeChanged
       .subscribe(
@@ -172,23 +184,6 @@ export class SceneService {
       );
   }
 
-  private subscribeTextsShown(): void {
-    this._eventsService
-      .textsShown
-      .subscribe(
-        (layer: RenderableLayer) => {
-          this.showTexts(layer?.texts);
-        }
-      );
-  }
-
-  private showTexts(texts: Array<RenderableText>): void {
-    if (texts) {
-      this.addTextElements(texts);
-      this.showVisibleLabels();
-    }
-  }
-
   private subscribeLayerHidden(): void {
     this._eventsService
       .layerHidden
@@ -198,23 +193,6 @@ export class SceneService {
           this.hideTexts(layer?.texts);
         }
       );
-  }
-
-  private subscribeTextsHidden(): void {
-    this._eventsService
-      .textsHidden
-      .subscribe(
-        (layer: RenderableLayer) => {
-          this.hideTexts(layer?.texts);
-        }
-      );
-  }
-
-  private hideTexts(texts: Array<RenderableText>): void {
-    if (texts) {
-      this.removeTextElements(texts);
-      this.showVisibleLabels();
-    }
   }
 
   private updateSceneBackground(theme: Theme): void {

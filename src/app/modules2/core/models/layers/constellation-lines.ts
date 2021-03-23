@@ -20,7 +20,7 @@ export class ConstellationLines extends RenderableLayer {
     this._objects = [
       this._lines
     ];
-    this.subscribeThemeLoaded();
+    this.subscribeThemeChanged();
   }
 
   public get objects(): Object3D[] {

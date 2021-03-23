@@ -19,7 +19,7 @@ export class ConstellationBoundaries extends RenderableLayer {
     this._objects = [
       this._boundaries
     ];
-    this.subscribeThemeLoaded();
+    this.subscribeThemeChanged();
   }
   // FIXME the lines are rendered with an error offset on the longitudinal axis!
   public get objects(): Object3D[] {

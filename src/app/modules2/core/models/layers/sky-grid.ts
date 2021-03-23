@@ -26,7 +26,7 @@ export class SkyGrid extends RenderableLayer {
       this._referenceParallel,
       this._referenceMeridian
     ];
-    this.subscribeThemeLoaded();
+    this.subscribeThemeChanged();
   }
 
   public get objects(): Object3D[] {

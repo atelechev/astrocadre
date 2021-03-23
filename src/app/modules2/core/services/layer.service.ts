@@ -5,6 +5,7 @@ import { Stars } from 'src/app/modules2/core/models/layers/stars';
 import { SupportedLayers } from 'src/app/modules2/core/models/supported-layers';
 import { EventsService } from 'src/app/modules2/core/services/events.service';
 import { LayersFactoryService } from 'src/app/modules2/core/services/layers-factory.service';
+import { SceneService } from 'src/app/modules2/core/services/scene.service';
 import { SearchService } from 'src/app/modules2/core/services/search.service';
 import { StaticDataService } from 'src/app/modules2/core/services/static-data.service';
 
@@ -23,7 +24,8 @@ export class LayerService {
     private readonly _dataService: StaticDataService,
     private readonly _eventsService: EventsService,
     private readonly _layersFactory: LayersFactoryService,
-    private readonly _searchService: SearchService
+    private readonly _searchService: SearchService,
+    private readonly _sceneService: SceneService
   ) {
     this._rootLayer = undefined;
     this._layerModels = new Map<string, Layer>();
@@ -76,7 +78,7 @@ export class LayerService {
       return;
     }
     layer.showTexts();
-    this._eventsService.fireTextsShown(layer); // TODO call showLayer directly, no need to use the events
+    this._sceneService.showTexts(layer.texts);
     layer.model.subLayers?.forEach(
       (subLayer: Layer) => {
         const renderable = this.getRenderableLayer(subLayer.code);
@@ -90,7 +92,7 @@ export class LayerService {
       return;
     }
     layer.hideTexts();
-    this._eventsService.fireTextsHidden(layer);
+    this._sceneService.hideTexts(layer.texts);
     layer.model.subLayers?.forEach(
       (subLayer: Layer) => {
         const renderable = this.getRenderableLayer(subLayer.code);

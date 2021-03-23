@@ -23,7 +23,7 @@ import { StarsMagnitudeLayer } from '#layers/models/stars-magnitude-layer';
   templateUrl: './app.component.html',
   styleUrls: [],
   providers: [
-    ViewportComponent, // FIXME
+    ViewportComponent,
     ThemesComponent,
     LayersComponent
   ]

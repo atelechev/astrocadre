@@ -21,7 +21,7 @@ export class ConstellationNames extends RenderableLayer {
     super(model, materialsService, eventsService);
     this._texts = Array.from(this._renderableLabels.values());
     this._searchables = this.model.objects;
-    this.subscribeThemeLoaded();
+    this.subscribeThemeChanged();
   }
 
   public get texts(): Array<RenderableText> {

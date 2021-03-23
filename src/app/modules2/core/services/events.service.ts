@@ -13,11 +13,6 @@ export class EventsService {
 
   private readonly _layerHidden: BehaviorSubject<RenderableLayer> = new BehaviorSubject<RenderableLayer>(undefined);
 
-  // TODO the text* events are probably not necessary
-  private readonly _textsShown: BehaviorSubject<RenderableLayer> = new BehaviorSubject<RenderableLayer>(undefined);
-
-  private readonly _textsHidden: BehaviorSubject<RenderableLayer> = new BehaviorSubject<RenderableLayer>(undefined);
-
   private readonly _viewportChanged: BehaviorSubject<Dimension> = new BehaviorSubject<Dimension>(undefined);
 
 
@@ -43,22 +38,6 @@ export class EventsService {
 
   public get layerHidden(): Observable<RenderableLayer> {
     return this._layerHidden;
-  }
-
-  public fireTextsShown(layer: RenderableLayer): void {
-    this._textsShown.next(layer);
-  }
-
-  public get textsShown(): Observable<RenderableLayer> {
-    return this._textsShown;
-  }
-
-  public fireTextsHidden(layer: RenderableLayer): void {
-    this._textsHidden.next(layer);
-  }
-
-  public get textsHidden(): Observable<RenderableLayer> {
-    return this._textsHidden;
   }
 
   public fireViewportChanged(size?: Dimension) {

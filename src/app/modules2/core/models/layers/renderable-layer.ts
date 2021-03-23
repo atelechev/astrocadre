@@ -103,7 +103,7 @@ export abstract class RenderableLayer {
     return this._eventsService;
   }
 
-  protected subscribeThemeLoaded(): void {
+  protected subscribeThemeChanged(): void {
     this.eventsService
       .themeChanged
       .subscribe(

@@ -23,7 +23,7 @@ export class Stars extends RenderableLayer {
     private readonly _searchables: Array<Searchable>
   ) {
     super(model, materialsService, eventsService);
-    this.subscribeThemeLoaded();
+    this.subscribeThemeChanged();
     this.showProperNames();
   }
 
