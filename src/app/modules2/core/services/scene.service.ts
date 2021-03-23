@@ -56,13 +56,6 @@ export class SceneService {
     this.subscribeTextsHidden();
   }
 
-  /**
-   * Returns the underlying Scene instance.
-   */
-  public get scene(): Scene {
-    return this._scene;
-  }
-
   public set viewportRootElement(viewportRoot: HTMLDivElement) {
     this._viewportRootElement = viewportRoot;
     if (this._viewportRootElement) {
@@ -135,7 +128,7 @@ export class SceneService {
   private render(): void {
     const animate = () => {
       requestAnimationFrame(animate);
-      this._renderer.render(this.scene, this._cameraService.camera);
+      this._renderer.render(this._scene, this._cameraService.camera);
     };
     animate();
   }
@@ -162,7 +155,7 @@ export class SceneService {
 
   private subscribeThemeLoaded(): void {
     this._eventsService
-      .themeLoaded
+      .themeChanged
       .subscribe(
         (theme: Theme) => this.updateSceneBackground(theme)
       );

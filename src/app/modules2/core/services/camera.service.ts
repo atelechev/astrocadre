@@ -45,10 +45,12 @@ export class CameraService {
   }
 
   public rotate(rotation: AxialRotation): void {
-    this.camera.rotateX(rotation.rx);
-    this.camera.rotateY(rotation.ry);
-    this.camera.rotateZ(rotation.rz);
-    this._eventsService.fireViewportChanged();
+    if (rotation) {
+      this.camera.rotateX(rotation.rx);
+      this.camera.rotateY(rotation.ry);
+      this.camera.rotateZ(rotation.rz);
+      this._eventsService.fireViewportChanged();
+    }
   }
 
   public alignNSAxis(): void {
@@ -59,16 +61,20 @@ export class CameraService {
   }
 
   public setFoV(range: number): void {
-    this.camera.fov = range;
-    this.camera.updateProjectionMatrix();
-    this._eventsService.fireViewportChanged();
+    if (range && range > 0) {
+      this.camera.fov = range;
+      this.camera.updateProjectionMatrix();
+      this._eventsService.fireViewportChanged();
+    }
   }
 
   public centerView(coords: SkyCoordinate): void {
-    this.camera.up = this.getAlignmentPoleCoordinate(coords.declination);
-    this.camera.lookAt(toVector3(coords.rightAscension, coords.declination, WorldConstants.WORLD_RADIUS));
-    this.camera.updateMatrixWorld(true);
-    this._eventsService.fireViewportChanged();
+    if (coords) {
+      this.camera.up = this.getAlignmentPoleCoordinate(coords.declination);
+      this.camera.lookAt(toVector3(coords.rightAscension, coords.declination, WorldConstants.WORLD_RADIUS));
+      this.camera.updateMatrixWorld(true);
+      this._eventsService.fireViewportChanged();
+    }
   }
 
   private getViewCenterCoordinates(): Vector3 {

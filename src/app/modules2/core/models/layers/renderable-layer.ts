@@ -105,7 +105,7 @@ export abstract class RenderableLayer {
 
   protected subscribeThemeLoaded(): void {
     this.eventsService
-      .themeLoaded
+      .themeChanged
       .subscribe(
         (theme: Theme) => {
           if (theme) {

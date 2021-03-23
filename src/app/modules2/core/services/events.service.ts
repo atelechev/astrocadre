@@ -7,7 +7,7 @@ import { Theme } from 'src/app/modules2/core/models/theme';
 @Injectable()
 export class EventsService {
 
-  private readonly _themeLoaded: BehaviorSubject<Theme> = new BehaviorSubject<Theme>(undefined);
+  private readonly _themeChanged: BehaviorSubject<Theme> = new BehaviorSubject<Theme>(undefined);
 
   private readonly _layerShown: BehaviorSubject<RenderableLayer> = new BehaviorSubject<RenderableLayer>(undefined);
 
@@ -21,12 +21,12 @@ export class EventsService {
   private readonly _viewportChanged: BehaviorSubject<Dimension> = new BehaviorSubject<Dimension>(undefined);
 
 
-  public fireThemeLoaded(theme: Theme): void {
-    this._themeLoaded.next(theme);
+  public fireThemeChanged(theme: Theme): void {
+    this._themeChanged.next(theme);
   }
 
-  public get themeLoaded(): Observable<Theme> {
-    return this._themeLoaded;
+  public get themeChanged(): Observable<Theme> {
+    return this._themeChanged;
   }
 
   public fireLayerShown(layer: RenderableLayer): void {

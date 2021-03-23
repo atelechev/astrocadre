@@ -18,6 +18,7 @@ export class ThemeService {
   ) {
     this._availableThemes = [];
     this._theme = undefined;
+    this.loadThemes();
   }
 
   public get availableThemes(): Array<ThemeMeta> {
@@ -26,21 +27,6 @@ export class ThemeService {
 
   public get theme(): Theme {
     return this._theme;
-  }
-
-  public loadThemes(): void {
-    this._dataService
-      .getThemes()
-      .toPromise()
-      .then(
-        (themes: Array<ThemeMeta>) => {
-          this._availableThemes = themes || [];
-          if (this._availableThemes.length > 0) {
-            this.loadTheme(this._availableThemes[0].code);
-          }
-        },
-        (err: any) => console.error(err)
-      );
   }
 
   public loadTheme(code: string): void {
@@ -53,7 +39,22 @@ export class ThemeService {
       .then(
         (theme: Theme) => {
           this._theme = theme;
-          this._eventsService.fireThemeLoaded(this._theme);
+          this._eventsService.fireThemeChanged(this._theme);
+        },
+        (err: any) => console.error(err)
+      );
+  }
+
+  private loadThemes(): void {
+    this._dataService
+      .getThemes()
+      .toPromise()
+      .then(
+        (themes: Array<ThemeMeta>) => {
+          this._availableThemes = themes || [];
+          if (this._availableThemes.length > 0) {
+            this.loadTheme(this._availableThemes[0].code);
+          }
         },
         (err: any) => console.error(err)
       );

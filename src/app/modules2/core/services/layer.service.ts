@@ -29,6 +29,7 @@ export class LayerService {
     this._layerModels = new Map<string, Layer>();
     this._renderableLayers = new Map<string, RenderableLayer>();
     this._shownLayers = new Set<string>();
+    this.loadLayers();
   }
 
   public get rootLayer(): Layer {
@@ -48,17 +49,6 @@ export class LayerService {
     } else {
       this.showLayer(layer);
     }
-  }
-
-  public loadLayers(): void {
-    this._dataService
-      .getLayersTree()
-      .subscribe(
-        (root: Layer) => {
-          this._rootLayer = root;
-          this.processLoadedLayer(this._rootLayer);
-        }
-      );
   }
 
   public getLayer(code: string): Layer {
@@ -146,6 +136,17 @@ export class LayerService {
       this._eventsService.fireLayerHidden(renderable);
     }
     this.processSubLayersVisibility(layer, false);
+  }
+
+  private loadLayers(): void {
+    this._dataService
+      .getLayersTree()
+      .subscribe(
+        (root: Layer) => {
+          this._rootLayer = root;
+          this.processLoadedLayer(this._rootLayer);
+        }
+      );
   }
 
   private get starsLayer(): Stars {
