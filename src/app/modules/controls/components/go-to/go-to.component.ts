@@ -4,8 +4,7 @@ import { ViewportEventService } from '#core/services/viewport-event.service';
 
 @Component({
   selector: `ac-controls-go-to`,
-  templateUrl: './go-to.component.html',
-  styleUrls: ['../controls/controls.component.css', './go-to.component.css']
+  templateUrl: './go-to.component.html'
 })
 export class GoToComponent {
 

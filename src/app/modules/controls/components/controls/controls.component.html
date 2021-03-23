@@ -2,25 +2,11 @@
 <div id="astrocadre-controls"
       #astrocadreControls>
 
-  <div class="ui-controls-head">
-    <span>AstroCadre</span>
-    <input type="checkbox"
-           [checked]="toolsVisible"
-           (change)="toggleToolsVisibility()"
-           title="Toggle UI controls visibility"/>
-  </div>
-
   <div class="ui-controls-tools"
        [hidden]="!toolsVisible">
     <ac-controls-go-to></ac-controls-go-to>
 
-    <ac-controls-select-theme></ac-controls-select-theme>
-
-    <ac-controls-select-layers></ac-controls-select-layers>
-
     <ac-controls-camera></ac-controls-camera>
-
-    <ac-controls-select-viewport-size></ac-controls-select-viewport-size>
   </div>
 
 </div>

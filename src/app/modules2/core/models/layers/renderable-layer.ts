@@ -61,32 +61,6 @@ export abstract class RenderableLayer {
   }
 
   /**
-   * Returns true if this layer is a parent of the specified layer.
-   *
-   * @param other the layer to test the relation with.
-   *
-   * @returns boolean true if this layer is a parent of the one of the argument.
-   */
-  public isParentOf(other: RenderableLayer): boolean {
-    if (!other) {
-      return false;
-    }
-    return this._model
-      .subLayers?.find((subLayer: Layer) => subLayer.code === other.code) !== undefined;
-  }
-
-  /**
-   * Returns true if this layer is a child of the specified layer.
-   *
-   * @param other the layer to test the relation with.
-   *
-   * @returns boolean true if this layer is a child of the one of the argument.
-   */
-  public isChildOf(other: RenderableLayer): boolean {
-    return other && other.isParentOf(this);
-  }
-
-  /**
    * Returns the code of this layer, used as its identifier.
    *
    * @returns string the code/identifier of this layer.

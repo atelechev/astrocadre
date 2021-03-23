@@ -8,8 +8,7 @@ import { DraggableElementsHandler } from '#core/services/draggable-elements-hand
 
 @Component({
   selector: 'ac-controls',
-  templateUrl: './controls.component.html',
-  styleUrls: ['../controls/controls.component.css']
+  templateUrl: './controls.component.html'
 })
 export class ControlsComponent implements AfterViewInit {
 

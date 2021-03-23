@@ -5,8 +5,7 @@ import { environment } from '#environments/environment';
 
 @Component({
   selector: `ac-controls-camera`,
-  templateUrl: './camera-controls.component.html',
-  styleUrls: ['../controls/controls.component.css', './camera-controls.component.css']
+  templateUrl: './camera-controls.component.html'
 })
 export class CameraControlsComponent {
 

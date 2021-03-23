@@ -1,5 +1,4 @@
 import { NgModule } from '@angular/core';
-import { LayersComponent } from '#layers/components/layers/layers.component';
 import { LayersFactoryService } from '#layers/services/layers-factory.service';
 import { PointsFactory } from '#layers/services/points-factory';
 import { LinesFactory } from '#layers/services/lines-factory';
@@ -12,12 +11,6 @@ import { ConstellationNamesLayerFactory } from '#layers/services/constellation-n
 import { StarsMagnitudeLayerFactory } from '#layers/services/stars-magnitude-layer-factory';
 
 @NgModule({
-  declarations: [
-    LayersComponent
-  ],
-  exports: [
-    LayersComponent
-  ],
   providers: [
     LayersFactoryService,
     PointsFactory,
