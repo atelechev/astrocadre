@@ -77,7 +77,7 @@ export class CameraService {
     }
   }
 
-  private getViewCenterCoordinates(): Vector3 {
+  public getViewCenterCoordinates(): Vector3 {
     const viewCenter = new Vector3();
     this._coordsMarker.updateMatrixWorld(true);
     viewCenter.setFromMatrixPosition(this._coordsMarker.matrixWorld);

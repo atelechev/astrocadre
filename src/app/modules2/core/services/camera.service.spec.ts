@@ -1,27 +1,28 @@
 import { TestBed } from '@angular/core/testing';
+import { CameraService } from 'src/app/modules2/core/services/camera.service';
+import { EventsService } from 'src/app/modules2/core/services/events.service';
+import { ViewportService } from 'src/app/modules2/core/services/viewport.service';
 import { Vector3 } from 'three';
-import { ViewportDimensionService } from '#core/services/viewport-dimension.service';
-import { ViewportEventService } from '#core/services/viewport-event.service';
-import { WorldOriginCameraService } from '#viewport/services/world-origin-camera.service';
 
-describe('WorldOriginCameraService', () => {
 
-  let service: WorldOriginCameraService;
+describe('CameraService', () => {
+
+  let service: CameraService;
 
   beforeEach(() => {
     TestBed.configureTestingModule(
       {
         providers: [
-          ViewportEventService,
-          ViewportDimensionService,
-          WorldOriginCameraService
+          CameraService,
+          EventsService,
+          ViewportService
         ]
       });
-    service = TestBed.inject(WorldOriginCameraService);
+    service = TestBed.inject(CameraService);
   });
 
   const assertExpectedRotation = (rx: number, ry: number, rz: number) => {
-    const camera = service.getCamera();
+    const camera = service.camera;
     const precision = 2;
     expect(camera.rotation.x).toBeCloseTo(rx, precision);
     expect(camera.rotation.y).toBeCloseTo(ry, precision);
@@ -29,7 +30,7 @@ describe('WorldOriginCameraService', () => {
   };
 
   const assertExpectedFov = (fov: number) => {
-    const camera = service.getCamera();
+    const camera = service.camera;
     expect(camera.fov).toBeCloseTo(fov, 2);
   };
 
@@ -40,8 +41,8 @@ describe('WorldOriginCameraService', () => {
     expect(checked.z).toBeCloseTo(expected.z, precision);
   };
 
-  it('getCamera should return defined camera with expected origin and rotation', () => {
-    const camera = service.getCamera();
+  it('camera should return defined camera with expected origin and rotation', () => {
+    const camera = service.camera;
     expect(camera).toBeDefined();
     expect(camera.position.x).toBe(0);
     expect(camera.position.y).toBe(0);
@@ -74,7 +75,7 @@ describe('WorldOriginCameraService', () => {
     assertExpectedRotation(2.785, -1.102, 1.175);
   });
 
-  it('getViewCenterCoordinates returns expected coordinates', () => {
+  it('getViewCenterCoordinates should return expected coordinates', () => {
     const initial = service.getViewCenterCoordinates();
     assertExpectedPoint(initial, new Vector3(0, 0, -2.1));
     service.centerView({ rightAscension: 10, declination: 25 });
