@@ -35,7 +35,7 @@ export class LayersFactoryService {
   }
 
   private getLayerFactory(layer: Layer): LayerFactory {
-    const useCode = this.calculateTargetLayerCode(layer.code);
+    const useCode = this.calculateTargetLayerCode(layer?.code);
     switch (useCode) {
       case SupportedLayers.SKY_GRID:
         return new SkyGridLayerFactory(
@@ -78,6 +78,10 @@ export class LayersFactoryService {
   }
 
   private calculateTargetLayerCode(fromCode: string): string {
+    if (!fromCode) {
+      return undefined;
+    }
+    // return the parent 'stars' identifier for all the sub-layers of stars.
     const isStarsMagnitudeLayer = fromCode.startsWith(StarsLayerFactory.STARS_LAYER_CODE_PREFIX);
     return isStarsMagnitudeLayer ? SupportedLayers.STARS : fromCode;
   }
