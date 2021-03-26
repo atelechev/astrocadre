@@ -8,6 +8,7 @@ import { MaterialsService } from 'src/app/modules2/core/services/materials.servi
 import { StaticDataService } from 'src/app/modules2/core/services/static-data.service';
 import { ThemeService } from 'src/app/modules2/core/services/theme.service';
 import { MockStaticDataService } from 'src/app/modules2/core/test-utils/mock-static-data-service.spec';
+import { mockedLayers } from 'src/app/modules2/core/test-utils/mocked-layers.spec';
 
 
 describe('LayersFactoryService', () => {
@@ -36,18 +37,26 @@ describe('LayersFactoryService', () => {
 
   describe('buildRenderableLayer should return', () => {
 
-    it('undefined if the arg is falsy', () => {
-      expect(service.buildRenderableLayer(undefined)).toBeUndefined();
-    });
+    describe('undefined', () => {
 
-    it('undefined if the layer code is unsupported', () => {
-      const layer: Layer = {
-        code: 'wrong',
-        label: 'Wrong',
-        loadFromUrl: false,
-        objects: []
-      };
-      expect(service.buildRenderableLayer(layer)).toBeUndefined();
+      it('if the arg is falsy', () => {
+        expect(service.buildRenderableLayer(undefined)).toBeUndefined();
+      });
+
+      it('if the layer code is unsupported', () => {
+        const layer: Layer = {
+          code: 'wrong',
+          label: 'Wrong',
+          loadFromUrl: false,
+          objects: []
+        };
+        expect(service.buildRenderableLayer(layer)).toBeUndefined();
+      });
+
+      it('for the root layer', () => {
+        expect(service.buildRenderableLayer(mockedLayers)).toBeUndefined();
+      });
+
     });
 
     it('expected renderable layer for valid arg', () => {

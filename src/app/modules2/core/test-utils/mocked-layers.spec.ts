@@ -27,6 +27,20 @@ export const mockedLayers: Layer = {
           loadFromUrl: true,
           description: 'Stars of magnitude less or equal to 2.0',
           objects: []
+        },
+        {
+          code: 'stars-mag2.5',
+          label: 'Magnitude 2.0 <-> 2.5',
+          loadFromUrl: true,
+          description: 'Stars of magnitude between 2.0 and 2.5',
+          objects: []
+        },
+        {
+          code: 'stars-mag3.0',
+          label: 'Magnitude 2.5 <-> 3.0',
+          loadFromUrl: true,
+          description: 'Stars of magnitude between 2.5 and 3.0',
+          objects: []
         }
       ]
     }

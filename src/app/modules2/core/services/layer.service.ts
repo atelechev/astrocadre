@@ -39,26 +39,29 @@ export class LayerService {
   }
 
   public isShown(layer: string): boolean {
-    return layer && this._shownLayers.has(layer);
-  }
-
-  public toggleLayerShown(layer: string): void {
-    if (!layer) {
-      return;
-    }
-    if (this._shownLayers.has(layer)) {
-      this.hideLayer(layer);
-    } else {
-      this.showLayer(layer);
-    }
-  }
-
-  public getLayer(code: string): Layer {
-    return this._layerModels.get(code);
+    return !!layer && this._shownLayers.has(layer);
   }
 
   public getRenderableLayer(code: string): RenderableLayer {
     return this._renderableLayers.get(code);
+  }
+
+  public showLayer(layer: string): void {
+    this._shownLayers.add(layer);
+    const renderable = this._renderableLayers.get(layer);
+    if (renderable) {
+      this._eventsService.fireLayerShown(renderable);
+    }
+    this.processSubLayersVisibility(layer, true);
+  }
+
+  public hideLayer(layer: string): void {
+    this._shownLayers.delete(layer);
+    const renderable = this._renderableLayers.get(layer);
+    if (renderable) {
+      this._eventsService.fireLayerHidden(renderable);
+    }
+    this.processSubLayersVisibility(layer, false);
   }
 
   public showStarLayersDownToMagnitude(magnitude: number): void {
@@ -101,7 +104,14 @@ export class LayerService {
     );
   }
 
-  public toggleNamesType(layer: Stars, useProper: boolean): void {
+  public showStarsProperNames(show: boolean): void {
+    const layer = this.starsLayer;
+    this.hideTexts(layer);
+    this.toggleNamesType(layer, show);
+    this.showTexts(layer);
+  }
+
+  private toggleNamesType(layer: Stars, useProper: boolean): void {
     if (useProper) {
       layer.showProperNames();
     } else {
@@ -113,31 +123,6 @@ export class LayerService {
         this.toggleNamesType(starsSublayer, useProper);
       }
     );
-  }
-
-  public showStarsProperNames(show: boolean): void {
-    const layer = this.starsLayer;
-    this.hideTexts(layer);
-    this.toggleNamesType(layer, show);
-    this.showTexts(layer);
-  }
-
-  public showLayer(layer: string): void {
-    this._shownLayers.add(layer);
-    const renderable = this._renderableLayers.get(layer);
-    if (renderable) {
-      this._eventsService.fireLayerShown(renderable);
-    }
-    this.processSubLayersVisibility(layer, true);
-  }
-
-  public hideLayer(layer: string): void {
-    this._shownLayers.delete(layer);
-    const renderable = this._renderableLayers.get(layer);
-    if (renderable) {
-      this._eventsService.fireLayerHidden(renderable);
-    }
-    this.processSubLayersVisibility(layer, false);
   }
 
   private loadLayers(): void {
@@ -156,9 +141,9 @@ export class LayerService {
   }
 
   private getAllStarsLayers(): Array<Stars> {
-    return this.starsLayer.model.subLayers?.map(
+    return this.starsLayer?.model?.subLayers?.map(
       (subLayer: Layer) => this.getRenderableLayer(subLayer.code) as Stars
-    ) || [];
+    ).filter((starLayer: Stars) => !!starLayer) || [];
   }
 
   private processLoadedLayer(layer: Layer): void {
