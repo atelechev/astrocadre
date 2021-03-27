@@ -1,20 +1,11 @@
-import { HttpClientModule } from '@angular/common/http';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { fakeAsync, TestBed } from '@angular/core/testing';
 import { TextOffsetPolicies } from 'src/app/modules2/core/models/layers/factories/text/text-offsets-policies';
 import { RenderableText } from 'src/app/modules2/core/models/layers/renderable-text';
 import { Stars } from 'src/app/modules2/core/models/layers/stars';
-import { CameraService } from 'src/app/modules2/core/services/camera.service';
 import { EventsService } from 'src/app/modules2/core/services/events.service';
 import { LayerService } from 'src/app/modules2/core/services/layer.service';
-import { LayersFactoryService } from 'src/app/modules2/core/services/layers-factory.service';
-import { MaterialsService } from 'src/app/modules2/core/services/materials.service';
 import { SceneService } from 'src/app/modules2/core/services/scene.service';
-import { SearchService } from 'src/app/modules2/core/services/search.service';
-import { StaticDataService } from 'src/app/modules2/core/services/static-data.service';
-import { ThemeService } from 'src/app/modules2/core/services/theme.service';
-import { ViewportService } from 'src/app/modules2/core/services/viewport.service';
-import { MockStaticDataService } from 'src/app/modules2/core/test-utils/mock-static-data-service.spec';
+import { TestContext } from 'src/app/modules2/core/test-utils/test-context.spec';
 import { toVector3 } from 'src/app/modules2/core/utils/vector-utils';
 
 
@@ -25,29 +16,9 @@ describe('SceneService', () => {
   let layers: LayerService;
 
   beforeEach(fakeAsync(() => {
-    TestBed.configureTestingModule({
-      imports: [
-        HttpClientModule,
-        HttpClientTestingModule
-      ],
-      providers: [
-        CameraService,
-        EventsService,
-        LayerService,
-        LayersFactoryService,
-        MaterialsService,
-        SearchService,
-        SceneService,
-        {
-          provide: StaticDataService,
-          useClass: MockStaticDataService
-        },
-        ThemeService,
-        ViewportService
-      ]
-    });
-    layers = TestBed.inject(LayerService);
-    service = TestBed.inject(SceneService);
+    const ctx = new TestContext().configure();
+    layers = ctx.layerService;
+    service = ctx.sceneService;
     service.setViewportRootElement(document.createElement('div'));
   }));
 

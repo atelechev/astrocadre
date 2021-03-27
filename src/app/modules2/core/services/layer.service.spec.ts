@@ -1,21 +1,10 @@
-import { HttpClientModule } from '@angular/common/http';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { fakeAsync, TestBed } from '@angular/core/testing';
+import { fakeAsync } from '@angular/core/testing';
 import { Layer } from 'src/app/modules2/core/models/layer';
 import { RenderableLayer } from 'src/app/modules2/core/models/layers/renderable-layer';
 import { Stars } from 'src/app/modules2/core/models/layers/stars';
-import { CameraService } from 'src/app/modules2/core/services/camera.service';
-import { EventsService } from 'src/app/modules2/core/services/events.service';
 import { LayerService } from 'src/app/modules2/core/services/layer.service';
-import { LayersFactoryService } from 'src/app/modules2/core/services/layers-factory.service';
-import { MaterialsService } from 'src/app/modules2/core/services/materials.service';
-import { SceneService } from 'src/app/modules2/core/services/scene.service';
-import { SearchService } from 'src/app/modules2/core/services/search.service';
-import { StaticDataService } from 'src/app/modules2/core/services/static-data.service';
-import { ThemeService } from 'src/app/modules2/core/services/theme.service';
-import { ViewportService } from 'src/app/modules2/core/services/viewport.service';
-import { MockStaticDataService } from 'src/app/modules2/core/test-utils/mock-static-data-service.spec';
 import { mockedLayers } from 'src/app/modules2/core/test-utils/mocked-layers.spec';
+import { TestContext } from 'src/app/modules2/core/test-utils/test-context.spec';
 
 
 describe('LayerService', () => {
@@ -23,28 +12,8 @@ describe('LayerService', () => {
   let service: LayerService;
 
   beforeEach(fakeAsync(() => {
-    TestBed.configureTestingModule({
-      imports: [
-        HttpClientModule,
-        HttpClientTestingModule
-      ],
-      providers: [
-        CameraService,
-        EventsService,
-        LayerService,
-        LayersFactoryService,
-        MaterialsService,
-        {
-          provide: StaticDataService,
-          useClass: MockStaticDataService
-        },
-        SceneService,
-        SearchService,
-        ThemeService,
-        ViewportService
-      ]
-    });
-    service = TestBed.inject(LayerService);
+    const ctx = new TestContext().configure();
+    service = ctx.layerService;
   }));
 
   const assertLayersShown = (expectedShown: Array<string>): void => {
