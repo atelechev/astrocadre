@@ -40,6 +40,10 @@ export class RenderableText {
     return this._offsets.offsetY;
   }
 
+  public get text(): string {
+    return this._text;
+  }
+
   public applyStyles(styles: Map<string, TextStyle>): void {
     const labelStyle = styles.get(this._styleKey);
     this.applyStyle(labelStyle);

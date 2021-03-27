@@ -31,7 +31,7 @@ export class StarsLayerFactory implements LayerFactory {
     const useObjects = this._layerModel.objects || [];
     const stars = this._pointsFactory.createObject3D(SupportedLayers.STARS, useObjects);
     const properNames = this.initLabels(extractProperName, this.toProperNameRenderableText);
-    const stadardNames = this.initLabels(extractStandardName, this.toStandardNameRenderableText);
+    const standardNames = this.initLabels(extractStandardName, this.toStandardNameRenderableText);
     const searchables = this.extractSearchables(this._layerModel.objects);
     return new Stars(
       this._layerModel,
@@ -40,7 +40,7 @@ export class StarsLayerFactory implements LayerFactory {
       magnitudeClass,
       stars,
       properNames,
-      stadardNames,
+      standardNames,
       searchables
     );
   }

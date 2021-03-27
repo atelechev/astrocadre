@@ -48,6 +48,10 @@ export class TestContext {
     return TestBed.inject(LayerService);
   }
 
+  public get layersFactory(): LayersFactoryService {
+    return TestBed.inject(LayersFactoryService);
+  }
+
   public get materialsService(): MaterialsService {
     return TestBed.inject(MaterialsService);
   }
