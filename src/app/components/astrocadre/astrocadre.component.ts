@@ -30,7 +30,7 @@ export class AstrocadreComponent implements AfterViewInit {
 
   public ngAfterViewInit(): void {
     const viewportRoot = this._astrocadreViewport.nativeElement as HTMLDivElement;
-    this._sceneService.viewportRootElement = viewportRoot;
+    this._sceneService.setViewportRootElement(viewportRoot);
     this._mouseEventsHandler.initMouseListenersOn(viewportRoot);
   }
 

@@ -54,7 +54,19 @@ export class SceneService {
     this.subscribeLayerHidden();
   }
 
-  public set viewportRootElement(viewportRoot: HTMLDivElement) {
+  public get allObjectsCount(): number {
+    return this._allObjects.size;
+  }
+
+  public get shownObjectsCount(): number {
+    return this._scene.children.length;
+  }
+
+  public get allTextsCount(): number {
+    return this._allTextElements.size;
+  }
+
+  public setViewportRootElement(viewportRoot: HTMLDivElement) {
     this._viewportRootElement = viewportRoot;
     if (this._viewportRootElement) {
       const canvas = this._renderer.domElement;

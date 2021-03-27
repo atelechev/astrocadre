@@ -20,7 +20,10 @@ export class MockStaticDataService {
     return of(mockedLayers);
   }
 
-  public getDataJson(): Observable<Array<any>> {
+  public getDataJson(resource: string): Observable<Array<any>> {
+    if (resource === 'stars-mag2.0') {
+      return of([[37.95, 89.26, 2.0, 'Polaris', 'ALP UMI']]);
+    }
     return of([]);
   }
 

@@ -1,6 +1,6 @@
 import { HttpClientModule } from '@angular/common/http';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { TestBed, waitForAsync } from '@angular/core/testing';
+import { fakeAsync, TestBed } from '@angular/core/testing';
 import { Layer } from 'src/app/modules2/core/models/layer';
 import { RenderableLayer } from 'src/app/modules2/core/models/layers/renderable-layer';
 import { Stars } from 'src/app/modules2/core/models/layers/stars';
@@ -22,7 +22,7 @@ describe('LayerService', () => {
 
   let service: LayerService;
 
-  beforeEach(() => {
+  beforeEach(fakeAsync(() => {
     TestBed.configureTestingModule({
       imports: [
         HttpClientModule,
@@ -45,7 +45,7 @@ describe('LayerService', () => {
       ]
     });
     service = TestBed.inject(LayerService);
-  });
+  }));
 
   const assertLayersShown = (expectedShown: Array<string>): void => {
     expectedShown.forEach(
@@ -65,11 +65,9 @@ describe('LayerService', () => {
       .subLayers
       .map((subLayer: Layer) => service.getRenderableLayer(subLayer.code));
 
-  it('rootLayer should return expected value', waitForAsync(() => {
-    setTimeout(() => {
-      expect(service.rootLayer).toEqual(mockedLayers);
-    });
-  }));
+  it('rootLayer should return expected value', () => {
+    expect(service.rootLayer).toEqual(mockedLayers);
+  });
 
   describe('isShown should return', () => {
 
@@ -85,13 +83,11 @@ describe('LayerService', () => {
 
     });
 
-    it('true if the layer is expected to be shown', waitForAsync(() => {
-      setTimeout(() => {
-        const skyGrid = service.rootLayer.subLayers[0];
-        expect(skyGrid).toBeDefined();
-        expect(service.isShown(skyGrid.code)).toBeTrue();
-      });
-    }));
+    it('true if the layer is expected to be shown', () => {
+      const skyGrid = service.rootLayer.subLayers[0];
+      expect(skyGrid).toBeDefined();
+      expect(service.isShown(skyGrid.code)).toBeTrue();
+    });
 
   });
 
@@ -124,37 +120,29 @@ describe('LayerService', () => {
 
   describe('showLayer should', () => {
 
-    it('have no effect if the arg is falsy', waitForAsync(() => {
-      setTimeout(() => {
-        service.showLayer(undefined);
-        expect(service.isShown(undefined)).toBeFalse();
-      });
-    }));
+    it('have no effect if the arg is falsy', () => {
+      service.showLayer(undefined);
+      expect(service.isShown(undefined)).toBeFalse();
+    });
 
-    it('show the layer and its sub-layers', waitForAsync(() => {
-      setTimeout(() => {
-        service.showLayer('stars');
-        assertLayersShown(['stars', 'stars-mag2.0', 'stars-mag2.5', 'stars-mag3.0']);
-      });
-    }));
+    it('show the layer and its sub-layers', () => {
+      service.showLayer('stars');
+      assertLayersShown(['stars', 'stars-mag2.0', 'stars-mag2.5', 'stars-mag3.0']);
+    });
 
   });
 
   describe('hideLayer should', () => {
 
-    it('have no effect if the arg is falsy', waitForAsync(() => {
-      setTimeout(() => {
-        service.hideLayer(undefined);
-        expect(service.isShown(undefined)).toBeFalse();
-      });
-    }));
+    it('have no effect if the arg is falsy', () => {
+      service.hideLayer(undefined);
+      expect(service.isShown(undefined)).toBeFalse();
+    });
 
-    it('hide the layer and its sub-layers', waitForAsync(() => {
-      setTimeout(() => {
-        service.hideLayer('stars');
-        assertLayersHidden(['stars', 'stars-mag2.0', 'stars-mag2.5', 'stars-mag3.0']);
-      });
-    }));
+    it('hide the layer and its sub-layers', () => {
+      service.hideLayer('stars');
+      assertLayersHidden(['stars', 'stars-mag2.0', 'stars-mag2.5', 'stars-mag3.0']);
+    });
 
   });
 
@@ -164,84 +152,72 @@ describe('LayerService', () => {
       assertLayersShown(['sky-grid', 'stars', 'stars-mag2.0', 'stars-mag2.5', 'stars-mag3.0']);
     };
 
-    it('hide all the star layers of magnitude greater than the argument', waitForAsync(() => {
-      setTimeout(() => {
-        assertAllLayersShown();
-        service.showStarLayersDownToMagnitude(2);
-        assertLayersShown(['sky-grid', 'stars', 'stars-mag2.0']);
-        assertLayersHidden(['stars-mag2.5', 'stars-mag3.0']);
-      });
-    }));
+    it('hide all the star layers of magnitude greater than the argument', () => {
+      assertAllLayersShown();
+      service.showStarLayersDownToMagnitude(2);
+      assertLayersShown(['sky-grid', 'stars', 'stars-mag2.0']);
+      assertLayersHidden(['stars-mag2.5', 'stars-mag3.0']);
+    });
 
-    it('have no effect if the arg is falsy', waitForAsync(() => {
-      setTimeout(() => {
-        assertAllLayersShown();
-        service.showStarLayersDownToMagnitude(undefined);
-        assertAllLayersShown();
-      });
-    }));
+    it('have no effect if the arg is falsy', () => {
+      assertAllLayersShown();
+      service.showStarLayersDownToMagnitude(undefined);
+      assertAllLayersShown();
+    });
 
   });
 
-  it('showTexts should show the texts of the layer and its sub-layers', waitForAsync(() => {
-    setTimeout(() => {
-      const code = 'stars';
-      const renderable = service.getRenderableLayer(code);
-      expect(renderable).toBeDefined();
-      service.showTexts(renderable);
-      expect(renderable.areTextsShown).toBeTrue();
-      getSubRenderables(code)
-        .forEach(
-          (subLayer: RenderableLayer) =>
-            expect(subLayer.areTextsShown).toBeTrue()
-        );
-    });
-  }));
+  it('showTexts should show the texts of the layer and its sub-layers', () => {
+    const code = 'stars';
+    const renderable = service.getRenderableLayer(code);
+    expect(renderable).toBeDefined();
+    service.showTexts(renderable);
+    expect(renderable.areTextsShown).toBeTrue();
+    getSubRenderables(code)
+      .forEach(
+        (subLayer: RenderableLayer) =>
+          expect(subLayer.areTextsShown).toBeTrue()
+      );
+  });
 
-  it('hideTexts should hide the texts of the layer and its sub-layers', waitForAsync(() => {
-    setTimeout(() => {
-      const code = 'stars';
-      const renderable = service.getRenderableLayer(code);
-      expect(renderable).toBeDefined();
-      service.hideTexts(renderable);
-      expect(renderable.areTextsShown).toBeFalse();
-      getSubRenderables(code)
-        .forEach(
-          (subLayer: RenderableLayer) =>
-            expect(subLayer.areTextsShown).toBeFalse()
-        );
-    });
-  }));
+  it('hideTexts should hide the texts of the layer and its sub-layers', () => {
+    const code = 'stars';
+    const renderable = service.getRenderableLayer(code);
+    expect(renderable).toBeDefined();
+    service.hideTexts(renderable);
+    expect(renderable.areTextsShown).toBeFalse();
+    getSubRenderables(code)
+      .forEach(
+        (subLayer: RenderableLayer) =>
+          expect(subLayer.areTextsShown).toBeFalse()
+      );
+  });
 
   describe('showStarsProperNames should', () => {
 
-    it('show the proper names if useProper is true', waitForAsync(() => {
-      setTimeout(() => {
-        const code = 'stars';
-        service.showStarsProperNames(true);
-        const layer = service.getRenderableLayer(code) as Stars;
-        expect(layer.properNamesShown).toBeTrue();
-        getSubRenderables(code)
-          .forEach(
-            (subLayer: Stars) =>
-              expect(subLayer.properNamesShown).toBeTrue()
-          );
-      });
-    }));
+    it('show the proper names if useProper is true', () => {
+      const code = 'stars';
+      service.showStarsProperNames(true);
+      const layer = service.getRenderableLayer(code) as Stars;
+      expect(layer.properNamesShown).toBeTrue();
+      getSubRenderables(code)
+        .forEach(
+          (subLayer: Stars) =>
+            expect(subLayer.properNamesShown).toBeTrue()
+        );
+    });
 
-    it('show the standard names if useProper is false', waitForAsync(() => {
-      setTimeout(() => {
-        const code = 'stars';
-        service.showStarsProperNames(false);
-        const layer = service.getRenderableLayer(code) as Stars;
-        expect(layer.properNamesShown).toBeFalse();
-        getSubRenderables(code)
-          .forEach(
-            (subLayer: Stars) =>
-              expect(subLayer.properNamesShown).toBeFalse()
-          );
-      });
-    }));
+    it('show the standard names if useProper is false', () => {
+      const code = 'stars';
+      service.showStarsProperNames(false);
+      const layer = service.getRenderableLayer(code) as Stars;
+      expect(layer.properNamesShown).toBeFalse();
+      getSubRenderables(code)
+        .forEach(
+          (subLayer: Stars) =>
+            expect(subLayer.properNamesShown).toBeFalse()
+        );
+    });
 
   });
 
