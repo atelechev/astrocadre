@@ -15,8 +15,8 @@ export abstract class RenderableLayer {
 
   constructor(
     private readonly _model: Layer,
-    private readonly _materialsService: MaterialsService,
-    private readonly _eventsService: EventsService
+    private readonly _materialsService: MaterialsService, // TODO could it be decoupled from this service?
+    private readonly _eventsService: EventsService // TODO decouple it from this service
   ) {
     this._textsShown = true;
   }

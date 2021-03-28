@@ -1,4 +1,3 @@
-import { HtmlElementFactory } from 'src/app/modules2/core/models/layers/factories/text/html-element-factory';
 import { TextOffsetPolicy } from 'src/app/modules2/core/models/layers/factories/text/text-offset-policy';
 import { TextOffsets } from 'src/app/modules2/core/models/layers/factories/text/text-offsets';
 import { TextStyle } from 'src/app/modules2/core/models/text-style';
@@ -20,7 +19,7 @@ export class RenderableText {
     private readonly _text: string,
     private readonly _offsetPolicy: TextOffsetPolicy
   ) {
-    this._htmlElement = HtmlElementFactory.newLabel(parentLayer, _styleKey, _text);
+    this._htmlElement = this.newLabel(parentLayer, _styleKey, _text);
     this._offsets = TextOffsets.ZERO_OFFSETS;
   }
 
@@ -45,9 +44,11 @@ export class RenderableText {
   }
 
   public applyStyles(styles: Map<string, TextStyle>): void {
-    const labelStyle = styles.get(this._styleKey);
-    this.applyStyle(labelStyle);
-    this._offsets = this._offsetPolicy.calculateOffsets(this._text, this._htmlElement);
+    const labelStyle = styles?.get(this._styleKey);
+    if (labelStyle) {
+      this.applyStyle(labelStyle);
+      this._offsets = this._offsetPolicy.calculateOffsets(this._text, this._htmlElement);
+    }
   }
 
   public setVisible(visible: boolean): void {
@@ -61,6 +62,19 @@ export class RenderableText {
       .forEach(
         (cssProperty: string) => elementStyle[cssProperty] = style[cssProperty]
       );
+  }
+
+  private newLabel(
+    layer: string,
+    styleKey: string,
+    text: string
+  ): HTMLElement {
+    const element = document.createElement('div');
+    element.className = `ac_label_${layer}_${styleKey}`;
+    element.textContent = text;
+    element.style.position = 'absolute';
+    element.style.zIndex = '100';
+    return element;
   }
 
 }

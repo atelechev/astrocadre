@@ -1,10 +1,7 @@
 import { fakeAsync, TestBed, tick } from '@angular/core/testing';
-import { LayerFactory } from 'src/app/modules2/core/models/layers/factories/layer-factory';
 import { RenderableText } from 'src/app/modules2/core/models/layers/renderable-text';
 import { Stars } from 'src/app/modules2/core/models/layers/stars';
-import { LayerService } from 'src/app/modules2/core/services/layer.service';
 import { LayersFactoryService } from 'src/app/modules2/core/services/layers-factory.service';
-import { mockedLayers } from 'src/app/modules2/core/test-utils/mocked-layers.spec';
 import { mockedTheme } from 'src/app/modules2/core/test-utils/mocked-theme.spec';
 import { TestContext } from 'src/app/modules2/core/test-utils/test-context.spec';
 import { Points, PointsMaterial } from 'three';
