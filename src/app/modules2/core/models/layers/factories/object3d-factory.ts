@@ -8,6 +8,9 @@ import { Object3D, Vector3 } from 'three';
 export abstract class Object3DFactory<T extends Object3D> {
 
   public createObject3D(layer: string, segments: number[][]): T {
+    if (!segments) {
+      throw new Error('segments arg must be defined');
+    }
     const geometry = new BufferGeometry();
     const radius = WorldConstants.worldRadiusForLayer(layer);
     let pointPairs = new Array<Vector3>();

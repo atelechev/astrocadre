@@ -1,12 +1,13 @@
 import { TestBed } from '@angular/core/testing';
+import { PointsFactory } from 'src/app/modules2/core/models/layers/factories/points-factory';
+import { SupportedLayers } from 'src/app/modules2/core/models/supported-layers';
+import { assertGeometryExpected } from 'src/app/modules2/core/test-utils/assertions-geometry.spec';
 import { BufferGeometry } from 'three';
-import { Layers } from '#core/models/layers';
-import { assertGeometryExpected, assertSegmentsArgMustBeDefined, assertSegmentsArgMustNotBeEmpty } from '#layers/services/object3d-factory.spec';
-import { PointsFactory } from '#layers/services/points-factory';
+
 
 describe('PointsFactory', () => {
 
-  const layer = Layers.STARS;
+  const layer = SupportedLayers.STARS;
 
   let service: PointsFactory;
 
@@ -15,16 +16,8 @@ describe('PointsFactory', () => {
     service = TestBed.inject(PointsFactory);
   });
 
-  describe('createObject3D should throw expected error', () => {
-
-    it('if segments arg is undefined', () => {
-      assertSegmentsArgMustBeDefined(() => service.createObject3D(layer, undefined));
-    });
-
-    it('if segments arg is empty', () => {
-      assertSegmentsArgMustNotBeEmpty(() => service.createObject3D(layer, []));
-    });
-
+  it('createObject3D should throw expected error if segments arg is falsy', () => {
+    expect(() => service.createObject3D(layer, undefined)).toThrowError('segments arg must be defined');
   });
 
   describe('toObject3D should', () => {
