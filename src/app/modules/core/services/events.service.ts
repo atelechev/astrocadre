@@ -13,9 +13,6 @@ export class EventsService {
 
   private readonly _layerHidden: BehaviorSubject<RenderableLayer> = new BehaviorSubject<RenderableLayer>(undefined);
 
-  private readonly _viewportChanged: BehaviorSubject<Dimension> = new BehaviorSubject<Dimension>(undefined);
-
-
   public fireThemeChanged(theme: Theme): void {
     this._themeChanged.next(theme);
   }
@@ -38,14 +35,6 @@ export class EventsService {
 
   public get layerHidden(): Observable<RenderableLayer> {
     return this._layerHidden;
-  }
-
-  public fireViewportChanged(size?: Dimension) {
-    this._viewportChanged.next(size);
-  }
-
-  public get viewportChanged(): Observable<Dimension> {
-    return this._viewportChanged;
   }
 
 }

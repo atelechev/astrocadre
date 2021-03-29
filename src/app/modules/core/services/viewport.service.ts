@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { Dimension } from '#core/models/dimension';
 import { ScreenCoordinate } from '#core/models/screen-coordinate';
-import { EventsService } from '#core/services/events.service';
-
 
 @Injectable()
 export class ViewportService {
+
+  private readonly _viewportChanged: BehaviorSubject<Dimension>;
 
   private readonly _maxSettableSize = 16384;
 
@@ -17,7 +18,8 @@ export class ViewportService {
 
   private _width: number;
 
-  constructor(private readonly _eventsService: EventsService) {
+  constructor() {
+    this._viewportChanged = new BehaviorSubject<Dimension>(undefined);
     this._defaultHeight = window.screen.height;
     this._defaultWidth = window.screen.width;
     this.size = {
@@ -47,7 +49,7 @@ export class ViewportService {
     this._height = this.isSizeInRange(size?.height) ? Math.floor(size.height) : this._defaultHeight;
     this._width = this.isSizeInRange(size?.width) ? Math.floor(size.width) : this._defaultWidth;
     if (this._height !== previousHeight || this._width !== previousWidth) {
-      this._eventsService.fireViewportChanged(this.size);
+      this.fireViewportChanged(this.size);
     }
   }
 
@@ -93,6 +95,14 @@ export class ViewportService {
       coordinate.y >= 0 &&
       coordinate.x < this._width &&
       coordinate.y < this._height;
+  }
+
+  public fireViewportChanged(size?: Dimension) {
+    this._viewportChanged.next(size);
+  }
+
+  public get viewportChanged(): Observable<Dimension> {
+    return this._viewportChanged;
   }
 
   private isSizeInRange(value: number): boolean {

@@ -158,7 +158,7 @@ export class SceneService {
   }
 
   private subscribeViewportChanged(): void {
-    this._eventsService
+    this._viewportService
       .viewportChanged
       .subscribe(
         (size: Dimension) => {

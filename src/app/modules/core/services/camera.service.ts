@@ -3,7 +3,6 @@ import { Object3D, PerspectiveCamera, Vector3 } from 'three';
 import { AxialRotation } from '#core/models/axial-rotation';
 import { SkyCoordinate } from '#core/models/sky-coordinate';
 import { WorldConstants } from '#core/models/world-constants';
-import { EventsService } from '#core/services/events.service';
 import { ViewportService } from '#core/services/viewport.service';
 import { toVector3 } from '#core/utils/vector-utils';
 
@@ -32,10 +31,7 @@ export class CameraService {
 
   private readonly _camera: PerspectiveCamera;
 
-  constructor(
-    private readonly _eventsService: EventsService,
-    private readonly _viewportService: ViewportService
-  ) {
+  constructor(private readonly _viewportService: ViewportService) {
     this._camera = this.initializeCamera();
     this._coordsMarker = this.initCoordsMarker();
   }
@@ -49,7 +45,7 @@ export class CameraService {
       this.camera.rotateX(rotation.rx);
       this.camera.rotateY(rotation.ry);
       this.camera.rotateZ(rotation.rz);
-      this._eventsService.fireViewportChanged();
+      this._viewportService.fireViewportChanged();
     }
   }
 
@@ -57,14 +53,14 @@ export class CameraService {
     const viewCenter = this.getViewCenterCoordinates();
     this.camera.up = this.getAlignmentPoleCoordinate(viewCenter.z);
     this.camera.lookAt(viewCenter);
-    this._eventsService.fireViewportChanged();
+    this._viewportService.fireViewportChanged();
   }
 
   public setFoV(range: number): void {
     if (range && range > 0) {
       this.camera.fov = range;
       this.camera.updateProjectionMatrix();
-      this._eventsService.fireViewportChanged();
+      this._viewportService.fireViewportChanged();
     }
   }
 
@@ -73,7 +69,7 @@ export class CameraService {
       this.camera.up = this.getAlignmentPoleCoordinate(coords.declination);
       this.camera.lookAt(toVector3(coords.rightAscension, coords.declination, WorldConstants.WORLD_RADIUS));
       this.camera.updateMatrixWorld(true);
-      this._eventsService.fireViewportChanged();
+      this._viewportService.fireViewportChanged();
     }
   }
 

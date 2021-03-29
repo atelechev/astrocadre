@@ -1,5 +1,4 @@
 import { skip } from 'rxjs/operators';
-import { Dimension } from '#core/models/dimension';
 import { RenderableLayer } from '#core/models/layers/renderable-layer';
 import { Theme } from '#core/models/theme';
 import { EventsService } from '#core/services/events.service';
@@ -83,30 +82,6 @@ describe('EventsService', () => {
         }
       );
       service.fireLayerHidden(mockedLayer);
-    });
-
-  });
-
-  describe('viewportChanged', () => {
-
-    it('should be defined', () => {
-      expect(service.viewportChanged).toBeDefined();
-    });
-
-    it('should be fired with fireViewportChanged', (done: DoneFn) => {
-      const dimension: Dimension = {
-        width: 1,
-        height: 2
-      };
-      service.viewportChanged.pipe(
-        skip(1) // skip the initial undefined
-      ).subscribe(
-        (dim: Dimension) => {
-          expect(dim).toEqual(dimension);
-          done();
-        }
-      );
-      service.fireViewportChanged(dimension);
     });
 
   });

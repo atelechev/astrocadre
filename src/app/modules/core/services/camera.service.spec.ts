@@ -1,7 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 import { Vector3 } from 'three';
 import { CameraService } from '#core/services/camera.service';
-import { EventsService } from '#core/services/events.service';
 import { ViewportService } from '#core/services/viewport.service';
 
 
@@ -10,14 +9,12 @@ describe('CameraService', () => {
   let service: CameraService;
 
   beforeEach(() => {
-    TestBed.configureTestingModule(
-      {
-        providers: [
-          CameraService,
-          EventsService,
-          ViewportService
-        ]
-      });
+    TestBed.configureTestingModule({
+      providers: [
+        CameraService,
+        ViewportService
+      ]
+    });
     service = TestBed.inject(CameraService);
   });
 

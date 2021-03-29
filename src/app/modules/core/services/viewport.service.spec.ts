@@ -1,7 +1,8 @@
 import { TestBed } from '@angular/core/testing';
+import { skip } from 'rxjs/operators';
 import { ScreenCoordinate } from '#core/models/screen-coordinate';
-import { EventsService } from '#core/services/events.service';
 import { ViewportService } from '#core/services/viewport.service';
+import { Dimension } from '#core/models/dimension';
 
 
 describe('ViewportService', () => {
@@ -11,7 +12,6 @@ describe('ViewportService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       providers: [
-        EventsService,
         ViewportService
       ]
     });
@@ -119,20 +119,18 @@ describe('ViewportService', () => {
       });
 
       it('trigger a ViewportChanged event if the value was changed', () => {
-        const events = TestBed.inject(EventsService);
-        spyOn(events, 'fireViewportChanged');
+        spyOn(service, 'fireViewportChanged');
         service.size = {
           width: 200,
           height: 10
         };
-        expect(events.fireViewportChanged).toHaveBeenCalledTimes(1);
+        expect(service.fireViewportChanged).toHaveBeenCalledTimes(1);
       });
 
       it('not trigger a ViewportChanged event if the value was not changed', () => {
-        const events = TestBed.inject(EventsService);
-        spyOn(events, 'fireViewportChanged');
+        spyOn(service, 'fireViewportChanged');
         service.size = defaultSize;
-        expect(events.fireViewportChanged).toHaveBeenCalledTimes(0);
+        expect(service.fireViewportChanged).toHaveBeenCalledTimes(0);
       });
 
     });
@@ -180,6 +178,30 @@ describe('ViewportService', () => {
 
     it('true if the coordinate is in the screen bounds', () => {
       expect(service.isInBounds(coordinates(200, 200))).toBeTrue();
+    });
+
+  });
+
+  describe('viewportChanged', () => {
+
+    it('should be defined', () => {
+      expect(service.viewportChanged).toBeDefined();
+    });
+
+    it('should be fired with fireViewportChanged', (done: DoneFn) => {
+      const dimension: Dimension = {
+        width: 1,
+        height: 2
+      };
+      service.viewportChanged.pipe(
+        skip(1) // skip the initial undefined
+      ).subscribe(
+        (dim: Dimension) => {
+          expect(dim).toEqual(dimension);
+          done();
+        }
+      );
+      service.fireViewportChanged(dimension);
     });
 
   });
