@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { CameraService } from 'src/app/modules/core/services/camera.service';
 import { MathUtils } from 'three';
+import { CameraService } from '#core/services/camera.service';
 
 /**
  * Provides a method to bind mouse event listeners to a DOM element.

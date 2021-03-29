@@ -1,14 +1,14 @@
-import { ConstellationMeta } from 'src/app/modules/core/models/constellation-meta';
-import { Layer } from 'src/app/modules/core/models/layer';
-import { ConstellationNames } from 'src/app/modules/core/models/layers/constellation-names';
-import { LayerFactory } from 'src/app/modules/core/models/layers/factories/layer-factory';
-import { TextOffsetPolicies } from 'src/app/modules/core/models/layers/factories/text/text-offsets-policies';
-import { RenderableText } from 'src/app/modules/core/models/layers/renderable-text';
-import { Materials } from 'src/app/modules/core/models/materials';
-import { WorldConstants } from 'src/app/modules/core/models/world-constants';
-import { EventsService } from 'src/app/modules/core/services/events.service';
-import { MaterialsService } from 'src/app/modules/core/services/materials.service';
-import { toVector3 } from 'src/app/modules/core/utils/vector-utils';
+import { ConstellationMeta } from '#core/models/constellation-meta';
+import { Layer } from '#core/models/layer';
+import { ConstellationNames } from '#core/models/layers/constellation-names';
+import { LayerFactory } from '#core/models/layers/factories/layer-factory';
+import { TextOffsetPolicies } from '#core/models/layers/factories/text/text-offsets-policies';
+import { RenderableText } from '#core/models/layers/renderable-text';
+import { Materials } from '#core/models/materials';
+import { WorldConstants } from '#core/models/world-constants';
+import { EventsService } from '#core/services/events.service';
+import { MaterialsService } from '#core/services/materials.service';
+import { toVector3 } from '#core/utils/vector-utils';
 
 
 export class ConstellationNamesLayerFactory implements LayerFactory {

@@ -1,6 +1,6 @@
-import { Object3DFactory } from 'src/app/modules/core/models/layers/factories/object3d-factory';
-import { toVector3 } from 'src/app/modules/core/utils/vector-utils';
 import { BufferGeometry, Points, Vector3 } from 'three';
+import { Object3DFactory } from '#core/models/layers/factories/object3d-factory';
+import { toVector3 } from '#core/utils/vector-utils';
 
 export class PointsFactory extends Object3DFactory<Points> {
 

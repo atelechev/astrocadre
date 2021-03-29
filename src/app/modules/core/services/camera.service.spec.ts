@@ -1,8 +1,8 @@
 import { TestBed } from '@angular/core/testing';
-import { CameraService } from 'src/app/modules/core/services/camera.service';
-import { EventsService } from 'src/app/modules/core/services/events.service';
-import { ViewportService } from 'src/app/modules/core/services/viewport.service';
 import { Vector3 } from 'three';
+import { CameraService } from '#core/services/camera.service';
+import { EventsService } from '#core/services/events.service';
+import { ViewportService } from '#core/services/viewport.service';
 
 
 describe('CameraService', () => {

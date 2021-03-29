@@ -1,9 +1,9 @@
 import { fakeAsync, TestBed } from '@angular/core/testing';
-import { GoToComponent } from 'src/app/modules/controls/components/go-to/go-to.component';
-import { SkyCoordinate } from 'src/app/modules/core/models/sky-coordinate';
-import { CameraService } from 'src/app/modules/core/services/camera.service';
-import { SearchService } from 'src/app/modules/core/services/search.service';
-import { TestContext } from 'src/app/modules/core/test-utils/test-context.spec';
+import { SkyCoordinate } from '#core/models/sky-coordinate';
+import { CameraService } from '#core/services/camera.service';
+import { SearchService } from '#core/services/search.service';
+import { TestContext } from '#core/test-utils/test-context.spec';
+import { GoToComponent } from '#controls/components/go-to/go-to.component';
 
 describe('GoToComponent', () => {
 

@@ -13,19 +13,18 @@ import { InputTextModule } from 'primeng/inputtext';
 import { PanelModule } from 'primeng/panel';
 import { SelectButtonModule } from 'primeng/selectbutton';
 import { SliderModule } from 'primeng/slider';
-import { ControlsModule } from 'src/app/modules/controls/controls.module';
-import { DraggableElementsHandler } from 'src/app/modules/controls/services/draggable-elements-handler';
-import { CameraService } from 'src/app/modules/core/services/camera.service';
-import { EventsService } from 'src/app/modules/core/services/events.service';
-import { LayerService } from 'src/app/modules/core/services/layer.service';
-import { LayersFactoryService } from 'src/app/modules/core/services/layers-factory.service';
-import { MaterialsService } from 'src/app/modules/core/services/materials.service';
-import { SceneService } from 'src/app/modules/core/services/scene.service';
-import { SearchService } from 'src/app/modules/core/services/search.service';
-import { StaticDataService } from 'src/app/modules/core/services/static-data.service';
-import { ThemeService } from 'src/app/modules/core/services/theme.service';
-import { ViewportService } from 'src/app/modules/core/services/viewport.service';
-import { MockStaticDataService } from 'src/app/modules/core/test-utils/mock-static-data-service.spec';
+import { CameraService } from '#core/services/camera.service';
+import { EventsService } from '#core/services/events.service';
+import { LayerService } from '#core/services/layer.service';
+import { LayersFactoryService } from '#core/services/layers-factory.service';
+import { MaterialsService } from '#core/services/materials.service';
+import { SceneService } from '#core/services/scene.service';
+import { SearchService } from '#core/services/search.service';
+import { StaticDataService } from '#core/services/static-data.service';
+import { ThemeService } from '#core/services/theme.service';
+import { ViewportService } from '#core/services/viewport.service';
+import { MockStaticDataService } from '#core/test-utils/mock-static-data-service.spec';
+import { ControlsModule } from '#controls/controls.module';
 
 export class TestContext {
 

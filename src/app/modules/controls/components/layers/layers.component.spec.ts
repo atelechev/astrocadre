@@ -1,7 +1,7 @@
 import { fakeAsync } from '@angular/core/testing';
-import { LayersComponent } from 'src/app/modules/controls/components/layers/layers.component';
-import { Layer } from 'src/app/modules/core/models/layer';
-import { TestContext } from 'src/app/modules/core/test-utils/test-context.spec';
+import { Layer } from '#core/models/layer';
+import { TestContext } from '#core/test-utils/test-context.spec';
+import { LayersComponent } from '#controls/components/layers/layers.component';
 
 
 describe('LayersComponent', () => {

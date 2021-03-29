@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
-import { NameSelectionType } from 'src/app/modules/controls/models/name-selection-type';
-import { Stars } from 'src/app/modules/core/models/layers/stars';
-import { SupportedLayers } from 'src/app/modules/core/models/supported-layers';
-import { LayerService } from 'src/app/modules/core/services/layer.service';
+import { Stars } from '#core/models/layers/stars';
+import { SupportedLayers } from '#core/models/supported-layers';
+import { LayerService } from '#core/services/layer.service';
+import { NameSelectionType } from '#controls/models/name-selection-type';
 
 @Component({
   selector: 'ac-controls-select-star-names',

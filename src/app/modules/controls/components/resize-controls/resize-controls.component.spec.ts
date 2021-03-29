@@ -1,7 +1,7 @@
 import { fakeAsync } from '@angular/core/testing';
-import { ResizeControlsComponent } from 'src/app/modules/controls/components/resize-controls/resize-controls.component';
-import { ViewportService } from 'src/app/modules/core/services/viewport.service';
-import { TestContext } from 'src/app/modules/core/test-utils/test-context.spec';
+import { ViewportService } from '#core/services/viewport.service';
+import { TestContext } from '#core/test-utils/test-context.spec';
+import { ResizeControlsComponent } from '#controls/components/resize-controls/resize-controls.component';
 
 describe('ResizeControlsComponent', () => {
 

@@ -1,4 +1,4 @@
-import { RenderableLayer } from 'src/app/modules/core/models/layers/renderable-layer';
+import { RenderableLayer } from '#core/models/layers/renderable-layer';
 
 /**
  * Provides a method allowing to initialize a RenderableLayer.

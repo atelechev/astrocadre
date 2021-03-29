@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { SupportedLayers } from 'src/app/modules/core/models/supported-layers';
-import { LayerService } from 'src/app/modules/core/services/layer.service';
+import { SupportedLayers } from '#core/models/supported-layers';
+import { LayerService } from '#core/services/layer.service';
 
 
 @Component({

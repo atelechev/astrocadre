@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { ThemeMeta } from 'src/app/modules/core/models/theme-meta';
-import { ThemeService } from 'src/app/modules/core/services/theme.service';
+import { ThemeMeta } from '#core/models/theme-meta';
+import { ThemeService } from '#core/services/theme.service';
 
 
 @Component({

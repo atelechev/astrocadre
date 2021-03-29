@@ -3,7 +3,7 @@ import {
   extractStandardName,
   isStandardName,
   toGreekLetter
-  } from 'src/app/modules/core/utils/star-name-utils';
+} from '#core/utils/star-name-utils';
 
 describe('star-name-utils', () => {
 

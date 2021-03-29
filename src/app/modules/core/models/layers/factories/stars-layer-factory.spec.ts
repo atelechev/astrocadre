@@ -1,8 +1,8 @@
 import { fakeAsync } from '@angular/core/testing';
-import { Layer } from 'src/app/modules/core/models/layer';
-import { PointsFactory } from 'src/app/modules/core/models/layers/factories/points-factory';
-import { StarsLayerFactory } from 'src/app/modules/core/models/layers/factories/stars-layer-factory';
-import { TestContext } from 'src/app/modules/core/test-utils/test-context.spec';
+import { Layer } from '#core/models/layer';
+import { PointsFactory } from '#core/models/layers/factories/points-factory';
+import { StarsLayerFactory } from '#core/models/layers/factories/stars-layer-factory';
+import { TestContext } from '#core/test-utils/test-context.spec';
 
 describe('StarsLayerFactory', () => {
 

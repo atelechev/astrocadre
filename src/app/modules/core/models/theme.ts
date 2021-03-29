@@ -1,5 +1,5 @@
-import { TextStyle } from 'src/app/modules/core/models/text-style';
-import { ThemeMeta } from 'src/app/modules/core/models/theme-meta';
+import { TextStyle } from '#core/models/text-style';
+import { ThemeMeta } from '#core/models/theme-meta';
 
 // TODO simplify the config for lines. Use 'line: string;' for most, and 'regular' and 'reference' for skyGrid.
 export interface Theme extends ThemeMeta {

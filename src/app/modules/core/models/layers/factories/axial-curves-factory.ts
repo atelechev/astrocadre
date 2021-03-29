@@ -1,7 +1,7 @@
-import { Object3DFactory } from 'src/app/modules/core/models/layers/factories/object3d-factory';
-import { isCrossingInitialMeridian, isMeridionalSegment, isParallelSegment } from 'src/app/modules/core/utils/segment-utils';
-import { toVector3 } from 'src/app/modules/core/utils/vector-utils';
 import { BufferGeometry, LineSegments, Vector3 } from 'three';
+import { Object3DFactory } from '#core/models/layers/factories/object3d-factory';
+import { isCrossingInitialMeridian, isMeridionalSegment, isParallelSegment } from '#core/utils/segment-utils';
+import { toVector3 } from '#core/utils/vector-utils';
 
 
 export class AxialCurvesFactory extends Object3DFactory<LineSegments> {

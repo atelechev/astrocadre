@@ -1,10 +1,10 @@
 import { fakeAsync } from '@angular/core/testing';
-import { Layer } from 'src/app/modules/core/models/layer';
-import { RenderableLayer } from 'src/app/modules/core/models/layers/renderable-layer';
-import { Stars } from 'src/app/modules/core/models/layers/stars';
-import { LayerService } from 'src/app/modules/core/services/layer.service';
-import { mockedLayers } from 'src/app/modules/core/test-utils/mocked-layers.spec';
-import { TestContext } from 'src/app/modules/core/test-utils/test-context.spec';
+import { Layer } from '#core/models/layer';
+import { RenderableLayer } from '#core/models/layers/renderable-layer';
+import { Stars } from '#core/models/layers/stars';
+import { LayerService } from '#core/services/layer.service';
+import { mockedLayers } from '#core/test-utils/mocked-layers.spec';
+import { TestContext } from '#core/test-utils/test-context.spec';
 
 
 describe('LayerService', () => {

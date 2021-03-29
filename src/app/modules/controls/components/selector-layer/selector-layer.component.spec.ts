@@ -1,8 +1,8 @@
 import { fakeAsync } from '@angular/core/testing';
-import { SelectorLayerComponent } from 'src/app/modules/controls/components/selector-layer/selector-layer.component';
-import { LayerService } from 'src/app/modules/core/services/layer.service';
-import { mockedLayers } from 'src/app/modules/core/test-utils/mocked-layers.spec';
-import { TestContext } from 'src/app/modules/core/test-utils/test-context.spec';
+import { LayerService } from '#core/services/layer.service';
+import { mockedLayers } from '#core/test-utils/mocked-layers.spec';
+import { TestContext } from '#core/test-utils/test-context.spec';
+import { SelectorLayerComponent } from '#controls/components/selector-layer/selector-layer.component';
 
 describe('SelectorLayerComponent', () => {
 

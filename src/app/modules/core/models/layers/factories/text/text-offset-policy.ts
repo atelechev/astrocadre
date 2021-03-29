@@ -1,4 +1,4 @@
-import { TextOffsets } from 'src/app/modules/core/models/layers/factories/text/text-offsets';
+import { TextOffsets } from '#core/models/layers/factories/text/text-offsets';
 
 
 /**

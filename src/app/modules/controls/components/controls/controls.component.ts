@@ -4,7 +4,7 @@ import {
   ElementRef,
   ViewChild
   } from '@angular/core';
-import { DraggableElementsHandler } from 'src/app/modules/controls/services/draggable-elements-handler';
+import { DraggableElementsHandler } from '#controls/services/draggable-elements-handler';
 
 @Component({
   selector: 'ac-controls',

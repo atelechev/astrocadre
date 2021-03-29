@@ -1,8 +1,8 @@
 import { fakeAsync } from '@angular/core/testing';
-import { SelectorThemeComponent } from 'src/app/modules/controls/components/selector-theme/selector-theme.component';
-import { ThemeService } from 'src/app/modules/core/services/theme.service';
-import { mockedThemes } from 'src/app/modules/core/test-utils/mocked-themes.spec';
-import { TestContext } from 'src/app/modules/core/test-utils/test-context.spec';
+import { ThemeService } from '#core/services/theme.service';
+import { mockedThemes } from '#core/test-utils/mocked-themes.spec';
+import { TestContext } from '#core/test-utils/test-context.spec';
+import { SelectorThemeComponent } from '#controls/components/selector-theme/selector-theme.component';
 
 
 describe('SelectorThemeComponent', () => {

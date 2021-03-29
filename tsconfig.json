@@ -32,15 +32,6 @@
       ],
       "#environments/*": [
         "./src/environments/*"
-      ],
-      "#layers/*": [
-        "src/app/modules/layers/*"
-      ],
-      "#themes/*": [
-        "src/app/modules/themes/*"
-      ],
-      "#viewport/*": [
-        "src/app/modules/viewport/*"
       ]
     }
   },

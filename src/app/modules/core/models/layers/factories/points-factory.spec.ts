@@ -1,8 +1,8 @@
 import { TestBed } from '@angular/core/testing';
-import { PointsFactory } from 'src/app/modules/core/models/layers/factories/points-factory';
-import { SupportedLayers } from 'src/app/modules/core/models/supported-layers';
-import { assertGeometryExpected } from 'src/app/modules/core/test-utils/assertions-geometry.spec';
 import { BufferGeometry } from 'three';
+import { PointsFactory } from '#core/models/layers/factories/points-factory';
+import { SupportedLayers } from '#core/models/supported-layers';
+import { assertGeometryExpected } from '#core/test-utils/assertions-geometry.spec';
 
 
 describe('PointsFactory', () => {

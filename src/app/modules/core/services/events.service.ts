@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { Dimension } from 'src/app/modules/core/models/dimension';
-import { RenderableLayer } from 'src/app/modules/core/models/layers/renderable-layer';
-import { Theme } from 'src/app/modules/core/models/theme';
+import { Dimension } from '#core/models/dimension';
+import { RenderableLayer } from '#core/models/layers/renderable-layer';
+import { Theme } from '#core/models/theme';
 
 @Injectable()
 export class EventsService {

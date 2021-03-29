@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { Searchable } from 'src/app/modules/core/models/searchable';
-import { SkyCoordinate } from 'src/app/modules/core/models/sky-coordinate';
+import { Searchable } from '#core/models/searchable';
+import { SkyCoordinate } from '#core/models/sky-coordinate';
 
 @Injectable()
 export class SearchService {

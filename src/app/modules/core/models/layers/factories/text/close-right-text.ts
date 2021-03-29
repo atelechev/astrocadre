@@ -1,5 +1,5 @@
-import { TextOffsetPolicy } from 'src/app/modules/core/models/layers/factories/text/text-offset-policy';
-import { TextOffsets } from 'src/app/modules/core/models/layers/factories/text/text-offsets';
+import { TextOffsetPolicy } from '#core/models/layers/factories/text/text-offset-policy';
+import { TextOffsets } from '#core/models/layers/factories/text/text-offsets';
 
 /**
  * Implements TextOffsetPolicy that places a label on a constant distance close to the right of a point.

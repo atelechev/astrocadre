@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import { Theme } from 'src/app/modules/core/models/theme';
-import { ThemeMeta } from 'src/app/modules/core/models/theme-meta';
-import { EventsService } from 'src/app/modules/core/services/events.service';
-import { StaticDataService } from 'src/app/modules/core/services/static-data.service';
+import { Theme } from '#core/models/theme';
+import { ThemeMeta } from '#core/models/theme-meta';
+import { EventsService } from '#core/services/events.service';
+import { StaticDataService } from '#core/services/static-data.service';
 
 
 @Injectable()

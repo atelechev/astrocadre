@@ -1,4 +1,4 @@
-import { ThemeMeta } from 'src/app/modules/core/models/theme-meta';
+import { ThemeMeta } from '#core/models/theme-meta';
 
 export const mockedThemes: Array<ThemeMeta> = [
   {

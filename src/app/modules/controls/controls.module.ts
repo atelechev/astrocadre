@@ -10,16 +10,16 @@ import { InputTextModule } from 'primeng/inputtext';
 import { PanelModule } from 'primeng/panel';
 import { SelectButtonModule } from 'primeng/selectbutton';
 import { SliderModule } from 'primeng/slider';
-import { CameraControlsComponent } from 'src/app/modules/controls/components/camera-controls/camera-controls.component';
-import { ControlsComponent } from 'src/app/modules/controls/components/controls/controls.component';
-import { GoToComponent } from 'src/app/modules/controls/components/go-to/go-to.component';
-import { LayersComponent } from 'src/app/modules/controls/components/layers/layers.component';
-import { ResizeControlsComponent } from 'src/app/modules/controls/components/resize-controls/resize-controls.component';
-import { SelectorLayerComponent } from 'src/app/modules/controls/components/selector-layer/selector-layer.component';
-import { SelectorStarMagnitudeComponent } from 'src/app/modules/controls/components/selector-star-magnitude/selector-star-magnitude.component';
-import { SelectorStarNamesComponent } from 'src/app/modules/controls/components/selector-star-names/selector-star-names.component';
-import { SelectorThemeComponent } from 'src/app/modules/controls/components/selector-theme/selector-theme.component';
-import { DraggableElementsHandler } from 'src/app/modules/controls/services/draggable-elements-handler';
+import { CameraControlsComponent } from '#controls/components/camera-controls/camera-controls.component';
+import { ControlsComponent } from '#controls/components/controls/controls.component';
+import { GoToComponent } from '#controls/components/go-to/go-to.component';
+import { LayersComponent } from '#controls/components/layers/layers.component';
+import { ResizeControlsComponent } from '#controls/components/resize-controls/resize-controls.component';
+import { SelectorLayerComponent } from '#controls/components/selector-layer/selector-layer.component';
+import { SelectorStarMagnitudeComponent } from '#controls/components/selector-star-magnitude/selector-star-magnitude.component';
+import { SelectorStarNamesComponent } from '#controls/components/selector-star-names/selector-star-names.component';
+import { SelectorThemeComponent } from '#controls/components/selector-theme/selector-theme.component';
+import { DraggableElementsHandler } from '#controls/services/draggable-elements-handler';
 
 @NgModule({
   imports: [

@@ -1,12 +1,12 @@
 import { of } from 'rxjs';
-import { Layer } from 'src/app/modules/core/models/layer';
-import { Theme } from 'src/app/modules/core/models/theme';
-import { ThemeMeta } from 'src/app/modules/core/models/theme-meta';
-import { StaticDataService } from 'src/app/modules/core/services/static-data.service';
-import { mockedLayers } from 'src/app/modules/core/test-utils/mocked-layers.spec';
-import { mockedLines } from 'src/app/modules/core/test-utils/mocked-lines.spec';
-import { mockedTheme } from 'src/app/modules/core/test-utils/mocked-theme.spec';
-import { mockedThemes } from 'src/app/modules/core/test-utils/mocked-themes.spec';
+import { Layer } from '#core/models/layer';
+import { Theme } from '#core/models/theme';
+import { ThemeMeta } from '#core/models/theme-meta';
+import { StaticDataService } from '#core/services/static-data.service';
+import { mockedLayers } from '#core/test-utils/mocked-layers.spec';
+import { mockedLines } from '#core/test-utils/mocked-lines.spec';
+import { mockedTheme } from '#core/test-utils/mocked-theme.spec';
+import { mockedThemes } from '#core/test-utils/mocked-themes.spec';
 
 
 describe('StaticDataService', () => {

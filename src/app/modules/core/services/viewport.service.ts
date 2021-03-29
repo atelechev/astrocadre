@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { Dimension } from 'src/app/modules/core/models/dimension';
-import { ScreenCoordinate } from 'src/app/modules/core/models/screen-coordinate';
-import { EventsService } from 'src/app/modules/core/services/events.service';
+import { Dimension } from '#core/models/dimension';
+import { ScreenCoordinate } from '#core/models/screen-coordinate';
+import { EventsService } from '#core/services/events.service';
 
 
 @Injectable()

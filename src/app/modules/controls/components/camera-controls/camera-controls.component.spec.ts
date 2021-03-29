@@ -1,7 +1,7 @@
 import { fakeAsync } from '@angular/core/testing';
-import { CameraControlsComponent } from 'src/app/modules/controls/components/camera-controls/camera-controls.component';
-import { CameraService } from 'src/app/modules/core/services/camera.service';
-import { TestContext } from 'src/app/modules/core/test-utils/test-context.spec';
+import { CameraService } from '#core/services/camera.service';
+import { TestContext } from '#core/test-utils/test-context.spec';
+import { CameraControlsComponent } from '#controls/components/camera-controls/camera-controls.component';
 
 describe('CameraControlsComponent', () => {
 

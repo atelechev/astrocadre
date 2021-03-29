@@ -1,4 +1,4 @@
-import { WorldConstants } from 'src/app/modules/core/models/world-constants';
+import { WorldConstants } from '#core/models/world-constants';
 
 
 describe('WorldConstants', () => {

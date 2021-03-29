@@ -1,17 +1,17 @@
-import { Layer } from 'src/app/modules/core/models/layer';
-import { LayerFactory } from 'src/app/modules/core/models/layers/factories/layer-factory';
-import { PointsFactory } from 'src/app/modules/core/models/layers/factories/points-factory';
-import { TextOffsetPolicies } from 'src/app/modules/core/models/layers/factories/text/text-offsets-policies';
-import { RenderableText } from 'src/app/modules/core/models/layers/renderable-text';
-import { Stars } from 'src/app/modules/core/models/layers/stars';
-import { Materials } from 'src/app/modules/core/models/materials';
-import { Searchable } from 'src/app/modules/core/models/searchable';
-import { SupportedLayers } from 'src/app/modules/core/models/supported-layers';
-import { WorldConstants } from 'src/app/modules/core/models/world-constants';
-import { EventsService } from 'src/app/modules/core/services/events.service';
-import { MaterialsService } from 'src/app/modules/core/services/materials.service';
-import { extractProperName, extractStandardName, toGreekLetter } from 'src/app/modules/core/utils/star-name-utils';
-import { toVector3 } from 'src/app/modules/core/utils/vector-utils';
+import { Layer } from '#core/models/layer';
+import { LayerFactory } from '#core/models/layers/factories/layer-factory';
+import { PointsFactory } from '#core/models/layers/factories/points-factory';
+import { TextOffsetPolicies } from '#core/models/layers/factories/text/text-offsets-policies';
+import { RenderableText } from '#core/models/layers/renderable-text';
+import { Stars } from '#core/models/layers/stars';
+import { Materials } from '#core/models/materials';
+import { Searchable } from '#core/models/searchable';
+import { SupportedLayers } from '#core/models/supported-layers';
+import { WorldConstants } from '#core/models/world-constants';
+import { EventsService } from '#core/services/events.service';
+import { MaterialsService } from '#core/services/materials.service';
+import { extractProperName, extractStandardName, toGreekLetter } from '#core/utils/star-name-utils';
+import { toVector3 } from '#core/utils/vector-utils';
 
 export class StarsLayerFactory implements LayerFactory {
 

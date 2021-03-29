@@ -1,4 +1,4 @@
-import { Theme } from 'src/app/modules/core/models/theme';
+import { Theme } from '#core/models/theme';
 
 export const mockedTheme: Theme = {
   code: 'dev',

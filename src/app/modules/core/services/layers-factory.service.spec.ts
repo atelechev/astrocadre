@@ -1,14 +1,14 @@
 import { HttpClientModule } from '@angular/common/http';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
-import { Layer } from 'src/app/modules/core/models/layer';
-import { EventsService } from 'src/app/modules/core/services/events.service';
-import { LayersFactoryService } from 'src/app/modules/core/services/layers-factory.service';
-import { MaterialsService } from 'src/app/modules/core/services/materials.service';
-import { StaticDataService } from 'src/app/modules/core/services/static-data.service';
-import { ThemeService } from 'src/app/modules/core/services/theme.service';
-import { MockStaticDataService } from 'src/app/modules/core/test-utils/mock-static-data-service.spec';
-import { mockedLayers } from 'src/app/modules/core/test-utils/mocked-layers.spec';
+import { Layer } from '#core/models/layer';
+import { EventsService } from '#core/services/events.service';
+import { LayersFactoryService } from '#core/services/layers-factory.service';
+import { MaterialsService } from '#core/services/materials.service';
+import { StaticDataService } from '#core/services/static-data.service';
+import { ThemeService } from '#core/services/theme.service';
+import { MockStaticDataService } from '#core/test-utils/mock-static-data-service.spec';
+import { mockedLayers } from '#core/test-utils/mocked-layers.spec';
 
 
 describe('LayersFactoryService', () => {

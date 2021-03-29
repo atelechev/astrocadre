@@ -1,4 +1,4 @@
-import { CloseRightText } from 'src/app/modules/core/models/layers/factories/text/close-right-text';
+import { CloseRightText } from '#core/models/layers/factories/text/close-right-text';
 
 describe('CloseRightText', () => {
 

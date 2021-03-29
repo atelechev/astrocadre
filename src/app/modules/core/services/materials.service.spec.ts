@@ -1,15 +1,15 @@
 import { HttpClientModule } from '@angular/common/http';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
-import { Materials } from 'src/app/modules/core/models/materials';
-import { SupportedLayers } from 'src/app/modules/core/models/supported-layers';
-import { TextStyle } from 'src/app/modules/core/models/text-style';
-import { EventsService } from 'src/app/modules/core/services/events.service';
-import { MaterialsService } from 'src/app/modules/core/services/materials.service';
-import { StaticDataService } from 'src/app/modules/core/services/static-data.service';
-import { ThemeService } from 'src/app/modules/core/services/theme.service';
-import { mockedTheme } from 'src/app/modules/core/test-utils/mocked-theme.spec';
 import { Material } from 'three';
+import { Materials } from '#core/models/materials';
+import { SupportedLayers } from '#core/models/supported-layers';
+import { TextStyle } from '#core/models/text-style';
+import { EventsService } from '#core/services/events.service';
+import { MaterialsService } from '#core/services/materials.service';
+import { StaticDataService } from '#core/services/static-data.service';
+import { ThemeService } from '#core/services/theme.service';
+import { mockedTheme } from '#core/test-utils/mocked-theme.spec';
 
 
 describe('MaterialsService', () => {

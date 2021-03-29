@@ -1,6 +1,6 @@
 import { fakeAsync } from '@angular/core/testing';
-import { ControlsComponent } from 'src/app/modules/controls/components/controls/controls.component';
-import { TestContext } from 'src/app/modules/core/test-utils/test-context.spec';
+import { TestContext } from '#core/test-utils/test-context.spec';
+import { ControlsComponent } from '#controls/components/controls/controls.component';
 
 
 describe('ControlsComponent', () => {

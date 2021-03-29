@@ -1,7 +1,7 @@
-import { CenteredText } from 'src/app/modules/core/models/layers/factories/text/centered-text';
-import { CloseRightText } from 'src/app/modules/core/models/layers/factories/text/close-right-text';
-import { TextOffsetPolicy } from 'src/app/modules/core/models/layers/factories/text/text-offset-policy';
-import { TopRightText } from 'src/app/modules/core/models/layers/factories/text/top-right-text';
+import { CenteredText } from '#core/models/layers/factories/text/centered-text';
+import { CloseRightText } from '#core/models/layers/factories/text/close-right-text';
+import { TextOffsetPolicy } from '#core/models/layers/factories/text/text-offset-policy';
+import { TopRightText } from '#core/models/layers/factories/text/top-right-text';
 
 /**
  * Provides access to existing TextOffsetPolicies.

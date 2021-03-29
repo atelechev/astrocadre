@@ -1,9 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Layer } from 'src/app/modules/core/models/layer';
-import { Theme } from 'src/app/modules/core/models/theme';
-import { ThemeMeta } from 'src/app/modules/core/models/theme-meta';
+import { Layer } from '#core/models/layer';
+import { Theme } from '#core/models/theme';
+import { ThemeMeta } from '#core/models/theme-meta';
 import { environment } from '#environments/environment';
 
 @Injectable()

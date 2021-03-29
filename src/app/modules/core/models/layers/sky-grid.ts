@@ -1,9 +1,9 @@
-import { Layer } from 'src/app/modules/core/models/layer';
-import { RenderableLayer } from 'src/app/modules/core/models/layers/renderable-layer';
-import { Materials } from 'src/app/modules/core/models/materials';
-import { EventsService } from 'src/app/modules/core/services/events.service';
-import { MaterialsService } from 'src/app/modules/core/services/materials.service';
 import { LineSegments, Material, Object3D } from 'three';
+import { Layer } from '#core/models/layer';
+import { RenderableLayer } from '#core/models/layers/renderable-layer';
+import { Materials } from '#core/models/materials';
+import { EventsService } from '#core/services/events.service';
+import { MaterialsService } from '#core/services/materials.service';
 
 
 export class SkyGrid extends RenderableLayer {

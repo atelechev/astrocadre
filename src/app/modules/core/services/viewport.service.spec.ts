@@ -1,7 +1,7 @@
 import { TestBed } from '@angular/core/testing';
-import { ScreenCoordinate } from 'src/app/modules/core/models/screen-coordinate';
-import { EventsService } from 'src/app/modules/core/services/events.service';
-import { ViewportService } from 'src/app/modules/core/services/viewport.service';
+import { ScreenCoordinate } from '#core/models/screen-coordinate';
+import { EventsService } from '#core/services/events.service';
+import { ViewportService } from '#core/services/viewport.service';
 
 
 describe('ViewportService', () => {

@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { CameraService } from 'src/app/modules/core/services/camera.service';
-import { SearchService } from 'src/app/modules/core/services/search.service';
+import { CameraService } from '#core/services/camera.service';
+import { SearchService } from '#core/services/search.service';
 
 
 @Component({

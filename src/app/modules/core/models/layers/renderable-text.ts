@@ -1,7 +1,7 @@
-import { TextOffsetPolicy } from 'src/app/modules/core/models/layers/factories/text/text-offset-policy';
-import { TextOffsets } from 'src/app/modules/core/models/layers/factories/text/text-offsets';
-import { TextStyle } from 'src/app/modules/core/models/text-style';
 import { Vector3 } from 'three';
+import { TextOffsetPolicy } from '#core/models/layers/factories/text/text-offset-policy';
+import { TextOffsets } from '#core/models/layers/factories/text/text-offsets';
+import { TextStyle } from '#core/models/text-style';
 
 /**
  * Wraps data about text that can be rendered in the view.

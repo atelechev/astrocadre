@@ -1,13 +1,13 @@
 import { fakeAsync } from '@angular/core/testing';
-import { ConstellationMeta } from 'src/app/modules/core/models/constellation-meta';
-import { ConstellationNames } from 'src/app/modules/core/models/layers/constellation-names';
-import { TextOffsetPolicies } from 'src/app/modules/core/models/layers/factories/text/text-offsets-policies';
-import { RenderableText } from 'src/app/modules/core/models/layers/renderable-text';
-import { Materials } from 'src/app/modules/core/models/materials';
-import { WorldConstants } from 'src/app/modules/core/models/world-constants';
-import { mockedTheme } from 'src/app/modules/core/test-utils/mocked-theme.spec';
-import { TestContext } from 'src/app/modules/core/test-utils/test-context.spec';
-import { toVector3 } from 'src/app/modules/core/utils/vector-utils';
+import { ConstellationMeta } from '#core/models/constellation-meta';
+import { ConstellationNames } from '#core/models/layers/constellation-names';
+import { TextOffsetPolicies } from '#core/models/layers/factories/text/text-offsets-policies';
+import { RenderableText } from '#core/models/layers/renderable-text';
+import { Materials } from '#core/models/materials';
+import { WorldConstants } from '#core/models/world-constants';
+import { mockedTheme } from '#core/test-utils/mocked-theme.spec';
+import { TestContext } from '#core/test-utils/test-context.spec';
+import { toVector3 } from '#core/utils/vector-utils';
 
 
 describe('ConstellationNames', () => {

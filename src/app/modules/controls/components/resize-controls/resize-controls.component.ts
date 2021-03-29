@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ViewportService } from 'src/app/modules/core/services/viewport.service';
+import { ViewportService } from '#core/services/viewport.service';
 
 @Component({
   selector: 'ac-controls-resize',

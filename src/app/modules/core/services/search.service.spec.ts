@@ -1,6 +1,6 @@
-import { Searchable } from 'src/app/modules/core/models/searchable';
-import { SkyCoordinate } from 'src/app/modules/core/models/sky-coordinate';
-import { SearchService } from 'src/app/modules/core/services/search.service';
+import { Searchable } from '#core/models/searchable';
+import { SkyCoordinate } from '#core/models/sky-coordinate';
+import { SearchService } from '#core/services/search.service';
 
 const searchableData: Array<Searchable> = [
   { type: 'constellation', code: 'AND', ra: 8.532, dec: 38.906, names: ['Andromeda', 'other name'] }

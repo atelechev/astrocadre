@@ -1,12 +1,12 @@
 import { fakeAsync, TestBed } from '@angular/core/testing';
-import { TextOffsetPolicies } from 'src/app/modules/core/models/layers/factories/text/text-offsets-policies';
-import { RenderableText } from 'src/app/modules/core/models/layers/renderable-text';
-import { Stars } from 'src/app/modules/core/models/layers/stars';
-import { EventsService } from 'src/app/modules/core/services/events.service';
-import { LayerService } from 'src/app/modules/core/services/layer.service';
-import { SceneService } from 'src/app/modules/core/services/scene.service';
-import { TestContext } from 'src/app/modules/core/test-utils/test-context.spec';
-import { toVector3 } from 'src/app/modules/core/utils/vector-utils';
+import { TextOffsetPolicies } from '#core/models/layers/factories/text/text-offsets-policies';
+import { RenderableText } from '#core/models/layers/renderable-text';
+import { Stars } from '#core/models/layers/stars';
+import { EventsService } from '#core/services/events.service';
+import { LayerService } from '#core/services/layer.service';
+import { SceneService } from '#core/services/scene.service';
+import { TestContext } from '#core/test-utils/test-context.spec';
+import { toVector3 } from '#core/utils/vector-utils';
 
 
 describe('SceneService', () => {

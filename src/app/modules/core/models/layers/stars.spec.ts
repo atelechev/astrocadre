@@ -1,10 +1,10 @@
 import { fakeAsync, TestBed, tick } from '@angular/core/testing';
-import { RenderableText } from 'src/app/modules/core/models/layers/renderable-text';
-import { Stars } from 'src/app/modules/core/models/layers/stars';
-import { LayersFactoryService } from 'src/app/modules/core/services/layers-factory.service';
-import { mockedTheme } from 'src/app/modules/core/test-utils/mocked-theme.spec';
-import { TestContext } from 'src/app/modules/core/test-utils/test-context.spec';
 import { Points, PointsMaterial } from 'three';
+import { RenderableText } from '#core/models/layers/renderable-text';
+import { Stars } from '#core/models/layers/stars';
+import { LayersFactoryService } from '#core/services/layers-factory.service';
+import { mockedTheme } from '#core/test-utils/mocked-theme.spec';
+import { TestContext } from '#core/test-utils/test-context.spec';
 
 
 describe('Stars', () => {

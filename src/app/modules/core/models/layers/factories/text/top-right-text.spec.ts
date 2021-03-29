@@ -1,4 +1,4 @@
-import { TopRightText } from 'src/app/modules/core/models/layers/factories/text/top-right-text';
+import { TopRightText } from '#core/models/layers/factories/text/top-right-text';
 
 
 describe('TopRightText', () => {

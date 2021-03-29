@@ -1,12 +1,12 @@
 import { HttpClientModule } from '@angular/common/http';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { fakeAsync, TestBed, tick } from '@angular/core/testing';
-import { EventsService } from 'src/app/modules/core/services/events.service';
-import { StaticDataService } from 'src/app/modules/core/services/static-data.service';
-import { ThemeService } from 'src/app/modules/core/services/theme.service';
-import { MockStaticDataService } from 'src/app/modules/core/test-utils/mock-static-data-service.spec';
-import { mockedTheme } from 'src/app/modules/core/test-utils/mocked-theme.spec';
-import { mockedThemes } from 'src/app/modules/core/test-utils/mocked-themes.spec';
+import { EventsService } from '#core/services/events.service';
+import { StaticDataService } from '#core/services/static-data.service';
+import { ThemeService } from '#core/services/theme.service';
+import { MockStaticDataService } from '#core/test-utils/mock-static-data-service.spec';
+import { mockedTheme } from '#core/test-utils/mocked-theme.spec';
+import { mockedThemes } from '#core/test-utils/mocked-themes.spec';
 
 describe('ThemeService', () => {
 

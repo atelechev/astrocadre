@@ -1,12 +1,4 @@
 import { Injectable } from '@angular/core';
-import { Dimension } from 'src/app/modules/core/models/dimension';
-import { RenderableLayer } from 'src/app/modules/core/models/layers/renderable-layer';
-import { RenderableText } from 'src/app/modules/core/models/layers/renderable-text';
-import { ScreenCoordinate } from 'src/app/modules/core/models/screen-coordinate';
-import { Theme } from 'src/app/modules/core/models/theme';
-import { CameraService } from 'src/app/modules/core/services/camera.service';
-import { EventsService } from 'src/app/modules/core/services/events.service';
-import { ViewportService } from 'src/app/modules/core/services/viewport.service';
 import {
   Camera,
   Frustum,
@@ -17,6 +9,14 @@ import {
   WebGLRenderer
   } from 'three';
 import { Color } from 'three';
+import { Dimension } from '#core/models/dimension';
+import { RenderableLayer } from '#core/models/layers/renderable-layer';
+import { RenderableText } from '#core/models/layers/renderable-text';
+import { ScreenCoordinate } from '#core/models/screen-coordinate';
+import { Theme } from '#core/models/theme';
+import { CameraService } from '#core/services/camera.service';
+import { EventsService } from '#core/services/events.service';
+import { ViewportService } from '#core/services/viewport.service';
 
 @Injectable()
 export class SceneService {

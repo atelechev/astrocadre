@@ -1,11 +1,11 @@
-import { Layer } from 'src/app/modules/core/models/layer';
-import { RenderableLayer } from 'src/app/modules/core/models/layers/renderable-layer';
-import { RenderableText } from 'src/app/modules/core/models/layers/renderable-text';
-import { Searchable } from 'src/app/modules/core/models/searchable';
-import { SupportedLayers } from 'src/app/modules/core/models/supported-layers';
-import { EventsService } from 'src/app/modules/core/services/events.service';
-import { MaterialsService } from 'src/app/modules/core/services/materials.service';
 import { Object3D, Points } from 'three';
+import { Layer } from '#core/models/layer';
+import { RenderableLayer } from '#core/models/layers/renderable-layer';
+import { RenderableText } from '#core/models/layers/renderable-text';
+import { Searchable } from '#core/models/searchable';
+import { SupportedLayers } from '#core/models/supported-layers';
+import { EventsService } from '#core/services/events.service';
+import { MaterialsService } from '#core/services/materials.service';
 
 
 export class Stars extends RenderableLayer {

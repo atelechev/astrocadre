@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
-import { AxialRotation } from 'src/app/modules/core/models/axial-rotation';
-import { CameraService } from 'src/app/modules/core/services/camera.service';
-import { toRadians } from 'src/app/modules/core/utils/vector-utils';
+import { AxialRotation } from '#core/models/axial-rotation';
+import { CameraService } from '#core/services/camera.service';
+import { toRadians } from '#core/utils/vector-utils';
 
 
 @Component({

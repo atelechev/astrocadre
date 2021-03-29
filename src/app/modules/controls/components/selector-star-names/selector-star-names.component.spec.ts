@@ -1,8 +1,8 @@
 import { fakeAsync } from '@angular/core/testing';
-import { SelectorStarNamesComponent } from 'src/app/modules/controls/components/selector-star-names/selector-star-names.component';
-import { NameSelectionType } from 'src/app/modules/controls/models/name-selection-type';
-import { LayerService } from 'src/app/modules/core/services/layer.service';
-import { TestContext } from 'src/app/modules/core/test-utils/test-context.spec';
+import { LayerService } from '#core/services/layer.service';
+import { TestContext } from '#core/test-utils/test-context.spec';
+import { SelectorStarNamesComponent } from '#controls/components/selector-star-names/selector-star-names.component';
+import { NameSelectionType } from '#controls/models/name-selection-type';
 
 
 describe('SelectorStarNamesComponent', () => {

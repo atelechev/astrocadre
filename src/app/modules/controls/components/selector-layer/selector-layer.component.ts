@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
-import { Layer } from 'src/app/modules/core/models/layer';
-import { SupportedLayers } from 'src/app/modules/core/models/supported-layers';
-import { LayerService } from 'src/app/modules/core/services/layer.service';
+import { Layer } from '#core/models/layer';
+import { SupportedLayers } from '#core/models/supported-layers';
+import { LayerService } from '#core/services/layer.service';
 
 
 @Component({

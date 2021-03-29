@@ -1,9 +1,9 @@
 import { fakeAsync, TestBed, tick } from '@angular/core/testing';
-import { SkyGrid } from 'src/app/modules/core/models/layers/sky-grid';
-import { Materials } from 'src/app/modules/core/models/materials';
-import { LayersFactoryService } from 'src/app/modules/core/services/layers-factory.service';
-import { TestContext } from 'src/app/modules/core/test-utils/test-context.spec';
 import { LineBasicMaterial, LineSegments, Object3D } from 'three';
+import { SkyGrid } from '#core/models/layers/sky-grid';
+import { Materials } from '#core/models/materials';
+import { LayersFactoryService } from '#core/services/layers-factory.service';
+import { TestContext } from '#core/test-utils/test-context.spec';
 
 
 describe('SkyGrid', () => {

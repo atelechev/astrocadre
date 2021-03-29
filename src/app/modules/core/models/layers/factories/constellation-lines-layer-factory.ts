@@ -1,10 +1,10 @@
-import { Layer } from 'src/app/modules/core/models/layer';
-import { ConstellationLines } from 'src/app/modules/core/models/layers/constellation-lines';
-import { AxialCurvesFactory } from 'src/app/modules/core/models/layers/factories/axial-curves-factory';
-import { LayerFactory } from 'src/app/modules/core/models/layers/factories/layer-factory';
-import { SupportedLayers } from 'src/app/modules/core/models/supported-layers';
-import { EventsService } from 'src/app/modules/core/services/events.service';
-import { MaterialsService } from 'src/app/modules/core/services/materials.service';
+import { Layer } from '#core/models/layer';
+import { ConstellationLines } from '#core/models/layers/constellation-lines';
+import { AxialCurvesFactory } from '#core/models/layers/factories/axial-curves-factory';
+import { LayerFactory } from '#core/models/layers/factories/layer-factory';
+import { SupportedLayers } from '#core/models/supported-layers';
+import { EventsService } from '#core/services/events.service';
+import { MaterialsService } from '#core/services/materials.service';
 
 
 export class ConstellationLinesLayerFactory implements LayerFactory {

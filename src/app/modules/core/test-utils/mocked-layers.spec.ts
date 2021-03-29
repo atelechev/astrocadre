@@ -1,4 +1,4 @@
-import { Layer } from 'src/app/modules/core/models/layer';
+import { Layer } from '#core/models/layer';
 
 export const mockedLayers: Layer = {
   code: 'root',

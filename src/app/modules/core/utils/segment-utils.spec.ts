@@ -1,4 +1,4 @@
-import { isCrossingInitialMeridian, isMeridionalSegment, isParallelSegment } from 'src/app/modules/core/utils/segment-utils';
+import { isCrossingInitialMeridian, isMeridionalSegment, isParallelSegment } from '#core/utils/segment-utils';
 
 describe('segment-utils', () => {
 

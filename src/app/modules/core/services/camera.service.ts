@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
-import { AxialRotation } from 'src/app/modules/core/models/axial-rotation';
-import { SkyCoordinate } from 'src/app/modules/core/models/sky-coordinate';
-import { WorldConstants } from 'src/app/modules/core/models/world-constants';
-import { EventsService } from 'src/app/modules/core/services/events.service';
-import { ViewportService } from 'src/app/modules/core/services/viewport.service';
-import { toVector3 } from 'src/app/modules/core/utils/vector-utils';
 import { Object3D, PerspectiveCamera, Vector3 } from 'three';
+import { AxialRotation } from '#core/models/axial-rotation';
+import { SkyCoordinate } from '#core/models/sky-coordinate';
+import { WorldConstants } from '#core/models/world-constants';
+import { EventsService } from '#core/services/events.service';
+import { ViewportService } from '#core/services/viewport.service';
+import { toVector3 } from '#core/utils/vector-utils';
 
 
 @Injectable()

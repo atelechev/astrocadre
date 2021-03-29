@@ -1,6 +1,6 @@
-import { WorldConstants } from 'src/app/modules/core/models/world-constants';
 import { BufferGeometry } from 'three';
 import { Object3D, Vector3 } from 'three';
+import { WorldConstants } from '#core/models/world-constants';
 
 /**
  * Base class for factories producing Three's Object3D instances.

@@ -1,5 +1,5 @@
-import { toRadians, toVector3 } from 'src/app/modules/core/utils/vector-utils';
 import { Vector3 } from 'three';
+import { toRadians, toVector3 } from '#core/utils/vector-utils';
 
 describe('vector-utils', () => {
 

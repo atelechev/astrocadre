@@ -1,6 +1,6 @@
-import { Materials } from 'src/app/modules/core/models/materials';
-import { TestContext } from 'src/app/modules/core/test-utils/test-context.spec';
 import { LineBasicMaterial, LineSegments } from 'three';
+import { Materials } from '#core/models/materials';
+import { TestContext } from '#core/test-utils/test-context.spec';
 
 export const assertMaterialExpected = (
   ctx: TestContext,

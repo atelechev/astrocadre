@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
-import { Layer } from 'src/app/modules/core/models/layer';
-import { RenderableLayer } from 'src/app/modules/core/models/layers/renderable-layer';
-import { Stars } from 'src/app/modules/core/models/layers/stars';
-import { SupportedLayers } from 'src/app/modules/core/models/supported-layers';
-import { EventsService } from 'src/app/modules/core/services/events.service';
-import { LayersFactoryService } from 'src/app/modules/core/services/layers-factory.service';
-import { SceneService } from 'src/app/modules/core/services/scene.service';
-import { SearchService } from 'src/app/modules/core/services/search.service';
-import { StaticDataService } from 'src/app/modules/core/services/static-data.service';
+import { Layer } from '#core/models/layer';
+import { RenderableLayer } from '#core/models/layers/renderable-layer';
+import { Stars } from '#core/models/layers/stars';
+import { SupportedLayers } from '#core/models/supported-layers';
+import { EventsService } from '#core/services/events.service';
+import { LayersFactoryService } from '#core/services/layers-factory.service';
+import { SceneService } from '#core/services/scene.service';
+import { SearchService } from '#core/services/search.service';
+import { StaticDataService } from '#core/services/static-data.service';
 
 @Injectable()
 export class LayerService {

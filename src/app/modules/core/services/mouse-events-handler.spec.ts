@@ -1,8 +1,8 @@
 import { TestBed } from '@angular/core/testing';
-import { CameraService } from 'src/app/modules/core/services/camera.service';
-import { EventsService } from 'src/app/modules/core/services/events.service';
-import { MouseEventsHandler } from 'src/app/modules/core/services/mouse-events-handler';
-import { ViewportService } from 'src/app/modules/core/services/viewport.service';
+import { CameraService } from '#core/services/camera.service';
+import { EventsService } from '#core/services/events.service';
+import { MouseEventsHandler } from '#core/services/mouse-events-handler';
+import { ViewportService } from '#core/services/viewport.service';
 
 
 describe('MouseEventsHandler', () => {

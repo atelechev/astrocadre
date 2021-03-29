@@ -1,9 +1,9 @@
-import { TextOffsetPolicies } from 'src/app/modules/core/models/layers/factories/text/text-offsets-policies';
-import { RenderableText } from 'src/app/modules/core/models/layers/renderable-text';
-import { Materials } from 'src/app/modules/core/models/materials';
-import { TextStyle } from 'src/app/modules/core/models/text-style';
-import { WorldConstants } from 'src/app/modules/core/models/world-constants';
-import { toVector3 } from 'src/app/modules/core/utils/vector-utils';
+import { TextOffsetPolicies } from '#core/models/layers/factories/text/text-offsets-policies';
+import { RenderableText } from '#core/models/layers/renderable-text';
+import { Materials } from '#core/models/materials';
+import { TextStyle } from '#core/models/text-style';
+import { WorldConstants } from '#core/models/world-constants';
+import { toVector3 } from '#core/utils/vector-utils';
 
 
 describe('RenderableText', () => {

@@ -1,7 +1,7 @@
 import { fakeAsync } from '@angular/core/testing';
-import { SelectorStarMagnitudeComponent } from 'src/app/modules/controls/components/selector-star-magnitude/selector-star-magnitude.component';
-import { LayerService } from 'src/app/modules/core/services/layer.service';
-import { TestContext } from 'src/app/modules/core/test-utils/test-context.spec';
+import { LayerService } from '#core/services/layer.service';
+import { TestContext } from '#core/test-utils/test-context.spec';
+import { SelectorStarMagnitudeComponent } from '#controls/components/selector-star-magnitude/selector-star-magnitude.component';
 
 
 describe('SelectorStarMagnitudeComponent', () => {

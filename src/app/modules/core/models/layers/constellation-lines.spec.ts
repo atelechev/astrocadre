@@ -1,9 +1,9 @@
 import { fakeAsync } from '@angular/core/testing';
-import { ConstellationLines } from 'src/app/modules/core/models/layers/constellation-lines';
-import { AxialCurvesFactory } from 'src/app/modules/core/models/layers/factories/axial-curves-factory';
-import { assertMaterialExpected } from 'src/app/modules/core/test-utils/assertions-material.spec';
-import { TestContext } from 'src/app/modules/core/test-utils/test-context.spec';
 import { LineSegments } from 'three';
+import { ConstellationLines } from '#core/models/layers/constellation-lines';
+import { AxialCurvesFactory } from '#core/models/layers/factories/axial-curves-factory';
+import { assertMaterialExpected } from '#core/test-utils/assertions-material.spec';
+import { TestContext } from '#core/test-utils/test-context.spec';
 
 describe('ConstellationLines', () => {
 

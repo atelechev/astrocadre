@@ -1,14 +1,14 @@
 import { Injectable } from '@angular/core';
-import { Materials } from 'src/app/modules/core/models/materials';
-import { SupportedLayers } from 'src/app/modules/core/models/supported-layers';
-import { TextStyle } from 'src/app/modules/core/models/text-style';
-import { ThemeService } from 'src/app/modules/core/services/theme.service';
 import {
   LineBasicMaterial,
   Material,
   PointsMaterial,
   TextureLoader
   } from 'three';
+import { Materials } from '#core/models/materials';
+import { SupportedLayers } from '#core/models/supported-layers';
+import { TextStyle } from '#core/models/text-style';
+import { ThemeService } from '#core/services/theme.service';
 import { environment } from '#environments/environment';
 
 

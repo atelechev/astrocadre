@@ -1,17 +1,17 @@
 import { Injectable } from '@angular/core';
-import { Layer } from 'src/app/modules/core/models/layer';
-import { AxialCurvesFactory } from 'src/app/modules/core/models/layers/factories/axial-curves-factory';
-import { ConstellationBoundariesLayerFactory } from 'src/app/modules/core/models/layers/factories/constellation-boundaries-layer-factory';
-import { ConstellationLinesLayerFactory } from 'src/app/modules/core/models/layers/factories/constellation-lines-layer-factory';
-import { ConstellationNamesLayerFactory } from 'src/app/modules/core/models/layers/factories/constellation-names-layer-factory';
-import { LayerFactory } from 'src/app/modules/core/models/layers/factories/layer-factory';
-import { PointsFactory } from 'src/app/modules/core/models/layers/factories/points-factory';
-import { SkyGridLayerFactory } from 'src/app/modules/core/models/layers/factories/sky-grid-layer-factory';
-import { StarsLayerFactory } from 'src/app/modules/core/models/layers/factories/stars-layer-factory';
-import { RenderableLayer } from 'src/app/modules/core/models/layers/renderable-layer';
-import { SupportedLayers } from 'src/app/modules/core/models/supported-layers';
-import { EventsService } from 'src/app/modules/core/services/events.service';
-import { MaterialsService } from 'src/app/modules/core/services/materials.service';
+import { Layer } from '#core/models/layer';
+import { AxialCurvesFactory } from '#core/models/layers/factories/axial-curves-factory';
+import { ConstellationBoundariesLayerFactory } from '#core/models/layers/factories/constellation-boundaries-layer-factory';
+import { ConstellationLinesLayerFactory } from '#core/models/layers/factories/constellation-lines-layer-factory';
+import { ConstellationNamesLayerFactory } from '#core/models/layers/factories/constellation-names-layer-factory';
+import { LayerFactory } from '#core/models/layers/factories/layer-factory';
+import { PointsFactory } from '#core/models/layers/factories/points-factory';
+import { SkyGridLayerFactory } from '#core/models/layers/factories/sky-grid-layer-factory';
+import { StarsLayerFactory } from '#core/models/layers/factories/stars-layer-factory';
+import { RenderableLayer } from '#core/models/layers/renderable-layer';
+import { SupportedLayers } from '#core/models/supported-layers';
+import { EventsService } from '#core/services/events.service';
+import { MaterialsService } from '#core/services/materials.service';
 
 
 @Injectable()

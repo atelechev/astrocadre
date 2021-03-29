@@ -1,8 +1,8 @@
 import { fakeAsync } from '@angular/core/testing';
-import { Layer } from 'src/app/modules/core/models/layer';
-import { AxialCurvesFactory } from 'src/app/modules/core/models/layers/factories/axial-curves-factory';
-import { ConstellationLinesLayerFactory } from 'src/app/modules/core/models/layers/factories/constellation-lines-layer-factory';
-import { TestContext } from 'src/app/modules/core/test-utils/test-context.spec';
+import { Layer } from '#core/models/layer';
+import { AxialCurvesFactory } from '#core/models/layers/factories/axial-curves-factory';
+import { ConstellationLinesLayerFactory } from '#core/models/layers/factories/constellation-lines-layer-factory';
+import { TestContext } from '#core/test-utils/test-context.spec';
 
 
 describe('ConstellationLinesLayerFactory', () => {
