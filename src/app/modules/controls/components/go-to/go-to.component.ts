@@ -1,68 +1,61 @@
 import { Component } from '@angular/core';
-import { SearchService } from '#core/services/search.service';
-import { ViewportEventService } from '#core/services/viewport-event.service';
+import { CameraService } from 'src/app/modules/core/services/camera.service';
+import { SearchService } from 'src/app/modules/core/services/search.service';
+
 
 @Component({
-  selector: `ac-controls-go-to`,
+  selector: 'ac-controls-go-to',
   templateUrl: './go-to.component.html'
 })
 export class GoToComponent {
 
-  public searchText: string;
+  private _searchText: string;
 
-  public searchNoResultsClass: string;
+  private _hasSearchResults: boolean;
 
-  public goToButtonDisabled: boolean;
-
-  constructor(private viewportEventService: ViewportEventService,
-    private searchService: SearchService) {
-    this.goToButtonDisabled = true;
-    this.subscribeGotoInitialPosition();
+  constructor(
+    private readonly _searchService: SearchService,
+    private readonly _cameraService: CameraService
+  ) {
+    this._hasSearchResults = true; // do not show error highlight when no search was made yet
+    this.subscribeSearchReady();
   }
 
-  public updateGoToButtonState(): void {
-    this.goToButtonDisabled = !this.searchText || this.searchText.trim().length < 1;
-    this.resetSearchInputCssClass();
+  public get isDisabled(): boolean {
+    return !this.searchText || this.searchText.trim().length < 1;
   }
 
-  public execGoToSearchRequest(): void {
-    if (this.goToButtonDisabled) {
-      return;
-    }
-    const goToCoord = this.searchService.search(this.searchText);
+  public get searchText(): string {
+    return this._searchText;
+  }
+
+  public set searchText(st: string) {
+    this._searchText = st;
+  }
+
+  public get searchNoResultsCssClass(): string {
+    return this._hasSearchResults ? '' : 'ng-invalid';
+  }
+
+  public execSearchRequest(): void {
+    const goToCoord = this._searchService.search(this.searchText);
+    this._hasSearchResults = !!goToCoord;
     if (goToCoord) {
-      this.resetSearchInputCssClass();
-      this.viewportEventService.centerViewRequested(goToCoord);
-    } else {
-      this.searchNoResultsClass = 'searchtext-input-invalid';
+      this._cameraService.centerView(goToCoord);
     }
   }
 
-  private subscribeGotoInitialPosition(): void {
-    this.searchService.broadcastItemsLoaded$.subscribe(
-      () => {
-        const gotoQueryParam = this.getInitialPositionFromUrlQueryParam();
-        this.goto(gotoQueryParam ? gotoQueryParam : 'Orion');
-      }
-    );
-  }
-
-  private goto(position: string): void {
-    if (position) {
-      this.searchText = position;
-      this.goToButtonDisabled = false;
-      this.execGoToSearchRequest();
-    }
-  }
-
-  private resetSearchInputCssClass(): void {
-    this.searchNoResultsClass = '';
-  }
-
-  private getInitialPositionFromUrlQueryParam(): string {
-    const url = new URL(window.location.href);
-    const searchParams = new URLSearchParams(url.search);
-    return searchParams.get('goto');
+  private subscribeSearchReady(): void {
+    this._searchService
+      .searchReady()
+      .subscribe(
+        (ready: boolean) => {
+          if (ready) {
+            this._searchText = this._searchService.getRandomLocationName();
+            this.execSearchRequest();
+          }
+        }
+      );
   }
 
 }

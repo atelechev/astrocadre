@@ -1,27 +1,28 @@
 import { Injectable } from '@angular/core';
-import { Observable, Subject } from 'rxjs';
-import { SearchableItem } from '#core/models/searchable-item';
-import { SkyCoordinate } from '#core/models/sky-coordinate';
-import { StaticDataService } from '#core/services/static-data.service';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { Searchable } from 'src/app/modules/core/models/searchable';
+import { SkyCoordinate } from 'src/app/modules/core/models/sky-coordinate';
 
 @Injectable()
 export class SearchService {
 
-  private readonly coordinatesPattern = /(\d+(?:[.,]\d*)?)\s+(-?\d+(?:[.,]\d*)?)/i;
+  private readonly _starStandardNamePattern = /[A-Z]+\s+[A-Z]+/;
 
-  private broadcastItemsLoaded = new Subject<void>();
+  private readonly _coordinatesPattern = /(\d+(?:[.,]\d*)?)\s+(-?\d+(?:[.,]\d*)?)/i; // two decimal numbers separated with spaces
 
-  private searchableItems: Map<string, SearchableItem>;
+  private _searchables: Map<string, Searchable>;
 
-  constructor(private dataService: StaticDataService) {
-    this.initSearchableItems();
-  }
+  private readonly _expectedLayersWithSearchables: number;
 
-  /**
-   * Observable to subscribe to intercept events fired when the items are loaded.
-   */
-  public get broadcastItemsLoaded$(): Observable<void> {
-    return this.broadcastItemsLoaded;
+  private _registeredLayersWithSearchables: number;
+
+  private readonly _searchReady: BehaviorSubject<boolean>;
+
+  constructor() {
+    this._expectedLayersWithSearchables = 10;
+    this._registeredLayersWithSearchables = 0;
+    this._searchables = new Map<string, Searchable>();
+    this._searchReady = new BehaviorSubject<boolean>(false);
   }
 
   /**
@@ -30,19 +31,62 @@ export class SearchService {
    * @param query the query string
    */
   public search(query: string): SkyCoordinate {
-    if (!query) {
+    if (!query || query.trim().length === 0) {
       return undefined;
     }
-    const directCoordinates = this.attemptDirectParseToCoordinate(query);
-    if (directCoordinates) {
-      return directCoordinates;
+    const maybeCoordinates = this.parseAsCoordinates(query);
+    if (maybeCoordinates) {
+      return maybeCoordinates;
     }
     const searchTextNormalized = this.normalizeSearchString(query);
-    if (this.searchableItems.has(searchTextNormalized)) {
-      const item = this.searchableItems.get(searchTextNormalized);
+    if (this._searchables.has(searchTextNormalized)) {
+      const item = this._searchables.get(searchTextNormalized);
       return this.toSkyCoordinate(item.ra, item.dec);
     }
     return undefined;
+  }
+
+  public getRandomLocationName(): string {
+    const allSearchableQueries = Array.from(this._searchables.keys());
+    const randomQuery = allSearchableQueries[Math.floor(Math.random() * allSearchableQueries.length)];
+    const location = this._searchables.get(randomQuery);
+    // avoid showing to standard star names queries, they are ugly
+    const matchedStandardName = location.code.match(this._starStandardNamePattern);
+    if (matchedStandardName) {
+      return this.getRandomLocationName();
+    }
+    return location.names?.length > 0 ? location.names[0] : location.code;
+  }
+
+  public searchReady(): Observable<boolean> {
+    return this._searchReady;
+  }
+
+  public registerSearchables(items: Array<Searchable>): void {
+    if (!items) {
+      return;
+    }
+    if (items.length > 0) {
+      this._registeredLayersWithSearchables++;
+    }
+    items.forEach(
+      (item: Searchable) => this.registerSearchable(item)
+    );
+    if (this._expectedLayersWithSearchables === this._registeredLayersWithSearchables) {
+      this._searchReady.next(true);
+    }
+  }
+
+  private parseAsCoordinates(query: string): SkyCoordinate {
+    const matches = query.match(this._coordinatesPattern);
+    if (matches && matches.length === 3) {
+      return this.toSkyCoordinate(parseFloat(matches[1]), parseFloat(matches[2]));
+    }
+    return undefined;
+  }
+
+  private toSkyCoordinate(ra: number, dec: number): SkyCoordinate {
+    return { rightAscension: ra, declination: dec };
   }
 
   private normalizeSearchString(value: string): string {
@@ -50,33 +94,14 @@ export class SearchService {
     return value.replace(replaceExpr, '').toUpperCase();
   }
 
-  private initSearchableItems(): void {
-    this.searchableItems = new Map<string, SearchableItem>();
-    this.dataService.getSearchableItems().subscribe(
-      (items: SearchableItem[]) => {
-        items.forEach(item => {
-          this.searchableItems.set(this.normalizeSearchString(item.code), item);
-          if (item.names) {
-            item.names.forEach(name => this.searchableItems.set(this.normalizeSearchString(name), item));
-          }
-        }
-        );
-        this.broadcastItemsLoaded.next();
-      },
-      (error: any) => console.log(`Failed to retrieve searchable items: ${error}`)
-    );
-  }
-
-  private toSkyCoordinate(ra: number, dec: number): SkyCoordinate {
-    return { rightAscension: ra, declination: dec };
-  }
-
-  private attemptDirectParseToCoordinate(query: string): SkyCoordinate {
-    const matches = query.match(this.coordinatesPattern);
-    if (matches && matches.length === 3) {
-      return this.toSkyCoordinate(parseFloat(matches[1]), parseFloat(matches[2]));
+  private registerSearchable(searchable: Searchable): void {
+    if (!searchable) {
+      return;
     }
-    return undefined;
+    this._searchables.set(this.normalizeSearchString(searchable.code), searchable);
+    searchable.names?.forEach(
+      (name: string) => this._searchables.set(this.normalizeSearchString(name), searchable)
+    );
   }
 
 }

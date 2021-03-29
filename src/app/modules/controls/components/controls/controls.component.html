@@ -1,12 +1,20 @@
+<div #astrocadreControls
+    id="ac-ui-panel-tools">
 
-<div id="astrocadre-controls"
-      #astrocadreControls>
+  <p-panel [toggleable]="true"
+          header="Astrocadre"
+          [collapsed]="!toolsExpanded">
 
-  <div class="ui-controls-tools"
-       [hidden]="!toolsVisible">
     <ac-controls-go-to></ac-controls-go-to>
 
+    <ac-controls-select-theme></ac-controls-select-theme>
+
+    <ac-controls-layers></ac-controls-layers>
+
     <ac-controls-camera></ac-controls-camera>
-  </div>
+
+    <ac-controls-resize></ac-controls-resize>
+
+  </p-panel>
 
 </div>

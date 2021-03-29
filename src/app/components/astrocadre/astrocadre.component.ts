@@ -4,9 +4,9 @@ import {
   ElementRef,
   ViewChild
   } from '@angular/core';
-import { MouseEventsHandler } from 'src/app/modules2/core/services/mouse-events-handler';
-import { SceneService } from 'src/app/modules2/core/services/scene.service';
-import { ViewportService } from 'src/app/modules2/core/services/viewport.service';
+import { MouseEventsHandler } from 'src/app/modules/core/services/mouse-events-handler';
+import { SceneService } from 'src/app/modules/core/services/scene.service';
+import { ViewportService } from 'src/app/modules/core/services/viewport.service';
 
 
 @Component({

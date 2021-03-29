@@ -1,26 +1,56 @@
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
-import { CameraControlsComponent } from '#controls/components/camera-controls/camera-controls.component';
-import { ControlsComponent } from '#controls/components/controls/controls.component';
-import { GoToComponent } from '#controls/components/go-to/go-to.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ButtonModule } from 'primeng/button';
+import { CheckboxModule } from 'primeng/checkbox';
+import { DropdownModule } from 'primeng/dropdown';
+import { InputNumberModule } from 'primeng/inputnumber';
+import { InputTextModule } from 'primeng/inputtext';
+import { PanelModule } from 'primeng/panel';
+import { SelectButtonModule } from 'primeng/selectbutton';
+import { SliderModule } from 'primeng/slider';
+import { CameraControlsComponent } from 'src/app/modules/controls/components/camera-controls/camera-controls.component';
+import { ControlsComponent } from 'src/app/modules/controls/components/controls/controls.component';
+import { GoToComponent } from 'src/app/modules/controls/components/go-to/go-to.component';
+import { LayersComponent } from 'src/app/modules/controls/components/layers/layers.component';
+import { ResizeControlsComponent } from 'src/app/modules/controls/components/resize-controls/resize-controls.component';
+import { SelectorLayerComponent } from 'src/app/modules/controls/components/selector-layer/selector-layer.component';
+import { SelectorStarMagnitudeComponent } from 'src/app/modules/controls/components/selector-star-magnitude/selector-star-magnitude.component';
+import { SelectorStarNamesComponent } from 'src/app/modules/controls/components/selector-star-names/selector-star-names.component';
+import { SelectorThemeComponent } from 'src/app/modules/controls/components/selector-theme/selector-theme.component';
+import { DraggableElementsHandler } from 'src/app/modules/controls/services/draggable-elements-handler';
 
 @NgModule({
+  imports: [
+    BrowserAnimationsModule,
+    BrowserModule,
+    FormsModule,
+    ButtonModule,
+    CheckboxModule,
+    DropdownModule,
+    InputNumberModule,
+    InputTextModule,
+    PanelModule,
+    SelectButtonModule,
+    SliderModule
+  ],
   declarations: [
-    ControlsComponent,
     CameraControlsComponent,
-    GoToComponent
+    ControlsComponent,
+    GoToComponent,
+    LayersComponent,
+    ResizeControlsComponent,
+    SelectorStarMagnitudeComponent,
+    SelectorStarNamesComponent,
+    SelectorThemeComponent,
+    SelectorLayerComponent
   ],
   exports: [
     ControlsComponent
   ],
-  imports: [
-    BrowserModule,
-    FormsModule
-  ],
   providers: [
-    ControlsComponent,
-    GoToComponent
+    DraggableElementsHandler
   ]
 })
 export class ControlsModule {
