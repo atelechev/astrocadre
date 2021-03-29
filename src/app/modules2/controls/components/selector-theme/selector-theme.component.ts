@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { ThemeMeta } from 'src/app/modules2/core/models/theme-meta';
-import { EventsService } from 'src/app/modules2/core/services/events.service';
 import { ThemeService } from 'src/app/modules2/core/services/theme.service';
 
 

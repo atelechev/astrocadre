@@ -34,8 +34,8 @@ export class ResizeControlsComponent {
 
   public resizeViewport(): void {
     const newSize = {
-      height: this._height || 0,
-      width: this._width || 0
+      height: this._height || this._viewportService.defaultHeight,
+      width: this._width || this._viewportService.defaultWidth
     };
     this._viewportService.size = newSize;
   }

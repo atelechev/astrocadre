@@ -26,10 +26,6 @@ export class ControlsComponent implements AfterViewInit {
     this._toolsExpanded = !this._toolsExpanded;
   }
 
-  public get toggleToolsLabel(): string {
-    return this._toolsExpanded ? '\u25B2' : '\u25BC';
-  }
-
   public get toolsExpanded(): boolean {
     return this._toolsExpanded;
   }

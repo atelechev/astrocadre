@@ -1,6 +1,20 @@
 import { HttpClientModule } from '@angular/common/http';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { TestBed } from '@angular/core/testing';
+import { Type } from '@angular/core';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { FormsModule } from '@angular/forms';
+import { BrowserModule } from '@angular/platform-browser';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { ButtonModule } from 'primeng/button';
+import { CheckboxModule } from 'primeng/checkbox';
+import { DropdownModule } from 'primeng/dropdown';
+import { InputNumberModule } from 'primeng/inputnumber';
+import { InputTextModule } from 'primeng/inputtext';
+import { PanelModule } from 'primeng/panel';
+import { SelectButtonModule } from 'primeng/selectbutton';
+import { SliderModule } from 'primeng/slider';
+import { ControlsModule } from 'src/app/modules2/controls/controls.module';
+import { DraggableElementsHandler } from 'src/app/modules2/controls/services/draggable-elements-handler';
 import { CameraService } from 'src/app/modules2/core/services/camera.service';
 import { EventsService } from 'src/app/modules2/core/services/events.service';
 import { LayerService } from 'src/app/modules2/core/services/layer.service';
@@ -20,6 +34,19 @@ export class TestContext {
     HttpClientTestingModule
   ];
 
+  private readonly _importsUi: Array<any> = [
+    BrowserModule,
+    FormsModule,
+    ButtonModule,
+    CheckboxModule,
+    DropdownModule,
+    InputNumberModule,
+    InputTextModule,
+    PanelModule,
+    SelectButtonModule,
+    SliderModule
+  ];
+
   private readonly _providers: Array<any> = [
     CameraService,
     EventsService,
@@ -36,12 +63,19 @@ export class TestContext {
     ViewportService
   ];
 
-  public configure(): TestContext {
-    TestBed.configureTestingModule({
-      imports: this._imports,
-      providers: this._providers
-    });
-    return this;
+  private readonly _declarations: Array<any>;
+
+  private _testedComponent: Type<any>;
+
+  private _fixture: ComponentFixture<any>;
+
+  constructor() {
+    this._declarations = [];
+    this._fixture = undefined;
+  }
+
+  public get cameraService(): CameraService {
+    return TestBed.inject(CameraService);
   }
 
   public get layerService(): LayerService {
@@ -62,6 +96,56 @@ export class TestContext {
 
   public get sceneService(): SceneService {
     return TestBed.inject(SceneService);
+  }
+
+  public get themeService(): ThemeService {
+    return TestBed.inject(ThemeService);
+  }
+
+  public get viewportService(): ViewportService {
+    return TestBed.inject(ViewportService);
+  }
+
+  public getComponent<T>(targetType: Type<T>): T {
+    return this._fixture?.componentInstance as T;
+  }
+
+  public withUIImports(): TestContext {
+    this._importsUi.forEach(
+      (item: any) => this._imports.push(item)
+    );
+    return this;
+  }
+
+  public withFullUI(): TestContext {
+    this._imports.push(ControlsModule);
+    this._imports.push(NoopAnimationsModule);
+    return this;
+  }
+
+  public withDeclarations(declarations: Array<Type<any>>): TestContext {
+    declarations?.forEach(
+      (component: Type<any>) => this._declarations.push(component)
+    );
+    return this;
+  }
+
+  public forComponent(component: Type<any>): TestContext {
+    this._declarations.push(component);
+    this._testedComponent = component;
+    return this;
+  }
+
+  public configure(): TestContext {
+    TestBed.configureTestingModule({
+      declarations: this._declarations,
+      imports: this._imports,
+      providers: this._providers
+    });
+    if (this._testedComponent) {
+      this._fixture = TestBed.createComponent(this._testedComponent);
+    }
+    return this;
   }
 
 }

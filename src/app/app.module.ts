@@ -15,9 +15,6 @@ import { CoreModule } from 'src/app/modules2/core/core.module';
     AstrocadreComponent
   ],
   imports: [
-    BrowserModule,
-    BrowserAnimationsModule,
-    HttpClientModule,
     CoreModule,
     ControlsModule
   ],

@@ -30,7 +30,10 @@ export class SelectorStarNamesComponent {
   }
 
   public set shownNames(sn: number) {
-    if (sn > -1 && sn !== this._shownNames) {
+    const canUpdate = sn > -1 &&
+      sn < this._selectableNames.length
+      && sn !== this._shownNames;
+    if (canUpdate) {
       this._shownNames = sn;
       this.updateShownNames();
     }

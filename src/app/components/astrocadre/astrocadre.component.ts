@@ -2,7 +2,6 @@ import {
   AfterViewInit,
   Component,
   ElementRef,
-  OnInit,
   ViewChild
   } from '@angular/core';
 import { MouseEventsHandler } from 'src/app/modules2/core/services/mouse-events-handler';
