@@ -38,7 +38,7 @@ export class SceneService {
   private _halfHeight: number;
 
   constructor(
-    private readonly _eventsService: EventsService,
+    private readonly _eventsService: EventsService, // TODO review the dependencies tree, it's too complex!
     private readonly _cameraService: CameraService,
     private readonly _viewportService: ViewportService
   ) {

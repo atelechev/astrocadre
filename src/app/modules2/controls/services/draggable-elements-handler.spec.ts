@@ -1,5 +1,5 @@
 import { TestBed } from '@angular/core/testing';
-import { DraggableElementsHandler } from '#core/services/draggable-elements-handler';
+import { DraggableElementsHandler } from 'src/app/modules2/controls/services/draggable-elements-handler';
 
 describe('DraggableElementsHandler', () => {
 
@@ -20,31 +20,31 @@ describe('DraggableElementsHandler', () => {
     describe('false', () => {
 
       it('for undefined arg', () => {
-        expect(service.isDraggable(undefined)).toBeFalsy();
+        expect(service.isDraggable(undefined)).toBeFalse();
       });
 
       it('if the element is not draggable', () => {
-        expect(service.isDraggable(newHtmlElement())).toBeFalsy();
+        expect(service.isDraggable(newHtmlElement())).toBeFalse();
       });
 
       it('if the element was first draggable, then disabled', () => {
         const element = newHtmlElement();
         service.makeDraggable(element);
         service.disableDragging(element);
-        expect(service.isDraggable(element)).toBeFalsy();
+        expect(service.isDraggable(element)).toBeFalse();
       });
 
       it('if the arg is an element very similar to a draggable one', () => {
         const element = newHtmlElement();
         service.makeDraggable(element);
-        expect(service.isDraggable(newHtmlElement())).toBeFalsy();
+        expect(service.isDraggable(newHtmlElement())).toBeFalse();
       });
 
     });
     it('true if the element is draggable', () => {
       const element = newHtmlElement();
       service.makeDraggable(element);
-      expect(service.isDraggable(element)).toBeTruthy();
+      expect(service.isDraggable(element)).toBeTrue();
     });
 
   });
@@ -60,7 +60,7 @@ describe('DraggableElementsHandler', () => {
     it('make element draggable', () => {
       const element = newHtmlElement();
       service.makeDraggable(element);
-      expect(service.isDraggable(element)).toBeTruthy();
+      expect(service.isDraggable(element)).toBeTrue();
     });
 
   });
@@ -69,7 +69,7 @@ describe('DraggableElementsHandler', () => {
     const element = newHtmlElement();
     service.makeDraggable(element);
     service.disableDragging(element);
-    expect(service.isDraggable(element)).toBeFalsy();
+    expect(service.isDraggable(element)).toBeFalse();
   });
 
 });

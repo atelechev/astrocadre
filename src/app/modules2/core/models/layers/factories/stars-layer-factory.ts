@@ -17,6 +17,7 @@ export class StarsLayerFactory implements LayerFactory {
 
   public static readonly STARS_LAYER_CODE_PREFIX = `${SupportedLayers.STARS}-mag`;
 
+  // TODO a single factory may be used to build different instances, the model arg should be passed into buildRenderableLayer
   constructor(
     private readonly _layerModel: Layer,
     private readonly _materialsService: MaterialsService,
@@ -49,7 +50,7 @@ export class StarsLayerFactory implements LayerFactory {
     return parseFloat(code.substr(StarsLayerFactory.STARS_LAYER_CODE_PREFIX.length));
   }
 
-  // TODO refactor these functions!
+  // TODO refactor these functions and test them separately
   private initLabels(
     extractNameFunct: (rawStar: any[]) => string,
     toRenderableFunct: (ln: string, rawStar: any[], name: string) => RenderableText): Array<RenderableText> {

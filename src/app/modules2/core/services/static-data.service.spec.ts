@@ -1,3 +1,4 @@
+import { of } from 'rxjs';
 import { Layer } from 'src/app/modules2/core/models/layer';
 import { Theme } from 'src/app/modules2/core/models/theme';
 import { ThemeMeta } from 'src/app/modules2/core/models/theme-meta';
@@ -6,7 +7,6 @@ import { mockedLayers } from 'src/app/modules2/core/test-utils/mocked-layers.spe
 import { mockedLines } from 'src/app/modules2/core/test-utils/mocked-lines.spec';
 import { mockedTheme } from 'src/app/modules2/core/test-utils/mocked-theme.spec';
 import { mockedThemes } from 'src/app/modules2/core/test-utils/mocked-themes.spec';
-import { asyncData } from '#core/models/abstract-factories.spec';
 
 
 describe('StaticDataService', () => {
@@ -20,7 +20,7 @@ describe('StaticDataService', () => {
   });
 
   it('getThemes should return expected data', () => {
-    httpClientSpy.get.and.returnValue(asyncData(mockedThemes));
+    httpClientSpy.get.and.returnValue(of(mockedThemes));
     service.getThemes()
       .subscribe(
         (themes: Array<ThemeMeta>) => expect(themes).toEqual(mockedThemes)
@@ -29,7 +29,7 @@ describe('StaticDataService', () => {
   });
 
   it('getTheme should return expected data', () => {
-    httpClientSpy.get.and.returnValue(asyncData(mockedTheme));
+    httpClientSpy.get.and.returnValue(of(mockedTheme));
     service.getTheme('dev')
       .subscribe(
         (theme: Theme) => expect(theme).toEqual(mockedTheme)
@@ -38,7 +38,7 @@ describe('StaticDataService', () => {
   });
 
   it('getLayersTree should return expected data', () => {
-    httpClientSpy.get.and.returnValue(asyncData(mockedLayers));
+    httpClientSpy.get.and.returnValue(of(mockedLayers));
     service.getLayersTree()
       .subscribe(
         (layer: Layer) => expect(layer).toEqual(mockedLayers)
@@ -47,7 +47,7 @@ describe('StaticDataService', () => {
   });
 
   it('getDataJson should return expected data', () => {
-    httpClientSpy.get.and.returnValue(asyncData(mockedLines));
+    httpClientSpy.get.and.returnValue(of(mockedLines));
     service.getDataJson('mocked-lines')
       .subscribe(
         (lines: Array<any>) => expect(lines).toEqual(mockedLines)

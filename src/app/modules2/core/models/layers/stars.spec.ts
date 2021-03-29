@@ -35,13 +35,14 @@ describe('Stars', () => {
       expect(renderable.text).toEqual('Polaris');
     });
 
-    it('return expected value when standard names are selected', () => {
+    it('return expected value when standard names are selected', fakeAsync(() => {
       layer.showStandardNames();
+      tick();
       expect(layer.texts.length).toEqual(1);
       const renderable = layer.texts[0];
       expect(renderable).toBeDefined();
       expect(renderable.text).toEqual('α');
-    });
+    }));
 
   });
 
