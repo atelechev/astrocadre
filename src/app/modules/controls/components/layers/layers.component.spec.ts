@@ -1,7 +1,7 @@
-import { fakeAsync } from '@angular/core/testing';
 import { Layer } from '#core/models/layer';
 import { TestContext } from '#core/test-utils/test-context.spec';
 import { LayersComponent } from '#controls/components/layers/layers.component';
+import { mockedLayers } from '#core/test-utils/mocked-layers.spec';
 
 
 describe('LayersComponent', () => {
@@ -9,15 +9,16 @@ describe('LayersComponent', () => {
   let ctx: TestContext;
   let component: LayersComponent;
 
-  beforeEach(fakeAsync(() => {
+  beforeEach(() => {
     ctx = new TestContext()
       .withUIImports()
       .forComponent(LayersComponent)
       .configure();
+    ctx.layerService.rootLayer = mockedLayers;
     component = ctx.getComponent(LayersComponent);
-  }));
+  });
 
-  it('layers should return expected value', fakeAsync(() => {
+  it('layers should return expected value', () => {
     const layers = component.layers;
     expect(layers).toBeDefined();
 
@@ -26,6 +27,6 @@ describe('LayersComponent', () => {
 
     const codes = layers.map((layer: Layer) => layer.code);
     expect(codes).toEqual(expected);
-  }));
+  });
 
 });

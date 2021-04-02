@@ -1,4 +1,4 @@
-import { fakeAsync, TestBed, tick } from '@angular/core/testing';
+import { TestBed } from '@angular/core/testing';
 import { Points, PointsMaterial } from 'three';
 import { RenderableText } from '#core/models/layers/renderable-text';
 import { Stars } from '#core/models/layers/stars';
@@ -7,17 +7,26 @@ import { mockedTheme } from '#core/test-utils/mocked-theme.spec';
 import { TestContext } from '#core/test-utils/test-context.spec';
 
 
+const model = {
+  code: 'stars-mag2.0',
+  label: 'Magnitude < 2.0',
+  loadFromUrl: true,
+  description: 'Stars of magnitude less or equal to 2.0',
+  objects: [
+    [37.95, 89.26, 2.0, 'Polaris', 'ALP UMI']
+  ]
+};
+
 describe('Stars', () => {
 
   let ctx: TestContext;
   let layer: Stars;
 
-  beforeEach(fakeAsync(() => {
+  beforeEach(() => {
     ctx = new TestContext().configure();
-    const model = ctx.layerService.rootLayer.subLayers[1].subLayers[0];
     layer = TestBed.inject(LayersFactoryService).buildRenderableLayer(model) as Stars;
     ctx.themeService.theme = mockedTheme;
-  }));
+  });
 
   it('magnitudeClass should return expected value', () => {
     expect(layer.magnitudeClass).toEqual(2);
@@ -36,14 +45,13 @@ describe('Stars', () => {
       expect(renderable.text).toEqual('Polaris');
     });
 
-    it('return expected value when standard names are selected', fakeAsync(() => {
+    it('return expected value when standard names are selected', () => {
       layer.showStandardNames();
-      tick();
       expect(layer.texts.length).toEqual(1);
       const renderable = layer.texts[0];
       expect(renderable).toBeDefined();
       expect(renderable.text).toEqual('α');
-    }));
+    });
 
   });
 
@@ -67,27 +75,24 @@ describe('Stars', () => {
 
   });
 
-  it('searchables should return expected value', fakeAsync(() => {
-    tick();
+  it('searchables should return expected value', () => {
     expect(layer.searchables.length).toEqual(1);
     const searchable = layer.searchables[0];
     expect(searchable).toBeDefined();
     expect(searchable.type).toEqual('star');
     expect(searchable.names[0]).toEqual('Polaris');
-  }));
+  });
 
-  it('material should be assigned to the objects', fakeAsync(() => {
-    tick();
+  it('material should be assigned to the objects', () => {
     const object = layer.objects[0] as Points;
     expect(object).toBeDefined();
     const foundMaterial = object.material as PointsMaterial;
     const material = ctx.materialsService.getMaterialsForLayer('stars').get('star-2.0') as PointsMaterial;
     expect(foundMaterial.size).toEqual(material.size);
     expect(foundMaterial.map.sourceFile).toEqual(material.map.sourceFile);
-  }));
+  });
 
-  it('style should be assigned to the texts', fakeAsync(() => {
-    tick();
+  it('style should be assigned to the texts', () => {
     const object = layer.texts[0] as RenderableText;
     expect(object).toBeDefined();
     const style = mockedTheme.stars.names.proper;
@@ -96,6 +101,6 @@ describe('Stars', () => {
     expect(object.htmlElement.style.fontSize).toEqual(style.fontSize);
     expect(object.htmlElement.style.fontStyle).toEqual(style.fontStyle);
     expect(object.htmlElement.style.fontWeight).toEqual(style.fontWeight);
-  }));
+  });
 
 });

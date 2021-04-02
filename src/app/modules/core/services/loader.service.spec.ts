@@ -6,12 +6,15 @@ import { ThemeService } from '#core/services/theme.service';
 import { StaticDataService } from '#core/services/static-data.service';
 import { mockedThemes } from '#core/test-utils/mocked-themes.spec';
 import { mockedTheme } from '#core/test-utils/mocked-theme.spec';
+import { LayerService } from '#core/services/layer.service';
+import { mockedLayers } from '#core/test-utils/mocked-layers.spec';
 
 
 describe('LoaderService', () => {
 
   let service: LoaderService;
   let themeService: ThemeService;
+  let layerService: LayerService;
   let dataService: StaticDataService;
 
   beforeEach(() => {
@@ -22,6 +25,7 @@ describe('LoaderService', () => {
       .configure();
     service = ctx.getService(LoaderService);
     themeService = ctx.themeService;
+    layerService = ctx.layerService;
     dataService = ctx.getService(StaticDataService);
   });
 
@@ -40,6 +44,19 @@ describe('LoaderService', () => {
 
       expect(themeService.availableThemes).toEqual(mockedThemes);
       expect(service.loadTheme).toHaveBeenCalledWith('dev');
+    }));
+
+    it('load expected layers', fakeAsync(() => {
+      spyOn(dataService, 'getLayersTree').and.returnValue(of(mockedLayers));
+      spyOn(layerService, 'registerLayer');
+
+      expect(layerService.rootLayer).toBeUndefined();
+
+      service.loadAllData();
+      tick();
+
+      expect(layerService.rootLayer).toEqual(mockedLayers);
+      expect(layerService.registerLayer).toHaveBeenCalledTimes(10);
     }));
 
   });

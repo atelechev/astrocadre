@@ -1,8 +1,8 @@
-import { fakeAsync } from '@angular/core/testing';
 import { LayerService } from '#core/services/layer.service';
 import { TestContext } from '#core/test-utils/test-context.spec';
 import { SelectorStarNamesComponent } from '#controls/components/selector-star-names/selector-star-names.component';
 import { NameSelectionType } from '#controls/models/name-selection-type';
+import { mockedLayers } from '#core/test-utils/mocked-layers.spec';
 
 
 describe('SelectorStarNamesComponent', () => {
@@ -11,22 +11,26 @@ describe('SelectorStarNamesComponent', () => {
   let layersService: LayerService;
   let component: SelectorStarNamesComponent;
 
-  beforeEach(fakeAsync(() => {
+  beforeEach(() => {
     ctx = new TestContext()
       .withUIImports()
       .forComponent(SelectorStarNamesComponent)
       .configure();
     layersService = ctx.layerService;
+    layersService.rootLayer = mockedLayers;
+    const starsLayer = mockedLayers.subLayers[1];
+    layersService.registerLayer(starsLayer);
+    layersService.registerLayer(starsLayer.subLayers[0]);
     component = ctx.getComponent(SelectorStarNamesComponent);
-  }));
+  });
 
-  it('selectableNames should return expected value', fakeAsync(() => {
+  it('selectableNames should return expected value', () => {
     const selectables = component.selectableNames;
     expect(selectables).toBeDefined();
     const expectedLabels = ['None', 'Proper', 'Standard'];
     const gotNames = selectables.map((selectable: NameSelectionType) => selectable.label);
     expect(gotNames).toEqual(expectedLabels);
-  }));
+  });
 
   describe('shownNames', () => {
 
@@ -92,15 +96,15 @@ describe('SelectorStarNamesComponent', () => {
 
   describe('isDisabled should return', () => {
 
-    it('true if the star layer is not shown', fakeAsync(() => {
+    it('true if the star layer is not shown', () => {
       layersService.hideLayer('stars');
       expect(component.isDisabled).toBeTrue();
-    }));
+    });
 
-    it('false if the star layer is shown', fakeAsync(() => {
+    it('false if the star layer is shown', () => {
       layersService.showLayer('stars');
       expect(component.isDisabled).toBeFalse();
-    }));
+    });
 
   });
 

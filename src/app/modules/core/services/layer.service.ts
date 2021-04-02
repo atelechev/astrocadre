@@ -7,7 +7,6 @@ import { EventsService } from '#core/services/events.service';
 import { LayersFactoryService } from '#core/services/layers-factory.service';
 import { SceneService } from '#core/services/scene.service';
 import { SearchService } from '#core/services/search.service';
-import { StaticDataService } from '#core/services/static-data.service';
 
 @Injectable()
 export class LayerService {
@@ -21,7 +20,6 @@ export class LayerService {
   private readonly _shownLayers: Set<string>;
 
   constructor(
-    private readonly _dataService: StaticDataService,
     private readonly _eventsService: EventsService,
     private readonly _layersFactory: LayersFactoryService,
     private readonly _searchService: SearchService,
@@ -31,7 +29,6 @@ export class LayerService {
     this._layerModels = new Map<string, Layer>();
     this._renderableLayers = new Map<string, RenderableLayer>();
     this._shownLayers = new Set<string>();
-    this.loadLayers();
   }
 
   public get rootLayer(): Layer {
@@ -119,11 +116,15 @@ export class LayerService {
     if (!layer) {
       return;
     }
+    this.buildRenderable(layer);
     this._layerModels.set(layer.code, layer);
-    // TODO build renderables
+    this.showLayer(layer.code);
   }
 
   private toggleNamesType(layer: Stars, useProper: boolean): void {
+    if (!layer) {
+      return;
+    }
     if (useProper) {
       layer.showProperNames();
     } else {
@@ -137,18 +138,6 @@ export class LayerService {
     );
   }
 
-  // FIXME remove
-  private loadLayers(): void {
-    this._dataService
-      .getLayersTree()
-      .subscribe(
-        (root: Layer) => {
-          this._rootLayer = root;
-          this.processLoadedLayer(this._rootLayer);
-        }
-      );
-  }
-
   private get starsLayer(): Stars {
     return this.getRenderableLayer(SupportedLayers.STARS) as Stars;
   }
@@ -159,43 +148,13 @@ export class LayerService {
     ).filter((starLayer: Stars) => !!starLayer) || [];
   }
 
-  // FIXME remove
-  private processLoadedLayer(layer: Layer): void {
-    if (!layer) {
-      return;
-    }
-    this._layerModels.set(layer.code, layer);
-    this.showLayer(layer.code);
-    this.loadLayerObjects(layer);
-    layer.subLayers?.forEach(
-      (subLayer: Layer) => this.processLoadedLayer(subLayer)
-    );
-  }
-
-  // FIXME remove
-  private loadLayerObjects(layer: Layer): void {
-    if (layer.loadFromUrl) {
-      this._dataService
-        .getDataJson(layer.code)
-        .toPromise()
-        .then(
-          (objs: Array<any>) => {
-            layer.objects = objs || [];
-            this.buildRenderable(layer);
-          }
-        );
-    } else {
-      this.buildRenderable(layer);
-    }
-  }
-
-  private buildRenderable(layer: Layer): void {
+  private buildRenderable(layer: Layer): RenderableLayer {
     const renderable = this._layersFactory.buildRenderableLayer(layer);
     if (renderable) {
       this._renderableLayers.set(layer.code, renderable);
       this._searchService.registerSearchables(renderable.searchables);
-      this._eventsService.fireLayerShown(renderable);
     }
+    return renderable;
   }
 
   private processSubLayersVisibility(layer: string, visible: boolean): void {
