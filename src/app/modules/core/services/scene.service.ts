@@ -17,6 +17,7 @@ import { Theme } from '#core/models/theme';
 import { CameraService } from '#core/services/camera.service';
 import { EventsService } from '#core/services/events.service';
 import { ViewportService } from '#core/services/viewport.service';
+import { ThemeService } from '#core/services/theme.service';
 
 @Injectable()
 export class SceneService {
@@ -40,7 +41,8 @@ export class SceneService {
   constructor(
     private readonly _eventsService: EventsService, // TODO review the dependencies tree, it's too complex!
     private readonly _cameraService: CameraService,
-    private readonly _viewportService: ViewportService
+    private readonly _viewportService: ViewportService,
+    private readonly _themeService: ThemeService
   ) {
     this._frustum = new Frustum();
     this._allObjects = new Set<Object3D>();
@@ -178,7 +180,7 @@ export class SceneService {
   }
 
   private subscribeThemeChanged(): void {
-    this._eventsService
+    this._themeService
       .themeChanged
       .subscribe(
         (theme: Theme) => this.updateSceneBackground(theme)

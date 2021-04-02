@@ -2,8 +2,8 @@ import { Layer } from '#core/models/layer';
 import { RenderableLayer } from '#core/models/layers/renderable-layer';
 import { RenderableText } from '#core/models/layers/renderable-text';
 import { Searchable } from '#core/models/searchable';
-import { EventsService } from '#core/services/events.service';
 import { MaterialsService } from '#core/services/materials.service';
+import { ThemeService } from '#core/services/theme.service';
 
 
 export class ConstellationNames extends RenderableLayer {
@@ -15,10 +15,10 @@ export class ConstellationNames extends RenderableLayer {
   constructor(
     model: Layer,
     materialsService: MaterialsService,
-    eventsService: EventsService,
+    themeService: ThemeService,
     private _renderableLabels: Map<string, RenderableText>
   ) {
-    super(model, materialsService, eventsService);
+    super(model, materialsService, themeService);
     this._texts = Array.from(this._renderableLabels.values());
     this._searchables = this.model.objects;
     this.subscribeThemeChanged();

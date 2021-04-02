@@ -8,8 +8,8 @@ import { Materials } from '#core/models/materials';
 import { Searchable } from '#core/models/searchable';
 import { SupportedLayers } from '#core/models/supported-layers';
 import { WorldConstants } from '#core/models/world-constants';
-import { EventsService } from '#core/services/events.service';
 import { MaterialsService } from '#core/services/materials.service';
+import { ThemeService } from '#core/services/theme.service';
 import { extractProperName, extractStandardName, toGreekLetter } from '#core/utils/star-name-utils';
 import { toVector3 } from '#core/utils/vector-utils';
 
@@ -21,7 +21,7 @@ export class StarsLayerFactory implements LayerFactory {
   constructor(
     private readonly _layerModel: Layer,
     private readonly _materialsService: MaterialsService,
-    private readonly _eventsService: EventsService,
+    private readonly _themeService: ThemeService,
     private readonly _pointsFactory: PointsFactory
   ) {
 
@@ -37,7 +37,7 @@ export class StarsLayerFactory implements LayerFactory {
     return new Stars(
       this._layerModel,
       this._materialsService,
-      this._eventsService,
+      this._themeService,
       magnitudeClass,
       stars,
       properNames,

@@ -15,7 +15,7 @@ describe('ConstellationBoundariesLayerFactory', () => {
   }));
 
   const newFactory = (model: Layer): ConstellationBoundariesLayerFactory => (
-    new ConstellationBoundariesLayerFactory(model, ctx.materialsService, ctx.eventsService, new AxialCurvesFactory())
+    new ConstellationBoundariesLayerFactory(model, ctx.materialsService, ctx.themeService, new AxialCurvesFactory())
   );
 
   it('buildRenderableLayer should return expected value', fakeAsync(() => {

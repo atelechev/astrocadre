@@ -11,6 +11,7 @@ import { SearchService } from '#core/services/search.service';
 import { StaticDataService } from '#core/services/static-data.service';
 import { ThemeService } from '#core/services/theme.service';
 import { ViewportService } from '#core/services/viewport.service';
+import { LoaderService } from '#core/services/loader.service';
 
 @NgModule({
   imports: [
@@ -21,6 +22,7 @@ import { ViewportService } from '#core/services/viewport.service';
     EventsService,
     LayersFactoryService,
     LayerService,
+    LoaderService,
     MaterialsService,
     MouseEventsHandler,
     SceneService,

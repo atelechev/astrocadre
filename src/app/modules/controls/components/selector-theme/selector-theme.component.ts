@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { ThemeMeta } from '#core/models/theme-meta';
 import { ThemeService } from '#core/services/theme.service';
+import { LoaderService } from '#core/services/loader.service';
 
 
 @Component({
@@ -12,7 +13,8 @@ export class SelectorThemeComponent {
   private _selectedTheme: ThemeMeta;
 
   constructor(
-    private readonly _themeService: ThemeService
+    private readonly _themeService: ThemeService,
+    private readonly _loaderService: LoaderService
   ) {
     this._selectedTheme = undefined;
   }
@@ -29,7 +31,7 @@ export class SelectorThemeComponent {
     const previous = this._selectedTheme;
     this._selectedTheme = theme;
     if (this._selectedTheme && this._selectedTheme !== previous) {
-      this._themeService.loadTheme(this._selectedTheme.code);
+      this._loaderService.loadTheme(this._selectedTheme.code);
     }
   }
 

@@ -2,11 +2,13 @@ import {
   AfterViewInit,
   Component,
   ElementRef,
+  OnInit,
   ViewChild
   } from '@angular/core';
 import { MouseEventsHandler } from '#core/services/mouse-events-handler';
 import { SceneService } from '#core/services/scene.service';
 import { ViewportService } from '#core/services/viewport.service';
+import { LoaderService } from '#core/services/loader.service';
 
 
 @Component({
@@ -14,17 +16,22 @@ import { ViewportService } from '#core/services/viewport.service';
   templateUrl: './astrocadre.component.html',
   styleUrls: []
 })
-export class AstrocadreComponent implements AfterViewInit {
+export class AstrocadreComponent implements OnInit, AfterViewInit {
 
   @ViewChild('astrocadreViewport')
   private _astrocadreViewport: ElementRef;
 
   constructor(
+    private readonly _loaderService: LoaderService,
     private readonly _mouseEventsHandler: MouseEventsHandler,
     private readonly _viewportService: ViewportService,
     private readonly _sceneService: SceneService
   ) {
 
+  }
+
+  public ngOnInit(): void {
+    this._loaderService.loadAllData();
   }
 
   public ngAfterViewInit(): void {

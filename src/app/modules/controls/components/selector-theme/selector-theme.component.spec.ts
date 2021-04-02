@@ -1,14 +1,15 @@
 import { fakeAsync } from '@angular/core/testing';
-import { ThemeService } from '#core/services/theme.service';
 import { mockedThemes } from '#core/test-utils/mocked-themes.spec';
 import { TestContext } from '#core/test-utils/test-context.spec';
 import { SelectorThemeComponent } from '#controls/components/selector-theme/selector-theme.component';
+import { LoaderService } from '#core/services/loader.service';
+import { mockedTheme } from '#core/test-utils/mocked-theme.spec';
 
 
 describe('SelectorThemeComponent', () => {
 
   let ctx: TestContext;
-  let themeService: ThemeService;
+  let loaderService: LoaderService;
   let component: SelectorThemeComponent;
 
   beforeEach(fakeAsync(() => {
@@ -16,8 +17,10 @@ describe('SelectorThemeComponent', () => {
       .withUIImports()
       .forComponent(SelectorThemeComponent)
       .configure();
-    themeService = ctx.themeService;
+    loaderService = ctx.getService(LoaderService);
     component = ctx.getComponent(SelectorThemeComponent);
+    ctx.themeService.availableThemes = mockedThemes;
+    ctx.themeService.theme = mockedTheme;
   }));
 
   it('themes should be loaded', fakeAsync(() => {
@@ -36,23 +39,23 @@ describe('SelectorThemeComponent', () => {
     describe('set should', () => {
 
       it('assign the theme selection and trigger theme loading', fakeAsync(() => {
-        spyOn(themeService, 'loadTheme');
+        spyOn(loaderService, 'loadTheme');
         component.selectedTheme = mockedThemes[0];
-        expect(themeService.loadTheme).toHaveBeenCalledTimes(1);
+        expect(loaderService.loadTheme).toHaveBeenCalledTimes(1);
       }));
 
       it('not trigger theme loading if the arg is falsy', fakeAsync(() => {
-        spyOn(themeService, 'loadTheme');
+        spyOn(loaderService, 'loadTheme');
         component.selectedTheme = undefined;
-        expect(themeService.loadTheme).toHaveBeenCalledTimes(0);
+        expect(loaderService.loadTheme).toHaveBeenCalledTimes(0);
       }));
 
       it('not trigger theme loading if the arg matches the loaded theme', fakeAsync(() => {
-        spyOn(themeService, 'loadTheme');
+        spyOn(loaderService, 'loadTheme');
         component.selectedTheme = mockedThemes[0];
-        expect(themeService.loadTheme).toHaveBeenCalledTimes(1);
+        expect(loaderService.loadTheme).toHaveBeenCalledTimes(1);
         component.selectedTheme = mockedThemes[0];
-        expect(themeService.loadTheme).toHaveBeenCalledTimes(1);
+        expect(loaderService.loadTheme).toHaveBeenCalledTimes(1);
       }));
 
     });

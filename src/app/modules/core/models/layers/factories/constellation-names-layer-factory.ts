@@ -6,8 +6,8 @@ import { TextOffsetPolicies } from '#core/models/layers/factories/text/text-offs
 import { RenderableText } from '#core/models/layers/renderable-text';
 import { Materials } from '#core/models/materials';
 import { WorldConstants } from '#core/models/world-constants';
-import { EventsService } from '#core/services/events.service';
 import { MaterialsService } from '#core/services/materials.service';
+import { ThemeService } from '#core/services/theme.service';
 import { toVector3 } from '#core/utils/vector-utils';
 
 
@@ -16,7 +16,7 @@ export class ConstellationNamesLayerFactory implements LayerFactory {
   constructor(
     private readonly _layerModel: Layer,
     private readonly _materialsService: MaterialsService,
-    private readonly _eventsService: EventsService
+    private readonly _themeService: ThemeService
   ) {
 
   }
@@ -26,7 +26,7 @@ export class ConstellationNamesLayerFactory implements LayerFactory {
     return new ConstellationNames(
       this._layerModel,
       this._materialsService,
-      this._eventsService,
+      this._themeService,
       labels
     );
   }

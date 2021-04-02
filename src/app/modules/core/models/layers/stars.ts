@@ -4,8 +4,8 @@ import { RenderableLayer } from '#core/models/layers/renderable-layer';
 import { RenderableText } from '#core/models/layers/renderable-text';
 import { Searchable } from '#core/models/searchable';
 import { SupportedLayers } from '#core/models/supported-layers';
-import { EventsService } from '#core/services/events.service';
 import { MaterialsService } from '#core/services/materials.service';
+import { ThemeService } from '#core/services/theme.service';
 
 
 export class Stars extends RenderableLayer {
@@ -15,14 +15,14 @@ export class Stars extends RenderableLayer {
   constructor(
     model: Layer,
     materialsService: MaterialsService,
-    eventsService: EventsService,
+    themeService: ThemeService,
     private readonly _magClass: number,
     private readonly _stars: Points,
     private readonly _properNames: Array<RenderableText>,
     private readonly _standardNames: Array<RenderableText>,
     private readonly _searchables: Array<Searchable>
   ) {
-    super(model, materialsService, eventsService);
+    super(model, materialsService, themeService);
     this.subscribeThemeChanged();
     this.showProperNames();
   }

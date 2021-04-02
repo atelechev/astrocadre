@@ -3,20 +3,20 @@ import { Layer } from '#core/models/layer';
 import { RenderableText } from '#core/models/layers/renderable-text';
 import { Searchable } from '#core/models/searchable';
 import { Theme } from '#core/models/theme';
-import { EventsService } from '#core/services/events.service';
 import { MaterialsService } from '#core/services/materials.service';
+import { ThemeService } from '#core/services/theme.service';
 
 /**
  * Represents a layer of objects that can be rendered/visualized in the view.
  */
-export abstract class RenderableLayer {
+export abstract class RenderableLayer { // TODO can implement Layer in order to avoid the model field
 
   private _textsShown: boolean;
 
   constructor(
     private readonly _model: Layer,
     private readonly _materialsService: MaterialsService, // TODO could it be decoupled from this service?
-    private readonly _eventsService: EventsService // TODO decouple it from this service
+    private readonly _themeService: ThemeService // TODO decouple it from this service
   ) {
     this._textsShown = true;
   }
@@ -73,12 +73,8 @@ export abstract class RenderableLayer {
     return this._materialsService;
   }
 
-  protected get eventsService(): EventsService {
-    return this._eventsService;
-  }
-
   protected subscribeThemeChanged(): void {
-    this.eventsService
+    this._themeService
       .themeChanged
       .subscribe(
         (theme: Theme) => {

@@ -38,6 +38,10 @@ export class LayerService {
     return this._rootLayer;
   }
 
+  public set rootLayer(layer: Layer) {
+    this._rootLayer = layer;
+  }
+
   public isShown(layer: string): boolean {
     return !!layer && this._shownLayers.has(layer);
   }
@@ -111,6 +115,14 @@ export class LayerService {
     this.showTexts(layer);
   }
 
+  public registerLayer(layer: Layer): void {
+    if (!layer) {
+      return;
+    }
+    this._layerModels.set(layer.code, layer);
+    // TODO build renderables
+  }
+
   private toggleNamesType(layer: Stars, useProper: boolean): void {
     if (useProper) {
       layer.showProperNames();
@@ -125,6 +137,7 @@ export class LayerService {
     );
   }
 
+  // FIXME remove
   private loadLayers(): void {
     this._dataService
       .getLayersTree()
@@ -146,6 +159,7 @@ export class LayerService {
     ).filter((starLayer: Stars) => !!starLayer) || [];
   }
 
+  // FIXME remove
   private processLoadedLayer(layer: Layer): void {
     if (!layer) {
       return;
@@ -158,6 +172,7 @@ export class LayerService {
     );
   }
 
+  // FIXME remove
   private loadLayerObjects(layer: Layer): void {
     if (layer.loadFromUrl) {
       this._dataService

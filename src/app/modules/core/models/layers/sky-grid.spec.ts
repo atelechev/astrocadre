@@ -4,6 +4,7 @@ import { SkyGrid } from '#core/models/layers/sky-grid';
 import { Materials } from '#core/models/materials';
 import { LayersFactoryService } from '#core/services/layers-factory.service';
 import { TestContext } from '#core/test-utils/test-context.spec';
+import { mockedTheme } from '#core/test-utils/mocked-theme.spec';
 
 
 describe('SkyGrid', () => {
@@ -15,6 +16,7 @@ describe('SkyGrid', () => {
     ctx = new TestContext().configure();
     const model = ctx.layerService.rootLayer.subLayers[0];
     layer = TestBed.inject(LayersFactoryService).buildRenderableLayer(model) as SkyGrid;
+    ctx.themeService.theme = mockedTheme;
   }));
 
   const assertMaterialExpected = (object: LineSegments, expectedMaterialKey: string): void => {

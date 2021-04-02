@@ -16,6 +16,7 @@ describe('Stars', () => {
     ctx = new TestContext().configure();
     const model = ctx.layerService.rootLayer.subLayers[1].subLayers[0];
     layer = TestBed.inject(LayersFactoryService).buildRenderableLayer(model) as Stars;
+    ctx.themeService.theme = mockedTheme;
   }));
 
   it('magnitudeClass should return expected value', () => {

@@ -25,6 +25,7 @@ import { ThemeService } from '#core/services/theme.service';
 import { ViewportService } from '#core/services/viewport.service';
 import { MockStaticDataService } from '#core/test-utils/mock-static-data-service.spec';
 import { ControlsModule } from '#controls/controls.module';
+import { LoaderService } from '#core/services/loader.service';
 
 export class TestContext {
 
@@ -51,6 +52,7 @@ export class TestContext {
     EventsService,
     LayerService,
     LayersFactoryService,
+    LoaderService,
     MaterialsService,
     {
       provide: StaticDataService,
@@ -105,6 +107,10 @@ export class TestContext {
     return TestBed.inject(ViewportService);
   }
 
+  public getService<T>(serviceType: Type<T>): T {
+    return TestBed.inject(serviceType);
+  }
+
   public getComponent<T>(targetType: Type<T>): T {
     return this._fixture?.componentInstance as T;
   }
@@ -125,6 +131,13 @@ export class TestContext {
   public withDeclarations(declarations: Array<Type<any>>): TestContext {
     declarations?.forEach(
       (component: Type<any>) => this._declarations.push(component)
+    );
+    return this;
+  }
+
+  public withProviders(providers: Array<Type<any>>): TestContext {
+    providers?.forEach(
+      (provider: Type<any>) => this._providers.push(provider)
     );
     return this;
   }

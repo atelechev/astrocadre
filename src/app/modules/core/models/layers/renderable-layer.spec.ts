@@ -4,6 +4,7 @@ import { RenderableLayer } from '#core/models/layers/renderable-layer';
 import { EventsService } from '#core/services/events.service';
 import { MaterialsService } from '#core/services/materials.service';
 import { TestContext } from '#core/test-utils/test-context.spec';
+import { ThemeService } from '#core/services/theme.service';
 
 
 class TestRenderableLayer extends RenderableLayer {
@@ -11,9 +12,9 @@ class TestRenderableLayer extends RenderableLayer {
   constructor(
     model: Layer,
     materialsService: MaterialsService,
-    eventsService: EventsService
+    themeService: ThemeService
   ) {
-    super(model, materialsService, eventsService);
+    super(model, materialsService, themeService);
   }
 
   protected applyTheme(): void {
@@ -34,7 +35,7 @@ describe('RenderableLayer', () => {
 
   beforeEach(fakeAsync(() => {
     const ctx = new TestContext().configure();
-    layer = new TestRenderableLayer(model, ctx.materialsService, ctx.eventsService);
+    layer = new TestRenderableLayer(model, ctx.materialsService, ctx.themeService);
   }));
 
   it('model should return expected value', () => {

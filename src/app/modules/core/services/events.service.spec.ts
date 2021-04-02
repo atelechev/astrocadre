@@ -1,8 +1,6 @@
 import { skip } from 'rxjs/operators';
 import { RenderableLayer } from '#core/models/layers/renderable-layer';
-import { Theme } from '#core/models/theme';
 import { EventsService } from '#core/services/events.service';
-import { mockedTheme } from '#core/test-utils/mocked-theme.spec';
 
 
 class MockedLayer extends RenderableLayer {
@@ -22,26 +20,6 @@ describe('EventsService', () => {
 
   beforeEach(() => {
     service = new EventsService();
-  });
-
-  describe('themeChanged', () => {
-
-    it('should be defined', () => {
-      expect(service.themeChanged).toBeDefined();
-    });
-
-    it('should be fired with fireThemeChanged', (done: DoneFn) => {
-      service.themeChanged.pipe(
-        skip(1) // skip the initial undefined
-      ).subscribe(
-        (theme: Theme) => {
-          expect(theme).toEqual(mockedTheme);
-          done();
-        }
-      );
-      service.fireThemeChanged(mockedTheme);
-    });
-
   });
 
   describe('layerShown', () => {

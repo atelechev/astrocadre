@@ -4,6 +4,7 @@ import { ConstellationLines } from '#core/models/layers/constellation-lines';
 import { AxialCurvesFactory } from '#core/models/layers/factories/axial-curves-factory';
 import { assertMaterialExpected } from '#core/test-utils/assertions-material.spec';
 import { TestContext } from '#core/test-utils/test-context.spec';
+import { mockedTheme } from '#core/test-utils/mocked-theme.spec';
 
 describe('ConstellationLines', () => {
 
@@ -28,9 +29,10 @@ describe('ConstellationLines', () => {
     layer = new ConstellationLines(
       model,
       ctx.materialsService,
-      ctx.eventsService,
+      ctx.themeService,
       lines
     );
+    ctx.themeService.theme = mockedTheme;
   }));
 
   it('texts should return an empty array', () => {
@@ -49,9 +51,9 @@ describe('ConstellationLines', () => {
     expect(objects.length).toEqual(1);
   });
 
-  it('material should be assigned to the objects', () => {
+  it('material should be assigned to the objects', fakeAsync(() => {
     const objects = layer.objects[0] as LineSegments;
     assertMaterialExpected(ctx, objects, code);
-  });
+  }));
 
 });
