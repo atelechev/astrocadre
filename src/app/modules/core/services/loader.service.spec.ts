@@ -8,6 +8,7 @@ import { mockedThemes } from '#core/test-utils/mocked-themes.spec';
 import { mockedTheme } from '#core/test-utils/mocked-theme.spec';
 import { LayerService } from '#core/services/layer.service';
 import { mockedLayers } from '#core/test-utils/mocked-layers.spec';
+import { themeDefault } from '#core/models/theme-default';
 
 
 describe('LoaderService', () => {
@@ -36,7 +37,7 @@ describe('LoaderService', () => {
       spyOn(dataService, 'getTheme').and.returnValue(of(mockedTheme));
       spyOn(service, 'loadTheme');
 
-      expect(themeService.theme).toBeUndefined();
+      expect(themeService.theme).toEqual(themeDefault);
       expect(themeService.availableThemes).toEqual([]);
 
       service.loadAllData();
@@ -66,7 +67,7 @@ describe('LoaderService', () => {
     it('load the expected theme', fakeAsync(() => {
       spyOn(dataService, 'getTheme').and.returnValue(of(mockedTheme));
 
-      expect(themeService.theme).toBeUndefined();
+      expect(themeService.theme).toEqual(themeDefault);
 
       service.loadTheme(mockedTheme.code);
       tick();
@@ -77,12 +78,12 @@ describe('LoaderService', () => {
     it('have not effect if the arg is falsy', fakeAsync(() => {
       spyOn(dataService, 'getTheme');
 
-      expect(themeService.theme).toBeUndefined();
+      expect(themeService.theme).toEqual(themeDefault);
 
       service.loadTheme(undefined);
       tick();
 
-      expect(themeService.theme).toBeUndefined();
+      expect(themeService.theme).toEqual(themeDefault);
       expect(dataService.getTheme).toHaveBeenCalledTimes(0);
     }));
 

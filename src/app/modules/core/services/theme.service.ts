@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { Theme } from '#core/models/theme';
 import { ThemeMeta } from '#core/models/theme-meta';
+import { themeDefault } from '#core/models/theme-default';
 
 
 @Injectable()
@@ -16,9 +17,9 @@ export class ThemeService {
   private _theme: Theme;
 
   constructor() {
-    this._themeChanged = new BehaviorSubject<Theme>(undefined);
+    this._theme = themeDefault;
+    this._themeChanged = new BehaviorSubject<Theme>(themeDefault);
     this._availableThemes = [];
-    this._theme = undefined;
   }
 
   public get availableThemes(): Array<ThemeMeta> {
@@ -34,10 +35,11 @@ export class ThemeService {
   }
 
   public set theme(theme: Theme) {
+    const useTheme = !!theme ? theme : themeDefault;
     const previous = this._theme;
-    if (previous !== theme) {
-      this._theme = theme;
-      this._themeChanged.next(theme);
+    if (previous !== useTheme) {
+      this._theme = useTheme;
+      this._themeChanged.next(useTheme);
     }
   }
 
