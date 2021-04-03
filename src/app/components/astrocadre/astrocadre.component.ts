@@ -38,6 +38,7 @@ export class AstrocadreComponent implements OnInit, AfterViewInit {
     const viewportRoot = this._astrocadreViewport.nativeElement as HTMLDivElement;
     this._sceneService.setViewportRootElement(viewportRoot);
     this._mouseEventsHandler.initMouseListenersOn(viewportRoot);
+    this.startRendering();
   }
 
   public get viewportHeight(): string {
@@ -46,6 +47,14 @@ export class AstrocadreComponent implements OnInit, AfterViewInit {
 
   public get viewportWidth(): string {
     return `${this._viewportService.width}px`;
+  }
+
+  private startRendering(): void {
+    const animate = () => {
+      requestAnimationFrame(animate);
+      this._sceneService.render();
+    };
+    animate();
   }
 
 }

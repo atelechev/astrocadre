@@ -80,4 +80,8 @@ describe('CameraService', () => {
     assertExpectedPoint(changed, new Vector3(1.874, 0.330, 0.887));
   });
 
+  it('isPointBehind should return true if the arg is falsy', () => {
+    expect(service.isPointBehind(undefined)).toBeTrue();
+  });
+
 });

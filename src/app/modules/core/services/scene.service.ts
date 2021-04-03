@@ -1,8 +1,6 @@
 import { Injectable } from '@angular/core';
 import {
   Camera,
-  Frustum,
-  Matrix4,
   Object3D,
   Scene,
   Vector3,
@@ -24,8 +22,6 @@ export class SceneService {
 
   private readonly _scene: Scene;
 
-  private readonly _frustum: Frustum;
-
   private readonly _renderer: WebGLRenderer;
 
   private _viewportRootElement: HTMLDivElement;
@@ -44,7 +40,6 @@ export class SceneService {
     private readonly _viewportService: ViewportService,
     private readonly _themeService: ThemeService
   ) {
-    this._frustum = new Frustum();
     this._allObjects = new Set<Object3D>();
     this._allTextElements = new Set<RenderableText>();
     this._viewportRootElement = undefined;
@@ -73,7 +68,6 @@ export class SceneService {
     if (this._viewportRootElement) {
       const canvas = this._renderer.domElement;
       this._viewportRootElement.appendChild(canvas);
-      this.render();
     }
   }
 
@@ -89,6 +83,10 @@ export class SceneService {
       this.removeTextElements(texts);
       this.showVisibleLabels();
     }
+  }
+
+  public render(): void {
+    this._renderer.render(this._scene, this.camera);
   }
 
   private addObjects(objects: Object3D[]): void {
@@ -149,14 +147,6 @@ export class SceneService {
 
   private existsTextElement(text: RenderableText): boolean {
     return !!text && this._allTextElements.has(text);
-  }
-
-  private render(): void {
-    const animate = () => {
-      requestAnimationFrame(animate);
-      this._renderer.render(this._scene, this.camera);
-    };
-    animate();
   }
 
   private subscribeViewportChanged(): void {
@@ -233,13 +223,11 @@ export class SceneService {
 
   private showVisibleLabels(): void {
     this.hideAllLabels();
-    this.camera.updateMatrix();
-    this.camera.updateMatrixWorld(true);
-    this.updateFrustum();
+    this._cameraService.updateFrustum();
     this._allTextElements
       .forEach(
         (text: RenderableText) => {
-          if (!this.isPointBehind(text.position)) {
+          if (!this._cameraService.isPointBehind(text.position)) {
             const onScreenCoordinate = this.getOnscreenPosition(text.position);
             if (this._viewportService.isInBounds(onScreenCoordinate)) {
               this.setTextPositionAndShow(text, onScreenCoordinate);
@@ -247,13 +235,6 @@ export class SceneService {
           }
         }
       );
-  }
-
-  private isPointBehind(point: Vector3): boolean {
-    if (!point) {
-      return true;
-    }
-    return !this._frustum.containsPoint(point);
   }
 
   private getOnscreenPosition(point: Vector3): ScreenCoordinate {
@@ -269,11 +250,6 @@ export class SceneService {
     style.top = Math.floor(onScreen.y + renderable.offsetY) + 'px';
     style.left = Math.floor(onScreen.x + renderable.offsetX) + 'px';
     style.display = 'initial';
-  }
-
-  private updateFrustum(): void {
-    const matrix = new Matrix4().multiplyMatrices(this.camera.projectionMatrix, this.camera.matrixWorldInverse);
-    this._frustum.setFromProjectionMatrix(matrix);
   }
 
 }

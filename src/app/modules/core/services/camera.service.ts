@@ -1,5 +1,11 @@
 import { Injectable } from '@angular/core';
-import { Object3D, PerspectiveCamera, Vector3 } from 'three';
+import {
+  Frustum,
+  Matrix4,
+  Object3D,
+  PerspectiveCamera,
+  Vector3
+  } from 'three';
 import { AxialRotation } from '#core/models/axial-rotation';
 import { SkyCoordinate } from '#core/models/sky-coordinate';
 import { WorldConstants } from '#core/models/world-constants';
@@ -31,8 +37,11 @@ export class CameraService {
 
   private readonly _camera: PerspectiveCamera;
 
+  private readonly _frustum: Frustum;
+
   constructor(private readonly _viewportService: ViewportService) {
     this._camera = this.initializeCamera();
+    this._frustum = new Frustum();
     this._coordsMarker = this.initCoordsMarker();
   }
 
@@ -78,6 +87,20 @@ export class CameraService {
     this._coordsMarker.updateMatrixWorld(true);
     viewCenter.setFromMatrixPosition(this._coordsMarker.matrixWorld);
     return viewCenter;
+  }
+
+  public isPointBehind(point: Vector3): boolean {
+    if (!point) {
+      return true;
+    }
+    return !this._frustum.containsPoint(point);
+  }
+
+  public updateFrustum(): void {
+    this._camera.updateMatrix();
+    this._camera.updateMatrixWorld(true);
+    const matrix = new Matrix4().multiplyMatrices(this.camera.projectionMatrix, this.camera.matrixWorldInverse);
+    this._frustum.setFromProjectionMatrix(matrix);
   }
 
   private getAlignmentPoleCoordinate(declination: number): Vector3 {
