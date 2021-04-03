@@ -1,4 +1,3 @@
-import { fakeAsync } from '@angular/core/testing';
 import { Layer } from '#core/models/layer';
 import { AxialCurvesFactory } from '#core/models/layers/factories/axial-curves-factory';
 import { ConstellationBoundariesLayerFactory } from '#core/models/layers/factories/constellation-boundaries-layer-factory';
@@ -10,15 +9,15 @@ describe('ConstellationBoundariesLayerFactory', () => {
   let ctx: TestContext;
   let factory: ConstellationBoundariesLayerFactory;
 
-  beforeEach(fakeAsync(() => {
+  beforeEach(() => {
     ctx = new TestContext().configure();
-  }));
+  });
 
   const newFactory = (model: Layer): ConstellationBoundariesLayerFactory => (
     new ConstellationBoundariesLayerFactory(model, new AxialCurvesFactory())
   );
 
-  it('buildRenderableLayer should return expected value', fakeAsync(() => {
+  it('buildRenderableLayer should return expected value', () => {
     const constBoundaries = {
       code: 'constellation-boundaries',
       label: 'Boundaries',
@@ -36,6 +35,6 @@ describe('ConstellationBoundariesLayerFactory', () => {
     expect(layer.objects.length).toEqual(1);
     expect(layer.texts.length).toEqual(0);
     expect(layer.searchables.length).toEqual(0);
-  }));
+  });
 
 });

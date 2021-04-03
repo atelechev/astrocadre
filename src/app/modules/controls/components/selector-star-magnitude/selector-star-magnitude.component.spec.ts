@@ -1,4 +1,3 @@
-import { fakeAsync } from '@angular/core/testing';
 import { LayerService } from '#core/services/layer.service';
 import { TestContext } from '#core/test-utils/test-context.spec';
 import { SelectorStarMagnitudeComponent } from '#controls/components/selector-star-magnitude/selector-star-magnitude.component';
@@ -10,14 +9,14 @@ describe('SelectorStarMagnitudeComponent', () => {
   let layersService: LayerService;
   let component: SelectorStarMagnitudeComponent;
 
-  beforeEach(fakeAsync(() => {
+  beforeEach(() => {
     ctx = new TestContext()
       .withUIImports()
       .forComponent(SelectorStarMagnitudeComponent)
       .configure();
     layersService = ctx.layerService;
     component = ctx.getComponent(SelectorStarMagnitudeComponent);
-  }));
+  });
 
   describe('shownMagnitudeDownTo', () => {
 
@@ -56,15 +55,15 @@ describe('SelectorStarMagnitudeComponent', () => {
 
   describe('isDisabled should return', () => {
 
-    it('true if the star layer is not shown', fakeAsync(() => {
+    it('true if the star layer is not shown', () => {
       layersService.hideLayer('stars');
       expect(component.isDisabled).toBeTrue();
-    }));
+    });
 
-    it('false if the star layer is shown', fakeAsync(() => {
+    it('false if the star layer is shown', () => {
       layersService.showLayer('stars');
       expect(component.isDisabled).toBeFalse();
-    }));
+    });
 
   });
 

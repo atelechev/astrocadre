@@ -1,4 +1,3 @@
-import { fakeAsync } from '@angular/core/testing';
 import { Layer } from '#core/models/layer';
 import { PointsFactory } from '#core/models/layers/factories/points-factory';
 import { StarsLayerFactory } from '#core/models/layers/factories/stars-layer-factory';
@@ -9,9 +8,9 @@ describe('StarsLayerFactory', () => {
   let ctx: TestContext;
   let factory: StarsLayerFactory;
 
-  beforeEach(fakeAsync(() => {
+  beforeEach(() => {
     ctx = new TestContext().configure();
-  }));
+  });
 
   const newFactory = (model: Layer): StarsLayerFactory => (
     new StarsLayerFactory(model, new PointsFactory())
@@ -21,7 +20,7 @@ describe('StarsLayerFactory', () => {
     expect(StarsLayerFactory.STARS_LAYER_CODE_PREFIX).toEqual('stars-mag');
   });
 
-  it('buildRenderableLayer should return expected value', fakeAsync(() => {
+  it('buildRenderableLayer should return expected value', () => {
     const starsMag2 = {
       code: 'stars-mag2.0',
       label: 'Magnitude < 2.0',
@@ -38,6 +37,6 @@ describe('StarsLayerFactory', () => {
     expect(layer.objects.length).toEqual(1);
     expect(layer.texts.length).toEqual(1);
     expect(layer.searchables.length).toEqual(1);
-  }));
+  });
 
 });

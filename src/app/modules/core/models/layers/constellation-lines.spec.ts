@@ -1,4 +1,3 @@
-import { fakeAsync } from '@angular/core/testing';
 import { Color, LineBasicMaterial, LineSegments } from 'three';
 import { ConstellationLines } from '#core/models/layers/constellation-lines';
 import { AxialCurvesFactory } from '#core/models/layers/factories/axial-curves-factory';
@@ -11,7 +10,7 @@ describe('ConstellationLines', () => {
   let layer: ConstellationLines;
   const code = 'constellation-lines';
 
-  beforeEach(fakeAsync(() => {
+  beforeEach(() => {
     ctx = new TestContext().configure();
     const model = {
       code,
@@ -27,7 +26,7 @@ describe('ConstellationLines', () => {
     const lines = new AxialCurvesFactory().createObject3D(model.code, model.objects);
     layer = new ConstellationLines(model, lines);
     ctx.themeService.theme = mockedTheme;
-  }));
+  });
 
   it('texts should return an empty array', () => {
     const texts = layer.texts;
@@ -45,12 +44,12 @@ describe('ConstellationLines', () => {
     expect(objects.length).toEqual(1);
   });
 
-  it('material should be assigned to the objects', fakeAsync(() => {
+  it('material should be assigned to the objects', () => {
     layer.applyTheme(mockedTheme);
     const objects = layer.objects[0] as LineSegments;
     const assignedMaterial = objects.material as LineBasicMaterial;
     expect(assignedMaterial).toBeDefined();
     expect(assignedMaterial.color).toEqual(new Color(mockedTheme.constellation.lines.line.common));
-  }));
+  });
 
 });

@@ -1,4 +1,3 @@
-import { fakeAsync } from '@angular/core/testing';
 import { CameraService } from '#core/services/camera.service';
 import { TestContext } from '#core/test-utils/test-context.spec';
 import { CameraControlsComponent } from '#controls/components/camera-controls/camera-controls.component';
@@ -9,14 +8,14 @@ describe('CameraControlsComponent', () => {
   let component: CameraControlsComponent;
   let cameraService: CameraService;
 
-  beforeEach(fakeAsync(() => {
+  beforeEach(() => {
     ctx = new TestContext()
       .withUIImports()
       .forComponent(CameraControlsComponent)
       .configure();
     component = ctx.getComponent(CameraControlsComponent);
     cameraService = ctx.cameraService;
-  }));
+  });
 
   it('selectedStep should return expected value', () => {
     expect(component.selectedStep).toEqual(10);

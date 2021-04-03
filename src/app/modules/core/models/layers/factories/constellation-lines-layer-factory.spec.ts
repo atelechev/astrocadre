@@ -1,4 +1,3 @@
-import { fakeAsync } from '@angular/core/testing';
 import { Layer } from '#core/models/layer';
 import { AxialCurvesFactory } from '#core/models/layers/factories/axial-curves-factory';
 import { ConstellationLinesLayerFactory } from '#core/models/layers/factories/constellation-lines-layer-factory';
@@ -10,15 +9,15 @@ describe('ConstellationLinesLayerFactory', () => {
   let ctx: TestContext;
   let factory: ConstellationLinesLayerFactory;
 
-  beforeEach(fakeAsync(() => {
+  beforeEach(() => {
     ctx = new TestContext().configure();
-  }));
+  });
 
   const newFactory = (model: Layer): ConstellationLinesLayerFactory => (
     new ConstellationLinesLayerFactory(model, new AxialCurvesFactory())
   );
 
-  it('buildRenderableLayer should return expected value', fakeAsync(() => {
+  it('buildRenderableLayer should return expected value', () => {
     const constLines = {
       code: 'constellation-lines',
       label: 'Lines',
@@ -37,6 +36,6 @@ describe('ConstellationLinesLayerFactory', () => {
     expect(layer.objects.length).toEqual(1);
     expect(layer.texts.length).toEqual(0);
     expect(layer.searchables.length).toEqual(0);
-  }));
+  });
 
 });

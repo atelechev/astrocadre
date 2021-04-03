@@ -1,4 +1,3 @@
-import { fakeAsync } from '@angular/core/testing';
 import { LayerService } from '#core/services/layer.service';
 import { mockedLayers } from '#core/test-utils/mocked-layers.spec';
 import { TestContext } from '#core/test-utils/test-context.spec';
@@ -12,7 +11,7 @@ describe('SelectorLayerComponent', () => {
   const modelStars = mockedLayers.subLayers[1];
   const modelStars3 = modelStars.subLayers[2];
 
-  beforeEach(fakeAsync(() => {
+  beforeEach(() => {
     ctx = new TestContext()
       .withUIImports()
       .forComponent(SelectorLayerComponent)
@@ -20,22 +19,22 @@ describe('SelectorLayerComponent', () => {
     layersService = ctx.layerService;
     component = ctx.getComponent(SelectorLayerComponent);
     component.layer = modelStars3;
-  }));
+  });
 
   describe('isShown should return', () => {
 
 
     describe('get should return', () => {
 
-      it('true if the layer is shown', fakeAsync(() => {
+      it('true if the layer is shown', () => {
         layersService.showLayer(modelStars3.code);
         expect(component.isShown).toBeTrue();
-      }));
+      });
 
-      it('false if the layer is not shown', fakeAsync(() => {
+      it('false if the layer is not shown', () => {
         layersService.hideLayer(modelStars3.code);
         expect(component.isShown).toBeFalse();
-      }));
+      });
 
     });
 

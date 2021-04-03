@@ -1,4 +1,3 @@
-import { fakeAsync } from '@angular/core/testing';
 import { Layer } from '#core/models/layer';
 import { ConstellationNamesLayerFactory } from '#core/models/layers/factories/constellation-names-layer-factory';
 import { TestContext } from '#core/test-utils/test-context.spec';
@@ -9,15 +8,15 @@ describe('ConstellationNamesLayerFactory', () => {
   let ctx: TestContext;
   let factory: ConstellationNamesLayerFactory;
 
-  beforeEach(fakeAsync(() => {
+  beforeEach(() => {
     ctx = new TestContext().configure();
-  }));
+  });
 
   const newFactory = (model: Layer): ConstellationNamesLayerFactory => (
     new ConstellationNamesLayerFactory(model)
   );
 
-  it('buildRenderableLayer should return expected value', fakeAsync(() => {
+  it('buildRenderableLayer should return expected value', () => {
     const constNames = {
       code: 'constellation-names',
       label: 'Names',
@@ -33,6 +32,6 @@ describe('ConstellationNamesLayerFactory', () => {
     expect(layer.objects.length).toEqual(0);
     expect(layer.texts.length).toEqual(1);
     expect(layer.searchables.length).toEqual(1);
-  }));
+  });
 
 });

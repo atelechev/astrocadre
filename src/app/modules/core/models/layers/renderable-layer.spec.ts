@@ -1,4 +1,3 @@
-import { fakeAsync } from '@angular/core/testing';
 import { Layer } from '#core/models/layer';
 import { RenderableLayer } from '#core/models/layers/renderable-layer';
 import { TestContext } from '#core/test-utils/test-context.spec';
@@ -26,10 +25,10 @@ describe('RenderableLayer', () => {
     objects: []
   };
 
-  beforeEach(fakeAsync(() => {
+  beforeEach(() => {
     const ctx = new TestContext().configure();
     layer = new TestRenderableLayer(model);
-  }));
+  });
 
   it('model should return expected value', () => {
     expect(layer.model).toEqual(model);

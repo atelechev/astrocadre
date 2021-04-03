@@ -1,4 +1,3 @@
-import { fakeAsync } from '@angular/core/testing';
 import { Layer } from '#core/models/layer';
 import { AxialCurvesFactory } from '#core/models/layers/factories/axial-curves-factory';
 import { SkyGridLayerFactory } from '#core/models/layers/factories/sky-grid-layer-factory';
@@ -10,15 +9,15 @@ describe('SkyGridLayerFactory', () => {
   let ctx: TestContext;
   let factory: SkyGridLayerFactory;
 
-  beforeEach(fakeAsync(() => {
+  beforeEach(() => {
     ctx = new TestContext().configure();
-  }));
+  });
 
   const newFactory = (model: Layer): SkyGridLayerFactory => (
     new SkyGridLayerFactory(model, new AxialCurvesFactory())
   );
 
-  it('buildRenderableLayer should return expected value', fakeAsync(() => {
+  it('buildRenderableLayer should return expected value', () => {
     const skyGrid = {
       code: 'sky-grid',
       label: 'Coordinates grid',
@@ -32,6 +31,6 @@ describe('SkyGridLayerFactory', () => {
     expect(layer.objects.length).toEqual(4);
     expect(layer.texts.length).toEqual(0);
     expect(layer.searchables.length).toEqual(0);
-  }));
+  });
 
 });

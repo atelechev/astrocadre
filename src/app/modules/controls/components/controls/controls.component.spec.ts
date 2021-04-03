@@ -1,4 +1,3 @@
-import { fakeAsync } from '@angular/core/testing';
 import { TestContext } from '#core/test-utils/test-context.spec';
 import { ControlsComponent } from '#controls/components/controls/controls.component';
 
@@ -8,13 +7,13 @@ describe('ControlsComponent', () => {
   let ctx: TestContext;
   let component: ControlsComponent;
 
-  beforeEach(fakeAsync(() => {
+  beforeEach(() => {
     ctx = new TestContext()
       .withFullUI()
       .forComponent(ControlsComponent)
       .configure();
     component = ctx.getComponent(ControlsComponent);
-  }));
+  });
 
   it('toolsExpanded should return true by default', () => {
     expect(component.toolsExpanded).toBeTrue();

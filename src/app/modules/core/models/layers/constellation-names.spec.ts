@@ -1,4 +1,3 @@
-import { fakeAsync, tick } from '@angular/core/testing';
 import { ConstellationMeta } from '#core/models/constellation-meta';
 import { ConstellationNames } from '#core/models/layers/constellation-names';
 import { TextOffsetPolicies } from '#core/models/layers/factories/text/text-offsets-policies';
@@ -15,7 +14,7 @@ describe('ConstellationNames', () => {
   const constellation = 'Andromeda';
   const code = 'AND';
 
-  beforeEach(fakeAsync(() => {
+  beforeEach(() => {
     const ctx = new TestContext().configure();
     const model = {
       code: 'constellation-names',
@@ -41,7 +40,7 @@ describe('ConstellationNames', () => {
     labels.set(constMeta.code, label);
     layer = new ConstellationNames(model, labels);
     ctx.themeService.theme = mockedTheme;
-  }));
+  });
 
   it('texts should return expected data', () => {
     const texts = layer.texts;
@@ -65,9 +64,8 @@ describe('ConstellationNames', () => {
     expect(labels.get(code).text).toEqual(constellation);
   });
 
-  it('style should be assigned to the texts', fakeAsync(() => {
+  it('style should be assigned to the texts', () => {
     layer.applyTheme(mockedTheme);
-    tick();
     const text = layer.texts[0] as RenderableText;
     expect(text).toBeDefined();
     const style = mockedTheme.constellation.names;
@@ -77,6 +75,6 @@ describe('ConstellationNames', () => {
     expect(html.style.fontSize).toEqual(style.fontSize);
     expect(html.style.fontStyle).toEqual(style.fontStyle);
     expect(html.style.fontWeight).toEqual(style.fontWeight);
-  }));
+  });
 
 });
