@@ -2,6 +2,7 @@ import { LineBasicMaterial, LineSegments, Object3D } from 'three';
 import { Layer } from '#core/models/layer';
 import { RenderableLayer } from '#core/models/layers/renderable-layer';
 import { Theme } from '#core/models/theme';
+import { LineStyle } from '#core/models/line-style';
 
 
 export class SkyGrid extends RenderableLayer {
@@ -29,22 +30,22 @@ export class SkyGrid extends RenderableLayer {
   }
 
   public applyTheme(theme: Theme): void {
-    this.setCommonLinesMaterial(theme);
+    this.setNormalLinesMaterial(theme);
     this.setReferenceLinesMaterial(theme);
   }
 
-  private setCommonLinesMaterial(theme: Theme): void {
+  private setNormalLinesMaterial(theme: Theme): void {
     const lines = [this._commonParallels, this._commonMeridians];
-    this.setLineMaterials(theme.skyGrid.line.common, lines);
+    this.setLineMaterials(theme.skyGrid.normal, lines);
   }
 
   private setReferenceLinesMaterial(theme: Theme): void {
     const lines = [this._referenceParallel, this._referenceMeridian];
-    this.setLineMaterials(theme.skyGrid.line.reference, lines);
+    this.setLineMaterials(theme.skyGrid.reference, lines);
   }
 
-  private setLineMaterials(color: string, lines: Array<LineSegments>): void {
-    const material = new LineBasicMaterial({ color });
+  private setLineMaterials(lineStyle: LineStyle, lines: Array<LineSegments>): void {
+    const material = new LineBasicMaterial({ color: lineStyle.color });
     lines.forEach(
       (line: LineSegments) => line.material = material
     );

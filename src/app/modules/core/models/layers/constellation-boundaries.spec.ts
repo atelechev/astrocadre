@@ -49,7 +49,7 @@ describe('ConstellationBoundaries', () => {
     const objects = layer.objects[0] as LineSegments;
     const assignedMaterial = objects.material as LineBasicMaterial;
     expect(assignedMaterial).toBeDefined();
-    expect(assignedMaterial.color).toEqual(new Color(mockedTheme.constellation.boundaries.line.common));
+    expect(assignedMaterial.color).toEqual(new Color(mockedTheme.constellation.boundaries.color));
   });
 
 });

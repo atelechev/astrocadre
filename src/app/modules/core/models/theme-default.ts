@@ -7,21 +7,19 @@ export const themeDefault: Theme = {
     color: 'rgb(0, 0, 0)'
   },
   skyGrid: {
-    line: {
-      common: 'rgb(0, 0, 0)',
-      reference: 'rgb(0, 0, 0)'
+    normal: {
+      color: 'rgb(0, 0, 0)'
+    },
+    reference: {
+      color: 'rgb(0, 0, 0)'
     }
   },
   constellation: {
     boundaries: {
-      line: {
-        common: 'rgb(0, 0, 0)'
-      }
+      color: 'rgb(0, 0, 0)'
     },
     lines: {
-      line: {
-        common: 'rgb(0, 0, 0)'
-      }
+      color: 'rgb(0, 0, 0)'
     },
     names: {
       fontSize: '1px',

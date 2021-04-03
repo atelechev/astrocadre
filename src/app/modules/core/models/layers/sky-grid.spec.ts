@@ -5,6 +5,7 @@ import { LayersFactoryService } from '#core/services/layers-factory.service';
 import { TestContext } from '#core/test-utils/test-context.spec';
 import { mockedTheme } from '#core/test-utils/mocked-theme.spec';
 import { mockedLayers } from '#core/test-utils/mocked-layers.spec';
+import { LineStyle } from '#core/models/line-style';
 
 const model = {
   code: 'sky-grid',
@@ -26,18 +27,18 @@ describe('SkyGrid', () => {
     ctx.themeService.theme = mockedTheme;
   });
 
-  const assertColorMaterialExpected = (object: LineSegments, color: string): void => {
+  const assertColorMaterialExpected = (object: LineSegments, line: LineStyle): void => {
     const assignedMaterial = object.material as LineBasicMaterial;
     expect(assignedMaterial).toBeDefined();
-    expect(assignedMaterial.color).toEqual(new Color(color));
+    expect(assignedMaterial.color).toEqual(new Color(line.color));
   };
 
   const assertCommonLineMaterialExpected = (object: LineSegments): void => {
-    assertColorMaterialExpected(object, mockedTheme.skyGrid.line.common);
+    assertColorMaterialExpected(object, mockedTheme.skyGrid.normal);
   };
 
   const assertReferenceLineMaterialExpected = (object: LineSegments): void => {
-    assertColorMaterialExpected(object, mockedTheme.skyGrid.line.reference);
+    assertColorMaterialExpected(object, mockedTheme.skyGrid.reference);
   };
 
   it('objects should return expected value', () => {

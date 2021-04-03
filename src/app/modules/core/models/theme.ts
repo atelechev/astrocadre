@@ -1,28 +1,18 @@
+import { LineStyle } from '#core/models/line-style';
 import { TextStyle } from '#core/models/text-style';
 import { ThemeMeta } from '#core/models/theme-meta';
 
-// TODO simplify the config for lines. Use 'line: string;' for most, and 'regular' and 'reference' for skyGrid.
 export interface Theme extends ThemeMeta {
   background: {
     color: string;
   };
   skyGrid: {
-    line: {
-      common: string;
-      reference: string;
-    };
+    normal: LineStyle;
+    reference: LineStyle;
   };
   constellation: {
-    boundaries: {
-      line: {
-        common: string;
-      };
-    };
-    lines: {
-      line: {
-        common: string;
-      };
-    };
+    boundaries: LineStyle;
+    lines: LineStyle;
     names: TextStyle;
   };
   stars: {

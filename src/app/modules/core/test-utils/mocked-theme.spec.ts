@@ -7,21 +7,19 @@ export const mockedTheme: Theme = {
     color: 'rgb(2, 0, 44)'
   },
   skyGrid: {
-    line: {
-      common: 'rgb(40, 33, 175)',
-      reference: 'rgb(0, 255, 153)'
+    normal: {
+      color: 'rgb(40, 33, 175)'
+    },
+    reference: {
+      color: 'rgb(0, 255, 153)'
     }
   },
   constellation: {
     boundaries: {
-      line: {
-        common: 'rgb(94, 86, 239)'
-      }
+      color: 'rgb(94, 86, 239)'
     },
     lines: {
-      line: {
-        common: 'rgb(255, 86, 239)'
-      }
+      color: 'rgb(255, 86, 239)'
     },
     names: {
       fontSize: '28px',

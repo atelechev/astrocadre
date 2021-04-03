@@ -23,7 +23,7 @@ export class ConstellationLines extends RenderableLayer {
   }
 
   public applyTheme(theme: Theme): void {
-    const material = new LineBasicMaterial({ color: theme.constellation.lines.line.common });
+    const material = new LineBasicMaterial({ color: theme.constellation.lines.color });
     this._lines.material = material;
     material.needsUpdate = true;
   }
