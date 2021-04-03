@@ -96,9 +96,9 @@ export class LayerService {
     this.getAllStarsLayers().forEach(
       (layer: Stars) => {
         if (magnitude < layer.magnitudeClass) {
-          this.hideLayer(layer.model.code);
+          this.hideLayer(layer.code);
         } else {
-          this.showLayer(layer.model.code);
+          this.showLayer(layer.code);
         }
       }
     );
@@ -110,7 +110,7 @@ export class LayerService {
     }
     layer.showTexts();
     this._textsShown.next(layer.texts);
-    layer.model.subLayers?.forEach(
+    layer.subLayers?.forEach(
       (subLayer: Layer) => {
         const renderable = this.getRenderableLayer(subLayer.code);
         this.showTexts(renderable);
@@ -124,7 +124,7 @@ export class LayerService {
     }
     layer.hideTexts();
     this._textsHidden.next(layer.texts);
-    layer.model.subLayers?.forEach(
+    layer.subLayers?.forEach(
       (subLayer: Layer) => {
         const renderable = this.getRenderableLayer(subLayer.code);
         this.hideTexts(renderable);
@@ -157,7 +157,7 @@ export class LayerService {
     } else {
       layer.showStandardNames();
     }
-    layer.model.subLayers?.forEach(
+    layer.subLayers?.forEach(
       (subLayer: Layer) => {
         const starsSublayer = this.getRenderableLayer(subLayer.code) as Stars;
         this.toggleNamesType(starsSublayer, useProper);
@@ -170,7 +170,7 @@ export class LayerService {
   }
 
   private getAllStarsLayers(): Array<Stars> {
-    return this.starsLayer?.model?.subLayers?.map(
+    return this.starsLayer?.subLayers?.map(
       (subLayer: Layer) => this.getRenderableLayer(subLayer.code) as Stars
     ).filter((starLayer: Stars) => !!starLayer) || [];
   }

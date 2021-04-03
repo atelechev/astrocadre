@@ -1,3 +1,4 @@
+import { Vector3 } from 'three';
 import { Layer } from '#core/models/layer';
 import { LayerFactory } from '#core/models/layers/factories/layer-factory';
 import { PointsFactory } from '#core/models/layers/factories/points-factory';
@@ -6,15 +7,12 @@ import { RenderableText } from '#core/models/layers/renderable-text';
 import { Stars } from '#core/models/layers/stars';
 import { Searchable } from '#core/models/searchable';
 import { SupportedLayers } from '#core/models/supported-layers';
-import { WorldConstants } from '#core/models/world-constants';
-import { extractProperName, extractStandardName, toGreekLetter } from '#core/utils/star-name-utils';
-import { toVector3 } from '#core/utils/vector-utils';
+import { buildCenterPoint, extractProperName, extractStandardName, toGreekLetter } from '#core/utils/star-utils';
 
 export class StarsLayerFactory implements LayerFactory {
 
   public static readonly STARS_LAYER_CODE_PREFIX = `${SupportedLayers.STARS}-mag`;
 
-  // TODO a single factory may be used to build different instances, the model arg should be passed into buildRenderableLayer
   constructor(
     private readonly _layerModel: Layer,
     private readonly _pointsFactory: PointsFactory
@@ -43,13 +41,13 @@ export class StarsLayerFactory implements LayerFactory {
     return parseFloat(code.substr(StarsLayerFactory.STARS_LAYER_CODE_PREFIX.length));
   }
 
-  // TODO refactor these functions and test them separately
   private initLabels(
-    extractNameFunct: (rawStar: any[]) => string,
-    toRenderableFunct: (rawStar: any[], name: string) => RenderableText): Array<RenderableText> {
+    extractNameFunct: (rawStar: Array<any>) => string,
+    toRenderableFunct: (rawStar: Array<any>, name: string) => RenderableText
+  ): Array<RenderableText> {
     const labels = new Array<RenderableText>();
     this._layerModel.objects?.forEach(
-      (rawStar: any[]) => {
+      (rawStar: Array<any>) => {
         const name = extractNameFunct(rawStar);
         if (name) {
           const renderable = toRenderableFunct(rawStar, name);
@@ -60,28 +58,17 @@ export class StarsLayerFactory implements LayerFactory {
     return labels;
   }
 
-  private toStandardNameRenderableText(rawStar: any[], name: string): RenderableText {
-    const greekLetter = toGreekLetter(name);
-    const center = toVector3(
-      rawStar[0],
-      rawStar[1],
-      WorldConstants.worldRadiusForLayer(SupportedLayers.STARS)
-    );
+  private toStandardNameRenderableText(rawStar: Array<any>, name: string): RenderableText {
     return new RenderableText(
-      center,
-      greekLetter,
+      buildCenterPoint(rawStar),
+      toGreekLetter(name),
       TextOffsetPolicies.CLOSE_RIGHT
     );
   }
 
-  private toProperNameRenderableText(rawStar: any[], name: string): RenderableText {
-    const center = toVector3(
-      rawStar[0],
-      rawStar[1],
-      WorldConstants.worldRadiusForLayer(SupportedLayers.STARS)
-    );
+  private toProperNameRenderableText(rawStar: Array<any>, name: string): RenderableText {
     return new RenderableText(
-      center,
+      buildCenterPoint(rawStar),
       name,
       TextOffsetPolicies.TOP_RIGHT
     );

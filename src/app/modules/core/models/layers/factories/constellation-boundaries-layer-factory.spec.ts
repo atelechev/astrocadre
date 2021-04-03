@@ -31,7 +31,7 @@ describe('ConstellationBoundariesLayerFactory', () => {
     factory = newFactory(constBoundaries);
     const layer = factory.buildRenderableLayer();
     expect(layer).toBeDefined();
-    expect(layer.model).toEqual(constBoundaries);
+    expect(layer.code).toEqual(constBoundaries.code);
     expect(layer.objects.length).toEqual(1);
     expect(layer.texts.length).toEqual(0);
     expect(layer.searchables.length).toEqual(0);

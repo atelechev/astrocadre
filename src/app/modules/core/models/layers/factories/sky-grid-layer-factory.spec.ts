@@ -27,7 +27,7 @@ describe('SkyGridLayerFactory', () => {
     factory = newFactory(skyGrid);
     const layer = factory.buildRenderableLayer();
     expect(layer).toBeDefined();
-    expect(layer.model).toEqual(skyGrid);
+    expect(layer.code).toEqual(skyGrid.code);
     expect(layer.objects.length).toEqual(4);
     expect(layer.texts.length).toEqual(0);
     expect(layer.searchables.length).toEqual(0);

@@ -32,7 +32,7 @@ describe('ConstellationLinesLayerFactory', () => {
     factory = newFactory(constLines);
     const layer = factory.buildRenderableLayer();
     expect(layer).toBeDefined();
-    expect(layer.model).toEqual(constLines);
+    expect(layer.code).toEqual(constLines.code);
     expect(layer.objects.length).toEqual(1);
     expect(layer.texts.length).toEqual(0);
     expect(layer.searchables.length).toEqual(0);

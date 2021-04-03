@@ -28,7 +28,7 @@ describe('ConstellationNamesLayerFactory', () => {
     factory = newFactory(constNames);
     const layer = factory.buildRenderableLayer();
     expect(layer).toBeDefined();
-    expect(layer.model).toEqual(constNames);
+    expect(layer.code).toEqual(constNames.code);
     expect(layer.objects.length).toEqual(0);
     expect(layer.texts.length).toEqual(1);
     expect(layer.searchables.length).toEqual(1);

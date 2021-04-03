@@ -32,7 +32,7 @@ describe('StarsLayerFactory', () => {
     factory = newFactory(starsMag2);
     const layer = factory.buildRenderableLayer();
     expect(layer).toBeDefined();
-    expect(layer.model).toEqual(starsMag2);
+    expect(layer.code).toEqual(starsMag2.code);
     expect(layer.magnitudeClass).toEqual(2);
     expect(layer.objects.length).toEqual(1);
     expect(layer.texts.length).toEqual(1);

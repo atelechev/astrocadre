@@ -60,7 +60,6 @@ describe('LayerService', () => {
 
   const getSubRenderables = (code: string): Array<RenderableLayer> =>
     service.getRenderableLayer(code)
-      .model
       .subLayers
       .map((subLayer: Layer) => service.getRenderableLayer(subLayer.code));
 
@@ -109,7 +108,7 @@ describe('LayerService', () => {
 
       const layer = service.getRenderableLayer(skyGrid);
       expect(layer).toBeDefined();
-      expect(layer.model.code).toEqual(skyGrid);
+      expect(layer.code).toEqual(skyGrid);
     });
 
   });
@@ -126,7 +125,7 @@ describe('LayerService', () => {
         .subscribe(
           (layer: RenderableLayer) => {
             expect(layer).toBeDefined();
-            expect(layer.model.code).toEqual(skyGrid);
+            expect(layer.code).toEqual(skyGrid);
             done();
           }
         );
@@ -164,7 +163,7 @@ describe('LayerService', () => {
         .subscribe(
           (layer: RenderableLayer) => {
             expect(layer).toBeDefined();
-            expect(layer.model.code).toEqual(skyGrid);
+            expect(layer.code).toEqual(skyGrid);
             done();
           }
         );

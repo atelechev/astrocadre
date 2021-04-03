@@ -54,7 +54,10 @@ describe('LayersFactoryService', () => {
         };
         const renderable = service.buildRenderableLayer(layer);
         expect(renderable).toBeDefined();
-        expect(renderable.model).toEqual(layer);
+        expect(renderable.code).toEqual(layer.code);
+        expect(renderable.label).toEqual(layer.label);
+        expect(renderable.loadFromUrl).toEqual(layer.loadFromUrl);
+        expect(renderable.objects.length).toEqual(4);
       });
 
       it('expected renderable layer for a sub-layer of stars', () => {
@@ -66,7 +69,7 @@ describe('LayersFactoryService', () => {
         };
         const renderable = service.buildRenderableLayer(layer);
         expect(renderable).toBeDefined();
-        expect(renderable.model).toEqual(layer);
+        expect(renderable.code).toEqual(layer.code);
       });
 
     });

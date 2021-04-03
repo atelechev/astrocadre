@@ -1,3 +1,7 @@
+import { Vector3 } from 'three';
+import { SupportedLayers } from '#core/models/supported-layers';
+import { WorldConstants } from '#core/models/world-constants';
+import { toVector3 } from '#core/utils/vector-utils';
 
 const initCharMappings = (): Map<string, string> => {
   const charsMap = new Map<string, string>();
@@ -12,11 +16,11 @@ const initCharMappings = (): Map<string, string> => {
   charsMap.set('iot', 'ι');
   charsMap.set('kap', 'κ');
   charsMap.set('lam', 'λ');
-  charsMap.set('mu',  'μ');
-  charsMap.set('nu',  'ν');
-  charsMap.set('xi',  'ξ');
+  charsMap.set('mu', 'μ');
+  charsMap.set('nu', 'ν');
+  charsMap.set('xi', 'ξ');
   charsMap.set('omi', 'ο');
-  charsMap.set('pi',  'π');
+  charsMap.set('pi', 'π');
   charsMap.set('rho', 'ρ');
   charsMap.set('sig', 'σ');
   charsMap.set('tau', 'τ');
@@ -81,7 +85,7 @@ const firstNameIndex = 3;
  *
  * @param rawStar raw star data having the format [ ra, dec, mag, ?properName, ?stdName ].
  */
-export const extractStandardName = (rawStar: any[]): string => {
+export const extractStandardName = (rawStar: Array<any>): string => {
   if (rawStar && rawStar.length > firstNameIndex) {
     if (rawStar.length > firstNameIndex + 1) {
       return rawStar[rawStar.length - 1];
@@ -99,11 +103,17 @@ export const extractStandardName = (rawStar: any[]): string => {
  *
  * @param rawStar raw star data having the format [ ra, dec, mag, ?properName, ?stdName ].
  */
-export const extractProperName = (rawStar: any[]): string => {
+export const extractProperName = (rawStar: Array<any>): string => {
   if (rawStar &&
-      rawStar.length > firstNameIndex &&
-      !isStandardName(rawStar[firstNameIndex])) {
+    rawStar.length > firstNameIndex &&
+    !isStandardName(rawStar[firstNameIndex])) {
     return rawStar[firstNameIndex];
   }
   return undefined;
 };
+
+export const buildCenterPoint = (rawStar: Array<any>): Vector3 => toVector3(
+  rawStar[0],
+  rawStar[1],
+  WorldConstants.worldRadiusForLayer(SupportedLayers.STARS)
+);

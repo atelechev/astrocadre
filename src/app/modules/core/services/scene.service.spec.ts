@@ -49,7 +49,7 @@ describe('SceneService', () => {
 
   it('should remove all the objects and texts from a layer when it is hidden', fakeAsync(() => {
     const layer = layers.getRenderableLayer('stars-mag2.0') as Stars;
-    layers.hideLayer(layer.model.code);
+    layers.hideLayer(layer.code);
     tick();
 
     expect(layer.objects.length).toEqual(1);

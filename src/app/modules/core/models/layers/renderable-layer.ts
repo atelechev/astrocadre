@@ -7,7 +7,7 @@ import { Theme } from '#core/models/theme';
 /**
  * Represents a layer of objects that can be rendered/visualized in the view.
  */
-export abstract class RenderableLayer { // TODO can implement Layer in order to avoid the model field
+export abstract class RenderableLayer implements Layer {
 
   private _textsShown: boolean;
 
@@ -16,12 +16,12 @@ export abstract class RenderableLayer { // TODO can implement Layer in order to 
   }
 
   /**
-   * Returns the model object of this layer.
+   * Returns the code of this layer, used as its identifier.
    *
-   * @returns Layer the model object of this layer.
+   * @returns string the code/identifier of this layer.
    */
-  public get model(): Layer {
-    return this._model;
+  public get code(): string {
+    return this._model.code;
   }
 
   /**
@@ -29,6 +29,32 @@ export abstract class RenderableLayer { // TODO can implement Layer in order to 
    */
   public get objects(): Array<Object3D> {
     return [];
+  }
+
+  /**
+   * Returns the label of this layer.
+   *
+   * @returns string the label of this layer.
+   */
+  public get label(): string {
+    return this._model.label;
+  }
+
+  public get loadFromUrl(): boolean {
+    return this._model.loadFromUrl;
+  }
+
+  /**
+   * Returns the description of this layer.
+   *
+   * @returns string the description of this layer.
+   */
+  public get description(): string {
+    return this._model.description;
+  }
+
+  public get subLayers(): Array<Layer> {
+    return this._model.subLayers || [];
   }
 
   /**
@@ -52,15 +78,6 @@ export abstract class RenderableLayer { // TODO can implement Layer in order to 
 
   public hideTexts(): void {
     this._textsShown = false;
-  }
-
-  /**
-   * Returns the code of this layer, used as its identifier.
-   *
-   * @returns string the code/identifier of this layer.
-   */
-  protected get code(): string {
-    return this._model.code;
   }
 
   /**

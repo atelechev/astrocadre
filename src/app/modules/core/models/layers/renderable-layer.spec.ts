@@ -1,6 +1,5 @@
 import { Layer } from '#core/models/layer';
 import { RenderableLayer } from '#core/models/layers/renderable-layer';
-import { TestContext } from '#core/test-utils/test-context.spec';
 
 
 class TestRenderableLayer extends RenderableLayer {
@@ -22,16 +21,32 @@ describe('RenderableLayer', () => {
     code: 'tested-layer',
     label: 'Tested',
     loadFromUrl: false,
+    description: 'test',
     objects: []
   };
 
   beforeEach(() => {
-    const ctx = new TestContext().configure();
     layer = new TestRenderableLayer(model);
   });
 
-  it('model should return expected value', () => {
-    expect(layer.model).toEqual(model);
+  it('code should return expected value', () => {
+    expect(layer.code).toEqual(model.code);
+  });
+
+  it('label should return expected value', () => {
+    expect(layer.label).toEqual(model.label);
+  });
+
+  it('loadFromUrl should return expected value', () => {
+    expect(layer.loadFromUrl).toEqual(model.loadFromUrl);
+  });
+
+  it('description should return expected value', () => {
+    expect(layer.description).toEqual(model.description);
+  });
+
+  it('subLayers should return an empty array', () => {
+    expect(layer.subLayers).toEqual([]);
   });
 
   it('objects should return an empty array', () => {
