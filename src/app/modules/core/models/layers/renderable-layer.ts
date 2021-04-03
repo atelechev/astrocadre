@@ -3,7 +3,6 @@ import { Layer } from '#core/models/layer';
 import { RenderableText } from '#core/models/layers/renderable-text';
 import { Searchable } from '#core/models/searchable';
 import { Theme } from '#core/models/theme';
-import { MaterialsService } from '#core/services/materials.service';
 import { ThemeService } from '#core/services/theme.service';
 
 /**
@@ -15,7 +14,6 @@ export abstract class RenderableLayer { // TODO can implement Layer in order to 
 
   constructor(
     private readonly _model: Layer,
-    private readonly _materialsService: MaterialsService, // TODO could it be decoupled from this service?
     private readonly _themeService: ThemeService // TODO decouple it from this service
   ) {
     this._textsShown = true;
@@ -69,19 +67,11 @@ export abstract class RenderableLayer { // TODO can implement Layer in order to 
     return this._model.code;
   }
 
-  protected get materialsService(): MaterialsService {
-    return this._materialsService;
-  }
-
   protected subscribeThemeChanged(): void {
     this._themeService
       .themeChanged
       .subscribe(
-        (theme: Theme) => {
-          if (theme) {
-            this.applyTheme();
-          }
-        }
+        (theme: Theme) => this.applyTheme(theme)
       );
   }
 
@@ -90,6 +80,6 @@ export abstract class RenderableLayer { // TODO can implement Layer in order to 
    *
    * @param theme the theme to apply.
    */
-  protected abstract applyTheme(): void;
+  public abstract applyTheme(theme: Theme): void;
 
 }

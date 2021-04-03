@@ -1,6 +1,5 @@
 import { TextOffsetPolicies } from '#core/models/layers/factories/text/text-offsets-policies';
 import { RenderableText } from '#core/models/layers/renderable-text';
-import { Materials } from '#core/models/materials';
 import { TextStyle } from '#core/models/text-style';
 import { WorldConstants } from '#core/models/world-constants';
 import { toVector3 } from '#core/utils/vector-utils';
@@ -18,8 +17,6 @@ describe('RenderableText', () => {
 
   const buildRenderable = (): RenderableText =>
     new RenderableText(
-      'stars-mag2.0',
-      Materials.NAMES_PROPER,
       position,
       label,
       TextOffsetPolicies.TOP_RIGHT
@@ -29,7 +26,6 @@ describe('RenderableText', () => {
     const html = renderable.htmlElement;
     expect(html).toBeDefined();
     expect(html.tagName).toEqual('DIV');
-    expect(html.className).toEqual('ac_label_stars-mag2.0_names-proper');
     expect(html.textContent).toEqual(label);
     expect(html.style.position).toEqual('absolute');
     expect(html.style.zIndex).toEqual('100');
@@ -69,7 +65,7 @@ describe('RenderableText', () => {
 
   });
 
-  describe('applyStyles should', () => {
+  describe('applyStyle should', () => {
 
     const textStyle = (
       fontSize: string,
@@ -98,33 +94,21 @@ describe('RenderableText', () => {
       assertTextStyleExpected(textStyle('', '', '', '', ''));
     };
 
-    describe('have no effect', () => {
-
-      it('if the arg is falsy', () => {
-        assertInitialStyle();
-        renderable.applyStyles(undefined);
-        assertInitialStyle();
-      });
-
-      it('if the style was not found by key', () => {
-        assertInitialStyle();
-        renderable.applyStyles(new Map<string, TextStyle>());
-        assertInitialStyle();
-      });
-
+    it('have no effect if the arg is falsy', () => {
+      assertInitialStyle();
+      renderable.applyStyle(undefined);
+      assertInitialStyle();
     });
 
-    it('should apply the expected style and calculte the offsets', () => {
+    it('apply the expected style and calculate the offsets', () => {
       assertInitialStyle();
       expect(renderable.offsetX).toEqual(0);
       expect(renderable.offsetY).toEqual(0);
 
-      const assignedStyle = textStyle('10px', 'arial', 'normal', 'bold', 'red');
-      const styleMap = new Map<string, TextStyle>();
-      styleMap.set(Materials.NAMES_PROPER, assignedStyle);
-      renderable.applyStyles(styleMap);
+      const style = textStyle('10px', 'arial', 'normal', 'bold', 'red');
+      renderable.applyStyle(style);
 
-      assertTextStyleExpected(assignedStyle);
+      assertTextStyleExpected(style);
       expect(renderable.offsetX).toEqual(9);
       expect(renderable.offsetY).toEqual(-12);
     });

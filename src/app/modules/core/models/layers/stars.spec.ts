@@ -87,9 +87,8 @@ describe('Stars', () => {
     const object = layer.objects[0] as Points;
     expect(object).toBeDefined();
     const foundMaterial = object.material as PointsMaterial;
-    const material = ctx.materialsService.getMaterialsForLayer('stars').get('star-2.0') as PointsMaterial;
-    expect(foundMaterial.size).toEqual(material.size);
-    expect(foundMaterial.map.sourceFile).toEqual(material.map.sourceFile);
+    expect(foundMaterial.size).toEqual(11.25);
+    expect(foundMaterial.map).toBeDefined();
   });
 
   it('style should be assigned to the texts', () => {

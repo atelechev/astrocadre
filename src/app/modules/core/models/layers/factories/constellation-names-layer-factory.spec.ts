@@ -14,7 +14,7 @@ describe('ConstellationNamesLayerFactory', () => {
   }));
 
   const newFactory = (model: Layer): ConstellationNamesLayerFactory => (
-    new ConstellationNamesLayerFactory(model, ctx.materialsService, ctx.themeService)
+    new ConstellationNamesLayerFactory(model, ctx.themeService)
   );
 
   it('buildRenderableLayer should return expected value', fakeAsync(() => {

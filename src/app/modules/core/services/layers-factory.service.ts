@@ -10,7 +10,6 @@ import { SkyGridLayerFactory } from '#core/models/layers/factories/sky-grid-laye
 import { StarsLayerFactory } from '#core/models/layers/factories/stars-layer-factory';
 import { RenderableLayer } from '#core/models/layers/renderable-layer';
 import { SupportedLayers } from '#core/models/supported-layers';
-import { MaterialsService } from '#core/services/materials.service';
 import { ThemeService } from '#core/services/theme.service';
 
 
@@ -21,10 +20,7 @@ export class LayersFactoryService {
 
   private readonly _pointsFactory: PointsFactory;
 
-  constructor(
-    private readonly _materialsService: MaterialsService,
-    private readonly _themeService: ThemeService
-  ) {
+  constructor(private readonly _themeService: ThemeService) {
     this._curvesFactory = new AxialCurvesFactory();
     this._pointsFactory = new PointsFactory();
   }
@@ -40,35 +36,30 @@ export class LayersFactoryService {
       case SupportedLayers.SKY_GRID:
         return new SkyGridLayerFactory(
           layer,
-          this._materialsService,
           this._themeService,
           this._curvesFactory
         );
       case SupportedLayers.CONSTELLATION_BOUNDARIES:
         return new ConstellationBoundariesLayerFactory(
           layer,
-          this._materialsService,
           this._themeService,
           this._curvesFactory
         );
       case SupportedLayers.CONSTELLATION_LINES:
         return new ConstellationLinesLayerFactory(
           layer,
-          this._materialsService,
           this._themeService,
           this._curvesFactory
         );
       case SupportedLayers.CONSTELLATION_NAMES: {
         return new ConstellationNamesLayerFactory(
           layer,
-          this._materialsService,
           this._themeService
         );
       };
       case SupportedLayers.STARS: {
         return new StarsLayerFactory(
           layer,
-          this._materialsService,
           this._themeService,
           this._pointsFactory
         );

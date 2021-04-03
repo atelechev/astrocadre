@@ -3,7 +3,6 @@ import { ConstellationMeta } from '#core/models/constellation-meta';
 import { ConstellationNames } from '#core/models/layers/constellation-names';
 import { TextOffsetPolicies } from '#core/models/layers/factories/text/text-offsets-policies';
 import { RenderableText } from '#core/models/layers/renderable-text';
-import { Materials } from '#core/models/materials';
 import { WorldConstants } from '#core/models/world-constants';
 import { mockedTheme } from '#core/test-utils/mocked-theme.spec';
 import { TestContext } from '#core/test-utils/test-context.spec';
@@ -34,8 +33,6 @@ describe('ConstellationNames', () => {
     };
     const constMeta = model.objects[0] as ConstellationMeta;
     const label = new RenderableText(
-      model.code,
-      Materials.LABELS,
       toVector3(constMeta.ra, constMeta.dec, WorldConstants.worldRadiusForLayer(model.code)),
       constMeta.names[0],
       TextOffsetPolicies.CENTERED
@@ -44,7 +41,6 @@ describe('ConstellationNames', () => {
     labels.set(constMeta.code, label);
     layer = new ConstellationNames(
       model,
-      ctx.materialsService,
       ctx.themeService,
       labels
     );

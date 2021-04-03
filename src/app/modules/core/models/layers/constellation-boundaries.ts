@@ -1,9 +1,8 @@
-import { LineSegments, Object3D } from 'three';
+import { LineBasicMaterial, LineSegments, Object3D } from 'three';
 import { Layer } from '#core/models/layer';
 import { RenderableLayer } from '#core/models/layers/renderable-layer';
-import { Materials } from '#core/models/materials';
-import { MaterialsService } from '#core/services/materials.service';
 import { ThemeService } from '#core/services/theme.service';
+import { Theme } from '#core/models/theme';
 
 export class ConstellationBoundaries extends RenderableLayer {
 
@@ -11,11 +10,10 @@ export class ConstellationBoundaries extends RenderableLayer {
 
   constructor(
     model: Layer,
-    materialsService: MaterialsService,
     themeService: ThemeService,
     private readonly _boundaries: LineSegments
   ) {
-    super(model, materialsService, themeService);
+    super(model, themeService);
     this._objects = [
       this._boundaries
     ];
@@ -27,11 +25,10 @@ export class ConstellationBoundaries extends RenderableLayer {
     return this._objects;
   }
 
-  protected applyTheme(): void {
-    const materials = this.materialsService.getMaterialsForLayer(this.code);
-    const lineCommon = materials.get(Materials.LINE_COMMON);
-    this._boundaries.material = lineCommon;
-    lineCommon.needsUpdate = true;
+  public applyTheme(theme: Theme): void {
+    const material = new LineBasicMaterial({ color: theme.constellation.boundaries.line.common });
+    this._boundaries.material = material;
+    material.needsUpdate = true;
   }
 
 }

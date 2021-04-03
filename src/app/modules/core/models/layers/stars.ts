@@ -1,20 +1,28 @@
-import { Object3D, Points } from 'three';
+import {
+  Material,
+  Object3D,
+  Points,
+  PointsMaterial,
+  TextureLoader
+  } from 'three';
 import { Layer } from '#core/models/layer';
 import { RenderableLayer } from '#core/models/layers/renderable-layer';
 import { RenderableText } from '#core/models/layers/renderable-text';
 import { Searchable } from '#core/models/searchable';
-import { SupportedLayers } from '#core/models/supported-layers';
-import { MaterialsService } from '#core/services/materials.service';
 import { ThemeService } from '#core/services/theme.service';
+import { Theme } from '#core/models/theme';
+import { TextStyle } from '#core/models/text-style';
+import { environment } from '#environments/environment';
 
 
 export class Stars extends RenderableLayer {
+
+  private readonly _textureLoader: TextureLoader;
 
   private _properNamesShown: boolean;
 
   constructor(
     model: Layer,
-    materialsService: MaterialsService,
     themeService: ThemeService,
     private readonly _magClass: number,
     private readonly _stars: Points,
@@ -22,7 +30,8 @@ export class Stars extends RenderableLayer {
     private readonly _standardNames: Array<RenderableText>,
     private readonly _searchables: Array<Searchable>
   ) {
-    super(model, materialsService, themeService);
+    super(model, themeService);
+    this._textureLoader = new TextureLoader();
     this.subscribeThemeChanged();
     this.showProperNames();
   }
@@ -55,28 +64,41 @@ export class Stars extends RenderableLayer {
     this._properNamesShown = false;
   }
 
-  protected applyTheme(): void {
-    this.useThemeForObjects();
-    this.useThemeForLabels();
+  public applyTheme(theme: Theme): void {
+    this.useThemeForObjects(theme);
+    this.useThemeForLabels(theme);
   }
 
-  private useThemeForObjects(): void {
-    const materialKey = 'star-' + this._magClass.toFixed(1);
-    const material = this.materialsService
-      .getMaterialsForLayer(SupportedLayers.STARS)
-      .get(materialKey);
-    if (material) {
-      this._stars.material = material;
-      material.needsUpdate = true;
-    }
+  private useThemeForObjects(theme: Theme): void {
+    const material = this.buildMaterial(
+      theme.stars.texture.image,
+      theme.stars.texture.sizeMultiplier
+    );
+    this._stars.material = material;
+    material.needsUpdate = true;
   }
 
-  private useThemeForLabels(): void {
-    const styles = this.materialsService.getTextStyleForLayer(SupportedLayers.STARS);
-    [this._properNames, this._standardNames].forEach(
-      (labels: Array<RenderableText>) => labels.forEach(
-        (renderable: RenderableText) => renderable.applyStyles(styles)
-      )
+  private buildMaterial(textureFile: string, sizeMultiplier: number): Material {
+    const dotSize = (6.5 - this._magClass) * sizeMultiplier;
+    const textureFileInContext = environment.pathInContext(textureFile);
+    return new PointsMaterial({
+      size: dotSize,
+      sizeAttenuation: false,
+      transparent: true,
+      opacity: 0.95,
+      alphaTest: 0.05,
+      map: this._textureLoader.load(textureFileInContext)
+    });
+  }
+
+  private useThemeForLabels(theme: Theme): void {
+    this.applyTextStyleOn(this._properNames, theme.stars.names.proper);
+    this.applyTextStyleOn(this._standardNames, theme.stars.names.standard);
+  }
+
+  private applyTextStyleOn(labels: Array<RenderableText>, style: TextStyle): void {
+    labels?.forEach(
+      (label: RenderableText) => label.applyStyle(style)
     );
   }
 

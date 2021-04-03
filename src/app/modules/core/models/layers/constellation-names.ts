@@ -2,7 +2,7 @@ import { Layer } from '#core/models/layer';
 import { RenderableLayer } from '#core/models/layers/renderable-layer';
 import { RenderableText } from '#core/models/layers/renderable-text';
 import { Searchable } from '#core/models/searchable';
-import { MaterialsService } from '#core/services/materials.service';
+import { Theme } from '#core/models/theme';
 import { ThemeService } from '#core/services/theme.service';
 
 
@@ -14,11 +14,10 @@ export class ConstellationNames extends RenderableLayer {
 
   constructor(
     model: Layer,
-    materialsService: MaterialsService,
     themeService: ThemeService,
     private _renderableLabels: Map<string, RenderableText>
   ) {
-    super(model, materialsService, themeService);
+    super(model, themeService);
     this._texts = Array.from(this._renderableLabels.values());
     this._searchables = this.model.objects;
     this.subscribeThemeChanged();
@@ -36,10 +35,10 @@ export class ConstellationNames extends RenderableLayer {
     return this._renderableLabels;
   }
 
-  protected applyTheme(): void {
-    const styles = this.materialsService.getTextStyleForLayer(this.code);
+  public applyTheme(theme: Theme): void {
+    const style = theme.constellation.names;
     this._texts.forEach(
-      (renderable: RenderableText) => renderable.applyStyles(styles)
+      (renderable: RenderableText) => renderable.applyStyle(style)
     );
   }
 

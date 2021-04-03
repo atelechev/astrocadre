@@ -4,7 +4,6 @@ import { TestBed } from '@angular/core/testing';
 import { Layer } from '#core/models/layer';
 import { EventsService } from '#core/services/events.service';
 import { LayersFactoryService } from '#core/services/layers-factory.service';
-import { MaterialsService } from '#core/services/materials.service';
 import { StaticDataService } from '#core/services/static-data.service';
 import { ThemeService } from '#core/services/theme.service';
 import { MockStaticDataService } from '#core/test-utils/mock-static-data-service.spec';
@@ -24,7 +23,6 @@ describe('LayersFactoryService', () => {
       providers: [
         EventsService,
         LayersFactoryService,
-        MaterialsService,
         {
           provide: StaticDataService,
           useClass: MockStaticDataService

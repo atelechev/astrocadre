@@ -3,7 +3,6 @@ import { ConstellationLines } from '#core/models/layers/constellation-lines';
 import { AxialCurvesFactory } from '#core/models/layers/factories/axial-curves-factory';
 import { LayerFactory } from '#core/models/layers/factories/layer-factory';
 import { SupportedLayers } from '#core/models/supported-layers';
-import { MaterialsService } from '#core/services/materials.service';
 import { ThemeService } from '#core/services/theme.service';
 
 
@@ -11,7 +10,6 @@ export class ConstellationLinesLayerFactory implements LayerFactory {
 
   constructor(
     private readonly _layerModel: Layer,
-    private readonly _materialsService: MaterialsService,
     private readonly _themeService: ThemeService,
     private readonly _curvesFactory: AxialCurvesFactory
   ) {
@@ -26,7 +24,6 @@ export class ConstellationLinesLayerFactory implements LayerFactory {
       );
     return new ConstellationLines(
       this._layerModel,
-      this._materialsService,
       this._themeService,
       lines
     );

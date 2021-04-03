@@ -6,10 +6,10 @@ import { EventsService } from '#core/services/events.service';
 class MockedLayer extends RenderableLayer {
 
   constructor() {
-    super(undefined, undefined, undefined);
+    super(undefined, undefined);
   }
 
-  protected applyTheme(): void { }
+  public applyTheme(): void { }
 
 };
 

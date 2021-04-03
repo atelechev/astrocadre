@@ -4,7 +4,6 @@ import { CameraService } from '#core/services/camera.service';
 import { EventsService } from '#core/services/events.service';
 import { LayerService } from '#core/services/layer.service';
 import { LayersFactoryService } from '#core/services/layers-factory.service';
-import { MaterialsService } from '#core/services/materials.service';
 import { MouseEventsHandler } from '#core/services/mouse-events-handler';
 import { SceneService } from '#core/services/scene.service';
 import { SearchService } from '#core/services/search.service';
@@ -23,7 +22,6 @@ import { LoaderService } from '#core/services/loader.service';
     LayersFactoryService,
     LayerService,
     LoaderService,
-    MaterialsService,
     MouseEventsHandler,
     SceneService,
     SearchService,

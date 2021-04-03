@@ -1,7 +1,6 @@
 import { TestBed } from '@angular/core/testing';
-import { LineBasicMaterial, LineSegments, Object3D } from 'three';
+import { Color, LineBasicMaterial, LineSegments } from 'three';
 import { SkyGrid } from '#core/models/layers/sky-grid';
-import { Materials } from '#core/models/materials';
 import { LayersFactoryService } from '#core/services/layers-factory.service';
 import { TestContext } from '#core/test-utils/test-context.spec';
 import { mockedTheme } from '#core/test-utils/mocked-theme.spec';
@@ -27,14 +26,18 @@ describe('SkyGrid', () => {
     ctx.themeService.theme = mockedTheme;
   });
 
-  const assertMaterialExpected = (object: LineSegments, expectedMaterialKey: string): void => {
+  const assertColorMaterialExpected = (object: LineSegments, color: string): void => {
     const assignedMaterial = object.material as LineBasicMaterial;
     expect(assignedMaterial).toBeDefined();
-    const expectedMaterial = ctx.materialsService
-      .getMaterialsForLayer('sky-grid')
-      .get(expectedMaterialKey) as LineBasicMaterial;
-    expect(expectedMaterial).toBeDefined();
-    expect(assignedMaterial.color).toEqual(expectedMaterial.color);
+    expect(assignedMaterial.color).toEqual(new Color(color));
+  };
+
+  const assertCommonLineMaterialExpected = (object: LineSegments): void => {
+    assertColorMaterialExpected(object, mockedTheme.skyGrid.line.common);
+  };
+
+  const assertReferenceLineMaterialExpected = (object: LineSegments): void => {
+    assertColorMaterialExpected(object, mockedTheme.skyGrid.line.reference);
   };
 
   it('objects should return expected value', () => {
@@ -51,10 +54,10 @@ describe('SkyGrid', () => {
 
   it('material should be assigned to the objects', () => {
     const getObject = (i: number): LineSegments => layer.objects[i] as LineSegments;
-    assertMaterialExpected(getObject(0), Materials.LINE_COMMON);
-    assertMaterialExpected(getObject(1), Materials.LINE_COMMON);
-    assertMaterialExpected(getObject(2), Materials.LINE_REFERENCE);
-    assertMaterialExpected(getObject(3), Materials.LINE_REFERENCE);
+    assertCommonLineMaterialExpected(getObject(0));
+    assertCommonLineMaterialExpected(getObject(1));
+    assertReferenceLineMaterialExpected(getObject(2));
+    assertReferenceLineMaterialExpected(getObject(3));
   });
 
 });

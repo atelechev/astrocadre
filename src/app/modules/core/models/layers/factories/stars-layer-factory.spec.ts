@@ -14,7 +14,7 @@ describe('StarsLayerFactory', () => {
   }));
 
   const newFactory = (model: Layer): StarsLayerFactory => (
-    new StarsLayerFactory(model, ctx.materialsService, ctx.themeService, new PointsFactory())
+    new StarsLayerFactory(model, ctx.themeService, new PointsFactory())
   );
 
   it('STARS_LAYER_CODE_PREFIX should have expected value', () => {

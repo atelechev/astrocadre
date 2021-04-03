@@ -52,7 +52,7 @@ describe('SceneService', () => {
     });
 
     it('should add the texts', () => {
-      const text = new RenderableText('any', 'labels', toVector3(0, 0, 0), 'any', TextOffsetPolicies.CENTERED);
+      const text = new RenderableText(toVector3(0, 0, 0), 'any', TextOffsetPolicies.CENTERED);
       expect(service.allTextsCount).toEqual(0);
       service.showTexts([text]);
       expect(service.allTextsCount).toEqual(1);
@@ -69,7 +69,7 @@ describe('SceneService', () => {
     });
 
     it('should hide the texts', () => {
-      const text = new RenderableText('any', 'labels', toVector3(0, 0, 0), 'any', TextOffsetPolicies.CENTERED);
+      const text = new RenderableText(toVector3(0, 0, 0), 'any', TextOffsetPolicies.CENTERED);
       service.showTexts([text]);
       expect(service.allTextsCount).toEqual(1);
       service.hideTexts([text]);

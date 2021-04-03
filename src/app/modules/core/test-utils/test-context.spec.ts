@@ -17,7 +17,6 @@ import { CameraService } from '#core/services/camera.service';
 import { EventsService } from '#core/services/events.service';
 import { LayerService } from '#core/services/layer.service';
 import { LayersFactoryService } from '#core/services/layers-factory.service';
-import { MaterialsService } from '#core/services/materials.service';
 import { SceneService } from '#core/services/scene.service';
 import { SearchService } from '#core/services/search.service';
 import { StaticDataService } from '#core/services/static-data.service';
@@ -53,7 +52,6 @@ export class TestContext {
     LayerService,
     LayersFactoryService,
     LoaderService,
-    MaterialsService,
     {
       provide: StaticDataService,
       useClass: MockStaticDataService
@@ -85,10 +83,6 @@ export class TestContext {
 
   public get layersFactory(): LayersFactoryService {
     return TestBed.inject(LayersFactoryService);
-  }
-
-  public get materialsService(): MaterialsService {
-    return TestBed.inject(MaterialsService);
   }
 
   public get eventsService(): EventsService {
