@@ -1,7 +1,6 @@
 import { LineBasicMaterial, LineSegments, Object3D } from 'three';
 import { Layer } from '#core/models/layer';
 import { RenderableLayer } from '#core/models/layers/renderable-layer';
-import { ThemeService } from '#core/services/theme.service';
 import { Theme } from '#core/models/theme';
 
 
@@ -11,14 +10,12 @@ export class ConstellationLines extends RenderableLayer {
 
   constructor(
     model: Layer,
-    themeService: ThemeService,
     private readonly _lines: LineSegments
   ) {
-    super(model, themeService);
+    super(model);
     this._objects = [
       this._lines
     ];
-    this.subscribeThemeChanged();
   }
 
   public get objects(): Object3D[] {

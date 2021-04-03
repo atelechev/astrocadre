@@ -5,16 +5,12 @@ import { LayerFactory } from '#core/models/layers/factories/layer-factory';
 import { TextOffsetPolicies } from '#core/models/layers/factories/text/text-offsets-policies';
 import { RenderableText } from '#core/models/layers/renderable-text';
 import { WorldConstants } from '#core/models/world-constants';
-import { ThemeService } from '#core/services/theme.service';
 import { toVector3 } from '#core/utils/vector-utils';
 
 
 export class ConstellationNamesLayerFactory implements LayerFactory {
 
-  constructor(
-    private readonly _layerModel: Layer,
-    private readonly _themeService: ThemeService
-  ) {
+  constructor(private readonly _layerModel: Layer) {
 
   }
 
@@ -22,7 +18,6 @@ export class ConstellationNamesLayerFactory implements LayerFactory {
     const labels = this.initRenderableLabels(this._layerModel.code, this._layerModel.objects);
     return new ConstellationNames(
       this._layerModel,
-      this._themeService,
       labels
     );
   }

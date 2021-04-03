@@ -3,14 +3,12 @@ import { ConstellationBoundaries } from '#core/models/layers/constellation-bound
 import { AxialCurvesFactory } from '#core/models/layers/factories/axial-curves-factory';
 import { LayerFactory } from '#core/models/layers/factories/layer-factory';
 import { SupportedLayers } from '#core/models/supported-layers';
-import { ThemeService } from '#core/services/theme.service';
 
 
 export class ConstellationBoundariesLayerFactory implements LayerFactory {
 
   constructor(
     private readonly _layerModel: Layer,
-    private readonly _themeService: ThemeService,
     private readonly _curvesFactory: AxialCurvesFactory
   ) {
 
@@ -24,7 +22,6 @@ export class ConstellationBoundariesLayerFactory implements LayerFactory {
       );
     return new ConstellationBoundaries(
       this._layerModel,
-      this._themeService,
       boundaries
     );
   }

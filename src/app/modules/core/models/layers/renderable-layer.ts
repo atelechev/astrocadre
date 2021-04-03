@@ -3,7 +3,6 @@ import { Layer } from '#core/models/layer';
 import { RenderableText } from '#core/models/layers/renderable-text';
 import { Searchable } from '#core/models/searchable';
 import { Theme } from '#core/models/theme';
-import { ThemeService } from '#core/services/theme.service';
 
 /**
  * Represents a layer of objects that can be rendered/visualized in the view.
@@ -12,10 +11,7 @@ export abstract class RenderableLayer { // TODO can implement Layer in order to 
 
   private _textsShown: boolean;
 
-  constructor(
-    private readonly _model: Layer,
-    private readonly _themeService: ThemeService // TODO decouple it from this service
-  ) {
+  constructor(private readonly _model: Layer) {
     this._textsShown = true;
   }
 
@@ -65,14 +61,6 @@ export abstract class RenderableLayer { // TODO can implement Layer in order to 
    */
   protected get code(): string {
     return this._model.code;
-  }
-
-  protected subscribeThemeChanged(): void {
-    this._themeService
-      .themeChanged
-      .subscribe(
-        (theme: Theme) => this.applyTheme(theme)
-      );
   }
 
   /**

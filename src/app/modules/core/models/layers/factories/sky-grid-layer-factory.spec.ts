@@ -15,7 +15,7 @@ describe('SkyGridLayerFactory', () => {
   }));
 
   const newFactory = (model: Layer): SkyGridLayerFactory => (
-    new SkyGridLayerFactory(model, ctx.themeService, new AxialCurvesFactory())
+    new SkyGridLayerFactory(model, new AxialCurvesFactory())
   );
 
   it('buildRenderableLayer should return expected value', fakeAsync(() => {

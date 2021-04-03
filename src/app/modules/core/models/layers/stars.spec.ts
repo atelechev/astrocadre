@@ -84,6 +84,7 @@ describe('Stars', () => {
   });
 
   it('material should be assigned to the objects', () => {
+    layer.applyTheme(mockedTheme);
     const object = layer.objects[0] as Points;
     expect(object).toBeDefined();
     const foundMaterial = object.material as PointsMaterial;
@@ -92,6 +93,7 @@ describe('Stars', () => {
   });
 
   it('style should be assigned to the texts', () => {
+    layer.applyTheme(mockedTheme);
     const object = layer.texts[0] as RenderableText;
     expect(object).toBeDefined();
     const style = mockedTheme.stars.names.proper;

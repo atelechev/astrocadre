@@ -1,7 +1,6 @@
 import { LineBasicMaterial, LineSegments, Object3D } from 'three';
 import { Layer } from '#core/models/layer';
 import { RenderableLayer } from '#core/models/layers/renderable-layer';
-import { ThemeService } from '#core/services/theme.service';
 import { Theme } from '#core/models/theme';
 
 
@@ -11,20 +10,18 @@ export class SkyGrid extends RenderableLayer {
 
   constructor(
     model: Layer,
-    themeService: ThemeService,
     private readonly _commonMeridians: LineSegments,
     private readonly _commonParallels: LineSegments,
     private readonly _referenceMeridian: LineSegments,
     private readonly _referenceParallel: LineSegments
   ) {
-    super(model, themeService);
+    super(model);
     this._objects = [
       this._commonParallels,
       this._commonMeridians,
       this._referenceParallel,
       this._referenceMeridian
     ];
-    this.subscribeThemeChanged();
   }
 
   public get objects(): Array<Object3D> {

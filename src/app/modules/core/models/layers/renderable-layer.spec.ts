@@ -2,16 +2,12 @@ import { fakeAsync } from '@angular/core/testing';
 import { Layer } from '#core/models/layer';
 import { RenderableLayer } from '#core/models/layers/renderable-layer';
 import { TestContext } from '#core/test-utils/test-context.spec';
-import { ThemeService } from '#core/services/theme.service';
 
 
 class TestRenderableLayer extends RenderableLayer {
 
-  constructor(
-    model: Layer,
-    themeService: ThemeService
-  ) {
-    super(model, themeService);
+  constructor(model: Layer) {
+    super(model);
   }
 
   public applyTheme(): void {
@@ -32,7 +28,7 @@ describe('RenderableLayer', () => {
 
   beforeEach(fakeAsync(() => {
     const ctx = new TestContext().configure();
-    layer = new TestRenderableLayer(model, ctx.themeService);
+    layer = new TestRenderableLayer(model);
   }));
 
   it('model should return expected value', () => {

@@ -53,6 +53,7 @@ describe('SkyGrid', () => {
   });
 
   it('material should be assigned to the objects', () => {
+    layer.applyTheme(mockedTheme);
     const getObject = (i: number): LineSegments => layer.objects[i] as LineSegments;
     assertCommonLineMaterialExpected(getObject(0));
     assertCommonLineMaterialExpected(getObject(1));

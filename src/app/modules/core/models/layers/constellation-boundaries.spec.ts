@@ -24,11 +24,7 @@ describe('ConstellationBoundaries', () => {
       ]
     };
     const lines = new AxialCurvesFactory().createObject3D(model.code, model.objects);
-    layer = new ConstellationBoundaries(
-      model,
-      ctx.themeService,
-      lines
-    );
+    layer = new ConstellationBoundaries(model, lines);
     ctx.themeService.theme = mockedTheme;
   });
 
@@ -49,6 +45,7 @@ describe('ConstellationBoundaries', () => {
   });
 
   it('material should be assigned to the objects', () => {
+    layer.applyTheme(mockedTheme);
     const objects = layer.objects[0] as LineSegments;
     const assignedMaterial = objects.material as LineBasicMaterial;
     expect(assignedMaterial).toBeDefined();

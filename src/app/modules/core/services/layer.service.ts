@@ -7,6 +7,8 @@ import { EventsService } from '#core/services/events.service';
 import { LayersFactoryService } from '#core/services/layers-factory.service';
 import { SceneService } from '#core/services/scene.service';
 import { SearchService } from '#core/services/search.service';
+import { ThemeService } from '#core/services/theme.service';
+import { Theme } from '#core/models/theme';
 
 @Injectable()
 export class LayerService {
@@ -23,7 +25,8 @@ export class LayerService {
     private readonly _eventsService: EventsService,
     private readonly _layersFactory: LayersFactoryService,
     private readonly _searchService: SearchService,
-    private readonly _sceneService: SceneService
+    private readonly _sceneService: SceneService,
+    private readonly _themeService: ThemeService
   ) {
     this._rootLayer = undefined;
     this._layerModels = new Map<string, Layer>();
@@ -151,6 +154,10 @@ export class LayerService {
   private buildRenderable(layer: Layer): RenderableLayer {
     const renderable = this._layersFactory.buildRenderableLayer(layer);
     if (renderable) {
+      this._themeService.themeChanged
+        .subscribe(
+          (theme: Theme) => renderable.applyTheme(theme)
+        );
       this._renderableLayers.set(layer.code, renderable);
       this._searchService.registerSearchables(renderable.searchables);
     }

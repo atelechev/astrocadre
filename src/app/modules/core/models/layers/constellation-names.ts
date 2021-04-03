@@ -3,7 +3,6 @@ import { RenderableLayer } from '#core/models/layers/renderable-layer';
 import { RenderableText } from '#core/models/layers/renderable-text';
 import { Searchable } from '#core/models/searchable';
 import { Theme } from '#core/models/theme';
-import { ThemeService } from '#core/services/theme.service';
 
 
 export class ConstellationNames extends RenderableLayer {
@@ -14,13 +13,11 @@ export class ConstellationNames extends RenderableLayer {
 
   constructor(
     model: Layer,
-    themeService: ThemeService,
     private _renderableLabels: Map<string, RenderableText>
   ) {
-    super(model, themeService);
+    super(model);
     this._texts = Array.from(this._renderableLabels.values());
     this._searchables = this.model.objects;
-    this.subscribeThemeChanged();
   }
 
   public get texts(): Array<RenderableText> {

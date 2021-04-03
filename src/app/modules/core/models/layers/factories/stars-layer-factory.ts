@@ -7,7 +7,6 @@ import { Stars } from '#core/models/layers/stars';
 import { Searchable } from '#core/models/searchable';
 import { SupportedLayers } from '#core/models/supported-layers';
 import { WorldConstants } from '#core/models/world-constants';
-import { ThemeService } from '#core/services/theme.service';
 import { extractProperName, extractStandardName, toGreekLetter } from '#core/utils/star-name-utils';
 import { toVector3 } from '#core/utils/vector-utils';
 
@@ -18,7 +17,6 @@ export class StarsLayerFactory implements LayerFactory {
   // TODO a single factory may be used to build different instances, the model arg should be passed into buildRenderableLayer
   constructor(
     private readonly _layerModel: Layer,
-    private readonly _themeService: ThemeService,
     private readonly _pointsFactory: PointsFactory
   ) {
 
@@ -33,7 +31,6 @@ export class StarsLayerFactory implements LayerFactory {
     const searchables = this.extractSearchables(this._layerModel.objects);
     return new Stars(
       this._layerModel,
-      this._themeService,
       magnitudeClass,
       stars,
       properNames,

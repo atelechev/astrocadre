@@ -39,11 +39,7 @@ describe('ConstellationNames', () => {
     );
     const labels = new Map<string, RenderableText>();
     labels.set(constMeta.code, label);
-    layer = new ConstellationNames(
-      model,
-      ctx.themeService,
-      labels
-    );
+    layer = new ConstellationNames(model, labels);
     ctx.themeService.theme = mockedTheme;
   }));
 
@@ -70,6 +66,7 @@ describe('ConstellationNames', () => {
   });
 
   it('style should be assigned to the texts', fakeAsync(() => {
+    layer.applyTheme(mockedTheme);
     tick();
     const text = layer.texts[0] as RenderableText;
     expect(text).toBeDefined();

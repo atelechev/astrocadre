@@ -9,7 +9,6 @@ import { Layer } from '#core/models/layer';
 import { RenderableLayer } from '#core/models/layers/renderable-layer';
 import { RenderableText } from '#core/models/layers/renderable-text';
 import { Searchable } from '#core/models/searchable';
-import { ThemeService } from '#core/services/theme.service';
 import { Theme } from '#core/models/theme';
 import { TextStyle } from '#core/models/text-style';
 import { environment } from '#environments/environment';
@@ -23,16 +22,14 @@ export class Stars extends RenderableLayer {
 
   constructor(
     model: Layer,
-    themeService: ThemeService,
     private readonly _magClass: number,
     private readonly _stars: Points,
     private readonly _properNames: Array<RenderableText>,
     private readonly _standardNames: Array<RenderableText>,
     private readonly _searchables: Array<Searchable>
   ) {
-    super(model, themeService);
+    super(model);
     this._textureLoader = new TextureLoader();
-    this.subscribeThemeChanged();
     this.showProperNames();
   }
 
