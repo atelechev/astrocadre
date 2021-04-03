@@ -1,6 +1,5 @@
 import { TestBed } from '@angular/core/testing';
 import { CameraService } from '#core/services/camera.service';
-import { EventsService } from '#core/services/events.service';
 import { MouseEventsHandler } from '#core/services/mouse-events-handler';
 import { ViewportService } from '#core/services/viewport.service';
 
@@ -14,7 +13,6 @@ describe('MouseEventsHandler', () => {
     TestBed.configureTestingModule({
       providers: [
         CameraService,
-        EventsService,
         MouseEventsHandler,
         ViewportService
       ]

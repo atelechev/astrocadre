@@ -13,9 +13,9 @@ import { RenderableText } from '#core/models/layers/renderable-text';
 import { ScreenCoordinate } from '#core/models/screen-coordinate';
 import { Theme } from '#core/models/theme';
 import { CameraService } from '#core/services/camera.service';
-import { EventsService } from '#core/services/events.service';
 import { ViewportService } from '#core/services/viewport.service';
 import { ThemeService } from '#core/services/theme.service';
+import { LayerService } from '#core/services/layer.service';
 
 @Injectable()
 export class SceneService {
@@ -35,10 +35,10 @@ export class SceneService {
   private _halfHeight: number;
 
   constructor(
-    private readonly _eventsService: EventsService, // TODO review the dependencies tree, it's too complex!
     private readonly _cameraService: CameraService,
     private readonly _viewportService: ViewportService,
-    private readonly _themeService: ThemeService
+    private readonly _themeService: ThemeService,
+    private readonly _layerService: LayerService
   ) {
     this._allObjects = new Set<Object3D>();
     this._allTextElements = new Set<RenderableText>();
@@ -49,6 +49,8 @@ export class SceneService {
     this.subscribeThemeChanged();
     this.subscribeLayerShown();
     this.subscribeLayerHidden();
+    this.subscribeTextsShown();
+    this.subscribeTextsHidden();
   }
 
   public get allObjectsCount(): number {
@@ -71,22 +73,36 @@ export class SceneService {
     }
   }
 
-  public showTexts(texts: Array<RenderableText>): void {
+  public render(): void {
+    this._renderer.render(this._scene, this.camera);
+  }
+
+  private subscribeTextsShown(): void {
+    this._layerService.textsShown
+      .subscribe(
+        (texts: Array<RenderableText>) => this.showTexts(texts)
+      );
+  }
+
+  private subscribeTextsHidden(): void {
+    this._layerService.textsHidden
+      .subscribe(
+        (texts: Array<RenderableText>) => this.hideTexts(texts)
+      );
+  }
+
+  private showTexts(texts: Array<RenderableText>): void {
     if (texts) {
       this.addTextElements(texts);
       this.showVisibleLabels();
     }
   }
 
-  public hideTexts(texts: Array<RenderableText>): void {
+  private hideTexts(texts: Array<RenderableText>): void {
     if (texts) {
       this.removeTextElements(texts);
       this.showVisibleLabels();
     }
-  }
-
-  public render(): void {
-    this._renderer.render(this._scene, this.camera);
   }
 
   private addObjects(objects: Object3D[]): void {
@@ -178,7 +194,7 @@ export class SceneService {
   }
 
   private subscribeLayerShown(): void {
-    this._eventsService
+    this._layerService
       .layerShown
       .subscribe(
         (layer: RenderableLayer) => {
@@ -189,7 +205,7 @@ export class SceneService {
   }
 
   private subscribeLayerHidden(): void {
-    this._eventsService
+    this._layerService
       .layerHidden
       .subscribe(
         (layer: RenderableLayer) => {

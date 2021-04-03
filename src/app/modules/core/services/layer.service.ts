@@ -1,16 +1,24 @@
 import { Injectable } from '@angular/core';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { Layer } from '#core/models/layer';
 import { RenderableLayer } from '#core/models/layers/renderable-layer';
 import { Stars } from '#core/models/layers/stars';
 import { SupportedLayers } from '#core/models/supported-layers';
-import { EventsService } from '#core/services/events.service';
 import { LayersFactoryService } from '#core/services/layers-factory.service';
-import { SceneService } from '#core/services/scene.service';
 import { ThemeService } from '#core/services/theme.service';
 import { Theme } from '#core/models/theme';
+import { RenderableText } from '#core/models/layers/renderable-text';
 
 @Injectable()
 export class LayerService {
+
+  private readonly _layerShown: BehaviorSubject<RenderableLayer>;
+
+  private readonly _layerHidden: BehaviorSubject<RenderableLayer>;
+
+  private readonly _textsShown: BehaviorSubject<Array<RenderableText>>;
+
+  private readonly _textsHidden: BehaviorSubject<Array<RenderableText>>;
 
   private _rootLayer: Layer;
 
@@ -21,15 +29,17 @@ export class LayerService {
   private readonly _shownLayers: Set<string>;
 
   constructor(
-    private readonly _eventsService: EventsService,
     private readonly _layersFactory: LayersFactoryService,
-    private readonly _sceneService: SceneService,
     private readonly _themeService: ThemeService
   ) {
     this._rootLayer = undefined;
     this._layerModels = new Map<string, Layer>();
     this._renderableLayers = new Map<string, RenderableLayer>();
     this._shownLayers = new Set<string>();
+    this._layerShown = new BehaviorSubject<RenderableLayer>(undefined);
+    this._layerHidden = new BehaviorSubject<RenderableLayer>(undefined);
+    this._textsShown = new BehaviorSubject<Array<RenderableText>>([]);
+    this._textsHidden = new BehaviorSubject<Array<RenderableText>>([]);
   }
 
   public get rootLayer(): Layer {
@@ -38,6 +48,22 @@ export class LayerService {
 
   public set rootLayer(layer: Layer) {
     this._rootLayer = layer;
+  }
+
+  public get layerShown(): Observable<RenderableLayer> {
+    return this._layerShown;
+  }
+
+  public get layerHidden(): Observable<RenderableLayer> {
+    return this._layerHidden;
+  }
+
+  public get textsShown(): Observable<Array<RenderableText>> {
+    return this._textsShown;
+  }
+
+  public get textsHidden(): Observable<Array<RenderableText>> {
+    return this._textsHidden;
   }
 
   public isShown(layer: string): boolean {
@@ -52,7 +78,7 @@ export class LayerService {
     this._shownLayers.add(layer);
     const renderable = this._renderableLayers.get(layer);
     if (renderable) {
-      this._eventsService.fireLayerShown(renderable);
+      this._layerShown.next(renderable);
     }
     this.processSubLayersVisibility(layer, true);
   }
@@ -61,7 +87,7 @@ export class LayerService {
     this._shownLayers.delete(layer);
     const renderable = this._renderableLayers.get(layer);
     if (renderable) {
-      this._eventsService.fireLayerHidden(renderable);
+      this._layerHidden.next(renderable);
     }
     this.processSubLayersVisibility(layer, false);
   }
@@ -83,7 +109,7 @@ export class LayerService {
       return;
     }
     layer.showTexts();
-    this._sceneService.showTexts(layer.texts);
+    this._textsShown.next(layer.texts);
     layer.model.subLayers?.forEach(
       (subLayer: Layer) => {
         const renderable = this.getRenderableLayer(subLayer.code);
@@ -97,7 +123,7 @@ export class LayerService {
       return;
     }
     layer.hideTexts();
-    this._sceneService.hideTexts(layer.texts);
+    this._textsHidden.next(layer.texts);
     layer.model.subLayers?.forEach(
       (subLayer: Layer) => {
         const renderable = this.getRenderableLayer(subLayer.code);

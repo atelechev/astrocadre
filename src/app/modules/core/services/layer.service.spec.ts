@@ -1,14 +1,17 @@
+import { skip } from 'rxjs/operators';
 import { Layer } from '#core/models/layer';
 import { RenderableLayer } from '#core/models/layers/renderable-layer';
 import { Stars } from '#core/models/layers/stars';
 import { LayerService } from '#core/services/layer.service';
 import { mockedLayers } from '#core/test-utils/mocked-layers.spec';
 import { TestContext } from '#core/test-utils/test-context.spec';
+import { RenderableText } from '#core/models/layers/renderable-text';
 
 
 describe('LayerService', () => {
 
   const stars = 'stars';
+  const starsMag2 = 'stars-mag2.0';
   const skyGrid = 'sky-grid';
   let service: LayerService;
 
@@ -24,6 +27,19 @@ describe('LayerService', () => {
     service.registerLayer(starsLayerModel.subLayers[0]);
     service.registerLayer(starsLayerModel.subLayers[1]);
     service.registerLayer(starsLayerModel.subLayers[2]);
+  };
+
+  const loadStarsLayer = (): void => {
+    const model = {
+      code: starsMag2,
+      label: 'Magnitude < 2.0',
+      loadFromUrl: true,
+      description: 'Stars of magnitude less or equal to 2.0',
+      objects: [
+        [37.95, 89.26, 2.0, 'Polaris', 'ALP UMI']
+      ]
+    };
+    service.registerLayer(model);
   };
 
   const loadSkyGridLayer = (): void => {
@@ -98,6 +114,27 @@ describe('LayerService', () => {
 
   });
 
+  describe('layerShown should', () => {
+
+    it('be defined when the service is initialized', () => {
+      expect(service.layerShown).toBeDefined();
+    });
+
+    it('propagate an event when a layer is shown', (done: DoneFn) => {
+      service.layerShown
+        .pipe(skip(1))
+        .subscribe(
+          (layer: RenderableLayer) => {
+            expect(layer).toBeDefined();
+            expect(layer.model.code).toEqual(skyGrid);
+            done();
+          }
+        );
+      loadSkyGridLayer();
+    });
+
+  });
+
   describe('showLayer should', () => {
 
     it('have no effect if the arg is falsy', () => {
@@ -109,7 +146,29 @@ describe('LayerService', () => {
       loadStarsLayers();
 
       service.showLayer(stars);
-      assertLayersShown([stars, 'stars-mag2.0', 'stars-mag2.5', 'stars-mag3.0']);
+      assertLayersShown([stars, starsMag2, 'stars-mag2.5', 'stars-mag3.0']);
+    });
+
+  });
+
+  describe('layerHidden should', () => {
+
+    it('be defined when the service is initialized', () => {
+      expect(service.layerHidden).toBeDefined();
+    });
+
+    it('propagate an event when a layer is shown', (done: DoneFn) => {
+      loadSkyGridLayer();
+      service.layerHidden
+        .pipe(skip(1))
+        .subscribe(
+          (layer: RenderableLayer) => {
+            expect(layer).toBeDefined();
+            expect(layer.model.code).toEqual(skyGrid);
+            done();
+          }
+        );
+      service.hideLayer(skyGrid);
     });
 
   });
@@ -125,7 +184,53 @@ describe('LayerService', () => {
       loadStarsLayers();
 
       service.hideLayer(stars);
-      assertLayersHidden([stars, 'stars-mag2.0', 'stars-mag2.5', 'stars-mag3.0']);
+      assertLayersHidden([stars, starsMag2, 'stars-mag2.5', 'stars-mag3.0']);
+    });
+
+  });
+
+  describe('textsShown should', () => {
+
+    it('be defined when the service is initialized', () => {
+      expect(service.textsShown).toBeDefined();
+    });
+
+    it('propagate an event when the texts of a layer are shown', (done: DoneFn) => {
+      loadStarsLayer();
+      service.textsShown
+        .pipe(skip(1))
+        .subscribe(
+          (texts: Array<RenderableText>) => {
+            expect(texts).toBeDefined();
+            expect(texts.length).toEqual(1);
+            done();
+          }
+        );
+      const layer = service.getRenderableLayer(starsMag2);
+      service.showTexts(layer);
+    });
+
+  });
+
+  describe('textsHidden should', () => {
+
+    it('be defined when the service is initialized', () => {
+      expect(service.textsHidden).toBeDefined();
+    });
+
+    it('propagate an event when the texts of a layer are hidden', (done: DoneFn) => {
+      loadStarsLayer();
+      service.textsHidden
+        .pipe(skip(1))
+        .subscribe(
+          (texts: Array<RenderableText>) => {
+            expect(texts).toBeDefined();
+            expect(texts.length).toEqual(1);
+            done();
+          }
+        );
+      const layer = service.getRenderableLayer(starsMag2);
+      service.hideTexts(layer);
     });
 
   });
@@ -133,7 +238,7 @@ describe('LayerService', () => {
   describe('showStarLayersDownToMagnitude should', () => {
 
     const assertAllLayersShown = (): void => {
-      assertLayersShown([skyGrid, stars, 'stars-mag2.0', 'stars-mag2.5', 'stars-mag3.0']);
+      assertLayersShown([skyGrid, stars, starsMag2, 'stars-mag2.5', 'stars-mag3.0']);
     };
 
     it('hide all the star layers of magnitude greater than the argument', () => {
@@ -142,7 +247,7 @@ describe('LayerService', () => {
 
       assertAllLayersShown();
       service.showStarLayersDownToMagnitude(2);
-      assertLayersShown([skyGrid, stars, 'stars-mag2.0']);
+      assertLayersShown([skyGrid, stars, starsMag2]);
       assertLayersHidden(['stars-mag2.5', 'stars-mag3.0']);
     });
 

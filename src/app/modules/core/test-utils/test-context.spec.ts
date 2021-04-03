@@ -14,7 +14,6 @@ import { PanelModule } from 'primeng/panel';
 import { SelectButtonModule } from 'primeng/selectbutton';
 import { SliderModule } from 'primeng/slider';
 import { CameraService } from '#core/services/camera.service';
-import { EventsService } from '#core/services/events.service';
 import { LayerService } from '#core/services/layer.service';
 import { LayersFactoryService } from '#core/services/layers-factory.service';
 import { SceneService } from '#core/services/scene.service';
@@ -48,7 +47,6 @@ export class TestContext {
 
   private readonly _providers: Array<any> = [
     CameraService,
-    EventsService,
     LayerService,
     LayersFactoryService,
     LoaderService,
@@ -83,10 +81,6 @@ export class TestContext {
 
   public get layersFactory(): LayersFactoryService {
     return TestBed.inject(LayersFactoryService);
-  }
-
-  public get eventsService(): EventsService {
-    return TestBed.inject(EventsService);
   }
 
   public get sceneService(): SceneService {

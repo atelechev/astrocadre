@@ -1,12 +1,8 @@
-import { TestBed } from '@angular/core/testing';
-import { TextOffsetPolicies } from '#core/models/layers/factories/text/text-offsets-policies';
-import { RenderableText } from '#core/models/layers/renderable-text';
+import { fakeAsync, tick } from '@angular/core/testing';
 import { Stars } from '#core/models/layers/stars';
-import { EventsService } from '#core/services/events.service';
 import { LayerService } from '#core/services/layer.service';
 import { SceneService } from '#core/services/scene.service';
 import { TestContext } from '#core/test-utils/test-context.spec';
-import { toVector3 } from '#core/utils/vector-utils';
 
 const starsModel = {
   code: 'stars-mag2.0',
@@ -43,41 +39,6 @@ describe('SceneService', () => {
     expect(service.allTextsCount).toEqual(0); // FIXME should be 1 ?
   });
 
-  describe('showTexts should', () => {
-
-    it('have no effect if the arg is falsy', () => {
-      expect(service.allTextsCount).toEqual(0);
-      service.showTexts(undefined);
-      expect(service.allTextsCount).toEqual(0);
-    });
-
-    it('should add the texts', () => {
-      const text = new RenderableText(toVector3(0, 0, 0), 'any', TextOffsetPolicies.CENTERED);
-      expect(service.allTextsCount).toEqual(0);
-      service.showTexts([text]);
-      expect(service.allTextsCount).toEqual(1);
-    });
-
-  });
-
-  describe('hideTexts should', () => {
-
-    it('have no effect if the arg is falsy', () => {
-      expect(service.allTextsCount).toEqual(0);
-      service.hideTexts(undefined);
-      expect(service.allTextsCount).toEqual(0);
-    });
-
-    it('should hide the texts', () => {
-      const text = new RenderableText(toVector3(0, 0, 0), 'any', TextOffsetPolicies.CENTERED);
-      service.showTexts([text]);
-      expect(service.allTextsCount).toEqual(1);
-      service.hideTexts([text]);
-      expect(service.allTextsCount).toEqual(0);
-    });
-
-  });
-
   it('should add all the objects and texts from a layer when it is shown', () => {
     const layer = layers.getRenderableLayer('stars-mag2.0') as Stars;
     expect(layer.objects.length).toEqual(1);
@@ -86,14 +47,15 @@ describe('SceneService', () => {
     expect(service.allTextsCount).toEqual(0); // FIXME should be 1 ?
   });
 
-  it('should remove all the objects and texts from a layer when it is hidden', () => {
+  it('should remove all the objects and texts from a layer when it is hidden', fakeAsync(() => {
     const layer = layers.getRenderableLayer('stars-mag2.0') as Stars;
-    const events = TestBed.inject(EventsService);
-    events.fireLayerHidden(layer);
+    layers.hideLayer(layer.model.code);
+    tick();
+
     expect(layer.objects.length).toEqual(1);
     expect(layer.texts.length).toEqual(1);
     expect(service.shownObjectsCount).toEqual(0);
     expect(service.allTextsCount).toEqual(0);
-  });
+  }));
 
 });

@@ -1,7 +1,6 @@
 import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { CameraService } from '#core/services/camera.service';
-import { EventsService } from '#core/services/events.service';
 import { LayerService } from '#core/services/layer.service';
 import { LayersFactoryService } from '#core/services/layers-factory.service';
 import { MouseEventsHandler } from '#core/services/mouse-events-handler';
@@ -18,7 +17,6 @@ import { LoaderService } from '#core/services/loader.service';
   ],
   providers: [
     CameraService,
-    EventsService,
     LayersFactoryService,
     LayerService,
     LoaderService,
