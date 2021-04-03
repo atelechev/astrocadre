@@ -6,7 +6,6 @@ import { SupportedLayers } from '#core/models/supported-layers';
 import { EventsService } from '#core/services/events.service';
 import { LayersFactoryService } from '#core/services/layers-factory.service';
 import { SceneService } from '#core/services/scene.service';
-import { SearchService } from '#core/services/search.service';
 import { ThemeService } from '#core/services/theme.service';
 import { Theme } from '#core/models/theme';
 
@@ -24,7 +23,6 @@ export class LayerService {
   constructor(
     private readonly _eventsService: EventsService,
     private readonly _layersFactory: LayersFactoryService,
-    private readonly _searchService: SearchService,
     private readonly _sceneService: SceneService,
     private readonly _themeService: ThemeService
   ) {
@@ -159,7 +157,6 @@ export class LayerService {
           (theme: Theme) => renderable.applyTheme(theme)
         );
       this._renderableLayers.set(layer.code, renderable);
-      this._searchService.registerSearchables(renderable.searchables);
     }
     return renderable;
   }

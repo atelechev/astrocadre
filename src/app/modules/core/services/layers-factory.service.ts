@@ -10,6 +10,7 @@ import { SkyGridLayerFactory } from '#core/models/layers/factories/sky-grid-laye
 import { StarsLayerFactory } from '#core/models/layers/factories/stars-layer-factory';
 import { RenderableLayer } from '#core/models/layers/renderable-layer';
 import { SupportedLayers } from '#core/models/supported-layers';
+import { SearchService } from '#core/services/search.service';
 
 
 @Injectable()
@@ -19,14 +20,16 @@ export class LayersFactoryService {
 
   private readonly _pointsFactory: PointsFactory;
 
-  constructor() {
+  constructor(private readonly _searchService: SearchService) {
     this._curvesFactory = new AxialCurvesFactory();
     this._pointsFactory = new PointsFactory();
   }
 
   public buildRenderableLayer(layer: Layer): RenderableLayer {
     const factory = this.getLayerFactory(layer);
-    return factory?.buildRenderableLayer();
+    const renderable = factory?.buildRenderableLayer();
+    this._searchService.registerSearchables(renderable?.searchables);
+    return renderable;
   }
 
   private getLayerFactory(layer: Layer): LayerFactory {

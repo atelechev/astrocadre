@@ -1,13 +1,8 @@
-import { HttpClientModule } from '@angular/common/http';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
 import { Layer } from '#core/models/layer';
-import { EventsService } from '#core/services/events.service';
 import { LayersFactoryService } from '#core/services/layers-factory.service';
-import { StaticDataService } from '#core/services/static-data.service';
-import { ThemeService } from '#core/services/theme.service';
-import { MockStaticDataService } from '#core/test-utils/mock-static-data-service.spec';
 import { mockedLayers } from '#core/test-utils/mocked-layers.spec';
+import { SearchService } from '#core/services/search.service';
 
 
 describe('LayersFactoryService', () => {
@@ -16,69 +11,78 @@ describe('LayersFactoryService', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [
-        HttpClientModule,
-        HttpClientTestingModule
-      ],
       providers: [
-        EventsService,
         LayersFactoryService,
-        {
-          provide: StaticDataService,
-          useClass: MockStaticDataService
-        },
-        ThemeService
+        SearchService
       ]
     });
     service = TestBed.inject(LayersFactoryService);
   });
 
-  describe('buildRenderableLayer should return', () => {
+  describe('buildRenderableLayer should', () => {
 
-    describe('undefined', () => {
+    describe('return', () => {
 
-      it('if the arg is falsy', () => {
-        expect(service.buildRenderableLayer(undefined)).toBeUndefined();
+      describe('undefined', () => {
+
+        it('if the arg is falsy', () => {
+          expect(service.buildRenderableLayer(undefined)).toBeUndefined();
+        });
+
+        it('if the layer code is unsupported', () => {
+          const layer: Layer = {
+            code: 'wrong',
+            label: 'Wrong',
+            loadFromUrl: false,
+            objects: []
+          };
+          expect(service.buildRenderableLayer(layer)).toBeUndefined();
+        });
+
+        it('for the root layer', () => {
+          expect(service.buildRenderableLayer(mockedLayers)).toBeUndefined();
+        });
+
       });
 
-      it('if the layer code is unsupported', () => {
+      it('expected renderable layer for valid arg', () => {
         const layer: Layer = {
-          code: 'wrong',
-          label: 'Wrong',
+          code: 'sky-grid',
+          label: 'Coordinates grid',
           loadFromUrl: false,
           objects: []
         };
-        expect(service.buildRenderableLayer(layer)).toBeUndefined();
+        const renderable = service.buildRenderableLayer(layer);
+        expect(renderable).toBeDefined();
+        expect(renderable.model).toEqual(layer);
       });
 
-      it('for the root layer', () => {
-        expect(service.buildRenderableLayer(mockedLayers)).toBeUndefined();
+      it('expected renderable layer for a sub-layer of stars', () => {
+        const layer: Layer = {
+          code: 'stars-mag2.0',
+          label: 'Magnitude < 2.0',
+          loadFromUrl: false,
+          objects: []
+        };
+        const renderable = service.buildRenderableLayer(layer);
+        expect(renderable).toBeDefined();
+        expect(renderable.model).toEqual(layer);
       });
 
     });
 
-    it('expected renderable layer for valid arg', () => {
-      const layer: Layer = {
-        code: 'sky-grid',
-        label: 'Coordinates grid',
-        loadFromUrl: false,
-        objects: []
-      };
-      const renderable = service.buildRenderableLayer(layer);
-      expect(renderable).toBeDefined();
-      expect(renderable.model).toEqual(layer);
-    });
+    it('register searchable items in the SearchService', () => {
+      const searchService = TestBed.inject(SearchService);
+      expect(searchService.searchablesCount).toEqual(0);
 
-    it('expected renderable layer for a sub-layer of stars', () => {
       const layer: Layer = {
         code: 'stars-mag2.0',
         label: 'Magnitude < 2.0',
         loadFromUrl: false,
-        objects: []
+        objects: [[37.95, 89.26, 2.0, 'Polaris', 'ALP UMI']]
       };
-      const renderable = service.buildRenderableLayer(layer);
-      expect(renderable).toBeDefined();
-      expect(renderable.model).toEqual(layer);
+      service.buildRenderableLayer(layer);
+      expect(searchService.searchablesCount).toEqual(2);
     });
 
   });

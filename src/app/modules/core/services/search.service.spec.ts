@@ -10,10 +10,7 @@ describe('SearchService', () => {
 
   let service: SearchService;
 
-  beforeEach(() => {
-    service = new SearchService();
-    service.registerSearchables(searchableData);
-  });
+  beforeEach(() => service = new SearchService());
 
   const coords = (ra: number, dec: number): SkyCoordinate => ({
     rightAscension: ra,
@@ -27,6 +24,8 @@ describe('SearchService', () => {
   };
 
   describe('search should return', () => {
+
+    beforeEach(() => service.registerSearchables(searchableData));
 
     describe('undefined', () => {
 
@@ -81,8 +80,22 @@ describe('SearchService', () => {
   });
 
   it('getRandomLocationName should return expected data', () => {
+    service.registerSearchables(searchableData);
     // since there is only one entry in the mocked random data, it is the only entry that can be randomized :)
     expect(service.getRandomLocationName()).toEqual('Andromeda');
+  });
+
+  describe('searchablesCount should return', () => {
+
+    it('0 when there are no searchables registered', () => {
+      expect(service.searchablesCount).toEqual(0);
+    });
+
+    it('the expected number of registered items', () => {
+      service.registerSearchables(searchableData);
+      expect(service.searchablesCount).toEqual(3);
+    });
+
   });
 
 });

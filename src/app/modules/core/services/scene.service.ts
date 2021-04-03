@@ -154,7 +154,7 @@ export class SceneService {
   private render(): void {
     const animate = () => {
       requestAnimationFrame(animate);
-      this._renderer.render(this._scene, this._cameraService.camera);
+      this._renderer.render(this._scene, this.camera);
     };
     animate();
   }

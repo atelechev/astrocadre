@@ -25,6 +25,10 @@ export class SearchService {
     this._searchReady = new BehaviorSubject<boolean>(false);
   }
 
+  public get searchablesCount(): number {
+    return this._searchables.size;
+  }
+
   /**
    * Returns the SkyCoordinate that corresponds to the specified search query.
    *

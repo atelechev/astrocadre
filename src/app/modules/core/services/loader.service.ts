@@ -12,7 +12,7 @@ export class LoaderService {
   constructor(
     private readonly _dataService: StaticDataService,
     private readonly _themeService: ThemeService,
-    private readonly _layersService: LayerService
+    private readonly _layerService: LayerService
   ) {
     // nothing
   }
@@ -58,7 +58,7 @@ export class LoaderService {
       .toPromise()
       .then(
         (root: Layer) => {
-          this._layersService.rootLayer = root;
+          this._layerService.rootLayer = root;
           this.processLoadedLayer(root);
         },
         (err: any) => console.error(err)
@@ -80,12 +80,12 @@ export class LoaderService {
         .then(
           (objs: Array<any>) => {
             layer.objects = objs || [];
-            this._layersService.registerLayer(layer);
+            this._layerService.registerLayer(layer);
           },
           (err: any) => console.error(err)
         );
     } else {
-      this._layersService.registerLayer(layer);
+      this._layerService.registerLayer(layer);
     }
   }
 
