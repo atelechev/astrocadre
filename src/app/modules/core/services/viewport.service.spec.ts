@@ -1,8 +1,10 @@
 import { TestBed } from '@angular/core/testing';
-import { skip } from 'rxjs/operators';
+import { skip, take } from 'rxjs/operators';
 import { ScreenCoordinate } from '#core/models/screen/screen-coordinate';
 import { ViewportService } from '#core/services/viewport.service';
 import { Dimension } from '#core/models/screen/dimension';
+import { ViewportEvent } from '#core/models/event/viewport-event';
+import { ViewportSizeChangeEvent } from '#core/models/event/viewport-size-change-event';
 
 
 describe('ViewportService', () => {
@@ -118,21 +120,6 @@ describe('ViewportService', () => {
 
       });
 
-      it('trigger a ViewportChanged event if the value was changed', () => {
-        spyOn(service, 'fireViewportChanged');
-        service.size = {
-          width: 200,
-          height: 10
-        };
-        expect(service.fireViewportChanged).toHaveBeenCalledTimes(1);
-      });
-
-      it('not trigger a ViewportChanged event if the value was not changed', () => {
-        spyOn(service, 'fireViewportChanged');
-        service.size = defaultSize;
-        expect(service.fireViewportChanged).toHaveBeenCalledTimes(0);
-      });
-
     });
 
   });
@@ -147,10 +134,7 @@ describe('ViewportService', () => {
 
   describe('isInBounds should return', () => {
 
-    const coordinates = (x: number, y: number): ScreenCoordinate => ({
-      x,
-      y
-    });
+    const coordinates = (x: number, y: number): ScreenCoordinate => ({ x, y });
 
     describe('false', () => {
 
@@ -182,26 +166,32 @@ describe('ViewportService', () => {
 
   });
 
-  describe('viewportChanged', () => {
+  describe('viewportEvents', () => {
 
-    it('should be defined', () => {
-      expect(service.viewportChanged).toBeDefined();
+    it('should emit the expected initial event', (done: DoneFn) => {
+      service.events.subscribe(
+        (event: ViewportEvent<any>) => {
+          expect(event.key).toEqual(ViewportSizeChangeEvent.KEY);
+          expect(event.data).toEqual(defaultSize);
+          done();
+        }
+      );
     });
 
-    it('should be fired with fireViewportChanged', (done: DoneFn) => {
+    it('should be fired when the size changes', (done: DoneFn) => {
       const dimension: Dimension = {
         width: 1,
         height: 2
       };
-      service.viewportChanged.pipe(
-        skip(1) // skip the initial undefined
+      service.events.pipe(
+        skip(1) // skip the initial event
       ).subscribe(
-        (dim: Dimension) => {
-          expect(dim).toEqual(dimension);
+        (event: ViewportEvent<any>) => {
+          expect(event.data).toEqual(dimension);
           done();
         }
       );
-      service.fireViewportChanged(dimension);
+      service.size = dimension;
     });
 
   });

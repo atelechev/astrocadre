@@ -3,12 +3,14 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { Theme } from '#core/models/theme/theme';
 import { ThemeMeta } from '#core/models/theme/theme-meta';
 import { themeDefault } from '#core/models/theme/theme-default';
+import { ThemeEvent } from '#core/models/event/theme-event';
+import { ThemeChangedEvent } from '#core/models/event/theme-changed-event';
 
 
 @Injectable()
 export class ThemeService {
 
-  private readonly _themeChanged: BehaviorSubject<Theme>;
+  private readonly _events: BehaviorSubject<ThemeEvent<any>>;
 
   private _availableThemes: Array<ThemeMeta>;
 
@@ -16,7 +18,7 @@ export class ThemeService {
 
   constructor() {
     this._theme = themeDefault;
-    this._themeChanged = new BehaviorSubject<Theme>(themeDefault);
+    this._events = new BehaviorSubject<ThemeEvent<any>>(new ThemeChangedEvent(themeDefault));
     this._availableThemes = [];
   }
 
@@ -37,12 +39,12 @@ export class ThemeService {
     const previous = this._theme;
     if (previous !== useTheme) {
       this._theme = useTheme;
-      this._themeChanged.next(useTheme);
+      this._events.next(new ThemeChangedEvent(useTheme));
     }
   }
 
-  public get themeChanged(): Observable<Theme> {
-    return this._themeChanged;
+  public get events(): Observable<ThemeEvent<any>> {
+    return this._events;
   }
 
 }

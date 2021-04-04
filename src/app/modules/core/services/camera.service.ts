@@ -54,7 +54,7 @@ export class CameraService {
       this.camera.rotateX(rotation.rx);
       this.camera.rotateY(rotation.ry);
       this.camera.rotateZ(rotation.rz);
-      this._viewportService.fireViewportChanged();
+      this._viewportService.fireViewportViewChanged('rotate');
     }
   }
 
@@ -62,14 +62,14 @@ export class CameraService {
     const viewCenter = this.getViewCenterCoordinates();
     this.camera.up = this.getAlignmentPoleCoordinate(viewCenter.z);
     this.camera.lookAt(viewCenter);
-    this._viewportService.fireViewportChanged();
+    this._viewportService.fireViewportViewChanged('alignNSAxis');
   }
 
   public setFoV(range: number): void {
     if (range && range > 0) {
       this.camera.fov = range;
       this.camera.updateProjectionMatrix();
-      this._viewportService.fireViewportChanged();
+      this._viewportService.fireViewportViewChanged('setFoV');
     }
   }
 
@@ -78,7 +78,7 @@ export class CameraService {
       this.camera.up = this.getAlignmentPoleCoordinate(coords.declination);
       this.camera.lookAt(toVector3(coords.rightAscension, coords.declination, WorldConstants.WORLD_RADIUS));
       this.camera.updateMatrixWorld(true);
-      this._viewportService.fireViewportChanged();
+      this._viewportService.fireViewportViewChanged('centerView');
     }
   }
 

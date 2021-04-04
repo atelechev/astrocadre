@@ -2,11 +2,14 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { Dimension } from '#core/models/screen/dimension';
 import { ScreenCoordinate } from '#core/models/screen/screen-coordinate';
+import { ViewportEvent } from '#core/models/event/viewport-event';
+import { ViewportSizeChangeEvent } from '#core/models/event/viewport-size-change-event';
+import { ViewportViewChangeEvent } from '#core/models/event/viewport-view-change-event';
 
 @Injectable()
 export class ViewportService {
 
-  private readonly _viewportChanged: BehaviorSubject<Dimension>;
+  private readonly _events: BehaviorSubject<ViewportEvent<any>>;
 
   private readonly _maxSettableSize = 16384;
 
@@ -19,7 +22,7 @@ export class ViewportService {
   private _width: number;
 
   constructor() {
-    this._viewportChanged = new BehaviorSubject<Dimension>(undefined);
+    this._events = new BehaviorSubject<ViewportEvent<any>>(ViewportEvent.INITIAL);
     this._defaultHeight = window.screen.height;
     this._defaultWidth = window.screen.width;
     this.size = {
@@ -49,7 +52,7 @@ export class ViewportService {
     this._height = this.isSizeInRange(size?.height) ? Math.floor(size.height) : this._defaultHeight;
     this._width = this.isSizeInRange(size?.width) ? Math.floor(size.width) : this._defaultWidth;
     if (this._height !== previousHeight || this._width !== previousWidth) {
-      this.fireViewportChanged(this.size);
+      this.fireViewportSizeChanged(this.size);
     }
   }
 
@@ -97,12 +100,16 @@ export class ViewportService {
       coordinate.y < this._height;
   }
 
-  public fireViewportChanged(size?: Dimension) {
-    this._viewportChanged.next(size);
+  public get events(): Observable<ViewportEvent<any>> {
+    return this._events;
   }
 
-  public get viewportChanged(): Observable<Dimension> {
-    return this._viewportChanged;
+  public fireViewportViewChanged(change: string) {
+    this._events.next(new ViewportViewChangeEvent(change));
+  }
+
+  private fireViewportSizeChanged(size: Dimension) {
+    this._events.next(new ViewportSizeChangeEvent(size));
   }
 
   private isSizeInRange(value: number): boolean {

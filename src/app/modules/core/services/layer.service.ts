@@ -1,10 +1,9 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
 import { Layer } from '#core/models/layers/layer';
 import { RenderableLayer } from '#core/models/layers/renderable-layer';
 import { LayersFactoryService } from '#core/services/layers-factory.service';
 import { ThemeService } from '#core/services/theme.service';
-import { Theme } from '#core/models/theme/theme';
+import { ThemeEvent } from '#core/models/event/theme-event';
 
 @Injectable()
 export class LayerService {
@@ -51,9 +50,9 @@ export class LayerService {
   private buildRenderable(layer: Layer): RenderableLayer {
     const renderable = this._layersFactory.buildRenderableLayer(layer);
     if (renderable) {
-      this._themeService.themeChanged
+      this._themeService.events
         .subscribe(
-          (theme: Theme) => renderable.applyTheme(theme)
+          (event: ThemeEvent<any>) => renderable.applyTheme(event.data)
         );
       this._renderableLayers.set(layer.code, renderable);
     }

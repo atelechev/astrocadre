@@ -1,12 +1,16 @@
 import { TestBed } from '@angular/core/testing';
+import { skip } from 'rxjs/operators';
 import { Vector3 } from 'three';
 import { CameraService } from '#core/services/camera.service';
 import { ViewportService } from '#core/services/viewport.service';
+import { ViewportEvent } from '#core/models/event/viewport-event';
+import { ViewportViewChangeEvent } from '#core/models/event/viewport-view-change-event';
 
 
 describe('CameraService', () => {
 
   let service: CameraService;
+  let viewportService: ViewportService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -16,6 +20,7 @@ describe('CameraService', () => {
       ]
     });
     service = TestBed.inject(CameraService);
+    viewportService = TestBed.inject(ViewportService);
   });
 
   const assertExpectedRotation = (rx: number, ry: number, rz: number) => {
@@ -38,6 +43,18 @@ describe('CameraService', () => {
     expect(checked.z).toBeCloseTo(expected.z, precision);
   };
 
+  const assertViewportViewChangedEventFired = (expectData: string, skipEvents: number, done: DoneFn): void => {
+    viewportService.events
+      .pipe(skip(skipEvents))
+      .subscribe(
+        (event: ViewportEvent<any>) => {
+          expect(event.key).toEqual(ViewportViewChangeEvent.KEY);
+          expect(event.data).toEqual(expectData);
+          done();
+        }
+      );
+  };
+
   it('camera should return defined camera with expected origin and rotation', () => {
     const camera = service.camera;
     expect(camera).toBeDefined();
@@ -47,25 +64,29 @@ describe('CameraService', () => {
     assertExpectedRotation(0, 0, 0);
   });
 
-  it('centerView should set the view centered to expected angles', () => {
+  it('centerView should set the view centered to expected angles and emit an expected event', (done: DoneFn) => {
+    assertViewportViewChangedEventFired('centerView', 1, done);
     assertExpectedRotation(0, 0, 0);
     service.centerView({ rightAscension: 10, declination: 25 });
     assertExpectedRotation(2.785, -1.102, 1.175);
   });
 
-  it('rotate should rotate the camera to requested angles', () => {
+  it('rotate should rotate the camera to requested angles and emit an expected event', (done: DoneFn) => {
+    assertViewportViewChangedEventFired('rotate', 1, done);
     assertExpectedRotation(0, 0, 0);
     service.rotate({ rx: 0.1, ry: 0.1, rz: 0.1 });
     assertExpectedRotation(0.1, 0.1, 0.1);
   });
 
-  it('setFoV should set the expected field of view', () => {
+  it('setFoV should set the expected field of view and emit an expected event', (done: DoneFn) => {
+    assertViewportViewChangedEventFired('setFoV', 1, done);
     assertExpectedFov(30);
     service.setFoV(50);
     assertExpectedFov(50);
   });
 
-  it('alignNSAxis should set the view centered to expected angles', () => {
+  it('alignNSAxis should set the view centered to expected angles and emit an expected event', (done: DoneFn) => {
+    assertViewportViewChangedEventFired('alignNSAxis', 2, done);
     assertExpectedRotation(0, 0, 0);
     service.centerView({ rightAscension: 10, declination: 25 });
     service.alignNSAxis();

@@ -17,6 +17,9 @@ import { ViewportService } from '#core/services/viewport.service';
 import { ThemeService } from '#core/services/theme.service';
 import { LayersVisibilityManagerService } from '#core/services/visibility/layers-visibility-manager.service';
 import { TextsVisibilityManagerService } from '#core/services/visibility/texts-visibility-manager.service';
+import { ViewportEvent } from '#core/models/event/viewport-event';
+import { ViewportSizeChangeEvent } from '#core/models/event/viewport-size-change-event';
+import { ThemeEvent } from '#core/models/event/theme-event';
 
 @Injectable()
 export class SceneService {
@@ -47,7 +50,7 @@ export class SceneService {
     this._viewportRootElement = undefined;
     this._scene = new Scene();
     this._renderer = new WebGLRenderer();
-    this.subscribeViewportChanged();
+    this.subscribeViewportEvents();
     this.subscribeThemeChanged();
     this.subscribeLayerShown();
     this.subscribeLayerHidden();
@@ -167,18 +170,22 @@ export class SceneService {
     return !!text && this._allTextElements.has(text);
   }
 
-  private subscribeViewportChanged(): void {
-    this._viewportService
-      .viewportChanged
+  private subscribeViewportEvents(): void {
+    this._viewportService.events
       .subscribe(
-        (size: Dimension) => {
-          const useSize = size || this._viewportService.size;
-          this.updateCanvasSize(useSize);
-          this._halfWidth = useSize.width / 2;
-          this._halfHeight = useSize.height / 2;
-          this.showVisibleLabels();
+        (event: ViewportEvent<any>) => {
+          const useSize = event.key === ViewportSizeChangeEvent.KEY ?
+            (event as ViewportSizeChangeEvent).data : this._viewportService.size;
+          this.processViewportSizeChange(useSize);
         }
       );
+  }
+
+  private processViewportSizeChange(size: Dimension): void {
+    this.updateCanvasSize(size);
+    this._halfWidth = size.width / 2;
+    this._halfHeight = size.height / 2;
+    this.showVisibleLabels();
   }
 
   private updateCanvasSize(size: Dimension): void {
@@ -188,10 +195,9 @@ export class SceneService {
   }
 
   private subscribeThemeChanged(): void {
-    this._themeService
-      .themeChanged
+    this._themeService.events
       .subscribe(
-        (theme: Theme) => this.updateSceneBackground(theme)
+        (event: ThemeEvent<any>) => this.updateSceneBackGround(event.data)
       );
   }
 
@@ -217,7 +223,7 @@ export class SceneService {
       );
   }
 
-  private updateSceneBackground(theme: Theme): void {
+  private updateSceneBackGround(theme: Theme): void {
     if (theme) {
       this._scene.background = new Color(theme.background.color);
     }

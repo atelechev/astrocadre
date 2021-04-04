@@ -3,8 +3,8 @@ import { BehaviorSubject } from 'rxjs';
 import { skip } from 'rxjs/operators';
 import { ThemeService } from '#core/services/theme.service';
 import { mockedTheme } from '#core/test-utils/mocked-theme.spec';
-import { Theme } from '#core/models/theme/theme';
 import { themeDefault } from '#core/models/theme/theme-default';
+import { ThemeEvent } from '#core/models/event/theme-event';
 
 describe('ThemeService', () => {
 
@@ -39,14 +39,14 @@ describe('ThemeService', () => {
   describe('themeChanged should', () => {
 
     it('be defined by default', () => {
-      expect(service.themeChanged).toBeDefined();
+      expect(service.events).toBeDefined();
     });
 
     it('propagate the default theme as initial event', (done: DoneFn) => {
-      service.themeChanged
+      service.events
         .subscribe(
-          (theme: Theme) => {
-            expect(theme).toEqual(themeDefault);
+          (event: ThemeEvent<any>) => {
+            expect(event.data).toEqual(themeDefault);
             done();
           }
         );
@@ -66,11 +66,11 @@ describe('ThemeService', () => {
         expect(service.theme).toEqual(themeDefault);
         const newTheme = mockedTheme;
 
-        service.themeChanged
+        service.events
           .pipe(skip(1))
           .subscribe(
-            (theme: Theme) => {
-              expect(theme).toEqual(newTheme);
+            (event: ThemeEvent<any>) => {
+              expect(event.data).toEqual(newTheme);
               done();
             }
           );
@@ -80,7 +80,7 @@ describe('ThemeService', () => {
 
       it('have no effect if the new value is the same as previous', () => {
         expect(service.theme).toEqual(themeDefault);
-        const subject = service.themeChanged as BehaviorSubject<Theme>;
+        const subject = service.events as BehaviorSubject<ThemeEvent<any>>;
         spyOn(subject, 'next');
 
         service.theme = themeDefault;
