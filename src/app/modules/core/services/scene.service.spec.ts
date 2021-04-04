@@ -3,6 +3,7 @@ import { Stars } from '#core/models/layers/stars';
 import { LayerService } from '#core/services/layer.service';
 import { SceneService } from '#core/services/scene.service';
 import { TestContext } from '#core/test-utils/test-context.spec';
+import { LayersVisibilityManagerService } from '#core/services/layers-visibility-manager.service';
 
 const starsModel = {
   code: 'stars-mag2.0',
@@ -18,11 +19,14 @@ describe('SceneService', () => {
 
   let service: SceneService;
   let layers: LayerService;
+  let visibilityManager: LayersVisibilityManagerService;
 
   beforeEach(() => {
     const ctx = new TestContext().configure();
     layers = ctx.layerService;
     layers.registerLayer(starsModel);
+    visibilityManager = ctx.getService(LayersVisibilityManagerService);
+    visibilityManager.showLayer(starsModel.code);
     service = ctx.sceneService;
     service.setViewportRootElement(document.createElement('div'));
   });
@@ -49,7 +53,7 @@ describe('SceneService', () => {
 
   it('should remove all the objects and texts from a layer when it is hidden', fakeAsync(() => {
     const layer = layers.getRenderableLayer('stars-mag2.0') as Stars;
-    layers.hideLayer(layer.code);
+    visibilityManager.hideLayer(layer.code);
     tick();
 
     expect(layer.objects.length).toEqual(1);

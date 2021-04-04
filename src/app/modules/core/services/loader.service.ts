@@ -5,6 +5,7 @@ import { ThemeService } from '#core/services/theme.service';
 import { Theme } from '#core/models/theme';
 import { LayerService } from '#core/services/layer.service';
 import { Layer } from '#core/models/layer';
+import { LayersVisibilityManagerService } from '#core/services/layers-visibility-manager.service';
 
 @Injectable()
 export class LoaderService {
@@ -12,7 +13,8 @@ export class LoaderService {
   constructor(
     private readonly _dataService: StaticDataService,
     private readonly _themeService: ThemeService,
-    private readonly _layerService: LayerService
+    private readonly _layerService: LayerService,
+    private readonly _visibilityManager: LayersVisibilityManagerService
   ) {
     // nothing
   }
@@ -78,15 +80,20 @@ export class LoaderService {
         .getDataJson(layer.code)
         .toPromise()
         .then(
-          (objs: Array<any>) => {
+          (objs: Array<Layer>) => {
             layer.objects = objs || [];
-            this._layerService.registerLayer(layer);
+            this.registerAndShow(layer);
           },
           (err: any) => console.error(err)
         );
     } else {
-      this._layerService.registerLayer(layer);
+      this.registerAndShow(layer);
     }
+  }
+
+  private registerAndShow(layer: Layer): void {
+    this._layerService.registerLayer(layer);
+    this._visibilityManager.showLayer(layer?.code);
   }
 
 }

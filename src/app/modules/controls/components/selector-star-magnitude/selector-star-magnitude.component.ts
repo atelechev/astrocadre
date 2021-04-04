@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { SupportedLayers } from '#core/models/supported-layers';
-import { LayerService } from '#core/services/layer.service';
+import { LayersVisibilityManagerService } from '#core/services/layers-visibility-manager.service';
+import { StarsVisibilityManagerService } from '#core/services/stars-visibility-manager.service';
 
 
 @Component({
@@ -11,12 +12,15 @@ export class SelectorStarMagnitudeComponent {
 
   private _shownMagnitudeDownTo: number;
 
-  constructor(private readonly _layerService: LayerService) {
+  constructor(
+    private readonly _layersVisibilityManager: LayersVisibilityManagerService,
+    private readonly _starsVisibilityManager: StarsVisibilityManagerService
+  ) {
     this._shownMagnitudeDownTo = 6;
   }
 
   public get isDisabled(): boolean {
-    return !this._layerService.isShown(SupportedLayers.STARS);
+    return !this._layersVisibilityManager.isShown(SupportedLayers.STARS);
   }
 
   public get shownMagnitudeDownTo(): number {
@@ -26,7 +30,7 @@ export class SelectorStarMagnitudeComponent {
   public set shownMagnitudeDownTo(mg: number) {
     if (mg && mg !== this._shownMagnitudeDownTo) {
       this._shownMagnitudeDownTo = mg;
-      this._layerService.showStarLayersDownToMagnitude(this._shownMagnitudeDownTo);
+      this._starsVisibilityManager.showStarLayersDownToMagnitude(this._shownMagnitudeDownTo);
     }
   }
 

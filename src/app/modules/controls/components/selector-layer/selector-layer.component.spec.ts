@@ -1,12 +1,12 @@
-import { LayerService } from '#core/services/layer.service';
 import { mockedLayers } from '#core/test-utils/mocked-layers.spec';
 import { TestContext } from '#core/test-utils/test-context.spec';
 import { SelectorLayerComponent } from '#controls/components/selector-layer/selector-layer.component';
+import { LayersVisibilityManagerService } from '#core/services/layers-visibility-manager.service';
 
 describe('SelectorLayerComponent', () => {
 
   let ctx: TestContext;
-  let layersService: LayerService;
+  let visibilityManager: LayersVisibilityManagerService;
   let component: SelectorLayerComponent;
   const modelStars = mockedLayers.subLayers[1];
   const modelStars3 = modelStars.subLayers[2];
@@ -16,7 +16,8 @@ describe('SelectorLayerComponent', () => {
       .withUIImports()
       .forComponent(SelectorLayerComponent)
       .configure();
-    layersService = ctx.layerService;
+    visibilityManager = ctx.getService(LayersVisibilityManagerService);
+    ctx.layerService.registerLayer(modelStars3);
     component = ctx.getComponent(SelectorLayerComponent);
     component.layer = modelStars3;
   });
@@ -27,12 +28,12 @@ describe('SelectorLayerComponent', () => {
     describe('get should return', () => {
 
       it('true if the layer is shown', () => {
-        layersService.showLayer(modelStars3.code);
+        visibilityManager.showLayer(modelStars3.code);
         expect(component.isShown).toBeTrue();
       });
 
       it('false if the layer is not shown', () => {
-        layersService.hideLayer(modelStars3.code);
+        visibilityManager.hideLayer(modelStars3.code);
         expect(component.isShown).toBeFalse();
       });
 
@@ -41,17 +42,17 @@ describe('SelectorLayerComponent', () => {
     describe('set should', () => {
 
       it('show the layer if arg is true', () => {
-        layersService.hideLayer(modelStars3.code);
-        expect(layersService.isShown(modelStars3.code)).toBeFalse();
+        visibilityManager.hideLayer(modelStars3.code);
+        expect(visibilityManager.isShown(modelStars3.code)).toBeFalse();
         component.isShown = true;
-        expect(layersService.isShown(modelStars3.code)).toBeTrue();
+        expect(visibilityManager.isShown(modelStars3.code)).toBeTrue();
       });
 
       it('hide the layer if arg is false', () => {
-        layersService.showLayer(modelStars3.code);
-        expect(layersService.isShown(modelStars3.code)).toBeTrue();
+        visibilityManager.showLayer(modelStars3.code);
+        expect(visibilityManager.isShown(modelStars3.code)).toBeTrue();
         component.isShown = false;
-        expect(layersService.isShown(modelStars3.code)).toBeFalse();
+        expect(visibilityManager.isShown(modelStars3.code)).toBeFalse();
       });
 
     });

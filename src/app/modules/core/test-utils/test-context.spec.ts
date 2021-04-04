@@ -24,6 +24,9 @@ import { ViewportService } from '#core/services/viewport.service';
 import { MockStaticDataService } from '#core/test-utils/mock-static-data-service.spec';
 import { ControlsModule } from '#controls/controls.module';
 import { LoaderService } from '#core/services/loader.service';
+import { LayersVisibilityManagerService } from '#core/services/layers-visibility-manager.service';
+import { StarsVisibilityManagerService } from '#core/services/stars-visibility-manager.service';
+import { TextsVisibilityManagerService } from '#core/services/texts-visibility-manager.service';
 
 export class TestContext {
 
@@ -49,6 +52,7 @@ export class TestContext {
     CameraService,
     LayerService,
     LayersFactoryService,
+    LayersVisibilityManagerService,
     LoaderService,
     {
       provide: StaticDataService,
@@ -56,6 +60,8 @@ export class TestContext {
     },
     SceneService,
     SearchService,
+    StarsVisibilityManagerService,
+    TextsVisibilityManagerService,
     ThemeService,
     ViewportService
   ];

@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { Layer } from '#core/models/layer';
 import { SupportedLayers } from '#core/models/supported-layers';
-import { LayerService } from '#core/services/layer.service';
+import { LayersVisibilityManagerService } from '#core/services/layers-visibility-manager.service';
 
 
 @Component({
@@ -12,7 +12,7 @@ export class SelectorLayerComponent {
 
   private _layer: Layer;
 
-  constructor(private readonly _layerService: LayerService) {
+  constructor(private readonly _visibilityManager: LayersVisibilityManagerService) {
 
   }
 
@@ -26,14 +26,14 @@ export class SelectorLayerComponent {
   }
 
   public get isShown(): boolean {
-    return this._layerService.isShown(this._layer.code);
+    return this._visibilityManager.isShown(this._layer.code);
   }
 
   public set isShown(show: boolean) {
     if (show) {
-      this._layerService.showLayer(this._layer.code);
+      this._visibilityManager.showLayer(this._layer.code);
     } else {
-      this._layerService.hideLayer(this._layer.code);
+      this._visibilityManager.hideLayer(this._layer.code);
     }
   }
 

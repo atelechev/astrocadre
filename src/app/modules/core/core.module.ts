@@ -10,6 +10,9 @@ import { StaticDataService } from '#core/services/static-data.service';
 import { ThemeService } from '#core/services/theme.service';
 import { ViewportService } from '#core/services/viewport.service';
 import { LoaderService } from '#core/services/loader.service';
+import { LayersVisibilityManagerService } from '#core/services/layers-visibility-manager.service';
+import { StarsVisibilityManagerService } from '#core/services/stars-visibility-manager.service';
+import { TextsVisibilityManagerService } from '#core/services/texts-visibility-manager.service';
 
 @NgModule({
   imports: [
@@ -19,11 +22,14 @@ import { LoaderService } from '#core/services/loader.service';
     CameraService,
     LayersFactoryService,
     LayerService,
+    LayersVisibilityManagerService,
     LoaderService,
     MouseEventsHandler,
     SceneService,
     SearchService,
+    StarsVisibilityManagerService,
     StaticDataService,
+    TextsVisibilityManagerService,
     ThemeService,
     ViewportService
   ]

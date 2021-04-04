@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
-import { Stars } from '#core/models/layers/stars';
 import { SupportedLayers } from '#core/models/supported-layers';
-import { LayerService } from '#core/services/layer.service';
 import { NameSelectionType } from '#controls/models/name-selection-type';
+import { LayersVisibilityManagerService } from '#core/services/layers-visibility-manager.service';
+import { StarsVisibilityManagerService } from '#core/services/stars-visibility-manager.service';
+import { TextsVisibilityManagerService } from '#core/services/texts-visibility-manager.service';
 
 @Component({
   selector: 'ac-controls-select-star-names',
@@ -10,12 +11,16 @@ import { NameSelectionType } from '#controls/models/name-selection-type';
 })
 export class SelectorStarNamesComponent {
 
+  private readonly _starsLayerCode = SupportedLayers.STARS;
+
   private readonly _selectableNames: Array<NameSelectionType>;
 
   private _shownNames: number;
 
   constructor(
-    private readonly _layerService: LayerService
+    private readonly _layersVisibilityManager: LayersVisibilityManagerService,
+    private readonly _starsVisibilityManager: StarsVisibilityManagerService,
+    private readonly _textsVisibilityManager: TextsVisibilityManagerService
   ) {
     this._selectableNames = this.buildSelectionsList();
     this._shownNames = this._selectableNames[1].value;
@@ -40,15 +45,15 @@ export class SelectorStarNamesComponent {
   }
 
   public get isDisabled(): boolean {
-    return !this._layerService.isShown(SupportedLayers.STARS);
+    return !this._layersVisibilityManager.isShown(this._starsLayerCode);
   }
 
   private updateShownNames(): void {
-    this._layerService.hideTexts(this.starsLayer);
+    this._textsVisibilityManager.hideTexts(this._starsLayerCode);
     if (this._shownNames > 0) {
       const showProperNames = this._shownNames === 1;
-      this._layerService.showStarsProperNames(showProperNames);
-      this._layerService.showTexts(this.starsLayer);
+      this._starsVisibilityManager.showStarsProperNames(showProperNames);
+      this._textsVisibilityManager.showTexts(this._starsLayerCode);
     }
   }
 
@@ -66,10 +71,6 @@ export class SelectorStarNamesComponent {
         label: 'Standard',
         value: 2
       }];
-  }
-
-  private get starsLayer(): Stars {
-    return this._layerService.getRenderableLayer(SupportedLayers.STARS) as Stars;
   }
 
 }

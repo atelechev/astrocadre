@@ -15,7 +15,8 @@ import { Theme } from '#core/models/theme';
 import { CameraService } from '#core/services/camera.service';
 import { ViewportService } from '#core/services/viewport.service';
 import { ThemeService } from '#core/services/theme.service';
-import { LayerService } from '#core/services/layer.service';
+import { LayersVisibilityManagerService } from '#core/services/layers-visibility-manager.service';
+import { TextsVisibilityManagerService } from '#core/services/texts-visibility-manager.service';
 
 @Injectable()
 export class SceneService {
@@ -38,7 +39,8 @@ export class SceneService {
     private readonly _cameraService: CameraService,
     private readonly _viewportService: ViewportService,
     private readonly _themeService: ThemeService,
-    private readonly _layerService: LayerService
+    private readonly _layersVisibilityManager: LayersVisibilityManagerService,
+    private readonly _textsVisibilityManager: TextsVisibilityManagerService
   ) {
     this._allObjects = new Set<Object3D>();
     this._allTextElements = new Set<RenderableText>();
@@ -78,14 +80,14 @@ export class SceneService {
   }
 
   private subscribeTextsShown(): void {
-    this._layerService.textsShown
+    this._textsVisibilityManager.textsShown
       .subscribe(
         (texts: Array<RenderableText>) => this.showTexts(texts)
       );
   }
 
   private subscribeTextsHidden(): void {
-    this._layerService.textsHidden
+    this._textsVisibilityManager.textsHidden
       .subscribe(
         (texts: Array<RenderableText>) => this.hideTexts(texts)
       );
@@ -194,7 +196,7 @@ export class SceneService {
   }
 
   private subscribeLayerShown(): void {
-    this._layerService
+    this._layersVisibilityManager
       .layerShown
       .subscribe(
         (layer: RenderableLayer) => {
@@ -205,7 +207,7 @@ export class SceneService {
   }
 
   private subscribeLayerHidden(): void {
-    this._layerService
+    this._layersVisibilityManager
       .layerHidden
       .subscribe(
         (layer: RenderableLayer) => {
