@@ -20,6 +20,11 @@ import { TextsVisibilityManagerService } from '#core/services/visibility/texts-v
 import { ViewportEvent } from '#core/models/event/viewport-event';
 import { ViewportSizeChangeEvent } from '#core/models/event/viewport-size-change-event';
 import { ThemeEvent } from '#core/models/event/theme-event';
+import { LayerEvent } from '#core/models/event/layer-event';
+import { LayerShownEvent } from '#core/models/event/layer-shown-event';
+import { LayerHiddenEvent } from '#core/models/event/layer-hidden-event';
+import { TextsShownEvent } from '#core/models/event/texts-shown-event';
+import { TextsHiddenEvent } from '#core/models/event/texts-hidden-event';
 
 @Injectable()
 export class SceneService {
@@ -51,11 +56,8 @@ export class SceneService {
     this._scene = new Scene();
     this._renderer = new WebGLRenderer();
     this.subscribeViewportEvents();
-    this.subscribeThemeChanged();
-    this.subscribeLayerShown();
-    this.subscribeLayerHidden();
-    this.subscribeTextsShown();
-    this.subscribeTextsHidden();
+    this.subscribeThemeEvents();
+    this.subscribeLayerEvents();
   }
 
   public get allObjectsCount(): number {
@@ -82,32 +84,14 @@ export class SceneService {
     this._renderer.render(this._scene, this.camera);
   }
 
-  private subscribeTextsShown(): void {
-    this._textsVisibilityManager.textsShown
-      .subscribe(
-        (texts: Array<RenderableText>) => this.showTexts(texts)
-      );
+  private showTexts(layer: RenderableLayer): void {
+    this.addTextElements(layer?.texts);
+    this.showVisibleLabels();
   }
 
-  private subscribeTextsHidden(): void {
-    this._textsVisibilityManager.textsHidden
-      .subscribe(
-        (texts: Array<RenderableText>) => this.hideTexts(texts)
-      );
-  }
-
-  private showTexts(texts: Array<RenderableText>): void {
-    if (texts) {
-      this.addTextElements(texts);
-      this.showVisibleLabels();
-    }
-  }
-
-  private hideTexts(texts: Array<RenderableText>): void {
-    if (texts) {
-      this.removeTextElements(texts);
-      this.showVisibleLabels();
-    }
+  private hideTexts(layer: RenderableLayer): void {
+    this.removeTextElements(layer?.texts);
+    this.showVisibleLabels();
   }
 
   private addObjects(objects: Object3D[]): void {
@@ -194,33 +178,54 @@ export class SceneService {
     }
   }
 
-  private subscribeThemeChanged(): void {
+  private subscribeThemeEvents(): void {
     this._themeService.events
       .subscribe(
         (event: ThemeEvent<any>) => this.updateSceneBackGround(event.data)
       );
   }
 
-  private subscribeLayerShown(): void {
-    this._layersVisibilityManager
-      .layerShown
+  private subscribeLayerEvents(): void {
+    this._layersVisibilityManager.events
       .subscribe(
-        (layer: RenderableLayer) => {
-          this.addObjects(layer?.objects);
-          this.showTexts(layer?.texts);
-        }
+        (event: LayerEvent<any>) => this.processLayerEvent(event)
+      );
+    this._textsVisibilityManager.events
+      .subscribe(
+        (event: LayerEvent<any>) => this.processLayerEvent(event)
       );
   }
 
-  private subscribeLayerHidden(): void {
-    this._layersVisibilityManager
-      .layerHidden
-      .subscribe(
-        (layer: RenderableLayer) => {
-          this.removeObjects(layer?.objects);
-          this.hideTexts(layer?.texts);
-        }
-      );
+  private processLayerEvent(event: LayerEvent<any>): void {
+    switch (event.key) {
+      case LayerShownEvent.KEY:
+        this.showLayer(event.data);
+        break;
+      case LayerHiddenEvent.KEY:
+        this.hideLayer(event.data);
+        break;
+      case TextsShownEvent.KEY:
+        this.showTexts(event.data);
+        break;
+      case TextsHiddenEvent.KEY:
+        this.hideTexts(event.data);
+        break;
+      default: /* do nothing */
+    }
+  }
+
+  private showLayer(layer: RenderableLayer): void {
+    if (layer) {
+      this.addObjects(layer.objects);
+      this.showTexts(layer);
+    }
+  }
+
+  private hideLayer(layer: RenderableLayer): void {
+    if (layer) {
+      this.removeObjects(layer.objects);
+      this.hideTexts(layer);
+    }
   }
 
   private updateSceneBackGround(theme: Theme): void {

@@ -8,6 +8,7 @@ export class ThemeChangedEvent extends ThemeEvent<Theme> {
 
   constructor(newTheme: Theme) {
     super(ThemeChangedEvent.KEY, newTheme);
+    this.ensureDataDefined(newTheme);
   }
 
 }

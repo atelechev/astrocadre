@@ -1,15 +1,15 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { RenderableLayer } from '#core/models/layers/renderable-layer';
 import { LayerService } from '#core/services/layer.service';
 import { Layer } from '#core/models/layers/layer';
+import { LayerEvent } from '#core/models/event/layer-event';
+import { LayerShownEvent } from '#core/models/event/layer-shown-event';
+import { LayerHiddenEvent } from '#core/models/event/layer-hidden-event';
 
 @Injectable()
 export class LayersVisibilityManagerService {
 
-  private readonly _layerShown: BehaviorSubject<RenderableLayer>;
-
-  private readonly _layerHidden: BehaviorSubject<RenderableLayer>;
+  private readonly _events: BehaviorSubject<LayerEvent<any>>;
 
   private readonly _shownLayers: Set<string>;
 
@@ -17,16 +17,11 @@ export class LayersVisibilityManagerService {
     private readonly _layerService: LayerService
   ) {
     this._shownLayers = new Set<string>();
-    this._layerShown = new BehaviorSubject<RenderableLayer>(undefined);
-    this._layerHidden = new BehaviorSubject<RenderableLayer>(undefined);
+    this._events = new BehaviorSubject<LayerEvent<any>>(LayerEvent.INITIAL);
   }
 
-  public get layerShown(): Observable<RenderableLayer> {
-    return this._layerShown;
-  }
-
-  public get layerHidden(): Observable<RenderableLayer> {
-    return this._layerHidden;
+  public get events(): Observable<LayerEvent<any>> {
+    return this._events;
   }
 
   public isShown(code: string): boolean {
@@ -41,7 +36,7 @@ export class LayersVisibilityManagerService {
     this._shownLayers.add(code);
     const renderable = this._layerService.getRenderableLayer(code);
     if (renderable) {
-      this._layerShown.next(renderable);
+      this._events.next(new LayerShownEvent(renderable));
     }
     this.processSubLayersVisibility(code, true);
   }
@@ -54,7 +49,7 @@ export class LayersVisibilityManagerService {
     this._shownLayers.delete(code);
     const renderable = this._layerService.getRenderableLayer(code);
     if (renderable) {
-      this._layerHidden.next(renderable);
+      this._events.next(new LayerHiddenEvent(renderable));
     }
     this.processSubLayersVisibility(code, false);
   }

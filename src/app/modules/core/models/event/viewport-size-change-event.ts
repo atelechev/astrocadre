@@ -8,6 +8,7 @@ export class ViewportSizeChangeEvent extends ViewportEvent<Dimension> {
 
   constructor(newSize: Dimension) {
     super(ViewportSizeChangeEvent.KEY, newSize);
+    this.ensureDataDefined(newSize);
   }
 
 }

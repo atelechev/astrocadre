@@ -7,6 +7,7 @@ export class ViewportViewChangeEvent extends ViewportEvent<string> {
 
   constructor(change: string) {
     super(ViewportViewChangeEvent.KEY, change);
+    this.ensureDataDefined(change);
   }
 
 }

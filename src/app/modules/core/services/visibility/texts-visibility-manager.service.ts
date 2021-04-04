@@ -1,28 +1,23 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { RenderableText } from '#core/models/layers/renderable-text';
 import { LayerService } from '#core/services/layer.service';
 import { Layer } from '#core/models/layers/layer';
+import { LayerEvent } from '#core/models/event/layer-event';
+import { TextsShownEvent } from '#core/models/event/texts-shown-event';
+import { TextsHiddenEvent } from '#core/models/event/texts-hidden-event';
 
 
 @Injectable()
 export class TextsVisibilityManagerService {
 
-  private readonly _textsShown: BehaviorSubject<Array<RenderableText>>;
-
-  private readonly _textsHidden: BehaviorSubject<Array<RenderableText>>;
+  private readonly _events: BehaviorSubject<LayerEvent<any>>;
 
   constructor(private readonly _layerService: LayerService) {
-    this._textsShown = new BehaviorSubject<Array<RenderableText>>([]);
-    this._textsHidden = new BehaviorSubject<Array<RenderableText>>([]);
+    this._events = new BehaviorSubject<LayerEvent<any>>(LayerEvent.INITIAL);
   }
 
-  public get textsShown(): Observable<Array<RenderableText>> {
-    return this._textsShown;
-  }
-
-  public get textsHidden(): Observable<Array<RenderableText>> {
-    return this._textsHidden;
+  public get events(): Observable<LayerEvent<any>> {
+    return this._events;
   }
 
   public showTexts(code: string): void {
@@ -31,7 +26,7 @@ export class TextsVisibilityManagerService {
       return;
     }
     layer.showTexts();
-    this._textsShown.next(layer.texts);
+    this._events.next(new TextsShownEvent(layer));
     layer.subLayers?.forEach(
       (subLayer: Layer) => this.showTexts(subLayer.code)
     );
@@ -43,7 +38,7 @@ export class TextsVisibilityManagerService {
       return;
     }
     layer.hideTexts();
-    this._textsHidden.next(layer.texts);
+    this._events.next(new TextsHiddenEvent(layer));
     layer.subLayers?.forEach(
       (subLayer: Layer) => this.hideTexts(subLayer.code)
     );

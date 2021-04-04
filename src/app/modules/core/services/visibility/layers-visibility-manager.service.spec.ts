@@ -1,10 +1,12 @@
 import { skip } from 'rxjs/operators';
-import { RenderableLayer } from '#core/models/layers/renderable-layer';
 import { LayerService } from '#core/services/layer.service';
 import { LayersVisibilityManagerService } from '#core/services/visibility/layers-visibility-manager.service';
 import { mockedLayers } from '#core/test-utils/mocked-layers.spec';
 import { TestContext } from '#core/test-utils/test-context.spec';
 import { registerMockStarsLayers } from '#core/test-utils/register-mock-stars-layers.spec';
+import { LayerEvent } from '#core/models/event/layer-event';
+import { LayerShownEvent } from '#core/models/event/layer-shown-event';
+import { LayerHiddenEvent } from '#core/models/event/layer-hidden-event';
 
 
 describe('LayersVisibilityManagerService', () => {
@@ -63,42 +65,41 @@ describe('LayersVisibilityManagerService', () => {
 
   });
 
-  describe('layerShown should', () => {
+  describe('events should', () => {
 
-    it('be defined when the service is initialized', () => {
-      expect(manager.layerShown).toBeDefined();
+    it('be defined when the service is initialized and emit the expected initial event', (done: DoneFn) => {
+      expect(manager.events).toBeDefined();
+      manager.events
+        .subscribe(
+          (event: LayerEvent<any>) => {
+            expect(event).toEqual(LayerEvent.INITIAL);
+            done();
+          }
+        );
     });
 
     it('propagate an event when a layer is shown', (done: DoneFn) => {
       loadSkyGridLayer();
-      manager.layerShown
+      manager.events
         .pipe(skip(1))
         .subscribe(
-          (layer: RenderableLayer) => {
-            expect(layer).toBeDefined();
-            expect(layer.code).toEqual(skyGrid);
+          (event: LayerEvent<any>) => {
+            expect(event.key).toEqual(LayerShownEvent.KEY);
+            expect(event.data.code).toEqual(skyGrid);
             done();
           }
         );
       manager.showLayer(skyGrid);
     });
 
-  });
-
-  describe('layerHidden should', () => {
-
-    it('be defined when the service is initialized', () => {
-      expect(manager.layerHidden).toBeDefined();
-    });
-
-    it('propagate an event when a layer is shown', (done: DoneFn) => {
+    it('propagate an event when a layer is hidden', (done: DoneFn) => {
       loadSkyGridLayer();
-      manager.layerHidden
+      manager.events
         .pipe(skip(1))
         .subscribe(
-          (layer: RenderableLayer) => {
-            expect(layer).toBeDefined();
-            expect(layer.code).toEqual(skyGrid);
+          (event: LayerEvent<any>) => {
+            expect(event.key).toEqual(LayerHiddenEvent.KEY);
+            expect(event.data.code).toEqual(skyGrid);
             done();
           }
         );

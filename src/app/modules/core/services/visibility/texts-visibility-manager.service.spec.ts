@@ -1,11 +1,13 @@
 import { skip } from 'rxjs/operators';
-import { RenderableText } from '#core/models/layers/renderable-text';
 import { LayerService } from '#core/services/layer.service';
 import { TextsVisibilityManagerService } from '#core/services/visibility/texts-visibility-manager.service';
 import { RenderableLayer } from '#core/models/layers/renderable-layer';
 import { mockedLayers } from '#core/test-utils/mocked-layers.spec';
 import { Layer } from '#core/models/layers/layer';
 import { TestContext } from '#core/test-utils/test-context.spec';
+import { LayerEvent } from '#core/models/event/layer-event';
+import { TextsShownEvent } from '#core/models/event/texts-shown-event';
+import { TextsHiddenEvent } from '#core/models/event/texts-hidden-event';
 
 
 describe('TextsVisibilityManagerService', () => {
@@ -47,42 +49,41 @@ describe('TextsVisibilityManagerService', () => {
       .subLayers
       .map((subLayer: Layer) => layerService.getRenderableLayer(subLayer.code));
 
-  describe('textsShown should', () => {
+  describe('events should', () => {
 
-    it('be defined when the service is initialized', () => {
-      expect(manager.textsShown).toBeDefined();
+    it('be defined when the service is initialized and emit the expected initial event', (done: DoneFn) => {
+      expect(manager.events).toBeDefined();
+      manager.events
+        .subscribe(
+          (event: LayerEvent<any>) => {
+            expect(event).toEqual(LayerEvent.INITIAL);
+            done();
+          }
+        );
     });
 
     it('propagate an event when the texts of a layer are shown', (done: DoneFn) => {
       loadStarsLayer();
-      manager.textsShown
+      manager.events
         .pipe(skip(1))
         .subscribe(
-          (texts: Array<RenderableText>) => {
-            expect(texts).toBeDefined();
-            expect(texts.length).toEqual(1);
+          (event: LayerEvent<any>) => {
+            expect(event.key).toEqual(TextsShownEvent.KEY);
+            expect(event.data.texts.length).toEqual(1);
             done();
           }
         );
       manager.showTexts(starsMag2);
     });
 
-  });
-
-  describe('textsHidden should', () => {
-
-    it('be defined when the service is initialized', () => {
-      expect(manager.textsHidden).toBeDefined();
-    });
-
     it('propagate an event when the texts of a layer are hidden', (done: DoneFn) => {
       loadStarsLayer();
-      manager.textsHidden
+      manager.events
         .pipe(skip(1))
         .subscribe(
-          (texts: Array<RenderableText>) => {
-            expect(texts).toBeDefined();
-            expect(texts.length).toEqual(1);
+          (event: LayerEvent<any>) => {
+            expect(event.key).toEqual(TextsHiddenEvent.KEY);
+            expect(event.data.texts.length).toEqual(1);
             done();
           }
         );
