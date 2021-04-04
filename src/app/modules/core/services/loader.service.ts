@@ -10,13 +10,15 @@ import { LayersVisibilityManagerService } from '#core/services/layers-visibility
 @Injectable()
 export class LoaderService {
 
+  private readonly _loadedThemes: Map<string, Theme>;
+
   constructor(
     private readonly _dataService: StaticDataService,
     private readonly _themeService: ThemeService,
     private readonly _layerService: LayerService,
     private readonly _visibilityManager: LayersVisibilityManagerService
   ) {
-    // nothing
+    this._loadedThemes = new Map<string, Theme>();
   }
 
   public loadAllData(): void {
@@ -28,15 +30,21 @@ export class LoaderService {
     if (!code) {
       return;
     }
-    this._dataService
-      .getTheme(code)
-      .toPromise()
-      .then(
-        (theme: Theme) => {
-          this._themeService.theme = theme;
-        },
-        (err: any) => console.error(err)
-      );
+    if (this._loadedThemes.has(code)) {
+      this._themeService.theme = this._loadedThemes.get(code);
+    }
+    else {
+      this._dataService
+        .getTheme(code)
+        .toPromise()
+        .then(
+          (theme: Theme) => {
+            this._themeService.theme = theme;
+            this._loadedThemes.set(theme.code, theme);
+          },
+          (err: any) => console.error(err)
+        );
+    }
   }
 
   private loadThemes(): void {

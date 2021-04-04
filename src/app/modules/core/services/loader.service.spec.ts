@@ -87,6 +87,28 @@ describe('LoaderService', () => {
       expect(dataService.getTheme).toHaveBeenCalledTimes(0);
     }));
 
+    it('use the cached theme if it was already loaded', fakeAsync(() => {
+      spyOn(dataService, 'getTheme').and.returnValues(of(mockedTheme), of(themeDefault));
+      expect(themeService.theme).toEqual(themeDefault);
+
+      service.loadTheme(mockedTheme.code);
+      tick();
+
+      expect(themeService.theme).toEqual(mockedTheme);
+      expect(dataService.getTheme).toHaveBeenCalledTimes(1);
+
+      service.loadTheme(themeDefault.code);
+      tick();
+      expect(themeService.theme).toEqual(themeDefault);
+      expect(dataService.getTheme).toHaveBeenCalledTimes(2);
+
+      service.loadTheme(mockedTheme.code);
+      tick();
+
+      expect(themeService.theme).toEqual(mockedTheme);
+      expect(dataService.getTheme).toHaveBeenCalledTimes(2);
+    }));
+
     it('log expected error if the theme was not found', fakeAsync(() => {
       spyOn(dataService, 'getTheme').and.returnValue(throwError('404 Not Found'));
       spyOn(console, 'error');

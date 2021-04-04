@@ -8,8 +8,6 @@ import { themeDefault } from '#core/models/theme-default';
 @Injectable()
 export class ThemeService {
 
-  // TODO add cache for loaded themes
-
   private readonly _themeChanged: BehaviorSubject<Theme>;
 
   private _availableThemes: Array<ThemeMeta>;
