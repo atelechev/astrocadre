@@ -8,7 +8,7 @@ import {
 import { MouseEventsHandler } from '#core/services/mouse-events-handler';
 import { SceneService } from '#core/services/scene.service';
 import { ViewportService } from '#core/services/viewport.service';
-import { LoaderService } from '#core/services/loader.service';
+import { LoaderService } from '#core/services/data/loader.service';
 
 
 @Component({

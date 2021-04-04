@@ -1,6 +1,6 @@
 import { TextOffsetPolicies } from '#core/models/layers/factories/text/text-offsets-policies';
 import { RenderableText } from '#core/models/layers/renderable-text';
-import { TextStyle } from '#core/models/text-style';
+import { TextStyle } from '#core/models/theme/text-style';
 import { WorldConstants } from '#core/models/world-constants';
 import { toVector3 } from '#core/utils/vector-utils';
 

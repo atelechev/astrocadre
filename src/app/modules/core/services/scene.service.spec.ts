@@ -3,7 +3,7 @@ import { Stars } from '#core/models/layers/stars';
 import { LayerService } from '#core/services/layer.service';
 import { SceneService } from '#core/services/scene.service';
 import { TestContext } from '#core/test-utils/test-context.spec';
-import { LayersVisibilityManagerService } from '#core/services/layers-visibility-manager.service';
+import { LayersVisibilityManagerService } from '#core/services/visibility/layers-visibility-manager.service';
 
 const starsModel = {
   code: 'stars-mag2.0',

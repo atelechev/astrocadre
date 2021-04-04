@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
-import { ThemeMeta } from '#core/models/theme-meta';
-import { StaticDataService } from '#core/services/static-data.service';
+import { ThemeMeta } from '#core/models/theme/theme-meta';
+import { StaticDataService } from '#core/services/data/static-data.service';
 import { ThemeService } from '#core/services/theme.service';
-import { Theme } from '#core/models/theme';
+import { Theme } from '#core/models/theme/theme';
 import { LayerService } from '#core/services/layer.service';
-import { Layer } from '#core/models/layer';
-import { LayersVisibilityManagerService } from '#core/services/layers-visibility-manager.service';
+import { Layer } from '#core/models/layers/layer';
+import { LayersVisibilityManagerService } from '#core/services/visibility/layers-visibility-manager.service';
 
 @Injectable()
 export class LoaderService {

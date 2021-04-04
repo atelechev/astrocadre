@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { Dimension } from '#core/models/dimension';
-import { ScreenCoordinate } from '#core/models/screen-coordinate';
+import { Dimension } from '#core/models/screen/dimension';
+import { ScreenCoordinate } from '#core/models/screen/screen-coordinate';
 
 @Injectable()
 export class ViewportService {

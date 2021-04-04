@@ -1,7 +1,7 @@
 import { TestContext } from '#core/test-utils/test-context.spec';
 import { SelectorStarMagnitudeComponent } from '#controls/components/selector-star-magnitude/selector-star-magnitude.component';
-import { LayersVisibilityManagerService } from '#core/services/layers-visibility-manager.service';
-import { StarsVisibilityManagerService } from '#core/services/stars-visibility-manager.service';
+import { LayersVisibilityManagerService } from '#core/services/visibility/layers-visibility-manager.service';
+import { StarsVisibilityManagerService } from '#core/services/visibility/stars-visibility-manager.service';
 import { registerMockStarsLayers } from '#core/test-utils/register-mock-stars-layers.spec';
 
 

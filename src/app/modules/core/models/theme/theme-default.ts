@@ -1,4 +1,4 @@
-import { Theme } from '#core/models/theme';
+import { Theme } from '#core/models/theme/theme';
 
 export const themeDefault: Theme = {
   code: 'default',

@@ -1,14 +1,14 @@
 import { fakeAsync, tick } from '@angular/core/testing';
 import { of, throwError } from 'rxjs';
-import { LoaderService } from '#core/services/loader.service';
+import { LoaderService } from '#core/services/data/loader.service';
 import { TestContext } from '#core/test-utils/test-context.spec';
 import { ThemeService } from '#core/services/theme.service';
-import { StaticDataService } from '#core/services/static-data.service';
+import { StaticDataService } from '#core/services/data/static-data.service';
 import { mockedThemes } from '#core/test-utils/mocked-themes.spec';
 import { mockedTheme } from '#core/test-utils/mocked-theme.spec';
 import { LayerService } from '#core/services/layer.service';
 import { mockedLayers } from '#core/test-utils/mocked-layers.spec';
-import { themeDefault } from '#core/models/theme-default';
+import { themeDefault } from '#core/models/theme/theme-default';
 
 
 describe('LoaderService', () => {

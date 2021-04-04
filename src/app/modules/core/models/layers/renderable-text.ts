@@ -1,7 +1,7 @@
 import { Vector3 } from 'three';
 import { TextOffsetPolicy } from '#core/models/layers/factories/text/text-offset-policy';
 import { TextOffsets } from '#core/models/layers/factories/text/text-offsets';
-import { TextStyle } from '#core/models/text-style';
+import { TextStyle } from '#core/models/theme/text-style';
 
 /**
  * Wraps data about text that can be rendered in the view.

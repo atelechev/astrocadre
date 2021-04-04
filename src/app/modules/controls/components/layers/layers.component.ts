@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Layer } from '#core/models/layer';
+import { Layer } from '#core/models/layers/layer';
 import { LayerService } from '#core/services/layer.service';
 
 @Component({

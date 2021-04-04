@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
-import { ThemeMeta } from '#core/models/theme-meta';
+import { ThemeMeta } from '#core/models/theme/theme-meta';
 import { ThemeService } from '#core/services/theme.service';
-import { LoaderService } from '#core/services/loader.service';
+import { LoaderService } from '#core/services/data/loader.service';
 
 
 @Component({

@@ -1,4 +1,4 @@
-import { Layer } from '#core/models/layer';
+import { Layer } from '#core/models/layers/layer';
 import { TestContext } from '#core/test-utils/test-context.spec';
 import { LayersComponent } from '#controls/components/layers/layers.component';
 import { mockedLayers } from '#core/test-utils/mocked-layers.spec';

@@ -5,12 +5,12 @@ import {
   PointsMaterial,
   TextureLoader
   } from 'three';
-import { Layer } from '#core/models/layer';
+import { Layer } from '#core/models/layers/layer';
 import { RenderableLayer } from '#core/models/layers/renderable-layer';
 import { RenderableText } from '#core/models/layers/renderable-text';
-import { Searchable } from '#core/models/searchable';
-import { Theme } from '#core/models/theme';
-import { TextStyle } from '#core/models/text-style';
+import { Searchable } from '#core/models/layers/searchable';
+import { Theme } from '#core/models/theme/theme';
+import { TextStyle } from '#core/models/theme/text-style';
 import { environment } from '#environments/environment';
 
 

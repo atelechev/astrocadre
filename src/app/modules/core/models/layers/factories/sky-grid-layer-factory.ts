@@ -1,5 +1,5 @@
 import { LineSegments } from 'three';
-import { Layer } from '#core/models/layer';
+import { Layer } from '#core/models/layers/layer';
 import { AxialCurvesFactory } from '#core/models/layers/factories/axial-curves-factory';
 import { LayerFactory } from '#core/models/layers/factories/layer-factory';
 import { SkyGrid } from '#core/models/layers/sky-grid';

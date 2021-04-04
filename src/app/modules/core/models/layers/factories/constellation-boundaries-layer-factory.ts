@@ -1,8 +1,8 @@
-import { Layer } from '#core/models/layer';
+import { Layer } from '#core/models/layers/layer';
 import { ConstellationBoundaries } from '#core/models/layers/constellation-boundaries';
 import { AxialCurvesFactory } from '#core/models/layers/factories/axial-curves-factory';
 import { LayerFactory } from '#core/models/layers/factories/layer-factory';
-import { SupportedLayers } from '#core/models/supported-layers';
+import { SupportedLayers } from '#core/models/layers/supported-layers';
 
 
 export class ConstellationBoundariesLayerFactory implements LayerFactory {

@@ -1,5 +1,5 @@
-import { ConstellationMeta } from '#core/models/constellation-meta';
-import { Layer } from '#core/models/layer';
+import { ConstellationMeta } from '#core/models/layers/constellation-meta';
+import { Layer } from '#core/models/layers/layer';
 import { ConstellationNames } from '#core/models/layers/constellation-names';
 import { LayerFactory } from '#core/models/layers/factories/layer-factory';
 import { TextOffsetPolicies } from '#core/models/layers/factories/text/text-offsets-policies';

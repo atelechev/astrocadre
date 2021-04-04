@@ -1,7 +1,7 @@
 import { TestBed } from '@angular/core/testing';
 import { BufferGeometry } from 'three';
 import { AxialCurvesFactory } from '#core/models/layers/factories/axial-curves-factory';
-import { SupportedLayers } from '#core/models/supported-layers';
+import { SupportedLayers } from '#core/models/layers/supported-layers';
 import { assertGeometryExpected } from '#core/test-utils/assertions-geometry.spec';
 
 describe('AxialCurvesFactory', () => {

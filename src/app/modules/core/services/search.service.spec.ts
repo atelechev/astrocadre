@@ -1,5 +1,5 @@
-import { Searchable } from '#core/models/searchable';
-import { SkyCoordinate } from '#core/models/sky-coordinate';
+import { Searchable } from '#core/models/layers/searchable';
+import { SkyCoordinate } from '#core/models/screen/sky-coordinate';
 import { SearchService } from '#core/services/search.service';
 
 const searchableData: Array<Searchable> = [

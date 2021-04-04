@@ -1,8 +1,8 @@
 import { LineBasicMaterial, LineSegments, Object3D } from 'three';
-import { Layer } from '#core/models/layer';
+import { Layer } from '#core/models/layers/layer';
 import { RenderableLayer } from '#core/models/layers/renderable-layer';
-import { Theme } from '#core/models/theme';
-import { LineStyle } from '#core/models/line-style';
+import { Theme } from '#core/models/theme/theme';
+import { LineStyle } from '#core/models/theme/line-style';
 
 
 export class SkyGrid extends RenderableLayer {

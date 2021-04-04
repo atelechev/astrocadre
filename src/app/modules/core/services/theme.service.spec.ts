@@ -3,8 +3,8 @@ import { BehaviorSubject } from 'rxjs';
 import { skip } from 'rxjs/operators';
 import { ThemeService } from '#core/services/theme.service';
 import { mockedTheme } from '#core/test-utils/mocked-theme.spec';
-import { Theme } from '#core/models/theme';
-import { themeDefault } from '#core/models/theme-default';
+import { Theme } from '#core/models/theme/theme';
+import { themeDefault } from '#core/models/theme/theme-default';
 
 describe('ThemeService', () => {
 

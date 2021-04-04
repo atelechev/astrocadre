@@ -1,7 +1,7 @@
 import { mockedThemes } from '#core/test-utils/mocked-themes.spec';
 import { TestContext } from '#core/test-utils/test-context.spec';
 import { SelectorThemeComponent } from '#controls/components/selector-theme/selector-theme.component';
-import { LoaderService } from '#core/services/loader.service';
+import { LoaderService } from '#core/services/data/loader.service';
 import { mockedTheme } from '#core/test-utils/mocked-theme.spec';
 
 

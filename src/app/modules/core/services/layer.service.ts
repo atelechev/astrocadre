@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { Layer } from '#core/models/layer';
+import { Layer } from '#core/models/layers/layer';
 import { RenderableLayer } from '#core/models/layers/renderable-layer';
 import { LayersFactoryService } from '#core/services/layers-factory.service';
 import { ThemeService } from '#core/services/theme.service';
-import { Theme } from '#core/models/theme';
+import { Theme } from '#core/models/theme/theme';
 
 @Injectable()
 export class LayerService {

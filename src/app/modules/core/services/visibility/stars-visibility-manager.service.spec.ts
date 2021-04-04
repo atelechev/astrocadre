@@ -1,9 +1,9 @@
-import { Layer } from '#core/models/layer';
+import { Layer } from '#core/models/layers/layer';
 import { RenderableLayer } from '#core/models/layers/renderable-layer';
 import { Stars } from '#core/models/layers/stars';
 import { LayerService } from '#core/services/layer.service';
-import { LayersVisibilityManagerService } from '#core/services/layers-visibility-manager.service';
-import { StarsVisibilityManagerService } from '#core/services/stars-visibility-manager.service';
+import { LayersVisibilityManagerService } from '#core/services/visibility/layers-visibility-manager.service';
+import { StarsVisibilityManagerService } from '#core/services/visibility/stars-visibility-manager.service';
 import { mockedLayers } from '#core/test-utils/mocked-layers.spec';
 import { registerMockStarsLayers } from '#core/test-utils/register-mock-stars-layers.spec';
 import { TestContext } from '#core/test-utils/test-context.spec';

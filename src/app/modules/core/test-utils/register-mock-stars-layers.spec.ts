@@ -1,4 +1,4 @@
-import { Layer } from '#core/models/layer';
+import { Layer } from '#core/models/layers/layer';
 import { LayerService } from '#core/services/layer.service';
 import { mockedLayers } from '#core/test-utils/mocked-layers.spec';
 

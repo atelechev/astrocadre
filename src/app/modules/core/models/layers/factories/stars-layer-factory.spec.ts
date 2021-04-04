@@ -1,4 +1,4 @@
-import { Layer } from '#core/models/layer';
+import { Layer } from '#core/models/layers/layer';
 import { PointsFactory } from '#core/models/layers/factories/points-factory';
 import { StarsLayerFactory } from '#core/models/layers/factories/stars-layer-factory';
 import { TestContext } from '#core/test-utils/test-context.spec';

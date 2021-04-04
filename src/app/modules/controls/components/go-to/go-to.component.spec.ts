@@ -1,5 +1,5 @@
 import { TestBed } from '@angular/core/testing';
-import { SkyCoordinate } from '#core/models/sky-coordinate';
+import { SkyCoordinate } from '#core/models/screen/sky-coordinate';
 import { CameraService } from '#core/services/camera.service';
 import { SearchService } from '#core/services/search.service';
 import { TestContext } from '#core/test-utils/test-context.spec';

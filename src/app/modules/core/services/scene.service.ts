@@ -7,16 +7,16 @@ import {
   WebGLRenderer
   } from 'three';
 import { Color } from 'three';
-import { Dimension } from '#core/models/dimension';
+import { Dimension } from '#core/models/screen/dimension';
 import { RenderableLayer } from '#core/models/layers/renderable-layer';
 import { RenderableText } from '#core/models/layers/renderable-text';
-import { ScreenCoordinate } from '#core/models/screen-coordinate';
-import { Theme } from '#core/models/theme';
+import { ScreenCoordinate } from '#core/models/screen/screen-coordinate';
+import { Theme } from '#core/models/theme/theme';
 import { CameraService } from '#core/services/camera.service';
 import { ViewportService } from '#core/services/viewport.service';
 import { ThemeService } from '#core/services/theme.service';
-import { LayersVisibilityManagerService } from '#core/services/layers-visibility-manager.service';
-import { TextsVisibilityManagerService } from '#core/services/texts-visibility-manager.service';
+import { LayersVisibilityManagerService } from '#core/services/visibility/layers-visibility-manager.service';
+import { TextsVisibilityManagerService } from '#core/services/visibility/texts-visibility-manager.service';
 
 @Injectable()
 export class SceneService {

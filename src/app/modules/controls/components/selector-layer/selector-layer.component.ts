@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
-import { Layer } from '#core/models/layer';
-import { SupportedLayers } from '#core/models/supported-layers';
-import { LayersVisibilityManagerService } from '#core/services/layers-visibility-manager.service';
+import { Layer } from '#core/models/layers/layer';
+import { SupportedLayers } from '#core/models/layers/supported-layers';
+import { LayersVisibilityManagerService } from '#core/services/visibility/layers-visibility-manager.service';
 
 
 @Component({

@@ -1,7 +1,7 @@
 import { mockedLayers } from '#core/test-utils/mocked-layers.spec';
 import { TestContext } from '#core/test-utils/test-context.spec';
 import { SelectorLayerComponent } from '#controls/components/selector-layer/selector-layer.component';
-import { LayersVisibilityManagerService } from '#core/services/layers-visibility-manager.service';
+import { LayersVisibilityManagerService } from '#core/services/visibility/layers-visibility-manager.service';
 
 describe('SelectorLayerComponent', () => {
 

@@ -1,4 +1,4 @@
-import { Layer } from '#core/models/layer';
+import { Layer } from '#core/models/layers/layer';
 import { ConstellationNamesLayerFactory } from '#core/models/layers/factories/constellation-names-layer-factory';
 import { TestContext } from '#core/test-utils/test-context.spec';
 

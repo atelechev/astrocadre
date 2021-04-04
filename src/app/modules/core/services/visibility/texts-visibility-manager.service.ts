@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { RenderableText } from '#core/models/layers/renderable-text';
 import { LayerService } from '#core/services/layer.service';
-import { Layer } from '#core/models/layer';
+import { Layer } from '#core/models/layers/layer';
 
 
 @Injectable()

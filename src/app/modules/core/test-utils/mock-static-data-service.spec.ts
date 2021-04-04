@@ -1,8 +1,8 @@
 import { Observable, of } from 'rxjs';
-import { Layer } from '#core/models/layer';
-import { SupportedLayers } from '#core/models/supported-layers';
-import { Theme } from '#core/models/theme';
-import { ThemeMeta } from '#core/models/theme-meta';
+import { Layer } from '#core/models/layers/layer';
+import { SupportedLayers } from '#core/models/layers/supported-layers';
+import { Theme } from '#core/models/theme/theme';
+import { ThemeMeta } from '#core/models/theme/theme-meta';
 import { mockedLayers } from '#core/test-utils/mocked-layers.spec';
 import { mockedTheme } from '#core/test-utils/mocked-theme.spec';
 import { mockedThemes } from '#core/test-utils/mocked-themes.spec';

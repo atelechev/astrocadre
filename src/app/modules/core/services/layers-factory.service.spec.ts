@@ -1,5 +1,5 @@
 import { TestBed } from '@angular/core/testing';
-import { Layer } from '#core/models/layer';
+import { Layer } from '#core/models/layers/layer';
 import { LayersFactoryService } from '#core/services/layers-factory.service';
 import { mockedLayers } from '#core/test-utils/mocked-layers.spec';
 import { SearchService } from '#core/services/search.service';

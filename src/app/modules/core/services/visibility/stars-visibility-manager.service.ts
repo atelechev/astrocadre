@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
-import { Layer } from '#core/models/layer';
+import { Layer } from '#core/models/layers/layer';
 import { Stars } from '#core/models/layers/stars';
-import { SupportedLayers } from '#core/models/supported-layers';
+import { SupportedLayers } from '#core/models/layers/supported-layers';
 import { LayerService } from '#core/services/layer.service';
-import { LayersVisibilityManagerService } from '#core/services/layers-visibility-manager.service';
-import { TextsVisibilityManagerService } from '#core/services/texts-visibility-manager.service';
+import { LayersVisibilityManagerService } from '#core/services/visibility/layers-visibility-manager.service';
+import { TextsVisibilityManagerService } from '#core/services/visibility/texts-visibility-manager.service';
 
 
 @Injectable()

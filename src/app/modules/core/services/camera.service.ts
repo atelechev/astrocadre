@@ -6,8 +6,8 @@ import {
   PerspectiveCamera,
   Vector3
   } from 'three';
-import { AxialRotation } from '#core/models/axial-rotation';
-import { SkyCoordinate } from '#core/models/sky-coordinate';
+import { AxialRotation } from '#core/models/screen/axial-rotation';
+import { SkyCoordinate } from '#core/models/screen/sky-coordinate';
 import { WorldConstants } from '#core/models/world-constants';
 import { ViewportService } from '#core/services/viewport.service';
 import { toVector3 } from '#core/utils/vector-utils';

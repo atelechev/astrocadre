@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
-import { SupportedLayers } from '#core/models/supported-layers';
-import { LayersVisibilityManagerService } from '#core/services/layers-visibility-manager.service';
-import { StarsVisibilityManagerService } from '#core/services/stars-visibility-manager.service';
+import { SupportedLayers } from '#core/models/layers/supported-layers';
+import { LayersVisibilityManagerService } from '#core/services/visibility/layers-visibility-manager.service';
+import { StarsVisibilityManagerService } from '#core/services/visibility/stars-visibility-manager.service';
 
 
 @Component({

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Layer } from '#core/models/layer';
+import { Layer } from '#core/models/layers/layer';
 import { AxialCurvesFactory } from '#core/models/layers/factories/axial-curves-factory';
 import { ConstellationBoundariesLayerFactory } from '#core/models/layers/factories/constellation-boundaries-layer-factory';
 import { ConstellationLinesLayerFactory } from '#core/models/layers/factories/constellation-lines-layer-factory';
@@ -9,7 +9,7 @@ import { PointsFactory } from '#core/models/layers/factories/points-factory';
 import { SkyGridLayerFactory } from '#core/models/layers/factories/sky-grid-layer-factory';
 import { StarsLayerFactory } from '#core/models/layers/factories/stars-layer-factory';
 import { RenderableLayer } from '#core/models/layers/renderable-layer';
-import { SupportedLayers } from '#core/models/supported-layers';
+import { SupportedLayers } from '#core/models/layers/supported-layers';
 import { SearchService } from '#core/services/search.service';
 
 

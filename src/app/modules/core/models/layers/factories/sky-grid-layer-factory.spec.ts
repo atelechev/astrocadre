@@ -1,4 +1,4 @@
-import { Layer } from '#core/models/layer';
+import { Layer } from '#core/models/layers/layer';
 import { AxialCurvesFactory } from '#core/models/layers/factories/axial-curves-factory';
 import { SkyGridLayerFactory } from '#core/models/layers/factories/sky-grid-layer-factory';
 import { TestContext } from '#core/test-utils/test-context.spec';

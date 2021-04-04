@@ -1,8 +1,8 @@
-import { Layer } from '#core/models/layer';
+import { Layer } from '#core/models/layers/layer';
 import { RenderableLayer } from '#core/models/layers/renderable-layer';
 import { RenderableText } from '#core/models/layers/renderable-text';
-import { Searchable } from '#core/models/searchable';
-import { Theme } from '#core/models/theme';
+import { Searchable } from '#core/models/layers/searchable';
+import { Theme } from '#core/models/theme/theme';
 
 
 export class ConstellationNames extends RenderableLayer {

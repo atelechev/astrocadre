@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { Theme } from '#core/models/theme';
-import { ThemeMeta } from '#core/models/theme-meta';
-import { themeDefault } from '#core/models/theme-default';
+import { Theme } from '#core/models/theme/theme';
+import { ThemeMeta } from '#core/models/theme/theme-meta';
+import { themeDefault } from '#core/models/theme/theme-default';
 
 
 @Injectable()

@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
-import { SupportedLayers } from '#core/models/supported-layers';
+import { SupportedLayers } from '#core/models/layers/supported-layers';
 import { NameSelectionType } from '#controls/models/name-selection-type';
-import { LayersVisibilityManagerService } from '#core/services/layers-visibility-manager.service';
-import { StarsVisibilityManagerService } from '#core/services/stars-visibility-manager.service';
-import { TextsVisibilityManagerService } from '#core/services/texts-visibility-manager.service';
+import { LayersVisibilityManagerService } from '#core/services/visibility/layers-visibility-manager.service';
+import { StarsVisibilityManagerService } from '#core/services/visibility/stars-visibility-manager.service';
+import { TextsVisibilityManagerService } from '#core/services/visibility/texts-visibility-manager.service';
 
 @Component({
   selector: 'ac-controls-select-star-names',

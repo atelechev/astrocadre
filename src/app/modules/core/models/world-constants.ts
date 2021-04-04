@@ -1,4 +1,4 @@
-import { SupportedLayers } from '#core/models/supported-layers';
+import { SupportedLayers } from '#core/models/layers/supported-layers';
 
 export class WorldConstants {
 

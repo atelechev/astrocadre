@@ -1,4 +1,4 @@
-import { ConstellationMeta } from '#core/models/constellation-meta';
+import { ConstellationMeta } from '#core/models/layers/constellation-meta';
 import { ConstellationNames } from '#core/models/layers/constellation-names';
 import { TextOffsetPolicies } from '#core/models/layers/factories/text/text-offsets-policies';
 import { RenderableText } from '#core/models/layers/renderable-text';

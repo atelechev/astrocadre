@@ -5,7 +5,7 @@ import { LayersFactoryService } from '#core/services/layers-factory.service';
 import { TestContext } from '#core/test-utils/test-context.spec';
 import { mockedTheme } from '#core/test-utils/mocked-theme.spec';
 import { mockedLayers } from '#core/test-utils/mocked-layers.spec';
-import { LineStyle } from '#core/models/line-style';
+import { LineStyle } from '#core/models/theme/line-style';
 
 const model = {
   code: 'sky-grid',

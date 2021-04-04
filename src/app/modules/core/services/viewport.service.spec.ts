@@ -1,8 +1,8 @@
 import { TestBed } from '@angular/core/testing';
 import { skip } from 'rxjs/operators';
-import { ScreenCoordinate } from '#core/models/screen-coordinate';
+import { ScreenCoordinate } from '#core/models/screen/screen-coordinate';
 import { ViewportService } from '#core/services/viewport.service';
-import { Dimension } from '#core/models/dimension';
+import { Dimension } from '#core/models/screen/dimension';
 
 
 describe('ViewportService', () => {

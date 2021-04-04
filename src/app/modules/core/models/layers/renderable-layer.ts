@@ -1,8 +1,8 @@
 import { Object3D } from 'three';
-import { Layer } from '#core/models/layer';
+import { Layer } from '#core/models/layers/layer';
 import { RenderableText } from '#core/models/layers/renderable-text';
-import { Searchable } from '#core/models/searchable';
-import { Theme } from '#core/models/theme';
+import { Searchable } from '#core/models/layers/searchable';
+import { Theme } from '#core/models/theme/theme';
 
 /**
  * Represents a layer of objects that can be rendered/visualized in the view.

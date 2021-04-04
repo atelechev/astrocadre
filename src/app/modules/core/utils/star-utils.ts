@@ -1,5 +1,5 @@
 import { Vector3 } from 'three';
-import { SupportedLayers } from '#core/models/supported-layers';
+import { SupportedLayers } from '#core/models/layers/supported-layers';
 import { WorldConstants } from '#core/models/world-constants';
 import { toVector3 } from '#core/utils/vector-utils';
 

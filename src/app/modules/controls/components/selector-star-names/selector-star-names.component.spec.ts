@@ -3,9 +3,9 @@ import { TestContext } from '#core/test-utils/test-context.spec';
 import { SelectorStarNamesComponent } from '#controls/components/selector-star-names/selector-star-names.component';
 import { NameSelectionType } from '#controls/models/name-selection-type';
 import { mockedLayers } from '#core/test-utils/mocked-layers.spec';
-import { LayersVisibilityManagerService } from '#core/services/layers-visibility-manager.service';
-import { StarsVisibilityManagerService } from '#core/services/stars-visibility-manager.service';
-import { TextsVisibilityManagerService } from '#core/services/texts-visibility-manager.service';
+import { LayersVisibilityManagerService } from '#core/services/visibility/layers-visibility-manager.service';
+import { StarsVisibilityManagerService } from '#core/services/visibility/stars-visibility-manager.service';
+import { TextsVisibilityManagerService } from '#core/services/visibility/texts-visibility-manager.service';
 
 
 describe('SelectorStarNamesComponent', () => {

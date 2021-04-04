@@ -1,7 +1,7 @@
 import { LineBasicMaterial, LineSegments, Object3D } from 'three';
-import { Layer } from '#core/models/layer';
+import { Layer } from '#core/models/layers/layer';
 import { RenderableLayer } from '#core/models/layers/renderable-layer';
-import { Theme } from '#core/models/theme';
+import { Theme } from '#core/models/theme/theme';
 
 export class ConstellationBoundaries extends RenderableLayer {
 

@@ -1,10 +1,10 @@
 import { skip } from 'rxjs/operators';
 import { RenderableText } from '#core/models/layers/renderable-text';
 import { LayerService } from '#core/services/layer.service';
-import { TextsVisibilityManagerService } from '#core/services/texts-visibility-manager.service';
+import { TextsVisibilityManagerService } from '#core/services/visibility/texts-visibility-manager.service';
 import { RenderableLayer } from '#core/models/layers/renderable-layer';
 import { mockedLayers } from '#core/test-utils/mocked-layers.spec';
-import { Layer } from '#core/models/layer';
+import { Layer } from '#core/models/layers/layer';
 import { TestContext } from '#core/test-utils/test-context.spec';
 
 
