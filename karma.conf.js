@@ -22,15 +22,23 @@ module.exports = function (config) {
       },
       clearContext: false // leave Jasmine Spec Runner output visible in browser
     },
-    coverageIstanbulReporter: {
-      dir: require('path').join(__dirname, 'coverage/astrocadre'),
+    coverageReporter: {
+      dir: require('path').join(__dirname, './coverage'),
       subdir: '.',
       reporters: [
         { type: 'html' },
         { type: 'text-summary' }
-      ]
+      ],
+      check: {
+        global: {
+          statements: 80,
+          branches: 80,
+          functions: 80,
+          lines: 80
+        }
+      }
     },
-    reporters: ['kjhtml', 'spec'],
+    reporters: ['kjhtml', 'spec', 'coverage'],
     port: 9876,
     colors: true,
     logLevel: config.LOG_INFO,
