@@ -1,20 +1,23 @@
+import { TestBed } from '@angular/core/testing';
 import { CameraService } from '#core/services/camera.service';
-import { TestContext } from '#core/test-utils/test-context.spec';
 import { CameraControlsComponent } from '#controls/components/camera-controls/camera-controls.component';
+import { CoreModule } from '#core/core.module';
+import { ControlsModule } from '#controls/controls.module';
 
 describe('CameraControlsComponent', () => {
 
-  let ctx: TestContext;
   let component: CameraControlsComponent;
   let cameraService: CameraService;
 
   beforeEach(() => {
-    ctx = new TestContext()
-      .withUIImports()
-      .forComponent(CameraControlsComponent)
-      .configure();
-    component = ctx.getComponent(CameraControlsComponent);
-    cameraService = ctx.cameraService;
+    TestBed.configureTestingModule({
+      imports: [
+        CoreModule,
+        ControlsModule
+      ]
+    });
+    component = TestBed.createComponent(CameraControlsComponent).componentInstance;
+    cameraService = TestBed.inject(CameraService);
   });
 
   it('selectedStep should return expected value', () => {

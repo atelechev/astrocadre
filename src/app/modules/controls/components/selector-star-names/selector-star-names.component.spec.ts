@@ -1,36 +1,38 @@
+import { TestBed } from '@angular/core/testing';
 import { LayerService } from '#core/services/layer.service';
-import { TestContext } from '#core/test-utils/test-context.spec';
 import { SelectorStarNamesComponent } from '#controls/components/selector-star-names/selector-star-names.component';
 import { NameSelectionType } from '#controls/models/name-selection-type';
 import { mockedLayers } from '#core/test-utils/mocked-layers.spec';
 import { LayersVisibilityManagerService } from '#core/services/visibility/layers-visibility-manager.service';
 import { StarsVisibilityManagerService } from '#core/services/visibility/stars-visibility-manager.service';
 import { TextsVisibilityManagerService } from '#core/services/visibility/texts-visibility-manager.service';
+import { CoreModule } from '#core/core.module';
+import { ControlsModule } from '#controls/controls.module';
 
 
 describe('SelectorStarNamesComponent', () => {
 
-  let ctx: TestContext;
-  let layersService: LayerService;
   let visibilityManager: LayersVisibilityManagerService;
   let textsVisibilityManager: TextsVisibilityManagerService;
   let starsVisibilityManager: StarsVisibilityManagerService;
   let component: SelectorStarNamesComponent;
 
   beforeEach(() => {
-    ctx = new TestContext()
-      .withUIImports()
-      .forComponent(SelectorStarNamesComponent)
-      .configure();
-    layersService = ctx.layerService;
-    visibilityManager = ctx.getService(LayersVisibilityManagerService);
-    starsVisibilityManager = ctx.getService(StarsVisibilityManagerService);
-    textsVisibilityManager = ctx.getService(TextsVisibilityManagerService);
+    TestBed.configureTestingModule({
+      imports: [
+        CoreModule,
+        ControlsModule
+      ]
+    });
+    const layersService = TestBed.inject(LayerService);
+    visibilityManager = TestBed.inject(LayersVisibilityManagerService);
+    starsVisibilityManager = TestBed.inject(StarsVisibilityManagerService);
+    textsVisibilityManager = TestBed.inject(TextsVisibilityManagerService);
     layersService.rootLayer = mockedLayers;
     const starsLayer = mockedLayers.subLayers[1];
     layersService.registerLayer(starsLayer);
     layersService.registerLayer(starsLayer.subLayers[0]);
-    component = ctx.getComponent(SelectorStarNamesComponent);
+    component = TestBed.createComponent(SelectorStarNamesComponent).componentInstance;
   });
 
   it('selectableNames should return expected value', () => {

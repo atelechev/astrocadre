@@ -1,6 +1,9 @@
+import { TestBed } from '@angular/core/testing';
 import { LayerService } from '#core/services/layer.service';
+import { LayersFactoryService } from '#core/services/layers-factory.service';
+import { ThemeService } from '#core/services/theme.service';
 import { mockedLayers } from '#core/test-utils/mocked-layers.spec';
-import { TestContext } from '#core/test-utils/test-context.spec';
+import { SearchService } from '#core/services/search.service';
 
 
 describe('LayerService', () => {
@@ -10,8 +13,15 @@ describe('LayerService', () => {
   let service: LayerService;
 
   beforeEach(() => {
-    const ctx = new TestContext().configure();
-    service = ctx.layerService;
+    TestBed.configureTestingModule({
+      providers: [
+        LayerService,
+        LayersFactoryService,
+        SearchService,
+        ThemeService
+      ]
+    });
+    service = TestBed.inject(LayerService);
     service.registerLayer(mockedLayers);
   });
 

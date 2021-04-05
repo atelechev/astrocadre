@@ -1,31 +1,37 @@
+import { TestBed } from '@angular/core/testing';
 import { Color, LineBasicMaterial, LineSegments } from 'three';
 import { ConstellationBoundaries } from '#core/models/layers/constellation-boundaries';
-import { AxialCurvesFactory } from '#core/models/layers/factories/axial-curves-factory';
-import { TestContext } from '#core/test-utils/test-context.spec';
 import { mockedTheme } from '#core/test-utils/mocked-theme.spec';
+import { LayersFactoryService } from '#core/services/layers-factory.service';
+import { SearchService } from '#core/services/search.service';
+import { ThemeService } from '#core/services/theme.service';
 
 
 describe('ConstellationBoundaries', () => {
 
-  let ctx: TestContext;
   let layer: ConstellationBoundaries;
   const code = 'constellation-boundaries';
+  const model = {
+    code,
+    label: 'Boundaries',
+    loadFromUrl: true,
+    objects: [
+      [177.5, -24.5, 162.5, -24.5],
+      [170.0, 73.5, 170.0, 66.5],
+      [165.0, 25.5, 161.25, 25.5]
+    ]
+  };
 
   beforeEach(() => {
-    ctx = new TestContext().configure();
-    const model = {
-      code,
-      label: 'Boundaries',
-      loadFromUrl: true,
-      objects: [
-        [177.5, -24.5, 162.5, -24.5],
-        [170.0, 73.5, 170.0, 66.5],
-        [165.0, 25.5, 161.25, 25.5]
+    TestBed.configureTestingModule({
+      providers: [
+        LayersFactoryService,
+        SearchService,
+        ThemeService
       ]
-    };
-    const lines = new AxialCurvesFactory().createObject3D(model.code, model.objects);
-    layer = new ConstellationBoundaries(model, lines);
-    ctx.themeService.theme = mockedTheme;
+    });
+    layer = TestBed.inject(LayersFactoryService).buildRenderableLayer(model) as ConstellationBoundaries;
+    TestBed.inject(ThemeService).theme = mockedTheme;
   });
 
   it('texts should return an empty array', () => {

@@ -1,13 +1,15 @@
+import { TestBed } from '@angular/core/testing';
 import { skip } from 'rxjs/operators';
 import { LayerService } from '#core/services/layer.service';
 import { TextsVisibilityManagerService } from '#core/services/visibility/texts-visibility-manager.service';
 import { RenderableLayer } from '#core/models/layers/renderable-layer';
-import { mockedLayers } from '#core/test-utils/mocked-layers.spec';
-import { Layer } from '#core/models/layers/layer';
-import { TestContext } from '#core/test-utils/test-context.spec';
 import { LayerEvent } from '#core/models/event/layer-event';
 import { TextsShownEvent } from '#core/models/event/texts-shown-event';
 import { TextsHiddenEvent } from '#core/models/event/texts-hidden-event';
+import { getSubRenderables, registerMockStarsLayers } from '#core/test-utils/utils.spec';
+import { LayersFactoryService } from '#core/services/layers-factory.service';
+import { SearchService } from '#core/services/search.service';
+import { ThemeService } from '#core/services/theme.service';
 
 
 describe('TextsVisibilityManagerService', () => {
@@ -18,18 +20,18 @@ describe('TextsVisibilityManagerService', () => {
   let layerService: LayerService;
 
   beforeEach(() => {
-    const ctx = new TestContext().configure();
-    layerService = ctx.layerService;
-    manager = ctx.getService(TextsVisibilityManagerService);
+    TestBed.configureTestingModule({
+      providers: [
+        LayerService,
+        LayersFactoryService,
+        SearchService,
+        TextsVisibilityManagerService,
+        ThemeService
+      ]
+    });
+    layerService = TestBed.inject(LayerService);
+    manager = TestBed.inject(TextsVisibilityManagerService);
   });
-
-  const loadStarsLayers = (): void => {
-    const starsLayerModel = mockedLayers.subLayers[1];
-    layerService.registerLayer(starsLayerModel);
-    layerService.registerLayer(starsLayerModel.subLayers[0]);
-    layerService.registerLayer(starsLayerModel.subLayers[1]);
-    layerService.registerLayer(starsLayerModel.subLayers[2]);
-  };
 
   const loadStarsLayer = (): void => {
     const model = {
@@ -44,12 +46,19 @@ describe('TextsVisibilityManagerService', () => {
     layerService.registerLayer(model);
   };
 
-  const getSubRenderables = (code: string): Array<RenderableLayer> =>
-    layerService.getRenderableLayer(code)
-      .subLayers
-      .map((subLayer: Layer) => layerService.getRenderableLayer(subLayer.code));
-
   describe('events should', () => {
+
+    const assertEventPropagated = (expectedKey: string, done: DoneFn): void => {
+      manager.events
+        .pipe(skip(1))
+        .subscribe(
+          (event: LayerEvent<any>) => {
+            expect(event.key).toEqual(expectedKey);
+            expect(event.data.texts.length).toEqual(1);
+            done();
+          }
+        );
+    };
 
     it('be defined when the service is initialized and emit the expected initial event', (done: DoneFn) => {
       expect(manager.events).toBeDefined();
@@ -62,44 +71,32 @@ describe('TextsVisibilityManagerService', () => {
         );
     });
 
-    it('propagate an event when the texts of a layer are shown', (done: DoneFn) => {
-      loadStarsLayer();
-      manager.events
-        .pipe(skip(1))
-        .subscribe(
-          (event: LayerEvent<any>) => {
-            expect(event.key).toEqual(TextsShownEvent.KEY);
-            expect(event.data.texts.length).toEqual(1);
-            done();
-          }
-        );
-      manager.showTexts(starsMag2);
-    });
+    describe('propagate an event', () => {
 
-    it('propagate an event when the texts of a layer are hidden', (done: DoneFn) => {
-      loadStarsLayer();
-      manager.events
-        .pipe(skip(1))
-        .subscribe(
-          (event: LayerEvent<any>) => {
-            expect(event.key).toEqual(TextsHiddenEvent.KEY);
-            expect(event.data.texts.length).toEqual(1);
-            done();
-          }
-        );
-      manager.hideTexts(starsMag2);
+      it('when the texts of a layer are shown', (done: DoneFn) => {
+        loadStarsLayer();
+        assertEventPropagated(TextsShownEvent.KEY, done);
+        manager.showTexts(starsMag2);
+      });
+
+      it('when the texts of a layer are hidden', (done: DoneFn) => {
+        loadStarsLayer();
+        assertEventPropagated(TextsHiddenEvent.KEY, done);
+        manager.hideTexts(starsMag2);
+      });
+
     });
 
   });
 
   it('showTexts should show the texts of the layer and its sub-layers', () => {
-    loadStarsLayers();
+    registerMockStarsLayers(layerService);
 
     const renderable = layerService.getRenderableLayer(stars);
     expect(renderable).toBeDefined();
     manager.showTexts(stars);
     expect(renderable.areTextsShown).toBeTrue();
-    getSubRenderables(stars)
+    getSubRenderables(stars, layerService)
       .forEach(
         (subLayer: RenderableLayer) =>
           expect(subLayer.areTextsShown).toBeTrue()
@@ -107,13 +104,13 @@ describe('TextsVisibilityManagerService', () => {
   });
 
   it('hideTexts should hide the texts of the layer and its sub-layers', () => {
-    loadStarsLayers();
+    registerMockStarsLayers(layerService);
 
     const renderable = layerService.getRenderableLayer(stars);
     expect(renderable).toBeDefined();
     manager.hideTexts(stars);
     expect(renderable.areTextsShown).toBeFalse();
-    getSubRenderables(stars)
+    getSubRenderables(stars, layerService)
       .forEach(
         (subLayer: RenderableLayer) =>
           expect(subLayer.areTextsShown).toBeFalse()

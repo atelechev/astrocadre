@@ -1,29 +1,32 @@
+import { TestBed } from '@angular/core/testing';
 import { mockedLayers } from '#core/test-utils/mocked-layers.spec';
-import { TestContext } from '#core/test-utils/test-context.spec';
 import { SelectorLayerComponent } from '#controls/components/selector-layer/selector-layer.component';
 import { LayersVisibilityManagerService } from '#core/services/visibility/layers-visibility-manager.service';
+import { CoreModule } from '#core/core.module';
+import { ControlsModule } from '#controls/controls.module';
+import { LayerService } from '#core/services/layer.service';
 
 describe('SelectorLayerComponent', () => {
 
-  let ctx: TestContext;
   let visibilityManager: LayersVisibilityManagerService;
   let component: SelectorLayerComponent;
   const modelStars = mockedLayers.subLayers[1];
   const modelStars3 = modelStars.subLayers[2];
 
   beforeEach(() => {
-    ctx = new TestContext()
-      .withUIImports()
-      .forComponent(SelectorLayerComponent)
-      .configure();
-    visibilityManager = ctx.getService(LayersVisibilityManagerService);
-    ctx.layerService.registerLayer(modelStars3);
-    component = ctx.getComponent(SelectorLayerComponent);
+    TestBed.configureTestingModule({
+      imports: [
+        CoreModule,
+        ControlsModule
+      ]
+    });
+    visibilityManager = TestBed.inject(LayersVisibilityManagerService);
+    TestBed.inject(LayerService).registerLayer(modelStars3);
+    component = TestBed.createComponent(SelectorLayerComponent).componentInstance;
     component.layer = modelStars3;
   });
 
   describe('isShown should return', () => {
-
 
     describe('get should return', () => {
 

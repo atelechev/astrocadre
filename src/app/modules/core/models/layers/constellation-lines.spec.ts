@@ -1,31 +1,37 @@
+import { TestBed } from '@angular/core/testing';
 import { Color, LineBasicMaterial, LineSegments } from 'three';
 import { ConstellationLines } from '#core/models/layers/constellation-lines';
-import { AxialCurvesFactory } from '#core/models/layers/factories/axial-curves-factory';
-import { TestContext } from '#core/test-utils/test-context.spec';
 import { mockedTheme } from '#core/test-utils/mocked-theme.spec';
+import { LayersFactoryService } from '#core/services/layers-factory.service';
+import { SearchService } from '#core/services/search.service';
+import { ThemeService } from '#core/services/theme.service';
 
 describe('ConstellationLines', () => {
 
-  let ctx: TestContext;
-  let layer: ConstellationLines;
   const code = 'constellation-lines';
+  const model = {
+    code,
+    label: 'Lines',
+    loadFromUrl: true,
+    objects: [
+      [72.46, 6.95, 72.65, 8.9],
+      [72.8, 5.6, 72.46, 6.95],
+      [73.56, 2.45, 72.8, 5.6],
+      [74.64, 1.72, 73.56, 2.45]
+    ]
+  };
+  let layer: ConstellationLines;
 
   beforeEach(() => {
-    ctx = new TestContext().configure();
-    const model = {
-      code,
-      label: 'Lines',
-      loadFromUrl: true,
-      objects: [
-        [72.46, 6.95, 72.65, 8.9],
-        [72.8, 5.6, 72.46, 6.95],
-        [73.56, 2.45, 72.8, 5.6],
-        [74.64, 1.72, 73.56, 2.45]
+    TestBed.configureTestingModule({
+      providers: [
+        LayersFactoryService,
+        SearchService,
+        ThemeService
       ]
-    };
-    const lines = new AxialCurvesFactory().createObject3D(model.code, model.objects);
-    layer = new ConstellationLines(model, lines);
-    ctx.themeService.theme = mockedTheme;
+    });
+    layer = TestBed.inject(LayersFactoryService).buildRenderableLayer(model) as ConstellationLines;
+    TestBed.inject(ThemeService).theme = mockedTheme;
   });
 
   it('texts should return an empty array', () => {

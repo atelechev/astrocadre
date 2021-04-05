@@ -1,20 +1,23 @@
+import { TestBed } from '@angular/core/testing';
 import { ViewportService } from '#core/services/viewport.service';
-import { TestContext } from '#core/test-utils/test-context.spec';
 import { ResizeControlsComponent } from '#controls/components/resize-controls/resize-controls.component';
+import { CoreModule } from '#core/core.module';
+import { ControlsModule } from '#controls/controls.module';
 
 describe('ResizeControlsComponent', () => {
 
-  let ctx: TestContext;
   let component: ResizeControlsComponent;
   let viewportService: ViewportService;
 
   beforeEach(() => {
-    ctx = new TestContext()
-      .withUIImports()
-      .forComponent(ResizeControlsComponent)
-      .configure();
-    viewportService = ctx.viewportService;
-    component = ctx.getComponent(ResizeControlsComponent);
+    TestBed.configureTestingModule({
+      imports: [
+        CoreModule,
+        ControlsModule
+      ]
+    });
+    viewportService = TestBed.inject(ViewportService);
+    component = TestBed.createComponent(ResizeControlsComponent).componentInstance;
   });
 
   describe('resizeViewport should', () => {

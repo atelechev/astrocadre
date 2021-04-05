@@ -1,26 +1,30 @@
-import { TestContext } from '#core/test-utils/test-context.spec';
+import { TestBed } from '@angular/core/testing';
 import { SelectorStarMagnitudeComponent } from '#controls/components/selector-star-magnitude/selector-star-magnitude.component';
 import { LayersVisibilityManagerService } from '#core/services/visibility/layers-visibility-manager.service';
 import { StarsVisibilityManagerService } from '#core/services/visibility/stars-visibility-manager.service';
-import { registerMockStarsLayers } from '#core/test-utils/register-mock-stars-layers.spec';
+import { registerMockStarsLayers } from '#core/test-utils/utils.spec';
+import { CoreModule } from '#core/core.module';
+import { ControlsModule } from '#controls/controls.module';
+import { LayerService } from '#core/services/layer.service';
 
 
 describe('SelectorStarMagnitudeComponent', () => {
 
-  let ctx: TestContext;
   let starsVisibilityManager: StarsVisibilityManagerService;
   let visibilityManager: LayersVisibilityManagerService;
   let component: SelectorStarMagnitudeComponent;
 
   beforeEach(() => {
-    ctx = new TestContext()
-      .withUIImports()
-      .forComponent(SelectorStarMagnitudeComponent)
-      .configure();
-    registerMockStarsLayers(ctx.layerService);
-    starsVisibilityManager = ctx.getService(StarsVisibilityManagerService);
-    visibilityManager = ctx.getService(LayersVisibilityManagerService);
-    component = ctx.getComponent(SelectorStarMagnitudeComponent);
+    TestBed.configureTestingModule({
+      imports: [
+        CoreModule,
+        ControlsModule
+      ]
+    });
+    registerMockStarsLayers(TestBed.inject(LayerService));
+    starsVisibilityManager = TestBed.inject(StarsVisibilityManagerService);
+    visibilityManager = TestBed.inject(LayersVisibilityManagerService);
+    component = TestBed.createComponent(SelectorStarMagnitudeComponent).componentInstance;
   });
 
   describe('shownMagnitudeDownTo', () => {

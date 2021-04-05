@@ -1,18 +1,21 @@
-import { TestContext } from '#core/test-utils/test-context.spec';
+import { TestBed } from '@angular/core/testing';
 import { ControlsComponent } from '#controls/components/controls/controls.component';
+import { CoreModule } from '#core/core.module';
+import { ControlsModule } from '#controls/controls.module';
 
 
 describe('ControlsComponent', () => {
 
-  let ctx: TestContext;
   let component: ControlsComponent;
 
   beforeEach(() => {
-    ctx = new TestContext()
-      .withFullUI()
-      .forComponent(ControlsComponent)
-      .configure();
-    component = ctx.getComponent(ControlsComponent);
+    TestBed.configureTestingModule({
+      imports: [
+        CoreModule,
+        ControlsModule
+      ]
+    });
+    component = TestBed.createComponent(ControlsComponent).componentInstance;
   });
 
   it('toolsExpanded should return true by default', () => {

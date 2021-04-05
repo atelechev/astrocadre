@@ -2,12 +2,12 @@ import { TestBed } from '@angular/core/testing';
 import { SkyCoordinate } from '#core/models/screen/sky-coordinate';
 import { CameraService } from '#core/services/camera.service';
 import { SearchService } from '#core/services/search.service';
-import { TestContext } from '#core/test-utils/test-context.spec';
 import { GoToComponent } from '#controls/components/go-to/go-to.component';
+import { CoreModule } from '#core/core.module';
+import { ControlsModule } from '#controls/controls.module';
 
 describe('GoToComponent', () => {
 
-  let ctx: TestContext;
   let component: GoToComponent;
   let searchService: SearchService;
   const polarisCoords: SkyCoordinate = {
@@ -16,11 +16,13 @@ describe('GoToComponent', () => {
   };
 
   beforeEach(() => {
-    ctx = new TestContext()
-      .withUIImports()
-      .forComponent(GoToComponent)
-      .configure();
-    component = ctx.getComponent(GoToComponent);
+    TestBed.configureTestingModule({
+      imports: [
+        CoreModule,
+        ControlsModule
+      ]
+    });
+    component = TestBed.createComponent(GoToComponent).componentInstance;
     searchService = TestBed.inject(SearchService);
   });
 

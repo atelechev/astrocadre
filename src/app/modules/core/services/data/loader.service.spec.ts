@@ -1,7 +1,6 @@
-import { fakeAsync, tick } from '@angular/core/testing';
+import { fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { of, throwError } from 'rxjs';
 import { LoaderService } from '#core/services/data/loader.service';
-import { TestContext } from '#core/test-utils/test-context.spec';
 import { ThemeService } from '#core/services/theme.service';
 import { StaticDataService } from '#core/services/data/static-data.service';
 import { mockedThemes } from '#core/test-utils/mocked-themes.spec';
@@ -9,6 +8,10 @@ import { mockedTheme } from '#core/test-utils/mocked-theme.spec';
 import { LayerService } from '#core/services/layer.service';
 import { mockedLayers } from '#core/test-utils/mocked-layers.spec';
 import { themeDefault } from '#core/models/theme/theme-default';
+import { LayersFactoryService } from '#core/services/layers-factory.service';
+import { LayersVisibilityManagerService } from '#core/services/visibility/layers-visibility-manager.service';
+import { SearchService } from '#core/services/search.service';
+import { MockStaticDataService } from '#core/test-utils/mock-static-data-service.spec';
 
 
 describe('LoaderService', () => {
@@ -19,15 +22,24 @@ describe('LoaderService', () => {
   let dataService: StaticDataService;
 
   beforeEach(() => {
-    const ctx = new TestContext()
-      .withProviders([
-        LoaderService
-      ])
-      .configure();
-    service = ctx.getService(LoaderService);
-    themeService = ctx.themeService;
-    layerService = ctx.layerService;
-    dataService = ctx.getService(StaticDataService);
+    TestBed.configureTestingModule({
+      providers: [
+        LayerService,
+        LayersFactoryService,
+        LayersVisibilityManagerService,
+        LoaderService,
+        SearchService,
+        ThemeService,
+        {
+          provide: StaticDataService,
+          useClass: MockStaticDataService
+        }
+      ]
+    });
+    service = TestBed.inject(LoaderService);
+    themeService = TestBed.inject(ThemeService);
+    layerService = TestBed.inject(LayerService);
+    dataService = TestBed.inject(StaticDataService);
   });
 
   describe('loadAllData should', () => {

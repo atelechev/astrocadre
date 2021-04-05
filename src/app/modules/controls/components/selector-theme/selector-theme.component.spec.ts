@@ -1,25 +1,30 @@
+import { TestBed } from '@angular/core/testing';
 import { mockedThemes } from '#core/test-utils/mocked-themes.spec';
-import { TestContext } from '#core/test-utils/test-context.spec';
 import { SelectorThemeComponent } from '#controls/components/selector-theme/selector-theme.component';
 import { LoaderService } from '#core/services/data/loader.service';
 import { mockedTheme } from '#core/test-utils/mocked-theme.spec';
+import { CoreModule } from '#core/core.module';
+import { ThemeService } from '#core/services/theme.service';
+import { ControlsModule } from '#controls/controls.module';
 
 
 describe('SelectorThemeComponent', () => {
 
-  let ctx: TestContext;
   let loaderService: LoaderService;
   let component: SelectorThemeComponent;
 
   beforeEach(() => {
-    ctx = new TestContext()
-      .withUIImports()
-      .forComponent(SelectorThemeComponent)
-      .configure();
-    loaderService = ctx.getService(LoaderService);
-    component = ctx.getComponent(SelectorThemeComponent);
-    ctx.themeService.availableThemes = mockedThemes;
-    ctx.themeService.theme = mockedTheme;
+    TestBed.configureTestingModule({
+      imports: [
+        CoreModule,
+        ControlsModule
+      ]
+    });
+    loaderService = TestBed.inject(LoaderService);
+    component = TestBed.createComponent(SelectorThemeComponent).componentInstance;
+    const themeService = TestBed.inject(ThemeService);
+    themeService.availableThemes = mockedThemes;
+    themeService.theme = mockedTheme;
   });
 
   it('themes should be loaded', () => {

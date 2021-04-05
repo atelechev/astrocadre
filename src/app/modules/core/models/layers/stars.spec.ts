@@ -4,7 +4,9 @@ import { RenderableText } from '#core/models/layers/renderable-text';
 import { Stars } from '#core/models/layers/stars';
 import { LayersFactoryService } from '#core/services/layers-factory.service';
 import { mockedTheme } from '#core/test-utils/mocked-theme.spec';
-import { TestContext } from '#core/test-utils/test-context.spec';
+import { SearchService } from '#core/services/search.service';
+import { ThemeService } from '#core/services/theme.service';
+import { LayerService } from '#core/services/layer.service';
 
 
 const model = {
@@ -19,13 +21,19 @@ const model = {
 
 describe('Stars', () => {
 
-  let ctx: TestContext;
   let layer: Stars;
 
   beforeEach(() => {
-    ctx = new TestContext().configure();
+    TestBed.configureTestingModule({
+      providers: [
+        LayerService,
+        LayersFactoryService,
+        SearchService,
+        ThemeService
+      ]
+    });
     layer = TestBed.inject(LayersFactoryService).buildRenderableLayer(model) as Stars;
-    ctx.themeService.theme = mockedTheme;
+    TestBed.inject(ThemeService).theme = mockedTheme;
   });
 
   it('magnitudeClass should return expected value', () => {

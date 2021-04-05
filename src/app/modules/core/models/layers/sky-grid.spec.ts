@@ -2,10 +2,10 @@ import { TestBed } from '@angular/core/testing';
 import { Color, LineBasicMaterial, LineSegments } from 'three';
 import { SkyGrid } from '#core/models/layers/sky-grid';
 import { LayersFactoryService } from '#core/services/layers-factory.service';
-import { TestContext } from '#core/test-utils/test-context.spec';
 import { mockedTheme } from '#core/test-utils/mocked-theme.spec';
-import { mockedLayers } from '#core/test-utils/mocked-layers.spec';
 import { LineStyle } from '#core/models/theme/line-style';
+import { SearchService } from '#core/services/search.service';
+import { ThemeService } from '#core/services/theme.service';
 
 const model = {
   code: 'sky-grid',
@@ -17,14 +17,18 @@ const model = {
 
 describe('SkyGrid', () => {
 
-  let ctx: TestContext;
   let layer: SkyGrid;
 
   beforeEach(() => {
-    ctx = new TestContext().configure();
-    ctx.layerService.rootLayer = mockedLayers;
+    TestBed.configureTestingModule({
+      providers: [
+        LayersFactoryService,
+        SearchService,
+        ThemeService
+      ]
+    });
     layer = TestBed.inject(LayersFactoryService).buildRenderableLayer(model) as SkyGrid;
-    ctx.themeService.theme = mockedTheme;
+    TestBed.inject(ThemeService).theme = mockedTheme;
   });
 
   const assertColorMaterialExpected = (object: LineSegments, line: LineStyle): void => {

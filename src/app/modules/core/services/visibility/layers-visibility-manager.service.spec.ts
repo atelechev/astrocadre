@@ -1,12 +1,15 @@
+import { TestBed } from '@angular/core/testing';
 import { skip } from 'rxjs/operators';
 import { LayerService } from '#core/services/layer.service';
 import { LayersVisibilityManagerService } from '#core/services/visibility/layers-visibility-manager.service';
 import { mockedLayers } from '#core/test-utils/mocked-layers.spec';
-import { TestContext } from '#core/test-utils/test-context.spec';
-import { registerMockStarsLayers } from '#core/test-utils/register-mock-stars-layers.spec';
+import { registerMockStarsLayers } from '#core/test-utils/utils.spec';
 import { LayerEvent } from '#core/models/event/layer-event';
 import { LayerShownEvent } from '#core/models/event/layer-shown-event';
 import { LayerHiddenEvent } from '#core/models/event/layer-hidden-event';
+import { LayersFactoryService } from '#core/services/layers-factory.service';
+import { SearchService } from '#core/services/search.service';
+import { ThemeService } from '#core/services/theme.service';
 
 
 describe('LayersVisibilityManagerService', () => {
@@ -18,9 +21,17 @@ describe('LayersVisibilityManagerService', () => {
   let layerService: LayerService;
 
   beforeEach(() => {
-    const ctx = new TestContext().configure();
-    layerService = ctx.layerService;
-    manager = ctx.getService(LayersVisibilityManagerService);
+    TestBed.configureTestingModule({
+      providers: [
+        LayerService,
+        LayersFactoryService,
+        LayersVisibilityManagerService,
+        SearchService,
+        ThemeService
+      ]
+    });
+    layerService = TestBed.inject(LayerService);
+    manager = TestBed.inject(LayersVisibilityManagerService);
   });
 
   const loadSkyGridLayer = (): void => {
@@ -67,6 +78,18 @@ describe('LayersVisibilityManagerService', () => {
 
   describe('events should', () => {
 
+    const assertEventPropagated = (expectedKey: string, done: DoneFn): void => {
+      manager.events
+        .pipe(skip(1))
+        .subscribe(
+          (event: LayerEvent<any>) => {
+            expect(event.key).toEqual(expectedKey);
+            expect(event.data.code).toEqual(skyGrid);
+            done();
+          }
+        );
+    };
+
     it('be defined when the service is initialized and emit the expected initial event', (done: DoneFn) => {
       expect(manager.events).toBeDefined();
       manager.events
@@ -78,32 +101,20 @@ describe('LayersVisibilityManagerService', () => {
         );
     });
 
-    it('propagate an event when a layer is shown', (done: DoneFn) => {
-      loadSkyGridLayer();
-      manager.events
-        .pipe(skip(1))
-        .subscribe(
-          (event: LayerEvent<any>) => {
-            expect(event.key).toEqual(LayerShownEvent.KEY);
-            expect(event.data.code).toEqual(skyGrid);
-            done();
-          }
-        );
-      manager.showLayer(skyGrid);
-    });
+    describe('propagate an event', () => {
 
-    it('propagate an event when a layer is hidden', (done: DoneFn) => {
-      loadSkyGridLayer();
-      manager.events
-        .pipe(skip(1))
-        .subscribe(
-          (event: LayerEvent<any>) => {
-            expect(event.key).toEqual(LayerHiddenEvent.KEY);
-            expect(event.data.code).toEqual(skyGrid);
-            done();
-          }
-        );
-      manager.hideLayer(skyGrid);
+      it('when a layer is shown', (done: DoneFn) => {
+        loadSkyGridLayer();
+        assertEventPropagated(LayerShownEvent.KEY, done);
+        manager.showLayer(skyGrid);
+      });
+
+      it('when a layer is hidden', (done: DoneFn) => {
+        loadSkyGridLayer();
+        assertEventPropagated(LayerHiddenEvent.KEY, done);
+        manager.hideLayer(skyGrid);
+      });
+
     });
 
   });

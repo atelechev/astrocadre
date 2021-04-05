@@ -10,7 +10,6 @@ import { ViewportViewChangeEvent } from '#core/models/event/viewport-view-change
 describe('CameraService', () => {
 
   let service: CameraService;
-  let viewportService: ViewportService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -20,7 +19,6 @@ describe('CameraService', () => {
       ]
     });
     service = TestBed.inject(CameraService);
-    viewportService = TestBed.inject(ViewportService);
   });
 
   const assertExpectedRotation = (rx: number, ry: number, rz: number) => {
@@ -44,7 +42,7 @@ describe('CameraService', () => {
   };
 
   const assertViewportViewChangedEventFired = (expectData: string, skipEvents: number, done: DoneFn): void => {
-    viewportService.events
+    TestBed.inject(ViewportService).events
       .pipe(skip(skipEvents))
       .subscribe(
         (event: ViewportEvent<any>) => {

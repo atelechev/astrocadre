@@ -7,9 +7,9 @@ import { toVector3 } from '#core/utils/vector-utils';
 
 describe('RenderableText', () => {
 
-  let renderable: RenderableText;
   const position = toVector3(37.95, 89.26, WorldConstants.worldRadiusForLayer('stars'));
   const label = 'Polaris';
+  let renderable: RenderableText;
 
   beforeEach(() => {
     renderable = buildRenderable();

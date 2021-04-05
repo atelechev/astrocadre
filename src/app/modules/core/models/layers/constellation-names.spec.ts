@@ -1,45 +1,42 @@
-import { ConstellationMeta } from '#core/models/layers/constellation-meta';
+import { TestBed } from '@angular/core/testing';
 import { ConstellationNames } from '#core/models/layers/constellation-names';
-import { TextOffsetPolicies } from '#core/models/layers/factories/text/text-offsets-policies';
 import { RenderableText } from '#core/models/layers/renderable-text';
-import { WorldConstants } from '#core/models/world-constants';
+import { LayersFactoryService } from '#core/services/layers-factory.service';
+import { SearchService } from '#core/services/search.service';
+import { ThemeService } from '#core/services/theme.service';
 import { mockedTheme } from '#core/test-utils/mocked-theme.spec';
-import { TestContext } from '#core/test-utils/test-context.spec';
-import { toVector3 } from '#core/utils/vector-utils';
 
 
 describe('ConstellationNames', () => {
 
-  let layer: ConstellationNames;
   const constellation = 'Andromeda';
   const code = 'AND';
+  const model = {
+    code: 'constellation-names',
+    label: 'Names',
+    loadFromUrl: true,
+    objects: [
+      {
+        type: 'constellation',
+        code,
+        ra: 8.532,
+        dec: 38.906,
+        names: [constellation]
+      }
+    ]
+  };
+  let layer: ConstellationNames;
 
   beforeEach(() => {
-    const ctx = new TestContext().configure();
-    const model = {
-      code: 'constellation-names',
-      label: 'Names',
-      loadFromUrl: true,
-      objects: [
-        {
-          type: 'constellation',
-          code,
-          ra: 8.532,
-          dec: 38.906,
-          names: [constellation]
-        }
+    TestBed.configureTestingModule({
+      providers: [
+        LayersFactoryService,
+        SearchService,
+        ThemeService
       ]
-    };
-    const constMeta = model.objects[0] as ConstellationMeta;
-    const label = new RenderableText(
-      toVector3(constMeta.ra, constMeta.dec, WorldConstants.worldRadiusForLayer(model.code)),
-      constMeta.names[0],
-      TextOffsetPolicies.CENTERED
-    );
-    const labels = new Map<string, RenderableText>();
-    labels.set(constMeta.code, label);
-    layer = new ConstellationNames(model, labels);
-    ctx.themeService.theme = mockedTheme;
+    });
+    layer = TestBed.inject(LayersFactoryService).buildRenderableLayer(model) as ConstellationNames;
+    TestBed.inject(ThemeService).theme = mockedTheme;
   });
 
   it('texts should return expected data', () => {

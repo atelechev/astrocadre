@@ -1,12 +1,14 @@
-import { Layer } from '#core/models/layers/layer';
-import { RenderableLayer } from '#core/models/layers/renderable-layer';
+import { TestBed } from '@angular/core/testing';
 import { Stars } from '#core/models/layers/stars';
 import { LayerService } from '#core/services/layer.service';
 import { LayersVisibilityManagerService } from '#core/services/visibility/layers-visibility-manager.service';
 import { StarsVisibilityManagerService } from '#core/services/visibility/stars-visibility-manager.service';
 import { mockedLayers } from '#core/test-utils/mocked-layers.spec';
-import { registerMockStarsLayers } from '#core/test-utils/register-mock-stars-layers.spec';
-import { TestContext } from '#core/test-utils/test-context.spec';
+import { getSubRenderables, registerMockStarsLayers } from '#core/test-utils/utils.spec';
+import { LayersFactoryService } from '#core/services/layers-factory.service';
+import { SearchService } from '#core/services/search.service';
+import { ThemeService } from '#core/services/theme.service';
+import { TextsVisibilityManagerService } from '#core/services/visibility/texts-visibility-manager.service';
 
 
 describe('StarsVisibilityManagerService', () => {
@@ -19,10 +21,20 @@ describe('StarsVisibilityManagerService', () => {
   let layerService: LayerService;
 
   beforeEach(() => {
-    const ctx = new TestContext().configure();
-    layerService = ctx.layerService;
-    manager = ctx.getService(StarsVisibilityManagerService);
-    layersManager = ctx.getService(LayersVisibilityManagerService);
+    TestBed.configureTestingModule({
+      providers: [
+        LayerService,
+        LayersFactoryService,
+        LayersVisibilityManagerService,
+        SearchService,
+        StarsVisibilityManagerService,
+        TextsVisibilityManagerService,
+        ThemeService
+      ]
+    });
+    layerService = TestBed.inject(LayerService);
+    manager = TestBed.inject(StarsVisibilityManagerService);
+    layersManager = TestBed.inject(LayersVisibilityManagerService);
   });
 
   const loadSkyGridLayer = (): void => {
@@ -76,18 +88,13 @@ describe('StarsVisibilityManagerService', () => {
 
   describe('showStarsProperNames should', () => {
 
-    const getSubRenderables = (code: string): Array<RenderableLayer> =>
-      layerService.getRenderableLayer(code)
-        .subLayers
-        .map((subLayer: Layer) => layerService.getRenderableLayer(subLayer.code));
-
     it('show the proper names if useProper is true', () => {
       loadStarsLayers();
 
       manager.showStarsProperNames(true);
       const layer = layerService.getRenderableLayer(stars) as Stars;
       expect(layer.properNamesShown).toBeTrue();
-      getSubRenderables(stars)
+      getSubRenderables(stars, layerService)
         .forEach(
           (subLayer: Stars) =>
             expect(subLayer.properNamesShown).toBeTrue()
@@ -100,7 +107,7 @@ describe('StarsVisibilityManagerService', () => {
       manager.showStarsProperNames(false);
       const layer = layerService.getRenderableLayer(stars) as Stars;
       expect(layer.properNamesShown).toBeFalse();
-      getSubRenderables(stars)
+      getSubRenderables(stars, layerService)
         .forEach(
           (subLayer: Stars) =>
             expect(subLayer.properNamesShown).toBeFalse()
