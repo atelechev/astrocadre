@@ -1,6 +1,9 @@
 import { Component } from '@angular/core';
 import { ViewportService } from '#core/services/viewport.service';
 
+/**
+ * Provides the UI for the viewport resizing functionality.
+ */
 @Component({
   selector: 'ac-controls-resize',
   templateUrl: './resize-controls.component.html'

@@ -6,7 +6,9 @@ import { LayerService } from '#core/services/layer.service';
 import { LayersVisibilityManagerService } from '#core/services/visibility/layers-visibility-manager.service';
 import { TextsVisibilityManagerService } from '#core/services/visibility/texts-visibility-manager.service';
 
-
+/**
+ * Provides methods to manage the visibility of the layers of stars of different magnitudes.
+ */
 @Injectable()
 export class StarsVisibilityManagerService {
 
@@ -17,9 +19,14 @@ export class StarsVisibilityManagerService {
     private readonly _layersVisibilityManager: LayersVisibilityManagerService,
     private readonly _textsVisibilityManager: TextsVisibilityManagerService
   ) {
-    // nothing
+
   }
 
+  /**
+   * Shows all the stars of magnitude lower or equal to the specified.
+   *
+   * @param magnitude the magnitude value to show the stars for.
+   */
   public showStarLayersDownToMagnitude(magnitude: number): void {
     this.getAllStarsLayers().forEach(
       (layer: Stars) => {
@@ -32,6 +39,11 @@ export class StarsVisibilityManagerService {
     );
   }
 
+  /**
+   * Sets the showing of proper or standard names of the stars.
+   *
+   * @param show true to show the proper names, false for the standard names.
+   */
   public showStarsProperNames(show: boolean): void {
     this._textsVisibilityManager.hideTexts(this._starsLayerCode);
     this.toggleNamesType(this.starsLayer, show);

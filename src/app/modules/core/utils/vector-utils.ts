@@ -1,5 +1,13 @@
-import { Vector3, MathUtils } from 'three';
+import { MathUtils, Vector3 } from 'three';
 
+/**
+ * Transforms the specified values into a Vector3 object from ThreeJs.
+ *
+ * @param ra the right ascention
+ * @param decl the declination
+ * @param radius the radius
+ * @returns Vector3 the transformed value.
+ */
 export const toVector3 = (ra: number, decl: number, radius: number): Vector3 => {
   const theta = MathUtils.degToRad(90 - decl);
   const phi = MathUtils.degToRad(ra);
@@ -9,5 +17,3 @@ export const toVector3 = (ra: number, decl: number, radius: number): Vector3 => 
   const z = radius * Math.cos(theta);
   return new Vector3(x, y, z);
 };
-
-export const toRadians = (degrees: number): number => MathUtils.degToRad(degrees);

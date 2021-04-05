@@ -14,6 +14,10 @@ import { LayersVisibilityManagerService } from '#core/services/visibility/layers
 import { StarsVisibilityManagerService } from '#core/services/visibility/stars-visibility-manager.service';
 import { TextsVisibilityManagerService } from '#core/services/visibility/texts-visibility-manager.service';
 
+/**
+ * Contains the core entities of the application, which provide
+ * its main functionalities.
+ */
 @NgModule({
   imports: [
     HttpClientModule

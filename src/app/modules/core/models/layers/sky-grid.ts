@@ -4,7 +4,9 @@ import { RenderableLayer } from '#core/models/layers/renderable-layer';
 import { Theme } from '#core/models/theme/theme';
 import { LineStyle } from '#core/models/theme/line-style';
 
-
+/**
+ * Represents a renderable layer containing the celestial coordinates grid.
+ */
 export class SkyGrid extends RenderableLayer {
 
   private _objects: Array<Object3D>;

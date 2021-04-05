@@ -2,7 +2,7 @@ import { TextOffsets } from '#core/models/layers/factories/text/text-offsets';
 
 
 /**
- * Provides access to a method that implements rules to calculate TextOffsets.
+ * Provides a method to calculate TextOffsets.
  */
 export interface TextOffsetPolicy {
 

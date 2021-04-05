@@ -3,7 +3,9 @@ import { AstrocadreComponent } from 'src/app/components/astrocadre/astrocadre.co
 import { CoreModule } from '#core/core.module';
 import { ControlsModule } from '#controls/controls.module';
 
-
+/**
+ * The root module of the application.
+ */
 @NgModule({
   declarations: [
     AstrocadreComponent

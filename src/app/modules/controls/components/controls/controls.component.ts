@@ -6,6 +6,9 @@ import {
   } from '@angular/core';
 import { DraggableElementsHandler } from '#controls/services/draggable-elements-handler';
 
+/**
+ * The root component for all the controls visible in the UI.
+ */
 @Component({
   selector: 'ac-controls',
   templateUrl: './controls.component.html',

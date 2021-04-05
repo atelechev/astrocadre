@@ -3,10 +3,12 @@ import { Object3DFactory } from '#core/models/layers/factories/object3d-factory'
 import { isCrossingInitialMeridian, isMeridionalSegment, isParallelSegment } from '#core/utils/segment-utils';
 import { toVector3 } from '#core/utils/vector-utils';
 
-
+/**
+ * Factory for the curves situated on the 3D world sphere.
+ */
 export class AxialCurvesFactory extends Object3DFactory<LineSegments> {
 
-  private readonly _intermediatePointsDensity = 5.0; // the bigger the less dense!
+  private readonly _intermediatePointsDensity = 5.0; // the bigger the less dense, but uglier in the view!
 
   protected segmentToVertices(segment: number[], radius: number): Vector3[] {
     if (isCrossingInitialMeridian(segment)) {

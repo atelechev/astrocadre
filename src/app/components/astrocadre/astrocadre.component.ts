@@ -10,11 +10,12 @@ import { SceneService } from '#core/services/scene.service';
 import { ViewportService } from '#core/services/viewport.service';
 import { LoaderService } from '#core/services/data/loader.service';
 
-
+/**
+ * The root component of the Asctocadre application.
+ */
 @Component({
   selector: `ac-root`,
-  templateUrl: './astrocadre.component.html',
-  styleUrls: []
+  templateUrl: './astrocadre.component.html'
 })
 export class AstrocadreComponent implements OnInit, AfterViewInit {
 

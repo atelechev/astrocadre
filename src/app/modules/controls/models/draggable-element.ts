@@ -1,4 +1,7 @@
 
+/**
+ * Allows to make an HTML element draggable.
+ */
 export class DraggableElement {
 
   private _mousePressed: boolean;
@@ -12,6 +15,11 @@ export class DraggableElement {
     this._element.style.position = 'absolute';
   }
 
+  /**
+   * Enables the mouse listeners on the wrapped HTML element.
+   *
+   * When the listeners are enabled, the HTML element is draggable on the page.
+   */
   public enableListeners(): void {
     this._element.addEventListener('mousedown', this.mouseDownHandler);
     this._element.addEventListener('mousemove', this.mouseMoveHandler);
@@ -19,6 +27,11 @@ export class DraggableElement {
     this._element.addEventListener('mouseleave', this.mouseUpHandler);
   }
 
+  /**
+   * Disables the mouse listeners on the wrapped HTML element.
+   *
+   * If the listeners are disabled, the HTML element is not draggable on the page.
+   */
   public disableListeners(): void {
     this._element.removeEventListener('mousedown', this.mouseDownHandler);
     this._element.removeEventListener('mousemove', this.mouseMoveHandler);

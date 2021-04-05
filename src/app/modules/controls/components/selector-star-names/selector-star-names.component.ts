@@ -5,6 +5,10 @@ import { LayersVisibilityManagerService } from '#core/services/visibility/layers
 import { StarsVisibilityManagerService } from '#core/services/visibility/stars-visibility-manager.service';
 import { TextsVisibilityManagerService } from '#core/services/visibility/texts-visibility-manager.service';
 
+/**
+ * Provides the UI with the controls allowing to select
+ * which type of star names should be shown in the viewport.
+ */
 @Component({
   selector: 'ac-controls-select-star-names',
   templateUrl: './selector-star-names.component.html'

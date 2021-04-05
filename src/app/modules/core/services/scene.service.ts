@@ -26,6 +26,9 @@ import { LayerHiddenEvent } from '#core/models/event/layer-hidden-event';
 import { TextsShownEvent } from '#core/models/event/texts-shown-event';
 import { TextsHiddenEvent } from '#core/models/event/texts-hidden-event';
 
+/**
+ * Manages the current scene.
+ */
 @Injectable()
 export class SceneService {
 
@@ -60,18 +63,34 @@ export class SceneService {
     this.subscribeLayerEvents();
   }
 
+  /**
+   * Returns the number of objects expected to be shown in the scene.
+   */
   public get allObjectsCount(): number {
     return this._allObjects.size;
   }
 
+  /**
+   * Returns the number of objects shown in the scene.
+   */
   public get shownObjectsCount(): number {
     return this._scene.children.length;
   }
 
+  /**
+   * Returns the number of text objects shown in the scene.
+   */
   public get allTextsCount(): number {
     return this._allTextElements.size;
   }
 
+  /**
+   * Sets the viewport root element to the specified div.
+   *
+   * The viewport root is a HTML object which holds the 3D canvas.
+   *
+   * @param viewportRoot the root reference to set.
+   */
   public setViewportRootElement(viewportRoot: HTMLDivElement) {
     this._viewportRootElement = viewportRoot;
     if (this._viewportRootElement) {
@@ -80,6 +99,9 @@ export class SceneService {
     }
   }
 
+  /**
+   * Starts the rendering in the underlying canvas.
+   */
   public render(): void {
     this._renderer.render(this._scene, this.camera);
   }

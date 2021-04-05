@@ -9,10 +9,8 @@ import { Theme } from '#core/models/theme/theme';
  */
 export abstract class RenderableLayer implements Layer {
 
-  private _textsShown: boolean;
-
   constructor(private readonly _model: Layer) {
-    this._textsShown = true;
+
   }
 
   /**
@@ -40,6 +38,9 @@ export abstract class RenderableLayer implements Layer {
     return this._model.label;
   }
 
+  /**
+   * Returns true if the objects of this layer are loaded from a separate resource URL.
+   */
   public get loadFromUrl(): boolean {
     return this._model.loadFromUrl;
   }
@@ -53,6 +54,9 @@ export abstract class RenderableLayer implements Layer {
     return this._model.description;
   }
 
+  /**
+   * Returns the array of models of the sub-layers of this layer.
+   */
   public get subLayers(): Array<Layer> {
     return this._model.subLayers || [];
   }
@@ -64,20 +68,11 @@ export abstract class RenderableLayer implements Layer {
     return [];
   }
 
+  /**
+   * Returns the array of searchable objects belonging to this layer.
+   */
   public get searchables(): Array<Searchable> {
     return [];
-  }
-
-  public get areTextsShown(): boolean {
-    return this._textsShown;
-  }
-
-  public showTexts(): void {
-    this._textsShown = true;
-  }
-
-  public hideTexts(): void {
-    this._textsShown = false;
   }
 
   /**

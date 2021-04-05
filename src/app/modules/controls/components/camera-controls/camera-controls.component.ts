@@ -1,9 +1,11 @@
 import { Component } from '@angular/core';
+import { MathUtils } from 'three';
 import { AxialRotation } from '#core/models/screen/axial-rotation';
 import { CameraService } from '#core/services/camera.service';
-import { toRadians } from '#core/utils/vector-utils';
 
-
+/**
+ * Provides the UI controls for the camera/view.
+ */
 @Component({
   selector: 'ac-controls-camera',
   templateUrl: './camera-controls.component.html'
@@ -58,9 +60,9 @@ export class CameraControlsComponent {
 
   private rotateView(x: number, y: number, z: number): void {
     const data: AxialRotation = {
-      rx: toRadians(x),
-      ry: toRadians(y),
-      rz: toRadians(z)
+      rx: MathUtils.degToRad(x),
+      ry: MathUtils.degToRad(y),
+      rz: MathUtils.degToRad(z)
     };
     this._cameraService.rotate(data);
   }

@@ -2,7 +2,8 @@ import { Injectable } from '@angular/core';
 import { DraggableElement } from '#controls/models/draggable-element';
 
 /**
- * Provides a possibility to make any DOM element draggable.
+ * Keeps trace of all draggable elements in the page and allows to make various
+ * elements draggable or not.
  */
 @Injectable()
 export class DraggableElementsHandler {

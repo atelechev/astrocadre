@@ -3,6 +3,9 @@ import { Layer } from '#core/models/layers/layer';
 import { RenderableLayer } from '#core/models/layers/renderable-layer';
 import { Theme } from '#core/models/theme/theme';
 
+/**
+ * Represents a renderable layer containing the boundary lines of the constellations.
+ */
 export class ConstellationBoundaries extends RenderableLayer {
 
   private _objects: Array<Object3D>;

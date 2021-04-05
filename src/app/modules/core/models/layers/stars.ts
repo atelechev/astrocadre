@@ -13,7 +13,9 @@ import { Theme } from '#core/models/theme/theme';
 import { TextStyle } from '#core/models/theme/text-style';
 import { environment } from '#environments/environment';
 
-
+/**
+ * Represents a renderable layer containing stars.
+ */
 export class Stars extends RenderableLayer {
 
   private readonly _textureLoader: TextureLoader;
@@ -33,6 +35,9 @@ export class Stars extends RenderableLayer {
     this.showProperNames();
   }
 
+  /**
+   * Returns the magnitude of the stars of this layer.
+   */
   public get magnitudeClass(): number {
     return this._magClass;
   }
@@ -45,6 +50,11 @@ export class Stars extends RenderableLayer {
     return this._properNamesShown ? this._properNames : this._standardNames;
   }
 
+  /**
+   * Returns true if the proper names should be shown.
+   *
+   * Returns false if the standard names should be shown.
+   */
   public get properNamesShown(): boolean {
     return this._properNamesShown;
   }
@@ -53,10 +63,16 @@ export class Stars extends RenderableLayer {
     return this._searchables;
   }
 
+  /**
+   * Sets the proper names of the stars to be shown.
+   */
   public showProperNames(): void {
     this._properNamesShown = true;
   }
 
+  /**
+   * Sets the standard names of the stars to be shown.
+   */
   public showStandardNames(): void {
     this._properNamesShown = false;
   }

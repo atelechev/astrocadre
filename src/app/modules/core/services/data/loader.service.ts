@@ -7,6 +7,9 @@ import { LayerService } from '#core/services/layer.service';
 import { Layer } from '#core/models/layers/layer';
 import { LayersVisibilityManagerService } from '#core/services/visibility/layers-visibility-manager.service';
 
+/**
+ * Asynchronously loads layers and themes data.
+ */
 @Injectable()
 export class LoaderService {
 
@@ -21,11 +24,19 @@ export class LoaderService {
     this._loadedThemes = new Map<string, Theme>();
   }
 
+  /**
+   * Starts the loading of the layers and themes data from the backend.
+   */
   public loadAllData(): void {
     this.loadThemes();
     this.loadLayers();
   }
 
+  /**
+   * Loads the specified theme definition.
+   *
+   * @param code the code of the theme to load.
+   */
   public loadTheme(code: string): void {
     if (!code) {
       return;

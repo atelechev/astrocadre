@@ -2,7 +2,11 @@ import { Component } from '@angular/core';
 import { CameraService } from '#core/services/camera.service';
 import { SearchService } from '#core/services/search.service';
 
-
+/**
+ * Provides the UI for the "go to" functionality: a text input and a
+ * button, which allow to navigate directly to the objects that match
+ * the text in the input.
+ */
 @Component({
   selector: 'ac-controls-go-to',
   templateUrl: './go-to.component.html'

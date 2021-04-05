@@ -1,5 +1,8 @@
 import { SupportedLayers } from '#core/models/layers/supported-layers';
 
+/**
+ * Wraps constants related with the model of the sphere built in the 3D space.
+ */
 export class WorldConstants {
 
   /**
@@ -7,6 +10,13 @@ export class WorldConstants {
    */
   public static readonly WORLD_RADIUS: number = 2;
 
+  /**
+   * Returns the radius of the sphere on which the specified
+   * layer is rendered.
+   *
+   * @param layer the code of the layer to get the radius for.
+   * @returns number the radius.
+   */
   public static worldRadiusForLayer(layer: string): number {
     const offset = this.getLayerRadiusOffset(layer);
     return WorldConstants.WORLD_RADIUS - (offset ? offset : 0);

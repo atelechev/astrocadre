@@ -1,5 +1,15 @@
 import { Theme } from '#core/models/theme/theme';
 
+/**
+ * The default theme data loaded in the application before
+ * a normal theme is loaded.
+ *
+ * This definition is preferrable to using an undefined theme.
+ *
+ * The values defined in this theme are not relevant, because
+ * they are replaced quickly by a loaded theme during the app
+ * init sequence.
+ */
 export const themeDefault: Theme = {
   code: 'default',
   label: 'default',

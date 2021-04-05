@@ -6,6 +6,9 @@ import { LayerEvent } from '#core/models/event/layer-event';
 import { LayerShownEvent } from '#core/models/event/layer-shown-event';
 import { LayerHiddenEvent } from '#core/models/event/layer-hidden-event';
 
+/**
+ * Provides methods to manage the visibility of layers of objects.
+ */
 @Injectable()
 export class LayersVisibilityManagerService {
 
@@ -13,21 +16,33 @@ export class LayersVisibilityManagerService {
 
   private readonly _shownLayers: Set<string>;
 
-  constructor(
-    private readonly _layerService: LayerService
-  ) {
+  constructor(private readonly _layerService: LayerService) {
     this._shownLayers = new Set<string>();
     this._events = new BehaviorSubject<LayerEvent<any>>(LayerEvent.INITIAL);
   }
 
+  /**
+   * Returns the Observable allowing to trace the layer events related with the visibility of objects.
+   */
   public get events(): Observable<LayerEvent<any>> {
     return this._events;
   }
 
+  /**
+   * Returns true if the objects of the specified layer are shown in the view.
+   *
+   * @param code the code of the layer to check.
+   * @returns boolean true if the objects are shown.
+   */
   public isShown(code: string): boolean {
     return !!code && this._shownLayers.has(code);
   }
 
+  /**
+   * Shows the objects of the specified layer.
+   *
+   * @param code the code of the layer to show the objects for.
+   */
   public showLayer(code: string): void {
     const layer = this._layerService.getModel(code);
     if (!layer) {
@@ -41,6 +56,11 @@ export class LayersVisibilityManagerService {
     this.processSubLayersVisibility(code, true);
   }
 
+  /**
+   * Hides the objects of the specified layer.
+   *
+   * @param code the code of the layer to hide the objects for.
+   */
   public hideLayer(code: string): void {
     const layer = this._layerService.getModel(code);
     if (!layer) {

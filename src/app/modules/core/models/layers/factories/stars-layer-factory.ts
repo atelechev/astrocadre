@@ -9,6 +9,9 @@ import { Searchable } from '#core/models/layers/searchable';
 import { SupportedLayers } from '#core/models/layers/supported-layers';
 import { buildCenterPoint, extractProperName, extractStandardName, toGreekLetter } from '#core/utils/star-utils';
 
+/**
+ * Factory for a renderable layer of stars.
+ */
 export class StarsLayerFactory implements LayerFactory {
 
   public static readonly STARS_LAYER_CODE_PREFIX = `${SupportedLayers.STARS}-mag`;

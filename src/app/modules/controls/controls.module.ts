@@ -21,6 +21,10 @@ import { SelectorStarNamesComponent } from '#controls/components/selector-star-n
 import { SelectorThemeComponent } from '#controls/components/selector-theme/selector-theme.component';
 import { DraggableElementsHandler } from '#controls/services/draggable-elements-handler';
 
+/**
+ * Contains all the elements of the application that represent
+ * visual control elements and other UI tools.
+ */
 @NgModule({
   imports: [
     BrowserAnimationsModule,

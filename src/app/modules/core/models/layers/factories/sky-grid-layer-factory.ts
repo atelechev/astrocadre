@@ -4,6 +4,9 @@ import { AxialCurvesFactory } from '#core/models/layers/factories/axial-curves-f
 import { LayerFactory } from '#core/models/layers/factories/layer-factory';
 import { SkyGrid } from '#core/models/layers/sky-grid';
 
+/**
+ * Factory for the renderable layer of the celestial coordinates grid.
+ */
 export class SkyGridLayerFactory implements LayerFactory {
 
   private readonly _gridStepMeridians = 15;

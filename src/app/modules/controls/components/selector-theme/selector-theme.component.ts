@@ -3,7 +3,10 @@ import { ThemeMeta } from '#core/models/theme/theme-meta';
 import { ThemeService } from '#core/services/theme.service';
 import { LoaderService } from '#core/services/data/loader.service';
 
-
+/**
+ * Provides the UI with the controls allowing to select the graphical
+ * theme for the objects shown in the viewport.
+ */
 @Component({
   selector: `ac-controls-select-theme`,
   templateUrl: './selector-theme.component.html'

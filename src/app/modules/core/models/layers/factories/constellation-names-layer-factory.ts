@@ -7,33 +7,30 @@ import { RenderableText } from '#core/models/layers/renderable-text';
 import { WorldConstants } from '#core/models/world-constants';
 import { toVector3 } from '#core/utils/vector-utils';
 
-
+/**
+ * Factory for the renderable layer of the constellation names.
+ */
 export class ConstellationNamesLayerFactory implements LayerFactory {
 
-  constructor(private readonly _layerModel: Layer) {
+  private readonly _worldRadius: number;
 
+  constructor(private readonly _layerModel: Layer) {
+    this._worldRadius = WorldConstants.worldRadiusForLayer(_layerModel.code);
   }
 
   public buildRenderableLayer(): ConstellationNames {
-    const labels = this.initRenderableLabels(this._layerModel.code, this._layerModel.objects);
-    return new ConstellationNames(
-      this._layerModel,
-      labels
+    const labels = this.initTexts(this._layerModel.objects);
+    return new ConstellationNames(this._layerModel, labels);
+  }
+
+  private initTexts(rawMetadata: Array<ConstellationMeta>): Array<RenderableText> {
+    return rawMetadata.map(
+      (constMeta: ConstellationMeta) => this.toRenderableText(constMeta)
     );
   }
 
-  private initRenderableLabels(layer: string, rawMetadata: Array<ConstellationMeta>): Map<string, RenderableText> {
-    const renderableLabels = new Map<string, RenderableText>();
-    rawMetadata.forEach(
-      (constMeta: ConstellationMeta) => {
-        const renderable = this.toRenderableText(layer, constMeta);
-        renderableLabels.set(constMeta.code, renderable);
-      });
-    return renderableLabels;
-  }
-
-  private toRenderableText(layer: string, constMeta: ConstellationMeta): RenderableText {
-    const center = toVector3(constMeta.ra, constMeta.dec, WorldConstants.worldRadiusForLayer(layer));
+  private toRenderableText(constMeta: ConstellationMeta): RenderableText {
+    const center = toVector3(constMeta.ra, constMeta.dec, this._worldRadius);
     return new RenderableText(
       center,
       constMeta.names[0],

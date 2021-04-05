@@ -6,6 +6,10 @@ import { ViewportEvent } from '#core/models/event/viewport-event';
 import { ViewportSizeChangeEvent } from '#core/models/event/viewport-size-change-event';
 import { ViewportViewChangeEvent } from '#core/models/event/viewport-view-change-event';
 
+/**
+ * Holds the value corresponding to the current size of the viewport and provides
+ * methods related with the viewport.
+ */
 @Injectable()
 export class ViewportService {
 
@@ -31,14 +35,27 @@ export class ViewportService {
     };
   }
 
+  /**
+   * Returns the default height of the viewport.
+   *
+   * The default height is the full available height of the current window.
+   */
   public get defaultHeight(): number {
     return this._defaultHeight;
   }
 
+  /**
+   * Returns the default width of the viewport.
+   *
+   * The default width is the full available width of the current window.
+   */
   public get defaultWidth(): number {
     return this._defaultWidth;
   }
 
+  /**
+   * Returns the current size of the viewport.
+   */
   public get size(): Dimension {
     return {
       height: this._height,
@@ -46,6 +63,15 @@ export class ViewportService {
     };
   }
 
+  /**
+   * Sets the current size of the viewport.
+   *
+   * If a value in the dimension is not defined or is out of allowed bounds, uses the default value
+   * for the respective property.
+   *
+   * If the new value is different from the previous, triggers a viewportSizeChanged event.
+   *
+   */
   public set size(size: Dimension) {
     const previousHeight = this._height;
     const previousWidth = this._width;
@@ -56,10 +82,18 @@ export class ViewportService {
     }
   }
 
+  /**
+   * Returns the current height of the viewport.
+   */
   public get height(): number {
     return this._height;
   }
 
+  /**
+   * Sets the height of the viewport to the specified value.
+   *
+   * Triggers a viewportSizeChanged event if the new height is different from the previous.
+   */
   public set height(h: number) {
     this.size = {
       height: h,
@@ -67,10 +101,18 @@ export class ViewportService {
     };
   }
 
+  /**
+   * Returns the current width of the viewport.
+   */
   public get width(): number {
     return this._width;
   }
 
+  /**
+   * Sets the width of the viewport to the specified value.
+   *
+   * Triggers a viewportSizeChanged event if the new width is different from the previous.
+   */
   public set width(w: number) {
     this.size = {
       height: this._height,
@@ -100,10 +142,18 @@ export class ViewportService {
       coordinate.y < this._height;
   }
 
+  /**
+   * Returns the Observable allowing to trace the viewport events.
+   */
   public get events(): Observable<ViewportEvent<any>> {
     return this._events;
   }
 
+  /**
+   * Triggers the viewport view change event.
+   *
+   * @param change the string denoting the type of the change.
+   */
   public fireViewportViewChanged(change: string) {
     this._events.next(new ViewportViewChangeEvent(change));
   }

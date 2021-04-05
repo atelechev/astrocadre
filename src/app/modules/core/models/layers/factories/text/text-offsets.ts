@@ -1,3 +1,4 @@
+
 /**
  * Wraps values of X an Y axis offsets to apply on an element while calculating its position in the view.
  */

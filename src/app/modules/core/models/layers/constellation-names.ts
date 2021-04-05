@@ -4,19 +4,18 @@ import { RenderableText } from '#core/models/layers/renderable-text';
 import { Searchable } from '#core/models/layers/searchable';
 import { Theme } from '#core/models/theme/theme';
 
-
+/**
+ * Represents a renderable layer containing the names of the constellations.
+ */
 export class ConstellationNames extends RenderableLayer {
-
-  private readonly _texts: Array<RenderableText>;
 
   private readonly _searchables: Array<Searchable>;
 
   constructor(
     model: Layer,
-    private _renderableLabels: Map<string, RenderableText>
+    private readonly _texts: Array<RenderableText>
   ) {
     super(model);
-    this._texts = Array.from(this._renderableLabels.values());
     this._searchables = model.objects;
   }
 
@@ -26,10 +25,6 @@ export class ConstellationNames extends RenderableLayer {
 
   public get searchables(): Array<Searchable> {
     return this._searchables;
-  }
-
-  public get renderableLabels(): Map<string, RenderableText> {
-    return this._renderableLabels;
   }
 
   public applyTheme(theme: Theme): void {

@@ -15,4 +15,3 @@ export class TextOffsetPolicies {
   public static readonly CLOSE_RIGHT: TextOffsetPolicy = new CloseRightText();
 
 }
-

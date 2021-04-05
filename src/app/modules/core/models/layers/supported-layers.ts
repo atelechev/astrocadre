@@ -1,4 +1,9 @@
 
+/**
+ * List the codes of the supported layers.
+ *
+ */
+// TODO these constants should be removed, and the loading / matching of the layers should be fully dynamic.
 export class SupportedLayers {
 
   public static readonly SKY_GRID = 'sky-grid';

@@ -2,6 +2,9 @@ import { LineStyle } from '#core/models/theme/line-style';
 import { TextStyle } from '#core/models/theme/text-style';
 import { ThemeMeta } from '#core/models/theme/theme-meta';
 
+/**
+ * Represents a graphical theme.
+ */
 export interface Theme extends ThemeMeta {
   background: {
     color: string;

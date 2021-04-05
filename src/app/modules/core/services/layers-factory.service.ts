@@ -12,7 +12,9 @@ import { RenderableLayer } from '#core/models/layers/renderable-layer';
 import { SupportedLayers } from '#core/models/layers/supported-layers';
 import { SearchService } from '#core/services/search.service';
 
-
+/**
+ * Provides a method to build layers of objects to show.
+ */
 @Injectable()
 export class LayersFactoryService {
 
@@ -25,6 +27,12 @@ export class LayersFactoryService {
     this._pointsFactory = new PointsFactory();
   }
 
+  /**
+   * Builds and returns a renderable layer corresponding to the specified model.
+   *
+   * @param layer the model object to build a renderable for.
+   * @returns RenderableLayer the renderable object.
+   */
   public buildRenderableLayer(layer: Layer): RenderableLayer {
     const factory = this.getLayerFactory(layer);
     const renderable = factory?.buildRenderableLayer();

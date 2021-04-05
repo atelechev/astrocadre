@@ -3,6 +3,11 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { Searchable } from '#core/models/layers/searchable';
 import { SkyCoordinate } from '#core/models/screen/sky-coordinate';
 
+/**
+ * Provides the search functionality of the application.
+ *
+ * The search is be done among the searchable items registered in this service.
+ */
 @Injectable()
 export class SearchService {
 
@@ -25,12 +30,18 @@ export class SearchService {
     this._searchReady = new BehaviorSubject<boolean>(false);
   }
 
+  /**
+   * Returns the number of searchable items registered in the service.
+   */
   public get searchablesCount(): number {
     return this._searchables.size;
   }
 
   /**
    * Returns the SkyCoordinate that corresponds to the specified search query.
+   *
+   * The query string is expected to be the name of the searched item (case insensitive), or
+   * its celestial coordinates (right ascention and declination).
    *
    * @param query the query string
    */
@@ -50,6 +61,12 @@ export class SearchService {
     return undefined;
   }
 
+  /**
+   * Returns the name of a location, randomly selected among the names of
+   * registered searchable locations.
+   *
+   * @returns string the name of a random location.
+   */
   public getRandomLocationName(): string {
     const allSearchableQueries = Array.from(this._searchables.keys());
     const randomQuery = allSearchableQueries[Math.floor(Math.random() * allSearchableQueries.length)];
@@ -62,16 +79,26 @@ export class SearchService {
     return location.names?.length > 0 ? location.names[0] : location.code;
   }
 
+  /**
+   * Returns the Observable that resolves to true when the search functionality is ready to be used.
+   *
+   * @returns Observable<boolean> observable to check whether the search is ready.
+   */
   public searchReady(): Observable<boolean> {
     return this._searchReady;
   }
 
+  /**
+   * Registers the specified searchable items within this service.
+   *
+   * @param items the items to register.
+   */
   public registerSearchables(items: Array<Searchable>): void {
     if (!items) {
       return;
     }
     if (items.length > 0) {
-      this._registeredLayersWithSearchables++;
+      this._registeredLayersWithSearchables++; // TODO find a better criteria for this!
     }
     items.forEach(
       (item: Searchable) => this.registerSearchable(item)

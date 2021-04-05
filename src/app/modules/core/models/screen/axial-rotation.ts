@@ -1,6 +1,6 @@
 
 /**
- * Wraps parameters defining the rotation angles of a ThreeJS Camera.
+ * Defines the rotation angles of a ThreeJS Camera.
  */
 export interface AxialRotation {
 

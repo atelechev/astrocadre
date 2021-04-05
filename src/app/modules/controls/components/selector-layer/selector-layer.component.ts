@@ -3,7 +3,10 @@ import { Layer } from '#core/models/layers/layer';
 import { SupportedLayers } from '#core/models/layers/supported-layers';
 import { LayersVisibilityManagerService } from '#core/services/visibility/layers-visibility-manager.service';
 
-
+/**
+ * Provides the UI with the controls allowing to select whether a
+ * layer of objects is shown in the viewport.
+ */
 @Component({
   selector: 'ac-controls-select-layer',
   templateUrl: './selector-layer.component.html'

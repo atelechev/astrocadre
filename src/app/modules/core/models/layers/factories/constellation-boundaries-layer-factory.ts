@@ -4,7 +4,9 @@ import { AxialCurvesFactory } from '#core/models/layers/factories/axial-curves-f
 import { LayerFactory } from '#core/models/layers/factories/layer-factory';
 import { SupportedLayers } from '#core/models/layers/supported-layers';
 
-
+/**
+ * Factory for the renderable layer of the constellation boundary lines.
+ */
 export class ConstellationBoundariesLayerFactory implements LayerFactory {
 
   constructor(

@@ -2,7 +2,8 @@ import { TextOffsetPolicy } from '#core/models/layers/factories/text/text-offset
 import { TextOffsets } from '#core/models/layers/factories/text/text-offsets';
 
 /**
- * Implements TextOffsetPolicy that places a label on a constant distance close to the right of a point.
+ * Implements TextOffsetPolicy that places a label on a constant
+ * distance close to the right of a point.
  */
 export class CloseRightText implements TextOffsetPolicy {
 

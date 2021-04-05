@@ -61,25 +61,4 @@ describe('RenderableLayer', () => {
     expect(layer.searchables).toEqual([]);
   });
 
-  describe('areTextsShown should return', () => {
-
-    it('true by default', () => {
-      expect(layer.areTextsShown).toBeTrue();
-    });
-
-    it('false if hideTexts() was called', () => {
-      expect(layer.areTextsShown).toBeTrue();
-      layer.hideTexts();
-      expect(layer.areTextsShown).toBeFalse();
-    });
-
-    it('true if showTexts() was called', () => {
-      layer.hideTexts();
-      expect(layer.areTextsShown).toBeFalse();
-      layer.showTexts();
-      expect(layer.areTextsShown).toBeTrue();
-    });
-
-  });
-
 });

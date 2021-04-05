@@ -54,13 +54,6 @@ describe('ConstellationNames', () => {
     expect(searchables[0].type).toEqual('constellation');
   });
 
-  it('renderableLabels should return expected data', () => {
-    const labels = layer.renderableLabels;
-    expect(labels).toBeDefined();
-    expect(labels.size).toEqual(1);
-    expect(labels.get(code).text).toEqual(constellation);
-  });
-
   it('style should be assigned to the texts', () => {
     layer.applyTheme(mockedTheme);
     const text = layer.texts[0] as RenderableText;

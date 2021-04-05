@@ -2,6 +2,9 @@ import { BufferGeometry, Points, Vector3 } from 'three';
 import { Object3DFactory } from '#core/models/layers/factories/object3d-factory';
 import { toVector3 } from '#core/utils/vector-utils';
 
+/**
+ * Factory object allowing to transform source coordinates data into 3D points data.
+ */
 export class PointsFactory extends Object3DFactory<Points> {
 
   protected segmentToVertices(segment: number[], radius: number): Vector3[] {

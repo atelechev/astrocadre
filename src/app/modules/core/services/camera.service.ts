@@ -12,7 +12,9 @@ import { WorldConstants } from '#core/models/world-constants';
 import { ViewportService } from '#core/services/viewport.service';
 import { toVector3 } from '#core/utils/vector-utils';
 
-
+/**
+ * Holds the reference to the camera object and provides methods to change the view.
+ */
 @Injectable()
 export class CameraService {
 
@@ -45,10 +47,18 @@ export class CameraService {
     this._coordsMarker = this.initCoordsMarker();
   }
 
+  /**
+   * Returns the current camera object.
+   */
   public get camera(): PerspectiveCamera {
     return this._camera;
   }
 
+  /**
+   * Rotates the camera according to the specified rotation argument.
+   *
+   * @param rotation the rotation to execute.
+   */
   public rotate(rotation: AxialRotation): void {
     if (rotation) {
       this.camera.rotateX(rotation.rx);
@@ -58,6 +68,11 @@ export class CameraService {
     }
   }
 
+  /**
+   * Aligns the view of the camera, so that the North is placed above the top middle of the view, if the view
+   * is in the Nothern hemisphere, or the South is placed above the top middle, if the view
+   * is in the Southern hemisphere.
+   */
   public alignNSAxis(): void {
     const viewCenter = this.getViewCenterCoordinates();
     this.camera.up = this.getAlignmentPoleCoordinate(viewCenter.z);
@@ -65,14 +80,24 @@ export class CameraService {
     this._viewportService.fireViewportViewChanged('alignNSAxis');
   }
 
-  public setFoV(range: number): void {
-    if (range && range > 0) {
-      this.camera.fov = range;
+  /**
+   * Sets the field of view to the specified width in degrees.
+   *
+   * @param width the width of the field of view in degrees.
+   */
+  public setFoV(width: number): void {
+    if (width && width > 0) {
+      this.camera.fov = width;
       this.camera.updateProjectionMatrix();
       this._viewportService.fireViewportViewChanged('setFoV');
     }
   }
 
+  /**
+   * Centers the view at the specified coordinates.
+   *
+   * @param coords the coordinate to use as the center of the view.
+   */
   public centerView(coords: SkyCoordinate): void {
     if (coords) {
       this.camera.up = this.getAlignmentPoleCoordinate(coords.declination);
@@ -82,6 +107,11 @@ export class CameraService {
     }
   }
 
+  /**
+   * Returns the coordinates of the view center.
+   *
+   * @returns Vector3 the coordinates of the view center.
+   */
   public getViewCenterCoordinates(): Vector3 {
     const viewCenter = new Vector3();
     this._coordsMarker.updateMatrixWorld(true);
@@ -89,6 +119,12 @@ export class CameraService {
     return viewCenter;
   }
 
+  /**
+   * Returns true if the specified point is behind the current view plane.
+   *
+   * @param point the point to check.
+   * @returns boolean true if the point is behind.
+   */
   public isPointBehind(point: Vector3): boolean {
     if (!point) {
       return true;
@@ -96,6 +132,9 @@ export class CameraService {
     return !this._frustum.containsPoint(point);
   }
 
+  /**
+   * Updates the current frustum.
+   */
   public updateFrustum(): void {
     this._camera.updateMatrix();
     this._camera.updateMatrixWorld(true);
