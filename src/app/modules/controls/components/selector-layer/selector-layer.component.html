@@ -1,0 +1,20 @@
+<div class="p-mb-2">
+  <p-checkbox [(ngModel)]="isShown"
+              [label]="layer.label"
+              [binary]="true"
+              title="{{ layer.description }}"></p-checkbox>
+</div>
+
+<div class="p-ml-4">
+
+  <div *ngIf="isStarsLayer; else showSubLayers">
+    <ac-controls-select-star-magnitude></ac-controls-select-star-magnitude>
+    <ac-controls-select-star-names></ac-controls-select-star-names>
+  </div>
+
+  <ng-template #showSubLayers>
+    <ac-controls-select-layer *ngFor="let subLayer of subLayers"
+        [layer]="subLayer"></ac-controls-select-layer>
+  </ng-template>
+
+</div>

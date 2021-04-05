@@ -4,21 +4,19 @@
     "color": "rgb(255, 255, 255)"
   },
   "skyGrid": {
-    "line": {
-      "common": "rgb(170, 170, 170)",
-      "reference": "rgb(153, 153, 153)"
+    "normal": {
+      "color": "rgb(170, 170, 170)"
+    },
+    "reference": {
+      "color": "rgb(153, 153, 153)"
     }
   },
   "constellation": {
     "boundaries": {
-      "line": {
-        "common": "rgb(102, 102, 102)"
-      }
+      "color": "rgb(102, 102, 102)"
     },
     "lines": {
-      "line": {
-        "common": "rgb(204, 204, 204)"
-      }
+      "color": "rgb(204, 204, 204)"
     },
     "names": {
       "fontSize": "26px",

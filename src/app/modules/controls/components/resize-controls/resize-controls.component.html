@@ -1,0 +1,46 @@
+<div class="p-grid">
+
+  <div class="p-offset-1 p-col-4">
+    <p-inputNumber [(ngModel)]="width"
+                  [showButtons]="true"
+                  [min]="100"
+                  [max]="4000"
+                  [step]="100"
+                  [useGrouping]="false"
+                  [maxFractionDigits]="0"
+                  size="5"
+                  suffix="px"
+                  buttonLayout="horizontal"
+                  spinnerMode="horizontal"
+                  incrementButtonIcon="pi pi-plus"
+                  decrementButtonIcon="pi pi-minus"
+                  title="The width of the viewport, in pixels"></p-inputNumber>
+  </div>
+
+  <div class="p-col-4">
+    <p-inputNumber [(ngModel)]="height"
+                  [showButtons]="true"
+                  [min]="100"
+                  [max]="2000"
+                  [step]="100"
+                  [useGrouping]="false"
+                  [maxFractionDigits]="0"
+                  size="5"
+                  suffix="px"
+                  buttonLayout="horizontal"
+                  spinnerMode="horizontal"
+                  incrementButtonIcon="pi pi-plus"
+                  decrementButtonIcon="pi pi-minus"
+                  title="The height of the viewport, in pixels"></p-inputNumber>
+  </div>
+
+  <div class="p-col-3">
+    <button type="button"
+              pButton
+              label="Resize"
+              class="p-button-text"
+              (click)="resizeViewport()"
+              style="width:100%"></button>
+  </div>
+
+</div>

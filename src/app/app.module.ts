@@ -1,29 +1,23 @@
-import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { AstrocadreComponent } from 'src/app/components/astrocadre/astrocadre.component';
+import { CoreModule } from '#core/core.module';
+import { ControlsModule } from '#controls/controls.module';
 
-import { AppComponent } from './app.component';
-import { HttpClientModule } from '@angular/common/http';
-import { CoreModule } from './core/core.module';
-import { ControlsModule } from './controls/controls.module';
-import { ThemesModule } from './themes/themes.module';
-import { ViewportModule } from './viewport/viewport.module';
-import { LayersModule } from './layers/layers.module';
-
+/**
+ * The root module of the application.
+ */
 @NgModule({
   declarations: [
-    AppComponent
+    AstrocadreComponent
+  ],
+  exports: [
+    AstrocadreComponent
   ],
   imports: [
-    BrowserModule,
-    HttpClientModule,
     CoreModule,
-    ThemesModule,
-    LayersModule,
-    ControlsModule,
-    ViewportModule
+    ControlsModule
   ],
-  providers: [],
-  bootstrap: [ AppComponent ]
+  bootstrap: [AstrocadreComponent]
 })
 export class AppModule {
 
