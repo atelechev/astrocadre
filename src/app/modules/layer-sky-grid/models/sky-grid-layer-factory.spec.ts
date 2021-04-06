@@ -1,6 +1,6 @@
 import { AxialCurvesFactory } from '#core/models/layers/factories/axial-curves-factory';
 import { LayerFactory } from '#core/models/layers/factories/layer-factory';
-import { SkyGridLayerFactory } from '#core/models/layers/factories/sky-grid-layer-factory';
+import { SkyGridLayerFactory } from '#layer-sky-grid/models/sky-grid-layer-factory';
 
 
 describe('SkyGridLayerFactory', () => {

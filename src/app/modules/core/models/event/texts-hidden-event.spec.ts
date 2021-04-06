@@ -1,6 +1,6 @@
 import { TextsHiddenEvent } from '#core/models/event/texts-hidden-event';
 import { AxialCurvesFactory } from '#core/models/layers/factories/axial-curves-factory';
-import { SkyGridLayerFactory } from '#core/models/layers/factories/sky-grid-layer-factory';
+import { SkyGridLayerFactory } from '#layer-sky-grid/models/sky-grid-layer-factory';
 import { mockedLayers } from '#core/test-utils/mocked-layers.spec';
 
 describe('TextsHiddenEvent', () => {

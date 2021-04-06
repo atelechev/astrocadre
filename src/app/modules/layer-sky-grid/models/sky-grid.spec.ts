@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 import { Color, LineBasicMaterial, LineSegments } from 'three';
-import { SkyGrid } from '#core/models/layers/sky-grid';
+import { SkyGrid } from '#layer-sky-grid/models/sky-grid';
 import { LayersFactoryService } from '#core/services/layers-factory.service';
 import { mockedTheme } from '#core/test-utils/mocked-theme.spec';
 import { LineStyle } from '#core/models/theme/line-style';

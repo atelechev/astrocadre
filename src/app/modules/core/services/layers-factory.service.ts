@@ -6,7 +6,7 @@ import { ConstellationLinesLayerFactory } from '#core/models/layers/factories/co
 import { ConstellationNamesLayerFactory } from '#core/models/layers/factories/constellation-names-layer-factory';
 import { LayerFactory } from '#core/models/layers/factories/layer-factory';
 import { PointsFactory } from '#core/models/layers/factories/points-factory';
-import { SkyGridLayerFactory } from '#core/models/layers/factories/sky-grid-layer-factory';
+import { SkyGridLayerFactory } from '#layer-sky-grid/models/sky-grid-layer-factory';
 import { StarsLayerFactory } from '#core/models/layers/factories/stars-layer-factory';
 import { RenderableLayer } from '#core/models/layers/renderable-layer';
 import { SupportedLayers } from '#core/models/layers/supported-layers';
@@ -44,7 +44,7 @@ export class LayersFactoryService {
     const useCode = this.calculateTargetLayerCode(layer?.code);
     switch (useCode) {
       case SupportedLayers.SKY_GRID:
-        return new SkyGridLayerFactory(layer, this._curvesFactory);
+        return new SkyGridLayerFactory(layer, this._curvesFactory); // TODO remove when loaded dynamically
       case SupportedLayers.CONSTELLATION_BOUNDARIES:
         return new ConstellationBoundariesLayerFactory(layer, this._curvesFactory);
       case SupportedLayers.CONSTELLATION_LINES:

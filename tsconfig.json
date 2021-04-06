@@ -30,6 +30,9 @@
       "#core/*": [
         "src/app/modules/core/*"
       ],
+      "#layer-sky-grid/*": [
+        "src/app/modules/layer-sky-grid/*"
+      ],
       "#environments/*": [
         "./src/environments/*"
       ]
