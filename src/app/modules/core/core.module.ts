@@ -11,7 +11,6 @@ import { ThemeService } from '#core/services/theme.service';
 import { ViewportService } from '#core/services/viewport.service';
 import { LoaderService } from '#core/services/data/loader.service';
 import { LayersVisibilityManagerService } from '#core/services/visibility/layers-visibility-manager.service';
-import { StarsVisibilityManagerService } from '#core/services/visibility/stars-visibility-manager.service';
 import { TextsVisibilityManagerService } from '#core/services/visibility/texts-visibility-manager.service';
 
 /**
@@ -31,7 +30,6 @@ import { TextsVisibilityManagerService } from '#core/services/visibility/texts-v
     MouseEventsHandler,
     SceneService,
     SearchService,
-    StarsVisibilityManagerService,
     StaticDataService,
     TextsVisibilityManagerService,
     ThemeService,

@@ -1,5 +1,5 @@
 import { TestBed } from '@angular/core/testing';
-import { Stars } from '#core/models/layers/stars';
+import { Stars } from '#layer-stars/models/stars';
 import { LayerService } from '#core/services/layer.service';
 import { SceneService } from '#core/services/scene.service';
 import { LayersVisibilityManagerService } from '#core/services/visibility/layers-visibility-manager.service';

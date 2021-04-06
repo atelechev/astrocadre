@@ -4,10 +4,11 @@ import { SelectorStarNamesComponent } from '#controls/components/selector-star-n
 import { NameSelectionType } from '#controls/models/name-selection-type';
 import { mockedLayers } from '#core/test-utils/mocked-layers.spec';
 import { LayersVisibilityManagerService } from '#core/services/visibility/layers-visibility-manager.service';
-import { StarsVisibilityManagerService } from '#core/services/visibility/stars-visibility-manager.service';
+import { StarsVisibilityManagerService } from '#layer-stars/services/stars-visibility-manager.service';
 import { TextsVisibilityManagerService } from '#core/services/visibility/texts-visibility-manager.service';
 import { CoreModule } from '#core/core.module';
 import { ControlsModule } from '#controls/controls.module';
+import { LayerStarsModule } from '#layer-stars/layer-stars.module';
 
 
 describe('SelectorStarNamesComponent', () => {
@@ -21,7 +22,8 @@ describe('SelectorStarNamesComponent', () => {
     TestBed.configureTestingModule({
       imports: [
         CoreModule,
-        ControlsModule
+        ControlsModule,
+        LayerStarsModule
       ]
     });
     const layersService = TestBed.inject(LayerService);

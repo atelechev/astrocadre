@@ -1,7 +1,7 @@
 import { LayerFactory } from '#core/models/layers/factories/layer-factory';
 import { PointsFactory } from '#core/models/layers/factories/points-factory';
-import { StarsLayerFactory } from '#core/models/layers/factories/stars-layer-factory';
-import { Stars } from '#core/models/layers/stars';
+import { StarsLayerFactory } from '#layer-stars/models/stars-layer-factory';
+import { Stars } from '#layer-stars/models/stars';
 
 describe('StarsLayerFactory', () => {
 

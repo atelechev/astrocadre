@@ -1,8 +1,8 @@
 import { TestBed } from '@angular/core/testing';
-import { Stars } from '#core/models/layers/stars';
+import { Stars } from '#layer-stars/models/stars';
 import { LayerService } from '#core/services/layer.service';
 import { LayersVisibilityManagerService } from '#core/services/visibility/layers-visibility-manager.service';
-import { StarsVisibilityManagerService } from '#core/services/visibility/stars-visibility-manager.service';
+import { StarsVisibilityManagerService } from '#layer-stars/services/stars-visibility-manager.service';
 import { mockedLayers } from '#core/test-utils/mocked-layers.spec';
 import { getSubRenderables, registerMockStarsLayers } from '#core/test-utils/utils.spec';
 import { LayersFactoryService } from '#core/services/layers-factory.service';

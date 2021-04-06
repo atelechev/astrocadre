@@ -1,11 +1,12 @@
 import { TestBed } from '@angular/core/testing';
 import { SelectorStarMagnitudeComponent } from '#controls/components/selector-star-magnitude/selector-star-magnitude.component';
 import { LayersVisibilityManagerService } from '#core/services/visibility/layers-visibility-manager.service';
-import { StarsVisibilityManagerService } from '#core/services/visibility/stars-visibility-manager.service';
+import { StarsVisibilityManagerService } from '#layer-stars/services/stars-visibility-manager.service';
 import { registerMockStarsLayers } from '#core/test-utils/utils.spec';
 import { CoreModule } from '#core/core.module';
 import { ControlsModule } from '#controls/controls.module';
 import { LayerService } from '#core/services/layer.service';
+import { LayerStarsModule } from '#layer-stars/layer-stars.module';
 
 
 describe('SelectorStarMagnitudeComponent', () => {
@@ -18,7 +19,8 @@ describe('SelectorStarMagnitudeComponent', () => {
     TestBed.configureTestingModule({
       imports: [
         CoreModule,
-        ControlsModule
+        ControlsModule,
+        LayerStarsModule
       ]
     });
     registerMockStarsLayers(TestBed.inject(LayerService));

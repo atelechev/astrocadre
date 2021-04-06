@@ -7,7 +7,7 @@ import { ConstellationNamesLayerFactory } from '#layer-constellations/models/con
 import { LayerFactory } from '#core/models/layers/factories/layer-factory';
 import { PointsFactory } from '#core/models/layers/factories/points-factory';
 import { SkyGridLayerFactory } from '#layer-sky-grid/models/sky-grid-layer-factory';
-import { StarsLayerFactory } from '#core/models/layers/factories/stars-layer-factory';
+import { StarsLayerFactory } from '#layer-stars/models/stars-layer-factory';
 import { RenderableLayer } from '#core/models/layers/renderable-layer';
 import { SupportedLayers } from '#core/models/layers/supported-layers';
 import { SearchService } from '#core/services/search.service';

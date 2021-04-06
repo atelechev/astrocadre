@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Layer } from '#core/models/layers/layer';
-import { Stars } from '#core/models/layers/stars';
+import { Stars } from '#layer-stars/models/stars';
 import { SupportedLayers } from '#core/models/layers/supported-layers';
 import { LayerService } from '#core/services/layer.service';
 import { LayersVisibilityManagerService } from '#core/services/visibility/layers-visibility-manager.service';

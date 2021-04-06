@@ -4,6 +4,7 @@ import { LayerConstellationsModule } from '#layer-constellations/layer-constella
 import { CoreModule } from '#core/core.module';
 import { ControlsModule } from '#controls/controls.module';
 import { LayerSkyGridModule } from '#layer-sky-grid/layer-sky-grid.module';
+import { LayerStarsModule } from '#layer-stars/layer-stars.module';
 
 /**
  * The root module of the application.
@@ -19,7 +20,8 @@ import { LayerSkyGridModule } from '#layer-sky-grid/layer-sky-grid.module';
     CoreModule,
     ControlsModule,
     LayerSkyGridModule, // TODO remove when loaded dynamically
-    LayerConstellationsModule
+    LayerConstellationsModule,
+    LayerStarsModule
   ],
   bootstrap: [AstrocadreComponent]
 })

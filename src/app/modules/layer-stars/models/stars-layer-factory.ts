@@ -1,10 +1,9 @@
-import { Vector3 } from 'three';
 import { Layer } from '#core/models/layers/layer';
 import { LayerFactory } from '#core/models/layers/factories/layer-factory';
 import { PointsFactory } from '#core/models/layers/factories/points-factory';
 import { TextOffsetPolicies } from '#core/models/layers/factories/text/text-offsets-policies';
 import { RenderableText } from '#core/models/layers/renderable-text';
-import { Stars } from '#core/models/layers/stars';
+import { Stars } from '#layer-stars/models/stars';
 import { Searchable } from '#core/models/layers/searchable';
 import { SupportedLayers } from '#core/models/layers/supported-layers';
 import { buildCenterPoint, extractProperName, extractStandardName, toGreekLetter } from '#core/utils/star-utils';

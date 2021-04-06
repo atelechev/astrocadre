@@ -1,7 +1,7 @@
 import { TestBed } from '@angular/core/testing';
 import { Points, PointsMaterial } from 'three';
 import { RenderableText } from '#core/models/layers/renderable-text';
-import { Stars } from '#core/models/layers/stars';
+import { Stars } from '#layer-stars/models/stars';
 import { LayersFactoryService } from '#core/services/layers-factory.service';
 import { mockedTheme } from '#core/test-utils/mocked-theme.spec';
 import { SearchService } from '#core/services/search.service';
