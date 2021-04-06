@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Layer } from '#core/models/layers/layer';
 import { AxialCurvesFactory } from '#core/models/layers/factories/axial-curves-factory';
-import { ConstellationBoundariesLayerFactory } from '#core/models/layers/factories/constellation-boundaries-layer-factory';
-import { ConstellationLinesLayerFactory } from '#core/models/layers/factories/constellation-lines-layer-factory';
-import { ConstellationNamesLayerFactory } from '#core/models/layers/factories/constellation-names-layer-factory';
+import { ConstellationBoundariesLayerFactory } from '#layer-constellations/models/constellation-boundaries-layer-factory';
+import { ConstellationLinesLayerFactory } from '#layer-constellations/models/constellation-lines-layer-factory';
+import { ConstellationNamesLayerFactory } from '#layer-constellations/models/constellation-names-layer-factory';
 import { LayerFactory } from '#core/models/layers/factories/layer-factory';
 import { PointsFactory } from '#core/models/layers/factories/points-factory';
 import { SkyGridLayerFactory } from '#layer-sky-grid/models/sky-grid-layer-factory';

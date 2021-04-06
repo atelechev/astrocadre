@@ -1,5 +1,5 @@
 import { Layer } from '#core/models/layers/layer';
-import { ConstellationBoundaries } from '#core/models/layers/constellation-boundaries';
+import { ConstellationBoundaries } from '#layer-constellations/models/constellation-boundaries';
 import { AxialCurvesFactory } from '#core/models/layers/factories/axial-curves-factory';
 import { LayerFactory } from '#core/models/layers/factories/layer-factory';
 import { SupportedLayers } from '#core/models/layers/supported-layers';

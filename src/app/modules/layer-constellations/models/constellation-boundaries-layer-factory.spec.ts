@@ -1,5 +1,5 @@
 import { AxialCurvesFactory } from '#core/models/layers/factories/axial-curves-factory';
-import { ConstellationBoundariesLayerFactory } from '#core/models/layers/factories/constellation-boundaries-layer-factory';
+import { ConstellationBoundariesLayerFactory } from '#layer-constellations/models/constellation-boundaries-layer-factory';
 
 
 describe('ConstellationBoundariesLayerFactory', () => {

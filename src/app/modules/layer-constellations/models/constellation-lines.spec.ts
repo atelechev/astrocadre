@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 import { Color, LineBasicMaterial, LineSegments } from 'three';
-import { ConstellationLines } from '#core/models/layers/constellation-lines';
+import { ConstellationLines } from '#layer-constellations/models/constellation-lines';
 import { mockedTheme } from '#core/test-utils/mocked-theme.spec';
 import { LayersFactoryService } from '#core/services/layers-factory.service';
 import { SearchService } from '#core/services/search.service';

@@ -1,4 +1,4 @@
-import { ConstellationNamesLayerFactory } from '#core/models/layers/factories/constellation-names-layer-factory';
+import { ConstellationNamesLayerFactory } from '#layer-constellations/models/constellation-names-layer-factory';
 import { LayerFactory } from '#core/models/layers/factories/layer-factory';
 
 

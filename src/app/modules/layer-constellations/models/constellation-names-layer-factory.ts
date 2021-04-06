@@ -1,6 +1,6 @@
 import { ConstellationMeta } from '#core/models/layers/constellation-meta';
 import { Layer } from '#core/models/layers/layer';
-import { ConstellationNames } from '#core/models/layers/constellation-names';
+import { ConstellationNames } from '#layer-constellations/models/constellation-names';
 import { LayerFactory } from '#core/models/layers/factories/layer-factory';
 import { TextOffsetPolicies } from '#core/models/layers/factories/text/text-offsets-policies';
 import { RenderableText } from '#core/models/layers/renderable-text';

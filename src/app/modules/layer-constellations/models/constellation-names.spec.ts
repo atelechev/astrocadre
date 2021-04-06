@@ -1,5 +1,5 @@
 import { TestBed } from '@angular/core/testing';
-import { ConstellationNames } from '#core/models/layers/constellation-names';
+import { ConstellationNames } from '#layer-constellations/models/constellation-names';
 import { RenderableText } from '#core/models/layers/renderable-text';
 import { LayersFactoryService } from '#core/services/layers-factory.service';
 import { SearchService } from '#core/services/search.service';
