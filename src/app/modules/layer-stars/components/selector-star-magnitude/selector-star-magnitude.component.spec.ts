@@ -1,5 +1,5 @@
 import { TestBed } from '@angular/core/testing';
-import { SelectorStarMagnitudeComponent } from '#controls/components/selector-star-magnitude/selector-star-magnitude.component';
+import { SelectorStarMagnitudeComponent } from '#layer-stars/components/selector-star-magnitude/selector-star-magnitude.component';
 import { LayersVisibilityManagerService } from '#core/services/visibility/layers-visibility-manager.service';
 import { StarsVisibilityManagerService } from '#layer-stars/services/stars-visibility-manager.service';
 import { registerMockStarsLayers } from '#core/test-utils/utils.spec';

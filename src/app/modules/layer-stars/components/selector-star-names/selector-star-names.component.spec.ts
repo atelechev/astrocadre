@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 import { LayerService } from '#core/services/layer.service';
-import { SelectorStarNamesComponent } from '#controls/components/selector-star-names/selector-star-names.component';
+import { SelectorStarNamesComponent } from '#layer-stars/components/selector-star-names/selector-star-names.component';
 import { NameSelectionType } from '#controls/models/name-selection-type';
 import { mockedLayers } from '#core/test-utils/mocked-layers.spec';
 import { LayersVisibilityManagerService } from '#core/services/visibility/layers-visibility-manager.service';
