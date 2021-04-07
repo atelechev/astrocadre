@@ -2,7 +2,7 @@ import { of } from 'rxjs';
 import { Layer } from '#core/models/layers/layer';
 import { Theme } from '#core/models/theme/theme';
 import { ThemeMeta } from '#core/models/theme/theme-meta';
-import { StaticDataService } from '#core/services/data/static-data.service';
+import { StaticDataService } from '#core/services/static-data.service';
 import { mockedLayers } from '#core/test-utils/mocked-layers.spec';
 import { mockedLines } from '#core/test-utils/mocked-lines.spec';
 import { mockedTheme } from '#core/test-utils/mocked-theme.spec';

@@ -19,7 +19,7 @@ import { LayerStarsModule } from '#layer-stars/layer-stars.module';
   imports: [
     CoreModule,
     ControlsModule,
-    LayerSkyGridModule, // TODO remove when loaded dynamically
+    LayerSkyGridModule,
     LayerConstellationsModule,
     LayerStarsModule
   ],

@@ -1,11 +1,17 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Injector } from '@angular/core';
 import { ThemeMeta } from '#core/models/theme/theme-meta';
-import { StaticDataService } from '#core/services/data/static-data.service';
+import { StaticDataService } from '#core/services/static-data.service';
 import { ThemeService } from '#core/services/theme.service';
 import { Theme } from '#core/models/theme/theme';
 import { LayerService } from '#core/services/layer.service';
 import { Layer } from '#core/models/layers/layer';
 import { LayersVisibilityManagerService } from '#core/services/visibility/layers-visibility-manager.service';
+import { RenderableLayer } from '#core/models/layers/renderable-layer';
+import { LayerFactoryAware } from '#core/models/layers/factories/layer-factory-aware';
+import { LayerFactory } from '#core/models/layers/factories/layer-factory';
+import { LayerSkyGridModule } from '#layer-sky-grid/layer-sky-grid.module';
+import { LayerConstellationsModule } from '#layer-constellations/layer-constellations.module';
+import { LayerStarsModule } from '#layer-stars/layer-stars.module';
 
 /**
  * Asynchronously loads layers and themes data.
@@ -15,13 +21,22 @@ export class LoaderService {
 
   private readonly _loadedThemes: Map<string, Theme>;
 
+  private readonly _layerModules: Array<LayerFactoryAware>;
+
   constructor(
     private readonly _dataService: StaticDataService,
     private readonly _themeService: ThemeService,
     private readonly _layerService: LayerService,
-    private readonly _visibilityManager: LayersVisibilityManagerService
+    private readonly _visibilityManager: LayersVisibilityManagerService,
+    injector: Injector
   ) {
     this._loadedThemes = new Map<string, Theme>();
+    // TODO find a way to inject the modules dynamically, without hard-coding them here
+    this._layerModules = [
+      injector.get(LayerSkyGridModule),
+      injector.get(LayerConstellationsModule),
+      injector.get(LayerStarsModule)
+    ];
   }
 
   /**
@@ -111,8 +126,18 @@ export class LoaderService {
   }
 
   private registerAndShow(layer: Layer): void {
-    this._layerService.registerLayer(layer);
+    const factory = this.getLayerFactory(layer);
+    const renderable = factory?.buildRenderableLayer();
+    this._layerService.registerLayer(renderable);
     this._visibilityManager.showLayer(layer?.code);
+  }
+
+  private getLayerFactory(layer: Layer): LayerFactory {
+    return this._layerModules.map(
+      (factoryAware: LayerFactoryAware) => factoryAware.getLayerFactory(layer)
+    ).find(
+      (factory: LayerFactory) => !!factory
+    );
   }
 
 }

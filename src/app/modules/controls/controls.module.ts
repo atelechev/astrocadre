@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { PrimeNgImportsModule } from 'src/app/primeng-imports.module';
+import { LoaderService } from '#controls/services/loader.service';
 import { CameraControlsComponent } from '#controls/components/camera-controls/camera-controls.component';
 import { ControlsComponent } from '#controls/components/controls/controls.component';
 import { GoToComponent } from '#controls/components/go-to/go-to.component';
@@ -21,7 +22,7 @@ import { LayerStarsModule } from '#layer-stars/layer-stars.module';
     BrowserModule,
     FormsModule,
     PrimeNgImportsModule,
-    LayerStarsModule // TODO remove when it is loaded dynamically
+    LayerStarsModule
   ],
   declarations: [
     CameraControlsComponent,
@@ -36,7 +37,8 @@ import { LayerStarsModule } from '#layer-stars/layer-stars.module';
     ControlsComponent
   ],
   providers: [
-    DraggableElementsHandler
+    DraggableElementsHandler,
+    LoaderService
   ]
 })
 export class ControlsModule {

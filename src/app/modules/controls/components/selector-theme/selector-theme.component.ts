@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
+import { LoaderService } from '#controls/services/loader.service';
 import { ThemeMeta } from '#core/models/theme/theme-meta';
 import { ThemeService } from '#core/services/theme.service';
-import { LoaderService } from '#core/services/data/loader.service';
 
 /**
  * Provides the UI with the controls allowing to select the graphical

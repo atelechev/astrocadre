@@ -1,17 +1,19 @@
 import { fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { of, throwError } from 'rxjs';
-import { LoaderService } from '#core/services/data/loader.service';
+import { LoaderService } from '#controls/services/loader.service';
 import { ThemeService } from '#core/services/theme.service';
-import { StaticDataService } from '#core/services/data/static-data.service';
+import { StaticDataService } from '#core/services/static-data.service';
 import { mockedThemes } from '#core/test-utils/mocked-themes.spec';
 import { mockedTheme } from '#core/test-utils/mocked-theme.spec';
 import { LayerService } from '#core/services/layer.service';
 import { mockedLayers } from '#core/test-utils/mocked-layers.spec';
 import { themeDefault } from '#core/models/theme/theme-default';
-import { LayersFactoryService } from '#core/services/layers-factory.service';
-import { LayersVisibilityManagerService } from '#core/services/visibility/layers-visibility-manager.service';
-import { SearchService } from '#core/services/search.service';
 import { MockStaticDataService } from '#core/test-utils/mock-static-data-service.spec';
+import { LayerConstellationsModule } from '#layer-constellations/layer-constellations.module';
+import { LayerStarsModule } from '#layer-stars/layer-stars.module';
+import { LayerSkyGridModule } from '#layer-sky-grid/layer-sky-grid.module';
+import { CoreModule } from '#core/core.module';
+import { ControlsModule } from '#controls/controls.module';
 
 
 describe('LoaderService', () => {
@@ -23,13 +25,14 @@ describe('LoaderService', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
+      imports: [
+        CoreModule,
+        ControlsModule,
+        LayerSkyGridModule,
+        LayerStarsModule,
+        LayerConstellationsModule
+      ],
       providers: [
-        LayerService,
-        LayersFactoryService,
-        LayersVisibilityManagerService,
-        LoaderService,
-        SearchService,
-        ThemeService,
         {
           provide: StaticDataService,
           useClass: MockStaticDataService

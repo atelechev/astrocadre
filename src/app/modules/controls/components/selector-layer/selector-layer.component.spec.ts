@@ -5,13 +5,13 @@ import { LayersVisibilityManagerService } from '#core/services/visibility/layers
 import { CoreModule } from '#core/core.module';
 import { ControlsModule } from '#controls/controls.module';
 import { LayerService } from '#core/services/layer.service';
+import { MockedGridLayerFactory } from '#core/test-utils/mocked-grid-layer-factory.spec';
 
 describe('SelectorLayerComponent', () => {
 
   let visibilityManager: LayersVisibilityManagerService;
   let component: SelectorLayerComponent;
-  const modelStars = mockedLayers.subLayers[1];
-  const modelStars3 = modelStars.subLayers[2];
+  const code = 'sky-grid';
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -21,9 +21,10 @@ describe('SelectorLayerComponent', () => {
       ]
     });
     visibilityManager = TestBed.inject(LayersVisibilityManagerService);
-    TestBed.inject(LayerService).registerLayer(modelStars3);
+    const layer = new MockedGridLayerFactory().buildRenderableLayer();
+    TestBed.inject(LayerService).registerLayer(layer);
     component = TestBed.createComponent(SelectorLayerComponent).componentInstance;
-    component.layer = modelStars3;
+    component.layer = layer.model;
   });
 
   describe('isShown should return', () => {
@@ -31,12 +32,12 @@ describe('SelectorLayerComponent', () => {
     describe('get should return', () => {
 
       it('true if the layer is shown', () => {
-        visibilityManager.showLayer(modelStars3.code);
+        visibilityManager.showLayer(code);
         expect(component.isShown).toBeTrue();
       });
 
       it('false if the layer is not shown', () => {
-        visibilityManager.hideLayer(modelStars3.code);
+        visibilityManager.hideLayer(code);
         expect(component.isShown).toBeFalse();
       });
 
@@ -45,17 +46,17 @@ describe('SelectorLayerComponent', () => {
     describe('set should', () => {
 
       it('show the layer if arg is true', () => {
-        visibilityManager.hideLayer(modelStars3.code);
-        expect(visibilityManager.isShown(modelStars3.code)).toBeFalse();
+        visibilityManager.hideLayer(code);
+        expect(visibilityManager.isShown(code)).toBeFalse();
         component.isShown = true;
-        expect(visibilityManager.isShown(modelStars3.code)).toBeTrue();
+        expect(visibilityManager.isShown(code)).toBeTrue();
       });
 
       it('hide the layer if arg is false', () => {
-        visibilityManager.showLayer(modelStars3.code);
-        expect(visibilityManager.isShown(modelStars3.code)).toBeTrue();
+        visibilityManager.showLayer(code);
+        expect(visibilityManager.isShown(code)).toBeTrue();
         component.isShown = false;
-        expect(visibilityManager.isShown(modelStars3.code)).toBeFalse();
+        expect(visibilityManager.isShown(code)).toBeFalse();
       });
 
     });
@@ -63,18 +64,12 @@ describe('SelectorLayerComponent', () => {
     describe('subLayers should return', () => {
 
       it('expected array for a layer with sub-layers', () => {
-        component.layer = modelStars;
+        component.layer = mockedLayers.subLayers[1];
         expect(component.subLayers.length).toEqual(3);
       });
 
       it('an empty array if the layer does not have sub-layers', () => {
-        const modelNoSubLayers = {
-          code: 'sky-grid',
-          label: 'Coordinates grid',
-          loadFromUrl: false,
-          objects: undefined
-        };
-        component.layer = modelNoSubLayers;
+        component.layer = mockedLayers.subLayers[0];
         expect(component.subLayers).toEqual([]);
       });
 
@@ -83,12 +78,12 @@ describe('SelectorLayerComponent', () => {
     describe('isStarsLayer should return', () => {
 
       it('true for the stars layer', () => {
-        component.layer = modelStars;
+        component.layer = mockedLayers.subLayers[1];
         expect(component.isStarsLayer).toBeTrue();
       });
 
       it('false for any other layer', () => {
-        component.layer = modelStars3;
+        component.layer = mockedLayers.subLayers[0];
         expect(component.isStarsLayer).toBeFalse();
       });
 

@@ -32,8 +32,10 @@ describe('SelectorStarNamesComponent', () => {
     textsVisibilityManager = TestBed.inject(TextsVisibilityManagerService);
     layersService.rootLayer = mockedLayers;
     const starsLayer = mockedLayers.subLayers[1];
-    layersService.registerLayer(starsLayer);
-    layersService.registerLayer(starsLayer.subLayers[0]);
+    const starsMag2Layer = starsLayer.subLayers[0];
+    const module = TestBed.inject(LayerStarsModule);
+    layersService.registerLayer(module.getLayerFactory(starsLayer).buildRenderableLayer());
+    layersService.registerLayer(module.getLayerFactory(starsMag2Layer).buildRenderableLayer());
     component = TestBed.createComponent(SelectorStarNamesComponent).componentInstance;
   });
 

@@ -4,27 +4,27 @@ import { LayerService } from '#core/services/layer.service';
 import { LayersVisibilityManagerService } from '#core/services/visibility/layers-visibility-manager.service';
 import { StarsVisibilityManagerService } from '#layer-stars/services/stars-visibility-manager.service';
 import { mockedLayers } from '#core/test-utils/mocked-layers.spec';
-import { getSubRenderables, registerMockStarsLayers } from '#core/test-utils/utils.spec';
-import { LayersFactoryService } from '#core/services/layers-factory.service';
+import { getSubRenderables } from '#core/test-utils/utils.spec';
 import { SearchService } from '#core/services/search.service';
 import { ThemeService } from '#core/services/theme.service';
 import { TextsVisibilityManagerService } from '#core/services/visibility/texts-visibility-manager.service';
+import { LayerStarsModule } from '#layer-stars/layer-stars.module';
+import { Layer } from '#core/models/layers/layer';
 
 
 describe('StarsVisibilityManagerService', () => {
 
   const stars = 'stars';
   const starsMag2 = 'stars-mag2.0';
-  const skyGrid = 'sky-grid';
   let manager: StarsVisibilityManagerService;
   let layersManager: LayersVisibilityManagerService;
   let layerService: LayerService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
+      imports: [LayerStarsModule],
       providers: [
         LayerService,
-        LayersFactoryService,
         LayersVisibilityManagerService,
         SearchService,
         StarsVisibilityManagerService,
@@ -37,13 +37,19 @@ describe('StarsVisibilityManagerService', () => {
     layersManager = TestBed.inject(LayersVisibilityManagerService);
   });
 
-  const loadSkyGridLayer = (): void => {
-    layerService.registerLayer(mockedLayers.subLayers[0]);
-    layersManager.showLayer(skyGrid);
-  };
-
   const loadStarsLayers = (): void => {
-    registerMockStarsLayers(layerService);
+    const starsModel = mockedLayers.subLayers[1];
+    const module = TestBed.inject(LayerStarsModule);
+    [
+      starsModel,
+      starsModel.subLayers[0],
+      starsModel.subLayers[1],
+      starsModel.subLayers[2]
+    ].forEach(
+      (model: Layer) => {
+        const factory = module.getLayerFactory(model);
+        layerService.registerLayer(factory.buildRenderableLayer());
+      });
     layersManager.showLayer(stars);
   };
 
@@ -62,21 +68,19 @@ describe('StarsVisibilityManagerService', () => {
   describe('showStarLayersDownToMagnitude should', () => {
 
     const assertAllLayersShown = (): void => {
-      assertLayersShown([skyGrid, stars, starsMag2, 'stars-mag2.5', 'stars-mag3.0']);
+      assertLayersShown([stars, starsMag2, 'stars-mag2.5', 'stars-mag3.0']);
     };
 
     it('hide all the star layers of magnitude greater than the argument', () => {
-      loadSkyGridLayer();
       loadStarsLayers();
 
       assertAllLayersShown();
       manager.showStarLayersDownToMagnitude(2);
-      assertLayersShown([skyGrid, stars, starsMag2]);
+      assertLayersShown([stars, starsMag2]);
       assertLayersHidden(['stars-mag2.5', 'stars-mag3.0']);
     });
 
     it('have no effect if the arg is falsy', () => {
-      loadSkyGridLayer();
       loadStarsLayers();
 
       assertAllLayersShown();

@@ -62,6 +62,13 @@ export abstract class RenderableLayer implements Layer {
   }
 
   /**
+   * Returns the original model object of this layer.
+   */
+  public get model(): Layer {
+    return this._model;
+  }
+
+  /**
    * Returns the array of RenderableTexts to show for this layer.
    */
   public get texts(): Array<RenderableText> {

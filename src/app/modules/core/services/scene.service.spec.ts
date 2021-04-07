@@ -1,5 +1,4 @@
 import { TestBed } from '@angular/core/testing';
-import { Stars } from '#layer-stars/models/stars';
 import { LayerService } from '#core/services/layer.service';
 import { SceneService } from '#core/services/scene.service';
 import { LayersVisibilityManagerService } from '#core/services/visibility/layers-visibility-manager.service';
@@ -7,23 +6,15 @@ import { ViewportService } from '#core/services/viewport.service';
 import { CameraService } from '#core/services/camera.service';
 import { ThemeService } from '#core/services/theme.service';
 import { TextsVisibilityManagerService } from '#core/services/visibility/texts-visibility-manager.service';
-import { LayersFactoryService } from '#core/services/layers-factory.service';
 import { SearchService } from '#core/services/search.service';
+import { MockedGridLayerFactory } from '#core/test-utils/mocked-grid-layer-factory.spec';
+import { RenderableLayer } from '#core/models/layers/renderable-layer';
 
 
 
 describe('SceneService', () => {
 
-  const starsMag2 = 'stars-mag2.0';
-  const starsModel = {
-    code: starsMag2,
-    label: 'Magnitude < 2.0',
-    loadFromUrl: true,
-    description: 'Stars of magnitude less or equal to 2.0',
-    objects: [
-      [37.95, 89.26, 2.0, 'Polaris', 'ALP UMI']
-    ]
-  };
+  const code = 'sky-grid';
   let service: SceneService;
   let visibilityManager: LayersVisibilityManagerService;
 
@@ -32,7 +23,6 @@ describe('SceneService', () => {
       providers: [
         CameraService,
         LayerService,
-        LayersFactoryService,
         LayersVisibilityManagerService,
         SceneService,
         SearchService,
@@ -45,20 +35,21 @@ describe('SceneService', () => {
     visibilityManager = TestBed.inject(LayersVisibilityManagerService);
     service = TestBed.inject(SceneService);
     service.setViewportRootElement(document.createElement('div'));
-    layers.registerLayer(starsModel);
-    visibilityManager.showLayer(starsModel.code);
+    const layer = new MockedGridLayerFactory().buildRenderableLayer();
+    layers.registerLayer(layer);
+    visibilityManager.showLayer(layer.code);
   });
 
-  const getStarsLayer = (): Stars => (
-    TestBed.inject(LayerService).getRenderableLayer(starsMag2) as Stars
+  const getMockedLayer = (): RenderableLayer => (
+    TestBed.inject(LayerService).getRenderableLayer(code)
   );
 
   it('allObjectsCount should return expected value', () => {
-    expect(service.allObjectsCount).toEqual(1);
+    expect(service.allObjectsCount).toEqual(2);
   });
 
   it('shownObjectsCount should return expected value', () => {
-    expect(service.shownObjectsCount).toEqual(1);
+    expect(service.shownObjectsCount).toEqual(2);
   });
 
   it('allTextsCount should return expected value', () => {
@@ -66,23 +57,23 @@ describe('SceneService', () => {
   });
 
   it('should add all the objects and texts from a layer when it is shown', () => {
-    const layer = getStarsLayer();
-    expect(visibilityManager.isShown(starsMag2)).toBeTrue();
+    const layer = getMockedLayer();
+    expect(visibilityManager.isShown(code)).toBeTrue();
 
-    expect(layer.objects.length).toEqual(1);
+    expect(layer.objects.length).toEqual(2);
     expect(layer.texts.length).toEqual(1);
-    expect(service.shownObjectsCount).toEqual(1);
+    expect(service.shownObjectsCount).toEqual(2);
     expect(service.allTextsCount).toEqual(1);
   });
 
   it('should remove all the objects and texts from a layer when it is hidden', () => {
-    const layer = getStarsLayer();
-    expect(visibilityManager.isShown(starsMag2)).toBeTrue();
+    const layer = getMockedLayer();
+    expect(visibilityManager.isShown(code)).toBeTrue();
     expect(service.allTextsCount).toEqual(1);
 
-    visibilityManager.hideLayer(starsMag2);
+    visibilityManager.hideLayer(code);
 
-    expect(layer.objects.length).toEqual(1);
+    expect(layer.objects.length).toEqual(2);
     expect(layer.texts.length).toEqual(1);
     expect(service.shownObjectsCount).toEqual(0);
     expect(service.allTextsCount).toEqual(0);

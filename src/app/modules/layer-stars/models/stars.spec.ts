@@ -2,11 +2,11 @@ import { TestBed } from '@angular/core/testing';
 import { Points, PointsMaterial } from 'three';
 import { RenderableText } from '#core/models/layers/renderable-text';
 import { Stars } from '#layer-stars/models/stars';
-import { LayersFactoryService } from '#core/services/layers-factory.service';
 import { mockedTheme } from '#core/test-utils/mocked-theme.spec';
 import { SearchService } from '#core/services/search.service';
 import { ThemeService } from '#core/services/theme.service';
 import { LayerService } from '#core/services/layer.service';
+import { LayerStarsModule } from '#layer-stars/layer-stars.module';
 
 
 const model = {
@@ -25,14 +25,15 @@ describe('Stars', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
+      imports: [LayerStarsModule],
       providers: [
         LayerService,
-        LayersFactoryService,
         SearchService,
         ThemeService
       ]
     });
-    layer = TestBed.inject(LayersFactoryService).buildRenderableLayer(model) as Stars;
+    const factory = TestBed.inject(LayerStarsModule).getLayerFactory(model);
+    layer = factory.buildRenderableLayer() as Stars;
     TestBed.inject(ThemeService).theme = mockedTheme;
   });
 

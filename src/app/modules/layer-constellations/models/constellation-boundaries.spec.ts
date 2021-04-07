@@ -2,9 +2,9 @@ import { TestBed } from '@angular/core/testing';
 import { Color, LineBasicMaterial, LineSegments } from 'three';
 import { ConstellationBoundaries } from '#layer-constellations/models/constellation-boundaries';
 import { mockedTheme } from '#core/test-utils/mocked-theme.spec';
-import { LayersFactoryService } from '#core/services/layers-factory.service';
 import { SearchService } from '#core/services/search.service';
 import { ThemeService } from '#core/services/theme.service';
+import { LayerConstellationsModule } from '#layer-constellations/layer-constellations.module';
 
 
 describe('ConstellationBoundaries', () => {
@@ -24,13 +24,14 @@ describe('ConstellationBoundaries', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
+      imports: [LayerConstellationsModule],
       providers: [
-        LayersFactoryService,
         SearchService,
         ThemeService
       ]
     });
-    layer = TestBed.inject(LayersFactoryService).buildRenderableLayer(model) as ConstellationBoundaries;
+    const factory = TestBed.inject(LayerConstellationsModule).getLayerFactory(model);
+    layer = factory.buildRenderableLayer() as ConstellationBoundaries;
     TestBed.inject(ThemeService).theme = mockedTheme;
   });
 
