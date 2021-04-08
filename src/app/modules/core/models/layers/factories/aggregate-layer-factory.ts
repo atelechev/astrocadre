@@ -7,12 +7,8 @@ import { Layer } from '#core/models/layers/layer';
  */
 export class AggregateLayerFactory implements LayerFactory {
 
-  constructor(private readonly _layerModel: Layer) {
-
-  }
-
-  public buildRenderableLayer(): AggregateLayer {
-    return new AggregateLayer(this._layerModel);
+  public buildRenderableLayer(model: Layer): AggregateLayer {
+    return new AggregateLayer(model);
   }
 
 }

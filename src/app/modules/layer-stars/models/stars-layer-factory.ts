@@ -15,22 +15,19 @@ export class StarsLayerFactory implements LayerFactory {
 
   public static readonly STARS_LAYER_CODE_PREFIX = `${SupportedLayers.STARS}-mag`;
 
-  constructor(
-    private readonly _layerModel: Layer,
-    private readonly _pointsFactory: PointsFactory
-  ) {
+  constructor(private readonly _pointsFactory: PointsFactory) {
 
   }
 
-  public buildRenderableLayer(): Stars {
-    const magnitudeClass = this.extractMagnitudeClass(this._layerModel.code);
-    const useObjects = this._layerModel.objects || [];
+  public buildRenderableLayer(model: Layer): Stars {
+    const magnitudeClass = this.extractMagnitudeClass(model.code);
+    const useObjects = model.objects || [];
     const stars = this._pointsFactory.createObject3D(SupportedLayers.STARS, useObjects);
-    const properNames = this.initLabels(extractProperName, this.toProperNameRenderableText);
-    const standardNames = this.initLabels(extractStandardName, this.toStandardNameRenderableText);
-    const searchables = this.extractSearchables(this._layerModel.objects);
+    const properNames = this.initLabels(model, extractProperName, this.toProperNameRenderableText);
+    const standardNames = this.initLabels(model, extractStandardName, this.toStandardNameRenderableText);
+    const searchables = this.extractSearchables(model.objects);
     return new Stars(
-      this._layerModel,
+      model,
       magnitudeClass,
       stars,
       properNames,
@@ -44,11 +41,12 @@ export class StarsLayerFactory implements LayerFactory {
   }
 
   private initLabels(
+    model: Layer,
     extractNameFunct: (rawStar: Array<any>) => string,
     toRenderableFunct: (rawStar: Array<any>, name: string) => RenderableText
   ): Array<RenderableText> {
     const labels = new Array<RenderableText>();
-    this._layerModel.objects?.forEach(
+    model.objects?.forEach(
       (rawStar: Array<any>) => {
         const name = extractNameFunct(rawStar);
         if (name) {

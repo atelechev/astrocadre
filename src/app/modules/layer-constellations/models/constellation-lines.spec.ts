@@ -5,6 +5,7 @@ import { mockedTheme } from '#core/test-utils/mocked-theme.spec';
 import { SearchService } from '#core/services/search.service';
 import { ThemeService } from '#core/services/theme.service';
 import { LayerConstellationsModule } from '#layer-constellations/layer-constellations.module';
+import { ConstellationsProvidersService } from '#layer-constellations/services/constellations-providers.service';
 
 describe('ConstellationLines', () => {
 
@@ -30,8 +31,7 @@ describe('ConstellationLines', () => {
         ThemeService
       ]
     });
-    const factory = TestBed.inject(LayerConstellationsModule).getLayerFactory(model);
-    layer = factory.buildRenderableLayer() as ConstellationLines;
+    layer = TestBed.inject(ConstellationsProvidersService).getRenderableLayer(model) as ConstellationLines;
     TestBed.inject(ThemeService).theme = mockedTheme;
   });
 

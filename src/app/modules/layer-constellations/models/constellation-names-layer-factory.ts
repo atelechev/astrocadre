@@ -12,15 +12,12 @@ import { toVector3 } from '#core/utils/vector-utils';
  */
 export class ConstellationNamesLayerFactory implements LayerFactory {
 
-  private readonly _worldRadius: number;
+  private _worldRadius: number;
 
-  constructor(private readonly _layerModel: Layer) {
-    this._worldRadius = WorldConstants.worldRadiusForLayer(_layerModel.code);
-  }
-
-  public buildRenderableLayer(): ConstellationNames {
-    const labels = this.initTexts(this._layerModel.objects);
-    return new ConstellationNames(this._layerModel, labels);
+  public buildRenderableLayer(model: Layer): ConstellationNames {
+    this._worldRadius = WorldConstants.worldRadiusForLayer(model.code);
+    const labels = this.initTexts(model.objects);
+    return new ConstellationNames(model, labels);
   }
 
   private initTexts(rawMetadata: Array<ConstellationMeta>): Array<RenderableText> {

@@ -10,6 +10,7 @@ import { ThemeService } from '#core/services/theme.service';
 import { TextsVisibilityManagerService } from '#core/services/visibility/texts-visibility-manager.service';
 import { LayerStarsModule } from '#layer-stars/layer-stars.module';
 import { Layer } from '#core/models/layers/layer';
+import { StarsProvidersService } from '#layer-stars/services/stars-providers.service';
 
 
 describe('StarsVisibilityManagerService', () => {
@@ -39,7 +40,7 @@ describe('StarsVisibilityManagerService', () => {
 
   const loadStarsLayers = (): void => {
     const starsModel = mockedLayers.subLayers[1];
-    const module = TestBed.inject(LayerStarsModule);
+    const provider = TestBed.inject(StarsProvidersService);
     [
       starsModel,
       starsModel.subLayers[0],
@@ -47,8 +48,8 @@ describe('StarsVisibilityManagerService', () => {
       starsModel.subLayers[2]
     ].forEach(
       (model: Layer) => {
-        const factory = module.getLayerFactory(model);
-        layerService.registerLayer(factory.buildRenderableLayer());
+        const layer = provider.getRenderableLayer(model);
+        layerService.registerLayer(layer);
       });
     layersManager.showLayer(stars);
   };

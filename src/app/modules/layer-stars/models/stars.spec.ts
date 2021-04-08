@@ -7,6 +7,7 @@ import { SearchService } from '#core/services/search.service';
 import { ThemeService } from '#core/services/theme.service';
 import { LayerService } from '#core/services/layer.service';
 import { LayerStarsModule } from '#layer-stars/layer-stars.module';
+import { StarsProvidersService } from '#layer-stars/services/stars-providers.service';
 
 
 const model = {
@@ -32,8 +33,7 @@ describe('Stars', () => {
         ThemeService
       ]
     });
-    const factory = TestBed.inject(LayerStarsModule).getLayerFactory(model);
-    layer = factory.buildRenderableLayer() as Stars;
+    layer = TestBed.inject(StarsProvidersService).getRenderableLayer(model);
     TestBed.inject(ThemeService).theme = mockedTheme;
   });
 

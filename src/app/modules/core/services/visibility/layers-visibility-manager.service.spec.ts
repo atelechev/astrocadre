@@ -53,9 +53,9 @@ describe('LayersVisibilityManagerService', () => {
   };
 
   const loadHierarchicalLayers = (): void => {
-    const parentLayer = new AggregateLayerFactory(model).buildRenderableLayer();
+    const parentLayer = new AggregateLayerFactory().buildRenderableLayer(model);
     layerService.registerLayer(parentLayer);
-    const childLayer = new AggregateLayerFactory(model.subLayers[0]).buildRenderableLayer();
+    const childLayer = new AggregateLayerFactory().buildRenderableLayer(model.subLayers[0]);
     layerService.registerLayer(childLayer);
   };
 

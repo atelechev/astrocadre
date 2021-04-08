@@ -6,6 +6,7 @@ import { LineStyle } from '#core/models/theme/line-style';
 import { SearchService } from '#core/services/search.service';
 import { ThemeService } from '#core/services/theme.service';
 import { LayerSkyGridModule } from '#layer-sky-grid/layer-sky-grid.module';
+import { SkyGridProvidersService } from '#layer-sky-grid/services/sky-grid-providers.service';
 
 const model = {
   code: 'sky-grid',
@@ -27,8 +28,7 @@ describe('SkyGrid', () => {
         ThemeService
       ]
     });
-    const factory = TestBed.inject(LayerSkyGridModule).getLayerFactory(model);
-    layer = factory.buildRenderableLayer() as SkyGrid;
+    layer = TestBed.inject(SkyGridProvidersService).getRenderableLayer(model);
     TestBed.inject(ThemeService).theme = mockedTheme;
   });
 

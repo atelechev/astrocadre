@@ -17,11 +17,11 @@ describe('ConstellationBoundariesLayerFactory', () => {
   let factory: ConstellationBoundariesLayerFactory;
 
   beforeEach(() => {
-    factory = new ConstellationBoundariesLayerFactory(model, new AxialCurvesFactory());
+    factory = new ConstellationBoundariesLayerFactory(new AxialCurvesFactory());
   });
 
   it('buildRenderableLayer should return expected value', () => {
-    const layer = factory.buildRenderableLayer();
+    const layer = factory.buildRenderableLayer(model);
     expect(layer).toBeDefined();
     expect(layer.code).toEqual(model.code);
     expect(layer.objects.length).toEqual(1);

@@ -8,6 +8,7 @@ import { LayerService } from '#core/services/layer.service';
 import { LayerStarsModule } from '#layer-stars/layer-stars.module';
 import { mockedLayers } from '#core/test-utils/mocked-layers.spec';
 import { Layer } from '#core/models/layers/layer';
+import { StarsProvidersService } from '#layer-stars/services/stars-providers.service';
 
 
 describe('SelectorStarMagnitudeComponent', () => {
@@ -24,13 +25,13 @@ describe('SelectorStarMagnitudeComponent', () => {
         LayerStarsModule
       ]
     });
-    const module = TestBed.inject(LayerStarsModule);
+    const provider = TestBed.inject(StarsProvidersService);
     const layersService = TestBed.inject(LayerService);
     const starsLayer = mockedLayers.subLayers[1];
-    layersService.registerLayer(module.getLayerFactory(starsLayer).buildRenderableLayer());
+    layersService.registerLayer(provider.getRenderableLayer(starsLayer));
     starsLayer.subLayers.forEach(
       (subModel: Layer) => {
-        const subLayer = module.getLayerFactory(subModel).buildRenderableLayer();
+        const subLayer = provider.getRenderableLayer(subModel);
         layersService.registerLayer(subLayer);
       }
     );

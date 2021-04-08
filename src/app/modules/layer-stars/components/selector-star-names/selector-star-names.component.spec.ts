@@ -9,6 +9,7 @@ import { TextsVisibilityManagerService } from '#core/services/visibility/texts-v
 import { CoreModule } from '#core/core.module';
 import { ControlsModule } from '#controls/controls.module';
 import { LayerStarsModule } from '#layer-stars/layer-stars.module';
+import { StarsProvidersService } from '#layer-stars/services/stars-providers.service';
 
 
 describe('SelectorStarNamesComponent', () => {
@@ -33,9 +34,9 @@ describe('SelectorStarNamesComponent', () => {
     layersService.rootLayer = mockedLayers;
     const starsLayer = mockedLayers.subLayers[1];
     const starsMag2Layer = starsLayer.subLayers[0];
-    const module = TestBed.inject(LayerStarsModule);
-    layersService.registerLayer(module.getLayerFactory(starsLayer).buildRenderableLayer());
-    layersService.registerLayer(module.getLayerFactory(starsMag2Layer).buildRenderableLayer());
+    const provider = TestBed.inject(StarsProvidersService);
+    layersService.registerLayer(provider.getRenderableLayer(starsLayer));
+    layersService.registerLayer(provider.getRenderableLayer(starsMag2Layer));
     component = TestBed.createComponent(SelectorStarNamesComponent).componentInstance;
   });
 

@@ -16,7 +16,7 @@ describe('StarsLayerFactory', () => {
   let factory: LayerFactory;
 
   beforeEach(() => {
-    factory = new StarsLayerFactory(model, new PointsFactory());
+    factory = new StarsLayerFactory(new PointsFactory());
   });
 
   it('STARS_LAYER_CODE_PREFIX should have expected value', () => {
@@ -24,7 +24,7 @@ describe('StarsLayerFactory', () => {
   });
 
   it('buildRenderableLayer should return expected value', () => {
-    const layer = factory.buildRenderableLayer() as Stars;
+    const layer = factory.buildRenderableLayer(model) as Stars;
     expect(layer).toBeDefined();
     expect(layer.code).toEqual(model.code);
     expect(layer.magnitudeClass).toEqual(2);

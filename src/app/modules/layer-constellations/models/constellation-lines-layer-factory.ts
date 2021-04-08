@@ -9,21 +9,18 @@ import { SupportedLayers } from '#core/models/layers/supported-layers';
  */
 export class ConstellationLinesLayerFactory implements LayerFactory {
 
-  constructor(
-    private readonly _layerModel: Layer,
-    private readonly _curvesFactory: AxialCurvesFactory
-  ) {
+  constructor(private readonly _curvesFactory: AxialCurvesFactory) {
 
   }
 
-  public buildRenderableLayer(): ConstellationLines {
+  public buildRenderableLayer(model: Layer): ConstellationLines {
     const lines = this._curvesFactory
       .createObject3D(
         SupportedLayers.CONSTELLATION_LINES,
-        this._layerModel.objects
+        model.objects
       );
     return new ConstellationLines(
-      this._layerModel,
+      model,
       lines
     );
   }

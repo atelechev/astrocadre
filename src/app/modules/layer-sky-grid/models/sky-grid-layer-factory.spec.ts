@@ -14,11 +14,11 @@ describe('SkyGridLayerFactory', () => {
   let factory: LayerFactory;
 
   beforeEach(() => {
-    factory = new SkyGridLayerFactory(model, new AxialCurvesFactory());
+    factory = new SkyGridLayerFactory(new AxialCurvesFactory());
   });
 
   it('buildRenderableLayer should return expected value', () => {
-    const layer = factory.buildRenderableLayer();
+    const layer = factory.buildRenderableLayer(model);
     expect(layer).toBeDefined();
     expect(layer.code).toEqual(model.code);
     expect(layer.objects.length).toEqual(4);

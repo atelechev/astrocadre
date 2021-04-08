@@ -6,8 +6,7 @@ import { mockedLayers } from '#core/test-utils/mocked-layers.spec';
 describe('TextsHiddenEvent', () => {
 
   it('should have the expected key', () => {
-    const factory = new SkyGridLayerFactory(mockedLayers.subLayers[0], new AxialCurvesFactory());
-    const layer = factory.buildRenderableLayer();
+    const layer = new SkyGridLayerFactory(new AxialCurvesFactory()).buildRenderableLayer(mockedLayers.subLayers[0]);
     const event = new TextsHiddenEvent(layer);
     expect(event.key).toEqual('textsHidden');
   });
