@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BufferGeometry, LineSegments, Vector3 } from 'three';
-import { Object3DFactory } from '#core/models/layers/factories/object3d-factory';
+import { Object3DFactory } from '#core/models/layers/object3d-factory';
 import { isCrossingInitialMeridian, isMeridionalSegment, isParallelSegment } from '#core/utils/segment-utils';
 import { toVector3 } from '#core/utils/vector-utils';
 

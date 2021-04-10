@@ -3,7 +3,7 @@ import { LineSegments } from 'three';
 import { SkyGrid } from '#layer-sky-grid/models/sky-grid';
 import { Layer } from '#core/models/layers/layer';
 import { AxialCurvesFactoryService } from '#core/services/factories/axial-curves-factory.service';
-import { LayerFactory } from '#core/models/layers/factories/layer-factory';
+import { LayerFactory } from '#core/models/layers/layer-factory';
 
 /**
  * Factory for the renderable layer of the celestial coordinates grid.

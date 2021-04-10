@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BufferGeometry, Points, Vector3 } from 'three';
-import { Object3DFactory } from '#core/models/layers/factories/object3d-factory';
+import { Object3DFactory } from '#core/models/layers/object3d-factory';
 import { toVector3 } from '#core/utils/vector-utils';
 
 /**

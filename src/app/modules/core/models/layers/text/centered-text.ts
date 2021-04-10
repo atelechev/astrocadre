@@ -1,5 +1,5 @@
-import { TextOffsetPolicy } from '#core/models/layers/factories/text/text-offset-policy';
-import { TextOffsets } from '#core/models/layers/factories/text/text-offsets';
+import { TextOffsetPolicy } from '#core/models/layers/text/text-offset-policy';
+import { TextOffsets } from '#core/models/layers/text/text-offsets';
 
 /**
  * Implements TextOffsetPolicy that allows to place a label centered relatively to a point.

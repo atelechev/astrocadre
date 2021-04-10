@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Layer } from '#core/models/layers/layer';
-import { LayerFactory } from '#core/models/layers/factories/layer-factory';
+import { LayerFactory } from '#core/models/layers/layer-factory';
 import { PointsFactoryService } from '#core/services/factories/points-factory.service';
-import { TextOffsetPolicies } from '#core/models/layers/factories/text/text-offsets-policies';
+import { TextOffsetPolicies } from '#core/models/layers/text/text-offsets-policies';
 import { RenderableText } from '#core/models/layers/renderable-text';
 import { Stars } from '#layer-stars/models/stars';
 import { Searchable } from '#core/models/layers/searchable';

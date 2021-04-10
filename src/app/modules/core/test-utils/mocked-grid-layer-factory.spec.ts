@@ -2,13 +2,13 @@ import { Injectable } from '@angular/core';
 import { LineSegments } from 'three';
 import { Layer } from '#core/models/layers/layer';
 import { AxialCurvesFactoryService } from '#core/services/factories/axial-curves-factory.service';
-import { LayerFactory } from '#core/models/layers/factories/layer-factory';
+import { LayerFactory } from '#core/models/layers/layer-factory';
 import { MockedGrid } from '#core/test-utils/mocked-grid.spec';
 import { mockedLayers } from '#core/test-utils/mocked-layers.spec';
 import { RenderableText } from '#core/models/layers/renderable-text';
 import { toVector3 } from '#core/utils/vector-utils';
 import { WorldConstants } from '#core/models/world-constants';
-import { TextOffsetPolicies } from '#core/models/layers/factories/text/text-offsets-policies';
+import { TextOffsetPolicies } from '#core/models/layers/text/text-offsets-policies';
 
 
 @Injectable()

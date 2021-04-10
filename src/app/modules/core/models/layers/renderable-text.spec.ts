@@ -1,4 +1,4 @@
-import { TextOffsetPolicies } from '#core/models/layers/factories/text/text-offsets-policies';
+import { TextOffsetPolicies } from '#core/models/layers/text/text-offsets-policies';
 import { RenderableText } from '#core/models/layers/renderable-text';
 import { TextStyle } from '#core/models/theme/text-style';
 import { WorldConstants } from '#core/models/world-constants';

@@ -1,5 +1,5 @@
 import { TestBed } from '@angular/core/testing';
-import { LayerFactory } from '#core/models/layers/factories/layer-factory';
+import { LayerFactory } from '#core/models/layers/layer-factory';
 import { PointsFactoryService } from '#core/services/factories/points-factory.service';
 import { StarsLayerFactoryService } from '#layer-stars/services/factories/stars-layer-factory.service';
 import { Stars } from '#layer-stars/models/stars';

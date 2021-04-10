@@ -1,5 +1,5 @@
-import { TextOffsets } from '#core/models/layers/factories/text/text-offsets';
-import { TextOffsetPolicies } from '#core/models/layers/factories/text/text-offsets-policies';
+import { TextOffsets } from '#core/models/layers/text/text-offsets';
+import { TextOffsetPolicies } from '#core/models/layers/text/text-offsets-policies';
 
 
 describe('TextOffsetPolicies', () => {

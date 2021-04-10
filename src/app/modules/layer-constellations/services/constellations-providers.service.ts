@@ -4,7 +4,7 @@ import { RenderableLayer } from '#core/models/layers/renderable-layer';
 import { BoundariesLayerFactoryService } from '#layer-constellations/services/factories/boundaries-layer-factory.service';
 import { LinesLayerFactoryService } from '#layer-constellations/services/factories/lines-layer-factory.service';
 import { NamesLayerFactoryService } from '#layer-constellations/services/factories/names-layer-factory.service';
-import { LayerFactory } from '#core/models/layers/factories/layer-factory';
+import { LayerFactory } from '#core/models/layers/layer-factory';
 import { LayersProvider } from '#core/models/layers/layers-provider';
 import { AggregateLayerFactoryService } from '#core/services/factories/aggregate-layer-factory.service';
 

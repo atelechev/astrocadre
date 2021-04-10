@@ -1,5 +1,5 @@
-import { CenteredText } from '#core/models/layers/factories/text/centered-text';
-import { TextOffsets } from '#core/models/layers/factories/text/text-offsets';
+import { CenteredText } from '#core/models/layers/text/centered-text';
+import { TextOffsets } from '#core/models/layers/text/text-offsets';
 
 
 describe('CenteredText', () => {
