@@ -1,13 +1,15 @@
+import { Injectable } from '@angular/core';
 import { LineSegments } from 'three';
 import { SkyGrid } from '#layer-sky-grid/models/sky-grid';
 import { Layer } from '#core/models/layers/layer';
-import { AxialCurvesFactory } from '#core/models/layers/factories/axial-curves-factory';
+import { AxialCurvesFactoryService } from '#core/services/factories/axial-curves-factory.service';
 import { LayerFactory } from '#core/models/layers/factories/layer-factory';
 
 /**
  * Factory for the renderable layer of the celestial coordinates grid.
  */
-export class SkyGridLayerFactory implements LayerFactory {
+@Injectable()
+export class SkyGridLayerFactoryService implements LayerFactory {
 
   private readonly _gridStepMeridians = 15;
 
@@ -15,7 +17,7 @@ export class SkyGridLayerFactory implements LayerFactory {
 
   private readonly _absMaxMeridianLineDeclination = 89;
 
-  constructor(private readonly _curvesFactory: AxialCurvesFactory) {
+  constructor(private readonly _curvesFactory: AxialCurvesFactoryService) {
 
   }
 

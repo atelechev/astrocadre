@@ -1,6 +1,7 @@
+import { Injectable } from '@angular/core';
 import { LineSegments } from 'three';
 import { Layer } from '#core/models/layers/layer';
-import { AxialCurvesFactory } from '#core/models/layers/factories/axial-curves-factory';
+import { AxialCurvesFactoryService } from '#core/services/factories/axial-curves-factory.service';
 import { LayerFactory } from '#core/models/layers/factories/layer-factory';
 import { MockedGrid } from '#core/test-utils/mocked-grid.spec';
 import { mockedLayers } from '#core/test-utils/mocked-layers.spec';
@@ -10,16 +11,14 @@ import { WorldConstants } from '#core/models/world-constants';
 import { TextOffsetPolicies } from '#core/models/layers/factories/text/text-offsets-policies';
 
 
+@Injectable()
 export class MockedGridLayerFactory implements LayerFactory {
 
   private readonly _absMaxMeridianLineDeclination = 89;
 
   private readonly _layerModel: Layer;
 
-  private readonly _curvesFactory: AxialCurvesFactory;
-
-  constructor() {
-    this._curvesFactory = new AxialCurvesFactory();
+  constructor(private readonly _curvesFactory: AxialCurvesFactoryService) {
     this._layerModel = mockedLayers.subLayers[0];
   }
 

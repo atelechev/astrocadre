@@ -1,16 +1,22 @@
+import { TestBed } from '@angular/core/testing';
 import { BufferGeometry } from 'three';
-import { AxialCurvesFactory } from '#core/models/layers/factories/axial-curves-factory';
+import { AxialCurvesFactoryService } from '#core/services/factories/axial-curves-factory.service';
 import { SupportedLayers } from '#core/models/layers/supported-layers';
 import { assertGeometryExpected } from '#core/test-utils/assertions-geometry.spec';
 
-describe('AxialCurvesFactory', () => {
+describe('AxialCurvesFactoryService', () => {
 
   const layer = SupportedLayers.CONSTELLATION_BOUNDARIES;
 
-  let factory: AxialCurvesFactory;
+  let factory: AxialCurvesFactoryService;
 
   beforeEach(() => {
-    factory = new AxialCurvesFactory();
+    TestBed.configureTestingModule({
+      providers: [
+        AxialCurvesFactoryService
+      ]
+    });
+    factory = TestBed.inject(AxialCurvesFactoryService);
   });
 
   it('createObject3D should throw expected error if segments arg is falsy', () => {

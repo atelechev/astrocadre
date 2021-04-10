@@ -1,3 +1,4 @@
+import { Injectable } from '@angular/core';
 import { BufferGeometry, LineSegments, Vector3 } from 'three';
 import { Object3DFactory } from '#core/models/layers/factories/object3d-factory';
 import { isCrossingInitialMeridian, isMeridionalSegment, isParallelSegment } from '#core/utils/segment-utils';
@@ -6,7 +7,8 @@ import { toVector3 } from '#core/utils/vector-utils';
 /**
  * Factory for the curves situated on the 3D world sphere.
  */
-export class AxialCurvesFactory extends Object3DFactory<LineSegments> {
+@Injectable()
+export class AxialCurvesFactoryService extends Object3DFactory<LineSegments> {
 
   private readonly _intermediatePointsDensity = 5.0; // the bigger the less dense, but uglier in the view!
 

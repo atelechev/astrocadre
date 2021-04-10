@@ -1,15 +1,17 @@
+import { Injectable } from '@angular/core';
 import { Layer } from '#core/models/layers/layer';
 import { ConstellationLines } from '#layer-constellations/models/constellation-lines';
-import { AxialCurvesFactory } from '#core/models/layers/factories/axial-curves-factory';
+import { AxialCurvesFactoryService } from '#core/services/factories/axial-curves-factory.service';
 import { LayerFactory } from '#core/models/layers/factories/layer-factory';
 import { SupportedLayers } from '#core/models/layers/supported-layers';
 
 /**
  * Factory for the renderable layer of the constellation lines.
  */
-export class ConstellationLinesLayerFactory implements LayerFactory {
+@Injectable()
+export class LinesLayerFactoryService implements LayerFactory {
 
-  constructor(private readonly _curvesFactory: AxialCurvesFactory) {
+  constructor(private readonly _curvesFactory: AxialCurvesFactoryService) {
 
   }
 

@@ -1,8 +1,9 @@
-import { ConstellationNamesLayerFactory } from '#layer-constellations/models/constellation-names-layer-factory';
+import { TestBed } from '@angular/core/testing';
+import { NamesLayerFactoryService } from '#layer-constellations/services/factories/names-layer-factory.service';
 import { LayerFactory } from '#core/models/layers/factories/layer-factory';
 
 
-describe('ConstellationNamesLayerFactory', () => {
+describe('NamesLayerFactoryService', () => {
 
   const model = {
     code: 'constellation-names',
@@ -15,7 +16,12 @@ describe('ConstellationNamesLayerFactory', () => {
   let factory: LayerFactory;
 
   beforeEach(() => {
-    factory = new ConstellationNamesLayerFactory();
+    TestBed.configureTestingModule({
+      providers: [
+        NamesLayerFactoryService
+      ]
+    });
+    factory = TestBed.inject(NamesLayerFactoryService);
   });
 
   it('buildRenderableLayer should return expected value', () => {

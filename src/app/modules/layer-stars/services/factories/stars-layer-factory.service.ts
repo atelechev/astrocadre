@@ -1,6 +1,7 @@
+import { Injectable } from '@angular/core';
 import { Layer } from '#core/models/layers/layer';
 import { LayerFactory } from '#core/models/layers/factories/layer-factory';
-import { PointsFactory } from '#core/models/layers/factories/points-factory';
+import { PointsFactoryService } from '#core/services/factories/points-factory.service';
 import { TextOffsetPolicies } from '#core/models/layers/factories/text/text-offsets-policies';
 import { RenderableText } from '#core/models/layers/renderable-text';
 import { Stars } from '#layer-stars/models/stars';
@@ -11,11 +12,12 @@ import { buildCenterPoint, extractProperName, extractStandardName, toGreekLetter
 /**
  * Factory for a renderable layer of stars.
  */
-export class StarsLayerFactory implements LayerFactory {
+@Injectable()
+export class StarsLayerFactoryService implements LayerFactory {
 
   public static readonly STARS_LAYER_CODE_PREFIX = `${SupportedLayers.STARS}-mag`;
 
-  constructor(private readonly _pointsFactory: PointsFactory) {
+  constructor(private readonly _pointsFactory: PointsFactoryService) {
 
   }
 
@@ -37,7 +39,7 @@ export class StarsLayerFactory implements LayerFactory {
   }
 
   private extractMagnitudeClass(code: string): number {
-    return parseFloat(code.substr(StarsLayerFactory.STARS_LAYER_CODE_PREFIX.length));
+    return parseFloat(code.substr(StarsLayerFactoryService.STARS_LAYER_CODE_PREFIX.length));
   }
 
   private initLabels(

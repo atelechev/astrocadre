@@ -1,9 +1,10 @@
-import { AxialCurvesFactory } from '#core/models/layers/factories/axial-curves-factory';
+import { TestBed } from '@angular/core/testing';
+import { AxialCurvesFactoryService } from '#core/services/factories/axial-curves-factory.service';
 import { LayerFactory } from '#core/models/layers/factories/layer-factory';
-import { SkyGridLayerFactory } from '#layer-sky-grid/models/sky-grid-layer-factory';
+import { SkyGridLayerFactoryService } from '#layer-sky-grid/services/factories/sky-grid-layer-factory.service';
 
 
-describe('SkyGridLayerFactory', () => {
+describe('SkyGridLayerFactoryService', () => {
 
   const model = {
     code: 'sky-grid',
@@ -14,7 +15,13 @@ describe('SkyGridLayerFactory', () => {
   let factory: LayerFactory;
 
   beforeEach(() => {
-    factory = new SkyGridLayerFactory(new AxialCurvesFactory());
+    TestBed.configureTestingModule({
+      providers: [
+        AxialCurvesFactoryService,
+        SkyGridLayerFactoryService
+      ]
+    });
+    factory = TestBed.inject(SkyGridLayerFactoryService);
   });
 
   it('buildRenderableLayer should return expected value', () => {

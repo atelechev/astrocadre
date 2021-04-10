@@ -9,6 +9,7 @@ import { TextsVisibilityManagerService } from '#core/services/visibility/texts-v
 import { SearchService } from '#core/services/search.service';
 import { MockedGridLayerFactory } from '#core/test-utils/mocked-grid-layer-factory.spec';
 import { RenderableLayer } from '#core/models/layers/renderable-layer';
+import { AxialCurvesFactoryService } from '#core/services/factories/axial-curves-factory.service';
 
 
 
@@ -21,9 +22,11 @@ describe('SceneService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       providers: [
+        AxialCurvesFactoryService,
         CameraService,
         LayerService,
         LayersVisibilityManagerService,
+        MockedGridLayerFactory,
         SceneService,
         SearchService,
         TextsVisibilityManagerService,
@@ -35,7 +38,7 @@ describe('SceneService', () => {
     visibilityManager = TestBed.inject(LayersVisibilityManagerService);
     service = TestBed.inject(SceneService);
     service.setViewportRootElement(document.createElement('div'));
-    const layer = new MockedGridLayerFactory().buildRenderableLayer();
+    const layer = TestBed.inject(MockedGridLayerFactory).buildRenderableLayer();
     layers.registerLayer(layer);
     visibilityManager.showLayer(layer.code);
   });

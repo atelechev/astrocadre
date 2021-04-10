@@ -9,7 +9,8 @@ import { SearchService } from '#core/services/search.service';
 import { ThemeService } from '#core/services/theme.service';
 import { MockedGridLayerFactory } from '#core/test-utils/mocked-grid-layer-factory.spec';
 import { Layer } from '#core/models/layers/layer';
-import { AggregateLayerFactory } from '#core/models/layers/factories/aggregate-layer-factory';
+import { AggregateLayerFactoryService } from '#core/services/factories/aggregate-layer-factory.service';
+import { AxialCurvesFactoryService } from '#core/services/factories/axial-curves-factory.service';
 
 const model: Layer = {
   code: 'stars',
@@ -37,8 +38,11 @@ describe('LayersVisibilityManagerService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       providers: [
+        AxialCurvesFactoryService,
+        AggregateLayerFactoryService,
         LayerService,
         LayersVisibilityManagerService,
+        MockedGridLayerFactory,
         SearchService,
         ThemeService
       ]
@@ -48,14 +52,15 @@ describe('LayersVisibilityManagerService', () => {
   });
 
   const loadMockedGridLayer = (): void => {
-    const layer = new MockedGridLayerFactory().buildRenderableLayer();
+    const layer = TestBed.inject(MockedGridLayerFactory).buildRenderableLayer();
     layerService.registerLayer(layer);
   };
 
   const loadHierarchicalLayers = (): void => {
-    const parentLayer = new AggregateLayerFactory().buildRenderableLayer(model);
+    const factory = TestBed.inject(AggregateLayerFactoryService);
+    const parentLayer = factory.buildRenderableLayer(model);
     layerService.registerLayer(parentLayer);
-    const childLayer = new AggregateLayerFactory().buildRenderableLayer(model.subLayers[0]);
+    const childLayer = factory.buildRenderableLayer(model.subLayers[0]);
     layerService.registerLayer(childLayer);
   };
 

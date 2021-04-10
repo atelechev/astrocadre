@@ -1,9 +1,10 @@
+import { TestBed } from '@angular/core/testing';
 import { LayerFactory } from '#core/models/layers/factories/layer-factory';
-import { PointsFactory } from '#core/models/layers/factories/points-factory';
-import { StarsLayerFactory } from '#layer-stars/models/stars-layer-factory';
+import { PointsFactoryService } from '#core/services/factories/points-factory.service';
+import { StarsLayerFactoryService } from '#layer-stars/services/factories/stars-layer-factory.service';
 import { Stars } from '#layer-stars/models/stars';
 
-describe('StarsLayerFactory', () => {
+describe('StarsLayerFactoryService', () => {
 
   const model = {
     code: 'stars-mag2.0',
@@ -16,11 +17,17 @@ describe('StarsLayerFactory', () => {
   let factory: LayerFactory;
 
   beforeEach(() => {
-    factory = new StarsLayerFactory(new PointsFactory());
+    TestBed.configureTestingModule({
+      providers: [
+        PointsFactoryService,
+        StarsLayerFactoryService
+      ]
+    });
+    factory = TestBed.inject(StarsLayerFactoryService);
   });
 
   it('STARS_LAYER_CODE_PREFIX should have expected value', () => {
-    expect(StarsLayerFactory.STARS_LAYER_CODE_PREFIX).toEqual('stars-mag');
+    expect(StarsLayerFactoryService.STARS_LAYER_CODE_PREFIX).toEqual('stars-mag');
   });
 
   it('buildRenderableLayer should return expected value', () => {

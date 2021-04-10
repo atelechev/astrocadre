@@ -1,3 +1,4 @@
+import { Injectable } from '@angular/core';
 import { ConstellationMeta } from '#core/models/layers/constellation-meta';
 import { Layer } from '#core/models/layers/layer';
 import { ConstellationNames } from '#layer-constellations/models/constellation-names';
@@ -10,7 +11,8 @@ import { toVector3 } from '#core/utils/vector-utils';
 /**
  * Factory for the renderable layer of the constellation names.
  */
-export class ConstellationNamesLayerFactory implements LayerFactory {
+@Injectable()
+export class NamesLayerFactoryService implements LayerFactory {
 
   private _worldRadius: number;
 

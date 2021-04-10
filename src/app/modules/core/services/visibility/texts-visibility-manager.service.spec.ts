@@ -8,6 +8,7 @@ import { TextsHiddenEvent } from '#core/models/event/texts-hidden-event';
 import { SearchService } from '#core/services/search.service';
 import { ThemeService } from '#core/services/theme.service';
 import { MockedGridLayerFactory } from '#core/test-utils/mocked-grid-layer-factory.spec';
+import { AxialCurvesFactoryService } from '#core/services/factories/axial-curves-factory.service';
 
 
 describe('TextsVisibilityManagerService', () => {
@@ -18,13 +19,15 @@ describe('TextsVisibilityManagerService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       providers: [
+        AxialCurvesFactoryService,
         LayerService,
+        MockedGridLayerFactory,
         SearchService,
         TextsVisibilityManagerService,
         ThemeService
       ]
     });
-    const layer = new MockedGridLayerFactory().buildRenderableLayer();
+    const layer = TestBed.inject(MockedGridLayerFactory).buildRenderableLayer();
     const layerService = TestBed.inject(LayerService);
     layerService.registerLayer(layer);
     manager = TestBed.inject(TextsVisibilityManagerService);

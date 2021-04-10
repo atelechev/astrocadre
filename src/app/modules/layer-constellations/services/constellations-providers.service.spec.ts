@@ -2,6 +2,9 @@ import { TestBed } from '@angular/core/testing';
 import { CoreModule } from '#core/core.module';
 import { mockedLayers } from '#core/test-utils/mocked-layers.spec';
 import { ConstellationsProvidersService } from '#layer-constellations/services/constellations-providers.service';
+import { BoundariesLayerFactoryService } from '#layer-constellations/services/factories/boundaries-layer-factory.service';
+import { LinesLayerFactoryService } from '#layer-constellations/services/factories/lines-layer-factory.service';
+import { NamesLayerFactoryService } from '#layer-constellations/services/factories/names-layer-factory.service';
 
 
 describe('ConstellationsProvidersService', () => {
@@ -14,7 +17,12 @@ describe('ConstellationsProvidersService', () => {
       imports: [
         CoreModule
       ],
-      providers: [ConstellationsProvidersService]
+      providers: [
+        BoundariesLayerFactoryService,
+        LinesLayerFactoryService,
+        NamesLayerFactoryService,
+        ConstellationsProvidersService
+      ]
     });
     service = TestBed.inject(ConstellationsProvidersService);
   });

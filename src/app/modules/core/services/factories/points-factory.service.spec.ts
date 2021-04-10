@@ -1,17 +1,23 @@
+import { TestBed } from '@angular/core/testing';
 import { BufferGeometry } from 'three';
-import { PointsFactory } from '#core/models/layers/factories/points-factory';
+import { PointsFactoryService } from '#core/services/factories/points-factory.service';
 import { SupportedLayers } from '#core/models/layers/supported-layers';
 import { assertGeometryExpected } from '#core/test-utils/assertions-geometry.spec';
 
 
-describe('PointsFactory', () => {
+describe('PointsFactoryService', () => {
 
   const layer = SupportedLayers.STARS;
 
-  let factory: PointsFactory;
+  let factory: PointsFactoryService;
 
   beforeEach(() => {
-    factory = new PointsFactory();
+    TestBed.configureTestingModule({
+      providers: [
+        PointsFactoryService
+      ]
+    });
+    factory = TestBed.inject(PointsFactoryService);
   });
 
   it('createObject3D should throw expected error if segments arg is falsy', () => {

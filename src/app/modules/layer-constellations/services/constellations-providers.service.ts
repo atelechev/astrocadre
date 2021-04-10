@@ -1,17 +1,25 @@
 import { Injectable } from '@angular/core';
-import { AggregateLayerFactory } from '#core/models/layers/factories/aggregate-layer-factory';
 import { Layer } from '#core/models/layers/layer';
 import { RenderableLayer } from '#core/models/layers/renderable-layer';
-import { ConstellationBoundariesLayerFactory } from '#layer-constellations/models/constellation-boundaries-layer-factory';
-import { ConstellationLinesLayerFactory } from '#layer-constellations/models/constellation-lines-layer-factory';
-import { ConstellationNamesLayerFactory } from '#layer-constellations/models/constellation-names-layer-factory';
-import { AxialCurvesFactory } from '#core/models/layers/factories/axial-curves-factory';
+import { BoundariesLayerFactoryService } from '#layer-constellations/services/factories/boundaries-layer-factory.service';
+import { LinesLayerFactoryService } from '#layer-constellations/services/factories/lines-layer-factory.service';
+import { NamesLayerFactoryService } from '#layer-constellations/services/factories/names-layer-factory.service';
 import { LayerFactory } from '#core/models/layers/factories/layer-factory';
 import { LayersProvider } from '#core/models/layers/layers-provider';
+import { AggregateLayerFactoryService } from '#core/services/factories/aggregate-layer-factory.service';
 
 
 @Injectable()
 export class ConstellationsProvidersService implements LayersProvider {
+
+  constructor(
+    private readonly _aggregateLayerFactory: AggregateLayerFactoryService,
+    private readonly _boundariesLayerFactory: BoundariesLayerFactoryService,
+    private readonly _linesLayerFactory: LinesLayerFactoryService,
+    private readonly _namesLayerFactory: NamesLayerFactoryService
+  ) {
+
+  }
 
   public getRenderableLayer(model: Layer): RenderableLayer {
     const factory = this.getLayerFactory(model?.code);
@@ -21,13 +29,13 @@ export class ConstellationsProvidersService implements LayersProvider {
   private getLayerFactory(code: string): LayerFactory {
     switch (code) {
       case 'constellations':
-        return new AggregateLayerFactory();
+        return this._aggregateLayerFactory;
       case 'constellation-boundaries':
-        return new ConstellationBoundariesLayerFactory(new AxialCurvesFactory());
+        return this._boundariesLayerFactory;
       case 'constellation-lines':
-        return new ConstellationLinesLayerFactory(new AxialCurvesFactory());
+        return this._linesLayerFactory;
       case 'constellation-names':
-        return new ConstellationNamesLayerFactory();
+        return this._namesLayerFactory;
       default:
         return undefined;
     }

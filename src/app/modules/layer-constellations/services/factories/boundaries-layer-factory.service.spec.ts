@@ -1,8 +1,9 @@
-import { AxialCurvesFactory } from '#core/models/layers/factories/axial-curves-factory';
-import { ConstellationBoundariesLayerFactory } from '#layer-constellations/models/constellation-boundaries-layer-factory';
+import { TestBed } from '@angular/core/testing';
+import { AxialCurvesFactoryService } from '#core/services/factories/axial-curves-factory.service';
+import { BoundariesLayerFactoryService } from '#layer-constellations/services/factories/boundaries-layer-factory.service';
 
 
-describe('ConstellationBoundariesLayerFactory', () => {
+describe('BoundariesLayerFactoryService', () => {
 
   const model = {
     code: 'constellation-boundaries',
@@ -14,10 +15,16 @@ describe('ConstellationBoundariesLayerFactory', () => {
       [165.0, 25.5, 161.25, 25.5]
     ]
   };
-  let factory: ConstellationBoundariesLayerFactory;
+  let factory: BoundariesLayerFactoryService;
 
   beforeEach(() => {
-    factory = new ConstellationBoundariesLayerFactory(new AxialCurvesFactory());
+    TestBed.configureTestingModule({
+      providers: [
+        AxialCurvesFactoryService,
+        BoundariesLayerFactoryService
+      ]
+    });
+    factory = TestBed.inject(BoundariesLayerFactoryService);
   });
 
   it('buildRenderableLayer should return expected value', () => {

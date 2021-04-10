@@ -6,6 +6,7 @@ import { CoreModule } from '#core/core.module';
 import { ControlsModule } from '#controls/controls.module';
 import { LayerService } from '#core/services/layer.service';
 import { MockedGridLayerFactory } from '#core/test-utils/mocked-grid-layer-factory.spec';
+import { AxialCurvesFactoryService } from '#core/services/factories/axial-curves-factory.service';
 
 describe('SelectorLayerComponent', () => {
 
@@ -18,10 +19,14 @@ describe('SelectorLayerComponent', () => {
       imports: [
         CoreModule,
         ControlsModule
+      ],
+      providers: [
+        AxialCurvesFactoryService,
+        MockedGridLayerFactory
       ]
     });
     visibilityManager = TestBed.inject(LayersVisibilityManagerService);
-    const layer = new MockedGridLayerFactory().buildRenderableLayer();
+    const layer = TestBed.inject(MockedGridLayerFactory).buildRenderableLayer();
     TestBed.inject(LayerService).registerLayer(layer);
     component = TestBed.createComponent(SelectorLayerComponent).componentInstance;
     component.layer = layer.model;
