@@ -11,6 +11,7 @@ import { SkyGridProvidersService } from '#layer-sky-grid/services/sky-grid-provi
 import { StarsProvidersService } from '#layer-stars/services/stars-providers.service';
 import { ConstellationsProvidersService } from '#layer-constellations/services/constellations-providers.service';
 import { RenderableLayer } from '#core/models/layers/renderable-layer';
+import { SearchService } from '#core/services/search.service';
 
 /**
  * Asynchronously loads layers and themes data.
@@ -27,6 +28,7 @@ export class LoaderService {
     private readonly _themeService: ThemeService,
     private readonly _layerService: LayerService,
     private readonly _visibilityManager: LayersVisibilityManagerService,
+    private readonly _searchService: SearchService,
     injector: Injector
   ) {
     this._loadedThemes = new Map<string, Theme>();
@@ -131,6 +133,7 @@ export class LoaderService {
       (factory: RenderableLayer) => !!factory
     );
     this._layerService.registerLayer(renderable);
+    this._searchService.registerSearchables(renderable?.searchables);
     this._visibilityManager.showLayer(layer?.code);
   }
 
