@@ -7,11 +7,9 @@ import { LayerService } from '#core/services/layer.service';
 import { Layer } from '#core/models/layers/layer';
 import { LayersVisibilityManagerService } from '#core/services/visibility/layers-visibility-manager.service';
 import { LayersProvider } from '#core/models/layers/layers-provider';
-import { SkyGridProvidersService } from '#layer-sky-grid/services/sky-grid-providers.service';
-import { StarsProvidersService } from '#layer-stars/services/stars-providers.service';
-import { ConstellationsProvidersService } from '#layer-constellations/services/constellations-providers.service';
 import { RenderableLayer } from '#core/models/layers/renderable-layer';
 import { SearchService } from '#core/services/search.service';
+import { LayerProvidersRegistryService } from '#controls/services/layer-providers-registry.service';
 
 /**
  * Asynchronously loads layers and themes data.
@@ -21,23 +19,15 @@ export class LoaderService {
 
   private readonly _loadedThemes: Map<string, Theme>;
 
-  private readonly _layerProviders: Array<LayersProvider>;
-
   constructor(
     private readonly _dataService: StaticDataService,
     private readonly _themeService: ThemeService,
     private readonly _layerService: LayerService,
     private readonly _visibilityManager: LayersVisibilityManagerService,
     private readonly _searchService: SearchService,
-    injector: Injector
+    private readonly _providersRegistry: LayerProvidersRegistryService
   ) {
     this._loadedThemes = new Map<string, Theme>();
-    // TODO find a way to inject the modules dynamically, without hard-coding them here
-    this._layerProviders = [
-      injector.get(SkyGridProvidersService),
-      injector.get(StarsProvidersService),
-      injector.get(ConstellationsProvidersService)
-    ];
   }
 
   /**
@@ -127,11 +117,12 @@ export class LoaderService {
   }
 
   private registerAndShow(layer: Layer): void {
-    const renderable = this._layerProviders.map(
-      (provider: LayersProvider) => provider.getRenderableLayer(layer)
-    ).find(
-      (factory: RenderableLayer) => !!factory
-    );
+    const renderable = this._providersRegistry.layerProviders
+      .map(
+        (provider: LayersProvider) => provider.getRenderableLayer(layer)
+      ).find(
+        (factory: RenderableLayer) => !!factory
+      );
     this._layerService.registerLayer(renderable);
     this._searchService.registerSearchables(renderable?.searchables);
     this._visibilityManager.showLayer(layer?.code);

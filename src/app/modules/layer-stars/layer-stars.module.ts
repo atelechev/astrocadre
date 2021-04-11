@@ -9,6 +9,7 @@ import { SelectorStarNamesComponent } from '#layer-stars/components/selector-sta
 import { SelectorStarMagnitudeComponent } from '#layer-stars/components/selector-star-magnitude/selector-star-magnitude.component';
 import { StarsProvidersService } from '#layer-stars/services/stars-providers.service';
 import { StarsLayerFactoryService } from '#layer-stars/services/factories/stars-layer-factory.service';
+import { LayerStarsControlsComponent } from '#layer-stars/components/layer-stars-controls/layer-stars-controls.component';
 
 
 @NgModule({
@@ -25,12 +26,12 @@ import { StarsLayerFactoryService } from '#layer-stars/services/factories/stars-
     StarsVisibilityManagerService
   ],
   declarations: [
+    LayerStarsControlsComponent,
     SelectorStarMagnitudeComponent,
     SelectorStarNamesComponent
   ],
   exports: [
-    SelectorStarMagnitudeComponent,
-    SelectorStarNamesComponent
+    LayerStarsControlsComponent
   ]
 })
 export class LayerStarsModule {

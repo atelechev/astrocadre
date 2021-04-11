@@ -11,7 +11,8 @@ import { ResizeControlsComponent } from '#controls/components/resize-controls/re
 import { SelectorLayerComponent } from '#controls/components/selector-layer/selector-layer.component';
 import { SelectorThemeComponent } from '#controls/components/selector-theme/selector-theme.component';
 import { DraggableElementsHandler } from '#controls/services/draggable-elements-handler';
-import { LayerStarsModule } from '#layer-stars/layer-stars.module';
+import { LayerProvidersRegistryService } from '#controls/services/layer-providers-registry.service';
+import { CustomControlsComponent } from '#controls/components/custom-controls/custom-controls.component';
 
 /**
  * Contains all the elements of the application that represent
@@ -21,12 +22,12 @@ import { LayerStarsModule } from '#layer-stars/layer-stars.module';
   imports: [
     BrowserModule,
     FormsModule,
-    PrimeNgImportsModule,
-    LayerStarsModule
+    PrimeNgImportsModule
   ],
   declarations: [
     CameraControlsComponent,
     ControlsComponent,
+    CustomControlsComponent,
     GoToComponent,
     LayersComponent,
     ResizeControlsComponent,
@@ -38,6 +39,7 @@ import { LayerStarsModule } from '#layer-stars/layer-stars.module';
   ],
   providers: [
     DraggableElementsHandler,
+    LayerProvidersRegistryService,
     LoaderService
   ]
 })

@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Type } from '@angular/core';
 import { Layer } from '#core/models/layers/layer';
 import { RenderableLayer } from '#core/models/layers/renderable-layer';
 import { BoundariesLayerFactoryService } from '#layer-constellations/services/factories/boundaries-layer-factory.service';
@@ -7,6 +7,7 @@ import { NamesLayerFactoryService } from '#layer-constellations/services/factori
 import { LayerFactory } from '#core/models/layers/layer-factory';
 import { LayersProvider } from '#core/models/layers/layers-provider';
 import { AggregateLayerFactoryService } from '#core/services/factories/aggregate-layer-factory.service';
+import { LayerAware } from '#core/models/layers/layer-aware';
 
 
 @Injectable()
@@ -24,6 +25,10 @@ export class ConstellationsProvidersService implements LayersProvider {
   public getRenderableLayer(model: Layer): RenderableLayer {
     const factory = this.getLayerFactory(model?.code);
     return factory?.buildRenderableLayer(model);
+  }
+
+  public getUiControlsComponentType(_: Layer): Type<LayerAware> {
+    return undefined;
   }
 
   private getLayerFactory(code: string): LayerFactory {

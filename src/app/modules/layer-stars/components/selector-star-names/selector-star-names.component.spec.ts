@@ -7,7 +7,6 @@ import { LayersVisibilityManagerService } from '#core/services/visibility/layers
 import { StarsVisibilityManagerService } from '#layer-stars/services/visibility/stars-visibility-manager.service';
 import { TextsVisibilityManagerService } from '#core/services/visibility/texts-visibility-manager.service';
 import { CoreModule } from '#core/core.module';
-import { ControlsModule } from '#controls/controls.module';
 import { LayerStarsModule } from '#layer-stars/layer-stars.module';
 import { StarsProvidersService } from '#layer-stars/services/stars-providers.service';
 
@@ -23,7 +22,6 @@ describe('SelectorStarNamesComponent', () => {
     TestBed.configureTestingModule({
       imports: [
         CoreModule,
-        ControlsModule,
         LayerStarsModule
       ]
     });

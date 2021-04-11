@@ -7,9 +7,8 @@
 
 <div class="p-ml-4">
 
-  <div *ngIf="isStarsLayer; else showSubLayers">
-    <ac-controls-select-star-magnitude></ac-controls-select-star-magnitude>
-    <ac-controls-select-star-names></ac-controls-select-star-names>
+  <div *ngIf="hasCustomUiControls; else showSubLayers">
+    <ac-custom-controls [layer]="layer" [customComponentType]="controlsComponentType"></ac-custom-controls>
   </div>
 
   <ng-template #showSubLayers>

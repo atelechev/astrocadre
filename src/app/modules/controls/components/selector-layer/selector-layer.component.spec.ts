@@ -7,6 +7,9 @@ import { ControlsModule } from '#controls/controls.module';
 import { LayerService } from '#core/services/layer.service';
 import { MockedGridLayerFactory } from '#core/test-utils/mocked-grid-layer-factory.spec';
 import { AxialCurvesFactoryService } from '#core/services/factories/axial-curves-factory.service';
+import { LayerStarsModule } from '#layer-stars/layer-stars.module';
+import { LayerSkyGridModule } from '#layer-sky-grid/layer-sky-grid.module';
+import { LayerConstellationsModule } from '#layer-constellations/layer-constellations.module';
 
 describe('SelectorLayerComponent', () => {
 
@@ -18,7 +21,10 @@ describe('SelectorLayerComponent', () => {
     TestBed.configureTestingModule({
       imports: [
         CoreModule,
-        ControlsModule
+        ControlsModule,
+        LayerConstellationsModule,
+        LayerStarsModule,
+        LayerSkyGridModule
       ],
       providers: [
         AxialCurvesFactoryService,
@@ -66,32 +72,47 @@ describe('SelectorLayerComponent', () => {
 
     });
 
-    describe('subLayers should return', () => {
+  });
 
-      it('expected array for a layer with sub-layers', () => {
-        component.layer = mockedLayers.subLayers[1];
-        expect(component.subLayers.length).toEqual(3);
-      });
+  describe('subLayers should return', () => {
 
-      it('an empty array if the layer does not have sub-layers', () => {
-        component.layer = mockedLayers.subLayers[0];
-        expect(component.subLayers).toEqual([]);
-      });
-
+    it('expected array for a layer with sub-layers', () => {
+      component.layer = mockedLayers.subLayers[1];
+      expect(component.subLayers.length).toEqual(3);
     });
 
-    describe('isStarsLayer should return', () => {
+    it('an empty array if the layer does not have sub-layers', () => {
+      component.layer = mockedLayers.subLayers[0];
+      expect(component.subLayers).toEqual([]);
+    });
 
-      it('true for the stars layer', () => {
-        component.layer = mockedLayers.subLayers[1];
-        expect(component.isStarsLayer).toBeTrue();
-      });
+  });
 
-      it('false for any other layer', () => {
-        component.layer = mockedLayers.subLayers[0];
-        expect(component.isStarsLayer).toBeFalse();
-      });
+  describe('hasCustomUiControls should return', () => {
 
+    it('false if no custom controls are expected for the layer', () => {
+      component.layer = mockedLayers.subLayers[0];
+      expect(component.hasCustomUiControls).toBeFalse();
+    });
+
+    it('true if custom controls are expected for the layer', () => {
+      component.layer = mockedLayers.subLayers[1];
+      expect(component.hasCustomUiControls).toBeTrue();
+    });
+
+  });
+
+  describe('controlsComponentType should return', () => {
+
+    it('undefined if no custom controls are expected for the layer', () => {
+      component.layer = mockedLayers.subLayers[0];
+      expect(component.controlsComponentType).toBeUndefined();
+    });
+
+    it('defined value if custom controls are expected for the layer', () => {
+      component.layer = mockedLayers.subLayers[1];
+      // the exact type is not checked, because it is out of scope of this module
+      expect(component.controlsComponentType).toBeDefined();
     });
 
   });

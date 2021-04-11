@@ -19,18 +19,34 @@ describe('SkyGridProvidersService', () => {
     service = TestBed.inject(SkyGridProvidersService);
   });
 
-  it('should return a defined object for the "sky-grid" layer', () => {
-    expect(service.getRenderableLayer(mockedLayers.subLayers[0])).toBeDefined();
-  });
+  describe('getRenderableLayer should return', () => {
 
-  describe('should return undefined', () => {
-
-    it('if the arg is falsy', () => {
-      expect(service.getRenderableLayer(undefined)).toBeUndefined();
+    it('a defined object for the "sky-grid" layer', () => {
+      expect(service.getRenderableLayer(mockedLayers.subLayers[0])).toBeDefined();
     });
 
-    it('if the arg was not matched', () => {
-      expect(service.getRenderableLayer(mockedLayers.subLayers[1])).toBeUndefined();
+    describe('undefined', () => {
+
+      it('if the arg is falsy', () => {
+        expect(service.getRenderableLayer(undefined)).toBeUndefined();
+      });
+
+      it('if the arg was not matched', () => {
+        expect(service.getRenderableLayer(mockedLayers.subLayers[1])).toBeUndefined();
+      });
+
+    });
+
+  });
+
+  describe('getUiControlsComponentType should return undefined', () => {
+
+    it('for a falsy arg', () => {
+      expect(service.getUiControlsComponentType(undefined)).toBeUndefined();
+    });
+
+    it('for the "sky-grid" layer arg', () => {
+      expect(service.getUiControlsComponentType(mockedLayers.subLayers[0])).toBeUndefined();
     });
 
   });

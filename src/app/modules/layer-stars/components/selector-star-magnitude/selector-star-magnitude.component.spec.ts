@@ -3,7 +3,6 @@ import { SelectorStarMagnitudeComponent } from '#layer-stars/components/selector
 import { LayersVisibilityManagerService } from '#core/services/visibility/layers-visibility-manager.service';
 import { StarsVisibilityManagerService } from '#layer-stars/services/visibility/stars-visibility-manager.service';
 import { CoreModule } from '#core/core.module';
-import { ControlsModule } from '#controls/controls.module';
 import { LayerService } from '#core/services/layer.service';
 import { LayerStarsModule } from '#layer-stars/layer-stars.module';
 import { mockedLayers } from '#core/test-utils/mocked-layers.spec';
@@ -21,7 +20,6 @@ describe('SelectorStarMagnitudeComponent', () => {
     TestBed.configureTestingModule({
       imports: [
         CoreModule,
-        ControlsModule,
         LayerStarsModule
       ]
     });
