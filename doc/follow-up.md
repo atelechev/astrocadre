@@ -4,7 +4,7 @@
 
 ## Upcoming Features and Issues
 
-* AC-025: _TODO Choose the next feature to implement_
+* AC-026: _TODO Choose the next feature to implement_
 
 ### Ideas for New Features to Implement
 
@@ -41,6 +41,11 @@
 ## Project Development History
 
 _These notes are added from the most recent on the top, to the oldest at the bottom._
+
+### April 11th, 2021
+
+* AC-025: Extracted all the object layers into (almost) autonomous modules in dedicated folders.
+  * Decoupled the UI controls from the concrete layers implementations.
 
 ### February - April, 2021
 
