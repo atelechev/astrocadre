@@ -290,4 +290,4 @@ Please check more details in `LICENSE` file.
 
 --- 
 
-(c) 2018 Anton Telechev
+(c) 2018 - 2021 Anton Telechev

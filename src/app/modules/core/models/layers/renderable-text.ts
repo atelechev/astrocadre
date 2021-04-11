@@ -1,6 +1,6 @@
 import { Vector3 } from 'three';
-import { TextOffsetPolicy } from '#core/models/layers/factories/text/text-offset-policy';
-import { TextOffsets } from '#core/models/layers/factories/text/text-offsets';
+import { TextOffsetPolicy } from '#core/models/layers/text/text-offset-policy';
+import { TextOffsets } from '#core/models/layers/text/text-offsets';
 import { TextStyle } from '#core/models/theme/text-style';
 
 /**

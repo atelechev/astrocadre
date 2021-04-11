@@ -2,15 +2,30 @@ import { TestBed } from '@angular/core/testing';
 import { skip } from 'rxjs/operators';
 import { LayerService } from '#core/services/layer.service';
 import { LayersVisibilityManagerService } from '#core/services/visibility/layers-visibility-manager.service';
-import { mockedLayers } from '#core/test-utils/mocked-layers.spec';
-import { registerMockStarsLayers } from '#core/test-utils/utils.spec';
 import { LayerEvent } from '#core/models/event/layer-event';
 import { LayerShownEvent } from '#core/models/event/layer-shown-event';
 import { LayerHiddenEvent } from '#core/models/event/layer-hidden-event';
-import { LayersFactoryService } from '#core/services/layers-factory.service';
 import { SearchService } from '#core/services/search.service';
 import { ThemeService } from '#core/services/theme.service';
+import { MockedGridLayerFactory } from '#core/test-utils/mocked-grid-layer-factory.spec';
+import { Layer } from '#core/models/layers/layer';
+import { AggregateLayerFactoryService } from '#core/services/factories/aggregate-layer-factory.service';
+import { AxialCurvesFactoryService } from '#core/services/factories/axial-curves-factory.service';
 
+const model: Layer = {
+  code: 'stars',
+  label: 'Stars',
+  loadFromUrl: false,
+  objects: [],
+  subLayers: [
+    {
+      code: 'stars-mag2.0',
+      label: 'Magnitude < 2.0',
+      loadFromUrl: true,
+      objects: []
+    }
+  ]
+};
 
 describe('LayersVisibilityManagerService', () => {
 
@@ -23,9 +38,11 @@ describe('LayersVisibilityManagerService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       providers: [
+        AxialCurvesFactoryService,
+        AggregateLayerFactoryService,
         LayerService,
-        LayersFactoryService,
         LayersVisibilityManagerService,
+        MockedGridLayerFactory,
         SearchService,
         ThemeService
       ]
@@ -34,12 +51,17 @@ describe('LayersVisibilityManagerService', () => {
     manager = TestBed.inject(LayersVisibilityManagerService);
   });
 
-  const loadSkyGridLayer = (): void => {
-    layerService.registerLayer(mockedLayers.subLayers[0]);
+  const loadMockedGridLayer = (): void => {
+    const layer = TestBed.inject(MockedGridLayerFactory).buildRenderableLayer();
+    layerService.registerLayer(layer);
   };
 
-  const loadStarsLayers = (): void => {
-    registerMockStarsLayers(layerService);
+  const loadHierarchicalLayers = (): void => {
+    const factory = TestBed.inject(AggregateLayerFactoryService);
+    const parentLayer = factory.buildRenderableLayer(model);
+    layerService.registerLayer(parentLayer);
+    const childLayer = factory.buildRenderableLayer(model.subLayers[0]);
+    layerService.registerLayer(childLayer);
   };
 
   const assertLayersShown = (expectedShown: Array<string>): void => {
@@ -69,7 +91,7 @@ describe('LayersVisibilityManagerService', () => {
     });
 
     it('true if the layer is expected to be shown', () => {
-      loadSkyGridLayer();
+      loadMockedGridLayer();
       manager.showLayer(skyGrid);
       expect(manager.isShown(skyGrid)).toBeTrue();
     });
@@ -104,13 +126,13 @@ describe('LayersVisibilityManagerService', () => {
     describe('propagate an event', () => {
 
       it('when a layer is shown', (done: DoneFn) => {
-        loadSkyGridLayer();
+        loadMockedGridLayer();
         assertEventPropagated(LayerShownEvent.KEY, done);
         manager.showLayer(skyGrid);
       });
 
       it('when a layer is hidden', (done: DoneFn) => {
-        loadSkyGridLayer();
+        loadMockedGridLayer();
         assertEventPropagated(LayerHiddenEvent.KEY, done);
         manager.hideLayer(skyGrid);
       });
@@ -127,10 +149,10 @@ describe('LayersVisibilityManagerService', () => {
     });
 
     it('show the layer and its sub-layers', () => {
-      loadStarsLayers();
+      loadHierarchicalLayers();
 
       manager.showLayer(stars);
-      assertLayersShown([stars, starsMag2, 'stars-mag2.5', 'stars-mag3.0']);
+      assertLayersShown([stars, starsMag2]);
     });
 
   });
@@ -143,10 +165,10 @@ describe('LayersVisibilityManagerService', () => {
     });
 
     it('hide the layer and its sub-layers', () => {
-      loadStarsLayers();
+      loadHierarchicalLayers();
 
       manager.hideLayer(stars);
-      assertLayersHidden([stars, starsMag2, 'stars-mag2.5', 'stars-mag3.0']);
+      assertLayersHidden([stars, starsMag2]);
     });
 
   });

@@ -5,37 +5,31 @@ import { TextsVisibilityManagerService } from '#core/services/visibility/texts-v
 import { LayerEvent } from '#core/models/event/layer-event';
 import { TextsShownEvent } from '#core/models/event/texts-shown-event';
 import { TextsHiddenEvent } from '#core/models/event/texts-hidden-event';
-import { LayersFactoryService } from '#core/services/layers-factory.service';
 import { SearchService } from '#core/services/search.service';
 import { ThemeService } from '#core/services/theme.service';
+import { MockedGridLayerFactory } from '#core/test-utils/mocked-grid-layer-factory.spec';
+import { AxialCurvesFactoryService } from '#core/services/factories/axial-curves-factory.service';
 
 
 describe('TextsVisibilityManagerService', () => {
 
-  const starsMag2 = 'stars-mag2.0';
-  const model = {
-    code: starsMag2,
-    label: 'Magnitude < 2.0',
-    loadFromUrl: true,
-    description: 'Stars of magnitude less or equal to 2.0',
-    objects: [
-      [37.95, 89.26, 2.0, 'Polaris', 'ALP UMI']
-    ]
-  };
+  const code = 'sky-grid';
   let manager: TextsVisibilityManagerService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
       providers: [
+        AxialCurvesFactoryService,
         LayerService,
-        LayersFactoryService,
+        MockedGridLayerFactory,
         SearchService,
         TextsVisibilityManagerService,
         ThemeService
       ]
     });
+    const layer = TestBed.inject(MockedGridLayerFactory).buildRenderableLayer();
     const layerService = TestBed.inject(LayerService);
-    layerService.registerLayer(model);
+    layerService.registerLayer(layer);
     manager = TestBed.inject(TextsVisibilityManagerService);
   });
 
@@ -68,12 +62,12 @@ describe('TextsVisibilityManagerService', () => {
 
       it('when the texts of a layer are shown', (done: DoneFn) => {
         assertEventPropagated(TextsShownEvent.KEY, done);
-        manager.showTexts(starsMag2);
+        manager.showTexts(code);
       });
 
       it('when the texts of a layer are hidden', (done: DoneFn) => {
         assertEventPropagated(TextsHiddenEvent.KEY, done);
-        manager.hideTexts(starsMag2);
+        manager.hideTexts(code);
       });
 
     });

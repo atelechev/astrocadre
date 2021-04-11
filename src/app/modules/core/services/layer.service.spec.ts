@@ -1,29 +1,31 @@
 import { TestBed } from '@angular/core/testing';
 import { LayerService } from '#core/services/layer.service';
-import { LayersFactoryService } from '#core/services/layers-factory.service';
 import { ThemeService } from '#core/services/theme.service';
 import { mockedLayers } from '#core/test-utils/mocked-layers.spec';
 import { SearchService } from '#core/services/search.service';
+import { AggregateLayer } from '#core/models/layers/aggregate-layer';
 
 
 describe('LayerService', () => {
 
-  const starsMag2 = 'stars-mag2.0';
-  const skyGrid = 'sky-grid';
+  const code = 'stars';
   let service: LayerService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
       providers: [
         LayerService,
-        LayersFactoryService,
         SearchService,
         ThemeService
       ]
     });
     service = TestBed.inject(LayerService);
-    service.registerLayer(mockedLayers);
   });
+
+  const registerMockedLayer = (): void => {
+    const mockedLayer = new AggregateLayer(mockedLayers.subLayers[1]);
+    service.registerLayer(mockedLayer);
+  };
 
   describe('getRenderableLayer should return', () => {
 
@@ -37,18 +39,14 @@ describe('LayerService', () => {
         expect(service.getRenderableLayer('no-layer')).toBeUndefined();
       });
 
-      it('for the root layer', () => {
-        expect(service.getRenderableLayer('root')).toBeUndefined();
-      });
-
     });
 
-    it('expected layer of an inner level', () => {
-      service.registerLayer(mockedLayers.subLayers[0]);
+    it('expected layer for existing code', () => {
+      registerMockedLayer();
 
-      const layer = service.getRenderableLayer(skyGrid);
+      const layer = service.getRenderableLayer(code);
       expect(layer).toBeDefined();
-      expect(layer.code).toEqual(skyGrid);
+      expect(layer.code).toEqual(code);
     });
 
   });
@@ -64,20 +62,11 @@ describe('LayerService', () => {
     });
 
     it('expected object if the layer model was found', () => {
-      const layer = {
-        code: starsMag2,
-        label: 'Magnitude < 2.0',
-        loadFromUrl: true,
-        description: 'Stars of magnitude less or equal to 2.0',
-        objects: [
-          [37.95, 89.26, 2.0, 'Polaris', 'ALP UMI']
-        ]
-      };
-      service.registerLayer(layer);
+      registerMockedLayer();
 
-      const model = service.getModel(starsMag2);
+      const model = service.getModel(code);
       expect(model).toBeDefined();
-      expect(model.code).toEqual(starsMag2);
+      expect(model.code).toEqual(code);
     });
 
   });

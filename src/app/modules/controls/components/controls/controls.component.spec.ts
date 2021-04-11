@@ -2,6 +2,9 @@ import { TestBed } from '@angular/core/testing';
 import { ControlsComponent } from '#controls/components/controls/controls.component';
 import { CoreModule } from '#core/core.module';
 import { ControlsModule } from '#controls/controls.module';
+import { LayerSkyGridModule } from '#layer-sky-grid/layer-sky-grid.module';
+import { LayerStarsModule } from '#layer-stars/layer-stars.module';
+import { LayerConstellationsModule } from '#layer-constellations/layer-constellations.module';
 
 
 describe('ControlsComponent', () => {
@@ -12,7 +15,10 @@ describe('ControlsComponent', () => {
     TestBed.configureTestingModule({
       imports: [
         CoreModule,
-        ControlsModule
+        ControlsModule,
+        LayerSkyGridModule,
+        LayerStarsModule,
+        LayerConstellationsModule
       ]
     });
     component = TestBed.createComponent(ControlsComponent).componentInstance;

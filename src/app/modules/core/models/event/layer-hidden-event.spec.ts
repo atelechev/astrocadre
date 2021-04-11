@@ -1,13 +1,25 @@
+import { TestBed } from '@angular/core/testing';
 import { LayerHiddenEvent } from '#core/models/event/layer-hidden-event';
-import { AxialCurvesFactory } from '#core/models/layers/factories/axial-curves-factory';
-import { SkyGridLayerFactory } from '#core/models/layers/factories/sky-grid-layer-factory';
+import { AxialCurvesFactoryService } from '#core/services/factories/axial-curves-factory.service';
+import { SkyGridLayerFactoryService } from '#layer-sky-grid/services/factories/sky-grid-layer-factory.service';
 import { mockedLayers } from '#core/test-utils/mocked-layers.spec';
+import { SkyGrid } from '#layer-sky-grid/models/sky-grid';
 
 describe('LayerHiddenEvent', () => {
 
+  let layer: SkyGrid;
+
+  beforeEach(() => {
+    TestBed.configureTestingModule({
+      providers: [
+        AxialCurvesFactoryService,
+        SkyGridLayerFactoryService
+      ]
+    });
+    layer = TestBed.inject(SkyGridLayerFactoryService).buildRenderableLayer(mockedLayers.subLayers[0]);
+  });
+
   it('should have the expected key', () => {
-    const factory = new SkyGridLayerFactory(mockedLayers.subLayers[0], new AxialCurvesFactory());
-    const layer = factory.buildRenderableLayer();
     const event = new LayerHiddenEvent(layer);
     expect(event.key).toEqual('layerHidden');
   });
