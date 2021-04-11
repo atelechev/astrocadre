@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { SupportedLayers } from '#core/models/layers/supported-layers';
-import { NameSelectionType } from '#controls/models/name-selection-type';
-import { LayersVisibilityManagerService } from '#core/services/visibility/layers-visibility-manager.service';
+import { NameSelectionType } from '#layer-stars/models/name-selection-type';
 import { StarsVisibilityManagerService } from '#layer-stars/services/visibility/stars-visibility-manager.service';
 import { TextsVisibilityManagerService } from '#core/services/visibility/texts-visibility-manager.service';
 
@@ -22,7 +21,6 @@ export class SelectorStarNamesComponent {
   private _shownNames: number;
 
   constructor(
-    private readonly _layersVisibilityManager: LayersVisibilityManagerService,
     private readonly _starsVisibilityManager: StarsVisibilityManagerService,
     private readonly _textsVisibilityManager: TextsVisibilityManagerService
   ) {
@@ -46,10 +44,6 @@ export class SelectorStarNamesComponent {
       this._shownNames = sn;
       this.updateShownNames();
     }
-  }
-
-  public get isDisabled(): boolean {
-    return !this._layersVisibilityManager.isShown(this._starsLayerCode);
   }
 
   private updateShownNames(): void {

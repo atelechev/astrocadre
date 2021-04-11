@@ -1,9 +1,8 @@
 import { TestBed } from '@angular/core/testing';
 import { LayerService } from '#core/services/layer.service';
 import { SelectorStarNamesComponent } from '#layer-stars/components/selector-star-names/selector-star-names.component';
-import { NameSelectionType } from '#controls/models/name-selection-type';
+import { NameSelectionType } from '#layer-stars/models/name-selection-type';
 import { mockedLayers } from '#core/test-utils/mocked-layers.spec';
-import { LayersVisibilityManagerService } from '#core/services/visibility/layers-visibility-manager.service';
 import { StarsVisibilityManagerService } from '#layer-stars/services/visibility/stars-visibility-manager.service';
 import { TextsVisibilityManagerService } from '#core/services/visibility/texts-visibility-manager.service';
 import { CoreModule } from '#core/core.module';
@@ -13,7 +12,6 @@ import { StarsProvidersService } from '#layer-stars/services/stars-providers.ser
 
 describe('SelectorStarNamesComponent', () => {
 
-  let visibilityManager: LayersVisibilityManagerService;
   let textsVisibilityManager: TextsVisibilityManagerService;
   let starsVisibilityManager: StarsVisibilityManagerService;
   let component: SelectorStarNamesComponent;
@@ -26,7 +24,6 @@ describe('SelectorStarNamesComponent', () => {
       ]
     });
     const layersService = TestBed.inject(LayerService);
-    visibilityManager = TestBed.inject(LayersVisibilityManagerService);
     starsVisibilityManager = TestBed.inject(StarsVisibilityManagerService);
     textsVisibilityManager = TestBed.inject(TextsVisibilityManagerService);
     layersService.rootLayer = mockedLayers;
@@ -104,20 +101,6 @@ describe('SelectorStarNamesComponent', () => {
         expect(textsVisibilityManager.showTexts).toHaveBeenCalledTimes(1);
       });
 
-    });
-
-  });
-
-  describe('isDisabled should return', () => {
-
-    it('true if the star layer is not shown', () => {
-      visibilityManager.hideLayer('stars');
-      expect(component.isDisabled).toBeTrue();
-    });
-
-    it('false if the star layer is shown', () => {
-      visibilityManager.showLayer('stars');
-      expect(component.isDisabled).toBeFalse();
     });
 
   });

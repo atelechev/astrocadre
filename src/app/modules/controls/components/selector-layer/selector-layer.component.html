@@ -5,7 +5,7 @@
               title="{{ layer.description }}"></p-checkbox>
 </div>
 
-<div class="p-ml-4">
+<div class="p-ml-4" [hidden]="!isShown">
 
   <div *ngIf="hasCustomUiControls; else showSubLayers">
     <ac-custom-controls [layer]="layer" [customComponentType]="controlsComponentType"></ac-custom-controls>

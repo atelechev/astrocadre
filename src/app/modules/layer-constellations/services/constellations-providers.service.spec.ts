@@ -6,6 +6,8 @@ import { BoundariesLayerFactoryService } from '#layer-constellations/services/fa
 import { LinesLayerFactoryService } from '#layer-constellations/services/factories/lines-layer-factory.service';
 import { NamesLayerFactoryService } from '#layer-constellations/services/factories/names-layer-factory.service';
 import { Layer } from '#core/models/layers/layer';
+import { LayerStarsControlsComponent } from '#layer-stars/components/layer-stars-controls/layer-stars-controls.component';
+import { LayerConstellationsControlsComponent } from '#layer-constellations/components/layer-constellations-controls/layer-constellations-controls.component';
 
 
 describe('ConstellationsProvidersService', () => {
@@ -61,18 +63,24 @@ describe('ConstellationsProvidersService', () => {
 
   });
 
-  describe('getUiControlsComponentType should return undefined', () => {
+  describe('getUiControlsComponentType should return', () => {
 
-    it('for a falsy arg', () => {
-      expect(service.getUiControlsComponentType(undefined)).toBeUndefined();
+    it('expected value for the "constellations" layer arg', () => {
+      expect(service.getUiControlsComponentType(constellationsLayer)).toEqual(LayerConstellationsControlsComponent);
     });
 
-    it('for the "constellations" layer and its sub-layers', () => {
-      expect(service.getUiControlsComponentType(constellationsLayer)).toBeUndefined();
+    describe('undefined', () => {
 
-      constellationsLayer.subLayers.forEach(
-        (subLayer: Layer) => expect(service.getUiControlsComponentType(subLayer)).toBeUndefined()
-      );
+      it('for a falsy arg', () => {
+        expect(service.getUiControlsComponentType(undefined)).toBeUndefined();
+      });
+
+      it('for the sub-layers of the "constellations" layer', () => {
+        constellationsLayer.subLayers.forEach(
+          (subLayer: Layer) => expect(service.getUiControlsComponentType(subLayer)).toBeUndefined()
+        );
+      });
+
     });
 
   });

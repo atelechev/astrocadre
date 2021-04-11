@@ -8,6 +8,7 @@ import { LayerFactory } from '#core/models/layers/layer-factory';
 import { LayersProvider } from '#core/models/layers/layers-provider';
 import { AggregateLayerFactoryService } from '#core/services/factories/aggregate-layer-factory.service';
 import { LayerAware } from '#core/models/layers/layer-aware';
+import { LayerConstellationsControlsComponent } from '#layer-constellations/components/layer-constellations-controls/layer-constellations-controls.component';
 
 
 @Injectable()
@@ -27,7 +28,10 @@ export class ConstellationsProvidersService implements LayersProvider {
     return factory?.buildRenderableLayer(model);
   }
 
-  public getUiControlsComponentType(_: Layer): Type<LayerAware> {
+  public getUiControlsComponentType(model: Layer): Type<LayerAware> {
+    if (model?.code === 'constellations') {
+      return LayerConstellationsControlsComponent;
+    }
     return undefined;
   }
 

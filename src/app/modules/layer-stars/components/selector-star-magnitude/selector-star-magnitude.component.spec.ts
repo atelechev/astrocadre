@@ -73,18 +73,4 @@ describe('SelectorStarMagnitudeComponent', () => {
 
   });
 
-  describe('isDisabled should return', () => {
-
-    it('true if the star layer is not shown', () => {
-      visibilityManager.hideLayer('stars');
-      expect(component.isDisabled).toBeTrue();
-    });
-
-    it('false if the star layer is shown', () => {
-      visibilityManager.showLayer('stars');
-      expect(component.isDisabled).toBeFalse();
-    });
-
-  });
-
 });
