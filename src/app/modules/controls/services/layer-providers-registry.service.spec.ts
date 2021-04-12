@@ -1,4 +1,5 @@
 import { TestBed } from '@angular/core/testing';
+import { LayerMessierModule } from 'src/app/modules/layer-messier/layer-messier.module';
 import { LayerProvidersRegistryService } from '#controls/services/layer-providers-registry.service';
 import { LayerSkyGridModule } from '#layer-sky-grid/layer-sky-grid.module';
 import { LayerStarsModule } from '#layer-stars/layer-stars.module';
@@ -14,7 +15,8 @@ describe('LayerProvidersRegistryService', () => {
       imports: [
         LayerConstellationsModule,
         LayerSkyGridModule,
-        LayerStarsModule
+        LayerStarsModule,
+        LayerMessierModule
       ],
       providers: [
         LayerProvidersRegistryService
@@ -26,7 +28,7 @@ describe('LayerProvidersRegistryService', () => {
   it('layerProviders should return expected data', () => {
     const providers = registry.layerProviders;
     expect(providers).toBeDefined();
-    expect(providers.length).toEqual(3);
+    expect(providers.length).toEqual(4);
   });
 
 });

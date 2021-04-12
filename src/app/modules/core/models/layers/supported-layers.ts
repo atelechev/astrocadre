@@ -18,4 +18,6 @@ export class SupportedLayers {
 
   public static readonly STARS = 'stars';
 
+  public static readonly MESSIER = 'messier';
+
 }

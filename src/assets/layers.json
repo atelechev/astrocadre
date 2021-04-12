@@ -97,6 +97,12 @@
           "description": "Stars of magnitude between 5.5 and more"
         }
       ]
+    },
+    {
+      "code": "messier",
+      "label": "Messier objects",
+      "loadFromUrl": true,
+      "description": "Celestial objects from the Messier catalog"
     }
   ]
 }

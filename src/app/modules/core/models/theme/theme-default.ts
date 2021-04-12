@@ -1,5 +1,22 @@
 import { Theme } from '#core/models/theme/theme';
 
+const defaultText = {
+  fontSize: '1px',
+  fontFamily: 'arial',
+  fontStyle: 'normal',
+  fontWeight: 'normal',
+  color: 'rgb(0, 0, 0)'
+};
+
+const defaultLine = {
+  color: 'rgb(0, 0, 0)'
+};
+
+const defaultTexture = {
+  image: 'assets/textures/star_black.png',
+  sizeMultiplier: 1
+};
+
 /**
  * The default theme data loaded in the application before
  * a normal theme is loaded.
@@ -13,53 +30,31 @@ import { Theme } from '#core/models/theme/theme';
 export const themeDefault: Theme = {
   code: 'default',
   label: 'default',
-  background: {
-    color: 'rgb(0, 0, 0)'
-  },
+  background: defaultLine,
   skyGrid: {
-    normal: {
-      color: 'rgb(0, 0, 0)'
-    },
-    reference: {
-      color: 'rgb(0, 0, 0)'
-    }
+    normal: defaultLine,
+    reference: defaultLine
   },
   constellation: {
-    boundaries: {
-      color: 'rgb(0, 0, 0)'
-    },
-    lines: {
-      color: 'rgb(0, 0, 0)'
-    },
-    names: {
-      fontSize: '1px',
-      fontFamily: 'arial',
-      fontStyle: 'normal',
-      fontWeight: 'normal',
-      color: 'rgb(0, 0, 0)'
-    }
+    boundaries: defaultLine,
+    lines: defaultLine,
+    names: defaultText
   },
   stars: {
     magnitudes: [],
-    texture: {
-      image: 'assets/textures/star_black.png',
-      sizeMultiplier: 1
-    },
+    texture: defaultTexture,
     names: {
-      proper: {
-        fontSize: '1px',
-        fontFamily: 'arial',
-        fontStyle: 'normal',
-        fontWeight: 'normal',
-        color: 'rgb(0, 0, 0)'
-      },
-      standard: {
-        fontSize: '1px',
-        fontFamily: 'arial',
-        fontStyle: 'normal',
-        fontWeight: 'normal',
-        color: 'rgb(0, 0, 0)'
-      }
+      proper: defaultText,
+      standard: defaultText
     }
+  },
+  messier: {
+    objects: {
+      cluster: defaultTexture,
+      galaxy: defaultTexture,
+      nebula: defaultTexture,
+      other: defaultTexture
+    },
+    names: defaultText
   }
 };

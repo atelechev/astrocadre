@@ -1,5 +1,6 @@
 import { fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { of, throwError } from 'rxjs';
+import { LayerMessierModule } from 'src/app/modules/layer-messier/layer-messier.module';
 import { LoaderService } from '#controls/services/loader.service';
 import { ThemeService } from '#core/services/theme.service';
 import { StaticDataService } from '#core/services/static-data.service';
@@ -30,7 +31,8 @@ describe('LoaderService', () => {
         ControlsModule,
         LayerSkyGridModule,
         LayerStarsModule,
-        LayerConstellationsModule
+        LayerConstellationsModule,
+        LayerMessierModule
       ],
       providers: [
         {
@@ -72,7 +74,7 @@ describe('LoaderService', () => {
       tick();
 
       expect(layerService.rootLayer).toEqual(mockedLayers);
-      expect(layerService.registerLayer).toHaveBeenCalledTimes(10);
+      expect(layerService.registerLayer).toHaveBeenCalledTimes(11);
     }));
 
   });

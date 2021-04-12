@@ -29,6 +29,10 @@ describe('WorldConstants', () => {
       expect(WorldConstants.worldRadiusForLayer('stars')).toEqual(1.96);
     });
 
+    it('for the messier objects layer', () => {
+      expect(WorldConstants.worldRadiusForLayer('messier')).toEqual(1.95);
+    });
+
   });
 
 });

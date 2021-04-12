@@ -1,5 +1,6 @@
 import { LineStyle } from '#core/models/theme/line-style';
 import { TextStyle } from '#core/models/theme/text-style';
+import { TextureStyle } from '#core/models/theme/texture-style';
 import { ThemeMeta } from '#core/models/theme/theme-meta';
 
 /**
@@ -20,13 +21,19 @@ export interface Theme extends ThemeMeta {
   };
   stars: {
     magnitudes: number[];
-    texture: {
-      image: string;
-      sizeMultiplier: number;
-    };
+    texture: TextureStyle;
     names: {
       proper: TextStyle;
       standard: TextStyle;
     };
+  };
+  messier: {
+    objects: {
+      cluster: TextureStyle;
+      galaxy: TextureStyle;
+      nebula: TextureStyle;
+      other: TextureStyle;
+    };
+    names: TextStyle;
   };
 }

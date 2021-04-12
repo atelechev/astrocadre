@@ -48,5 +48,32 @@
         "color": "black"
       }
     }
+  },
+  "messier": {
+    "objects": {
+      "cluster": {
+        "image": "assets/textures/messier_cluster_chart.png",
+        "sizeMultiplier": 2.5
+      },
+      "galaxy": {
+        "image": "assets/textures/messier_galaxy_chart.png",
+        "sizeMultiplier": 3
+      },
+      "nebula": {
+        "image": "assets/textures/messier_nebula_chart.png",
+        "sizeMultiplier": 2.5
+      },
+      "other": {
+        "image": "assets/textures/messier_cluster_chart.png",
+        "sizeMultiplier": 1
+      }
+    },
+    "names": {
+      "fontSize": "13px",
+      "fontFamily": "arial",
+      "fontStyle": "italic",
+      "fontWeight": "normal",
+      "color": "black"
+    }
   }
 }

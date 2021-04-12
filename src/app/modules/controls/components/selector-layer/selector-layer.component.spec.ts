@@ -1,4 +1,5 @@
 import { TestBed } from '@angular/core/testing';
+import { LayerMessierModule } from 'src/app/modules/layer-messier/layer-messier.module';
 import { mockedLayers } from '#core/test-utils/mocked-layers.spec';
 import { SelectorLayerComponent } from '#controls/components/selector-layer/selector-layer.component';
 import { LayersVisibilityManagerService } from '#core/services/visibility/layers-visibility-manager.service';
@@ -24,7 +25,8 @@ describe('SelectorLayerComponent', () => {
         ControlsModule,
         LayerConstellationsModule,
         LayerStarsModule,
-        LayerSkyGridModule
+        LayerSkyGridModule,
+        LayerMessierModule
       ],
       providers: [
         AxialCurvesFactoryService,

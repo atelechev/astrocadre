@@ -24,6 +24,7 @@ export class WorldConstants {
 
   private static getLayerRadiusOffset(layer: string): number {
     switch (layer) {
+      case SupportedLayers.MESSIER: return 0.05;
       case SupportedLayers.STARS: return 0.04;
       case SupportedLayers.CONSTELLATION_LINES: return 0.02;
       case SupportedLayers.CONSTELLATION_BOUNDARIES: return 0.01;
