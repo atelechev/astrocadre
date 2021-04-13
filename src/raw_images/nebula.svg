@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="210mm"
+   height="297mm"
+   viewBox="0 0 210 297"
+   version="1.1"
+   id="svg8"
+   inkscape:export-filename="/home/antonio/bitmap.png"
+   inkscape:export-xdpi="48.203247"
+   inkscape:export-ydpi="48.203247"
+   inkscape:version="0.92.3 (2405546, 2018-03-11)"
+   sodipodi:docname="nebula.svg">
+  <defs
+     id="defs2" />
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="1.979899"
+     inkscape:cx="66.779534"
+     inkscape:cy="100.14716"
+     inkscape:document-units="mm"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     showguides="true"
+     inkscape:guide-bbox="true"
+     inkscape:window-width="1600"
+     inkscape:window-height="851"
+     inkscape:window-x="0"
+     inkscape:window-y="25"
+     inkscape:window-maximized="1"
+     inkscape:snap-global="false">
+    <sodipodi:guide
+       position="-12.828937,40.09043"
+       orientation="0,1"
+       id="guide815"
+       inkscape:locked="false" />
+    <sodipodi:guide
+       position="39.956793,65.213767"
+       orientation="1,0"
+       id="guide817"
+       inkscape:locked="false" />
+    <sodipodi:guide
+       position="19.911579,60.53655"
+       orientation="1,0"
+       id="guide819"
+       inkscape:locked="false" />
+    <sodipodi:guide
+       position="-11.626224,20.045215"
+       orientation="0,1"
+       id="guide821"
+       inkscape:locked="false" />
+  </sodipodi:namedview>
+  <metadata
+     id="metadata5">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <g
+       id="g1085"
+       transform="matrix(1.3397776,0,0,1.3397776,-7.0117077,-94.434684)"
+       style="stroke:#000000">
+      <path
+         sodipodi:nodetypes="cssscsssc"
+         inkscape:connector-curvature="0"
+         id="path1063"
+         d="m 13.196741,282.4823 c 0,0 -4.111977,-5.13391 -4.3925821,-8.2439 -0.2601914,-2.88374 0.096205,-6.7636 2.4339171,-8.47204 2.32106,-1.69627 5.928183,-1.39373 8.621887,-0.38944 2.579896,0.96187 6.775894,5.92069 6.775894,5.92069 0,0 -4.962998,-2.68096 -7.381999,-2.90836 -1.813087,-0.17044 -3.903314,-0.10966 -5.34702,1.00031 -1.410355,1.08433 -2.028912,3.22893 -2.251645,4.99394 -0.333046,2.63916 1.541548,8.0988 1.541548,8.0988 z"
+         style="fill:#ffffff;stroke:#000000;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+      <path
+         sodipodi:nodetypes="cssscsssc"
+         inkscape:connector-curvature="0"
+         id="path1063-6"
+         d="m 27.023611,271.8112 c 0,0 4.100958,5.14272 4.374893,8.2533 0.254007,2.88429 -0.110714,6.76338 -2.452079,8.4668 -2.324692,1.69129 -5.931158,1.38102 -8.622701,0.37095 -2.577828,-0.9674 -6.763182,-5.93521 -6.763182,-5.93521 0,0 4.957237,2.6916 7.375745,2.92419 1.812716,0.17433 3.903069,0.11803 5.349152,-0.98884 1.412677,-1.08131 2.035831,-3.22457 2.262349,-4.9891 0.338704,-2.63844 -1.524177,-8.10209 -1.524177,-8.10209 z"
+         style="fill:#ffffff;stroke:#000000;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+      <circle
+         r="1.0022607"
+         cy="276.95477"
+         cx="19.978397"
+         id="path1080"
+         style="opacity:1;fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:0.1;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+    </g>
+  </g>
+</svg>

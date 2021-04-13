@@ -31,9 +31,9 @@ export class MessierLayerFactoryService implements LayerFactory {
 
   constructor(private readonly _pointsFactory: PointsFactoryService) {
     this._labelsPolicy = new MessierLabelsPolicy();
-    this._filterCluster = (obj: Searchable): boolean => obj?.type.startsWith('cluster');
-    this._filterGalaxy = (obj: Searchable): boolean => obj?.type.startsWith('galaxy');
-    this._filterNebula = (obj: Searchable): boolean => obj?.type.startsWith('nebula');
+    this._filterCluster = (obj: Searchable): boolean => this.typeStartsWith(obj, 'cluster');
+    this._filterGalaxy = (obj: Searchable): boolean => this.typeStartsWith(obj, 'galaxy');
+    this._filterNebula = (obj: Searchable): boolean => this.typeStartsWith(obj, 'nebula');
     this._filterOther = (obj: Searchable): boolean =>
       !this._filterCluster(obj) && !this._filterGalaxy(obj) && !this._filterNebula(obj);
   }
@@ -54,6 +54,10 @@ export class MessierLayerFactoryService implements LayerFactory {
       other,
       labels
     );
+  }
+
+  private typeStartsWith(object: Searchable, prefix: string): boolean {
+    return object?.type.startsWith(prefix);
   }
 
   private extractObjectsWithTypePrefix(filter: Filter, allObjects: Array<Searchable>): Points {
