@@ -6,7 +6,9 @@ import { Layer } from '#core/models/layers/layer';
 import { LayerAware } from '#core/models/layers/layer-aware';
 import { LayersProvider } from '#core/models/layers/layers-provider';
 
-
+/**
+ * LayersProvider implementation for the LayerMessierModule.
+ */
 @Injectable()
 export class MessierProvidersService implements LayersProvider {
 

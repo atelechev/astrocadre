@@ -4,13 +4,11 @@
 
 ## Upcoming Features and Issues
 
-* AC-026: _TODO Choose the next feature to implement_
+* AC-027: _TODO Choose the next feature to implement_
 
 ### Ideas for New Features to Implement
 
 * Current position of the Sun and of the Moon (probably, the planets also) - new layer.
-
-* Messier objects layer.
 
 * Transform the application into a component that can be easily integrated into a Web page. API to insert AstroCadre in a Web page.
 
@@ -41,6 +39,11 @@
 ## Project Development History
 
 _These notes are added from the most recent on the top, to the oldest at the bottom._
+
+
+### April 14th, 2021
+
+* AC-026: Added the Messier objects layer.
 
 ### April 11th, 2021
 

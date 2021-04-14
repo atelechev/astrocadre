@@ -10,7 +10,9 @@ import { AggregateLayerFactoryService } from '#core/services/factories/aggregate
 import { LayerAware } from '#core/models/layers/layer-aware';
 import { LayerConstellationsControlsComponent } from '#layer-constellations/components/layer-constellations-controls/layer-constellations-controls.component';
 
-
+/**
+ * LayersProvider implementation for the LayerConstellationsModule.
+ */
 @Injectable()
 export class ConstellationsProvidersService implements LayersProvider {
 
