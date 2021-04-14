@@ -1,4 +1,5 @@
 import { TestBed } from '@angular/core/testing';
+import { SelectorMessierNamesComponent } from 'src/app/modules/layer-messier/components/selector-messier-names/selector-messier-names.component';
 import { LayerMessierModule } from 'src/app/modules/layer-messier/layer-messier.module';
 import { MessierProvidersService } from 'src/app/modules/layer-messier/services/messier-providers.service';
 import { CoreModule } from '#core/core.module';
@@ -7,6 +8,7 @@ import { mockedLayers } from '#core/test-utils/mocked-layers.spec';
 
 describe('MessierProvidersService', () => {
 
+  const messierLayer = mockedLayers.subLayers[3];
   let service: MessierProvidersService;
 
   beforeEach(() => {
@@ -22,7 +24,7 @@ describe('MessierProvidersService', () => {
   describe('getRenderableLayer should return', () => {
 
     it('a defined object for the "messier" layer', () => {
-      expect(service.getRenderableLayer(mockedLayers.subLayers[3])).toBeDefined();
+      expect(service.getRenderableLayer(messierLayer)).toBeDefined();
     });
 
     describe('undefined', () => {
@@ -39,14 +41,22 @@ describe('MessierProvidersService', () => {
 
   });
 
-  describe('getUiControlsComponentType should return undefined', () => {
+  describe('getUiControlsComponentType should return', () => {
 
-    it('for a falsy arg', () => {
-      expect(service.getUiControlsComponentType(undefined)).toBeUndefined();
+    describe('undefined', () => {
+
+      it('for a falsy arg', () => {
+        expect(service.getUiControlsComponentType(undefined)).toBeUndefined();
+      });
+
+      it('for an unsupported layer arg', () => {
+        expect(service.getUiControlsComponentType(mockedLayers.subLayers[0])).toBeUndefined();
+      });
+
     });
 
-    it('for the "messier" layer arg', () => {
-      expect(service.getUiControlsComponentType(mockedLayers.subLayers[0])).toBeUndefined();
+    it('expected value for the "messier" layer arg', () => {
+      expect(service.getUiControlsComponentType(messierLayer)).toEqual(SelectorMessierNamesComponent);
     });
 
   });
