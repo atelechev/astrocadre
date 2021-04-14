@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 import { LayerService } from '#core/services/layer.service';
 import { SelectorStarNamesComponent } from '#layer-stars/components/selector-star-names/selector-star-names.component';
-import { NameSelectionType } from '#layer-stars/models/name-selection-type';
 import { mockedLayers } from '#core/test-utils/mocked-layers.spec';
 import { StarsVisibilityManagerService } from '#layer-stars/services/visibility/stars-visibility-manager.service';
 import { TextsVisibilityManagerService } from '#core/services/visibility/texts-visibility-manager.service';
 import { CoreModule } from '#core/core.module';
 import { LayerStarsModule } from '#layer-stars/layer-stars.module';
 import { StarsProvidersService } from '#layer-stars/services/stars-providers.service';
+import { SelectableItem } from '#core/models/selectable-item';
 
 
 describe('SelectorStarNamesComponent', () => {
@@ -39,7 +39,7 @@ describe('SelectorStarNamesComponent', () => {
     const selectables = component.selectableNames;
     expect(selectables).toBeDefined();
     const expectedLabels = ['None', 'Proper', 'Standard'];
-    const gotNames = selectables.map((selectable: NameSelectionType) => selectable.label);
+    const gotNames = selectables.map((selectable: SelectableItem) => selectable.label);
     expect(gotNames).toEqual(expectedLabels);
   });
 

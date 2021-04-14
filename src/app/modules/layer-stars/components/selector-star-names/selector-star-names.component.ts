@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { SupportedLayers } from '#core/models/layers/supported-layers';
-import { NameSelectionType } from '#layer-stars/models/name-selection-type';
 import { StarsVisibilityManagerService } from '#layer-stars/services/visibility/stars-visibility-manager.service';
 import { TextsVisibilityManagerService } from '#core/services/visibility/texts-visibility-manager.service';
+import { SelectableItem } from '#core/models/selectable-item';
 
 /**
  * Provides the UI with the controls allowing to select
@@ -16,7 +16,7 @@ export class SelectorStarNamesComponent {
 
   private readonly _starsLayerCode = SupportedLayers.STARS;
 
-  private readonly _selectableNames: Array<NameSelectionType>;
+  private readonly _selectableNames: Array<SelectableItem>;
 
   private _shownNames: number;
 
@@ -28,7 +28,7 @@ export class SelectorStarNamesComponent {
     this._shownNames = this._selectableNames[1].value;
   }
 
-  public get selectableNames(): Array<NameSelectionType> {
+  public get selectableNames(): Array<SelectableItem> {
     return this._selectableNames;
   }
 
@@ -55,7 +55,7 @@ export class SelectorStarNamesComponent {
     }
   }
 
-  private buildSelectionsList(): Array<NameSelectionType> {
+  private buildSelectionsList(): Array<SelectableItem> {
     return [
       {
         label: 'None',
