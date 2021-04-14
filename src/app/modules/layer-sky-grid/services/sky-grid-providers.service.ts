@@ -5,7 +5,9 @@ import { LayersProvider } from '#core/models/layers/layers-provider';
 import { SkyGrid } from '#layer-sky-grid/models/sky-grid';
 import { LayerAware } from '#core/models/layers/layer-aware';
 
-
+/**
+ * LayersProvider implementation for the LayerSkyGridModule.
+ */
 @Injectable()
 export class SkyGridProvidersService implements LayersProvider {
 

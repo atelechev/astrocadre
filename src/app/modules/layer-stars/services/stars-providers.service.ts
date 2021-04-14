@@ -6,7 +6,9 @@ import { Stars } from '#layer-stars/models/stars';
 import { LayerAware } from '#core/models/layers/layer-aware';
 import { LayerStarsControlsComponent } from '#layer-stars/components/layer-stars-controls/layer-stars-controls.component';
 
-
+/**
+ * LayersProvider implementation for the LayerStarsModule.
+ */
 @Injectable()
 export class StarsProvidersService implements LayersProvider {
 

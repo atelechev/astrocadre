@@ -30,10 +30,16 @@ When this .jar file is executed successfully, most of the `.json` files in `{Ast
 
 The source data files are placed in `src/main/resources/raw_data`.
 
-The data originates from:
+The stellar data originates from:
 
 * http://pbarbier.com/
 * http://www.astronexus.com/hyg
+
+Messier objects, compilation from several sources:
+
+* http://simbad.u-strasbg.fr/simbad/sim-fid
+* http://astropixels.com/messier/messiercat.html
+* https://en.wikipedia.org/wiki/Messier_object
 
 ### Expected Formats
 

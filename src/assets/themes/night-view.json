@@ -48,5 +48,32 @@
         "color": "rgb(191, 0, 0)"
       }
     }
+  },
+  "messier": {
+    "objects": {
+      "cluster": {
+        "image": "assets/textures/messier_cluster_red.png",
+        "sizeMultiplier": 3
+      },
+      "galaxy": {
+        "image": "assets/textures/messier_galaxy_red.png",
+        "sizeMultiplier": 3
+      },
+      "nebula": {
+        "image": "assets/textures/messier_nebula_red.png",
+        "sizeMultiplier": 3
+      },
+      "other": {
+        "image": "assets/textures/messier_other_red.png",
+        "sizeMultiplier": 2
+      }
+    },
+    "names": {
+      "fontSize": "10px",
+      "fontFamily": "arial",
+      "fontStyle": "italic",
+      "fontWeight": "normal",
+      "color": "rgb(191, 0, 0)"
+    }
   }
 }

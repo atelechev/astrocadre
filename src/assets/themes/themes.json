@@ -15,11 +15,6 @@
     "description": "Theme resembling the one often used in Wikipedia for sky charts."
   },
   {
-    "code": "dev",
-    "label": "Dev",
-    "description": "\"Development\" phase theme. Uses highly contrasted and often incompatible colors in order to make rendered items more visible."
-  },
-  {
     "code": "night-view",
     "label": "Night view",
     "description": "Dim and low contrast theme preserving the eyes from agressive light, that might be useful at night."

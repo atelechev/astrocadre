@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { LayerAware } from '#core/models/layers/layer-aware';
-import { SelectableItem } from '#layer-constellations/models/selectable-item';
+import { SelectableItem } from '#core/models/selectable-item';
 import { Layer } from '#core/models/layers/layer';
 import { LayersVisibilityManagerService } from '#core/services/visibility/layers-visibility-manager.service';
 

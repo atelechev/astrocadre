@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 import { LayerService } from '#core/services/layer.service';
 import { SelectorStarNamesComponent } from '#layer-stars/components/selector-star-names/selector-star-names.component';
-import { NameSelectionType } from '#layer-stars/models/name-selection-type';
 import { mockedLayers } from '#core/test-utils/mocked-layers.spec';
 import { StarsVisibilityManagerService } from '#layer-stars/services/visibility/stars-visibility-manager.service';
 import { TextsVisibilityManagerService } from '#core/services/visibility/texts-visibility-manager.service';
 import { CoreModule } from '#core/core.module';
 import { LayerStarsModule } from '#layer-stars/layer-stars.module';
 import { StarsProvidersService } from '#layer-stars/services/stars-providers.service';
+import { SelectableItem } from '#core/models/selectable-item';
 
 
 describe('SelectorStarNamesComponent', () => {
@@ -39,7 +39,7 @@ describe('SelectorStarNamesComponent', () => {
     const selectables = component.selectableNames;
     expect(selectables).toBeDefined();
     const expectedLabels = ['None', 'Proper', 'Standard'];
-    const gotNames = selectables.map((selectable: NameSelectionType) => selectable.label);
+    const gotNames = selectables.map((selectable: SelectableItem) => selectable.label);
     expect(gotNames).toEqual(expectedLabels);
   });
 
@@ -49,30 +49,34 @@ describe('SelectorStarNamesComponent', () => {
       expect(component.shownNames).toEqual(1);
     });
 
-    describe('set', () => {
+    describe('set should', () => {
 
-      it('should have no effect if the value is negative', () => {
-        spyOn(textsVisibilityManager, 'hideTexts');
-        component.shownNames = -1;
-        expect(component.shownNames).toEqual(1);
-        expect(textsVisibilityManager.hideTexts).toHaveBeenCalledTimes(0);
+      describe('have no effect', () => {
+
+        it('if the value is negative', () => {
+          spyOn(textsVisibilityManager, 'hideTexts');
+          component.shownNames = -1;
+          expect(component.shownNames).toEqual(1);
+          expect(textsVisibilityManager.hideTexts).toHaveBeenCalledTimes(0);
+        });
+
+        it('if the value is greater than the number of possible choices', () => {
+          spyOn(textsVisibilityManager, 'hideTexts');
+          component.shownNames = 3;
+          expect(component.shownNames).toEqual(1);
+          expect(textsVisibilityManager.hideTexts).toHaveBeenCalledTimes(0);
+        });
+
+        it('if the choice is the same than before', () => {
+          spyOn(textsVisibilityManager, 'hideTexts');
+          component.shownNames = 1;
+          expect(component.shownNames).toEqual(1);
+          expect(textsVisibilityManager.hideTexts).toHaveBeenCalledTimes(0);
+        });
+
       });
 
-      it('should have no effect if the value is greater than the number of possible choices', () => {
-        spyOn(textsVisibilityManager, 'hideTexts');
-        component.shownNames = 3;
-        expect(component.shownNames).toEqual(1);
-        expect(textsVisibilityManager.hideTexts).toHaveBeenCalledTimes(0);
-      });
-
-      it('should have no effect if the choice is the same than before', () => {
-        spyOn(textsVisibilityManager, 'hideTexts');
-        component.shownNames = 1;
-        expect(component.shownNames).toEqual(1);
-        expect(textsVisibilityManager.hideTexts).toHaveBeenCalledTimes(0);
-      });
-
-      it('should hide the names if the choice is "None"', () => {
+      it('hide the names if the choice is "None"', () => {
         spyOn(textsVisibilityManager, 'hideTexts');
         spyOn(textsVisibilityManager, 'showTexts');
         component.shownNames = 0;
@@ -80,7 +84,7 @@ describe('SelectorStarNamesComponent', () => {
         expect(textsVisibilityManager.showTexts).toHaveBeenCalledTimes(0);
       });
 
-      it('should trigger the showing of the standard names', () => {
+      it('trigger the showing of the standard names', () => {
         spyOn(textsVisibilityManager, 'hideTexts');
         spyOn(starsVisibilityManager, 'showStarsProperNames');
         spyOn(textsVisibilityManager, 'showTexts');
@@ -90,7 +94,7 @@ describe('SelectorStarNamesComponent', () => {
         expect(textsVisibilityManager.showTexts).toHaveBeenCalledTimes(1);
       });
 
-      it('should trigger the showing of the proper names', () => {
+      it('trigger the showing of the proper names', () => {
         component.shownNames = 2;
         spyOn(textsVisibilityManager, 'hideTexts');
         spyOn(starsVisibilityManager, 'showStarsProperNames');

@@ -1,4 +1,5 @@
 import { Injectable, Injector } from '@angular/core';
+import { MessierProvidersService } from 'src/app/modules/layer-messier/services/messier-providers.service';
 import { LayersProvider } from '#core/models/layers/layers-provider';
 import { ConstellationsProvidersService } from '#layer-constellations/services/constellations-providers.service';
 import { SkyGridProvidersService } from '#layer-sky-grid/services/sky-grid-providers.service';
@@ -17,7 +18,8 @@ export class LayerProvidersRegistryService {
     this._layerProviders = [
       injector.get(SkyGridProvidersService),
       injector.get(StarsProvidersService),
-      injector.get(ConstellationsProvidersService)
+      injector.get(ConstellationsProvidersService),
+      injector.get(MessierProvidersService)
     ];
   }
 

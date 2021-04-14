@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { AstrocadreComponent } from 'src/app/components/astrocadre/astrocadre.component';
+import { LayerMessierModule } from 'src/app/modules/layer-messier/layer-messier.module';
 import { LayerConstellationsModule } from '#layer-constellations/layer-constellations.module';
 import { CoreModule } from '#core/core.module';
 import { ControlsModule } from '#controls/controls.module';
@@ -21,7 +22,8 @@ import { LayerStarsModule } from '#layer-stars/layer-stars.module';
     ControlsModule,
     LayerSkyGridModule,
     LayerConstellationsModule,
-    LayerStarsModule
+    LayerStarsModule,
+    LayerMessierModule
   ],
   bootstrap: [AstrocadreComponent]
 })

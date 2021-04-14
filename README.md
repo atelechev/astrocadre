@@ -256,6 +256,41 @@ The themes have the following configurable properties:
         "color": "string"
       }
     }
+  },
+  // properties of Messier objects
+  "messier": {
+    "objects": {
+      // texture representing star clusters
+      "cluster": {
+        // path to the texture file, relative to /src
+        "image": "assets/textures/messier_cluster_chart.png",
+        // multiplication factor for the texture
+        "sizeMultiplier": number
+      },
+      // texture representing galaxies
+      "galaxy": {
+        "image": "assets/textures/messier_galaxy_chart.png",
+        "sizeMultiplier": number
+      },
+      // texture representing nebulas
+      "nebula": {
+        "image": "assets/textures/messier_nebula_chart.png",
+        "sizeMultiplier": number
+      },
+      // texture representing other objects
+      "other": {
+        "image": "assets/textures/messier_cluster_chart.png",
+        "sizeMultiplier": number
+      }
+    },
+    // labels for the Messier objects
+    "names": {
+      "fontSize": "string",
+      "fontFamily": "string",
+      "fontStyle": "string",
+      "fontWeight": "string",
+      "color": "string"
+    }
   }
 }
 ```
