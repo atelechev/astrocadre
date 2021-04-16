@@ -9,6 +9,7 @@ import { PanelModule } from 'primeng/panel';
 import { SelectButtonModule } from 'primeng/selectbutton';
 import { SidebarModule } from 'primeng/sidebar';
 import { SliderModule } from 'primeng/slider';
+import { ToggleButtonModule } from 'primeng/togglebutton';
 
 
 @NgModule({
@@ -22,7 +23,8 @@ import { SliderModule } from 'primeng/slider';
     PanelModule,
     SelectButtonModule,
     SidebarModule,
-    SliderModule
+    SliderModule,
+    ToggleButtonModule
   ],
   exports: [
     ButtonModule,
@@ -34,7 +36,8 @@ import { SliderModule } from 'primeng/slider';
     PanelModule,
     SelectButtonModule,
     SidebarModule,
-    SliderModule
+    SliderModule,
+    ToggleButtonModule
   ]
 })
 export class PrimeNgImportsModule {

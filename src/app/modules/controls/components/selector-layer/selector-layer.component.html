@@ -3,13 +3,10 @@
               [label]="layer.label"
               [binary]="true"
               title="{{ layer.description }}"></p-checkbox>
-</div>
 
-<div class="p-ml-4" [hidden]="!isShown">
-
-  <div *ngIf="hasCustomUiControls; else showSubLayers">
+  <span *ngIf="hasCustomUiControls; else showSubLayers" [hidden]="!isShown" class="p-ml-4">
     <ac-custom-controls [layer]="layer" [customComponentType]="controlsComponentType"></ac-custom-controls>
-  </div>
+  </span>
 
   <ng-template #showSubLayers>
     <ac-controls-select-layer *ngFor="let subLayer of subLayers"
