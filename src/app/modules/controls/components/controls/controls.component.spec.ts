@@ -26,15 +26,15 @@ describe('ControlsComponent', () => {
     component = TestBed.createComponent(ControlsComponent).componentInstance;
   });
 
-  it('toolsExpanded should return true by default', () => {
-    expect(component.toolsExpanded).toBeTrue();
+  it('toolsExpanded should return false by default', () => {
+    expect(component.toolsExpanded).toBeFalse();
   });
 
   it('toggleTools should change the value of toolsExpanded on each call', () => {
     component.toggleTools();
-    expect(component.toolsExpanded).toBeFalse();
-    component.toggleTools();
     expect(component.toolsExpanded).toBeTrue();
+    component.toggleTools();
+    expect(component.toolsExpanded).toBeFalse();
   });
 
 });

@@ -1,10 +1,4 @@
-import {
-  AfterViewInit,
-  Component,
-  ElementRef,
-  ViewChild
-  } from '@angular/core';
-import { DraggableElementsHandler } from '#controls/services/draggable-elements-handler';
+import { Component, Input } from '@angular/core';
 
 /**
  * The root component for all the controls visible in the UI.
@@ -14,27 +8,25 @@ import { DraggableElementsHandler } from '#controls/services/draggable-elements-
   templateUrl: './controls.component.html',
   styleUrls: ['./controls.component.css']
 })
-export class ControlsComponent implements AfterViewInit {
-
-  @ViewChild('astrocadreControls')
-  private _astrocadreControls: ElementRef;
+export class ControlsComponent {
 
   private _toolsExpanded: boolean;
 
-  constructor(private readonly _draggableHandler: DraggableElementsHandler) {
-    this._toolsExpanded = true;
+  constructor() {
+    this._toolsExpanded = false;
   }
 
-  public toggleTools(): void {
-    this._toolsExpanded = !this._toolsExpanded;
+  @Input()
+  public set toolsExpanded(expand: boolean) {
+    this._toolsExpanded = expand;
   }
 
   public get toolsExpanded(): boolean {
     return this._toolsExpanded;
   }
 
-  public ngAfterViewInit(): void {
-    this._draggableHandler.makeDraggable(this._astrocadreControls.nativeElement);
+  public toggleTools(): void {
+    this._toolsExpanded = !this._toolsExpanded;
   }
 
 }

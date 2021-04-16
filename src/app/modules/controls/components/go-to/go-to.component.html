@@ -1,13 +1,4 @@
 <div class="p-grid">
-  <div class="p-col-9">
-    <input type="text"
-            pInputText
-            title="Type RA/DEC coordinate or constellation code or name to move the view to it"
-            [class]="searchNoResultsCssClass"
-            (keyup.enter)="execSearchRequest()"
-            [(ngModel)]="searchText"
-            style="width:100%"/>
-  </div>
   <div class="p-col-3">
     <button type="button"
             pButton
@@ -16,5 +7,14 @@
             class="p-button-text"
             (click)="execSearchRequest()"
             style="width:100%"></button>
+  </div>
+  <div class="p-col-9">
+    <input type="text"
+            pInputText
+            title="Type the object name or its RA/DEC coordinate to move the view to it"
+            [class]="searchNoResultsCssClass"
+            (keyup.enter)="execSearchRequest()"
+            [(ngModel)]="searchText"
+            style="width:100%"/>
   </div>
 </div>

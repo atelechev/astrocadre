@@ -1,20 +1,35 @@
-<div #astrocadreControls
-    id="ac-ui-panel-tools">
 
-  <p-panel [toggleable]="true"
-          header="Astrocadre"
-          [collapsed]="!toolsExpanded">
+<p-button type="text"
+          icon="pi pi-bars"
+          title="Show the tools UI"
+          class="ac-ui-toggle-sidebar"
+          (click)="toggleTools()"></p-button>
 
-    <ac-controls-go-to></ac-controls-go-to>
+<p-sidebar [(visible)]="toolsExpanded"
+            styleClass="p-sidebar-md"
+            [modal]="false">
 
+  <h3>&nbsp;</h3>
+
+  <p-fieldset legend="Theme"
+              [toggleable]="true"
+              styleClass="p-mb-2">
     <ac-controls-select-theme></ac-controls-select-theme>
+  </p-fieldset>
 
+  <p-fieldset legend="Objects"
+              [toggleable]="true"
+              styleClass="p-mb-2">
+    <ac-controls-go-to></ac-controls-go-to>
     <ac-controls-layers></ac-controls-layers>
+  </p-fieldset>
 
+  <p-fieldset legend="View"
+              [toggleable]="true"
+              [collapsed]="true"
+              styleClass="p-mb-2">
     <ac-controls-camera></ac-controls-camera>
-
     <ac-controls-resize></ac-controls-resize>
+  </p-fieldset>
 
-  </p-panel>
-
-</div>
+</p-sidebar>

@@ -39,25 +39,27 @@ The main viewport is interactive:
 
 ### Control Panel / Tools
 
-The UI controls component provide more features:
+The UI controls sidebar is toggled by clicking the tools button at the top left corner of the view:
 
 <img src="doc/screenshots/ui_controls.png" alt="UI controls" width="300">
 
 All elements of the UI controls have tool tips. All their functionalities can be summarized as follows:
 
-* "GoTo" section: type a constellation code ('lyr'), name ('Lyra'), star name ('sirius') or sky coordinate in decimal degrees ('185 -60') to center the view on the requested point.
+* _Theme_ drop-down: selection of graphical theme for the main view.
 
-* "Theme" drop-down: selection of graphical theme for the main view.
+* _Go To_ selection: type an object code ('lyr'), name ('Sirius') or sky coordinate in decimal degrees ('185 -60') to center the view on your point of interest.
 
-* "Layers" section: toggle the display of available layers, labels and stars by magnitude. Either proper ('Antares', 'Deneb'...) or standard/Bayer ('α', 'β', 'γ'...) stellar names can be shown.
+* _Objects_ selection: toggle the display of available layers and their properties.
+  * for the constellations, the boundaries, the lines and the names can be toggled.
+  * the stars can be filtered by magnitude (< 2 to 6). Either proper ('Antares', 'Deneb'...) or standard/Bayer ('α', 'β', 'γ'...) names can be shown.
+  * the names of the Messier objects can be toggled.
 
-* Field of view (FOV) controls: select the angular size of the view and press the "Change FOV" button to update it.
-
-* Navigation buttons: they allow to change the view by the angular size in the FOV control.
-  * first row: rotate clockwise, go up, rotate counter-clockwise buttons.
-  * second row: go left, down or right buttons.
-
-* Viewport size controls: select the width and the height of the viewport.
+* _View_ properties:
+  * Field of view (FOV) controls: select the angular size of the view and press the "Change FOV" button to update it.
+  * Navigation buttons: they allow to change the view by the angular size in the FOV control.
+    * first row: rotate clockwise, go up, rotate counter-clockwise buttons.
+    * second row: go left, down or right buttons.
+  * Viewport size controls: select the width and the height of the viewport.
 
 ---
 

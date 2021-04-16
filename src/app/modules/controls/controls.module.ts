@@ -10,7 +10,6 @@ import { LayersComponent } from '#controls/components/layers/layers.component';
 import { ResizeControlsComponent } from '#controls/components/resize-controls/resize-controls.component';
 import { SelectorLayerComponent } from '#controls/components/selector-layer/selector-layer.component';
 import { SelectorThemeComponent } from '#controls/components/selector-theme/selector-theme.component';
-import { DraggableElementsHandler } from '#controls/services/draggable-elements-handler';
 import { LayerProvidersRegistryService } from '#controls/services/layer-providers-registry.service';
 import { CustomControlsComponent } from '#controls/components/custom-controls/custom-controls.component';
 
@@ -38,7 +37,6 @@ import { CustomControlsComponent } from '#controls/components/custom-controls/cu
     ControlsComponent
   ],
   providers: [
-    DraggableElementsHandler,
     LayerProvidersRegistryService,
     LoaderService
   ]

@@ -4,19 +4,19 @@
 
 ## Upcoming Features and Issues
 
-* AC-027: _TODO Choose the next feature to implement_
+* AC-028: _TODO Choose the next feature to implement_
 
 ### Ideas for New Features to Implement
 
 * Current position of the Sun and of the Moon (probably, the planets also) - new layer.
 
-* Transform the application into a component that can be easily integrated into a Web page. API to insert AstroCadre in a Web page.
-
 * Make objects selectable in the view, probably with additional text info.
 
 * Export the current view as raster images.
 
-* Theme extensions (config through JSON theme definition):
+* Transform the application into a component that can be easily integrated into a Web page. API to insert AstroCadre in a Web page.
+
+* Theme improvements (config through JSON theme definition):
   * configurable step for coordinate lines
   * configurable line width and dash style
 
@@ -40,6 +40,12 @@
 
 _These notes are added from the most recent on the top, to the oldest at the bottom._
 
+### April 16th, 2021
+
+* AC-027: Use a standard sidebar for the UI controls.
+  * Replaced the toggleable panel with a sidebar in the UI controls.
+  * Improved the layout of the controls.
+  * Removed DraggableElementsHandler. 
 
 ### April 14th, 2021
 
