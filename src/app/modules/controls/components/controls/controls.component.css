@@ -1,12 +1,11 @@
-#ac-ui-panel-tools {
+.ac-ui-toggle-sidebar {
   position: absolute;
   top: 0px;
   left: 0px;
-  z-index: 1000;
-  min-width: 300px;
 }
 
 .ap-panel-header {
   font-weight: bolder;
   cursor: pointer;
 }
+

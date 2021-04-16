@@ -1,10 +1,5 @@
-<div class="p-grid">
-  <div class="p-col-2 p-d-flex p-ai-center">
-    Layers
-  </div>
-
-  <div class="p-col-10">
-    <ac-controls-select-layer *ngFor="let layer of layers"
+<div>
+  <h3>Shown objects:</h3>
+  <ac-controls-select-layer *ngFor="let layer of layers"
       [layer]="layer"></ac-controls-select-layer>
-  </div>
 </div>
