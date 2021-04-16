@@ -1,4 +1,4 @@
-import { MessierLabelsPolicy } from 'src/app/modules/layer-messier/models/layers/text/messier-labels-policy';
+import { MessierLabelsPolicy } from '#layer-messier/models/layers/text/messier-labels-policy';
 
 
 describe('MessierLabelsPolicy', () => {

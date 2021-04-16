@@ -1,5 +1,5 @@
 import { TestBed } from '@angular/core/testing';
-import { LayerMessierModule } from 'src/app/modules/layer-messier/layer-messier.module';
+import { LayerMessierModule } from '#layer-messier/layer-messier.module';
 import { LayerProvidersRegistryService } from '#controls/services/layer-providers-registry.service';
 import { LayerSkyGridModule } from '#layer-sky-grid/layer-sky-grid.module';
 import { LayerStarsModule } from '#layer-stars/layer-stars.module';

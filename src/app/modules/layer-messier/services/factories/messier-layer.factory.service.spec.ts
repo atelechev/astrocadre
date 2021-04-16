@@ -1,5 +1,5 @@
 import { TestBed } from '@angular/core/testing';
-import { MessierLayerFactoryService } from 'src/app/modules/layer-messier/services/factories/messier-layer.factory.service';
+import { MessierLayerFactoryService } from '#layer-messier/services/factories/messier-layer.factory.service';
 import { LayerFactory } from '#core/models/layers/layer-factory';
 import { PointsFactoryService } from '#core/services/factories/points-factory.service';
 

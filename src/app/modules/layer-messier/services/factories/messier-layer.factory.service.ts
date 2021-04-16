@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { MessierLabelsPolicy } from 'src/app/modules/layer-messier/models/layers/text/messier-labels-policy';
-import { Messier } from 'src/app/modules/layer-messier/models/messier';
 import { Points } from 'three';
+import { Messier } from '#layer-messier/models/messier';
+import { MessierLabelsPolicy } from '#layer-messier/models/layers/text/messier-labels-policy';
 import { Layer } from '#core/models/layers/layer';
 import { LayerFactory } from '#core/models/layers/layer-factory';
 import { Searchable } from '#core/models/layers/searchable';

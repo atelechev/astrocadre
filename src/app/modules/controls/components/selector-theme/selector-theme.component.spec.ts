@@ -1,5 +1,5 @@
 import { TestBed } from '@angular/core/testing';
-import { LayerMessierModule } from 'src/app/modules/layer-messier/layer-messier.module';
+import { LayerMessierModule } from '#layer-messier/layer-messier.module';
 import { LoaderService } from '#controls/services/loader.service';
 import { mockedThemes } from '#core/test-utils/mocked-themes.spec';
 import { SelectorThemeComponent } from '#controls/components/selector-theme/selector-theme.component';

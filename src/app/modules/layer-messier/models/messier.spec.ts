@@ -1,8 +1,8 @@
 import { TestBed } from '@angular/core/testing';
-import { LayerMessierModule } from 'src/app/modules/layer-messier/layer-messier.module';
-import { Messier } from 'src/app/modules/layer-messier/models/messier';
-import { MessierProvidersService } from 'src/app/modules/layer-messier/services/messier-providers.service';
 import { Points, PointsMaterial } from 'three';
+import { MessierProvidersService } from '#layer-messier/services/messier-providers.service';
+import { Messier } from '#layer-messier/models/messier';
+import { LayerMessierModule } from '#layer-messier/layer-messier.module';
 import { RenderableText } from '#core/models/layers/renderable-text';
 import { ThemeService } from '#core/services/theme.service';
 import { mockedTheme } from '#core/test-utils/mocked-theme.spec';

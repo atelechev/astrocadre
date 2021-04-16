@@ -1,7 +1,7 @@
 import { TestBed } from '@angular/core/testing';
-import { SelectorMessierNamesComponent } from 'src/app/modules/layer-messier/components/selector-messier-names/selector-messier-names.component';
-import { LayerMessierModule } from 'src/app/modules/layer-messier/layer-messier.module';
-import { MessierProvidersService } from 'src/app/modules/layer-messier/services/messier-providers.service';
+import { MessierProvidersService } from '#layer-messier/services/messier-providers.service';
+import { LayerMessierModule } from '#layer-messier/layer-messier.module';
+import { SelectorMessierNamesComponent } from '#layer-messier/components/selector-messier-names/selector-messier-names.component';
 import { CoreModule } from '#core/core.module';
 import { mockedLayers } from '#core/test-utils/mocked-layers.spec';
 
