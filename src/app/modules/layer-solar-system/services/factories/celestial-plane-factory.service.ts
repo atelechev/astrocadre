@@ -36,9 +36,13 @@ export class CelestialPlaneFactoryService {
   }
 
   private buildTimesOfInterest(segmentsCount: number): Array<TimeOfInterest> {
-    const year = new Date().getFullYear();
+    const startDate = new Date();
     return Array(segmentsCount).fill(0).map(
-      (_: any, day: number) => createTimeOfInterest.fromYearOfDay(year, day)
+      (_: any, day: number) => {
+        const nextDate = new Date();
+        nextDate.setDate(startDate.getDate() + day);
+        return createTimeOfInterest.fromDate(nextDate);
+      }
     );
   }
 
@@ -48,24 +52,24 @@ export class CelestialPlaneFactoryService {
   ): LineSegments {
     const coordsSegments = new Array<Array<number>>();
     for (let i = 1; i < coords.length; i++) {
-      const iPrev = i - 1;
-      coordsSegments.push([
-        coords[iPrev].rightAscension,
-        coords[iPrev].declination,
-        coords[i].rightAscension,
-        coords[i].declination
-      ]);
+      coordsSegments.push(this.toCoordsSegment(coords[i - 1], coords[i]));
     }
-    const iLast = coords.length - 1;
-    coordsSegments.push([
-      coords[iLast].rightAscension,
-      coords[iLast].declination,
-      coords[0].rightAscension,
-      coords[0].declination
-    ]);
+    coordsSegments.push(this.toCoordsSegment(coords[coords.length - 1], coords[0]));
     const plane = this._curvesFactory.createObject3D(layerCode, coordsSegments);
     plane.computeLineDistances();
     return plane;
+  }
+
+  private toCoordsSegment(
+    coord1: EquatorialSphericalCoordinates,
+    coord2: EquatorialSphericalCoordinates
+  ): Array<number> {
+    return [
+      coord1.rightAscension,
+      coord1.declination,
+      coord2.rightAscension,
+      coord2.declination
+    ];
   }
 
 }

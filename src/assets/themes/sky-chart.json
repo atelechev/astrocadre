@@ -81,23 +81,23 @@
   "solarSystem": {
     "sun": {
       "texture": {
-        "image": "assets/textures/star_red.png",
+        "image": "assets/textures/sun_chart.png",
         "sizeMultiplier": 5
       },
       "ecliptic": {
-        "color": "red",
-        "dash": 2.5,
-        "gap": 1.5
+        "color": "rgb(190, 190, 190)",
+        "dash": 2,
+        "gap": 2
       }
     },
     "moon": {
       "texture": {
-        "image": "assets/textures/star_red.png",
+        "image": "assets/textures/moon_chart.png",
         "sizeMultiplier": 4
       },
       "path": {
-        "color": "blue",
-        "dash": 2.5,
+        "color": "rgb(200, 200, 200)",
+        "dash": 1.5,
         "gap": 1.5
       }
     }

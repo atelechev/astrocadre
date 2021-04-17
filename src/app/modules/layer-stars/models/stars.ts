@@ -12,6 +12,7 @@ import { Searchable } from '#core/models/layers/searchable';
 import { Theme } from '#core/models/theme/theme';
 import { TextStyle } from '#core/models/theme/text-style';
 import { environment } from '#environments/environment';
+import { TextureStyle } from '#core/models/theme/texture-style';
 
 /**
  * Represents a renderable layer containing stars.
@@ -83,17 +84,14 @@ export class Stars extends RenderableLayer {
   }
 
   private useThemeForObjects(theme: Theme): void {
-    const material = this.buildMaterial(
-      theme.stars.texture.image,
-      theme.stars.texture.sizeMultiplier
-    );
+    const material = this.buildMaterial(theme.stars.texture);
     this._stars.material = material;
     material.needsUpdate = true;
   }
 
-  private buildMaterial(textureFile: string, sizeMultiplier: number): Material {
-    const dotSize = (6.5 - this._magClass) * sizeMultiplier;
-    const textureFileInContext = environment.pathInContext(textureFile);
+  private buildMaterial(texture: TextureStyle): Material {
+    const dotSize = (6.5 - this._magClass) * texture.sizeMultiplier;
+    const textureFileInContext = environment.pathInContext(texture.image);
     return new PointsMaterial({
       size: dotSize,
       sizeAttenuation: false,
