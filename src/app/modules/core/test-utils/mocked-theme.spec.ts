@@ -32,7 +32,7 @@ export const mockedTheme: Theme = {
   stars: {
     magnitudes: [2, 2.5, 3],
     texture: {
-      image: 'assets/textures/star_yellow.png',
+      image: 'assets/textures/star_white.png',
       sizeMultiplier: 2.5
     },
     names: {

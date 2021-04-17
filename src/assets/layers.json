@@ -103,6 +103,12 @@
       "label": "Messier objects",
       "loadFromUrl": true,
       "description": "Celestial objects from the Messier catalog"
+    },
+    {
+      "code": "solar-system",
+      "label": "Solar system",
+      "loadFromUrl": false,
+      "description": "Solar system objects"
     }
   ]
 }

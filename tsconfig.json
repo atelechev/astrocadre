@@ -39,6 +39,9 @@
       "#layer-sky-grid/*": [
         "src/app/modules/layer-sky-grid/*"
       ],
+      "#layer-solar-system/*": [
+        "src/app/modules/layer-solar-system/*"
+      ],
       "#layer-stars/*": [
         "src/app/modules/layer-stars/*"
       ],

@@ -4,6 +4,7 @@ import { LayersProvider } from '#core/models/layers/layers-provider';
 import { ConstellationsProvidersService } from '#layer-constellations/services/constellations-providers.service';
 import { SkyGridProvidersService } from '#layer-sky-grid/services/sky-grid-providers.service';
 import { StarsProvidersService } from '#layer-stars/services/stars-providers.service';
+import { SolarSystemProvidersService } from '#layer-solar-system/services/solar-system-providers.service';
 
 /**
  * Contains the references to all known LayersProvider instances.
@@ -19,7 +20,8 @@ export class LayerProvidersRegistryService {
       injector.get(SkyGridProvidersService),
       injector.get(StarsProvidersService),
       injector.get(ConstellationsProvidersService),
-      injector.get(MessierProvidersService)
+      injector.get(MessierProvidersService),
+      injector.get(SolarSystemProvidersService)
     ];
   }
 

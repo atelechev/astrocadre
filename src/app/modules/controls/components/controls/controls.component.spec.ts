@@ -6,6 +6,7 @@ import { ControlsModule } from '#controls/controls.module';
 import { LayerSkyGridModule } from '#layer-sky-grid/layer-sky-grid.module';
 import { LayerStarsModule } from '#layer-stars/layer-stars.module';
 import { LayerConstellationsModule } from '#layer-constellations/layer-constellations.module';
+import { LayerSolarSystemModule } from '#layer-solar-system/layer-solar-system.module';
 
 
 describe('ControlsComponent', () => {
@@ -20,7 +21,8 @@ describe('ControlsComponent', () => {
         LayerSkyGridModule,
         LayerStarsModule,
         LayerConstellationsModule,
-        LayerMessierModule
+        LayerMessierModule,
+        LayerSolarSystemModule
       ]
     });
     component = TestBed.createComponent(ControlsComponent).componentInstance;

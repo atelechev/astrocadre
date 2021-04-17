@@ -15,6 +15,7 @@ import { LayerStarsModule } from '#layer-stars/layer-stars.module';
 import { LayerSkyGridModule } from '#layer-sky-grid/layer-sky-grid.module';
 import { CoreModule } from '#core/core.module';
 import { ControlsModule } from '#controls/controls.module';
+import { LayerSolarSystemModule } from '#layer-solar-system/layer-solar-system.module';
 
 
 describe('LoaderService', () => {
@@ -32,7 +33,8 @@ describe('LoaderService', () => {
         LayerSkyGridModule,
         LayerStarsModule,
         LayerConstellationsModule,
-        LayerMessierModule
+        LayerMessierModule,
+        LayerSolarSystemModule
       ],
       providers: [
         {
