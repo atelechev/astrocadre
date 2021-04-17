@@ -4,4 +4,7 @@
  */
 export interface LineStyle {
   color: string;
+  width?: number;
+  dash?: number;
+  gap?: number;
 }

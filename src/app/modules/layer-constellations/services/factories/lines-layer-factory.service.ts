@@ -21,6 +21,7 @@ export class LinesLayerFactoryService implements LayerFactory {
         SupportedLayers.CONSTELLATION_LINES,
         model.objects
       );
+    lines.computeLineDistances();
     return new ConstellationLines(
       model,
       lines

@@ -56,5 +56,15 @@ export const themeDefault: Theme = {
       other: defaultTexture
     },
     names: defaultText
+  },
+  solarSystem: {
+    sun: {
+      texture: defaultTexture,
+      ecliptic: defaultLine
+    },
+    moon: {
+      texture: defaultTexture,
+      path: defaultLine
+    }
   }
 };

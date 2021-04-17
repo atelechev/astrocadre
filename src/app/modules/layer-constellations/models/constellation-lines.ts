@@ -1,7 +1,8 @@
-import { LineBasicMaterial, LineSegments, Object3D } from 'three';
+import { LineSegments, Object3D } from 'three';
 import { Layer } from '#core/models/layers/layer';
 import { RenderableLayer } from '#core/models/layers/renderable-layer';
 import { Theme } from '#core/models/theme/theme';
+import { buildLineMaterial } from '#core/utils/material-utils';
 
 /**
  * Represents a renderable layer containing the constellations lines.
@@ -25,7 +26,7 @@ export class ConstellationLines extends RenderableLayer {
   }
 
   public applyTheme(theme: Theme): void {
-    const material = new LineBasicMaterial({ color: theme.constellation.lines.color });
+    const material = buildLineMaterial(theme.constellation.lines);
     this._lines.material = material;
     material.needsUpdate = true;
   }

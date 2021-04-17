@@ -21,10 +21,11 @@ export class CelestialPlaneFactoryService {
 
   public buildCelestialPlane(
     layerCode: string,
-    cbp: CelestialBodyProducer
+    cbp: CelestialBodyProducer,
+    segmentsCount: number
   ): Observable<LineSegments> {
     return forkJoin(
-      this.buildTimesOfInterest().map(
+      this.buildTimesOfInterest(segmentsCount).map(
         (toi: TimeOfInterest) => cbp(toi).getApparentGeocentricEquatorialSphericalCoordinates()
       )
     ).pipe(
@@ -34,9 +35,9 @@ export class CelestialPlaneFactoryService {
     );
   }
 
-  private buildTimesOfInterest(): Array<TimeOfInterest> {
+  private buildTimesOfInterest(segmentsCount: number): Array<TimeOfInterest> {
     const year = new Date().getFullYear();
-    return Array(365).fill(0).map(
+    return Array(segmentsCount).fill(0).map(
       (_: any, day: number) => createTimeOfInterest.fromYearOfDay(year, day)
     );
   }
@@ -62,7 +63,9 @@ export class CelestialPlaneFactoryService {
       coords[0].rightAscension,
       coords[0].declination
     ]);
-    return this._curvesFactory.createObject3D(layerCode, coordsSegments);
+    const plane = this._curvesFactory.createObject3D(layerCode, coordsSegments);
+    plane.computeLineDistances();
+    return plane;
   }
 
 }

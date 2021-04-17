@@ -36,4 +36,14 @@ export interface Theme extends ThemeMeta {
     };
     names: TextStyle;
   };
+  solarSystem: {
+    sun: {
+      texture: TextureStyle;
+      ecliptic: LineStyle;
+    };
+    moon: {
+      texture: TextureStyle;
+      path: LineStyle;
+    };
+  };
 }
