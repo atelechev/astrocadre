@@ -78,5 +78,25 @@ export const mockedTheme: Theme = {
       fontWeight: 'normal',
       color: 'black'
     }
+  },
+  solarSystem: {
+    sun: {
+      texture: {
+        image: 'assets/textures/sun_chart.png',
+        sizeMultiplier: 5
+      },
+      ecliptic: {
+        color: 'rgb(190, 190, 190)'
+      }
+    },
+    moon: {
+      texture: {
+        image: 'assets/textures/moon_chart.png',
+        sizeMultiplier: 4
+      },
+      path: {
+        color: 'rgb(200, 200, 200)'
+      }
+    }
   }
 };

@@ -16,7 +16,9 @@
       "color": "rgb(75, 0, 0)"
     },
     "lines": {
-      "color": "rgb(75, 0, 0)"
+      "color": "rgb(75, 0, 0)",
+      "dash": 1,
+      "gap": 1
     },
     "names": {
       "fontSize": "14px",
@@ -74,6 +76,32 @@
       "fontStyle": "italic",
       "fontWeight": "normal",
       "color": "rgb(191, 0, 0)"
+    }
+  },
+  "solarSystem": {
+    "sun": {
+      "texture": {
+        "image": "assets/textures/star_red.png",
+        "sizeMultiplier": 4
+      },
+      "ecliptic": {
+        "color": "rgb(85, 0, 0)",
+        "width": 0.5,
+        "dash": 2,
+        "gap": 2
+      }
+    },
+    "moon": {
+      "texture": {
+        "image": "assets/textures/star_red.png",
+        "sizeMultiplier": 4
+      },
+      "path": {
+        "color": "rgb(65, 0, 0)",
+        "width": 0.5,
+        "dash": 1.5,
+        "gap": 1.5
+      }
     }
   }
 }

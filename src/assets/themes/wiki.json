@@ -75,5 +75,31 @@
       "fontWeight": "normal",
       "color": "rgb(0, 255, 255)"
     }
+  },
+  "solarSystem": {
+    "sun": {
+      "texture": {
+        "image": "assets/textures/star_white.png",
+        "sizeMultiplier": 3.5
+      },
+      "ecliptic": {
+        "color": "rgb(114, 144, 114)",
+        "width": 0.5,
+        "dash": 2,
+        "gap": 2
+      }
+    },
+    "moon": {
+      "texture": {
+        "image": "assets/textures/star_white.png",
+        "sizeMultiplier": 3.5
+      },
+      "path": {
+        "color": "rgb(94, 114, 94)",
+        "width": 0.5,
+        "dash": 1.5,
+        "gap": 1.5
+      }
+    }
   }
 }
