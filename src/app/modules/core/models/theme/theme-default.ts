@@ -65,6 +65,7 @@ export const themeDefault: Theme = {
     moon: {
       texture: defaultTexture,
       path: defaultLine
-    }
+    },
+    names: defaultText
   }
 };

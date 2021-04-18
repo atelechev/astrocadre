@@ -12,6 +12,9 @@ import { LineStyle } from '#core/models/theme/line-style';
 import { buildLineMaterial } from '#core/utils/material-utils';
 import { TextureStyle } from '#core/models/theme/texture-style';
 import { environment } from '#environments/environment';
+import { Searchable } from '#core/models/layers/searchable';
+import { RenderableText } from '#core/models/layers/renderable-text';
+import { TextStyle } from '#core/models/theme/text-style';
 
 /**
  * Represents a renderable layer containing the Solar system objects.
@@ -20,105 +23,97 @@ export class SolarSystem extends RenderableLayer {
 
   private readonly _textureLoader: TextureLoader;
 
-  private readonly _indexEcliptic: number;
+  private readonly _objects: Array<Object3D>;
 
-  private readonly _indexMoonPath: number;
+  private readonly _texts: Array<RenderableText>;
 
-  private readonly _indexSun: number;
-
-  private readonly _indexMoon: number;
-
-  private _objects: Array<Object3D>;
+  private readonly _searchables: Array<Searchable>;
 
   constructor(model: Layer,) {
     super(model);
-    this._indexEcliptic = 0;
-    this._indexMoonPath = 1;
-    this._indexSun = 2;
-    this._indexMoon = 3;
     this._textureLoader = new TextureLoader();
     this._objects = [];
+    this._texts = [];
+    this._searchables = [];
   }
 
   public set sun(sun: Points) {
-    this._objects[this._indexSun] = sun;
+    this._objects[2] = sun;
   }
 
   public get sun(): Points {
-    return this._objects[this._indexSun] as Points;
+    return this._objects[2] as Points;
   }
 
   public set ecliptic(ecliptic: LineSegments) {
-    this._objects[this._indexEcliptic] = ecliptic;
+    this._objects[0] = ecliptic;
   }
 
   public get ecliptic(): LineSegments {
-    return this._objects[this._indexEcliptic] as LineSegments;
+    return this._objects[0] as LineSegments;
   }
 
   public set moon(moon: Points) {
-    this._objects[this._indexMoon] = moon;
+    this._objects[3] = moon;
   }
 
   public get moon(): Points {
-    return this._objects[this._indexMoon] as Points;
+    return this._objects[3] as Points;
   }
 
   public set moonPath(path: LineSegments) {
-    this._objects[this._indexMoonPath] = path;
+    this._objects[1] = path;
   }
 
   public get moonPath(): LineSegments {
-    return this._objects[this._indexMoonPath] as LineSegments;
+    return this._objects[1] as LineSegments;
   }
 
   public get objects(): Array<Object3D> {
     return this._objects.filter((obj: any) => !!obj);
   }
 
+  public get texts(): Array<RenderableText> {
+    return this._texts;
+  }
+
+  public get searchables(): Array<Searchable> {
+    return this._searchables;
+  }
+
+  public addText(text: RenderableText): void {
+    if (text) {
+      this._texts.push(text);
+    }
+  }
+
+  public addSeachable(searchable: Searchable): void {
+    if (searchable) {
+      this._searchables.push(searchable);
+    }
+  }
+
   public applyTheme(theme: Theme): void {
-    // TODO
-    if (this.hasEcliptic()) {
-      this.applyLineStyle(theme.solarSystem.sun.ecliptic, this.ecliptic);
-    }
-    if (this.hasMoonPath()) {
-      this.applyLineStyle(theme.solarSystem.moon.path, this.moonPath);
-    }
-    if (this.hasSun()) {
-      this.applyTextureMaterial(theme.solarSystem.sun.texture, this.sun);
-    }
-    if (this.hasMoon()) {
-      this.applyTextureMaterial(theme.solarSystem.moon.texture, this.moon);
-    }
-  }
-
-  private hasObject(index: number): boolean {
-    return this._objects.length > 0 && !!this._objects[index];
-  }
-
-  private hasEcliptic(): boolean {
-    return this.hasObject(this._indexEcliptic);
-  }
-
-  private hasMoonPath(): boolean {
-    return this.hasObject(this._indexMoonPath);
-  }
-
-  private hasSun(): boolean {
-    return this.hasObject(this._indexSun);
-  }
-
-  private hasMoon(): boolean {
-    return this.hasObject(this._indexMoon);
+    this.applyLineStyle(theme.solarSystem.sun.ecliptic, this.ecliptic);
+    this.applyLineStyle(theme.solarSystem.moon.path, this.moonPath);
+    this.applyTextureMaterial(theme.solarSystem.sun.texture, this.sun);
+    this.applyTextureMaterial(theme.solarSystem.moon.texture, this.moon);
+    this.applyTextStyle(theme.solarSystem.names);
   }
 
   private applyLineStyle(style: LineStyle, object: LineSegments): void {
+    if (!object) {
+      return;
+    }
     const material = buildLineMaterial(style);
     object.material = material;
     material.needsUpdate = true;
   }
 
   private applyTextureMaterial(style: TextureStyle, object: Points): void {
+    if (!object) {
+      return;
+    }
     const material = this.buildTextureMaterial(style);
     object.material = material;
     material.needsUpdate = true;
@@ -135,6 +130,12 @@ export class SolarSystem extends RenderableLayer {
       alphaTest: 0.05,
       map: this._textureLoader.load(textureFileInContext)
     });
+  }
+
+  private applyTextStyle(style: TextStyle): void {
+    this._texts.forEach(
+      (text: RenderableText) => text.applyStyle(style)
+    );
   }
 
 }

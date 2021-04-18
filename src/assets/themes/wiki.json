@@ -100,6 +100,13 @@
         "dash": 1.5,
         "gap": 1.5
       }
+    },
+    "names": {
+      "fontSize": "16px",
+      "fontFamily": "arial",
+      "fontStyle": "normal",
+      "fontWeight": "bolder",
+      "color": "rgb(0, 255, 255)"
     }
   }
 }

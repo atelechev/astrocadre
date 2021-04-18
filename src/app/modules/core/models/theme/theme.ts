@@ -45,5 +45,6 @@ export interface Theme extends ThemeMeta {
       texture: TextureStyle;
       path: LineStyle;
     };
+    names: TextStyle;
   };
 }

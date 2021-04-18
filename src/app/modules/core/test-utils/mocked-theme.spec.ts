@@ -97,6 +97,13 @@ export const mockedTheme: Theme = {
       path: {
         color: 'rgb(200, 200, 200)'
       }
+    },
+    names: {
+      fontSize: '13px',
+      fontFamily: 'arial',
+      fontStyle: 'italic',
+      fontWeight: 'normal',
+      color: 'black'
     }
   }
 };

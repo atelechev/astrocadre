@@ -102,6 +102,13 @@
         "dash": 1.5,
         "gap": 1.5
       }
+    },
+    "names": {
+      "fontSize": "12px",
+      "fontFamily": "arial",
+      "fontStyle": "normal",
+      "fontWeight": "bolder",
+      "color": "rgb(72, 72, 153)"
     }
   }
 }
