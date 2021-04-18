@@ -2,7 +2,7 @@ import { LineSegments, Object3D } from 'three';
 import { Layer } from '#core/models/layers/layer';
 import { RenderableLayer } from '#core/models/layers/renderable-layer';
 import { Theme } from '#core/models/theme/theme';
-import { buildLineMaterial } from '#core/utils/material-utils';
+import { buildAndAssignMaterial, buildLineMaterial } from '#core/utils/material-utils';
 
 /**
  * Represents a renderable layer containing the boundary lines of the constellations.
@@ -27,9 +27,7 @@ export class ConstellationBoundaries extends RenderableLayer {
   }
 
   public applyTheme(theme: Theme): void {
-    const material = buildLineMaterial(theme.constellation.boundaries);
-    this._boundaries.material = material;
-    material.needsUpdate = true;
+    buildAndAssignMaterial(() => buildLineMaterial(theme.constellation.boundaries), this._boundaries);
   }
 
 }

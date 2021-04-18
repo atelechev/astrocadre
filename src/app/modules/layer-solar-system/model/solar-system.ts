@@ -2,16 +2,14 @@ import {
   LineSegments,
   Object3D,
   Points,
-  PointsMaterial,
-  TextureLoader
+  PointsMaterial
   } from 'three';
 import { Layer } from '#core/models/layers/layer';
 import { RenderableLayer } from '#core/models/layers/renderable-layer';
 import { Theme } from '#core/models/theme/theme';
 import { LineStyle } from '#core/models/theme/line-style';
-import { buildLineMaterial } from '#core/utils/material-utils';
+import { buildAndAssignMaterial, buildLineMaterial, buildPointMaterial } from '#core/utils/material-utils';
 import { TextureStyle } from '#core/models/theme/texture-style';
-import { environment } from '#environments/environment';
 import { Searchable } from '#core/models/layers/searchable';
 import { RenderableText } from '#core/models/layers/renderable-text';
 import { TextStyle } from '#core/models/theme/text-style';
@@ -21,17 +19,14 @@ import { TextStyle } from '#core/models/theme/text-style';
  */
 export class SolarSystem extends RenderableLayer {
 
-  private readonly _textureLoader: TextureLoader;
-
   private readonly _objects: Array<Object3D>;
 
   private readonly _texts: Array<RenderableText>;
 
   private readonly _searchables: Array<Searchable>;
 
-  constructor(model: Layer,) {
+  constructor(model: Layer) {
     super(model);
-    this._textureLoader = new TextureLoader();
     this._objects = [];
     this._texts = [];
     this._searchables = [];
@@ -102,34 +97,16 @@ export class SolarSystem extends RenderableLayer {
   }
 
   private applyLineStyle(style: LineStyle, object: LineSegments): void {
-    if (!object) {
-      return;
-    }
-    const material = buildLineMaterial(style);
-    object.material = material;
-    material.needsUpdate = true;
+    buildAndAssignMaterial(() => buildLineMaterial(style), object);
   }
 
   private applyTextureMaterial(style: TextureStyle, object: Points): void {
-    if (!object) {
-      return;
-    }
-    const material = this.buildTextureMaterial(style);
-    object.material = material;
-    material.needsUpdate = true;
+    buildAndAssignMaterial(() => this.buildTextureMaterial(style), object);
   }
 
   private buildTextureMaterial(style: TextureStyle): PointsMaterial {
     const dotSize = 6.5 * style.sizeMultiplier;
-    const textureFileInContext = environment.pathInContext(style.image);
-    return new PointsMaterial({
-      size: dotSize,
-      sizeAttenuation: false,
-      transparent: true,
-      opacity: 0.95,
-      alphaTest: 0.05,
-      map: this._textureLoader.load(textureFileInContext)
-    });
+    return buildPointMaterial(style.image, dotSize);
   }
 
   private applyTextStyle(style: TextStyle): void {
