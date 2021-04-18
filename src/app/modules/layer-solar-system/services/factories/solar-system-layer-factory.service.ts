@@ -13,7 +13,7 @@ import { LayerFactory } from '#core/models/layers/layer-factory';
 import { SolarSystem } from '#layer-solar-system/model/solar-system';
 import { SupportedLayers } from '#core/models/layers/supported-layers';
 import { LayersVisibilityManagerService } from '#core/services/visibility/layers-visibility-manager.service';
-import { CelestialPlaneFactoryService } from '#layer-solar-system/services/factories/celestial-plane-factory.service';
+import { ApparentTrajectoryFactoryService } from '#layer-solar-system/services/factories/apparent-trajectory-factory.service';
 import { PointsFactoryService } from '#core/services/factories/points-factory.service';
 import { WorldConstants } from '#core/models/world-constants';
 import { Searchable } from '#core/models/layers/searchable';
@@ -23,6 +23,8 @@ import { toVector3 } from '#core/utils/vector-utils';
 import { TextOffsetPolicy } from '#core/models/layers/text/text-offset-policy';
 import { SunMoonLabelsPolicy } from '#layer-solar-system/model/layers/sun-moon-labels-policy';
 
+
+type AstroObjectProducer = () => AstronomicalObject;
 
 @Injectable()
 export class SolarSystemLayerFactoryService implements LayerFactory {
@@ -36,7 +38,7 @@ export class SolarSystemLayerFactoryService implements LayerFactory {
   private readonly _biggerLabelsPolicy: TextOffsetPolicy;
 
   constructor(
-    private readonly _planeFactory: CelestialPlaneFactoryService,
+    private readonly _trajectoryFactory: ApparentTrajectoryFactoryService,
     private readonly _pointsFactory: PointsFactoryService,
     private readonly _visibilityManager: LayersVisibilityManagerService,
     private readonly _searchService: SearchService
@@ -64,23 +66,19 @@ export class SolarSystemLayerFactoryService implements LayerFactory {
   }
 
   private buildEcliptic(renderable: SolarSystem): Promise<LineSegments> {
-    return this._planeFactory
-      .buildCelestialPlane(renderable.code, createSun, 365)
-      .pipe(
-        tap({
-          next: (plane: LineSegments) => renderable.ecliptic = plane
-        })
-      ).toPromise();
+    return this._trajectoryFactory
+      .buildApparentTrajectory(renderable.code, createSun, 365)
+      .then(
+        (plane: LineSegments) => renderable.ecliptic = plane
+      );
   }
 
   private buildMoonPath(renderable: SolarSystem): Promise<LineSegments> {
-    return this._planeFactory
-      .buildCelestialPlane(renderable.code, createMoon, 28)
-      .pipe(
-        tap({
-          next: (plane: LineSegments) => renderable.moonPath = plane
-        })
-      ).toPromise();
+    return this._trajectoryFactory
+      .buildApparentTrajectory(renderable.code, createMoon, 28)
+      .then(
+        (plane: LineSegments) => renderable.moonPath = plane
+      );
   }
 
   private buildSun(renderable: SolarSystem): Promise<Object3D> {
@@ -103,11 +101,11 @@ export class SolarSystemLayerFactoryService implements LayerFactory {
 
   private buildCelestialBody(
     renderable: SolarSystem,
-    bodyProvider: () => AstronomicalObject,
+    astroObjectProvider: AstroObjectProducer,
     objectConsumer: (body: Object3D) => void,
     name: string
   ): Promise<Object3D> {
-    return bodyProvider().getApparentGeocentricEquatorialSphericalCoordinates()
+    return astroObjectProvider().getApparentGeocentricEquatorialSphericalCoordinates()
       .then(
         (esCoords: EquatorialSphericalCoordinates) => {
           const coords = [esCoords.rightAscension, esCoords.declination, this._worldRadius];

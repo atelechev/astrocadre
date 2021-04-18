@@ -86,7 +86,8 @@ export const mockedTheme: Theme = {
         sizeMultiplier: 5
       },
       ecliptic: {
-        color: 'rgb(190, 190, 190)'
+        color: 'rgb(190, 190, 190)',
+        width: 2
       }
     },
     moon: {
@@ -95,7 +96,8 @@ export const mockedTheme: Theme = {
         sizeMultiplier: 4
       },
       path: {
-        color: 'rgb(200, 200, 200)'
+        color: 'rgb(200, 200, 200)',
+        width: 3
       }
     },
     names: {

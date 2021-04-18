@@ -88,7 +88,7 @@ describe('material-utils', () => {
     });
 
     it('have no effect if object arg is falsy', () => {
-      buildAndAssignMaterial(() => new LineBasicMaterial(), undefined);
+      expect(() => buildAndAssignMaterial(() => new LineBasicMaterial(), undefined)).not.toThrowError();
     });
 
     it('build the expected material', () => {
