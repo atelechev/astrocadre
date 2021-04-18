@@ -84,7 +84,7 @@
         "image": "assets/textures/sun_chart.png",
         "sizeMultiplier": 5
       },
-      "ecliptic": {
+      "path": {
         "color": "rgb(190, 190, 190)",
         "dash": 2,
         "gap": 2
@@ -99,6 +99,83 @@
         "color": "rgb(200, 200, 200)",
         "dash": 1.5,
         "gap": 1.5
+      }
+    },
+    "mercury": {
+      "texture": {
+        "image": "assets/textures/star_red.png",
+        "sizeMultiplier": 1.5
+      },
+      "path": {
+        "color": "rgb(200, 200, 200)",
+        "dash": 0.5,
+        "gap": 0.5
+      }
+    },
+    "venus": {
+      "texture": {
+        "image": "assets/textures/star_red.png",
+        "sizeMultiplier": 1.5
+      },
+      "path": {
+        "color": "rgb(200, 200, 200)",
+        "dash": 0.5,
+        "gap": 0.5
+      }
+    },
+    "mars": {
+      "texture": {
+        "image": "assets/textures/star_red.png",
+        "sizeMultiplier": 1.5
+      },
+      "path": {
+        "color": "rgb(200, 200, 200)",
+        "dash": 0.5,
+        "gap": 0.5
+      }
+    },
+    "jupiter": {
+      "texture": {
+        "image": "assets/textures/star_red.png",
+        "sizeMultiplier": 1.5
+      },
+      "path": {
+        "color": "rgb(200, 200, 200)",
+        "dash": 0.5,
+        "gap": 0.5
+      }
+    },
+    "saturn": {
+      "texture": {
+        "image": "assets/textures/star_red.png",
+        "sizeMultiplier": 1.5
+      },
+      "path": {
+        "color": "rgb(200, 200, 200)",
+        "dash": 0.5,
+        "gap": 0.5
+      }
+    },
+    "uranus": {
+      "texture": {
+        "image": "assets/textures/star_red.png",
+        "sizeMultiplier": 1.5
+      },
+      "path": {
+        "color": "rgb(200, 200, 200)",
+        "dash": 0.5,
+        "gap": 0.5
+      }
+    },
+    "neptune": {
+      "texture": {
+        "image": "assets/textures/star_red.png",
+        "sizeMultiplier": 1.5
+      },
+      "path": {
+        "color": "rgb(200, 200, 200)",
+        "dash": 0.5,
+        "gap": 0.5
       }
     },
     "names": {

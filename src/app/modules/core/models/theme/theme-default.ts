@@ -17,6 +17,11 @@ const defaultTexture = {
   sizeMultiplier: 1
 };
 
+const defaultCelestialBody = {
+  texture: defaultTexture,
+  path: defaultLine
+};
+
 /**
  * The default theme data loaded in the application before
  * a normal theme is loaded.
@@ -58,14 +63,15 @@ export const themeDefault: Theme = {
     names: defaultText
   },
   solarSystem: {
-    sun: {
-      texture: defaultTexture,
-      ecliptic: defaultLine
-    },
-    moon: {
-      texture: defaultTexture,
-      path: defaultLine
-    },
+    sun: defaultCelestialBody,
+    moon: defaultCelestialBody,
+    mercury: defaultCelestialBody,
+    venus: defaultCelestialBody,
+    mars: defaultCelestialBody,
+    jupiter: defaultCelestialBody,
+    saturn: defaultCelestialBody,
+    uranus: defaultCelestialBody,
+    neptune: defaultCelestialBody,
     names: defaultText
   }
 };

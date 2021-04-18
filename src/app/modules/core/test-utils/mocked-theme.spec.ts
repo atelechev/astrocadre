@@ -85,7 +85,7 @@ export const mockedTheme: Theme = {
         image: 'assets/textures/sun_chart.png',
         sizeMultiplier: 5
       },
-      ecliptic: {
+      path: {
         color: 'rgb(190, 190, 190)',
         width: 2
       }
@@ -98,6 +98,69 @@ export const mockedTheme: Theme = {
       path: {
         color: 'rgb(200, 200, 200)',
         width: 3
+      }
+    },
+    mercury: {
+      texture: {
+        image: 'assets/textures/star_red.png',
+        sizeMultiplier: 1.5
+      },
+      path: {
+        color: 'rgb(200, 200, 200)'
+      }
+    },
+    venus: {
+      texture: {
+        image: 'assets/textures/star_red.png',
+        sizeMultiplier: 1.5
+      },
+      path: {
+        color: 'rgb(200, 200, 200)'
+      }
+    },
+    mars: {
+      texture: {
+        image: 'assets/textures/star_red.png',
+        sizeMultiplier: 1.5
+      },
+      path: {
+        color: 'rgb(200, 200, 200)'
+      }
+    },
+    jupiter: {
+      texture: {
+        image: 'assets/textures/star_red.png',
+        sizeMultiplier: 1.5
+      },
+      path: {
+        color: 'rgb(200, 200, 200)'
+      }
+    },
+    saturn: {
+      texture: {
+        image: 'assets/textures/star_red.png',
+        sizeMultiplier: 1.5
+      },
+      path: {
+        color: 'rgb(200, 200, 200)'
+      }
+    },
+    uranus: {
+      texture: {
+        image: 'assets/textures/star_red.png',
+        sizeMultiplier: 1.5
+      },
+      path: {
+        color: 'rgb(200, 200, 200)'
+      }
+    },
+    neptune: {
+      texture: {
+        image: 'assets/textures/star_red.png',
+        sizeMultiplier: 1.5
+      },
+      path: {
+        color: 'rgb(200, 200, 200)'
       }
     },
     names: {

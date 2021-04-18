@@ -4,6 +4,14 @@ import { TextureStyle } from '#core/models/theme/texture-style';
 import { ThemeMeta } from '#core/models/theme/theme-meta';
 
 /**
+ * Defines the style properties of a celestial body.
+ */
+interface CelestialBodyStyle {
+  texture: TextureStyle;
+  path: LineStyle;
+};
+
+/**
  * Represents a graphical theme.
  */
 export interface Theme extends ThemeMeta {
@@ -37,14 +45,15 @@ export interface Theme extends ThemeMeta {
     names: TextStyle;
   };
   solarSystem: {
-    sun: {
-      texture: TextureStyle;
-      ecliptic: LineStyle;
-    };
-    moon: {
-      texture: TextureStyle;
-      path: LineStyle;
-    };
+    sun: CelestialBodyStyle;
+    moon: CelestialBodyStyle;
+    mercury: CelestialBodyStyle;
+    venus: CelestialBodyStyle;
+    mars: CelestialBodyStyle;
+    jupiter: CelestialBodyStyle;
+    saturn: CelestialBodyStyle;
+    uranus: CelestialBodyStyle;
+    neptune: CelestialBodyStyle;
     names: TextStyle;
   };
 }

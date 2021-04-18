@@ -25,47 +25,21 @@ export class SolarSystem extends RenderableLayer {
 
   private readonly _searchables: Array<Searchable>;
 
+  private readonly _celestialBodies: Map<string, Points>;
+
+  private readonly _trajectories: Map<string, LineSegments>;
+
   constructor(model: Layer) {
     super(model);
     this._objects = [];
     this._texts = [];
     this._searchables = [];
-  }
-
-  public set sun(sun: Points) {
-    this._objects[2] = sun;
-  }
-
-  public get sun(): Points {
-    return this._objects[2] as Points;
-  }
-
-  public set ecliptic(ecliptic: LineSegments) {
-    this._objects[0] = ecliptic;
-  }
-
-  public get ecliptic(): LineSegments {
-    return this._objects[0] as LineSegments;
-  }
-
-  public set moon(moon: Points) {
-    this._objects[3] = moon;
-  }
-
-  public get moon(): Points {
-    return this._objects[3] as Points;
-  }
-
-  public set moonPath(path: LineSegments) {
-    this._objects[1] = path;
-  }
-
-  public get moonPath(): LineSegments {
-    return this._objects[1] as LineSegments;
+    this._celestialBodies = new Map<string, Points>();
+    this._trajectories = new Map<string, LineSegments>();
   }
 
   public get objects(): Array<Object3D> {
-    return this._objects.filter((obj: any) => !!obj);
+    return this._objects;
   }
 
   public get texts(): Array<RenderableText> {
@@ -74,6 +48,28 @@ export class SolarSystem extends RenderableLayer {
 
   public get searchables(): Array<Searchable> {
     return this._searchables;
+  }
+
+  public getTrajectory(name: string): LineSegments {
+    return this._trajectories.get(name);
+  }
+
+  public getCelestialBody(name: string): Points {
+    return this._celestialBodies.get(name);
+  }
+
+  public addCelestialBody(name: string, body: Points): void {
+    if (name && body) {
+      this._celestialBodies.set(name.toLowerCase(), body);
+      this._objects.push(body);
+    }
+  }
+
+  public addTrajectory(name: string, trajectory: LineSegments): void {
+    if (name && trajectory) {
+      this._trajectories.set(name.toLowerCase(), trajectory);
+      this._objects.push(trajectory);
+    }
   }
 
   public addText(text: RenderableText): void {
@@ -89,10 +85,18 @@ export class SolarSystem extends RenderableLayer {
   }
 
   public applyTheme(theme: Theme): void {
-    this.applyLineStyle(theme.solarSystem.sun.ecliptic, this.ecliptic);
-    this.applyLineStyle(theme.solarSystem.moon.path, this.moonPath);
-    this.applyTextureMaterial(theme.solarSystem.sun.texture, this.sun);
-    this.applyTextureMaterial(theme.solarSystem.moon.texture, this.moon);
+    this._trajectories.forEach(
+      (trajectory: LineSegments, name: string) => {
+        const style = theme.solarSystem[name].path as LineStyle;
+        this.applyLineStyle(style, trajectory);
+      }
+    );
+    this._celestialBodies.forEach(
+      (body: Points, name: string) => {
+        const style = theme.solarSystem[name].texture as TextureStyle;
+        this.applyTextureMaterial(style, body);
+      }
+    );
     this.applyTextStyle(theme.solarSystem.names);
   }
 

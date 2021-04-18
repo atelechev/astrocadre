@@ -2,12 +2,19 @@ import { Injectable } from '@angular/core';
 import AstronomicalObject from 'astronomy-bundle/astronomicalObject/AstronomicalObject';
 import { EquatorialSphericalCoordinates } from 'astronomy-bundle/coordinates/coordinateTypes';
 import { createMoon } from 'astronomy-bundle/moon';
+import {
+  createJupiter,
+  createMars,
+  createMercury,
+  createNeptune,
+  createSaturn,
+  createUranus,
+  createVenus
+  } from 'astronomy-bundle/planets';
 import { createSun } from 'astronomy-bundle/sun';
 import { createTimeOfInterest } from 'astronomy-bundle/time';
 import TimeOfInterest from 'astronomy-bundle/time/TimeOfInterest';
-import { from } from 'rxjs';
-import { map, tap } from 'rxjs/operators';
-import { LineSegments, Object3D, Points } from 'three';
+import { LineSegments } from 'three';
 import { Layer } from '#core/models/layers/layer';
 import { LayerFactory } from '#core/models/layers/layer-factory';
 import { SolarSystem } from '#layer-solar-system/model/solar-system';
@@ -24,12 +31,30 @@ import { TextOffsetPolicy } from '#core/models/layers/text/text-offset-policy';
 import { SunMoonLabelsPolicy } from '#layer-solar-system/model/layers/sun-moon-labels-policy';
 
 
-type AstroObjectProducer = () => AstronomicalObject;
+type AstroObjectProducer = (toi?: TimeOfInterest) => AstronomicalObject;
+
+type AstroObjectProps = {
+  name: string;
+  producer: AstroObjectProducer;
+  trajectorySteps: number;
+};
 
 @Injectable()
 export class SolarSystemLayerFactoryService implements LayerFactory {
 
-  private readonly _layerCode: string;
+  private readonly _astroObjectProps: Array<AstroObjectProps> = [
+    { name: 'Sun', producer: createSun, trajectorySteps: 365 },
+    { name: 'Moon', producer: createMoon, trajectorySteps: 28 },
+    { name: 'Mercury', producer: createMercury, trajectorySteps: 7 },
+    { name: 'Venus', producer: createVenus, trajectorySteps: 7 },
+    { name: 'Mars', producer: createMars, trajectorySteps: 14 },
+    { name: 'Jupiter', producer: createJupiter, trajectorySteps: 30 },
+    { name: 'Saturn', producer: createSaturn, trajectorySteps: 30 },
+    { name: 'Uranus', producer: createUranus, trajectorySteps: 30 },
+    { name: 'Neptune', producer: createNeptune, trajectorySteps: 30 }
+  ];
+
+  private readonly _layerCode = SupportedLayers.SOLAR_SYSTEM;
 
   private readonly _worldRadius: number;
 
@@ -43,7 +68,6 @@ export class SolarSystemLayerFactoryService implements LayerFactory {
     private readonly _visibilityManager: LayersVisibilityManagerService,
     private readonly _searchService: SearchService
   ) {
-    this._layerCode = SupportedLayers.SOLAR_SYSTEM;
     this._currentTime = createTimeOfInterest.fromCurrentTime();
     this._worldRadius = WorldConstants.worldRadiusForLayer(this._layerCode);
     this._biggerLabelsPolicy = new SunMoonLabelsPolicy();
@@ -51,69 +75,48 @@ export class SolarSystemLayerFactoryService implements LayerFactory {
 
   public buildRenderableLayer(model: Layer): SolarSystem {
     const renderable = new SolarSystem(model);
-    Promise.all([
-      this.buildEcliptic(renderable),
-      this.buildMoonPath(renderable),
-      this.buildSun(renderable),
-      this.buildMoon(renderable)
-    ]).then(
-      (_: any) => {
-        this._searchService.registerSearchables(renderable.searchables);
-        this._visibilityManager.showLayer(this._layerCode);
-      }
+    const planets = this._astroObjectProps.map(
+      (props: AstroObjectProps) => this.buildCelestialBody(renderable, props.name, props.producer)
     );
+    const trajectories = this._astroObjectProps.map(
+      (props: AstroObjectProps) => this.buildTrajectory(renderable, props.name, props.producer, props.trajectorySteps)
+    );
+    Promise.all(planets.concat(trajectories))
+      .then(
+        (_: any) => {
+          this._searchService.registerSearchables(renderable.searchables);
+          this._visibilityManager.showLayer(this._layerCode);
+        }
+      );
     return renderable;
   }
 
-  private buildEcliptic(renderable: SolarSystem): Promise<LineSegments> {
+  private buildTrajectory(
+    renderable: SolarSystem,
+    name: string,
+    bodyProducer: AstroObjectProducer,
+    steps: number
+  ): Promise<void> {
     return this._trajectoryFactory
-      .buildApparentTrajectory(renderable.code, createSun, 365)
+      .buildApparentTrajectory(renderable.code, bodyProducer, steps)
       .then(
-        (plane: LineSegments) => renderable.ecliptic = plane
+        (plane: LineSegments) => renderable.addTrajectory(name, plane)
       );
-  }
-
-  private buildMoonPath(renderable: SolarSystem): Promise<LineSegments> {
-    return this._trajectoryFactory
-      .buildApparentTrajectory(renderable.code, createMoon, 28)
-      .then(
-        (plane: LineSegments) => renderable.moonPath = plane
-      );
-  }
-
-  private buildSun(renderable: SolarSystem): Promise<Object3D> {
-    return this.buildCelestialBody(
-      renderable,
-      () => createSun(this._currentTime),
-      (body: Points) => renderable.sun = body,
-      'Sun'
-    );
-  }
-
-  private buildMoon(renderable: SolarSystem): Promise<Object3D> {
-    return this.buildCelestialBody(
-      renderable,
-      () => createMoon(this._currentTime),
-      (body: Points) => renderable.moon = body,
-      'Moon'
-    );
   }
 
   private buildCelestialBody(
     renderable: SolarSystem,
-    astroObjectProvider: AstroObjectProducer,
-    objectConsumer: (body: Object3D) => void,
-    name: string
-  ): Promise<Object3D> {
-    return astroObjectProvider().getApparentGeocentricEquatorialSphericalCoordinates()
+    name: string,
+    astroObjectProvider: AstroObjectProducer
+  ): Promise<void> {
+    return astroObjectProvider(this._currentTime).getApparentGeocentricEquatorialSphericalCoordinates()
       .then(
         (esCoords: EquatorialSphericalCoordinates) => {
           const coords = [esCoords.rightAscension, esCoords.declination, this._worldRadius];
           const body = this._pointsFactory.createObject3D(this._layerCode, [coords]);
           renderable.addSeachable(this.toSearchable(coords, name));
           renderable.addText(this.toRenderableText(coords, name));
-          objectConsumer(body);
-          return body;
+          renderable.addCelestialBody(name, body);
         }
       );
   }

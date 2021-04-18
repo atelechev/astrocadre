@@ -84,7 +84,7 @@
         "image": "assets/textures/star_red.png",
         "sizeMultiplier": 4
       },
-      "ecliptic": {
+      "path": {
         "color": "rgb(85, 0, 0)",
         "width": 0.5,
         "dash": 2,

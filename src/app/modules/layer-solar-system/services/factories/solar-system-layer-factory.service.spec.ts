@@ -26,14 +26,9 @@ describe('SolarSystemLayerFactoryService', () => {
     tick();
     expect(layer).toBeDefined();
     expect(layer.code).toEqual(model.code);
-    expect(layer.objects.length).toEqual(4);
-    expect(layer.texts.length).toEqual(2);
-    expect(layer.searchables.length).toEqual(2);
-
-    expect(layer.sun).toBeDefined();
-    expect(layer.ecliptic).toBeDefined();
-    expect(layer.moon).toBeDefined();
-    expect(layer.moonPath).toBeDefined();
+    expect(layer.objects.length).toEqual(18);
+    expect(layer.texts.length).toEqual(9);
+    expect(layer.searchables.length).toEqual(9);
   }));
 
 });

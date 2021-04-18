@@ -25,6 +25,7 @@ describe('SolarSystem', () => {
     loadFromUrl: false,
     objects: []
   };
+  const allBodies = ['Sun', 'Moon', 'Mercury', 'Venus', 'Mars', 'Jupiter', 'Saturn', 'Uranus', 'Neptune'];
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -55,43 +56,48 @@ describe('SolarSystem', () => {
     expect(foundMaterial.size).toEqual(expectedSize);
   };
 
-  it('objects and each object getter should return expected values', fakeAsync(() => {
+  it('objects, bodies and trajactories getters should return expected values', fakeAsync(() => {
     const layer = buildLayer();
-    expect(layer.objects.length).toEqual(4);
-    expect(layer.sun).toBeDefined();
-    expect(layer.moon).toBeDefined();
-    expect(layer.ecliptic).toBeDefined();
-    expect(layer.moonPath).toBeDefined();
+    expect(layer.objects.length).toEqual(18);
+    allBodies.forEach(
+      (name: string) => {
+        const key = name.toLowerCase();
+        expect(layer.getCelestialBody(key)).toBeDefined();
+        expect(layer.getTrajectory(key)).toBeDefined();
+      }
+    );
   }));
 
   it('texts should return expected values', fakeAsync(() => {
     const layer = buildLayer();
-    expect(layer.texts.length).toEqual(2);
+    expect(layer.texts.length).toEqual(9);
     const texts = layer.texts.map((rt: RenderableText) => rt.text);
-    expect(texts).toContain('Sun');
-    expect(texts).toContain('Moon');
+    allBodies.forEach(
+      (name: string) => expect(texts).toContain(name)
+    );
   }));
 
   it('searchables should return expected values', fakeAsync(() => {
     const layer = buildLayer();
-    expect(layer.searchables.length).toEqual(2);
+    expect(layer.searchables.length).toEqual(9);
     const texts = layer.searchables.map((s: Searchable) => s.names[0]);
-    expect(texts).toContain('Sun');
-    expect(texts).toContain('Moon');
+    allBodies.forEach(
+      (name: string) => expect(texts).toContain(name)
+    );
   }));
 
   describe('addText should', () => {
 
     it('have no effect if the arg is falsy', fakeAsync(() => {
       const layer = buildLayer();
-      expect(layer.texts.length).toEqual(2);
+      expect(layer.texts.length).toEqual(9);
       layer.addText(undefined);
-      expect(layer.texts.length).toEqual(2);
+      expect(layer.texts.length).toEqual(9);
     }));
 
     it('add an item to texts', fakeAsync(() => {
       const layer = buildLayer();
-      expect(layer.texts.length).toEqual(2);
+      expect(layer.texts.length).toEqual(9);
 
       const item = new RenderableText(
         toVector3(0, 0, 0),
@@ -99,7 +105,7 @@ describe('SolarSystem', () => {
         new SunMoonLabelsPolicy()
       );
       layer.addText(item);
-      expect(layer.texts.length).toEqual(3);
+      expect(layer.texts.length).toEqual(10);
     }));
 
   });
@@ -108,14 +114,14 @@ describe('SolarSystem', () => {
 
     it('have no effect if the arg is falsy', fakeAsync(() => {
       const layer = buildLayer();
-      expect(layer.searchables.length).toEqual(2);
+      expect(layer.searchables.length).toEqual(9);
       layer.addSeachable(undefined);
-      expect(layer.searchables.length).toEqual(2);
+      expect(layer.searchables.length).toEqual(9);
     }));
 
     it('add an item to searchables', fakeAsync(() => {
       const layer = buildLayer();
-      expect(layer.searchables.length).toEqual(2);
+      expect(layer.searchables.length).toEqual(9);
 
       const item = {
         type: 'solar-system-body',
@@ -125,7 +131,7 @@ describe('SolarSystem', () => {
         names: ['test']
       };
       layer.addSeachable(item);
-      expect(layer.searchables.length).toEqual(3);
+      expect(layer.searchables.length).toEqual(10);
     }));
 
   });
@@ -134,16 +140,16 @@ describe('SolarSystem', () => {
     const layer = buildLayer();
     layer.applyTheme(mockedTheme);
 
-    assertLineMaterialExpected(layer.objects[0] as LineSegments, 2, 'rgb(190, 190, 190)');
-    assertLineMaterialExpected(layer.objects[1] as LineSegments, 3, 'rgb(200, 200, 200)');
-    assertTextureMaterialExpected(layer.objects[2] as Points, 32.5);
-    assertTextureMaterialExpected(layer.objects[3] as Points, 26);
+    assertLineMaterialExpected(layer.getTrajectory('sun'), 2, 'rgb(190, 190, 190)');
+    assertLineMaterialExpected(layer.getTrajectory('moon'), 3, 'rgb(200, 200, 200)');
+    assertTextureMaterialExpected(layer.getCelestialBody('sun'), 32.5);
+    assertTextureMaterialExpected(layer.getCelestialBody('moon'), 26);
   }));
 
   it('style should be assigned to the texts', fakeAsync(() => {
     const layer = buildLayer();
     layer.applyTheme(mockedTheme);
-    expect(layer.texts.length).toEqual(2);
+    expect(layer.texts.length).toEqual(9);
 
     layer.texts.forEach(
       (object: RenderableText) => {
@@ -158,5 +164,69 @@ describe('SolarSystem', () => {
       }
     );
   }));
+
+  describe('addCelestialBody should', () => {
+
+    describe('have no effect', () => {
+
+      it('if name arg is falsy', fakeAsync(() => {
+        const layer = buildLayer();
+        expect(layer.objects.length).toEqual(18);
+        expect(() => layer.addCelestialBody(undefined, new Points())).not.toThrowError();
+        expect(layer.objects.length).toEqual(18);
+      }));
+
+      it('if body arg is falsy', fakeAsync(() => {
+        const layer = buildLayer();
+        expect(layer.objects.length).toEqual(18);
+        expect(() => layer.addCelestialBody('any', undefined)).not.toThrowError();
+        expect(layer.objects.length).toEqual(18);
+      }));
+
+    });
+
+    it('add expected object', fakeAsync(() => {
+      const name = 'another-moon';
+      const layer = buildLayer();
+      expect(layer.objects.length).toEqual(18);
+
+      layer.addCelestialBody(name, new Points());
+      expect(layer.objects.length).toEqual(19);
+      expect(layer.getCelestialBody(name)).toBeDefined();
+    }));
+
+  });
+
+  describe('addTrajectory should', () => {
+
+    describe('have no effect', () => {
+
+      it('if name arg is falsy', fakeAsync(() => {
+        const layer = buildLayer();
+        expect(layer.objects.length).toEqual(18);
+        expect(() => layer.addTrajectory(undefined, new LineSegments())).not.toThrowError();
+        expect(layer.objects.length).toEqual(18);
+      }));
+
+      it('if body arg is falsy', fakeAsync(() => {
+        const layer = buildLayer();
+        expect(layer.objects.length).toEqual(18);
+        expect(() => layer.addTrajectory('any', undefined)).not.toThrowError();
+        expect(layer.objects.length).toEqual(18);
+      }));
+
+    });
+
+    it('add expected object', fakeAsync(() => {
+      const name = 'another-moon';
+      const layer = buildLayer();
+      expect(layer.objects.length).toEqual(18);
+
+      layer.addTrajectory(name, new LineSegments());
+      expect(layer.objects.length).toEqual(19);
+      expect(layer.getTrajectory(name)).toBeDefined();
+    }));
+
+  });
 
 });
