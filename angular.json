@@ -37,9 +37,10 @@
             ],
             "scripts": [],
             "allowedCommonJsDependencies": [
-              "astronomy-bundle/time",
               "astronomy-bundle/moon",
-              "astronomy-bundle/sun"
+              "astronomy-bundle/planets",
+              "astronomy-bundle/sun",
+              "astronomy-bundle/time"
             ]
           },
           "configurations": {

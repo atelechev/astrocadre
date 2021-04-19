@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
-import { AxialCurvesFactoryService } from '#core/services/factories/axial-curves-factory.service';
 import { BoundariesLayerFactoryService } from '#layer-constellations/services/factories/boundaries-layer-factory.service';
+import { CoreModule } from '#core/core.module';
 
 
 describe('BoundariesLayerFactoryService', () => {
@@ -19,8 +19,8 @@ describe('BoundariesLayerFactoryService', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
+      imports: [CoreModule],
       providers: [
-        AxialCurvesFactoryService,
         BoundariesLayerFactoryService
       ]
     });

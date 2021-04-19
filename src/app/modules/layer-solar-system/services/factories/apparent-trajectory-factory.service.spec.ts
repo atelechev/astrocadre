@@ -1,8 +1,8 @@
 import { fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { createMoon } from 'astronomy-bundle/moon';
 import { LineSegments } from 'three';
-import { AxialCurvesFactoryService } from '#core/services/factories/axial-curves-factory.service';
 import { ApparentTrajectoryFactoryService } from '#layer-solar-system/services/factories/apparent-trajectory-factory.service';
+import { CoreModule } from '#core/core.module';
 
 
 describe('ApparentTrajectoryFactoryService', () => {
@@ -12,9 +12,9 @@ describe('ApparentTrajectoryFactoryService', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
+      imports: [CoreModule],
       providers: [
-        ApparentTrajectoryFactoryService,
-        AxialCurvesFactoryService
+        ApparentTrajectoryFactoryService
       ]
     });
     factory = TestBed.inject(ApparentTrajectoryFactoryService);

@@ -5,7 +5,7 @@ import {
   toGreekLetter
 } from '#core/utils/star-utils';
 
-describe('star-name-utils', () => {
+describe('star-utils', () => {
 
   const assertLetterExpected = (checked: string, expected: string) => {
     expect(checked).toBeDefined();

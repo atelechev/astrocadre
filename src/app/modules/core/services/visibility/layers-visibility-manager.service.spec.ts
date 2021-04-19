@@ -5,12 +5,10 @@ import { LayersVisibilityManagerService } from '#core/services/visibility/layers
 import { LayerEvent } from '#core/models/event/layer-event';
 import { LayerShownEvent } from '#core/models/event/layer-shown-event';
 import { LayerHiddenEvent } from '#core/models/event/layer-hidden-event';
-import { SearchService } from '#core/services/search.service';
-import { ThemeService } from '#core/services/theme.service';
 import { MockedGridLayerFactory } from '#core/test-utils/mocked-grid-layer-factory.spec';
 import { Layer } from '#core/models/layers/layer';
 import { AggregateLayerFactoryService } from '#core/services/factories/aggregate-layer-factory.service';
-import { AxialCurvesFactoryService } from '#core/services/factories/axial-curves-factory.service';
+import { CoreModule } from '#core/core.module';
 
 const model: Layer = {
   code: 'stars',
@@ -37,14 +35,9 @@ describe('LayersVisibilityManagerService', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
+      imports: [CoreModule],
       providers: [
-        AxialCurvesFactoryService,
-        AggregateLayerFactoryService,
-        LayerService,
-        LayersVisibilityManagerService,
-        MockedGridLayerFactory,
-        SearchService,
-        ThemeService
+        MockedGridLayerFactory
       ]
     });
     layerService = TestBed.inject(LayerService);

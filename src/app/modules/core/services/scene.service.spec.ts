@@ -2,14 +2,9 @@ import { TestBed } from '@angular/core/testing';
 import { LayerService } from '#core/services/layer.service';
 import { SceneService } from '#core/services/scene.service';
 import { LayersVisibilityManagerService } from '#core/services/visibility/layers-visibility-manager.service';
-import { ViewportService } from '#core/services/viewport.service';
-import { CameraService } from '#core/services/camera.service';
-import { ThemeService } from '#core/services/theme.service';
-import { TextsVisibilityManagerService } from '#core/services/visibility/texts-visibility-manager.service';
-import { SearchService } from '#core/services/search.service';
 import { MockedGridLayerFactory } from '#core/test-utils/mocked-grid-layer-factory.spec';
 import { RenderableLayer } from '#core/models/layers/renderable-layer';
-import { AxialCurvesFactoryService } from '#core/services/factories/axial-curves-factory.service';
+import { CoreModule } from '#core/core.module';
 
 
 
@@ -21,17 +16,9 @@ describe('SceneService', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
+      imports: [CoreModule],
       providers: [
-        AxialCurvesFactoryService,
-        CameraService,
-        LayerService,
-        LayersVisibilityManagerService,
-        MockedGridLayerFactory,
-        SceneService,
-        SearchService,
-        TextsVisibilityManagerService,
-        ThemeService,
-        ViewportService
+        MockedGridLayerFactory
       ]
     });
     const layers = TestBed.inject(LayerService);

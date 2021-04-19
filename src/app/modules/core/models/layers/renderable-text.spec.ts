@@ -1,13 +1,12 @@
 import { TextOffsetPolicies } from '#core/models/layers/text/text-offsets-policies';
 import { RenderableText } from '#core/models/layers/renderable-text';
 import { TextStyle } from '#core/models/theme/text-style';
-import { WorldConstants } from '#core/models/world-constants';
 import { toVector3 } from '#core/utils/vector-utils';
 
 
 describe('RenderableText', () => {
 
-  const position = toVector3(37.95, 89.26, WorldConstants.worldRadiusForLayer('stars'));
+  const position = toVector3(37.95, 89.26, 1.96);
   const label = 'Polaris';
   let renderable: RenderableText;
 

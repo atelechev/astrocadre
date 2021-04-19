@@ -1,9 +1,9 @@
 import { TestBed } from '@angular/core/testing';
 import { LayerShownEvent } from '#core/models/event/layer-shown-event';
-import { AxialCurvesFactoryService } from '#core/services/factories/axial-curves-factory.service';
 import { SkyGridLayerFactoryService } from '#layer-sky-grid/services/factories/sky-grid-layer-factory.service';
 import { mockedLayers } from '#core/test-utils/mocked-layers.spec';
 import { SkyGrid } from '#layer-sky-grid/models/sky-grid';
+import { CoreModule } from '#core/core.module';
 
 describe('LayerShownEvent', () => {
 
@@ -11,8 +11,8 @@ describe('LayerShownEvent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
+      imports: [CoreModule],
       providers: [
-        AxialCurvesFactoryService,
         SkyGridLayerFactoryService
       ]
     });

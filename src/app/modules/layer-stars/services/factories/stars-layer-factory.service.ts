@@ -7,7 +7,8 @@ import { RenderableText } from '#core/models/layers/renderable-text';
 import { Stars } from '#layer-stars/models/stars';
 import { Searchable } from '#core/models/layers/searchable';
 import { SupportedLayers } from '#core/models/layers/supported-layers';
-import { buildCenterPoint, extractProperName, extractStandardName, toGreekLetter } from '#core/utils/star-utils';
+import { extractProperName, extractStandardName, toGreekLetter } from '#core/utils/star-utils';
+import { TextOffsetPolicy } from '#core/models/layers/text/text-offset-policy';
 
 /**
  * Factory for a renderable layer of stars.
@@ -25,17 +26,23 @@ export class StarsLayerFactoryService implements LayerFactory {
     const magnitudeClass = this.extractMagnitudeClass(model.code);
     const useObjects = model.objects || [];
     const stars = this._pointsFactory.createObject3D(SupportedLayers.STARS, useObjects);
-    const properNames = this.initLabels(model, extractProperName, this.toProperNameRenderableText);
-    const standardNames = this.initLabels(model, extractStandardName, this.toStandardNameRenderableText);
     const searchables = this.extractSearchables(model.objects);
     return new Stars(
       model,
       magnitudeClass,
       stars,
-      properNames,
-      standardNames,
+      this.initProperNames(model),
+      this.initStandardNames(model),
       searchables
     );
+  }
+
+  private initProperNames(model: Layer): Array<RenderableText> {
+    return this.initLabels(model, extractProperName, TextOffsetPolicies.TOP_RIGHT);
+  }
+
+  private initStandardNames(model: Layer): Array<RenderableText> {
+    return this.initLabels(model, extractStandardName, TextOffsetPolicies.CLOSE_RIGHT, toGreekLetter);
   }
 
   private extractMagnitudeClass(code: string): number {
@@ -45,35 +52,22 @@ export class StarsLayerFactoryService implements LayerFactory {
   private initLabels(
     model: Layer,
     extractNameFunct: (rawStar: Array<any>) => string,
-    toRenderableFunct: (rawStar: Array<any>, name: string) => RenderableText
+    offset: TextOffsetPolicy,
+    nameTransform: (rawName: string) => string = (rn: string) => rn
   ): Array<RenderableText> {
     const labels = new Array<RenderableText>();
     model.objects?.forEach(
       (rawStar: Array<any>) => {
         const name = extractNameFunct(rawStar);
         if (name) {
-          const renderable = toRenderableFunct(rawStar, name);
+          const center = this._pointsFactory.buildPoint(SupportedLayers.STARS, rawStar[0], rawStar[1]);
+          const transformedName = nameTransform(name);
+          const renderable = new RenderableText(center, transformedName, offset);
           labels.push(renderable);
         }
       }
     );
     return labels;
-  }
-
-  private toStandardNameRenderableText(rawStar: Array<any>, name: string): RenderableText {
-    return new RenderableText(
-      buildCenterPoint(rawStar),
-      toGreekLetter(name),
-      TextOffsetPolicies.CLOSE_RIGHT
-    );
-  }
-
-  private toProperNameRenderableText(rawStar: Array<any>, name: string): RenderableText {
-    return new RenderableText(
-      buildCenterPoint(rawStar),
-      name,
-      TextOffsetPolicies.TOP_RIGHT
-    );
   }
 
   private extractSearchables(rawStars: Array<Array<any>>): Array<Searchable> {

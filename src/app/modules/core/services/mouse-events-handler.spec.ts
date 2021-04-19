@@ -1,7 +1,6 @@
 import { TestBed } from '@angular/core/testing';
-import { CameraService } from '#core/services/camera.service';
 import { MouseEventsHandler } from '#core/services/mouse-events-handler';
-import { ViewportService } from '#core/services/viewport.service';
+import { CoreModule } from '#core/core.module';
 
 
 describe('MouseEventsHandler', () => {
@@ -11,11 +10,7 @@ describe('MouseEventsHandler', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [
-        CameraService,
-        MouseEventsHandler,
-        ViewportService
-      ]
+      imports: [CoreModule]
     });
     service = TestBed.inject(MouseEventsHandler);
     element = document.createElement('div');

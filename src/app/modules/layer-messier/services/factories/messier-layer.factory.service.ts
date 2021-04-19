@@ -8,8 +8,6 @@ import { Searchable } from '#core/models/layers/searchable';
 import { SupportedLayers } from '#core/models/layers/supported-layers';
 import { PointsFactoryService } from '#core/services/factories/points-factory.service';
 import { RenderableText } from '#core/models/layers/renderable-text';
-import { buildCenterPoint } from '#core/utils/star-utils';
-
 
 type Filter = (obj: Searchable) => boolean;
 
@@ -70,7 +68,7 @@ export class MessierLayerFactoryService implements LayerFactory {
 
   private toRenderableText(object: Searchable): RenderableText {
     return new RenderableText(
-      buildCenterPoint([object.ra, object.dec]),
+      this._pointsFactory.buildPoint(SupportedLayers.MESSIER, object.ra, object.dec),
       object.code,
       this._labelsPolicy
     );

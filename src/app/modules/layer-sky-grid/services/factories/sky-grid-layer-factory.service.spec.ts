@@ -1,7 +1,7 @@
 import { TestBed } from '@angular/core/testing';
-import { AxialCurvesFactoryService } from '#core/services/factories/axial-curves-factory.service';
 import { LayerFactory } from '#core/models/layers/layer-factory';
 import { SkyGridLayerFactoryService } from '#layer-sky-grid/services/factories/sky-grid-layer-factory.service';
+import { CoreModule } from '#core/core.module';
 
 
 describe('SkyGridLayerFactoryService', () => {
@@ -16,8 +16,8 @@ describe('SkyGridLayerFactoryService', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
+      imports: [CoreModule],
       providers: [
-        AxialCurvesFactoryService,
         SkyGridLayerFactoryService
       ]
     });

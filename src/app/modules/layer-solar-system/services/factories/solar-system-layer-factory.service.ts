@@ -22,13 +22,13 @@ import { SupportedLayers } from '#core/models/layers/supported-layers';
 import { LayersVisibilityManagerService } from '#core/services/visibility/layers-visibility-manager.service';
 import { ApparentTrajectoryFactoryService } from '#layer-solar-system/services/factories/apparent-trajectory-factory.service';
 import { PointsFactoryService } from '#core/services/factories/points-factory.service';
-import { WorldConstants } from '#core/models/world-constants';
 import { Searchable } from '#core/models/layers/searchable';
 import { SearchService } from '#core/services/search.service';
 import { RenderableText } from '#core/models/layers/renderable-text';
 import { toVector3 } from '#core/utils/vector-utils';
 import { TextOffsetPolicy } from '#core/models/layers/text/text-offset-policy';
 import { SunMoonLabelsPolicy } from '#layer-solar-system/model/layers/sun-moon-labels-policy';
+import { VirtualSphereRadiusService } from '#core/services/virtual-sphere-radius.service';
 
 
 type AstroObjectProducer = (toi?: TimeOfInterest) => AstronomicalObject;
@@ -66,22 +66,17 @@ export class SolarSystemLayerFactoryService implements LayerFactory {
     private readonly _trajectoryFactory: ApparentTrajectoryFactoryService,
     private readonly _pointsFactory: PointsFactoryService,
     private readonly _visibilityManager: LayersVisibilityManagerService,
-    private readonly _searchService: SearchService
+    private readonly _searchService: SearchService,
+    virtualSphereService: VirtualSphereRadiusService
   ) {
     this._currentTime = createTimeOfInterest.fromCurrentTime();
-    this._worldRadius = WorldConstants.worldRadiusForLayer(this._layerCode);
+    this._worldRadius = virtualSphereService.getRadiusFor(this._layerCode);
     this._biggerLabelsPolicy = new SunMoonLabelsPolicy();
   }
 
   public buildRenderableLayer(model: Layer): SolarSystem {
     const renderable = new SolarSystem(model);
-    const planets = this._astroObjectProps.map(
-      (props: AstroObjectProps) => this.buildCelestialBody(renderable, props.name, props.producer)
-    );
-    const trajectories = this._astroObjectProps.map(
-      (props: AstroObjectProps) => this.buildTrajectory(renderable, props.name, props.producer, props.trajectorySteps)
-    );
-    Promise.all(planets.concat(trajectories))
+    Promise.all(this.getAllObjectsBuilders(renderable))
       .then(
         (_: any) => {
           this._searchService.registerSearchables(renderable.searchables);
@@ -89,6 +84,16 @@ export class SolarSystemLayerFactoryService implements LayerFactory {
         }
       );
     return renderable;
+  }
+
+  private getAllObjectsBuilders(renderable: SolarSystem): Array<Promise<any>> {
+    const bodies = this._astroObjectProps.map(
+      (props: AstroObjectProps) => this.buildCelestialBody(renderable, props.name, props.producer)
+    );
+    const trajectories = this._astroObjectProps.map(
+      (props: AstroObjectProps) => this.buildTrajectory(renderable, props.name, props.producer, props.trajectorySteps)
+    );
+    return bodies.concat(trajectories);
   }
 
   private buildTrajectory(

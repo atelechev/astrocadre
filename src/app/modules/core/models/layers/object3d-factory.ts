@@ -1,11 +1,19 @@
 import { BufferGeometry } from 'three';
 import { Object3D, Vector3 } from 'three';
-import { WorldConstants } from '#core/models/world-constants';
+import { VirtualSphereRadiusService } from '#core/services/virtual-sphere-radius.service';
 
 /**
  * Base class for factories producing Three's Object3D instances.
  */
 export abstract class Object3DFactory<T extends Object3D> {
+
+  constructor(private readonly _virtualSphereService: VirtualSphereRadiusService) {
+
+  }
+
+  protected get virtualSphereService(): VirtualSphereRadiusService {
+    return this._virtualSphereService;
+  }
 
   /**
    * Creates and returns an Object3D for the specified layer, from
@@ -21,7 +29,7 @@ export abstract class Object3DFactory<T extends Object3D> {
       throw new Error('segments arg must be defined');
     }
     const geometry = new BufferGeometry();
-    const radius = WorldConstants.worldRadiusForLayer(layer);
+    const radius = this._virtualSphereService.getRadiusFor(layer);
     let pointPairs = new Array<Vector3>();
     segments.forEach(segment => {
       const vertices = this.segmentToVertices(segment, radius);
