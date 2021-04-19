@@ -101,6 +101,83 @@
         "gap": 1.5
       }
     },
+    "mercury": {
+      "texture": {
+        "image": "assets/textures/planet_white.png",
+        "sizeMultiplier": 2
+      },
+      "path": {
+        "color": "rgb(94, 114, 94)",
+        "dash": 0.5,
+        "gap": 0.5
+      }
+    },
+    "venus": {
+      "texture": {
+        "image": "assets/textures/planet_white.png",
+        "sizeMultiplier": 2.5
+      },
+      "path": {
+        "color": "rgb(94, 114, 94)",
+        "dash": 0.5,
+        "gap": 0.5
+      }
+    },
+    "mars": {
+      "texture": {
+        "image": "assets/textures/planet_white.png",
+        "sizeMultiplier": 2.5
+      },
+      "path": {
+        "color": "rgb(94, 114, 94)",
+        "dash": 0.5,
+        "gap": 0.5
+      }
+    },
+    "jupiter": {
+      "texture": {
+        "image": "assets/textures/planet_white.png",
+        "sizeMultiplier": 3
+      },
+      "path": {
+        "color": "rgb(94, 114, 94)",
+        "dash": 0.5,
+        "gap": 0.5
+      }
+    },
+    "saturn": {
+      "texture": {
+        "image": "assets/textures/planet_white.png",
+        "sizeMultiplier": 3
+      },
+      "path": {
+        "color": "rgb(94, 114, 94)",
+        "dash": 0.5,
+        "gap": 0.5
+      }
+    },
+    "uranus": {
+      "texture": {
+        "image": "assets/textures/planet_white.png",
+        "sizeMultiplier": 2
+      },
+      "path": {
+        "color": "rgb(94, 114, 94)",
+        "dash": 0.5,
+        "gap": 0.5
+      }
+    },
+    "neptune": {
+      "texture": {
+        "image": "assets/textures/planet_white.png",
+        "sizeMultiplier": 2
+      },
+      "path": {
+        "color": "rgb(94, 114, 94)",
+        "dash": 0.5,
+        "gap": 0.5
+      }
+    },
     "names": {
       "fontSize": "16px",
       "fontFamily": "arial",

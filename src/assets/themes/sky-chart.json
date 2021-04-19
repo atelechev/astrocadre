@@ -103,8 +103,8 @@
     },
     "mercury": {
       "texture": {
-        "image": "assets/textures/star_red.png",
-        "sizeMultiplier": 1.5
+        "image": "assets/textures/mercury_chart.png",
+        "sizeMultiplier": 2.5
       },
       "path": {
         "color": "rgb(200, 200, 200)",
@@ -114,8 +114,8 @@
     },
     "venus": {
       "texture": {
-        "image": "assets/textures/star_red.png",
-        "sizeMultiplier": 1.5
+        "image": "assets/textures/venus_chart.png",
+        "sizeMultiplier": 3
       },
       "path": {
         "color": "rgb(200, 200, 200)",
@@ -125,8 +125,8 @@
     },
     "mars": {
       "texture": {
-        "image": "assets/textures/star_red.png",
-        "sizeMultiplier": 1.5
+        "image": "assets/textures/mars_chart.png",
+        "sizeMultiplier": 3
       },
       "path": {
         "color": "rgb(200, 200, 200)",
@@ -136,8 +136,8 @@
     },
     "jupiter": {
       "texture": {
-        "image": "assets/textures/star_red.png",
-        "sizeMultiplier": 1.5
+        "image": "assets/textures/jupiter_chart.png",
+        "sizeMultiplier": 4
       },
       "path": {
         "color": "rgb(200, 200, 200)",
@@ -147,8 +147,8 @@
     },
     "saturn": {
       "texture": {
-        "image": "assets/textures/star_red.png",
-        "sizeMultiplier": 1.5
+        "image": "assets/textures/saturn_chart.png",
+        "sizeMultiplier": 4
       },
       "path": {
         "color": "rgb(200, 200, 200)",
@@ -158,8 +158,8 @@
     },
     "uranus": {
       "texture": {
-        "image": "assets/textures/star_red.png",
-        "sizeMultiplier": 1.5
+        "image": "assets/textures/uranus_chart.png",
+        "sizeMultiplier": 2.5
       },
       "path": {
         "color": "rgb(200, 200, 200)",
@@ -169,8 +169,8 @@
     },
     "neptune": {
       "texture": {
-        "image": "assets/textures/star_red.png",
-        "sizeMultiplier": 1.5
+        "image": "assets/textures/neptune_chart.png",
+        "sizeMultiplier": 2.5
       },
       "path": {
         "color": "rgb(200, 200, 200)",
