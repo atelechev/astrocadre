@@ -31,7 +31,7 @@
   "stars": {
     "magnitudes": [ 2, 2.5, 3, 3.5, 4, 4.5, 5, 5.5, 6 ],
     "texture": {
-      "image": "assets/textures/star_black.png",
+      "image": "assets/textures/theme_sky-chart/star.png",
       "sizeMultiplier": 3
     },
     "names": {
@@ -54,19 +54,19 @@
   "messier": {
     "objects": {
       "cluster": {
-        "image": "assets/textures/messier_cluster_chart.png",
+        "image": "assets/textures/theme_sky-chart/messier_cluster.png",
         "sizeMultiplier": 2.5
       },
       "galaxy": {
-        "image": "assets/textures/messier_galaxy_chart.png",
+        "image": "assets/textures/theme_sky-chart/messier_galaxy.png",
         "sizeMultiplier": 3
       },
       "nebula": {
-        "image": "assets/textures/messier_nebula_chart.png",
+        "image": "assets/textures/theme_sky-chart/messier_nebula.png",
         "sizeMultiplier": 2.5
       },
       "other": {
-        "image": "assets/textures/messier_cluster_chart.png",
+        "image": "assets/textures/theme_sky-chart/messier_cluster.png",
         "sizeMultiplier": 1
       }
     },
@@ -81,7 +81,7 @@
   "solarSystem": {
     "sun": {
       "texture": {
-        "image": "assets/textures/sun_chart.png",
+        "image": "assets/textures/theme_sky-chart/sun.png",
         "sizeMultiplier": 5
       },
       "path": {
@@ -92,7 +92,7 @@
     },
     "moon": {
       "texture": {
-        "image": "assets/textures/moon_chart.png",
+        "image": "assets/textures/theme_sky-chart/moon.png",
         "sizeMultiplier": 4
       },
       "path": {
@@ -103,7 +103,7 @@
     },
     "mercury": {
       "texture": {
-        "image": "assets/textures/mercury_chart.png",
+        "image": "assets/textures/theme_sky-chart/mercury.png",
         "sizeMultiplier": 2.5
       },
       "path": {
@@ -114,7 +114,7 @@
     },
     "venus": {
       "texture": {
-        "image": "assets/textures/venus_chart.png",
+        "image": "assets/textures/theme_sky-chart/venus.png",
         "sizeMultiplier": 3
       },
       "path": {
@@ -125,7 +125,7 @@
     },
     "mars": {
       "texture": {
-        "image": "assets/textures/mars_chart.png",
+        "image": "assets/textures/theme_sky-chart/mars.png",
         "sizeMultiplier": 3
       },
       "path": {
@@ -136,7 +136,7 @@
     },
     "jupiter": {
       "texture": {
-        "image": "assets/textures/jupiter_chart.png",
+        "image": "assets/textures/theme_sky-chart/jupiter.png",
         "sizeMultiplier": 4
       },
       "path": {
@@ -147,7 +147,7 @@
     },
     "saturn": {
       "texture": {
-        "image": "assets/textures/saturn_chart.png",
+        "image": "assets/textures/theme_sky-chart/saturn.png",
         "sizeMultiplier": 4
       },
       "path": {
@@ -158,7 +158,7 @@
     },
     "uranus": {
       "texture": {
-        "image": "assets/textures/uranus_chart.png",
+        "image": "assets/textures/theme_sky-chart/uranus.png",
         "sizeMultiplier": 2.5
       },
       "path": {
@@ -169,7 +169,7 @@
     },
     "neptune": {
       "texture": {
-        "image": "assets/textures/neptune_chart.png",
+        "image": "assets/textures/theme_sky-chart/neptune.png",
         "sizeMultiplier": 2.5
       },
       "path": {

@@ -62,14 +62,14 @@ describe('material-utils', () => {
     });
 
     it('material with default size if the dotSize arg is falsy', () => {
-      const material = buildPointMaterial('assets/textures/star_white.png', undefined);
+      const material = buildPointMaterial('assets/textures/theme_tiny/star.png', undefined);
       expect(material).toBeDefined();
       expect(material.visible).toBeTrue();
       expect(material.size).toEqual(1);
     });
 
     it('expected textured material', () => {
-      const material = buildPointMaterial('assets/textures/star_red.png', 5);
+      const material = buildPointMaterial('assets/textures/theme_night-view/star.png', 5);
       expect(material).toBeDefined();
       expect(material.visible).toBeTrue();
       expect(material.size).toEqual(5);

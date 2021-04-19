@@ -13,7 +13,7 @@ const defaultLine = {
 };
 
 const defaultTexture = {
-  image: 'assets/textures/star_black.png',
+  image: 'assets/textures/theme_sky-chart/star.png',
   sizeMultiplier: 1
 };
 

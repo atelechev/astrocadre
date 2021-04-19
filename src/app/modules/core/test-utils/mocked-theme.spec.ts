@@ -32,7 +32,7 @@ export const mockedTheme: Theme = {
   stars: {
     magnitudes: [2, 2.5, 3],
     texture: {
-      image: 'assets/textures/star_white.png',
+      image: 'assets/textures/theme_tiny/star.png',
       sizeMultiplier: 2.5
     },
     names: {
@@ -55,19 +55,19 @@ export const mockedTheme: Theme = {
   messier: {
     objects: {
       cluster: {
-        image: 'assets/textures/messier_cluster_chart.png',
+        image: 'assets/textures/theme_sky-chart/messier_cluster.png',
         sizeMultiplier: 2.5
       },
       galaxy: {
-        image: 'assets/textures/messier_galaxy_chart.png',
+        image: 'assets/textures/theme_sky-chart/messier_galaxy.png',
         sizeMultiplier: 3
       },
       nebula: {
-        image: 'assets/textures/messier_nebula_chart.png',
+        image: 'assets/textures/theme_sky-chart/messier_nebula.png',
         sizeMultiplier: 2.5
       },
       other: {
-        image: 'assets/textures/messier_cluster_chart.png',
+        image: 'assets/textures/theme_sky-chart/messier_cluster.png',
         sizeMultiplier: 1
       }
     },
@@ -82,7 +82,7 @@ export const mockedTheme: Theme = {
   solarSystem: {
     sun: {
       texture: {
-        image: 'assets/textures/sun_chart.png',
+        image: 'assets/textures/theme_sky-chart/sun.png',
         sizeMultiplier: 5
       },
       path: {
@@ -92,7 +92,7 @@ export const mockedTheme: Theme = {
     },
     moon: {
       texture: {
-        image: 'assets/textures/moon_chart.png',
+        image: 'assets/textures/theme_sky-chart/moon.png',
         sizeMultiplier: 4
       },
       path: {
@@ -102,7 +102,7 @@ export const mockedTheme: Theme = {
     },
     mercury: {
       texture: {
-        image: 'assets/textures/star_red.png',
+        image: 'assets/textures/theme_night-view/star.png',
         sizeMultiplier: 1.5
       },
       path: {
@@ -111,7 +111,7 @@ export const mockedTheme: Theme = {
     },
     venus: {
       texture: {
-        image: 'assets/textures/star_red.png',
+        image: 'assets/textures/theme_night-view/star.png',
         sizeMultiplier: 1.5
       },
       path: {
@@ -120,7 +120,7 @@ export const mockedTheme: Theme = {
     },
     mars: {
       texture: {
-        image: 'assets/textures/star_red.png',
+        image: 'assets/textures/theme_night-view/star.png',
         sizeMultiplier: 1.5
       },
       path: {
@@ -129,7 +129,7 @@ export const mockedTheme: Theme = {
     },
     jupiter: {
       texture: {
-        image: 'assets/textures/star_red.png',
+        image: 'assets/textures/theme_night-view/star.png',
         sizeMultiplier: 1.5
       },
       path: {
@@ -138,7 +138,7 @@ export const mockedTheme: Theme = {
     },
     saturn: {
       texture: {
-        image: 'assets/textures/star_red.png',
+        image: 'assets/textures/theme_night-view/star.png',
         sizeMultiplier: 1.5
       },
       path: {
@@ -147,7 +147,7 @@ export const mockedTheme: Theme = {
     },
     uranus: {
       texture: {
-        image: 'assets/textures/star_red.png',
+        image: 'assets/textures/theme_night-view/star.png',
         sizeMultiplier: 1.5
       },
       path: {
@@ -156,7 +156,7 @@ export const mockedTheme: Theme = {
     },
     neptune: {
       texture: {
-        image: 'assets/textures/star_red.png',
+        image: 'assets/textures/theme_night-view/star.png',
         sizeMultiplier: 1.5
       },
       path: {

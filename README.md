@@ -265,23 +265,23 @@ The themes have the following configurable properties:
       // texture representing star clusters
       "cluster": {
         // path to the texture file, relative to /src
-        "image": "assets/textures/messier_cluster_chart.png",
+        "image": "assets/textures/theme_sky-chart/messier_cluster.png",
         // multiplication factor for the texture
         "sizeMultiplier": number
       },
       // texture representing galaxies
       "galaxy": {
-        "image": "assets/textures/messier_galaxy_chart.png",
+        "image": "assets/textures/theme_sky-chart/messier_galaxy.png",
         "sizeMultiplier": number
       },
       // texture representing nebulas
       "nebula": {
-        "image": "assets/textures/messier_nebula_chart.png",
+        "image": "assets/textures/theme_sky-chart/messier_nebula.png",
         "sizeMultiplier": number
       },
       // texture representing other objects
       "other": {
-        "image": "assets/textures/messier_cluster_chart.png",
+        "image": "assets/textures/theme_sky-chart/messier_cluster.png",
         "sizeMultiplier": number
       }
     },
