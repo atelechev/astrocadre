@@ -26,7 +26,7 @@ describe('LayersComponent', () => {
     const layers = component.layers;
     expect(layers).toBeDefined();
 
-    const expected = ['sky-grid', 'stars', 'constellations', 'messier'];
+    const expected = ['sky-grid', 'stars', 'constellations', 'messier', 'solar-system'];
     expect(layers.length).toEqual(expected.length);
 
     const codes = layers.map((layer: Layer) => layer.code);

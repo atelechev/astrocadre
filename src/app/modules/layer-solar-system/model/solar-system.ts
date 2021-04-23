@@ -3,7 +3,7 @@ import {
   Object3D,
   Points,
   PointsMaterial
-  } from 'three';
+} from 'three';
 import { Layer } from '#core/models/layers/layer';
 import { RenderableLayer } from '#core/models/layers/renderable-layer';
 import { Theme } from '#core/models/theme/theme';
@@ -98,6 +98,34 @@ export class SolarSystem extends RenderableLayer {
       }
     );
     this.applyTextStyle(theme.solarSystem.names);
+  }
+
+  public hideTrajectories(): void {
+    this._trajectories.forEach(
+      (trajectory: Object3D) => {
+        const index = this.getTrajectoryIndex(trajectory);
+        if (index > -1) {
+          this._objects.splice(index, 1);
+        }
+      }
+    );
+  }
+
+  public showTrajectories(): void {
+    this._trajectories.forEach(
+      (trajectory: Object3D) => {
+        const index = this.getTrajectoryIndex(trajectory);
+        if (index === -1) {
+          this._objects.push(trajectory);
+        }
+      }
+    );
+  }
+
+  private getTrajectoryIndex(trajectory: Object3D): number {
+    return this._objects.findIndex(
+      (obj: Object3D) => obj === trajectory
+    );
   }
 
   private applyLineStyle(style: LineStyle, object: LineSegments): void {

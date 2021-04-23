@@ -5,7 +5,7 @@ import {
   LineSegments,
   Points,
   PointsMaterial
-  } from 'three';
+} from 'three';
 import { ThemeService } from '#core/services/theme.service';
 import { mockedTheme } from '#core/test-utils/mocked-theme.spec';
 import { LayerSolarSystemModule } from '#layer-solar-system/layer-solar-system.module';
@@ -225,6 +225,50 @@ describe('SolarSystem', () => {
       layer.addTrajectory(name, new LineSegments());
       expect(layer.objects.length).toEqual(19);
       expect(layer.getTrajectory(name)).toBeDefined();
+    }));
+
+  });
+
+  describe('hideTrajectories should', () => {
+
+    it('remove all trajectories from the objects, if they were present', fakeAsync(() => {
+      const layer = buildLayer();
+      expect(layer.objects.length).toEqual(18);
+
+      layer.hideTrajectories();
+      expect(layer.objects.length).toEqual(9);
+    }));
+
+    it('have no effect if the trajectories were already removed', fakeAsync(() => {
+      const layer = buildLayer();
+      expect(layer.objects.length).toEqual(18);
+      layer.hideTrajectories();
+      expect(layer.objects.length).toEqual(9);
+
+      layer.hideTrajectories();
+      expect(layer.objects.length).toEqual(9);
+    }));
+
+  });
+
+
+  describe('showTrajectories should', () => {
+
+    it('add all trajectories to the objects, if they were not present', fakeAsync(() => {
+      const layer = buildLayer();
+      expect(layer.objects.length).toEqual(18);
+      layer.hideTrajectories();
+      expect(layer.objects.length).toEqual(9);
+
+      layer.showTrajectories();
+      expect(layer.objects.length).toEqual(18);
+    }));
+
+    it('have no effect if the trajectories were already shown', fakeAsync(() => {
+      const layer = buildLayer();
+      expect(layer.objects.length).toEqual(18);
+      layer.showTrajectories();
+      expect(layer.objects.length).toEqual(18);;
     }));
 
   });

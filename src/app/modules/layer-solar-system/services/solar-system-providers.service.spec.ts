@@ -3,6 +3,7 @@ import { CoreModule } from '#core/core.module';
 import { mockedLayers } from '#core/test-utils/mocked-layers.spec';
 import { SolarSystemProvidersService } from '#layer-solar-system/services/solar-system-providers.service';
 import { LayerSolarSystemModule } from '#layer-solar-system/layer-solar-system.module';
+import { SelectorSolarSystemObjectsComponent } from '#layer-solar-system/components/selector-solar-system-objects/selector-solar-system-objects.component';
 
 
 describe('SolarSystemProvidersService', () => {
@@ -57,10 +58,10 @@ describe('SolarSystemProvidersService', () => {
         expect(service.getUiControlsComponentType(mockedLayers.subLayers[0])).toBeUndefined();
       });
 
-      it('for the "solar-system" layer arg', () => {
-        expect(service.getUiControlsComponentType(solarSystemLayer)).toBeUndefined();
-      });
+    });
 
+    it('expected value for the "solar-system" layer arg', () => {
+      expect(service.getUiControlsComponentType(solarSystemLayer)).toEqual(SelectorSolarSystemObjectsComponent);
     });
 
   });

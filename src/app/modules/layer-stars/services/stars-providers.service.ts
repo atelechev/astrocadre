@@ -12,19 +12,21 @@ import { LayerStarsControlsComponent } from '#layer-stars/components/layer-stars
 @Injectable()
 export class StarsProvidersService implements LayersProvider {
 
-  constructor(private readonly _starsLayerFactory: StarsLayerFactoryService) {
+  private readonly _layerCode: string;
 
+  constructor(private readonly _starsLayerFactory: StarsLayerFactoryService) {
+    this._layerCode = 'stars';
   }
 
   public getRenderableLayer(model: Layer): Stars {
-    if (model?.code.startsWith('stars')) {
+    if (model?.code.startsWith(this._layerCode)) {
       return this._starsLayerFactory.buildRenderableLayer(model);
     }
     return undefined;
   }
 
   public getUiControlsComponentType(model: Layer): Type<LayerAware> {
-    if (model?.code === 'stars') {
+    if (model?.code === this._layerCode) {
       return LayerStarsControlsComponent;
     }
     return undefined;
