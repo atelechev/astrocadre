@@ -1,5 +1,5 @@
 import { TestBed } from '@angular/core/testing';
-import { LayerMessierModule } from 'src/app/modules/layer-messier/layer-messier.module';
+import { LayerMessierModule } from '#layer-messier/layer-messier.module';
 import { mockedLayers } from '#core/test-utils/mocked-layers.spec';
 import { SelectorLayerComponent } from '#controls/components/selector-layer/selector-layer.component';
 import { LayersVisibilityManagerService } from '#core/services/visibility/layers-visibility-manager.service';
@@ -11,6 +11,7 @@ import { AxialCurvesFactoryService } from '#core/services/factories/axial-curves
 import { LayerStarsModule } from '#layer-stars/layer-stars.module';
 import { LayerSkyGridModule } from '#layer-sky-grid/layer-sky-grid.module';
 import { LayerConstellationsModule } from '#layer-constellations/layer-constellations.module';
+import { LayerSolarSystemModule } from '#layer-solar-system/layer-solar-system.module';
 
 describe('SelectorLayerComponent', () => {
 
@@ -26,7 +27,8 @@ describe('SelectorLayerComponent', () => {
         LayerConstellationsModule,
         LayerStarsModule,
         LayerSkyGridModule,
-        LayerMessierModule
+        LayerMessierModule,
+        LayerSolarSystemModule
       ],
       providers: [
         AxialCurvesFactoryService,

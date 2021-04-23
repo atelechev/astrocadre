@@ -1,24 +1,17 @@
-import {
-  Material,
-  Object3D,
-  Points,
-  PointsMaterial,
-  TextureLoader
-  } from 'three';
+import { Material, Object3D, Points } from 'three';
 import { Layer } from '#core/models/layers/layer';
 import { RenderableLayer } from '#core/models/layers/renderable-layer';
 import { RenderableText } from '#core/models/layers/renderable-text';
 import { Searchable } from '#core/models/layers/searchable';
 import { Theme } from '#core/models/theme/theme';
 import { TextStyle } from '#core/models/theme/text-style';
-import { environment } from '#environments/environment';
+import { TextureStyle } from '#core/models/theme/texture-style';
+import { buildAndAssignMaterial, buildPointMaterial } from '#core/utils/material-utils';
 
 /**
  * Represents a renderable layer containing stars.
  */
 export class Stars extends RenderableLayer {
-
-  private readonly _textureLoader: TextureLoader;
 
   private _properNamesShown: boolean;
 
@@ -31,7 +24,6 @@ export class Stars extends RenderableLayer {
     private readonly _searchables: Array<Searchable>
   ) {
     super(model);
-    this._textureLoader = new TextureLoader();
     this.showProperNames();
   }
 
@@ -83,25 +75,12 @@ export class Stars extends RenderableLayer {
   }
 
   private useThemeForObjects(theme: Theme): void {
-    const material = this.buildMaterial(
-      theme.stars.texture.image,
-      theme.stars.texture.sizeMultiplier
-    );
-    this._stars.material = material;
-    material.needsUpdate = true;
+    buildAndAssignMaterial(() => this.buildMaterial(theme.stars.texture), this._stars);
   }
 
-  private buildMaterial(textureFile: string, sizeMultiplier: number): Material {
-    const dotSize = (6.5 - this._magClass) * sizeMultiplier;
-    const textureFileInContext = environment.pathInContext(textureFile);
-    return new PointsMaterial({
-      size: dotSize,
-      sizeAttenuation: false,
-      transparent: true,
-      opacity: 0.95,
-      alphaTest: 0.05,
-      map: this._textureLoader.load(textureFileInContext)
-    });
+  private buildMaterial(texture: TextureStyle): Material {
+    const dotSize = (6.5 - this._magClass) * texture.sizeMultiplier;
+    return buildPointMaterial(texture.image, dotSize);
   }
 
   private useThemeForLabels(theme: Theme): void {

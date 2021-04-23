@@ -3,6 +3,7 @@ import { BufferGeometry } from 'three';
 import { AxialCurvesFactoryService } from '#core/services/factories/axial-curves-factory.service';
 import { SupportedLayers } from '#core/models/layers/supported-layers';
 import { assertGeometryExpected } from '#core/test-utils/assertions-geometry.spec';
+import { CoreModule } from '#core/core.module';
 
 describe('AxialCurvesFactoryService', () => {
 
@@ -12,9 +13,7 @@ describe('AxialCurvesFactoryService', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [
-        AxialCurvesFactoryService
-      ]
+      imports: [CoreModule]
     });
     factory = TestBed.inject(AxialCurvesFactoryService);
   });
@@ -31,43 +30,43 @@ describe('AxialCurvesFactoryService', () => {
 
         it('without intermediate points, rightwards', () => {
           const merged = factory.createObject3D(layer, [[10, 15, 12, 15]]);
-          const expected = [[1.893, 0.334, 0.515], [1.880, 0.400, 0.515]];
+          const expected = [[1.903, 0.335, 0.518], [1.890, 0.402, 0.518]];
           assertGeometryExpected(merged.geometry as BufferGeometry, expected);
         });
 
         it('without intermediate points, leftwards', () => {
           const merged = factory.createObject3D(layer, [[12, 15, 10, 15]]);
-          const expected = [[1.880, 0.400, 0.515], [1.893, 0.334, 0.515]];
+          const expected = [[1.890, 0.402, 0.518], [1.903, 0.335, 0.518]];
           assertGeometryExpected(merged.geometry as BufferGeometry, expected);
         });
 
         it('with one intermediate point, rightwards', () => {
           const merged = factory.createObject3D(layer, [[10, 15, 16, 15]]);
-          const expected = [[1.893, 0.334, 0.515], [1.873, 0.432, 0.515],
-          [1.873, 0.432, 0.515], [1.848, 0.530, 0.515],];
+          const expected = [[1.902, 0.335, 0.518], [1.882, 0.435, 0.518],
+          [1.882, 0.435, 0.518], [1.857, 0.532, 0.518],];
           assertGeometryExpected(merged.geometry as BufferGeometry, expected);
         });
 
         it('with one intermediate point, leftwards', () => {
           const merged = factory.createObject3D(layer, [[16, 15, 10, 15]]);
-          const expected = [[1.848, 0.530, 0.515], [1.873, 0.432, 0.515],
-          [1.873, 0.432, 0.515], [1.893, 0.334, 0.515]];
+          const expected = [[1.857, 0.532, 0.518], [1.882, 0.435, 0.518],
+          [1.882, 0.435, 0.518], [1.902, 0.335, 0.518]];
           assertGeometryExpected(merged.geometry as BufferGeometry, expected);
         });
 
         it('with multiple intermediate points, rightwards', () => {
           const merged = factory.createObject3D(layer, [[10, 15, 21, 15]]);
-          const expected = [[1.893, 0.334, 0.515], [1.868, 0.454, 0.515],
-          [1.868, 0.454, 0.515], [1.835, 0.573, 0.515],
-          [1.835, 0.573, 0.515], [1.795, 0.689, 0.515]];
+          const expected = [[1.903, 0.335, 0.518], [1.877, 0.456, 0.518],
+          [1.877, 0.456, 0.518], [1.844, 0.576, 0.518],
+          [1.844, 0.576, 0.518], [1.804, 0.692, 0.518]];
           assertGeometryExpected(merged.geometry as BufferGeometry, expected);
         });
 
         it('with multiple intermediate points, leftwards', () => {
           const merged = factory.createObject3D(layer, [[21, 15, 10, 15]]);
-          const expected = [[1.795, 0.689, 0.515], [1.835, 0.573, 0.515],
-          [1.835, 0.573, 0.515], [1.868, 0.454, 0.515],
-          [1.868, 0.454, 0.515], [1.893, 0.334, 0.515]];
+          const expected = [[1.804, 0.692, 0.518], [1.844, 0.576, 0.518],
+          [1.844, 0.576, 0.518], [1.877, 0.456, 0.518],
+          [1.877, 0.456, 0.518], [1.902, 0.335, 0.518]];
           assertGeometryExpected(merged.geometry as BufferGeometry, expected);
         });
 
@@ -77,43 +76,43 @@ describe('AxialCurvesFactoryService', () => {
 
         it('without intermediate points, upwards', () => {
           const merged = factory.createObject3D(layer, [[10, 15, 10, 17]]);
-          const expected = [[1.893, 0.334, 0.515], [1.874, 0.330, 0.582]];
+          const expected = [[1.903, 0.335, 0.518], [1.884, 0.332, 0.585]];
           assertGeometryExpected(merged.geometry as BufferGeometry, expected);
         });
 
         it('without intermediate points, downwards', () => {
           const merged = factory.createObject3D(layer, [[10, 17, 10, 15]]);
-          const expected = [[1.874, 0.330, 0.582], [1.893, 0.334, 0.515]];
+          const expected = [[1.884, 0.332, 0.585], [1.902, 0.335, 0.518]];
           assertGeometryExpected(merged.geometry as BufferGeometry, expected);
         });
 
         it('with one intermediate point, upwards', () => {
           const merged = factory.createObject3D(layer, [[10, 15, 10, 21]]);
-          const expected = [[1.893, 0.334, 0.515], [1.864, 0.329, 0.615],
-          [1.864, 0.329, 0.615], [1.830, 0.323, 0.713]];
+          const expected = [[1.903, 0.335, 0.518], [1.873, 0.330, 0.618],
+          [1.873, 0.330, 0.618], [1.839, 0.324, 0.717]];
           assertGeometryExpected(merged.geometry as BufferGeometry, expected);
         });
 
         it('with one intermediate point, downwards', () => {
           const merged = factory.createObject3D(layer, [[10, 21, 10, 15]]);
-          const expected = [[1.830, 0.323, 0.713], [1.864, 0.329, 0.615],
-          [1.864, 0.329, 0.615], [1.893, 0.334, 0.515]];
+          const expected = [[1.839, 0.324, 0.717], [1.873, 0.330, 0.618],
+          [1.873, 0.330, 0.618], [1.903, 0.335, 0.518]];
           assertGeometryExpected(merged.geometry as BufferGeometry, expected);
         });
 
         it('with multiple intermediate points, upwards', () => {
           const merged = factory.createObject3D(layer, [[10, 15, 10, 26]]);
-          const expected = [[1.893, 0.334, 0.515], [1.857, 0.327, 0.637],
-          [1.857, 0.327, 0.637], [1.813, 0.320, 0.756],
-          [1.813, 0.320, 0.756], [1.761, 0.311, 0.872]];
+          const expected = [[1.903, 0.335, 0.518], [1.866, 0.329, 0.640],
+          [1.866, 0.329, 0.640], [1.822, 0.321, 0.760],
+          [1.822, 0.321, 0.760], [1.770, 0.312, 0.877]];
           assertGeometryExpected(merged.geometry as BufferGeometry, expected);
         });
 
         it('with multiple intermediate points, downwards', () => {
           const merged = factory.createObject3D(layer, [[10, 26, 10, 15]]);
-          const expected = [[1.761, 0.311, 0.872], [1.813, 0.320, 0.756],
-          [1.813, 0.320, 0.756], [1.857, 0.327, 0.637],
-          [1.857, 0.327, 0.637], [1.893, 0.334, 0.515]];
+          const expected = [[1.770, 0.312, 0.877], [1.822, 0.321, 0.760],
+          [1.822, 0.321, 0.760], [1.866, 0.329, 0.640],
+          [1.866, 0.329, 0.640], [1.903, 0.335, 0.518]];
           assertGeometryExpected(merged.geometry as BufferGeometry, expected);
         });
 
@@ -123,7 +122,7 @@ describe('AxialCurvesFactoryService', () => {
 
     it('geometry without intermediate points if the segment is not parallel or meridional', () => {
       const merged = factory.createObject3D(layer, [[10, 25, 32, 47]]);
-      const expected = [[1.776, 0.313, 0.841], [1.151, 0.719, 1.455]];
+      const expected = [[1.785, 0.315, 0.845], [1.157, 0.723, 1.463]];
       assertGeometryExpected(merged.geometry as BufferGeometry, expected);
     });
 

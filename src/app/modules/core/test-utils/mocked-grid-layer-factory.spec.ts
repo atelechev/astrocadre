@@ -7,7 +7,6 @@ import { MockedGrid } from '#core/test-utils/mocked-grid.spec';
 import { mockedLayers } from '#core/test-utils/mocked-layers.spec';
 import { RenderableText } from '#core/models/layers/renderable-text';
 import { toVector3 } from '#core/utils/vector-utils';
-import { WorldConstants } from '#core/models/world-constants';
 import { TextOffsetPolicies } from '#core/models/layers/text/text-offsets-policies';
 
 
@@ -36,7 +35,7 @@ export class MockedGridLayerFactory implements LayerFactory {
 
   private buildTexts(): Array<RenderableText> {
     return [new RenderableText(
-      toVector3(37.95, 89.26, WorldConstants.worldRadiusForLayer('sky-grid')),
+      toVector3(37.95, 89.26, 2.0),
       'Polaris',
       TextOffsetPolicies.CENTERED
     )];

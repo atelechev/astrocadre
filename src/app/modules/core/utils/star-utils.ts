@@ -1,7 +1,3 @@
-import { Vector3 } from 'three';
-import { SupportedLayers } from '#core/models/layers/supported-layers';
-import { WorldConstants } from '#core/models/world-constants';
-import { toVector3 } from '#core/utils/vector-utils';
 
 /**
  * The returned Map provides associations between 2 or 3-letter
@@ -122,18 +118,3 @@ export const extractProperName = (rawStar: Array<any>): string => {
   }
   return undefined;
 };
-
-/**
- * Returns a Vector3 object corresponding to the center point of the specified star.
- *
- * The raw star data are expected to contain the right ascension as the first item in the array,
- * and the declination as the second item.
- *
- * @param rawStar the raw star data to build the center point from.
- * @returns Vector3 the center point.
- */
-export const buildCenterPoint = (rawStar: Array<any>): Vector3 => toVector3(
-  rawStar[0],
-  rawStar[1],
-  WorldConstants.worldRadiusForLayer(SupportedLayers.STARS)
-);

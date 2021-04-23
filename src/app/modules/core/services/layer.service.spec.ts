@@ -71,5 +71,46 @@ describe('LayerService', () => {
 
   });
 
+  describe('getIndex should return', () => {
+
+    it('expected indices for existing layers', () => {
+      service.rootLayer = mockedLayers;
+
+      expect(service.getIndex('sky-grid')).toEqual(0);
+      expect(service.getIndex('stars')).toEqual(1);
+      expect(service.getIndex('stars-mag2.0')).toEqual(2);
+      expect(service.getIndex('stars-mag2.5')).toEqual(3);
+      expect(service.getIndex('stars-mag3.0')).toEqual(4);
+      expect(service.getIndex('constellations')).toEqual(5);
+      expect(service.getIndex('constellation-boundaries')).toEqual(6);
+      expect(service.getIndex('constellation-lines')).toEqual(7);
+      expect(service.getIndex('constellation-names')).toEqual(8);
+      expect(service.getIndex('messier')).toEqual(9);
+    });
+
+    describe('-1', () => {
+
+      it('for the root layer', () => {
+        service.rootLayer = mockedLayers;
+
+        expect(service.getIndex('root')).toEqual(-1);
+      });
+
+      it('if the arg is falsy', () => {
+        service.rootLayer = mockedLayers;
+
+        expect(service.getIndex(undefined)).toEqual(-1);
+      });
+
+      it('for an unsupported layer', () => {
+        service.rootLayer = mockedLayers;
+
+        expect(service.getIndex('tesla-roadster')).toEqual(-1);
+      });
+
+    });
+
+  });
+
 });
 

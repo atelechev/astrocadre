@@ -1,22 +1,14 @@
-import {
-  Material,
-  Object3D,
-  Points,
-  PointsMaterial,
-  TextureLoader
-  } from 'three';
+import { Object3D, Points } from 'three';
 import { Layer } from '#core/models/layers/layer';
 import { RenderableLayer } from '#core/models/layers/renderable-layer';
 import { RenderableText } from '#core/models/layers/renderable-text';
 import { Searchable } from '#core/models/layers/searchable';
 import { Theme } from '#core/models/theme/theme';
-import { environment } from '#environments/environment';
 import { TextureStyle } from '#core/models/theme/texture-style';
+import { buildAndAssignMaterial, buildPointMaterial } from '#core/utils/material-utils';
 
 
 export class Messier extends RenderableLayer {
-
-  private readonly _textureLoader: TextureLoader;
 
   constructor(
     model: Layer,
@@ -27,7 +19,6 @@ export class Messier extends RenderableLayer {
     private readonly _labels: Array<RenderableText>
   ) {
     super(model);
-    this._textureLoader = new TextureLoader();
   }
 
   public get objects(): Array<Object3D> {
@@ -60,24 +51,8 @@ export class Messier extends RenderableLayer {
   }
 
   private buildMaterialForObjects(objects: Points, style: TextureStyle): void {
-    const material = this.buildMaterial(
-      style.image,
-      style.sizeMultiplier
-    );
-    objects.material = material;
-    material.needsUpdate = true;
-  }
-
-  private buildMaterial(textureFile: string, sizeMultiplier: number): Material {
-    const textureFileInContext = environment.pathInContext(textureFile);
-    return new PointsMaterial({
-      size: 5 * sizeMultiplier,
-      sizeAttenuation: false,
-      transparent: true,
-      opacity: 0.95,
-      alphaTest: 0.05,
-      map: this._textureLoader.load(textureFileInContext)
-    });
+    const dotSize = 5 * style.sizeMultiplier;
+    buildAndAssignMaterial(() => buildPointMaterial(style.image, dotSize), objects);
   }
 
   private useThemeForLabels(theme: Theme): void {

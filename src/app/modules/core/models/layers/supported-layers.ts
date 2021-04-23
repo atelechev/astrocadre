@@ -16,6 +16,8 @@ export class SupportedLayers {
 
   public static readonly CONSTELLATION_NAMES = 'constellation-names';
 
+  public static readonly SOLAR_SYSTEM = 'solar-system';
+
   public static readonly STARS = 'stars';
 
   public static readonly MESSIER = 'messier';

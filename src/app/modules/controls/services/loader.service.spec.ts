@@ -1,6 +1,6 @@
 import { fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { of, throwError } from 'rxjs';
-import { LayerMessierModule } from 'src/app/modules/layer-messier/layer-messier.module';
+import { LayerMessierModule } from '#layer-messier/layer-messier.module';
 import { LoaderService } from '#controls/services/loader.service';
 import { ThemeService } from '#core/services/theme.service';
 import { StaticDataService } from '#core/services/static-data.service';
@@ -15,6 +15,7 @@ import { LayerStarsModule } from '#layer-stars/layer-stars.module';
 import { LayerSkyGridModule } from '#layer-sky-grid/layer-sky-grid.module';
 import { CoreModule } from '#core/core.module';
 import { ControlsModule } from '#controls/controls.module';
+import { LayerSolarSystemModule } from '#layer-solar-system/layer-solar-system.module';
 
 
 describe('LoaderService', () => {
@@ -32,7 +33,8 @@ describe('LoaderService', () => {
         LayerSkyGridModule,
         LayerStarsModule,
         LayerConstellationsModule,
-        LayerMessierModule
+        LayerMessierModule,
+        LayerSolarSystemModule
       ],
       providers: [
         {
@@ -74,7 +76,7 @@ describe('LoaderService', () => {
       tick();
 
       expect(layerService.rootLayer).toEqual(mockedLayers);
-      expect(layerService.registerLayer).toHaveBeenCalledTimes(11);
+      expect(layerService.registerLayer).toHaveBeenCalledTimes(12);
     }));
 
   });

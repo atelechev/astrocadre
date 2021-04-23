@@ -1,8 +1,8 @@
 import { TestBed } from '@angular/core/testing';
-import { LayerMessierModule } from 'src/app/modules/layer-messier/layer-messier.module';
-import { Messier } from 'src/app/modules/layer-messier/models/messier';
-import { MessierProvidersService } from 'src/app/modules/layer-messier/services/messier-providers.service';
 import { Points, PointsMaterial } from 'three';
+import { MessierProvidersService } from '#layer-messier/services/messier-providers.service';
+import { Messier } from '#layer-messier/models/messier';
+import { LayerMessierModule } from '#layer-messier/layer-messier.module';
 import { RenderableText } from '#core/models/layers/renderable-text';
 import { ThemeService } from '#core/services/theme.service';
 import { mockedTheme } from '#core/test-utils/mocked-theme.spec';
@@ -69,12 +69,13 @@ describe('Messier', () => {
     layer.applyTheme(mockedTheme);
     const object = layer.texts[0] as RenderableText;
     expect(object).toBeDefined();
-    const style = mockedTheme.messier.names;
-    expect(object.htmlElement.style.color).toEqual(style.color);
-    expect(object.htmlElement.style.fontFamily).toEqual(style.fontFamily);
-    expect(object.htmlElement.style.fontSize).toEqual(style.fontSize);
-    expect(object.htmlElement.style.fontStyle).toEqual(style.fontStyle);
-    expect(object.htmlElement.style.fontWeight).toEqual(style.fontWeight);
+    const expectedStyle = mockedTheme.messier.names;
+    const assignedStyle = object.htmlElement.style;
+    expect(assignedStyle.color).toEqual(expectedStyle.color);
+    expect(assignedStyle.fontFamily).toEqual(expectedStyle.fontFamily);
+    expect(assignedStyle.fontSize).toEqual(expectedStyle.fontSize);
+    expect(assignedStyle.fontStyle).toEqual(expectedStyle.fontStyle);
+    expect(assignedStyle.fontWeight).toEqual(expectedStyle.fontWeight);
   });
 
 });

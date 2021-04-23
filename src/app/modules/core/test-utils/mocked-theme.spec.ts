@@ -32,7 +32,7 @@ export const mockedTheme: Theme = {
   stars: {
     magnitudes: [2, 2.5, 3],
     texture: {
-      image: 'assets/textures/star_yellow.png',
+      image: 'assets/textures/theme_tiny/star.png',
       sizeMultiplier: 2.5
     },
     names: {
@@ -55,20 +55,58 @@ export const mockedTheme: Theme = {
   messier: {
     objects: {
       cluster: {
-        image: 'assets/textures/messier_cluster_chart.png',
+        image: 'assets/textures/theme_sky-chart/messier_cluster.png',
         sizeMultiplier: 2.5
       },
       galaxy: {
-        image: 'assets/textures/messier_galaxy_chart.png',
+        image: 'assets/textures/theme_sky-chart/messier_galaxy.png',
         sizeMultiplier: 3
       },
       nebula: {
-        image: 'assets/textures/messier_nebula_chart.png',
+        image: 'assets/textures/theme_sky-chart/messier_nebula.png',
         sizeMultiplier: 2.5
       },
       other: {
-        image: 'assets/textures/messier_cluster_chart.png',
+        image: 'assets/textures/theme_sky-chart/messier_cluster.png',
         sizeMultiplier: 1
+      }
+    },
+    names: {
+      fontSize: '13px',
+      fontFamily: 'arial',
+      fontStyle: 'italic',
+      fontWeight: 'normal',
+      color: 'black'
+    }
+  },
+  solarSystem: {
+    baseStyle: {
+      texture: {
+        image: 'assets/textures/theme_night-view/star.png',
+        sizeMultiplier: 1.5
+      },
+      path: {
+        color: 'rgb(200, 200, 200)'
+      }
+    },
+    sun: {
+      texture: {
+        image: 'assets/textures/theme_sky-chart/sun.png',
+        sizeMultiplier: 5
+      },
+      path: {
+        color: 'rgb(190, 190, 190)',
+        width: 2
+      }
+    },
+    moon: {
+      texture: {
+        image: 'assets/textures/theme_sky-chart/moon.png',
+        sizeMultiplier: 4
+      },
+      path: {
+        color: 'rgb(200, 200, 200)',
+        width: 3
       }
     },
     names: {

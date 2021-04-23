@@ -51,7 +51,9 @@ export class SkyGridLayerFactoryService implements LayerFactory {
   }
 
   private createLineSegmentsWith(model: Layer, segments: number[][]): LineSegments {
-    return this._curvesFactory.createObject3D(model.code, segments);
+    const lineSegs = this._curvesFactory.createObject3D(model.code, segments);
+    lineSegs.computeLineDistances();
+    return lineSegs;
   }
 
   private generateCommonParallelSegments(model: Layer): LineSegments {

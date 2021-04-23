@@ -13,8 +13,13 @@ const defaultLine = {
 };
 
 const defaultTexture = {
-  image: 'assets/textures/star_black.png',
+  image: 'assets/textures/theme_sky-chart/star.png',
   sizeMultiplier: 1
+};
+
+const defaultCelestialBody = {
+  texture: defaultTexture,
+  path: defaultLine
 };
 
 /**
@@ -55,6 +60,10 @@ export const themeDefault: Theme = {
       nebula: defaultTexture,
       other: defaultTexture
     },
+    names: defaultText
+  },
+  solarSystem: {
+    baseStyle: defaultCelestialBody,
     names: defaultText
   }
 };

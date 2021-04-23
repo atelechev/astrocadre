@@ -1,7 +1,7 @@
 import { TestBed } from '@angular/core/testing';
-import { AxialCurvesFactoryService } from '#core/services/factories/axial-curves-factory.service';
 import { LinesLayerFactoryService } from '#layer-constellations/services/factories/lines-layer-factory.service';
 import { LayerFactory } from '#core/models/layers/layer-factory';
+import { CoreModule } from '#core/core.module';
 
 
 describe('LinesLayerFactoryService', () => {
@@ -21,8 +21,8 @@ describe('LinesLayerFactoryService', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
+      imports: [CoreModule],
       providers: [
-        AxialCurvesFactoryService,
         LinesLayerFactoryService
       ]
     });

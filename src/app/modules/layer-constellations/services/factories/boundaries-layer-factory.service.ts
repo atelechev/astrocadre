@@ -21,6 +21,7 @@ export class BoundariesLayerFactoryService implements LayerFactory {
         SupportedLayers.CONSTELLATION_BOUNDARIES,
         model.objects
       );
+    boundaries.computeLineDistances();
     return new ConstellationBoundaries(
       model,
       boundaries

@@ -16,7 +16,9 @@
       "color": "rgb(102, 102, 102)"
     },
     "lines": {
-      "color": "rgb(204, 204, 204)"
+      "color": "rgb(204, 204, 204)",
+      "dash": 1,
+      "gap": 1
     },
     "names": {
       "fontSize": "26px",
@@ -29,7 +31,7 @@
   "stars": {
     "magnitudes": [ 2, 2.5, 3, 3.5, 4, 4.5, 5, 5.5, 6 ],
     "texture": {
-      "image": "assets/textures/star_black.png",
+      "image": "assets/textures/theme_sky-chart/star.png",
       "sizeMultiplier": 3
     },
     "names": {
@@ -52,19 +54,19 @@
   "messier": {
     "objects": {
       "cluster": {
-        "image": "assets/textures/messier_cluster_chart.png",
+        "image": "assets/textures/theme_sky-chart/messier_cluster.png",
         "sizeMultiplier": 2.5
       },
       "galaxy": {
-        "image": "assets/textures/messier_galaxy_chart.png",
+        "image": "assets/textures/theme_sky-chart/messier_galaxy.png",
         "sizeMultiplier": 3
       },
       "nebula": {
-        "image": "assets/textures/messier_nebula_chart.png",
+        "image": "assets/textures/theme_sky-chart/messier_nebula.png",
         "sizeMultiplier": 2.5
       },
       "other": {
-        "image": "assets/textures/messier_cluster_chart.png",
+        "image": "assets/textures/theme_sky-chart/messier_cluster.png",
         "sizeMultiplier": 1
       }
     },
@@ -73,6 +75,87 @@
       "fontFamily": "arial",
       "fontStyle": "italic",
       "fontWeight": "normal",
+      "color": "black"
+    }
+  },
+  "solarSystem": {
+    "baseStyle": {
+      "texture": {
+        "sizeMultiplier": 2.5
+      },
+      "path": {
+        "color": "rgb(200, 200, 200)",
+        "width": 1,
+        "dash": 0.5,
+        "gap": 0.5
+      }
+    },
+    "sun": {
+      "texture": {
+        "image": "assets/textures/theme_sky-chart/sun.png",
+        "sizeMultiplier": 5
+      },
+      "path": {
+        "color": "rgb(190, 190, 190)",
+        "dash": 2,
+        "gap": 2
+      }
+    },
+    "moon": {
+      "texture": {
+        "image": "assets/textures/theme_sky-chart/moon.png",
+        "sizeMultiplier": 4
+      },
+      "path": {
+        "color": "rgb(200, 200, 200)",
+        "dash": 1.5,
+        "gap": 1.5
+      }
+    },
+    "mercury": {
+      "texture": {
+        "image": "assets/textures/theme_sky-chart/mercury.png"
+      }
+    },
+    "venus": {
+      "texture": {
+        "image": "assets/textures/theme_sky-chart/venus.png",
+        "sizeMultiplier": 3
+      }
+    },
+    "mars": {
+      "texture": {
+        "image": "assets/textures/theme_sky-chart/mars.png",
+        "sizeMultiplier": 3
+      }
+    },
+    "jupiter": {
+      "texture": {
+        "image": "assets/textures/theme_sky-chart/jupiter.png",
+        "sizeMultiplier": 4
+      }
+    },
+    "saturn": {
+      "texture": {
+        "image": "assets/textures/theme_sky-chart/saturn.png",
+        "sizeMultiplier": 4
+      }
+    },
+    "uranus": {
+      "texture": {
+        "image": "assets/textures/theme_sky-chart/uranus.png"
+      }
+    },
+    "neptune": {
+      "texture": {
+        "image": "assets/textures/theme_sky-chart/neptune.png"
+      }
+    },
+    "names": {
+      "fontSize": "14px",
+      "fontFamily": "arial",
+      "fontStyle": "normal",
+      "fontWeight": "bolder",
       "color": "black"
     }
   }

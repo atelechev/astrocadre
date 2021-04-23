@@ -5,6 +5,7 @@ import { CameraService } from '#core/services/camera.service';
 import { ViewportService } from '#core/services/viewport.service';
 import { ViewportEvent } from '#core/models/event/viewport-event';
 import { ViewportViewChangeEvent } from '#core/models/event/viewport-view-change-event';
+import { CoreModule } from '#core/core.module';
 
 
 describe('CameraService', () => {
@@ -13,10 +14,7 @@ describe('CameraService', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [
-        CameraService,
-        ViewportService
-      ]
+      imports: [CoreModule]
     });
     service = TestBed.inject(CameraService);
   });

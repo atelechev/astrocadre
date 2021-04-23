@@ -74,7 +74,12 @@ export const mockedLayers: Layer = {
       code: 'messier',
       label: 'Messier objects',
       loadFromUrl: true,
-      description: 'Celestial objects from the Messier catalog',
+      objects: []
+    },
+    {
+      code: 'solar-system',
+      label: 'Solar system',
+      loadFromUrl: false,
       objects: []
     }
   ]

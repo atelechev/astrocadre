@@ -5,8 +5,8 @@ import { ConstellationNames } from '#layer-constellations/models/constellation-n
 import { LayerFactory } from '#core/models/layers/layer-factory';
 import { TextOffsetPolicies } from '#core/models/layers/text/text-offsets-policies';
 import { RenderableText } from '#core/models/layers/renderable-text';
-import { WorldConstants } from '#core/models/world-constants';
 import { toVector3 } from '#core/utils/vector-utils';
+import { VirtualSphereRadiusService } from '#core/services/virtual-sphere-radius.service';
 
 /**
  * Factory for the renderable layer of the constellation names.
@@ -14,10 +14,14 @@ import { toVector3 } from '#core/utils/vector-utils';
 @Injectable()
 export class NamesLayerFactoryService implements LayerFactory {
 
-  private _worldRadius: number;
+  private _layerRadius: number;
+
+  constructor(private readonly _virtualSphereService: VirtualSphereRadiusService) {
+
+  }
 
   public buildRenderableLayer(model: Layer): ConstellationNames {
-    this._worldRadius = WorldConstants.worldRadiusForLayer(model.code);
+    this._layerRadius = this._virtualSphereService.getRadiusFor(model.code);
     const labels = this.initTexts(model.objects);
     return new ConstellationNames(model, labels);
   }
@@ -29,7 +33,7 @@ export class NamesLayerFactoryService implements LayerFactory {
   }
 
   private toRenderableText(constMeta: ConstellationMeta): RenderableText {
-    const center = toVector3(constMeta.ra, constMeta.dec, this._worldRadius);
+    const center = toVector3(constMeta.ra, constMeta.dec, this._layerRadius);
     return new RenderableText(
       center,
       constMeta.names[0],

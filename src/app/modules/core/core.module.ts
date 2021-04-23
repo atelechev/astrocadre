@@ -13,6 +13,7 @@ import { TextsVisibilityManagerService } from '#core/services/visibility/texts-v
 import { PointsFactoryService } from '#core/services/factories/points-factory.service';
 import { AxialCurvesFactoryService } from '#core/services/factories/axial-curves-factory.service';
 import { AggregateLayerFactoryService } from '#core/services/factories/aggregate-layer-factory.service';
+import { VirtualSphereRadiusService } from '#core/services/virtual-sphere-radius.service';
 
 /**
  * Contains the core entities of the application, which provide
@@ -35,7 +36,8 @@ import { AggregateLayerFactoryService } from '#core/services/factories/aggregate
     StaticDataService,
     TextsVisibilityManagerService,
     ThemeService,
-    ViewportService
+    ViewportService,
+    VirtualSphereRadiusService
   ]
 })
 export class CoreModule {

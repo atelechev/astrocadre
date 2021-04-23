@@ -170,7 +170,7 @@ The themes allow to switch easily between different sets of graphical representa
 
 ### Theme Metadata
 
-All available graphic themes are described in `/src/assets/themes/themes.json` file. To add a new theme definition, the following structure should be appended to the JSON array:
+All available graphic themes are described in the `src/assets/themes/themes.json` file. To add a new theme definition, the following structure should be appended to the JSON array:
   
 ```
 {
@@ -186,116 +186,23 @@ The first item of the array is the theme loaded by default when the application 
 
 ### Theme Properties Definition
 
-For each theme item declared in `themes.json`, a corresponding `.json` file must exist in the same folder. The name of the file must be `{code}.json`, where `{code}` is the value used as the `"code"` property for the respective theme item in `themes.json`. For example, for the theme metadata definition above, there must be a file named `theme-code.json`.
+For each theme declared in the `themes.json` file, a corresponding configuration file must exist in the same folder. The name of the file must be `{code}.json`, where `{code}` is the value used as the `code` property in `themes.json`. For example, for the theme metadata definition above, there must be a file named `theme-code.json`.
 
-The themes have the following configurable properties:
+The theme configuration file should respect the following structure (cf `src/app/modules/core/models/theme/theme.ts`):
 
 ```
 {
-  "code": "string",    // redundant with respective "code" value from themes.json
-  "background": {
-    // the background color of the viewport
-    "color": "string"  // CSS RGB color definition, for example 'rgb(10, 10, 10)'
-  },
-  // properties of the coordinates grid
-  "skyGrid": {
-    // most of existing lines
-    "normal": {
-      "color": "string"   // CSS RGB color definition
-    },
-    // equator and 0-meridian lines
-    "reference": {
-      "color": "string"   // CSS RGB color definition
-    }
-  },
-  // properties of the constellations
-  "constellation": {
-    // constellation boundaries (area limits)
-    "boundaries": {
-      "color": "string"   // CSS RGB color definition
-    },
-    // lines between the stars in a constellation
-    "lines": {
-      "color": "string"   // CSS RGB color definition
-    },
-    // constellation name labels
-    "names": {
-      "fontSize": "string",   // CSS size of the font in pixels, for example "16px"
-      "fontFamily": "string", // CSS font-family
-      "fontStyle": "string",  // CSS font-style, "italic" or "normal"
-      "fontWeight": "string", // CSS font-weight, "bold" or "normal
-      "color": "string"       // CSS RGB color definition, for the font
-    }
-  },
-  // properties of stars
-  "stars": {
-    // the magnitudes to show, in descending order
-    "magnitudes": [ 2, 2.5, 3, 3.5, 4, 4.5, 5, 5.5, 6 ],
-    // the texture to use for a point representing a star
-    "texture": {
-      // path to the image file, relative to /src
-      "image": "assets/textures/star.png",
-      // multiplication ratio between the min (6) and max (2) magnitudes
-      // value of 3 means that max magnitude stars will be shown 3 times bigger than minimal
-      "sizeMultiplier": 3
-    },
-    // star name labels
-    "names": {
-      // labels for the proper names, see constellation.names for details
-      "proper": {
-        "fontSize": "string",
-        "fontFamily": "string",
-        "fontStyle": "string",
-        "fontWeight": "string",
-        "color": "string"
-      },
-      // labels for the standard names, see constellation.names for details
-      "standard": {
-        "fontSize": "string",
-        "fontFamily": "string",
-        "fontStyle": "string",
-        "fontWeight": "string",
-        "color": "string"
-      }
-    }
-  },
-  // properties of Messier objects
-  "messier": {
-    "objects": {
-      // texture representing star clusters
-      "cluster": {
-        // path to the texture file, relative to /src
-        "image": "assets/textures/messier_cluster_chart.png",
-        // multiplication factor for the texture
-        "sizeMultiplier": number
-      },
-      // texture representing galaxies
-      "galaxy": {
-        "image": "assets/textures/messier_galaxy_chart.png",
-        "sizeMultiplier": number
-      },
-      // texture representing nebulas
-      "nebula": {
-        "image": "assets/textures/messier_nebula_chart.png",
-        "sizeMultiplier": number
-      },
-      // texture representing other objects
-      "other": {
-        "image": "assets/textures/messier_cluster_chart.png",
-        "sizeMultiplier": number
-      }
-    },
-    // labels for the Messier objects
-    "names": {
-      "fontSize": "string",
-      "fontFamily": "string",
-      "fontStyle": "string",
-      "fontWeight": "string",
-      "color": "string"
-    }
-  }
+  "code": "string",                       // redundant with respective "code" value from themes.json
+  "background": BackgroundStyle;          // each *Style type matches an interface in *-style.ts in the same folder
+  "skyGrid": SkyGridStyle;
+  "constellation": ConstellationStyle;
+  "stars": StarsStyle;
+  "messier": MessierObjectsStyle;
+  "solarSystem": SolarSystemStyle;
 }
 ```
+
+For more details on the configuration, please check the documentation in the `*-style.ts` files in the `src/app/modules/core/models/theme` folder.
 
 ---
 
@@ -306,7 +213,7 @@ This project started in April 2018 and an initial prototype was published in Jun
 After having acquired more experience in the front-end development with Angular and TypeScript, the author
 started a huge refactoring & update of the project in February 2021. It allowed to publish a much cleaner and improved version of the application in April 2021 (version 21.4).
 
-More details on the evolution of the project are available in the [follow-up documentation](./doc/follow-up.md).
+More details on the evolution of the project are available in the [changelog](./CHANGELOG.md) and in the [follow-up documentation](./doc/follow-up.md).
 
 ---
 

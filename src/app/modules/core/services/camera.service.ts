@@ -8,9 +8,9 @@ import {
   } from 'three';
 import { AxialRotation } from '#core/models/screen/axial-rotation';
 import { SkyCoordinate } from '#core/models/screen/sky-coordinate';
-import { WorldConstants } from '#core/models/world-constants';
 import { ViewportService } from '#core/services/viewport.service';
 import { toVector3 } from '#core/utils/vector-utils';
+import { VirtualSphereRadiusService } from '#core/services/virtual-sphere-radius.service';
 
 /**
  * Holds the reference to the camera object and provides methods to change the view.
@@ -21,12 +21,12 @@ export class CameraService {
   /**
    * The coordinate of the North pole in the 3D world.
    */
-  private readonly _north = new Vector3(0, 0, WorldConstants.WORLD_RADIUS);
+  private readonly _north: Vector3;
 
   /**
    * The coordinate of the South pole in the 3D world.
    */
-  private readonly _south = new Vector3(0, 0, -WorldConstants.WORLD_RADIUS);
+  private readonly _south: Vector3;
 
 
   private readonly _nearPlane = 0.1;
@@ -41,7 +41,12 @@ export class CameraService {
 
   private readonly _frustum: Frustum;
 
-  constructor(private readonly _viewportService: ViewportService) {
+  constructor(
+    private readonly _viewportService: ViewportService,
+    private readonly _vurtualSphere: VirtualSphereRadiusService
+  ) {
+    this._north = new Vector3(0, 0, this._vurtualSphere.maxRadius);
+    this._south = new Vector3(0, 0, -this._vurtualSphere.maxRadius);
     this._camera = this.initializeCamera();
     this._frustum = new Frustum();
     this._coordsMarker = this.initCoordsMarker();
@@ -101,7 +106,7 @@ export class CameraService {
   public centerView(coords: SkyCoordinate): void {
     if (coords) {
       this.camera.up = this.getAlignmentPoleCoordinate(coords.declination);
-      this.camera.lookAt(toVector3(coords.rightAscension, coords.declination, WorldConstants.WORLD_RADIUS));
+      this.camera.lookAt(toVector3(coords.rightAscension, coords.declination, this._vurtualSphere.maxRadius));
       this.camera.updateMatrixWorld(true);
       this._viewportService.fireViewportViewChanged('centerView');
     }
@@ -163,7 +168,7 @@ export class CameraService {
 
   private initCoordsMarker(): Object3D {
     const marker = new Object3D();
-    marker.position.set(0, 0, -(WorldConstants.WORLD_RADIUS + 0.1));
+    marker.position.set(0, 0, -(this._vurtualSphere.maxRadius + 0.1));
     this._camera.add(marker);
     this._camera.updateMatrixWorld(true);
     return marker;

@@ -35,7 +35,13 @@
               "node_modules/primeflex/primeflex.css",
               "src/styles.css"
             ],
-            "scripts": []
+            "scripts": [],
+            "allowedCommonJsDependencies": [
+              "astronomy-bundle/moon",
+              "astronomy-bundle/planets",
+              "astronomy-bundle/sun",
+              "astronomy-bundle/time"
+            ]
           },
           "configurations": {
             "production": {

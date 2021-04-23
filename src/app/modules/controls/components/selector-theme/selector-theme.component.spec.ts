@@ -1,5 +1,5 @@
 import { TestBed } from '@angular/core/testing';
-import { LayerMessierModule } from 'src/app/modules/layer-messier/layer-messier.module';
+import { LayerMessierModule } from '#layer-messier/layer-messier.module';
 import { LoaderService } from '#controls/services/loader.service';
 import { mockedThemes } from '#core/test-utils/mocked-themes.spec';
 import { SelectorThemeComponent } from '#controls/components/selector-theme/selector-theme.component';
@@ -10,6 +10,7 @@ import { ControlsModule } from '#controls/controls.module';
 import { LayerSkyGridModule } from '#layer-sky-grid/layer-sky-grid.module';
 import { LayerStarsModule } from '#layer-stars/layer-stars.module';
 import { LayerConstellationsModule } from '#layer-constellations/layer-constellations.module';
+import { LayerSolarSystemModule } from '#layer-solar-system/layer-solar-system.module';
 
 
 describe('SelectorThemeComponent', () => {
@@ -25,7 +26,8 @@ describe('SelectorThemeComponent', () => {
         LayerSkyGridModule,
         LayerStarsModule,
         LayerConstellationsModule,
-        LayerMessierModule
+        LayerMessierModule,
+        LayerSolarSystemModule
       ]
     });
     loaderService = TestBed.inject(LoaderService);

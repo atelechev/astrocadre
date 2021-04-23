@@ -3,6 +3,7 @@ import { BufferGeometry, LineSegments, Vector3 } from 'three';
 import { Object3DFactory } from '#core/models/layers/object3d-factory';
 import { isCrossingInitialMeridian, isMeridionalSegment, isParallelSegment } from '#core/utils/segment-utils';
 import { toVector3 } from '#core/utils/vector-utils';
+import { VirtualSphereRadiusService } from '#core/services/virtual-sphere-radius.service';
 
 /**
  * Factory for the curves situated on the 3D world sphere.
@@ -11,6 +12,10 @@ import { toVector3 } from '#core/utils/vector-utils';
 export class AxialCurvesFactoryService extends Object3DFactory<LineSegments> {
 
   private readonly _intermediatePointsDensity = 5.0; // the bigger the less dense, but uglier in the view!
+
+  constructor(virtualSphereService: VirtualSphereRadiusService) {
+    super(virtualSphereService);
+  }
 
   protected segmentToVertices(segment: number[], radius: number): Vector3[] {
     if (isCrossingInitialMeridian(segment)) {

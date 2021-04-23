@@ -1,7 +1,7 @@
 import { Injectable, Type } from '@angular/core';
-import { SelectorMessierNamesComponent } from 'src/app/modules/layer-messier/components/selector-messier-names/selector-messier-names.component';
-import { Messier } from 'src/app/modules/layer-messier/models/messier';
-import { MessierLayerFactoryService } from 'src/app/modules/layer-messier/services/factories/messier-layer.factory.service';
+import { MessierLayerFactoryService } from '#layer-messier/services/factories/messier-layer.factory.service';
+import { Messier } from '#layer-messier/models/messier';
+import { SelectorMessierNamesComponent } from '#layer-messier/components/selector-messier-names/selector-messier-names.component';
 import { Layer } from '#core/models/layers/layer';
 import { LayerAware } from '#core/models/layers/layer-aware';
 import { LayersProvider } from '#core/models/layers/layers-provider';

@@ -121,7 +121,7 @@ export class LoaderService {
       .map(
         (provider: LayersProvider) => provider.getRenderableLayer(layer)
       ).find(
-        (factory: RenderableLayer) => !!factory
+        (createdLayer: RenderableLayer) => !!createdLayer
       );
     this._layerService.registerLayer(renderable);
     this._searchService.registerSearchables(renderable?.searchables);

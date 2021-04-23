@@ -1,6 +1,7 @@
 import { TestBed } from '@angular/core/testing';
 import { NamesLayerFactoryService } from '#layer-constellations/services/factories/names-layer-factory.service';
 import { LayerFactory } from '#core/models/layers/layer-factory';
+import { CoreModule } from '#core/core.module';
 
 
 describe('NamesLayerFactoryService', () => {
@@ -17,6 +18,7 @@ describe('NamesLayerFactoryService', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
+      imports: [CoreModule],
       providers: [
         NamesLayerFactoryService
       ]

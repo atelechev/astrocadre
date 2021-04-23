@@ -25,4 +25,6 @@ export interface LayersProvider {
    */
   getUiControlsComponentType(model: Layer): Type<LayerAware>;
 
+  // TODO add a getter for the layer code? (would allow to get rid of SupportedLayers)
+
 }

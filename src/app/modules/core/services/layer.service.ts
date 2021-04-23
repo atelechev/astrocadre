@@ -13,6 +13,8 @@ export class LayerService {
 
   private _rootLayer: Layer;
 
+  private readonly _flatDepthFirstLayers: Array<Layer>;
+
   private readonly _layerModels: Map<string, Layer>;
 
   private readonly _renderableLayers: Map<string, RenderableLayer>;
@@ -21,6 +23,7 @@ export class LayerService {
     this._rootLayer = undefined;
     this._layerModels = new Map<string, Layer>();
     this._renderableLayers = new Map<string, RenderableLayer>();
+    this._flatDepthFirstLayers = [];
   }
 
   /**
@@ -35,6 +38,7 @@ export class LayerService {
    */
   public set rootLayer(layer: Layer) {
     this._rootLayer = layer;
+    this.rebuildFlatDepthFirstLayers();
   }
 
   /**
@@ -73,6 +77,41 @@ export class LayerService {
    */
   public getModel(code: string): Layer {
     return this._layerModels.get(code);
+  }
+
+  /**
+   * Returns the index of the layer with the given code, that this
+   * layer has in the flattened list of all available layers.
+   *
+   * The value of this index affects the distance at which the objects
+   * of this layer are drawn on the virtual shere.
+   *
+   * @param code the code of the layer to retrieve the index for.
+   * @returns number the index of the layer or -1 if it was not found.
+   */
+  public getIndex(code: string): number {
+    return this._flatDepthFirstLayers.findIndex(
+      (layer: Layer) => layer.code === code
+    );
+  }
+
+  private rebuildFlatDepthFirstLayers(): void {
+    this._flatDepthFirstLayers.splice(0, this._flatDepthFirstLayers.length);
+    if (this._rootLayer) {
+      this._rootLayer.subLayers?.forEach(
+        (subLayer: Layer) => this.flattenLayer(subLayer)
+      );
+    }
+  }
+
+  private flattenLayer(layer: Layer): void {
+    if (!layer) {
+      return;
+    }
+    this._flatDepthFirstLayers.push(layer);
+    if (layer.subLayers) {
+      layer.subLayers.forEach((subLayer: Layer) => this.flattenLayer(subLayer));
+    }
   }
 
 }
