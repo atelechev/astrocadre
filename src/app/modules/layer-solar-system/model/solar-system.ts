@@ -85,18 +85,8 @@ export class SolarSystem extends RenderableLayer {
   }
 
   public applyTheme(theme: Theme): void {
-    this._trajectories.forEach(
-      (trajectory: LineSegments, name: string) => {
-        const style = theme.solarSystem[name].path as LineStyle;
-        this.applyLineStyle(style, trajectory);
-      }
-    );
-    this._celestialBodies.forEach(
-      (body: Points, name: string) => {
-        const style = theme.solarSystem[name].texture as TextureStyle;
-        this.applyTextureMaterial(style, body);
-      }
-    );
+    this.applyThemeOnTrajectories(theme);
+    this.applyThemeOnCelestialBodies(theme);
     this.applyTextStyle(theme.solarSystem.names);
   }
 
@@ -120,6 +110,38 @@ export class SolarSystem extends RenderableLayer {
         }
       }
     );
+  }
+
+  private applyThemeOnTrajectories(theme: Theme): void {
+    this._trajectories.forEach(
+      (trajectory: LineSegments, name: string) => {
+        const style = this.extractPathStyle(theme, name);
+        this.applyLineStyle(style, trajectory);
+      }
+    );
+  }
+
+  private extractPathStyle(theme: Theme, body: string): LineStyle {
+    const defaultStyle = theme.solarSystem.baseStyle.path;
+    const pathStyle = theme.solarSystem[body]?.path as LineStyle;
+    const merged = Object.assign({}, defaultStyle);
+    return Object.assign(merged, pathStyle);
+  }
+
+  private applyThemeOnCelestialBodies(theme: Theme): void {
+    this._celestialBodies.forEach(
+      (body: Points, name: string) => {
+        const style = this.extractCelestialBodyStyle(theme, name);
+        this.applyTextureMaterial(style, body);
+      }
+    );
+  }
+
+  private extractCelestialBodyStyle(theme: Theme, body: string): TextureStyle {
+    const defaultStyle = theme.solarSystem.baseStyle.texture;
+    const bodyStyle = theme.solarSystem[body]?.texture as TextureStyle;
+    const merged = Object.assign({}, defaultStyle);
+    return Object.assign(merged, bodyStyle);
   }
 
   private getTrajectoryIndex(trajectory: Object3D): number {

@@ -79,6 +79,17 @@
     }
   },
   "solarSystem": {
+    "baseStyle": {
+      "texture": {
+        "sizeMultiplier": 2.5
+      },
+      "path": {
+        "color": "rgb(200, 200, 200)",
+        "width": 1,
+        "dash": 0.5,
+        "gap": 0.5
+      }
+    },
     "sun": {
       "texture": {
         "image": "assets/textures/theme_sky-chart/sun.png",
@@ -103,79 +114,41 @@
     },
     "mercury": {
       "texture": {
-        "image": "assets/textures/theme_sky-chart/mercury.png",
-        "sizeMultiplier": 2.5
-      },
-      "path": {
-        "color": "rgb(200, 200, 200)",
-        "dash": 0.5,
-        "gap": 0.5
+        "image": "assets/textures/theme_sky-chart/mercury.png"
       }
     },
     "venus": {
       "texture": {
         "image": "assets/textures/theme_sky-chart/venus.png",
         "sizeMultiplier": 3
-      },
-      "path": {
-        "color": "rgb(200, 200, 200)",
-        "dash": 0.5,
-        "gap": 0.5
       }
     },
     "mars": {
       "texture": {
         "image": "assets/textures/theme_sky-chart/mars.png",
         "sizeMultiplier": 3
-      },
-      "path": {
-        "color": "rgb(200, 200, 200)",
-        "dash": 0.5,
-        "gap": 0.5
       }
     },
     "jupiter": {
       "texture": {
         "image": "assets/textures/theme_sky-chart/jupiter.png",
         "sizeMultiplier": 4
-      },
-      "path": {
-        "color": "rgb(200, 200, 200)",
-        "dash": 0.5,
-        "gap": 0.5
       }
     },
     "saturn": {
       "texture": {
         "image": "assets/textures/theme_sky-chart/saturn.png",
         "sizeMultiplier": 4
-      },
-      "path": {
-        "color": "rgb(200, 200, 200)",
-        "dash": 0.5,
-        "gap": 0.5
       }
     },
     "uranus": {
       "texture": {
-        "image": "assets/textures/theme_sky-chart/uranus.png",
-        "sizeMultiplier": 2.5
-      },
-      "path": {
-        "color": "rgb(200, 200, 200)",
-        "dash": 0.5,
-        "gap": 0.5
+        "image": "assets/textures/theme_sky-chart/uranus.png"
       }
     },
     "neptune": {
       "texture": {
-        "image": "assets/textures/theme_sky-chart/neptune.png",
-        "sizeMultiplier": 2.5
-      },
-      "path": {
-        "color": "rgb(200, 200, 200)",
-        "dash": 0.5,
-        "gap": 0.5
+        "image": "assets/textures/theme_sky-chart/neptune.png"
       }
     },
     "names": {

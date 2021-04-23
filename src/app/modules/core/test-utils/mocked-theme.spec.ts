@@ -80,6 +80,15 @@ export const mockedTheme: Theme = {
     }
   },
   solarSystem: {
+    baseStyle: {
+      texture: {
+        image: 'assets/textures/theme_night-view/star.png',
+        sizeMultiplier: 1.5
+      },
+      path: {
+        color: 'rgb(200, 200, 200)'
+      }
+    },
     sun: {
       texture: {
         image: 'assets/textures/theme_sky-chart/sun.png',
@@ -98,69 +107,6 @@ export const mockedTheme: Theme = {
       path: {
         color: 'rgb(200, 200, 200)',
         width: 3
-      }
-    },
-    mercury: {
-      texture: {
-        image: 'assets/textures/theme_night-view/star.png',
-        sizeMultiplier: 1.5
-      },
-      path: {
-        color: 'rgb(200, 200, 200)'
-      }
-    },
-    venus: {
-      texture: {
-        image: 'assets/textures/theme_night-view/star.png',
-        sizeMultiplier: 1.5
-      },
-      path: {
-        color: 'rgb(200, 200, 200)'
-      }
-    },
-    mars: {
-      texture: {
-        image: 'assets/textures/theme_night-view/star.png',
-        sizeMultiplier: 1.5
-      },
-      path: {
-        color: 'rgb(200, 200, 200)'
-      }
-    },
-    jupiter: {
-      texture: {
-        image: 'assets/textures/theme_night-view/star.png',
-        sizeMultiplier: 1.5
-      },
-      path: {
-        color: 'rgb(200, 200, 200)'
-      }
-    },
-    saturn: {
-      texture: {
-        image: 'assets/textures/theme_night-view/star.png',
-        sizeMultiplier: 1.5
-      },
-      path: {
-        color: 'rgb(200, 200, 200)'
-      }
-    },
-    uranus: {
-      texture: {
-        image: 'assets/textures/theme_night-view/star.png',
-        sizeMultiplier: 1.5
-      },
-      path: {
-        color: 'rgb(200, 200, 200)'
-      }
-    },
-    neptune: {
-      texture: {
-        image: 'assets/textures/theme_night-view/star.png',
-        sizeMultiplier: 1.5
-      },
-      path: {
-        color: 'rgb(200, 200, 200)'
       }
     },
     names: {

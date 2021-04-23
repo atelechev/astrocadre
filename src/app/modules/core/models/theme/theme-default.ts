@@ -63,15 +63,7 @@ export const themeDefault: Theme = {
     names: defaultText
   },
   solarSystem: {
-    sun: defaultCelestialBody,
-    moon: defaultCelestialBody,
-    mercury: defaultCelestialBody,
-    venus: defaultCelestialBody,
-    mars: defaultCelestialBody,
-    jupiter: defaultCelestialBody,
-    saturn: defaultCelestialBody,
-    uranus: defaultCelestialBody,
-    neptune: defaultCelestialBody,
+    baseStyle: defaultCelestialBody,
     names: defaultText
   }
 };

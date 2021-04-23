@@ -79,6 +79,18 @@
     }
   },
   "solarSystem": {
+    "baseStyle": {
+      "texture": {
+        "image": "assets/textures/theme_night-view/planet.png",
+        "sizeMultiplier": 2
+      },
+      "path": {
+        "color": "rgb(65, 0, 0)",
+        "width": 0.5,
+        "dash": 0.5,
+        "gap": 0.5
+      }
+    },
     "sun": {
       "texture": {
         "image": "assets/textures/theme_night-view/star.png",
@@ -86,7 +98,6 @@
       },
       "path": {
         "color": "rgb(85, 0, 0)",
-        "width": 0.5,
         "dash": 2,
         "gap": 2
       }
@@ -97,87 +108,28 @@
         "sizeMultiplier": 4
       },
       "path": {
-        "color": "rgb(65, 0, 0)",
-        "width": 0.5,
         "dash": 1.5,
         "gap": 1.5
       }
     },
-    "mercury": {
-      "texture": {
-        "image": "assets/textures/theme_night-view/planet.png",
-        "sizeMultiplier": 2
-      },
-      "path": {
-        "color": "rgb(65, 0, 0)",
-        "dash": 0.5,
-        "gap": 0.5
-      }
-    },
     "venus": {
       "texture": {
-        "image": "assets/textures/theme_night-view/planet.png",
         "sizeMultiplier": 2.5
-      },
-      "path": {
-        "color": "rgb(65, 0, 0)",
-        "dash": 0.5,
-        "gap": 0.5
       }
     },
     "mars": {
       "texture": {
-        "image": "assets/textures/theme_night-view/planet.png",
         "sizeMultiplier": 2.5
-      },
-      "path": {
-        "color": "rgb(65, 0, 0)",
-        "dash": 0.5,
-        "gap": 0.5
       }
     },
     "jupiter": {
       "texture": {
-        "image": "assets/textures/theme_night-view/planet.png",
         "sizeMultiplier": 3
-      },
-      "path": {
-        "color": "rgb(65, 0, 0)",
-        "dash": 0.5,
-        "gap": 0.5
       }
     },
     "saturn": {
       "texture": {
-        "image": "assets/textures/theme_night-view/planet.png",
         "sizeMultiplier": 3
-      },
-      "path": {
-        "color": "rgb(65, 0, 0)",
-        "dash": 0.5,
-        "gap": 0.5
-      }
-    },
-    "uranus": {
-      "texture": {
-        "image": "assets/textures/theme_night-view/planet.png",
-        "sizeMultiplier": 2
-      },
-      "path": {
-        "color": "rgb(65, 0, 0)",
-        "dash": 0.5,
-        "gap": 0.5
-      }
-    },
-    "neptune": {
-      "texture": {
-        "image": "assets/textures/theme_night-view/planet.png",
-        "sizeMultiplier": 2
-      },
-      "path": {
-        "color": "rgb(65, 0, 0)",
-        "dash": 0.5,
-        "gap": 0.5
       }
     },
     "names": {
