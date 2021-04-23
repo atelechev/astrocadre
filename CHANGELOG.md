@@ -2,16 +2,15 @@
 
 _These notes are added from the most recent on the top, to the oldest at the bottom._
 
-### 2021-04-?
+Next version: 21.4.29
 
-AC-028: Added the Solar system objects layer
+### 2021-04-23 - v21.4.28
+
+Changed the versioning system. Now the major.minor version is `21.4`. The third number is
+the ordinal of the feature, which corresponds to the former counter of issues `AC-{number}`.
 
 * Added the Solar system objects, with trajectories
-* Support of configurable dashed and width for the lines styling.
-* 
-
-Remaining: 
-* generic texture for the planets
+* Support of configurable dashes and width for the lines styling.
 
 ### 2021-04-16
 

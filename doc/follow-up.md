@@ -1,12 +1,6 @@
-# Notes about this app development
+## Ideas for New Features to Implement
 
----
-
-## Upcoming Features and Issues
-
-* AC-028: _TODO Choose the next feature to implement_
-
-### Ideas for New Features to Implement
+_If an idea of this list looks concrete enough and useful for the application, it should be transformed into an issue in the project's issues tracker and removed from this list._
 
 * Show the planets at a specific time, support a "timelapse" animation.
 
@@ -16,8 +10,6 @@
 
 * Transform the application into a component that can be easily integrated into a Web page. API to insert AstroCadre in a Web page.
 
-* Possibility to add markers at any position in the viewport
+* Possibility to add markers at any position in the viewport.
 
 * Star colors depending on their class/temperature (in a dedicated theme?)
-
----
