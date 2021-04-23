@@ -1,53 +1,19 @@
-import { CelestialBodyStyle } from '#core/models/theme/celestial-body-style';
-import { LineStyle } from '#core/models/theme/line-style';
-import { TextStyle } from '#core/models/theme/text-style';
-import { TextureStyle } from '#core/models/theme/texture-style';
+import { BackgroundStyle } from '#core/models/theme/background-style';
+import { ConstellationStyle } from '#core/models/theme/constellation-style';
+import { MessierObjectsStyle } from '#core/models/theme/messier-objects-style';
+import { SkyGridStyle } from '#core/models/theme/sky-grid-style';
+import { SolarSystemStyle } from '#core/models/theme/solar-system-style';
+import { StarsStyle } from '#core/models/theme/stars-style';
 import { ThemeMeta } from '#core/models/theme/theme-meta';
 
 /**
  * Represents a graphical theme.
  */
 export interface Theme extends ThemeMeta {
-  background: {
-    color: string;
-  };
-  skyGrid: {
-    normal: LineStyle;
-    reference: LineStyle;
-  };
-  constellation: {
-    boundaries: LineStyle;
-    lines: LineStyle;
-    names: TextStyle;
-  };
-  stars: {
-    magnitudes: number[];
-    texture: TextureStyle;
-    names: {
-      proper: TextStyle;
-      standard: TextStyle;
-    };
-  };
-  messier: {
-    objects: {
-      cluster: TextureStyle;
-      galaxy: TextureStyle;
-      nebula: TextureStyle;
-      other: TextureStyle;
-    };
-    names: TextStyle;
-  };
-  solarSystem: {
-    baseStyle: CelestialBodyStyle;
-    sun?: CelestialBodyStyle;
-    moon?: CelestialBodyStyle;
-    mercury?: CelestialBodyStyle;
-    venus?: CelestialBodyStyle;
-    mars?: CelestialBodyStyle;
-    jupiter?: CelestialBodyStyle;
-    saturn?: CelestialBodyStyle;
-    uranus?: CelestialBodyStyle;
-    neptune?: CelestialBodyStyle;
-    names: TextStyle;
-  };
+  background: BackgroundStyle;
+  skyGrid: SkyGridStyle;
+  constellation: ConstellationStyle;
+  stars: StarsStyle;
+  messier: MessierObjectsStyle;
+  solarSystem: SolarSystemStyle;
 }
