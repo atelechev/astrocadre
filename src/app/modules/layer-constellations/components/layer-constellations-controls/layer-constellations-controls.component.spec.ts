@@ -8,12 +8,13 @@ import { LayersVisibilityManagerService } from '#core/services/visibility/layers
 import { TextsVisibilityManagerService } from '#core/services/visibility/texts-visibility-manager.service';
 import { ConstellationsVisibilityManagerService } from '#layer-constellations/services/visibility/constellations-visibility-manager.service';
 import { Layer } from '#core/models/layers/layer';
+import { Constellations } from '#layer-constellations/models/constellations';
 
 
 describe('LayerConstellationsControlsComponent', () => {
 
   const layer: Layer = {
-    code: 'constellations',
+    code: Constellations.CODE,
     label: 'Constellations',
     loadFromUrl: true,
     objects: [{

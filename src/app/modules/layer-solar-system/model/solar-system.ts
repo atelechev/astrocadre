@@ -19,6 +19,8 @@ import { TextStyle } from '#core/models/theme/text-style';
  */
 export class SolarSystem extends RenderableLayer {
 
+  public static readonly CODE = 'solar-system';
+
   private readonly _objects: Array<Object3D>;
 
   private readonly _texts: Array<RenderableText>;

@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Layer } from '#core/models/layers/layer';
 import { Stars } from '#layer-stars/models/stars';
-import { SupportedLayers } from '#core/models/layers/supported-layers';
 import { LayerService } from '#core/services/layer.service';
 import { LayersVisibilityManagerService } from '#core/services/visibility/layers-visibility-manager.service';
 import { TextsVisibilityManagerService } from '#core/services/visibility/texts-visibility-manager.service';
@@ -12,14 +11,14 @@ import { TextsVisibilityManagerService } from '#core/services/visibility/texts-v
 @Injectable()
 export class StarsVisibilityManagerService {
 
-  private readonly _starsLayerCode = SupportedLayers.STARS;
+  private readonly _layerCode: string;
 
   constructor(
     private readonly _layerService: LayerService,
     private readonly _layersVisibilityManager: LayersVisibilityManagerService,
     private readonly _textsVisibilityManager: TextsVisibilityManagerService
   ) {
-
+    this._layerCode = Stars.CODE;
   }
 
   /**
@@ -45,13 +44,13 @@ export class StarsVisibilityManagerService {
    * @param show true to show the proper names, false for the standard names.
    */
   public showStarsProperNames(show: boolean): void {
-    this._textsVisibilityManager.hideTexts(this._starsLayerCode);
+    this._textsVisibilityManager.hideTexts(this._layerCode);
     this.toggleNamesType(this.starsLayer, show);
-    this._textsVisibilityManager.showTexts(this._starsLayerCode);
+    this._textsVisibilityManager.showTexts(this._layerCode);
   }
 
   private get starsLayer(): Stars {
-    return this._layerService.getRenderableLayer(this._starsLayerCode) as Stars;
+    return this._layerService.getRenderableLayer(this._layerCode) as Stars;
   }
 
   private getAllStarsLayers(): Array<Stars> {

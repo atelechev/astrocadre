@@ -3,11 +3,12 @@ import { createMoon } from 'astronomy-bundle/moon';
 import { LineSegments } from 'three';
 import { ApparentTrajectoryFactoryService } from '#layer-solar-system/services/factories/apparent-trajectory-factory.service';
 import { CoreModule } from '#core/core.module';
+import { SolarSystem } from '#layer-solar-system/model/solar-system';
 
 
 describe('ApparentTrajectoryFactoryService', () => {
 
-  const solarSystem = 'solar-system';
+  const solarSystem = SolarSystem.CODE;
   let factory: ApparentTrajectoryFactoryService;
 
   beforeEach(() => {

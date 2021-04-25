@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
-import { SupportedLayers } from '#core/models/layers/supported-layers';
 import { StarsVisibilityManagerService } from '#layer-stars/services/visibility/stars-visibility-manager.service';
 import { TextsVisibilityManagerService } from '#core/services/visibility/texts-visibility-manager.service';
 import { SelectableItem } from '#core/models/selectable-item';
+import { Stars } from '#layer-stars/models/stars';
 
 /**
  * Provides the UI with the controls allowing to select
@@ -14,7 +14,7 @@ import { SelectableItem } from '#core/models/selectable-item';
 })
 export class SelectorStarNamesComponent {
 
-  private readonly _starsLayerCode = SupportedLayers.STARS;
+  private readonly _layerCode: string;
 
   private readonly _selectableNames: Array<SelectableItem>;
 
@@ -24,6 +24,7 @@ export class SelectorStarNamesComponent {
     private readonly _starsVisibilityManager: StarsVisibilityManagerService,
     private readonly _textsVisibilityManager: TextsVisibilityManagerService
   ) {
+    this._layerCode = Stars.CODE;
     this._selectableNames = this.buildSelectionsList();
     this._shownNames = this._selectableNames[1].value;
   }
@@ -47,11 +48,11 @@ export class SelectorStarNamesComponent {
   }
 
   private updateShownNames(): void {
-    this._textsVisibilityManager.hideTexts(this._starsLayerCode);
+    this._textsVisibilityManager.hideTexts(this._layerCode);
     if (this._shownNames > 0) {
       const showProperNames = this._shownNames === 1;
       this._starsVisibilityManager.showStarsProperNames(showProperNames);
-      this._textsVisibilityManager.showTexts(this._starsLayerCode);
+      this._textsVisibilityManager.showTexts(this._layerCode);
     }
   }
 

@@ -9,9 +9,11 @@ import { MockedGridLayerFactory } from '#core/test-utils/mocked-grid-layer-facto
 import { Layer } from '#core/models/layers/layer';
 import { AggregateLayerFactoryService } from '#core/services/factories/aggregate-layer-factory.service';
 import { CoreModule } from '#core/core.module';
+import { SkyGrid } from '#layer-sky-grid/models/sky-grid';
+import { Stars } from '#layer-stars/models/stars';
 
 const model: Layer = {
-  code: 'stars',
+  code: Stars.CODE,
   label: 'Stars',
   loadFromUrl: false,
   objects: [],
@@ -27,9 +29,9 @@ const model: Layer = {
 
 describe('LayersVisibilityManagerService', () => {
 
-  const stars = 'stars';
+  const stars = Stars.CODE;
   const starsMag2 = 'stars-mag2.0';
-  const skyGrid = 'sky-grid';
+  const skyGrid = SkyGrid.CODE;
   let manager: LayersVisibilityManagerService;
   let layerService: LayerService;
 

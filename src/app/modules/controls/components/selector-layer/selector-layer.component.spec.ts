@@ -12,12 +12,13 @@ import { LayerStarsModule } from '#layer-stars/layer-stars.module';
 import { LayerSkyGridModule } from '#layer-sky-grid/layer-sky-grid.module';
 import { LayerConstellationsModule } from '#layer-constellations/layer-constellations.module';
 import { LayerSolarSystemModule } from '#layer-solar-system/layer-solar-system.module';
+import { SkyGrid } from '#layer-sky-grid/models/sky-grid';
 
 describe('SelectorLayerComponent', () => {
 
   let visibilityManager: LayersVisibilityManagerService;
   let component: SelectorLayerComponent;
-  const code = 'sky-grid';
+  const code = SkyGrid.CODE;
 
   beforeEach(() => {
     TestBed.configureTestingModule({

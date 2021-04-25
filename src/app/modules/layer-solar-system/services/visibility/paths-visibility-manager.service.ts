@@ -1,8 +1,7 @@
-import { SupportedLayers } from '#core/models/layers/supported-layers';
+import { Injectable } from '@angular/core';
 import { LayerService } from '#core/services/layer.service';
 import { LayersVisibilityManagerService } from '#core/services/visibility/layers-visibility-manager.service';
 import { SolarSystem } from '#layer-solar-system/model/solar-system';
-import { Injectable } from '@angular/core';
 
 /**
  * Provides methods to manage the visibility of the apparent paths
@@ -11,13 +10,13 @@ import { Injectable } from '@angular/core';
 @Injectable()
 export class PathsVisibilityManagerService {
 
-  private readonly _layerCode = SupportedLayers.SOLAR_SYSTEM;
+  private readonly _layerCode: string;
 
   constructor(
     private readonly _layerService: LayerService,
     private readonly _layersVisibilityManager: LayersVisibilityManagerService
   ) {
-
+    this._layerCode = SolarSystem.CODE;
   }
 
   public showPaths(show: boolean): void {

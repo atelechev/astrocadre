@@ -9,7 +9,7 @@ import { mockedTheme } from '#core/test-utils/mocked-theme.spec';
 
 
 const model = {
-  code: 'messier',
+  code: Messier.CODE,
   label: 'Messier objects',
   loadFromUrl: true,
   objects: [

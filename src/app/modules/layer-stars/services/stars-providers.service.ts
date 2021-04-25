@@ -15,7 +15,7 @@ export class StarsProvidersService implements LayersProvider {
   private readonly _layerCode: string;
 
   constructor(private readonly _starsLayerFactory: StarsLayerFactoryService) {
-    this._layerCode = 'stars';
+    this._layerCode = Stars.CODE;
   }
 
   public getRenderableLayer(model: Layer): Stars {

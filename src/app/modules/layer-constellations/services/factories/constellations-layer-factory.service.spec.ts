@@ -1,11 +1,12 @@
 import { TestBed } from '@angular/core/testing';
 import { CoreModule } from '#core/core.module';
 import { ConstellationsLayerFactoryService } from '#layer-constellations/services/factories/constellations-layer-factory.service';
+import { Constellations } from '#layer-constellations/models/constellations';
 
 
 describe('ConstellationsLayerFactoryService', () => {
 
-  const code = 'constellations';
+  const code = Constellations.CODE;
   const model = {
     code,
     label: 'Constellations',

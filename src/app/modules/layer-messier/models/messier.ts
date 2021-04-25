@@ -10,6 +10,8 @@ import { buildAndAssignMaterial, buildPointMaterial } from '#core/utils/material
 
 export class Messier extends RenderableLayer {
 
+  public static readonly CODE = 'messier';
+
   constructor(
     model: Layer,
     private readonly _clusters: Points,

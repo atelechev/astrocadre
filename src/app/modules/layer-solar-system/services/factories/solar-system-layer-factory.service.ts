@@ -18,7 +18,6 @@ import { LineSegments } from 'three';
 import { Layer } from '#core/models/layers/layer';
 import { LayerFactory } from '#core/models/layers/layer-factory';
 import { SolarSystem } from '#layer-solar-system/model/solar-system';
-import { SupportedLayers } from '#core/models/layers/supported-layers';
 import { LayersVisibilityManagerService } from '#core/services/visibility/layers-visibility-manager.service';
 import { ApparentTrajectoryFactoryService } from '#layer-solar-system/services/factories/apparent-trajectory-factory.service';
 import { PointsFactoryService } from '#core/services/factories/points-factory.service';
@@ -54,7 +53,7 @@ export class SolarSystemLayerFactoryService implements LayerFactory {
     { name: 'Neptune', producer: createNeptune, trajectorySteps: 30 }
   ];
 
-  private readonly _layerCode = SupportedLayers.SOLAR_SYSTEM;
+  private readonly _layerCode;
 
   private readonly _worldRadius: number;
 
@@ -69,6 +68,7 @@ export class SolarSystemLayerFactoryService implements LayerFactory {
     private readonly _searchService: SearchService,
     virtualSphereService: VirtualSphereRadiusService
   ) {
+    this._layerCode = SolarSystem.CODE;
     this._currentTime = createTimeOfInterest.fromCurrentTime();
     this._worldRadius = virtualSphereService.getRadiusFor(this._layerCode);
     this._biggerLabelsPolicy = new SunMoonLabelsPolicy();

@@ -3,6 +3,11 @@ import { LayerService } from '#core/services/layer.service';
 import { ThemeService } from '#core/services/theme.service';
 import { VirtualSphereRadiusService } from '#core/services/virtual-sphere-radius.service';
 import { mockedLayers } from '#core/test-utils/mocked-layers.spec';
+import { SkyGrid } from '#layer-sky-grid/models/sky-grid';
+import { Stars } from '#layer-stars/models/stars';
+import { Constellations } from '#layer-constellations/models/constellations';
+import { Messier } from '#layer-messier/models/messier';
+import { SolarSystem } from '#layer-solar-system/model/solar-system';
 
 
 describe('VirtualSphereRadiusService', () => {
@@ -41,14 +46,14 @@ describe('VirtualSphereRadiusService', () => {
     });
 
     it('should return expected values for supported layers', () => {
-      expect(service.getRadiusFor('sky-grid')).toEqual(2);
-      expect(service.getRadiusFor('stars')).toEqual(1.99);
+      expect(service.getRadiusFor(SkyGrid.CODE)).toEqual(2);
+      expect(service.getRadiusFor(Stars.CODE)).toEqual(1.99);
       expect(service.getRadiusFor('stars-mag2.0')).toEqual(1.98);
       expect(service.getRadiusFor('stars-mag2.5')).toEqual(1.97);
       expect(service.getRadiusFor('stars-mag3.0')).toEqual(1.96);
-      expect(service.getRadiusFor('constellations')).toEqual(1.95);
-      expect(service.getRadiusFor('messier')).toEqual(1.94);
-      expect(service.getRadiusFor('solar-system')).toEqual(1.93);
+      expect(service.getRadiusFor(Constellations.CODE)).toEqual(1.95);
+      expect(service.getRadiusFor(Messier.CODE)).toEqual(1.94);
+      expect(service.getRadiusFor(SolarSystem.CODE)).toEqual(1.93);
     });
 
   });

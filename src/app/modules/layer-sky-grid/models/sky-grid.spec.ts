@@ -9,7 +9,7 @@ import { LayerSkyGridModule } from '#layer-sky-grid/layer-sky-grid.module';
 import { SkyGridProvidersService } from '#layer-sky-grid/services/sky-grid-providers.service';
 
 const model = {
-  code: 'sky-grid',
+  code: SkyGrid.CODE,
   label: 'Coordinates grid',
   loadFromUrl: false,
   description: 'Celestial coordinates grid in degrees',

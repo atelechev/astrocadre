@@ -4,12 +4,13 @@ import { mockedLayers } from '#core/test-utils/mocked-layers.spec';
 import { SolarSystemProvidersService } from '#layer-solar-system/services/solar-system-providers.service';
 import { LayerSolarSystemModule } from '#layer-solar-system/layer-solar-system.module';
 import { SelectorSolarSystemObjectsComponent } from '#layer-solar-system/components/selector-solar-system-objects/selector-solar-system-objects.component';
+import { SolarSystem } from '#layer-solar-system/model/solar-system';
 
 
 describe('SolarSystemProvidersService', () => {
 
   const solarSystemLayer = {
-    code: 'solar-system',
+    code: SolarSystem.CODE,
     label: 'Solar system',
     loadFromUrl: false,
     objects: []

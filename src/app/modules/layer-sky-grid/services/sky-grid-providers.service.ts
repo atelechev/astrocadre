@@ -16,7 +16,7 @@ export class SkyGridProvidersService implements LayersProvider {
   }
 
   public getRenderableLayer(model: Layer): SkyGrid {
-    if (model?.code === 'sky-grid') {
+    if (model?.code === SkyGrid.CODE) {
       return this._skyGridFactory.buildRenderableLayer(model);
     }
     return undefined;

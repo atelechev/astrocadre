@@ -2,12 +2,13 @@ import { TestBed } from '@angular/core/testing';
 import { MessierLayerFactoryService } from '#layer-messier/services/factories/messier-layer.factory.service';
 import { LayerFactory } from '#core/models/layers/layer-factory';
 import { CoreModule } from '#core/core.module';
+import { Messier } from '#layer-messier/models/messier';
 
 
 describe('MessierLayerFactoryService', () => {
 
   const model = {
-    code: 'messier',
+    code: Messier.CODE,
     label: 'Messier objects',
     loadFromUrl: true,
     objects: [

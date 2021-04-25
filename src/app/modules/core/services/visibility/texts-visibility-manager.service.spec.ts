@@ -7,11 +7,12 @@ import { TextsShownEvent } from '#core/models/event/texts-shown-event';
 import { TextsHiddenEvent } from '#core/models/event/texts-hidden-event';
 import { MockedGridLayerFactory } from '#core/test-utils/mocked-grid-layer-factory.spec';
 import { CoreModule } from '#core/core.module';
+import { SkyGrid } from '#layer-sky-grid/models/sky-grid';
 
 
 describe('TextsVisibilityManagerService', () => {
 
-  const code = 'sky-grid';
+  const code = SkyGrid.CODE;
   let manager: TextsVisibilityManagerService;
 
   beforeEach(() => {

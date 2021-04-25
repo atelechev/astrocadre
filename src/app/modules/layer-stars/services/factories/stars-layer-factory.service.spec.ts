@@ -26,10 +26,6 @@ describe('StarsLayerFactoryService', () => {
     factory = TestBed.inject(StarsLayerFactoryService);
   });
 
-  it('STARS_LAYER_CODE_PREFIX should have expected value', () => {
-    expect(StarsLayerFactoryService.STARS_LAYER_CODE_PREFIX).toEqual('stars-mag');
-  });
-
   it('buildRenderableLayer should return expected value', () => {
     const layer = factory.buildRenderableLayer(model) as Stars;
     expect(layer).toBeDefined();

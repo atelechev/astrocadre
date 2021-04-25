@@ -4,7 +4,6 @@ import { ConstellationMeta } from '#core/models/layers/constellation-meta';
 import { Layer } from '#core/models/layers/layer';
 import { LayerFactory } from '#core/models/layers/layer-factory';
 import { RenderableText } from '#core/models/layers/renderable-text';
-import { SupportedLayers } from '#core/models/layers/supported-layers';
 import { TextOffsetPolicies } from '#core/models/layers/text/text-offsets-policies';
 import { AxialCurvesFactoryService } from '#core/services/factories/axial-curves-factory.service';
 import { VirtualSphereRadiusService } from '#core/services/virtual-sphere-radius.service';
@@ -38,7 +37,7 @@ export class ConstellationsLayerFactoryService implements LayerFactory {
 
   private createObject3D(rawData: Array<Array<number>>): LineSegments {
     const object = this._curvesFactory
-      .createObject3D(SupportedLayers.CONSTELLATIONS, rawData);
+      .createObject3D(Constellations.CODE, rawData);
     object.computeLineDistances();
     return object;
   }

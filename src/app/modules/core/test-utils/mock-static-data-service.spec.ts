@@ -1,12 +1,13 @@
 import { Observable, of } from 'rxjs';
 import { Layer } from '#core/models/layers/layer';
-import { SupportedLayers } from '#core/models/layers/supported-layers';
 import { Theme } from '#core/models/theme/theme';
 import { ThemeMeta } from '#core/models/theme/theme-meta';
 import { mockedLayers } from '#core/test-utils/mocked-layers.spec';
 import { mockedTheme } from '#core/test-utils/mocked-theme.spec';
 import { mockedThemes } from '#core/test-utils/mocked-themes.spec';
+import { Constellations } from '#layer-constellations/models/constellations';
 
+// TODO check whether it is really necessary!
 export class MockStaticDataService {
 
   public getTheme(_: string): Observable<Theme> {
@@ -23,7 +24,7 @@ export class MockStaticDataService {
 
   public getDataJson(resource: string): Observable<Array<any>> {
     switch (resource) {
-      case SupportedLayers.CONSTELLATIONS:
+      case Constellations.CODE:
         return of([{
           boundaries: [[177.5, -24.5, 162.5, -24.5]],
           lines: [[72.46, 6.95, 72.65, 8.9]],

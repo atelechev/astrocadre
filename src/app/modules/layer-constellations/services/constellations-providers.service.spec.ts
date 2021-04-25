@@ -5,12 +5,13 @@ import { ConstellationsProvidersService } from '#layer-constellations/services/c
 import { Layer } from '#core/models/layers/layer';
 import { LayerConstellationsControlsComponent } from '#layer-constellations/components/layer-constellations-controls/layer-constellations-controls.component';
 import { ConstellationsLayerFactoryService } from '#layer-constellations/services/factories/constellations-layer-factory.service';
+import { Constellations } from '#layer-constellations/models/constellations';
 
 
 describe('ConstellationsProvidersService', () => {
 
   const constellationsLayer: Layer = {
-    code: 'constellations',
+    code: Constellations.CODE,
     label: 'Constellations',
     loadFromUrl: true,
     objects: [{

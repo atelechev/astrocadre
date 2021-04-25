@@ -10,7 +10,7 @@ import { ConstellationsVisibilityManagerService } from '#layer-constellations/se
 
 describe('ConstellationsVisibilityManagerService', () => {
 
-  const constellations = 'constellations';
+  const constellations = Constellations.CODE;
   const model: Layer = {
     code: constellations,
     label: 'Constellations',

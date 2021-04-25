@@ -4,11 +4,16 @@ import { ThemeService } from '#core/services/theme.service';
 import { mockedLayers } from '#core/test-utils/mocked-layers.spec';
 import { SearchService } from '#core/services/search.service';
 import { AggregateLayer } from '#core/models/layers/aggregate-layer';
+import { SkyGrid } from '#layer-sky-grid/models/sky-grid';
+import { Stars } from '#layer-stars/models/stars';
+import { Constellations } from '#layer-constellations/models/constellations';
+import { Messier } from '#layer-messier/models/messier';
+import { SolarSystem } from '#layer-solar-system/model/solar-system';
 
 
 describe('LayerService', () => {
 
-  const code = 'stars';
+  const code = Stars.CODE;
   let service: LayerService;
 
   beforeEach(() => {
@@ -76,14 +81,14 @@ describe('LayerService', () => {
     it('expected indices for existing layers', () => {
       service.rootLayer = mockedLayers;
 
-      expect(service.getIndex('sky-grid')).toEqual(0);
-      expect(service.getIndex('stars')).toEqual(1);
+      expect(service.getIndex(SkyGrid.CODE)).toEqual(0);
+      expect(service.getIndex(Stars.CODE)).toEqual(1);
       expect(service.getIndex('stars-mag2.0')).toEqual(2);
       expect(service.getIndex('stars-mag2.5')).toEqual(3);
       expect(service.getIndex('stars-mag3.0')).toEqual(4);
-      expect(service.getIndex('constellations')).toEqual(5);
-      expect(service.getIndex('messier')).toEqual(6);
-      expect(service.getIndex('solar-system')).toEqual(7);
+      expect(service.getIndex(Constellations.CODE)).toEqual(5);
+      expect(service.getIndex(Messier.CODE)).toEqual(6);
+      expect(service.getIndex(SolarSystem.CODE)).toEqual(7);
     });
 
     describe('-1', () => {

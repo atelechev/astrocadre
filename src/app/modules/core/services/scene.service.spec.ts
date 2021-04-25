@@ -5,12 +5,13 @@ import { LayersVisibilityManagerService } from '#core/services/visibility/layers
 import { MockedGridLayerFactory } from '#core/test-utils/mocked-grid-layer-factory.spec';
 import { RenderableLayer } from '#core/models/layers/renderable-layer';
 import { CoreModule } from '#core/core.module';
+import { SkyGrid } from '#layer-sky-grid/models/sky-grid';
 
 
 
 describe('SceneService', () => {
 
-  const code = 'sky-grid';
+  const code = SkyGrid.CODE;
   let service: SceneService;
   let visibilityManager: LayersVisibilityManagerService;
 
