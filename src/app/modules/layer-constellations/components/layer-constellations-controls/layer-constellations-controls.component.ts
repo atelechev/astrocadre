@@ -1,8 +1,7 @@
 import { Component } from '@angular/core';
-import { LayerAware } from '#core/models/layers/layer-aware';
-import { SelectableItem } from '#core/models/selectable-item';
-import { Layer } from '#core/models/layers/layer';
-import { LayersVisibilityManagerService } from '#core/services/visibility/layers-visibility-manager.service';
+import { UiControlsWithNames } from '#core/components/ui-controls-with-names';
+import { TextsVisibilityManagerService } from '#core/services/visibility/texts-visibility-manager.service';
+import { ConstellationsVisibilityManagerService } from '#layer-constellations/services/visibility/constellations-visibility-manager.service';
 
 /**
  * Wraps the common controls for all the constellations sub-layers.
@@ -11,62 +10,37 @@ import { LayersVisibilityManagerService } from '#core/services/visibility/layers
   selector: 'ac-layer-constellations-controls',
   templateUrl: './layer-constellations-controls.component.html'
 })
-export class LayerConstellationsControlsComponent extends LayerAware {
+export class LayerConstellationsControlsComponent extends UiControlsWithNames {
 
-  private _options: Array<SelectableItem>;
+  private _boundariesShown: boolean;
 
-  private _choices: Array<number>;
+  private _linesShown: boolean;
 
-  constructor(private readonly _layersVisibilityManager: LayersVisibilityManagerService) {
-    super();
-    this._options = [];
+  constructor(
+    textsVisibilityManager: TextsVisibilityManagerService,
+    private readonly _visibilityManager: ConstellationsVisibilityManagerService
+  ) {
+    super(textsVisibilityManager);
+    this._boundariesShown = true;
+    this._linesShown = true;
   }
 
-  public get layer(): Layer {
-    return super.layer;
+  public get boundariesShown(): boolean {
+    return this._boundariesShown;
   }
 
-  public set layer(model: Layer) {
-    super.layer = model;
-    this.updateOptions();
+  public set boundariesShown(show: boolean) {
+    this._boundariesShown = show;
+    this._visibilityManager.showBoundaries(show);
   }
 
-  public set choices(ch: Array<number>) {
-    this._choices = ch || [];
-    this.updateShownSubLayers();
+  public get linesShown(): boolean {
+    return this._linesShown;
   }
 
-  public get choices(): Array<number> {
-    return this._choices;
-  }
-
-  public get options(): Array<SelectableItem> {
-    return this._options;
-  }
-
-  private updateOptions(): void {
-    this._options = this.layer?.subLayers?.map(
-      (subLayer: Layer, i: number) => ({
-        label: subLayer.label,
-        value: i
-      })) || [];
-    this._choices = this._options.map(
-      (opt: SelectableItem) => opt.value
-    );
-  }
-
-  private updateShownSubLayers(): void {
-    const choicesAsSet = new Set<number>(this._choices);
-    this._options.forEach(
-      (option: SelectableItem) => {
-        const layerCode = this.layer.subLayers[option.value].code;
-        if (choicesAsSet.has(option.value)) {
-          this._layersVisibilityManager.showLayer(layerCode);
-        } else {
-          this._layersVisibilityManager.hideLayer(layerCode);
-        }
-      }
-    );
+  public set linesShown(show: boolean) {
+    this._linesShown = show;
+    this._visibilityManager.showLines(show);
   }
 
 }

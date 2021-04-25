@@ -2,17 +2,31 @@ import { TestBed } from '@angular/core/testing';
 import { CoreModule } from '#core/core.module';
 import { mockedLayers } from '#core/test-utils/mocked-layers.spec';
 import { ConstellationsProvidersService } from '#layer-constellations/services/constellations-providers.service';
-import { BoundariesLayerFactoryService } from '#layer-constellations/services/factories/boundaries-layer-factory.service';
-import { LinesLayerFactoryService } from '#layer-constellations/services/factories/lines-layer-factory.service';
-import { NamesLayerFactoryService } from '#layer-constellations/services/factories/names-layer-factory.service';
 import { Layer } from '#core/models/layers/layer';
-import { LayerStarsControlsComponent } from '#layer-stars/components/layer-stars-controls/layer-stars-controls.component';
 import { LayerConstellationsControlsComponent } from '#layer-constellations/components/layer-constellations-controls/layer-constellations-controls.component';
+import { ConstellationsLayerFactoryService } from '#layer-constellations/services/factories/constellations-layer-factory.service';
 
 
 describe('ConstellationsProvidersService', () => {
 
-  const constellationsLayer = mockedLayers.subLayers[2];
+  const constellationsLayer: Layer = {
+    code: 'constellations',
+    label: 'Constellations',
+    loadFromUrl: true,
+    objects: [{
+      boundaries: [[177.5, -24.5, 162.5, -24.5]],
+      lines: [[72.46, 6.95, 72.65, 8.9]],
+      names: [
+        {
+          type: 'constellation',
+          code: 'AND',
+          ra: 8.532,
+          dec: 38.906,
+          names: ['Andromeda']
+        }
+      ]
+    }]
+  };
   let service: ConstellationsProvidersService;
 
   beforeEach(() => {
@@ -21,9 +35,7 @@ describe('ConstellationsProvidersService', () => {
         CoreModule
       ],
       providers: [
-        BoundariesLayerFactoryService,
-        LinesLayerFactoryService,
-        NamesLayerFactoryService,
+        ConstellationsLayerFactoryService,
         ConstellationsProvidersService
       ]
     });
@@ -35,18 +47,6 @@ describe('ConstellationsProvidersService', () => {
 
     it('a defined object for the "constellations" layer', () => {
       expect(service.getRenderableLayer(constellationsLayer)).toBeDefined();
-    });
-
-    it('a defined object for the "constellation-boundaries" layer', () => {
-      expect(service.getRenderableLayer(constellationsLayer.subLayers[0])).toBeDefined();
-    });
-
-    it('a defined object for the "constellation-lines" layer', () => {
-      expect(service.getRenderableLayer(constellationsLayer.subLayers[1])).toBeDefined();
-    });
-
-    it('a defined object for the "constellation-names" layer', () => {
-      expect(service.getRenderableLayer(constellationsLayer.subLayers[2])).toBeDefined();
     });
 
     describe('undefined', () => {
@@ -69,18 +69,8 @@ describe('ConstellationsProvidersService', () => {
       expect(service.getUiControlsComponentType(constellationsLayer)).toEqual(LayerConstellationsControlsComponent);
     });
 
-    describe('undefined', () => {
-
-      it('for a falsy arg', () => {
-        expect(service.getUiControlsComponentType(undefined)).toBeUndefined();
-      });
-
-      it('for the sub-layers of the "constellations" layer', () => {
-        constellationsLayer.subLayers.forEach(
-          (subLayer: Layer) => expect(service.getUiControlsComponentType(subLayer)).toBeUndefined()
-        );
-      });
-
+    it('undefined for a falsy arg', () => {
+      expect(service.getUiControlsComponentType(undefined)).toBeUndefined();
     });
 
   });

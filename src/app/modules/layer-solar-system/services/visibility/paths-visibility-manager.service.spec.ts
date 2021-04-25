@@ -1,3 +1,4 @@
+import { TestBed } from '@angular/core/testing';
 import { LayerService } from '#core/services/layer.service';
 import { ThemeService } from '#core/services/theme.service';
 import { LayersVisibilityManagerService } from '#core/services/visibility/layers-visibility-manager.service';
@@ -6,7 +7,6 @@ import { LayerSolarSystemModule } from '#layer-solar-system/layer-solar-system.m
 import { SolarSystem } from '#layer-solar-system/model/solar-system';
 import { SolarSystemProvidersService } from '#layer-solar-system/services/solar-system-providers.service';
 import { PathsVisibilityManagerService } from '#layer-solar-system/services/visibility/paths-visibility-manager.service';
-import { TestBed } from '@angular/core/testing';
 
 
 describe('PathsVisibilityManagerService', () => {
@@ -30,7 +30,6 @@ describe('PathsVisibilityManagerService', () => {
     manager = TestBed.inject(PathsVisibilityManagerService);
     layersManager = TestBed.inject(LayersVisibilityManagerService);
   });
-
 
   const loadSolarSystemLayer = (): SolarSystem => {
     const model = mockedLayers.subLayers[4];

@@ -7,7 +7,7 @@ import { CoreModule } from '#core/core.module';
 
 describe('AxialCurvesFactoryService', () => {
 
-  const layer = SupportedLayers.CONSTELLATION_BOUNDARIES;
+  const layer = SupportedLayers.CONSTELLATIONS;
 
   let factory: AxialCurvesFactoryService;
 

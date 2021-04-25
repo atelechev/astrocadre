@@ -23,8 +23,12 @@ export class MockStaticDataService {
 
   public getDataJson(resource: string): Observable<Array<any>> {
     switch (resource) {
-      case SupportedLayers.CONSTELLATION_NAMES:
-        return of([{ type: 'constellation', code: 'AND', ra: 8.532, dec: 38.906, names: ['Andromeda', 'Andromeda'] }]);
+      case SupportedLayers.CONSTELLATIONS:
+        return of([{
+          boundaries: [[177.5, -24.5, 162.5, -24.5]],
+          lines: [[72.46, 6.95, 72.65, 8.9]],
+          names: [{ type: 'constellation', code: 'AND', ra: 8.532, dec: 38.906, names: ['Andromeda'] }]
+        }]);
       case 'stars-mag2.0':
         return of([[37.95, 89.26, 2.0, 'Polaris', 'ALP UMI']]);
       default:

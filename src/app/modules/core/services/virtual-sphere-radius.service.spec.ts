@@ -47,10 +47,8 @@ describe('VirtualSphereRadiusService', () => {
       expect(service.getRadiusFor('stars-mag2.5')).toEqual(1.97);
       expect(service.getRadiusFor('stars-mag3.0')).toEqual(1.96);
       expect(service.getRadiusFor('constellations')).toEqual(1.95);
-      expect(service.getRadiusFor('constellation-boundaries')).toEqual(1.94);
-      expect(service.getRadiusFor('constellation-lines')).toEqual(1.93);
-      expect(service.getRadiusFor('constellation-names')).toEqual(1.92);
-      expect(service.getRadiusFor('messier')).toEqual(1.91);
+      expect(service.getRadiusFor('messier')).toEqual(1.94);
+      expect(service.getRadiusFor('solar-system')).toEqual(1.93);
     });
 
   });

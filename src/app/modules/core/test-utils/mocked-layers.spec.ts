@@ -47,28 +47,8 @@ export const mockedLayers: Layer = {
     {
       code: 'constellations',
       label: 'Constellations',
-      loadFromUrl: false,
-      objects: [],
-      subLayers: [
-        {
-          code: 'constellation-boundaries',
-          label: 'Boundaries',
-          loadFromUrl: true,
-          objects: []
-        },
-        {
-          code: 'constellation-lines',
-          label: 'Lines',
-          loadFromUrl: true,
-          objects: []
-        },
-        {
-          code: 'constellation-names',
-          label: 'Names',
-          loadFromUrl: true,
-          objects: []
-        }
-      ]
+      loadFromUrl: true,
+      objects: []
     },
     {
       code: 'messier',

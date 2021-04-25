@@ -3,7 +3,7 @@ import {
   Object3D,
   Points,
   PointsMaterial
-} from 'three';
+  } from 'three';
 import { Layer } from '#core/models/layers/layer';
 import { RenderableLayer } from '#core/models/layers/renderable-layer';
 import { Theme } from '#core/models/theme/theme';
@@ -90,6 +90,7 @@ export class SolarSystem extends RenderableLayer {
     this.applyTextStyle(theme.solarSystem.names);
   }
 
+  // TODO use a single showTrajectories(boolean) method
   public hideTrajectories(): void {
     this._trajectories.forEach(
       (trajectory: Object3D) => {

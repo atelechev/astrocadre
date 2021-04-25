@@ -76,7 +76,7 @@ describe('LoaderService', () => {
       tick();
 
       expect(layerService.rootLayer).toEqual(mockedLayers);
-      expect(layerService.registerLayer).toHaveBeenCalledTimes(12);
+      expect(layerService.registerLayer).toHaveBeenCalledTimes(9);
     }));
 
   });

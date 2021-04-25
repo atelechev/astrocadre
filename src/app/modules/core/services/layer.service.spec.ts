@@ -82,10 +82,8 @@ describe('LayerService', () => {
       expect(service.getIndex('stars-mag2.5')).toEqual(3);
       expect(service.getIndex('stars-mag3.0')).toEqual(4);
       expect(service.getIndex('constellations')).toEqual(5);
-      expect(service.getIndex('constellation-boundaries')).toEqual(6);
-      expect(service.getIndex('constellation-lines')).toEqual(7);
-      expect(service.getIndex('constellation-names')).toEqual(8);
-      expect(service.getIndex('messier')).toEqual(9);
+      expect(service.getIndex('messier')).toEqual(6);
+      expect(service.getIndex('solar-system')).toEqual(7);
     });
 
     describe('-1', () => {
