@@ -7,6 +7,7 @@ Next version: 21.4.30
 ### 2021-04-25 - v21.4.29
 
 * Merged the three sub-layers of the constellations layer into one layer object.
+* Remove the SupportedLayers class which contained constants only.
 
 ### 2021-04-23 - v21.4.28
 
