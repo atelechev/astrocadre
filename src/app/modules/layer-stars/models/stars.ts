@@ -13,6 +13,8 @@ import { buildAndAssignMaterial, buildPointMaterial } from '#core/utils/material
  */
 export class Stars extends RenderableLayer {
 
+  public static readonly CODE = 'stars';
+
   private _properNamesShown: boolean;
 
   constructor(

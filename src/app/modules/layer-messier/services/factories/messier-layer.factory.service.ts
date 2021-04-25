@@ -5,7 +5,6 @@ import { MessierLabelsPolicy } from '#layer-messier/models/layers/text/messier-l
 import { Layer } from '#core/models/layers/layer';
 import { LayerFactory } from '#core/models/layers/layer-factory';
 import { Searchable } from '#core/models/layers/searchable';
-import { SupportedLayers } from '#core/models/layers/supported-layers';
 import { PointsFactoryService } from '#core/services/factories/points-factory.service';
 import { RenderableText } from '#core/models/layers/renderable-text';
 
@@ -16,6 +15,8 @@ type Filter = (obj: Searchable) => boolean;
  */
 @Injectable()
 export class MessierLayerFactoryService implements LayerFactory {
+
+  private readonly _layerCode: string;
 
   private readonly _labelsPolicy: MessierLabelsPolicy;
 
@@ -28,6 +29,7 @@ export class MessierLayerFactoryService implements LayerFactory {
   private readonly _filterOther: Filter;
 
   constructor(private readonly _pointsFactory: PointsFactoryService) {
+    this._layerCode = Messier.CODE;
     this._labelsPolicy = new MessierLabelsPolicy();
     this._filterCluster = (obj: Searchable): boolean => this.typeStartsWith(obj, 'cluster');
     this._filterGalaxy = (obj: Searchable): boolean => this.typeStartsWith(obj, 'galaxy');
@@ -63,12 +65,12 @@ export class MessierLayerFactoryService implements LayerFactory {
     const points = objectsWithPrefix.map(
       (obj: Searchable) => [obj.ra, obj.dec]
     );
-    return this._pointsFactory.createObject3D(SupportedLayers.MESSIER, points);
+    return this._pointsFactory.createObject3D(this._layerCode, points);
   }
 
   private toRenderableText(object: Searchable): RenderableText {
     return new RenderableText(
-      this._pointsFactory.buildPoint(SupportedLayers.MESSIER, object.ra, object.dec),
+      this._pointsFactory.buildPoint(this._layerCode, object.ra, object.dec),
       object.code,
       this._labelsPolicy
     );

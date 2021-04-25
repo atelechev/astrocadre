@@ -13,7 +13,7 @@ import { ConstellationsProvidersService } from '#layer-constellations/services/c
 describe('Constellations', () => {
 
   let layer: Constellations;
-  const code = 'constellations';
+  const code = Constellations.CODE;
   const model = {
     code,
     label: 'Constellations',

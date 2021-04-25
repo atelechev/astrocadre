@@ -11,6 +11,8 @@ import { buildAndAssignMaterial, buildLineMaterial } from '#core/utils/material-
  */
 export class Constellations extends RenderableLayer {
 
+  public static readonly CODE = 'constellations';
+
   private readonly _objects: Array<Object3D>;
 
   private readonly _searchables: Array<Searchable>;

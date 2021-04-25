@@ -6,7 +6,6 @@ import { TextOffsetPolicies } from '#core/models/layers/text/text-offsets-polici
 import { RenderableText } from '#core/models/layers/renderable-text';
 import { Stars } from '#layer-stars/models/stars';
 import { Searchable } from '#core/models/layers/searchable';
-import { SupportedLayers } from '#core/models/layers/supported-layers';
 import { extractProperName, extractStandardName, toGreekLetter } from '#core/utils/star-utils';
 import { TextOffsetPolicy } from '#core/models/layers/text/text-offset-policy';
 
@@ -16,16 +15,19 @@ import { TextOffsetPolicy } from '#core/models/layers/text/text-offset-policy';
 @Injectable()
 export class StarsLayerFactoryService implements LayerFactory {
 
-  public static readonly STARS_LAYER_CODE_PREFIX = `${SupportedLayers.STARS}-mag`;
+  private readonly _layerCode: string;
+
+  private readonly _subLayerCodePrefix: string;
 
   constructor(private readonly _pointsFactory: PointsFactoryService) {
-
+    this._layerCode = Stars.CODE;
+    this._subLayerCodePrefix = `${this._layerCode}-mag`;
   }
 
   public buildRenderableLayer(model: Layer): Stars {
     const magnitudeClass = this.extractMagnitudeClass(model.code);
     const useObjects = model.objects || [];
-    const stars = this._pointsFactory.createObject3D(SupportedLayers.STARS, useObjects);
+    const stars = this._pointsFactory.createObject3D(this._layerCode, useObjects);
     const searchables = this.extractSearchables(model.objects);
     return new Stars(
       model,
@@ -46,7 +48,7 @@ export class StarsLayerFactoryService implements LayerFactory {
   }
 
   private extractMagnitudeClass(code: string): number {
-    return parseFloat(code.substr(StarsLayerFactoryService.STARS_LAYER_CODE_PREFIX.length));
+    return parseFloat(code.substr(this._subLayerCodePrefix.length));
   }
 
   private initLabels(
@@ -60,7 +62,7 @@ export class StarsLayerFactoryService implements LayerFactory {
       (rawStar: Array<any>) => {
         const name = extractNameFunct(rawStar);
         if (name) {
-          const center = this._pointsFactory.buildPoint(SupportedLayers.STARS, rawStar[0], rawStar[1]);
+          const center = this._pointsFactory.buildPoint(this._layerCode, rawStar[0], rawStar[1]);
           const transformedName = nameTransform(name);
           const renderable = new RenderableText(center, transformedName, offset);
           labels.push(renderable);

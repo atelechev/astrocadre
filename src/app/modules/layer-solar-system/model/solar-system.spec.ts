@@ -5,7 +5,7 @@ import {
   LineSegments,
   Points,
   PointsMaterial
-} from 'three';
+  } from 'three';
 import { ThemeService } from '#core/services/theme.service';
 import { mockedTheme } from '#core/test-utils/mocked-theme.spec';
 import { LayerSolarSystemModule } from '#layer-solar-system/layer-solar-system.module';
@@ -20,7 +20,7 @@ import { SunMoonLabelsPolicy } from '#layer-solar-system/model/layers/sun-moon-l
 describe('SolarSystem', () => {
 
   const model = {
-    code: 'solar-system',
+    code: SolarSystem.CODE,
     label: 'Solar system',
     loadFromUrl: false,
     objects: []

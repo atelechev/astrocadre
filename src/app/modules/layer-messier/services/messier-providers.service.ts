@@ -15,7 +15,7 @@ export class MessierProvidersService implements LayersProvider {
   private readonly _layerCode: string;
 
   constructor(private readonly _messierLayerFactory: MessierLayerFactoryService) {
-    this._layerCode = 'messier';
+    this._layerCode = Messier.CODE;
   }
 
   public getRenderableLayer(model: Layer): Messier {

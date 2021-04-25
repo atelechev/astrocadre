@@ -1,12 +1,13 @@
 import { fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { LayerSolarSystemModule } from '#layer-solar-system/layer-solar-system.module';
 import { SolarSystemLayerFactoryService } from '#layer-solar-system/services/factories/solar-system-layer-factory.service';
+import { SolarSystem } from '#layer-solar-system/model/solar-system';
 
 
 describe('SolarSystemLayerFactoryService', () => {
 
   const model = {
-    code: 'solar-system',
+    code: SolarSystem.CODE,
     label: 'Solar system',
     loadFromUrl: false,
     objects: []

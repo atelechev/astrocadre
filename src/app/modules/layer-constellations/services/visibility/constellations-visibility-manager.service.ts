@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { SupportedLayers } from '#core/models/layers/supported-layers';
 import { LayerService } from '#core/services/layer.service';
 import { LayersVisibilityManagerService } from '#core/services/visibility/layers-visibility-manager.service';
 import { Constellations } from '#layer-constellations/models/constellations';
@@ -12,13 +11,13 @@ import { Constellations } from '#layer-constellations/models/constellations';
 @Injectable()
 export class ConstellationsVisibilityManagerService {
 
-  private readonly _layerCode = SupportedLayers.CONSTELLATIONS;
+  private readonly _layerCode: string;
 
   constructor(
     private readonly _layerService: LayerService,
     private readonly _layersVisibilityManager: LayersVisibilityManagerService
   ) {
-
+    this._layerCode = Constellations.CODE;
   }
 
   public showBoundaries(show: boolean): void {

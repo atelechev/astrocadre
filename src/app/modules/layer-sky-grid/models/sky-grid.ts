@@ -10,6 +10,8 @@ import { buildLineMaterial } from '#core/utils/material-utils';
  */
 export class SkyGrid extends RenderableLayer {
 
+  public static readonly CODE = 'sky-grid';
+
   private _objects: Array<Object3D>;
 
   constructor(

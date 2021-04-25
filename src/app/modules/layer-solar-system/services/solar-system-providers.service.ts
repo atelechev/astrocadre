@@ -16,7 +16,7 @@ export class SolarSystemProvidersService implements LayersProvider {
   private readonly _layerCode: string;
 
   constructor(private readonly _factory: SolarSystemLayerFactoryService) {
-    this._layerCode = 'solar-system';
+    this._layerCode = SolarSystem.CODE;
   }
 
   public getRenderableLayer(model: Layer): SolarSystem {

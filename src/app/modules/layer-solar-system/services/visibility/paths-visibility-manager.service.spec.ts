@@ -11,7 +11,7 @@ import { PathsVisibilityManagerService } from '#layer-solar-system/services/visi
 
 describe('PathsVisibilityManagerService', () => {
 
-  const solarSystem = 'solar-system';
+  const solarSystem = SolarSystem.CODE;
   let manager: PathsVisibilityManagerService;
   let layersManager: LayersVisibilityManagerService;
   let layerService: LayerService;

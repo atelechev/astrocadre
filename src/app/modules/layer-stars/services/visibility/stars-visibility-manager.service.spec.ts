@@ -15,7 +15,7 @@ import { StarsProvidersService } from '#layer-stars/services/stars-providers.ser
 
 describe('StarsVisibilityManagerService', () => {
 
-  const stars = 'stars';
+  const stars = Stars.CODE;
   const starsMag2 = 'stars-mag2.0';
   let manager: StarsVisibilityManagerService;
   let layersManager: LayersVisibilityManagerService;

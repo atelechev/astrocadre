@@ -2,12 +2,13 @@ import { TestBed } from '@angular/core/testing';
 import { LayerFactory } from '#core/models/layers/layer-factory';
 import { SkyGridLayerFactoryService } from '#layer-sky-grid/services/factories/sky-grid-layer-factory.service';
 import { CoreModule } from '#core/core.module';
+import { SkyGrid } from '#layer-sky-grid/models/sky-grid';
 
 
 describe('SkyGridLayerFactoryService', () => {
 
   const model = {
-    code: 'sky-grid',
+    code: SkyGrid.CODE,
     label: 'Coordinates grid',
     loadFromUrl: false,
     objects: []

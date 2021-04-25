@@ -5,6 +5,11 @@ import { mockedLayers } from '#core/test-utils/mocked-layers.spec';
 import { CoreModule } from '#core/core.module';
 import { ControlsModule } from '#controls/controls.module';
 import { LayerService } from '#core/services/layer.service';
+import { SkyGrid } from '#layer-sky-grid/models/sky-grid';
+import { Stars } from '#layer-stars/models/stars';
+import { Constellations } from '#layer-constellations/models/constellations';
+import { Messier } from '#layer-messier/models/messier';
+import { SolarSystem } from '#layer-solar-system/model/solar-system';
 
 
 describe('LayersComponent', () => {
@@ -26,7 +31,13 @@ describe('LayersComponent', () => {
     const layers = component.layers;
     expect(layers).toBeDefined();
 
-    const expected = ['sky-grid', 'stars', 'constellations', 'messier', 'solar-system'];
+    const expected = [
+      SkyGrid.CODE,
+      Stars.CODE,
+      Constellations.CODE,
+      Messier.CODE,
+      SolarSystem.CODE
+    ];
     expect(layers.length).toEqual(expected.length);
 
     const codes = layers.map((layer: Layer) => layer.code);

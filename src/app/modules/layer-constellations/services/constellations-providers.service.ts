@@ -18,7 +18,7 @@ export class ConstellationsProvidersService implements LayersProvider {
   constructor(
     private readonly _constellationsFactory: ConstellationsLayerFactoryService
   ) {
-    this._layerCode = 'constellations';
+    this._layerCode = Constellations.CODE;
   }
 
   public getRenderableLayer(model: Layer): Constellations {
