@@ -4,7 +4,6 @@ import { Theme } from '#core/models/theme/theme';
 import { ThemeMeta } from '#core/models/theme/theme-meta';
 import { StaticDataService } from '#core/services/static-data.service';
 import { mockedLayers } from '#core/test-utils/mocked-layers.spec';
-import { mockedLines } from '#core/test-utils/mocked-lines.spec';
 import { mockedTheme } from '#core/test-utils/mocked-theme.spec';
 import { mockedThemes } from '#core/test-utils/mocked-themes.spec';
 
@@ -47,10 +46,18 @@ describe('StaticDataService', () => {
   });
 
   it('getDataJson should return expected data', () => {
-    httpClientSpy.get.and.returnValue(of(mockedLines));
+    const rawLines = [
+      [72.46, 6.95, 72.65, 8.9],
+      [72.8, 5.6, 72.46, 6.95],
+      [73.56, 2.45, 72.8, 5.6],
+      [74.64, 1.72, 73.56, 2.45],
+      [81.28, 6.35, 74.64, 1.72],
+      [83.0, -0.3, 81.28, 6.35]
+    ];
+    httpClientSpy.get.and.returnValue(of(rawLines));
     service.getDataJson('mocked-lines')
       .subscribe(
-        (lines: Array<any>) => expect(lines).toEqual(mockedLines)
+        (lines: Array<any>) => expect(lines).toEqual(lines)
       );
     expect(httpClientSpy.get).toHaveBeenCalledTimes(1);
   });

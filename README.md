@@ -50,9 +50,10 @@ All elements of the UI controls have tool tips. All their functionalities can be
 * _Go To_ selection: type an object code ('lyr'), name ('Sirius') or sky coordinate in decimal degrees ('185 -60') to center the view on your point of interest.
 
 * _Objects_ selection: toggle the display of available layers and their properties.
-  * for the constellations, the boundaries, the lines and the names can be toggled.
+  * for the Solar system, the current location of the Sun, the Moon and the planets are shown. The dashed lines trace their apparent trajectories: the full orbital circles for the Sun and for the Moon; 7 next days path for Mercury and Venus; 14 next days path for Mars and 30 next days path for the other outer planets. 
   * the stars can be filtered by magnitude (< 2 to 6). Either proper ('Antares', 'Deneb'...) or standard/Bayer ('α', 'β', 'γ'...) names can be shown.
   * the names of the Messier objects can be toggled.
+  * for the constellations: the boundaries, the lines and the names can be toggled.
 
 * _View_ properties:
   * Field of view (FOV) controls: select the angular size of the view and press the "Change FOV" button to update it.

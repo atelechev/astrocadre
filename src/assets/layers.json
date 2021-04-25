@@ -11,32 +11,6 @@
       "description": "Celestial coordinates grid in degrees"
     },
     {
-      "code": "constellations",
-      "label": "Constellations",
-      "loadFromUrl": false,
-      "description": "Constellations visualisation and data",
-      "subLayers": [
-        {
-          "code": "constellation-boundaries",
-          "label": "Boundaries",
-          "loadFromUrl": true,
-          "description": "Boundaries of constellations"
-        },
-        {
-          "code": "constellation-lines",
-          "label": "Lines",
-          "loadFromUrl": true,
-          "description": "Lines between stars in constellations"
-        },
-        {
-          "code": "constellation-names",
-          "label": "Names",
-          "loadFromUrl": true,
-          "description": "The names of the constellations"
-        }
-      ]
-    },
-    {
       "code": "solar-system",
       "label": "Solar system",
       "loadFromUrl": false,
@@ -46,7 +20,7 @@
       "code": "stars",
       "label": "Stars",
       "loadFromUrl": false,
-      "description": "Stars visualisation and data",
+      "description": "Stars of various magnitudes",
       "subLayers": [
         {
           "code": "stars-mag2.0",
@@ -103,6 +77,12 @@
           "description": "Stars of magnitude between 5.5 and more"
         }
       ]
+    },
+    {
+      "code": "constellations",
+      "label": "Constellations",
+      "loadFromUrl": true,
+      "description": "Constellations: boundaries, lines and names"
     },
     {
       "code": "messier",

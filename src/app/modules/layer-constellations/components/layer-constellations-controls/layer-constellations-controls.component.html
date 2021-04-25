@@ -1,7 +1,15 @@
-<div class="p-pl-6 p-mt-2">
-  <p-selectButton [multiple]="true"
-                  [options]="options"
-                  [(ngModel)]="choices"
-                  optionLabel="label"
-                  optionValue="value"></p-selectButton>
-</div>
+
+<p-toggleButton [(ngModel)]="namesShown"
+                onLabel="Names"
+                offLabel="Names"
+                title="Toggle the constellation names shown"></p-toggleButton>
+
+<p-toggleButton [(ngModel)]="boundariesShown"
+                onLabel="Boundaries"
+                offLabel="Boundaries"
+                title="Toggle the constellation boundaries shown"></p-toggleButton>
+
+<p-toggleButton [(ngModel)]="linesShown"
+                onLabel="Lines"
+                offLabel="Lines"
+                title="Toggle the constellation lines shown"></p-toggleButton>

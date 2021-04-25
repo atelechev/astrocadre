@@ -5,10 +5,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { PrimeNgImportsModule } from 'src/app/primeng-imports.module';
 import { CoreModule } from '#core/core.module';
 import { ConstellationsProvidersService } from '#layer-constellations/services/constellations-providers.service';
-import { BoundariesLayerFactoryService } from '#layer-constellations/services/factories/boundaries-layer-factory.service';
-import { LinesLayerFactoryService } from '#layer-constellations/services/factories/lines-layer-factory.service';
-import { NamesLayerFactoryService } from '#layer-constellations/services/factories/names-layer-factory.service';
 import { LayerConstellationsControlsComponent } from '#layer-constellations/components/layer-constellations-controls/layer-constellations-controls.component';
+import { ConstellationsLayerFactoryService } from '#layer-constellations/services/factories/constellations-layer-factory.service';
+import { ConstellationsVisibilityManagerService } from '#layer-constellations/services/visibility/constellations-visibility-manager.service';
 
 @NgModule({
   imports: [
@@ -19,10 +18,9 @@ import { LayerConstellationsControlsComponent } from '#layer-constellations/comp
     PrimeNgImportsModule
   ],
   providers: [
-    BoundariesLayerFactoryService,
-    LinesLayerFactoryService,
-    NamesLayerFactoryService,
-    ConstellationsProvidersService
+    ConstellationsLayerFactoryService,
+    ConstellationsProvidersService,
+    ConstellationsVisibilityManagerService
   ],
   declarations: [
     LayerConstellationsControlsComponent

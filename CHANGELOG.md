@@ -2,7 +2,11 @@
 
 _These notes are added from the most recent on the top, to the oldest at the bottom._
 
-Next version: 21.4.29
+Next version: 21.4.30
+
+### 2021-04-25 - v21.4.29
+
+* Merged the three sub-layers of the constellations layer into one layer object.
 
 ### 2021-04-23 - v21.4.28
 
