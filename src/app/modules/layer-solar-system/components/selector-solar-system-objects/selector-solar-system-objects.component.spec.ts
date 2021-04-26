@@ -40,21 +40,17 @@ describe('SelectorSolarSystemObjectsComponent', () => {
     });
 
     it('trigger the showing of the names', () => {
-      spyOn(textsVisibilityManager, 'hideTexts');
-      spyOn(textsVisibilityManager, 'showTexts');
+      spyOn(textsVisibilityManager, 'setTextsVisible');
 
       component.namesShown = true;
-      expect(textsVisibilityManager.hideTexts).toHaveBeenCalledTimes(0);
-      expect(textsVisibilityManager.showTexts).toHaveBeenCalledTimes(1);
+      expect(textsVisibilityManager.setTextsVisible).toHaveBeenCalledTimes(1);
     });
 
     it('trigger the hiding of the names', () => {
-      spyOn(textsVisibilityManager, 'hideTexts');
-      spyOn(textsVisibilityManager, 'showTexts');
+      spyOn(textsVisibilityManager, 'setTextsVisible');
 
       component.namesShown = false;
-      expect(textsVisibilityManager.hideTexts).toHaveBeenCalledTimes(1);
-      expect(textsVisibilityManager.showTexts).toHaveBeenCalledTimes(0);
+      expect(textsVisibilityManager.setTextsVisible).toHaveBeenCalledTimes(1);
     });
 
   });
@@ -66,20 +62,20 @@ describe('SelectorSolarSystemObjectsComponent', () => {
     });
 
     it('trigger the showing of the paths', () => {
-      spyOn(pathsVisibilityManager, 'showPaths');
+      spyOn(pathsVisibilityManager, 'setPathsVisible');
 
       component.pathsShown = true;
-      expect(pathsVisibilityManager.showPaths).toHaveBeenCalledTimes(1);
-      expect(pathsVisibilityManager.showPaths).toHaveBeenCalledWith(true);
+      expect(pathsVisibilityManager.setPathsVisible).toHaveBeenCalledTimes(1);
+      expect(pathsVisibilityManager.setPathsVisible).toHaveBeenCalledWith(true);
     });
 
 
     it('trigger the hiding of the paths', () => {
-      spyOn(pathsVisibilityManager, 'showPaths');
+      spyOn(pathsVisibilityManager, 'setPathsVisible');
 
       component.pathsShown = false;
-      expect(pathsVisibilityManager.showPaths).toHaveBeenCalledTimes(1);
-      expect(pathsVisibilityManager.showPaths).toHaveBeenCalledWith(false);
+      expect(pathsVisibilityManager.setPathsVisible).toHaveBeenCalledTimes(1);
+      expect(pathsVisibilityManager.setPathsVisible).toHaveBeenCalledWith(false);
     });
 
   });

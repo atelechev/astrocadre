@@ -1,7 +1,7 @@
+import { Component } from '@angular/core';
 import { UiControlsWithNames } from '#core/components/ui-controls-with-names';
 import { TextsVisibilityManagerService } from '#core/services/visibility/texts-visibility-manager.service';
 import { PathsVisibilityManagerService } from '#layer-solar-system/services/visibility/paths-visibility-manager.service';
-import { Component } from '@angular/core';
 
 
 /**
@@ -30,7 +30,7 @@ export class SelectorSolarSystemObjectsComponent extends UiControlsWithNames {
 
   public set pathsShown(show: boolean) {
     this._pathsShown = show;
-    this._pathsVisibilityManager.showPaths(this._pathsShown);
+    this._pathsVisibilityManager.setPathsVisible(this._pathsShown);
   }
 
 }

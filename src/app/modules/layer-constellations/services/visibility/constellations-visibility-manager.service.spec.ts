@@ -52,84 +52,72 @@ describe('ConstellationsVisibilityManagerService', () => {
     const provider = TestBed.inject(ConstellationsProvidersService);
     const layer = provider.getRenderableLayer(model);
     layerService.registerLayer(layer);
-    layersManager.showLayer(constellations);
+    layersManager.setVisible(constellations, true);
     return layer;
   };
 
-  describe('showBoundaries should', () => {
+  describe('setBoundariesVisible should', () => {
 
     it('have no effect if the layer does not exist', () => {
-      spyOn(layersManager, 'hideLayer');
-      spyOn(layersManager, 'showLayer');
+      spyOn(layersManager, 'setVisible');
 
-      manager.showBoundaries(true);
-      expect(layersManager.showLayer).toHaveBeenCalledTimes(0);
-      expect(layersManager.hideLayer).toHaveBeenCalledTimes(0);
+      manager.setBoundariesVisible(true);
+      expect(layersManager.setVisible).toHaveBeenCalledTimes(0);
     });
 
     it('if the arg is true, trigger the showing of the boundaries', () => {
       const layer = loadConstellationsLayer();
-      spyOn(layersManager, 'hideLayer');
-      spyOn(layersManager, 'showLayer');
-      spyOn(layer, 'showBoundaries');
+      spyOn(layersManager, 'setVisible');
+      spyOn(layer, 'setBoundariesVisible');
 
-      manager.showBoundaries(true);
-      expect(layersManager.showLayer).toHaveBeenCalledTimes(1);
-      expect(layersManager.hideLayer).toHaveBeenCalledTimes(1);
-      expect(layer.showBoundaries).toHaveBeenCalledTimes(1);
-      expect(layer.showBoundaries).toHaveBeenCalledWith(true);
+      manager.setBoundariesVisible(true);
+      expect(layersManager.setVisible).toHaveBeenCalledTimes(2);
+      expect(layer.setBoundariesVisible).toHaveBeenCalledTimes(1);
+      expect(layer.setBoundariesVisible).toHaveBeenCalledWith(true);
     });
 
     it('if the arg is false, trigger the hiding of the boundaries', () => {
       const layer = loadConstellationsLayer();
-      spyOn(layersManager, 'hideLayer');
-      spyOn(layersManager, 'showLayer');
-      spyOn(layer, 'showBoundaries');
+      spyOn(layersManager, 'setVisible');
+      spyOn(layer, 'setBoundariesVisible');
 
-      manager.showBoundaries(false);
-      expect(layersManager.showLayer).toHaveBeenCalledTimes(1);
-      expect(layersManager.hideLayer).toHaveBeenCalledTimes(1);
-      expect(layer.showBoundaries).toHaveBeenCalledTimes(1);
-      expect(layer.showBoundaries).toHaveBeenCalledWith(false);
+      manager.setBoundariesVisible(false);
+      expect(layersManager.setVisible).toHaveBeenCalledTimes(2);
+      expect(layer.setBoundariesVisible).toHaveBeenCalledTimes(1);
+      expect(layer.setBoundariesVisible).toHaveBeenCalledWith(false);
     });
 
   });
 
-  describe('showLines should', () => {
+  describe('setLinesVisible should', () => {
 
     it('have no effect if the layer does not exist', () => {
-      spyOn(layersManager, 'hideLayer');
-      spyOn(layersManager, 'showLayer');
+      spyOn(layersManager, 'setVisible');
 
-      manager.showLines(true);
-      expect(layersManager.showLayer).toHaveBeenCalledTimes(0);
-      expect(layersManager.hideLayer).toHaveBeenCalledTimes(0);
+      manager.setLinesVisible(true);
+      expect(layersManager.setVisible).toHaveBeenCalledTimes(0);
     });
 
     it('if the arg is true, trigger the showing of the lines', () => {
       const layer = loadConstellationsLayer();
-      spyOn(layersManager, 'hideLayer');
-      spyOn(layersManager, 'showLayer');
-      spyOn(layer, 'showLines');
+      spyOn(layersManager, 'setVisible');
+      spyOn(layer, 'setLinesVisible');
 
-      manager.showLines(true);
-      expect(layersManager.showLayer).toHaveBeenCalledTimes(1);
-      expect(layersManager.hideLayer).toHaveBeenCalledTimes(1);
-      expect(layer.showLines).toHaveBeenCalledTimes(1);
-      expect(layer.showLines).toHaveBeenCalledWith(true);
+      manager.setLinesVisible(true);
+      expect(layersManager.setVisible).toHaveBeenCalledTimes(2);
+      expect(layer.setLinesVisible).toHaveBeenCalledTimes(1);
+      expect(layer.setLinesVisible).toHaveBeenCalledWith(true);
     });
 
     it('if the arg is false, trigger the hiding of the lines', () => {
       const layer = loadConstellationsLayer();
-      spyOn(layersManager, 'hideLayer');
-      spyOn(layersManager, 'showLayer');
-      spyOn(layer, 'showLines');
+      spyOn(layersManager, 'setVisible');
+      spyOn(layer, 'setLinesVisible');
 
-      manager.showLines(false);
-      expect(layersManager.showLayer).toHaveBeenCalledTimes(1);
-      expect(layersManager.hideLayer).toHaveBeenCalledTimes(1);
-      expect(layer.showLines).toHaveBeenCalledTimes(1);
-      expect(layer.showLines).toHaveBeenCalledWith(false);
+      manager.setLinesVisible(false);
+      expect(layersManager.setVisible).toHaveBeenCalledTimes(2);
+      expect(layer.setLinesVisible).toHaveBeenCalledTimes(1);
+      expect(layer.setLinesVisible).toHaveBeenCalledWith(false);
     });
 
   });

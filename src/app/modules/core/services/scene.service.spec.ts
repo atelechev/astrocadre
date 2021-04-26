@@ -28,7 +28,7 @@ describe('SceneService', () => {
     service.setViewportRootElement(document.createElement('div'));
     const layer = TestBed.inject(MockedGridLayerFactory).buildRenderableLayer();
     layers.registerLayer(layer);
-    visibilityManager.showLayer(layer.code);
+    visibilityManager.setVisible(layer.code, true);
   });
 
   const getMockedLayer = (): RenderableLayer => (
@@ -62,7 +62,7 @@ describe('SceneService', () => {
     expect(visibilityManager.isShown(code)).toBeTrue();
     expect(service.allTextsCount).toEqual(1);
 
-    visibilityManager.hideLayer(code);
+    visibilityManager.setVisible(code, false);
 
     expect(layer.objects.length).toEqual(2);
     expect(layer.texts.length).toEqual(1);

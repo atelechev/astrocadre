@@ -88,7 +88,7 @@ describe('LayersVisibilityManagerService', () => {
 
     it('true if the layer is expected to be shown', () => {
       loadMockedGridLayer();
-      manager.showLayer(skyGrid);
+      manager.setVisible(skyGrid, true);
       expect(manager.isShown(skyGrid)).toBeTrue();
     });
 
@@ -124,46 +124,37 @@ describe('LayersVisibilityManagerService', () => {
       it('when a layer is shown', (done: DoneFn) => {
         loadMockedGridLayer();
         assertEventPropagated(LayerShownEvent.KEY, done);
-        manager.showLayer(skyGrid);
+        manager.setVisible(skyGrid, true);
       });
 
       it('when a layer is hidden', (done: DoneFn) => {
         loadMockedGridLayer();
         assertEventPropagated(LayerHiddenEvent.KEY, done);
-        manager.hideLayer(skyGrid);
+        manager.setVisible(skyGrid, false);
       });
 
     });
 
   });
 
-  describe('showLayer should', () => {
+  describe('setVisible should', () => {
 
     it('have no effect if the arg is falsy', () => {
-      manager.showLayer(undefined);
+      manager.setVisible(undefined, true);
       expect(manager.isShown(undefined)).toBeFalse();
     });
 
-    it('show the layer and its sub-layers', () => {
+    it('show the layer and its sub-layers if the 2nd arg is true', () => {
       loadHierarchicalLayers();
 
-      manager.showLayer(stars);
+      manager.setVisible(stars, true);
       assertLayersShown([stars, starsMag2]);
     });
 
-  });
-
-  describe('hideLayer should', () => {
-
-    it('have no effect if the arg is falsy', () => {
-      manager.hideLayer(undefined);
-      expect(manager.isShown(undefined)).toBeFalse();
-    });
-
-    it('hide the layer and its sub-layers', () => {
+    it('hide the layer and its sub-layers if the 2nd arg is false', () => {
       loadHierarchicalLayers();
 
-      manager.hideLayer(stars);
+      manager.setVisible(stars, false);
       assertLayersHidden([stars, starsMag2]);
     });
 

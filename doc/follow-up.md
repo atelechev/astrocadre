@@ -2,8 +2,6 @@
 
 _If an idea of this list looks concrete enough and useful for the application, it should be transformed into an issue in the project's issues tracker and removed from this list._
 
-* Show the planets at a specific time, support a "timelapse" animation.
-
 * Add the "Kiddy" theme.
 
 * Make objects selectable in the view, probably with additional text info.

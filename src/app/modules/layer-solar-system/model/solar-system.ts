@@ -92,27 +92,34 @@ export class SolarSystem extends RenderableLayer {
     this.applyTextStyle(theme.solarSystem.names);
   }
 
-  // TODO use a single showTrajectories(boolean) method
-  public hideTrajectories(): void {
+  /**
+   * Shows or hides the apparent trajectories of the objects.
+   *
+   * @param visible true to show, false to hide.
+   */
+  public setTrajectoriesVisible(visible: boolean): void {
     this._trajectories.forEach(
       (trajectory: Object3D) => {
         const index = this.getTrajectoryIndex(trajectory);
-        if (index > -1) {
-          this._objects.splice(index, 1);
+        if (visible) {
+          this.showTrajectory(index, trajectory);
+        } else {
+          this.hideTrajectory(index);
         }
       }
     );
   }
 
-  public showTrajectories(): void {
-    this._trajectories.forEach(
-      (trajectory: Object3D) => {
-        const index = this.getTrajectoryIndex(trajectory);
-        if (index === -1) {
-          this._objects.push(trajectory);
-        }
-      }
-    );
+  private hideTrajectory(index: number): void {
+    if (index > -1) {
+      this._objects.splice(index, 1);
+    }
+  }
+
+  private showTrajectory(index: number, trajectory: Object3D): void {
+    if (index === -1) {
+      this._objects.push(trajectory);
+    }
   }
 
   private applyThemeOnTrajectories(theme: Theme): void {

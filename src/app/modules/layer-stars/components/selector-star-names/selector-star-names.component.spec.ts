@@ -54,55 +54,49 @@ describe('SelectorStarNamesComponent', () => {
       describe('have no effect', () => {
 
         it('if the value is negative', () => {
-          spyOn(textsVisibilityManager, 'hideTexts');
+          spyOn(textsVisibilityManager, 'setTextsVisible');
           component.shownNames = -1;
           expect(component.shownNames).toEqual(1);
-          expect(textsVisibilityManager.hideTexts).toHaveBeenCalledTimes(0);
+          expect(textsVisibilityManager.setTextsVisible).toHaveBeenCalledTimes(0);
         });
 
         it('if the value is greater than the number of possible choices', () => {
-          spyOn(textsVisibilityManager, 'hideTexts');
+          spyOn(textsVisibilityManager, 'setTextsVisible');
           component.shownNames = 3;
           expect(component.shownNames).toEqual(1);
-          expect(textsVisibilityManager.hideTexts).toHaveBeenCalledTimes(0);
+          expect(textsVisibilityManager.setTextsVisible).toHaveBeenCalledTimes(0);
         });
 
         it('if the choice is the same than before', () => {
-          spyOn(textsVisibilityManager, 'hideTexts');
+          spyOn(textsVisibilityManager, 'setTextsVisible');
           component.shownNames = 1;
           expect(component.shownNames).toEqual(1);
-          expect(textsVisibilityManager.hideTexts).toHaveBeenCalledTimes(0);
+          expect(textsVisibilityManager.setTextsVisible).toHaveBeenCalledTimes(0);
         });
 
       });
 
       it('hide the names if the choice is "None"', () => {
-        spyOn(textsVisibilityManager, 'hideTexts');
-        spyOn(textsVisibilityManager, 'showTexts');
+        spyOn(textsVisibilityManager, 'setTextsVisible');
         component.shownNames = 0;
-        expect(textsVisibilityManager.hideTexts).toHaveBeenCalledTimes(1);
-        expect(textsVisibilityManager.showTexts).toHaveBeenCalledTimes(0);
+        expect(textsVisibilityManager.setTextsVisible).toHaveBeenCalledTimes(1);
       });
 
       it('trigger the showing of the standard names', () => {
-        spyOn(textsVisibilityManager, 'hideTexts');
+        spyOn(textsVisibilityManager, 'setTextsVisible');
         spyOn(starsVisibilityManager, 'showStarsProperNames');
-        spyOn(textsVisibilityManager, 'showTexts');
         component.shownNames = 2;
-        expect(textsVisibilityManager.hideTexts).toHaveBeenCalledTimes(1);
+        expect(textsVisibilityManager.setTextsVisible).toHaveBeenCalledTimes(2);
         expect(starsVisibilityManager.showStarsProperNames).toHaveBeenCalledWith(false);
-        expect(textsVisibilityManager.showTexts).toHaveBeenCalledTimes(1);
       });
 
       it('trigger the showing of the proper names', () => {
         component.shownNames = 2;
-        spyOn(textsVisibilityManager, 'hideTexts');
+        spyOn(textsVisibilityManager, 'setTextsVisible');
         spyOn(starsVisibilityManager, 'showStarsProperNames');
-        spyOn(textsVisibilityManager, 'showTexts');
         component.shownNames = 1;
-        expect(textsVisibilityManager.hideTexts).toHaveBeenCalledTimes(1);
+        expect(textsVisibilityManager.setTextsVisible).toHaveBeenCalledTimes(2);
         expect(starsVisibilityManager.showStarsProperNames).toHaveBeenCalledWith(true);
-        expect(textsVisibilityManager.showTexts).toHaveBeenCalledTimes(1);
       });
 
     });

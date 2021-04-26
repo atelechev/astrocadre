@@ -19,18 +19,14 @@ export class PathsVisibilityManagerService {
     this._layerCode = SolarSystem.CODE;
   }
 
-  public showPaths(show: boolean): void {
+  public setPathsVisible(visible: boolean): void {
     const layer = this.getSolarSystemLayer();
     if (!layer) {
       return;
     }
-    this._layersVisibilityManager.hideLayer(this._layerCode);
-    if (show) {
-      layer.showTrajectories();
-    } else {
-      layer.hideTrajectories();
-    }
-    this._layersVisibilityManager.showLayer(this._layerCode);
+    this._layersVisibilityManager.setVisible(this._layerCode, false);
+    layer.setTrajectoriesVisible(visible);
+    this._layersVisibilityManager.setVisible(this._layerCode, true);
   }
 
   private getSolarSystemLayer(): SolarSystem {

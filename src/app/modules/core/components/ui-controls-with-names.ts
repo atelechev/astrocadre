@@ -1,6 +1,6 @@
+import { Directive } from '@angular/core';
 import { LayerAware } from '#core/models/layers/layer-aware';
 import { TextsVisibilityManagerService } from '#core/services/visibility/texts-visibility-manager.service';
-import { Directive } from '@angular/core';
 
 /**
  * Common class for the UI controls that provide a possibility to
@@ -23,11 +23,7 @@ export class UiControlsWithNames extends LayerAware {
 
   public set namesShown(show: boolean) {
     this._namesShown = show;
-    if (this._namesShown) {
-      this._textsVisibilityManager.showTexts(this.layer.code);
-    } else {
-      this._textsVisibilityManager.hideTexts(this.layer.code);
-    }
+    this._textsVisibilityManager.setTextsVisible(this.layer.code, this._namesShown);
   }
 
 }

@@ -5,6 +5,7 @@ import { Layer } from '#core/models/layers/layer';
 import { LayerEvent } from '#core/models/event/layer-event';
 import { LayerShownEvent } from '#core/models/event/layer-shown-event';
 import { LayerHiddenEvent } from '#core/models/event/layer-hidden-event';
+import { RenderableLayer } from '#core/models/layers/renderable-layer';
 
 /**
  * Provides methods to manage the visibility of layers of objects.
@@ -39,53 +40,40 @@ export class LayersVisibilityManagerService {
   }
 
   /**
-   * Shows the objects of the specified layer.
+   * Sets the specified layer visible or hidden.
    *
-   * @param code the code of the layer to show the objects for.
+   * @param code the code of the layer to show/hide.
+   * @param visible true to show, false to hide.
    */
-  public showLayer(code: string): void {
-    const layer = this._layerService.getModel(code);
-    if (!layer) {
+  public setVisible(code: string, visible: boolean): void {
+    const renderable = this._layerService.getRenderableLayer(code);
+    if (!renderable) {
       return;
     }
-    this._shownLayers.add(code);
-    const renderable = this._layerService.getRenderableLayer(code);
-    if (renderable) {
-      this._events.next(new LayerShownEvent(renderable));
+    if (visible) {
+      this.showLayer(renderable);
+    } else {
+      this.hideLayer(renderable);
     }
-    this.processSubLayersVisibility(code, true);
   }
 
-  /**
-   * Hides the objects of the specified layer.
-   *
-   * @param code the code of the layer to hide the objects for.
-   */
-  public hideLayer(code: string): void {
-    const layer = this._layerService.getModel(code);
-    if (!layer) {
-      return;
-    }
-    this._shownLayers.delete(code);
-    const renderable = this._layerService.getRenderableLayer(code);
-    if (renderable) {
-      this._events.next(new LayerHiddenEvent(renderable));
-    }
-    this.processSubLayersVisibility(code, false);
+  private showLayer(layer: RenderableLayer): void {
+    this._shownLayers.add(layer.code);
+    this._events.next(new LayerShownEvent(layer));
+    this.processSubLayersVisibility(layer, true);
   }
 
-  private processSubLayersVisibility(layer: string, visible: boolean): void {
-    const model = this._layerService.getModel(layer);
-    if (model?.subLayers) {
-      model.subLayers
+  private hideLayer(layer: RenderableLayer): void {
+    this._shownLayers.delete(layer.code);
+    this._events.next(new LayerHiddenEvent(layer));
+    this.processSubLayersVisibility(layer, false);
+  }
+
+  private processSubLayersVisibility(layer: Layer, visible: boolean): void {
+    if (layer?.subLayers) {
+      layer.subLayers
         .forEach(
-          (subLayer: Layer) => {
-            if (visible) {
-              this.showLayer(subLayer.code);
-            } else {
-              this.hideLayer(subLayer.code);
-            }
-          }
+          (subLayer: Layer) => this.setVisible(subLayer.code, visible)
         );
     }
   }

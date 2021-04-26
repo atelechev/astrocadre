@@ -48,12 +48,12 @@ describe('SelectorLayerComponent', () => {
     describe('get should return', () => {
 
       it('true if the layer is shown', () => {
-        visibilityManager.showLayer(code);
+        visibilityManager.setVisible(code, true);
         expect(component.isShown).toBeTrue();
       });
 
       it('false if the layer is not shown', () => {
-        visibilityManager.hideLayer(code);
+        visibilityManager.setVisible(code, false);
         expect(component.isShown).toBeFalse();
       });
 
@@ -62,14 +62,14 @@ describe('SelectorLayerComponent', () => {
     describe('set should', () => {
 
       it('show the layer if arg is true', () => {
-        visibilityManager.hideLayer(code);
+        visibilityManager.setVisible(code, false);
         expect(visibilityManager.isShown(code)).toBeFalse();
         component.isShown = true;
         expect(visibilityManager.isShown(code)).toBeTrue();
       });
 
       it('hide the layer if arg is false', () => {
-        visibilityManager.showLayer(code);
+        visibilityManager.setVisible(code, true);
         expect(visibilityManager.isShown(code)).toBeTrue();
         component.isShown = false;
         expect(visibilityManager.isShown(code)).toBeFalse();

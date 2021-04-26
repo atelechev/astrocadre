@@ -80,7 +80,7 @@ export class SolarSystemLayerFactoryService implements LayerFactory {
       .then(
         (_: any) => {
           this._searchService.registerSearchables(renderable.searchables);
-          this._visibilityManager.showLayer(this._layerCode);
+          this._visibilityManager.setVisible(this._layerCode, true);
         }
       );
     return renderable;

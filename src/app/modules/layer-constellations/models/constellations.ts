@@ -52,22 +52,22 @@ export class Constellations extends RenderableLayer {
     );
   }
 
-  public showBoundaries(show: boolean): void {
-    this.showObject(show, this._boundaries);
+  public setBoundariesVisible(visible: boolean): void {
+    this.setObjectVisible(visible, this._boundaries);
   }
 
-  public showLines(show: boolean): void {
-    this.showObject(show, this._lines);
+  public setLinesVisible(visible: boolean): void {
+    this.setObjectVisible(visible, this._lines);
   }
 
-  private showObject(show: boolean, object: Object3D): void {
+  private setObjectVisible(visible: boolean, object: Object3D): void {
     const indexObject = this._objects.findIndex(
       (obj: Object3D) => obj === object
     );
-    if (show && indexObject === -1) {
+    if (visible && indexObject === -1) {
       this._objects.push(object);
     }
-    if (!show && indexObject > -1) {
+    if (!visible && indexObject > -1) {
       this._objects.splice(indexObject, 1);
     }
   }

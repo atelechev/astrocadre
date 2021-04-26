@@ -31,7 +31,7 @@ export class LayerConstellationsControlsComponent extends UiControlsWithNames {
 
   public set boundariesShown(show: boolean) {
     this._boundariesShown = show;
-    this._visibilityManager.showBoundaries(show);
+    this._visibilityManager.setBoundariesVisible(show);
   }
 
   public get linesShown(): boolean {
@@ -40,7 +40,7 @@ export class LayerConstellationsControlsComponent extends UiControlsWithNames {
 
   public set linesShown(show: boolean) {
     this._linesShown = show;
-    this._visibilityManager.showLines(show);
+    this._visibilityManager.setLinesVisible(show);
   }
 
 }
