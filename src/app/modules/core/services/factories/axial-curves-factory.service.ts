@@ -8,7 +8,7 @@ import { VirtualSphereRadiusService } from '#core/services/virtual-sphere-radius
 /**
  * Factory for the curves situated on the 3D world sphere.
  */
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class AxialCurvesFactoryService extends Object3DFactory<LineSegments> {
 
   private readonly _intermediatePointsDensity = 5.0; // the bigger the less dense, but uglier in the view!

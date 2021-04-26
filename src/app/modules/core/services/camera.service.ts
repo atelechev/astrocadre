@@ -15,7 +15,7 @@ import { VirtualSphereRadiusService } from '#core/services/virtual-sphere-radius
 /**
  * Holds the reference to the camera object and provides methods to change the view.
  */
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class CameraService {
 
   /**

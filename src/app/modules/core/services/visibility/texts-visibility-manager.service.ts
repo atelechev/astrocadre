@@ -9,7 +9,7 @@ import { TextsHiddenEvent } from '#core/models/event/texts-hidden-event';
 /**
  * Provides methods to manage the visibility of text objects.
  */
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class TextsVisibilityManagerService {
 
   private readonly _events: BehaviorSubject<LayerEvent<any>>;
@@ -26,34 +26,20 @@ export class TextsVisibilityManagerService {
   }
 
   /**
-   * Shows all the text objects of the specified layer.
+   * Shows or hides the texts of the specified layer.
    *
-   * @param code the code of the layer to show the texts for.
+   * @param code the code of the layer.
+   * @param visible true to show, false to hide the texts.
    */
-  public showTexts(code: string): void {
+  public setTextsVisible(code: string, visible: boolean): void {
     const layer = this._layerService.getRenderableLayer(code);
     if (!layer) {
       return;
     }
-    this._events.next(new TextsShownEvent(layer));
+    const event = visible ? new TextsShownEvent(layer) : new TextsHiddenEvent(layer);
+    this._events.next(event);
     layer.subLayers?.forEach(
-      (subLayer: Layer) => this.showTexts(subLayer.code)
-    );
-  }
-
-  /**
-   * Hides all the text objects of the specified layer.
-   *
-   * @param code the code of the layer to hide the texts for.
-   */
-  public hideTexts(code: string): void {
-    const layer = this._layerService.getRenderableLayer(code);
-    if (!layer) {
-      return;
-    }
-    this._events.next(new TextsHiddenEvent(layer));
-    layer.subLayers?.forEach(
-      (subLayer: Layer) => this.hideTexts(subLayer.code)
+      (subLayer: Layer) => this.setTextsVisible(subLayer.code, visible)
     );
   }
 

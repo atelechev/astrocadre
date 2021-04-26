@@ -125,7 +125,7 @@ export class LoaderService {
       );
     this._layerService.registerLayer(renderable);
     this._searchService.registerSearchables(renderable?.searchables);
-    this._visibilityManager.showLayer(layer?.code);
+    this._visibilityManager.setVisible(layer?.code, true);
   }
 
 }

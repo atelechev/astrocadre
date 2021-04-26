@@ -29,11 +29,8 @@ export class StarsVisibilityManagerService {
   public showStarLayersDownToMagnitude(magnitude: number): void {
     this.getAllStarsLayers().forEach(
       (layer: Stars) => {
-        if (magnitude < layer.magnitudeClass) {
-          this._layersVisibilityManager.hideLayer(layer.code);
-        } else {
-          this._layersVisibilityManager.showLayer(layer.code);
-        }
+        const visible = !(magnitude < layer.magnitudeClass);
+        this._layersVisibilityManager.setVisible(layer.code, visible);
       }
     );
   }
@@ -44,9 +41,9 @@ export class StarsVisibilityManagerService {
    * @param show true to show the proper names, false for the standard names.
    */
   public showStarsProperNames(show: boolean): void {
-    this._textsVisibilityManager.hideTexts(this._layerCode);
+    this._textsVisibilityManager.setTextsVisible(this._layerCode, false);
     this.toggleNamesType(this.starsLayer, show);
-    this._textsVisibilityManager.showTexts(this._layerCode);
+    this._textsVisibilityManager.setTextsVisible(this._layerCode, true);
   }
 
   private get starsLayer(): Stars {

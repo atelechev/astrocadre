@@ -2,12 +2,17 @@
 
 _These notes are added from the most recent on the top, to the oldest at the bottom._
 
-Next version: 21.4.30
+Next version: 21.4.31
+
+### 2021-04-26 - v21.4.30
+
+* Aligned the API of all entities to use `set*Visible(boolean)` instead of show/hide methods.
+* Reviewed the scope of all the services; set the core services to `providedIn: root`.
 
 ### 2021-04-25 - v21.4.29
 
 * Merged the three sub-layers of the constellations layer into one layer object.
-* Remove the SupportedLayers class which contained constants only.
+* Removed the SupportedLayers class which contained constants only.
 
 ### 2021-04-23 - v21.4.28
 

@@ -229,47 +229,46 @@ describe('SolarSystem', () => {
 
   });
 
-  describe('hideTrajectories should', () => {
+  describe('setTrajectoriesVisible should', () => {
 
     it('remove all trajectories from the objects, if they were present', fakeAsync(() => {
       const layer = buildLayer();
       expect(layer.objects.length).toEqual(18);
 
-      layer.hideTrajectories();
+      layer.setTrajectoriesVisible(false);
       expect(layer.objects.length).toEqual(9);
     }));
-
-    it('have no effect if the trajectories were already removed', fakeAsync(() => {
-      const layer = buildLayer();
-      expect(layer.objects.length).toEqual(18);
-      layer.hideTrajectories();
-      expect(layer.objects.length).toEqual(9);
-
-      layer.hideTrajectories();
-      expect(layer.objects.length).toEqual(9);
-    }));
-
-  });
-
-
-  describe('showTrajectories should', () => {
 
     it('add all trajectories to the objects, if they were not present', fakeAsync(() => {
       const layer = buildLayer();
       expect(layer.objects.length).toEqual(18);
-      layer.hideTrajectories();
+      layer.setTrajectoriesVisible(false);
       expect(layer.objects.length).toEqual(9);
 
-      layer.showTrajectories();
+      layer.setTrajectoriesVisible(true);
       expect(layer.objects.length).toEqual(18);
     }));
 
-    it('have no effect if the trajectories were already shown', fakeAsync(() => {
-      const layer = buildLayer();
-      expect(layer.objects.length).toEqual(18);
-      layer.showTrajectories();
-      expect(layer.objects.length).toEqual(18);;
-    }));
+    describe('have no effect', () => {
+
+      it('if the trajectories were already removed', fakeAsync(() => {
+        const layer = buildLayer();
+        expect(layer.objects.length).toEqual(18);
+        layer.setTrajectoriesVisible(false);
+        expect(layer.objects.length).toEqual(9);
+
+        layer.setTrajectoriesVisible(false);
+        expect(layer.objects.length).toEqual(9);
+      }));
+
+      it('if the trajectories were already shown', fakeAsync(() => {
+        const layer = buildLayer();
+        expect(layer.objects.length).toEqual(18);
+        layer.setTrajectoriesVisible(true);
+        expect(layer.objects.length).toEqual(18);;
+      }));
+
+    });
 
   });
 

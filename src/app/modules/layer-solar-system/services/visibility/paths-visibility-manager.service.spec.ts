@@ -36,47 +36,37 @@ describe('PathsVisibilityManagerService', () => {
     const provider = TestBed.inject(SolarSystemProvidersService);
     const layer = provider.getRenderableLayer(model);
     layerService.registerLayer(layer);
-    layersManager.showLayer(solarSystem);
+    layersManager.setVisible(solarSystem, true);
     return layer;
   };
 
   describe('showPaths should', () => {
 
     it('have no effect if the layer does not exist', () => {
-      spyOn(layersManager, 'hideLayer');
-      spyOn(layersManager, 'showLayer');
+      spyOn(layersManager, 'setVisible');
 
-      manager.showPaths(true);
-      expect(layersManager.showLayer).toHaveBeenCalledTimes(0);
-      expect(layersManager.hideLayer).toHaveBeenCalledTimes(0);
+      manager.setPathsVisible(true);
+      expect(layersManager.setVisible).toHaveBeenCalledTimes(0);
     });
 
     it('if the arg is true, trigger the showing of the solar system layer and trajectories', () => {
       const layer = loadSolarSystemLayer();
-      spyOn(layersManager, 'hideLayer');
-      spyOn(layersManager, 'showLayer');
-      spyOn(layer, 'hideTrajectories');
-      spyOn(layer, 'showTrajectories');
+      spyOn(layersManager, 'setVisible');
+      spyOn(layer, 'setTrajectoriesVisible');
 
-      manager.showPaths(true);
-      expect(layersManager.showLayer).toHaveBeenCalledTimes(1);
-      expect(layersManager.hideLayer).toHaveBeenCalledTimes(1);
-      expect(layer.showTrajectories).toHaveBeenCalledTimes(1);
-      expect(layer.hideTrajectories).toHaveBeenCalledTimes(0);
+      manager.setPathsVisible(true);
+      expect(layersManager.setVisible).toHaveBeenCalledTimes(2);
+      expect(layer.setTrajectoriesVisible).toHaveBeenCalledTimes(1);
     });
 
     it('if the arg is false, trigger the hiding of the solar system layer and trajectories', () => {
       const layer = loadSolarSystemLayer();
-      spyOn(layersManager, 'hideLayer');
-      spyOn(layersManager, 'showLayer');
-      spyOn(layer, 'hideTrajectories');
-      spyOn(layer, 'showTrajectories');
+      spyOn(layersManager, 'setVisible');
+      spyOn(layer, 'setTrajectoriesVisible');
 
-      manager.showPaths(false);
-      expect(layersManager.showLayer).toHaveBeenCalledTimes(1);
-      expect(layersManager.hideLayer).toHaveBeenCalledTimes(1);
-      expect(layer.showTrajectories).toHaveBeenCalledTimes(0);
-      expect(layer.hideTrajectories).toHaveBeenCalledTimes(1);
+      manager.setPathsVisible(false);
+      expect(layersManager.setVisible).toHaveBeenCalledTimes(2);
+      expect(layer.setTrajectoriesVisible).toHaveBeenCalledTimes(1);
     });
 
   });

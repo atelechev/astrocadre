@@ -37,21 +37,17 @@ describe('SelectorMessierNamesComponent', () => {
     });
 
     it('trigger the showing of the names', () => {
-      spyOn(textsVisibilityManager, 'hideTexts');
-      spyOn(textsVisibilityManager, 'showTexts');
+      spyOn(textsVisibilityManager, 'setTextsVisible');
 
       component.namesShown = true;
-      expect(textsVisibilityManager.hideTexts).toHaveBeenCalledTimes(0);
-      expect(textsVisibilityManager.showTexts).toHaveBeenCalledTimes(1);
+      expect(textsVisibilityManager.setTextsVisible).toHaveBeenCalledTimes(1);
     });
 
     it('trigger the hiding of the names', () => {
-      spyOn(textsVisibilityManager, 'hideTexts');
-      spyOn(textsVisibilityManager, 'showTexts');
+      spyOn(textsVisibilityManager, 'setTextsVisible');
 
       component.namesShown = false;
-      expect(textsVisibilityManager.hideTexts).toHaveBeenCalledTimes(1);
-      expect(textsVisibilityManager.showTexts).toHaveBeenCalledTimes(0);
+      expect(textsVisibilityManager.setTextsVisible).toHaveBeenCalledTimes(1);
     });
 
   });

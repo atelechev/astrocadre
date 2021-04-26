@@ -20,12 +20,12 @@ export class ConstellationsVisibilityManagerService {
     this._layerCode = Constellations.CODE;
   }
 
-  public showBoundaries(show: boolean): void {
-    this.showObjects(show, (layer: Constellations, isShown: boolean) => layer.showBoundaries(isShown));
+  public setBoundariesVisible(vesible: boolean): void {
+    this.showObjects(vesible, (layer: Constellations, isShown: boolean) => layer.setBoundariesVisible(isShown));
   }
 
-  public showLines(show: boolean): void {
-    this.showObjects(show, (layer: Constellations, isShown: boolean) => layer.showLines(isShown));
+  public setLinesVisible(visible: boolean): void {
+    this.showObjects(visible, (layer: Constellations, isShown: boolean) => layer.setLinesVisible(isShown));
   }
 
   private showObjects(
@@ -36,9 +36,9 @@ export class ConstellationsVisibilityManagerService {
     if (!layer) {
       return;
     }
-    this._layersVisibilityManager.hideLayer(this._layerCode);
+    this._layersVisibilityManager.setVisible(this._layerCode, false);
     showFunction(layer, show);
-    this._layersVisibilityManager.showLayer(this._layerCode);
+    this._layersVisibilityManager.setVisible(this._layerCode, true);
   }
 
   private getConstellationsLayer(): Constellations {

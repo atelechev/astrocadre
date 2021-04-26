@@ -10,7 +10,7 @@ import { ViewportViewChangeEvent } from '#core/models/event/viewport-view-change
  * Holds the value corresponding to the current size of the viewport and provides
  * methods related with the viewport.
  */
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class ViewportService {
 
   private readonly _events: BehaviorSubject<ViewportEvent<any>>;

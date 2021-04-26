@@ -57,12 +57,12 @@ describe('TextsVisibilityManagerService', () => {
 
       it('when the texts of a layer are shown', (done: DoneFn) => {
         assertEventPropagated(TextsShownEvent.KEY, done);
-        manager.showTexts(code);
+        manager.setTextsVisible(code, true);
       });
 
       it('when the texts of a layer are hidden', (done: DoneFn) => {
         assertEventPropagated(TextsHiddenEvent.KEY, done);
-        manager.hideTexts(code);
+        manager.setTextsVisible(code, false);
       });
 
     });

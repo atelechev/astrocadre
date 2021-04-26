@@ -51,7 +51,7 @@ describe('StarsVisibilityManagerService', () => {
         const layer = provider.getRenderableLayer(model);
         layerService.registerLayer(layer);
       });
-    layersManager.showLayer(stars);
+    layersManager.setVisible(stars, true);
   };
 
   const assertLayersShown = (expectedShown: Array<string>): void => {

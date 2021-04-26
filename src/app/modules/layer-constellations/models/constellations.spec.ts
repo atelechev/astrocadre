@@ -115,17 +115,17 @@ describe('Constellations', () => {
       it('have no effect if the boundaries are already shown', () => {
         expect(layer.objects.length).toEqual(2);
 
-        layer.showBoundaries(true);
+        layer.setBoundariesVisible(true);
         expect(layer.objects.length).toEqual(2);
       });
 
       it('show the boundaries if they were hidden', () => {
         const boundaries = layer.objects[0];
-        layer.showBoundaries(false);
+        layer.setBoundariesVisible(false);
         expect(layer.objects.length).toEqual(1);
         expect(layer.objects[0]).not.toEqual(boundaries);
 
-        layer.showBoundaries(true);
+        layer.setBoundariesVisible(true);
         expect(layer.objects.length).toEqual(2);
         expect(layer.objects[1]).toEqual(boundaries);
       });
@@ -135,10 +135,10 @@ describe('Constellations', () => {
     describe('if the arg is false', () => {
 
       it('have no effect if the boundaries are already hidden', () => {
-        layer.showBoundaries(false);
+        layer.setBoundariesVisible(false);
         expect(layer.objects.length).toEqual(1);
 
-        layer.showBoundaries(false);
+        layer.setBoundariesVisible(false);
         expect(layer.objects.length).toEqual(1);
       });
 
@@ -147,7 +147,7 @@ describe('Constellations', () => {
         expect(layer.objects.length).toEqual(2);
         expect(layer.objects[0]).toEqual(boundaries);
 
-        layer.showBoundaries(false);
+        layer.setBoundariesVisible(false);
         expect(layer.objects.length).toEqual(1);
         expect(layer.objects[0]).not.toEqual(boundaries);
       });
@@ -163,17 +163,17 @@ describe('Constellations', () => {
       it('have no effect if the lines are already shown', () => {
         expect(layer.objects.length).toEqual(2);
 
-        layer.showLines(true);
+        layer.setLinesVisible(true);
         expect(layer.objects.length).toEqual(2);
       });
 
       it('show the lines if they were hidden', () => {
         const lines = layer.objects[1];
-        layer.showLines(false);
+        layer.setLinesVisible(false);
         expect(layer.objects.length).toEqual(1);
         expect(layer.objects[0]).not.toEqual(lines);
 
-        layer.showLines(true);
+        layer.setLinesVisible(true);
         expect(layer.objects.length).toEqual(2);
         expect(layer.objects[1]).toEqual(lines);
       });
@@ -183,10 +183,10 @@ describe('Constellations', () => {
     describe('if the arg is false', () => {
 
       it('have no effect if the lines are already hidden', () => {
-        layer.showLines(false);
+        layer.setLinesVisible(false);
         expect(layer.objects.length).toEqual(1);
 
-        layer.showLines(false);
+        layer.setLinesVisible(false);
         expect(layer.objects.length).toEqual(1);
       });
 
@@ -195,7 +195,7 @@ describe('Constellations', () => {
         expect(layer.objects.length).toEqual(2);
         expect(layer.objects[1]).toEqual(lines);
 
-        layer.showLines(false);
+        layer.setLinesVisible(false);
         expect(layer.objects.length).toEqual(1);
         expect(layer.objects[0]).not.toEqual(lines);
       });

@@ -5,7 +5,7 @@ import { CameraService } from '#core/services/camera.service';
 /**
  * Provides a method to bind mouse event listeners to a DOM element.
  */
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class MouseEventsHandler {
 
   private _mousePressed: boolean;

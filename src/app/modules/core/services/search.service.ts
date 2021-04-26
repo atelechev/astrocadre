@@ -8,7 +8,7 @@ import { SkyCoordinate } from '#core/models/screen/sky-coordinate';
  *
  * The search is be done among the searchable items registered in this service.
  */
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class SearchService {
 
   private readonly _starStandardNamePattern = /[A-Z]+\s+[A-Z]+/;

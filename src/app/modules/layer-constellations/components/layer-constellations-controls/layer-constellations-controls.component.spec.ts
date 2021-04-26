@@ -46,7 +46,7 @@ describe('LayerConstellationsControlsComponent', () => {
     textsVisibilityManager = TestBed.inject(TextsVisibilityManagerService);
     const renderable = TestBed.inject(ConstellationsProvidersService).getRenderableLayer(layer);
     TestBed.inject(LayerService).registerLayer(renderable);
-    TestBed.inject(LayersVisibilityManagerService).showLayer(layer.code);
+    TestBed.inject(LayersVisibilityManagerService).setVisible(layer.code, true);
     component = TestBed.createComponent(LayerConstellationsControlsComponent).componentInstance;
     component.layer = renderable;
   });
@@ -58,21 +58,17 @@ describe('LayerConstellationsControlsComponent', () => {
     });
 
     it('trigger the showing of the names', () => {
-      spyOn(textsVisibilityManager, 'hideTexts');
-      spyOn(textsVisibilityManager, 'showTexts');
+      spyOn(textsVisibilityManager, 'setTextsVisible');
 
       component.namesShown = true;
-      expect(textsVisibilityManager.hideTexts).toHaveBeenCalledTimes(0);
-      expect(textsVisibilityManager.showTexts).toHaveBeenCalledTimes(1);
+      expect(textsVisibilityManager.setTextsVisible).toHaveBeenCalledTimes(1);
     });
 
     it('trigger the hiding of the names', () => {
-      spyOn(textsVisibilityManager, 'hideTexts');
-      spyOn(textsVisibilityManager, 'showTexts');
+      spyOn(textsVisibilityManager, 'setTextsVisible');
 
       component.namesShown = false;
-      expect(textsVisibilityManager.hideTexts).toHaveBeenCalledTimes(1);
-      expect(textsVisibilityManager.showTexts).toHaveBeenCalledTimes(0);
+      expect(textsVisibilityManager.setTextsVisible).toHaveBeenCalledTimes(1);
     });
 
   });
@@ -84,19 +80,19 @@ describe('LayerConstellationsControlsComponent', () => {
     });
 
     it('trigger the showing of the boundaries', () => {
-      spyOn(visibilityManager, 'showBoundaries');
+      spyOn(visibilityManager, 'setBoundariesVisible');
 
       component.boundariesShown = true;
-      expect(visibilityManager.showBoundaries).toHaveBeenCalledTimes(1);
-      expect(visibilityManager.showBoundaries).toHaveBeenCalledWith(true);
+      expect(visibilityManager.setBoundariesVisible).toHaveBeenCalledTimes(1);
+      expect(visibilityManager.setBoundariesVisible).toHaveBeenCalledWith(true);
     });
 
     it('trigger the hiding of the boundaries', () => {
-      spyOn(visibilityManager, 'showBoundaries');
+      spyOn(visibilityManager, 'setBoundariesVisible');
 
       component.boundariesShown = false;
-      expect(visibilityManager.showBoundaries).toHaveBeenCalledTimes(1);
-      expect(visibilityManager.showBoundaries).toHaveBeenCalledWith(false);
+      expect(visibilityManager.setBoundariesVisible).toHaveBeenCalledTimes(1);
+      expect(visibilityManager.setBoundariesVisible).toHaveBeenCalledWith(false);
     });
 
   });
@@ -108,19 +104,19 @@ describe('LayerConstellationsControlsComponent', () => {
     });
 
     it('trigger the showing of the lines', () => {
-      spyOn(visibilityManager, 'showLines');
+      spyOn(visibilityManager, 'setLinesVisible');
 
       component.linesShown = true;
-      expect(visibilityManager.showLines).toHaveBeenCalledTimes(1);
-      expect(visibilityManager.showLines).toHaveBeenCalledWith(true);
+      expect(visibilityManager.setLinesVisible).toHaveBeenCalledTimes(1);
+      expect(visibilityManager.setLinesVisible).toHaveBeenCalledWith(true);
     });
 
     it('trigger the hiding of the lines', () => {
-      spyOn(visibilityManager, 'showLines');
+      spyOn(visibilityManager, 'setLinesVisible');
 
       component.linesShown = false;
-      expect(visibilityManager.showLines).toHaveBeenCalledTimes(1);
-      expect(visibilityManager.showLines).toHaveBeenCalledWith(false);
+      expect(visibilityManager.setLinesVisible).toHaveBeenCalledTimes(1);
+      expect(visibilityManager.setLinesVisible).toHaveBeenCalledWith(false);
     });
 
   });

@@ -10,7 +10,7 @@ import { ThemeChangedEvent } from '#core/models/event/theme-changed-event';
  * Holds the values of the themes that are available in the application,
  * and the value of the currently selected theme.
  */
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class ThemeService {
 
   private readonly _events: BehaviorSubject<ThemeEvent<any>>;

@@ -45,11 +45,7 @@ export class SelectorLayerComponent {
   }
 
   public set isShown(show: boolean) {
-    if (show) {
-      this._visibilityManager.showLayer(this._layer.code);
-    } else {
-      this._visibilityManager.hideLayer(this._layer.code);
-    }
+    this._visibilityManager.setVisible(this._layer.code, show);
   }
 
   public get subLayers(): Array<Layer> {

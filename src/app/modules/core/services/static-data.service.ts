@@ -9,7 +9,7 @@ import { environment } from '#environments/environment';
 /**
  * Provides methods to access the static data from the back-end.
  */
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class StaticDataService {
 
   constructor(private readonly _httpClient: HttpClient) {

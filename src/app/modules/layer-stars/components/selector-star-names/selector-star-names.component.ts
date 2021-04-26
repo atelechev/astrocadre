@@ -48,11 +48,11 @@ export class SelectorStarNamesComponent {
   }
 
   private updateShownNames(): void {
-    this._textsVisibilityManager.hideTexts(this._layerCode);
+    this._textsVisibilityManager.setTextsVisible(this._layerCode, false);
     if (this._shownNames > 0) {
       const showProperNames = this._shownNames === 1;
       this._starsVisibilityManager.showStarsProperNames(showProperNames);
-      this._textsVisibilityManager.showTexts(this._layerCode);
+      this._textsVisibilityManager.setTextsVisible(this._layerCode, true);
     }
   }
 
