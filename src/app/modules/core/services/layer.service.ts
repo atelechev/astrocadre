@@ -8,7 +8,7 @@ import { ThemeEvent } from '#core/models/event/theme-event';
  * Holds the information of the current layers tree and
  * provides the accessors to the layers.
  */
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class LayerService {
 
   private _rootLayer: Layer;

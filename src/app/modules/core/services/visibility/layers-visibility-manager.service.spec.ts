@@ -39,6 +39,7 @@ describe('LayersVisibilityManagerService', () => {
     TestBed.configureTestingModule({
       imports: [CoreModule],
       providers: [
+        AggregateLayerFactoryService,
         MockedGridLayerFactory
       ]
     });

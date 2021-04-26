@@ -7,7 +7,7 @@ import { VirtualSphereRadiusService } from '#core/services/virtual-sphere-radius
 /**
  * Factory object allowing to transform source coordinates data into 3D points data.
  */
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class PointsFactoryService extends Object3DFactory<Points> {
 
   constructor(virtualSphereService: VirtualSphereRadiusService) {

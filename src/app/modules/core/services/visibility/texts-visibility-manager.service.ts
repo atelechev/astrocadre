@@ -9,7 +9,7 @@ import { TextsHiddenEvent } from '#core/models/event/texts-hidden-event';
 /**
  * Provides methods to manage the visibility of text objects.
  */
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class TextsVisibilityManagerService {
 
   private readonly _events: BehaviorSubject<LayerEvent<any>>;

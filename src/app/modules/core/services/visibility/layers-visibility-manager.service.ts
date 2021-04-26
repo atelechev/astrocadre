@@ -9,7 +9,7 @@ import { LayerHiddenEvent } from '#core/models/event/layer-hidden-event';
 /**
  * Provides methods to manage the visibility of layers of objects.
  */
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class LayersVisibilityManagerService {
 
   private readonly _events: BehaviorSubject<LayerEvent<any>>;

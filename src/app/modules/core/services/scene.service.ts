@@ -29,7 +29,7 @@ import { TextsHiddenEvent } from '#core/models/event/texts-hidden-event';
 /**
  * Manages the current scene.
  */
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class SceneService {
 
   private readonly _scene: Scene;

@@ -7,7 +7,7 @@ import { LayerService } from '#core/services/layer.service';
  * the virtual sphere created in the viewport.
  *
  */
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class VirtualSphereRadiusService {
 
   private readonly _maxRadius: number;
