@@ -4,6 +4,7 @@ import { RenderableLayer } from '#core/models/layers/renderable-layer';
 import { Theme } from '#core/models/theme/theme';
 import { LineStyle } from '#core/models/theme/line-style';
 import { buildLineMaterial } from '#core/utils/material-utils';
+import { SkyGridStyle } from '#layer-sky-grid/models/theme/sky-grid-style';
 
 /**
  * Represents a renderable layer containing the celestial coordinates grid.
@@ -35,18 +36,19 @@ export class SkyGrid extends RenderableLayer {
   }
 
   public applyTheme(theme: Theme): void {
-    this.setNormalLinesMaterial(theme);
-    this.setReferenceLinesMaterial(theme);
+    const style = this.extractLayerStyle(theme) as SkyGridStyle;
+    this.setNormalLinesMaterial(style);
+    this.setReferenceLinesMaterial(style);
   }
 
-  private setNormalLinesMaterial(theme: Theme): void {
+  private setNormalLinesMaterial(style: SkyGridStyle): void {
     const lines = [this._commonParallels, this._commonMeridians];
-    this.setLineMaterials(theme.skyGrid.normal, lines);
+    this.setLineMaterials(style.normal, lines);
   }
 
-  private setReferenceLinesMaterial(theme: Theme): void {
+  private setReferenceLinesMaterial(style: SkyGridStyle): void {
     const lines = [this._referenceParallel, this._referenceMeridian];
-    this.setLineMaterials(theme.skyGrid.reference, lines);
+    this.setLineMaterials(style.reference, lines);
   }
 
   private setLineMaterials(lineStyle: LineStyle, lines: Array<LineSegments>): void {

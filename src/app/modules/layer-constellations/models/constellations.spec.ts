@@ -85,19 +85,19 @@ describe('Constellations', () => {
 
     it('on the boundaries', () => {
       layer.applyTheme(mockedTheme);
-      assertExpectedLineMaterial(0, mockedTheme.constellation.boundaries);
+      assertExpectedLineMaterial(0, mockedTheme.layers[1].boundaries);
     });
 
     it('on the lines', () => {
       layer.applyTheme(mockedTheme);
-      assertExpectedLineMaterial(1, mockedTheme.constellation.lines);
+      assertExpectedLineMaterial(1, mockedTheme.layers[1].lines);
     });
 
     it('on the texts', () => {
       layer.applyTheme(mockedTheme);
       const text = layer.texts[0] as RenderableText;
       expect(text).toBeDefined();
-      const style = mockedTheme.constellation.names;
+      const style = mockedTheme.layers[1].names;
       const html = text.htmlElement;
       expect(html.style.color).toEqual(style.color);
       expect(html.style.fontFamily).toEqual(style.fontFamily);

@@ -3,6 +3,7 @@ import { Layer } from '#core/models/layers/layer';
 import { RenderableText } from '#core/models/layers/renderable-text';
 import { Searchable } from '#core/models/layers/searchable';
 import { Theme } from '#core/models/theme/theme';
+import { LayerStyle } from '#core/models/theme/layer-style';
 
 /**
  * Represents a layer of objects that can be rendered/visualized in the view.
@@ -80,6 +81,22 @@ export abstract class RenderableLayer implements Layer {
    */
   public get searchables(): Array<Searchable> {
     return [];
+  }
+
+  protected extractLayerStyle(theme: Theme): LayerStyle {
+    if (!theme) {
+      return undefined;
+    }
+    return theme.layers.find(
+      (style: LayerStyle) => {
+        if (this.code.startsWith('stars')) {
+          // FIXME this work-around for the stars layer will be removed when stars are merged into a single layer
+          return style.code === 'stars';
+        } else {
+          return style.code === this.code;
+        }
+      }
+    );
   }
 
   /**

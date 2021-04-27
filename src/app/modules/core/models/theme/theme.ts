@@ -1,9 +1,5 @@
 import { BackgroundStyle } from '#core/models/theme/background-style';
-import { ConstellationStyle } from '#core/models/theme/constellation-style';
-import { MessierObjectsStyle } from '#core/models/theme/messier-objects-style';
-import { SkyGridStyle } from '#core/models/theme/sky-grid-style';
-import { SolarSystemStyle } from '#core/models/theme/solar-system-style';
-import { StarsStyle } from '#core/models/theme/stars-style';
+import { LayerStyle } from '#core/models/theme/layer-style';
 import { ThemeMeta } from '#core/models/theme/theme-meta';
 
 /**
@@ -11,9 +7,5 @@ import { ThemeMeta } from '#core/models/theme/theme-meta';
  */
 export interface Theme extends ThemeMeta {
   background: BackgroundStyle;
-  skyGrid: SkyGridStyle;
-  constellation: ConstellationStyle;
-  stars: StarsStyle;
-  messier: MessierObjectsStyle;
-  solarSystem: SolarSystemStyle;
+  layers: Array<LayerStyle>;
 }

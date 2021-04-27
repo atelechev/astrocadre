@@ -39,11 +39,11 @@ describe('SkyGrid', () => {
   };
 
   const assertCommonLineMaterialExpected = (object: LineSegments): void => {
-    assertColorMaterialExpected(object, mockedTheme.skyGrid.normal);
+    assertColorMaterialExpected(object, mockedTheme.layers[0].normal);
   };
 
   const assertReferenceLineMaterialExpected = (object: LineSegments): void => {
-    assertColorMaterialExpected(object, mockedTheme.skyGrid.reference);
+    assertColorMaterialExpected(object, mockedTheme.layers[0].reference);
   };
 
   it('objects should return expected value', () => {

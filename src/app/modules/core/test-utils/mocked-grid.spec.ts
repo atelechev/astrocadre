@@ -4,6 +4,7 @@ import { RenderableLayer } from '#core/models/layers/renderable-layer';
 import { Theme } from '#core/models/theme/theme';
 import { LineStyle } from '#core/models/theme/line-style';
 import { RenderableText } from '#core/models/layers/renderable-text';
+import { SkyGridStyle } from '#layer-sky-grid/models/theme/sky-grid-style';
 
 export class MockedGrid extends RenderableLayer {
 
@@ -31,12 +32,13 @@ export class MockedGrid extends RenderableLayer {
   }
 
   public applyTheme(theme: Theme): void {
-    this.setReferenceLinesMaterial(theme);
+    const style = this.extractLayerStyle(theme) as SkyGridStyle;
+    this.setReferenceLinesMaterial(style);
   }
 
-  private setReferenceLinesMaterial(theme: Theme): void {
+  private setReferenceLinesMaterial(style: SkyGridStyle): void {
     const lines = [this._referenceParallel, this._referenceMeridian];
-    this.setLineMaterials(theme.skyGrid.reference, lines);
+    this.setLineMaterials(style.reference, lines);
   }
 
   private setLineMaterials(lineStyle: LineStyle, lines: Array<LineSegments>): void {

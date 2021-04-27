@@ -1,10 +1,11 @@
 import { CelestialBodyStyle } from '#core/models/theme/celestial-body-style';
+import { LayerStyle } from '#core/models/theme/layer-style';
 import { TextStyle } from '#core/models/theme/text-style';
 
 /**
  * Defines the style properties of the Solar system objects layer.
  */
-export interface SolarSystemStyle {
+export interface SolarSystemStyle extends LayerStyle {
   /**
    * Defines the base default style of a shown celestial body,
    * which is applied if no definition is provided for the objects

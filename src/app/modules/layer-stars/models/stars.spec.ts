@@ -105,7 +105,7 @@ describe('Stars', () => {
     layer.applyTheme(mockedTheme);
     const object = layer.texts[0] as RenderableText;
     expect(object).toBeDefined();
-    const style = mockedTheme.stars.names.proper;
+    const style = mockedTheme.layers[2].names.proper;
     expect(object.htmlElement.style.color).toEqual(style.color);
     expect(object.htmlElement.style.fontFamily).toEqual(style.fontFamily);
     expect(object.htmlElement.style.fontSize).toEqual(style.fontSize);

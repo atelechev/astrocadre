@@ -3,142 +3,154 @@
   "background": {
     "color": "rgb(0, 0, 102)"
   },
-  "skyGrid": {
-    "normal": {
-      "color": "rgb(0, 51, 102)"
+  "layers": [
+    {
+      "code": "sky-grid",
+      "visibleOnLoad": true,
+      "normal": {
+        "color": "rgb(0, 51, 102)"
+      },
+      "reference": {
+        "color": "rgb(0, 71, 122)"
+      }
     },
-    "reference": {
-      "color": "rgb(0, 71, 122)"
-    }
-  },
-  "constellation": {
-    "boundaries": {
-      "color": "rgb(255, 255, 0)"
+    {
+      "code": "constellations",
+      "visibleOnLoad": true,
+      "boundaries": {
+        "color": "rgb(255, 255, 0)"
+      },
+      "lines": {
+        "color": "rgb(0, 204, 0)"
+      },
+      "names": {
+        "fontSize": "30px",
+        "fontFamily": "arial",
+        "fontStyle": "normal",
+        "fontWeight": "bold",
+        "color": "rgb(102, 102, 204)"
+      }
     },
-    "lines": {
-      "color": "rgb(0, 204, 0)"
+    {
+      "code": "stars",
+      "visibleOnLoad": true,
+      "magnitudes": [ 2, 2.5, 3, 3.5, 4, 4.5, 5, 5.5, 6 ],
+      "texture": {
+        "image": "assets/textures/theme_tiny/star.png",
+        "sizeMultiplier": 3
+      },
+      "names": {
+        "proper": {
+          "fontSize": "16px",
+          "fontFamily": "arial",
+          "fontStyle": "normal",
+          "fontWeight": "normal",
+          "color": "rgb(0, 255, 255)"
+        },
+        "standard": {
+          "fontSize": "16px",
+          "fontFamily": "arial",
+          "fontStyle": "normal",
+          "fontWeight": "normal",
+          "color": "rgb(0, 255, 255)"
+        }
+      }
     },
-    "names": {
-      "fontSize": "30px",
-      "fontFamily": "arial",
-      "fontStyle": "normal",
-      "fontWeight": "bold",
-      "color": "rgb(102, 102, 204)"
-    }
-  },
-  "stars": {
-    "magnitudes": [ 2, 2.5, 3, 3.5, 4, 4.5, 5, 5.5, 6 ],
-    "texture": {
-      "image": "assets/textures/theme_tiny/star.png",
-      "sizeMultiplier": 3
+    {
+      "code": "messier",
+      "visibleOnLoad": true,
+      "objects": {
+        "cluster": {
+          "image": "assets/textures/theme_tiny/messier_cluster.png",
+          "sizeMultiplier": 3
+        },
+        "galaxy": {
+          "image": "assets/textures/theme_tiny/messier_galaxy.png",
+          "sizeMultiplier": 3
+        },
+        "nebula": {
+          "image": "assets/textures/theme_tiny/messier_nebula.png",
+          "sizeMultiplier": 3
+        },
+        "other": {
+          "image": "assets/textures/theme_tiny/messier_other.png",
+          "sizeMultiplier": 2
+        }
+      },
+      "names": {
+        "fontSize": "14px",
+        "fontFamily": "arial",
+        "fontStyle": "italic",
+        "fontWeight": "normal",
+        "color": "rgb(0, 255, 255)"
+      }
     },
-    "names": {
-      "proper": {
+    {
+      "code": "solar-system",
+      "visibleOnLoad": true,
+      "baseStyle": {
+        "texture": {
+          "image": "assets/textures/theme_tiny/planet.png",
+          "sizeMultiplier": 2
+        },
+        "path": {
+          "color": "rgb(94, 114, 94)",
+          "width": 0.5,
+          "dash": 0.5,
+          "gap": 0.5
+        }
+      },
+      "sun": {
+        "texture": {
+          "image": "assets/textures/theme_tiny/star.png",
+          "sizeMultiplier": 3.5
+        },
+        "path": {
+          "color": "rgb(114, 144, 114)",
+          "width": 0.5,
+          "dash": 2,
+          "gap": 2
+        }
+      },
+      "moon": {
+        "texture": {
+          "image": "assets/textures/theme_tiny/star.png",
+          "sizeMultiplier": 3.5
+        },
+        "path": {
+          "color": "rgb(94, 114, 94)",
+          "width": 0.5,
+          "dash": 1.5,
+          "gap": 1.5
+        }
+      },
+      "venus": {
+        "texture": {
+          "sizeMultiplier": 2.5
+        }
+      },
+      "mars": {
+        "texture": {
+          "sizeMultiplier": 2.5
+        }
+      },
+      "jupiter": {
+        "texture": {
+          "sizeMultiplier": 3
+        }
+      },
+      "saturn": {
+        "texture": {
+          "sizeMultiplier": 3
+        }
+      },
+      "names": {
         "fontSize": "16px",
         "fontFamily": "arial",
         "fontStyle": "normal",
-        "fontWeight": "normal",
-        "color": "rgb(0, 255, 255)"
-      },
-      "standard": {
-        "fontSize": "16px",
-        "fontFamily": "arial",
-        "fontStyle": "normal",
-        "fontWeight": "normal",
+        "fontWeight": "bolder",
         "color": "rgb(0, 255, 255)"
       }
     }
-  },
-  "messier": {
-    "objects": {
-      "cluster": {
-        "image": "assets/textures/theme_tiny/messier_cluster.png",
-        "sizeMultiplier": 3
-      },
-      "galaxy": {
-        "image": "assets/textures/theme_tiny/messier_galaxy.png",
-        "sizeMultiplier": 3
-      },
-      "nebula": {
-        "image": "assets/textures/theme_tiny/messier_nebula.png",
-        "sizeMultiplier": 3
-      },
-      "other": {
-        "image": "assets/textures/theme_tiny/messier_other.png",
-        "sizeMultiplier": 2
-      }
-    },
-    "names": {
-      "fontSize": "14px",
-      "fontFamily": "arial",
-      "fontStyle": "italic",
-      "fontWeight": "normal",
-      "color": "rgb(0, 255, 255)"
-    }
-  },
-  "solarSystem": {
-    "baseStyle": {
-      "texture": {
-        "image": "assets/textures/theme_tiny/planet.png",
-        "sizeMultiplier": 2
-      },
-      "path": {
-        "color": "rgb(94, 114, 94)",
-        "width": 0.5,
-        "dash": 0.5,
-        "gap": 0.5
-      }
-    },
-    "sun": {
-      "texture": {
-        "image": "assets/textures/theme_tiny/star.png",
-        "sizeMultiplier": 3.5
-      },
-      "path": {
-        "color": "rgb(114, 144, 114)",
-        "width": 0.5,
-        "dash": 2,
-        "gap": 2
-      }
-    },
-    "moon": {
-      "texture": {
-        "image": "assets/textures/theme_tiny/star.png",
-        "sizeMultiplier": 3.5
-      },
-      "path": {
-        "color": "rgb(94, 114, 94)",
-        "width": 0.5,
-        "dash": 1.5,
-        "gap": 1.5
-      }
-    },
-    "venus": {
-      "texture": {
-        "sizeMultiplier": 2.5
-      }
-    },
-    "mars": {
-      "texture": {
-        "sizeMultiplier": 2.5
-      }
-    },
-    "jupiter": {
-      "texture": {
-        "sizeMultiplier": 3
-      }
-    },
-    "saturn": {
-      "texture": {
-        "sizeMultiplier": 3
-      }
-    },
-    "names": {
-      "fontSize": "16px",
-      "fontFamily": "arial",
-      "fontStyle": "normal",
-      "fontWeight": "bolder",
-      "color": "rgb(0, 255, 255)"
-    }
-  }
+  ]
 }

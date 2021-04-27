@@ -7,6 +7,7 @@ import { Theme } from '#core/models/theme/theme';
 import { TextStyle } from '#core/models/theme/text-style';
 import { TextureStyle } from '#core/models/theme/texture-style';
 import { buildAndAssignMaterial, buildPointMaterial } from '#core/utils/material-utils';
+import { StarsStyle } from '#layer-stars/models/theme/stars-style';
 
 /**
  * Represents a renderable layer containing stars.
@@ -72,12 +73,13 @@ export class Stars extends RenderableLayer {
   }
 
   public applyTheme(theme: Theme): void {
-    this.useThemeForObjects(theme);
-    this.useThemeForLabels(theme);
+    const style = this.extractLayerStyle(theme) as StarsStyle;
+    this.useThemeForObjects(style);
+    this.useThemeForLabels(style);
   }
 
-  private useThemeForObjects(theme: Theme): void {
-    buildAndAssignMaterial(() => this.buildMaterial(theme.stars.texture), this._stars);
+  private useThemeForObjects(style: StarsStyle): void {
+    buildAndAssignMaterial(() => this.buildMaterial(style.texture), this._stars);
   }
 
   private buildMaterial(texture: TextureStyle): Material {
@@ -85,9 +87,9 @@ export class Stars extends RenderableLayer {
     return buildPointMaterial(texture.image, dotSize);
   }
 
-  private useThemeForLabels(theme: Theme): void {
-    this.applyTextStyleOn(this._properNames, theme.stars.names.proper);
-    this.applyTextStyleOn(this._standardNames, theme.stars.names.standard);
+  private useThemeForLabels(style: StarsStyle): void {
+    this.applyTextStyleOn(this._properNames, style.names.proper);
+    this.applyTextStyleOn(this._standardNames, style.names.standard);
   }
 
   private applyTextStyleOn(labels: Array<RenderableText>, style: TextStyle): void {

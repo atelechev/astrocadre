@@ -69,7 +69,7 @@ describe('Messier', () => {
     layer.applyTheme(mockedTheme);
     const object = layer.texts[0] as RenderableText;
     expect(object).toBeDefined();
-    const expectedStyle = mockedTheme.messier.names;
+    const expectedStyle = mockedTheme.layers[3].names;
     const assignedStyle = object.htmlElement.style;
     expect(assignedStyle.color).toEqual(expectedStyle.color);
     expect(assignedStyle.fontFamily).toEqual(expectedStyle.fontFamily);

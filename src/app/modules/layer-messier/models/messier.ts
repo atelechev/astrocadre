@@ -6,6 +6,7 @@ import { Searchable } from '#core/models/layers/searchable';
 import { Theme } from '#core/models/theme/theme';
 import { TextureStyle } from '#core/models/theme/texture-style';
 import { buildAndAssignMaterial, buildPointMaterial } from '#core/utils/material-utils';
+import { MessierStyle } from '#layer-messier/models/theme/messier-style';
 
 
 export class Messier extends RenderableLayer {
@@ -41,15 +42,16 @@ export class Messier extends RenderableLayer {
   }
 
   public applyTheme(theme: Theme): void {
-    this.useThemeForObjects(theme);
-    this.useThemeForLabels(theme);
+    const style = this.extractLayerStyle(theme) as MessierStyle;
+    this.useThemeForObjects(style);
+    this.useThemeForLabels(style);
   }
 
-  private useThemeForObjects(theme: Theme): void {
-    this.buildMaterialForObjects(this._clusters, theme.messier.objects.cluster);
-    this.buildMaterialForObjects(this._galaxies, theme.messier.objects.galaxy);
-    this.buildMaterialForObjects(this._nebulas, theme.messier.objects.nebula);
-    this.buildMaterialForObjects(this._other, theme.messier.objects.other);
+  private useThemeForObjects(style: MessierStyle): void {
+    this.buildMaterialForObjects(this._clusters, style.objects.cluster);
+    this.buildMaterialForObjects(this._galaxies, style.objects.galaxy);
+    this.buildMaterialForObjects(this._nebulas, style.objects.nebula);
+    this.buildMaterialForObjects(this._other, style.objects.other);
   }
 
   private buildMaterialForObjects(objects: Points, style: TextureStyle): void {
@@ -57,9 +59,9 @@ export class Messier extends RenderableLayer {
     buildAndAssignMaterial(() => buildPointMaterial(style.image, dotSize), objects);
   }
 
-  private useThemeForLabels(theme: Theme): void {
+  private useThemeForLabels(style: MessierStyle): void {
     this._labels?.forEach(
-      (label: RenderableText) => label.applyStyle(theme.messier.names)
+      (label: RenderableText) => label.applyStyle(style.names)
     );
   }
 
