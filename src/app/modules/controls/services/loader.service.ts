@@ -73,9 +73,6 @@ export class LoaderService {
       .then(
         (themes: Array<ThemeMeta>) => {
           this._themeService.availableThemes = themes;
-          if (themes?.length > 0) {
-            this.loadTheme(themes[0].code);
-          }
         },
         (err: any) => console.error(err)
       );
@@ -89,9 +86,17 @@ export class LoaderService {
         (root: Layer) => {
           this._layerService.rootLayer = root;
           this.processLoadedLayer(root);
+          this.doApplyFirstTheme();
         },
         (err: any) => console.error(err)
       );
+  }
+
+  private doApplyFirstTheme(): void {
+    const allThemes = this._themeService.availableThemes || [];
+    if (allThemes.length > 0) {
+      this.loadTheme(allThemes[0].code);
+    }
   }
 
   private processLoadedLayer(layer: Layer): void {
@@ -109,16 +114,16 @@ export class LoaderService {
         .then(
           (objs: Array<Layer>) => {
             layer.objects = objs || [];
-            this.registerAndShow(layer);
+            this.registerLayer(layer);
           },
           (err: any) => console.error(err)
         );
     } else {
-      this.registerAndShow(layer);
+      this.registerLayer(layer);
     }
   }
 
-  private registerAndShow(layer: Layer): void {
+  private registerLayer(layer: Layer): void {
     const renderable = this._providersRegistry.layerProviders
       .map(
         (provider: LayersProvider) => provider.getRenderableLayer(layer)
@@ -127,18 +132,6 @@ export class LoaderService {
       );
     this._layerService.registerLayer(renderable);
     this._searchService.registerSearchables(renderable?.searchables);
-    this.setLayerVisibilityFromTheme(layer);
-  }
-
-  private setLayerVisibilityFromTheme(layer: Layer): void {
-    const theme = this._themeService.theme;
-    const renderable = this._layerService.getRenderableLayer(layer?.code);
-    if (!renderable) {
-      return;
-    }
-    const style = renderable.extractStyle(theme);
-    const visible = !!(style && style.visibleOnLoad);
-    this._layerService.setVisible(layer.code, visible);
   }
 
 }

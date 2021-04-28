@@ -7,6 +7,7 @@ import { ThemeEvent } from '#core/models/event/theme-event';
 import { LayerEvent } from '#core/models/event/layer-event';
 import { LayerShownEvent } from '#core/models/event/layer-shown-event';
 import { LayerHiddenEvent } from '#core/models/event/layer-hidden-event';
+import { Theme } from '#core/models/theme/theme';
 
 /**
  * Holds the information of the current layers tree and
@@ -73,7 +74,11 @@ export class LayerService {
     }
     this._themeService.events
       .subscribe(
-        (event: ThemeEvent<any>) => layer.applyTheme(event.data)
+        (event: ThemeEvent<any>) => {
+          const theme = event.data;
+          layer.applyTheme(theme);
+          this.setLayerVisibilityFromTheme(layer, theme);
+        }
       );
     this._renderableLayers.set(layer.code, layer);
     this._layerModels.set(layer.code, layer.model);
@@ -178,6 +183,12 @@ export class LayerService {
           (subLayer: Layer) => this.setVisible(subLayer.code, visible)
         );
     }
+  }
+
+  private setLayerVisibilityFromTheme(layer: RenderableLayer, theme: Theme): void {
+    const style = layer.extractStyle(theme);
+    const visible = !!(style && style.visibleOnLoad);
+    this.setVisible(layer.code, visible);
   }
 
 }

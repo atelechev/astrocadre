@@ -58,7 +58,7 @@
     },
     {
       "code": "messier",
-      "visibleOnLoad": true,
+      "visibleOnLoad": false,
       "objects": {
         "cluster": {
           "image": "assets/textures/theme_tiny/messier_cluster.png",
@@ -87,7 +87,7 @@
     },
     {
       "code": "solar-system",
-      "visibleOnLoad": true,
+      "visibleOnLoad": false,
       "baseStyle": {
         "texture": {
           "image": "assets/textures/theme_tiny/planet.png",
