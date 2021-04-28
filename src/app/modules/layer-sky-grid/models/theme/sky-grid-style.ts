@@ -1,9 +1,10 @@
+import { LayerStyle } from '#core/models/theme/layer-style';
 import { LineStyle } from '#core/models/theme/line-style';
 
 /**
  * Defines the style properties of the sky grid layer.
  */
-export interface SkyGridStyle {
+export interface SkyGridStyle extends LayerStyle {
   /**
    * The properties of normal lines (most of the lines are "normal").
    */

@@ -5,6 +5,7 @@ import { RenderableText } from '#core/models/layers/renderable-text';
 import { Searchable } from '#core/models/layers/searchable';
 import { Theme } from '#core/models/theme/theme';
 import { buildAndAssignMaterial, buildLineMaterial } from '#core/utils/material-utils';
+import { ConstellationsStyle } from '#layer-constellations/models/theme/constellations-style';
 
 /**
  * Represents a renderable layer containing the constellations.
@@ -44,7 +45,7 @@ export class Constellations extends RenderableLayer {
   }
 
   public applyTheme(theme: Theme): void {
-    const style = theme.constellation;
+    const style = this.extractStyle(theme) as ConstellationsStyle;
     buildAndAssignMaterial(() => buildLineMaterial(style.boundaries), this._boundaries);
     buildAndAssignMaterial(() => buildLineMaterial(style.lines), this._lines);
     this._texts.forEach(

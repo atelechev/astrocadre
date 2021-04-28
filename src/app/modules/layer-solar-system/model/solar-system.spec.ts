@@ -154,7 +154,7 @@ describe('SolarSystem', () => {
     layer.texts.forEach(
       (object: RenderableText) => {
         expect(object).toBeDefined();
-        const expectedStyle = mockedTheme.solarSystem.names;
+        const expectedStyle = mockedTheme.layers[4].names;
         const assignedStyle = object.htmlElement.style;
         expect(assignedStyle.color).toEqual(expectedStyle.color);
         expect(assignedStyle.fontFamily).toEqual(expectedStyle.fontFamily);

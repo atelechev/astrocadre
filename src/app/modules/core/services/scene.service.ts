@@ -5,7 +5,7 @@ import {
   Scene,
   Vector3,
   WebGLRenderer
-  } from 'three';
+} from 'three';
 import { Color } from 'three';
 import { Dimension } from '#core/models/screen/dimension';
 import { RenderableLayer } from '#core/models/layers/renderable-layer';
@@ -15,7 +15,6 @@ import { Theme } from '#core/models/theme/theme';
 import { CameraService } from '#core/services/camera.service';
 import { ViewportService } from '#core/services/viewport.service';
 import { ThemeService } from '#core/services/theme.service';
-import { LayersVisibilityManagerService } from '#core/services/visibility/layers-visibility-manager.service';
 import { TextsVisibilityManagerService } from '#core/services/visibility/texts-visibility-manager.service';
 import { ViewportEvent } from '#core/models/event/viewport-event';
 import { ViewportSizeChangeEvent } from '#core/models/event/viewport-size-change-event';
@@ -25,6 +24,7 @@ import { LayerShownEvent } from '#core/models/event/layer-shown-event';
 import { LayerHiddenEvent } from '#core/models/event/layer-hidden-event';
 import { TextsShownEvent } from '#core/models/event/texts-shown-event';
 import { TextsHiddenEvent } from '#core/models/event/texts-hidden-event';
+import { LayerService } from '#core/services/layer.service';
 
 /**
  * Manages the current scene.
@@ -50,7 +50,7 @@ export class SceneService {
     private readonly _cameraService: CameraService,
     private readonly _viewportService: ViewportService,
     private readonly _themeService: ThemeService,
-    private readonly _layersVisibilityManager: LayersVisibilityManagerService,
+    private readonly _layerService: LayerService,
     private readonly _textsVisibilityManager: TextsVisibilityManagerService
   ) {
     this._allObjects = new Set<Object3D>();
@@ -208,7 +208,7 @@ export class SceneService {
   }
 
   private subscribeLayerEvents(): void {
-    this._layersVisibilityManager.events
+    this._layerService.events
       .subscribe(
         (event: LayerEvent<any>) => this.processLayerEvent(event)
       );

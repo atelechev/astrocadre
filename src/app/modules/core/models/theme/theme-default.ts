@@ -36,34 +36,46 @@ export const themeDefault: Theme = {
   code: 'default',
   label: 'default',
   background: defaultLine,
-  skyGrid: {
-    normal: defaultLine,
-    reference: defaultLine
-  },
-  constellation: {
-    boundaries: defaultLine,
-    lines: defaultLine,
-    names: defaultText
-  },
-  stars: {
-    magnitudes: [],
-    texture: defaultTexture,
-    names: {
-      proper: defaultText,
-      standard: defaultText
-    }
-  },
-  messier: {
-    objects: {
-      cluster: defaultTexture,
-      galaxy: defaultTexture,
-      nebula: defaultTexture,
-      other: defaultTexture
+  layers: [
+    {
+      code: 'sky-grid',
+      visibleOnLoad: false,
+      normal: defaultLine,
+      reference: defaultLine
     },
-    names: defaultText
-  },
-  solarSystem: {
-    baseStyle: defaultCelestialBody,
-    names: defaultText
-  }
+    {
+      code: 'constellations',
+      visibleOnLoad: false,
+      boundaries: defaultLine,
+      lines: defaultLine,
+      names: defaultText
+    },
+    {
+      code: 'stars',
+      visibleOnLoad: false,
+      magnitudes: [],
+      texture: defaultTexture,
+      names: {
+        proper: defaultText,
+        standard: defaultText
+      }
+    },
+    {
+      code: 'messier',
+      visibleOnLoad: false,
+      objects: {
+        cluster: defaultTexture,
+        galaxy: defaultTexture,
+        nebula: defaultTexture,
+        other: defaultTexture
+      },
+      names: defaultText
+    },
+    {
+      code: 'solar-system',
+      visibleOnLoad: false,
+      baseStyle: defaultCelestialBody,
+      names: defaultText
+    }
+  ]
 };

@@ -20,12 +20,12 @@ describe('SelectorMessierNamesComponent', () => {
         LayerMessierModule
       ]
     });
-    const layersService = TestBed.inject(LayerService);
+    const layerService = TestBed.inject(LayerService);
     textsVisibilityManager = TestBed.inject(TextsVisibilityManagerService);
-    layersService.rootLayer = mockedLayers;
+    layerService.rootLayer = mockedLayers;
     const messierLayer = mockedLayers.subLayers[3];
     const provider = TestBed.inject(MessierProvidersService);
-    layersService.registerLayer(provider.getRenderableLayer(messierLayer));
+    layerService.registerLayer(provider.getRenderableLayer(messierLayer));
     component = TestBed.createComponent(SelectorMessierNamesComponent).componentInstance;
     component.layer = messierLayer;
   });

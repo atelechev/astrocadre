@@ -13,6 +13,7 @@ import { TextureStyle } from '#core/models/theme/texture-style';
 import { Searchable } from '#core/models/layers/searchable';
 import { RenderableText } from '#core/models/layers/renderable-text';
 import { TextStyle } from '#core/models/theme/text-style';
+import { SolarSystemStyle } from '#layer-solar-system/model/theme/solar-system-style';
 
 /**
  * Represents a renderable layer containing the Solar system objects.
@@ -87,9 +88,10 @@ export class SolarSystem extends RenderableLayer {
   }
 
   public applyTheme(theme: Theme): void {
-    this.applyThemeOnTrajectories(theme);
-    this.applyThemeOnCelestialBodies(theme);
-    this.applyTextStyle(theme.solarSystem.names);
+    const style = this.extractStyle(theme) as SolarSystemStyle;
+    this.applyThemeOnTrajectories(style);
+    this.applyThemeOnCelestialBodies(style);
+    this.applyTextStyle(style.names);
   }
 
   /**
@@ -122,34 +124,34 @@ export class SolarSystem extends RenderableLayer {
     }
   }
 
-  private applyThemeOnTrajectories(theme: Theme): void {
+  private applyThemeOnTrajectories(style: SolarSystemStyle): void {
     this._trajectories.forEach(
       (trajectory: LineSegments, name: string) => {
-        const style = this.extractPathStyle(theme, name);
-        this.applyLineStyle(style, trajectory);
+        const pathStyle = this.extractPathStyle(style, name);
+        this.applyLineStyle(pathStyle, trajectory);
       }
     );
   }
 
-  private extractPathStyle(theme: Theme, body: string): LineStyle {
-    const defaultStyle = theme.solarSystem.baseStyle.path;
-    const pathStyle = theme.solarSystem[body]?.path as LineStyle;
+  private extractPathStyle(style: SolarSystemStyle, body: string): LineStyle {
+    const defaultStyle = style.baseStyle.path;
+    const pathStyle = style[body]?.path as LineStyle;
     const merged = Object.assign({}, defaultStyle);
     return Object.assign(merged, pathStyle);
   }
 
-  private applyThemeOnCelestialBodies(theme: Theme): void {
+  private applyThemeOnCelestialBodies(style: SolarSystemStyle): void {
     this._celestialBodies.forEach(
       (body: Points, name: string) => {
-        const style = this.extractCelestialBodyStyle(theme, name);
-        this.applyTextureMaterial(style, body);
+        const bodyStyle = this.extractCelestialBodyStyle(style, name);
+        this.applyTextureMaterial(bodyStyle, body);
       }
     );
   }
 
-  private extractCelestialBodyStyle(theme: Theme, body: string): TextureStyle {
-    const defaultStyle = theme.solarSystem.baseStyle.texture;
-    const bodyStyle = theme.solarSystem[body]?.texture as TextureStyle;
+  private extractCelestialBodyStyle(style: SolarSystemStyle, body: string): TextureStyle {
+    const defaultStyle = style.baseStyle.texture;
+    const bodyStyle = style[body]?.texture as TextureStyle;
     const merged = Object.assign({}, defaultStyle);
     return Object.assign(merged, bodyStyle);
   }

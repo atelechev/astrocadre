@@ -1,8 +1,13 @@
 import { Injectable } from '@angular/core';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { Layer } from '#core/models/layers/layer';
 import { RenderableLayer } from '#core/models/layers/renderable-layer';
 import { ThemeService } from '#core/services/theme.service';
 import { ThemeEvent } from '#core/models/event/theme-event';
+import { LayerEvent } from '#core/models/event/layer-event';
+import { LayerShownEvent } from '#core/models/event/layer-shown-event';
+import { LayerHiddenEvent } from '#core/models/event/layer-hidden-event';
+import { Theme } from '#core/models/theme/theme';
 
 /**
  * Holds the information of the current layers tree and
@@ -13,6 +18,10 @@ export class LayerService {
 
   private _rootLayer: Layer;
 
+  private readonly _events: BehaviorSubject<LayerEvent<any>>;
+
+  private readonly _shownLayers: Set<string>;
+
   private readonly _flatDepthFirstLayers: Array<Layer>;
 
   private readonly _layerModels: Map<string, Layer>;
@@ -20,6 +29,8 @@ export class LayerService {
   private readonly _renderableLayers: Map<string, RenderableLayer>;
 
   constructor(private readonly _themeService: ThemeService) {
+    this._shownLayers = new Set<string>();
+    this._events = new BehaviorSubject<LayerEvent<any>>(LayerEvent.INITIAL);
     this._rootLayer = undefined;
     this._layerModels = new Map<string, Layer>();
     this._renderableLayers = new Map<string, RenderableLayer>();
@@ -63,7 +74,11 @@ export class LayerService {
     }
     this._themeService.events
       .subscribe(
-        (event: ThemeEvent<any>) => layer.applyTheme(event.data)
+        (event: ThemeEvent<any>) => {
+          const theme = event.data;
+          layer.applyTheme(theme);
+          this.setLayerVisibilityFromTheme(layer, theme);
+        }
       );
     this._renderableLayers.set(layer.code, layer);
     this._layerModels.set(layer.code, layer.model);
@@ -95,6 +110,41 @@ export class LayerService {
     );
   }
 
+  /**
+   * Returns the Observable allowing to trace the layer events related with the visibility of objects.
+   */
+  public get events(): Observable<LayerEvent<any>> {
+    return this._events;
+  }
+
+  /**
+   * Returns true if the objects of the specified layer are shown in the view.
+   *
+   * @param code the code of the layer to check.
+   * @returns boolean true if the objects are shown.
+   */
+  public isShown(code: string): boolean {
+    return !!code && this._shownLayers.has(code);
+  }
+
+  /**
+   * Sets the specified layer visible or hidden.
+   *
+   * @param code the code of the layer to show/hide.
+   * @param visible true to show, false to hide.
+   */
+  public setVisible(code: string, visible: boolean): void {
+    const renderable = this.getRenderableLayer(code);
+    if (!renderable) {
+      return;
+    }
+    if (visible) {
+      this.showLayer(renderable);
+    } else {
+      this.hideLayer(renderable);
+    }
+  }
+
   private rebuildFlatDepthFirstLayers(): void {
     this._flatDepthFirstLayers.splice(0, this._flatDepthFirstLayers.length);
     if (this._rootLayer) {
@@ -112,6 +162,33 @@ export class LayerService {
     if (layer.subLayers) {
       layer.subLayers.forEach((subLayer: Layer) => this.flattenLayer(subLayer));
     }
+  }
+
+  private showLayer(layer: RenderableLayer): void {
+    this._shownLayers.add(layer.code);
+    this._events.next(new LayerShownEvent(layer));
+    this.processSubLayersVisibility(layer, true);
+  }
+
+  private hideLayer(layer: RenderableLayer): void {
+    this._shownLayers.delete(layer.code);
+    this._events.next(new LayerHiddenEvent(layer));
+    this.processSubLayersVisibility(layer, false);
+  }
+
+  private processSubLayersVisibility(layer: Layer, visible: boolean): void {
+    if (layer?.subLayers) {
+      layer.subLayers
+        .forEach(
+          (subLayer: Layer) => this.setVisible(subLayer.code, visible)
+        );
+    }
+  }
+
+  private setLayerVisibilityFromTheme(layer: RenderableLayer, theme: Theme): void {
+    const style = layer.extractStyle(theme);
+    const visible = !!(style && style.visibleOnLoad);
+    this.setVisible(layer.code, visible);
   }
 
 }

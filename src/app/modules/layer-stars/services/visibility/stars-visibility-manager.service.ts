@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { Layer } from '#core/models/layers/layer';
 import { Stars } from '#layer-stars/models/stars';
 import { LayerService } from '#core/services/layer.service';
-import { LayersVisibilityManagerService } from '#core/services/visibility/layers-visibility-manager.service';
 import { TextsVisibilityManagerService } from '#core/services/visibility/texts-visibility-manager.service';
 
 /**
@@ -15,7 +14,6 @@ export class StarsVisibilityManagerService {
 
   constructor(
     private readonly _layerService: LayerService,
-    private readonly _layersVisibilityManager: LayersVisibilityManagerService,
     private readonly _textsVisibilityManager: TextsVisibilityManagerService
   ) {
     this._layerCode = Stars.CODE;
@@ -30,7 +28,7 @@ export class StarsVisibilityManagerService {
     this.getAllStarsLayers().forEach(
       (layer: Stars) => {
         const visible = !(magnitude < layer.magnitudeClass);
-        this._layersVisibilityManager.setVisible(layer.code, visible);
+        this._layerService.setVisible(layer.code, visible);
       }
     );
   }

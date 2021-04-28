@@ -2,7 +2,6 @@ import { TestBed } from '@angular/core/testing';
 import { LayerMessierModule } from '#layer-messier/layer-messier.module';
 import { mockedLayers } from '#core/test-utils/mocked-layers.spec';
 import { SelectorLayerComponent } from '#controls/components/selector-layer/selector-layer.component';
-import { LayersVisibilityManagerService } from '#core/services/visibility/layers-visibility-manager.service';
 import { CoreModule } from '#core/core.module';
 import { ControlsModule } from '#controls/controls.module';
 import { LayerService } from '#core/services/layer.service';
@@ -16,7 +15,7 @@ import { SkyGrid } from '#layer-sky-grid/models/sky-grid';
 
 describe('SelectorLayerComponent', () => {
 
-  let visibilityManager: LayersVisibilityManagerService;
+  let layerService: LayerService;
   let component: SelectorLayerComponent;
   const code = SkyGrid.CODE;
 
@@ -36,9 +35,9 @@ describe('SelectorLayerComponent', () => {
         MockedGridLayerFactory
       ]
     });
-    visibilityManager = TestBed.inject(LayersVisibilityManagerService);
+    layerService = TestBed.inject(LayerService);
     const layer = TestBed.inject(MockedGridLayerFactory).buildRenderableLayer();
-    TestBed.inject(LayerService).registerLayer(layer);
+    layerService.registerLayer(layer);
     component = TestBed.createComponent(SelectorLayerComponent).componentInstance;
     component.layer = layer.model;
   });
@@ -48,12 +47,12 @@ describe('SelectorLayerComponent', () => {
     describe('get should return', () => {
 
       it('true if the layer is shown', () => {
-        visibilityManager.setVisible(code, true);
+        layerService.setVisible(code, true);
         expect(component.isShown).toBeTrue();
       });
 
       it('false if the layer is not shown', () => {
-        visibilityManager.setVisible(code, false);
+        layerService.setVisible(code, false);
         expect(component.isShown).toBeFalse();
       });
 
@@ -62,17 +61,17 @@ describe('SelectorLayerComponent', () => {
     describe('set should', () => {
 
       it('show the layer if arg is true', () => {
-        visibilityManager.setVisible(code, false);
-        expect(visibilityManager.isShown(code)).toBeFalse();
+        layerService.setVisible(code, false);
+        expect(layerService.isShown(code)).toBeFalse();
         component.isShown = true;
-        expect(visibilityManager.isShown(code)).toBeTrue();
+        expect(layerService.isShown(code)).toBeTrue();
       });
 
       it('hide the layer if arg is false', () => {
-        visibilityManager.setVisible(code, true);
-        expect(visibilityManager.isShown(code)).toBeTrue();
+        layerService.setVisible(code, true);
+        expect(layerService.isShown(code)).toBeTrue();
         component.isShown = false;
-        expect(visibilityManager.isShown(code)).toBeFalse();
+        expect(layerService.isShown(code)).toBeFalse();
       });
 
     });

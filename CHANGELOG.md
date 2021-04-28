@@ -2,7 +2,13 @@
 
 _These notes are added from the most recent on the top, to the oldest at the bottom._
 
-Next version: 21.4.31
+Next version: 21.4.32
+
+### 2021-04-28 - v21.4.31
+
+* The configuration of a theme provides a possibility to define whether a layer is visibile when loaded.
+* Moved the interfaces defining the style properties of the layers inside their respective layer modules.
+* Decoupled the theme definition from concrete layer names.
 
 ### 2021-04-26 - v21.4.30
 

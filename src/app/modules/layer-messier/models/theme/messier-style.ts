@@ -1,10 +1,11 @@
+import { LayerStyle } from '#core/models/theme/layer-style';
 import { TextStyle } from '#core/models/theme/text-style';
 import { TextureStyle } from '#core/models/theme/texture-style';
 
 /**
  * Defines the style properties of the Messier objects layer.
  */
-export interface MessierObjectsStyle {
+export interface MessierStyle extends LayerStyle {
   /**
    * Groups the style properties of the objects.
    */

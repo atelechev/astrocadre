@@ -1,6 +1,5 @@
 import { TestBed } from '@angular/core/testing';
 import { SelectorStarMagnitudeComponent } from '#layer-stars/components/selector-star-magnitude/selector-star-magnitude.component';
-import { LayersVisibilityManagerService } from '#core/services/visibility/layers-visibility-manager.service';
 import { StarsVisibilityManagerService } from '#layer-stars/services/visibility/stars-visibility-manager.service';
 import { CoreModule } from '#core/core.module';
 import { LayerService } from '#core/services/layer.service';
@@ -13,7 +12,6 @@ import { StarsProvidersService } from '#layer-stars/services/stars-providers.ser
 describe('SelectorStarMagnitudeComponent', () => {
 
   let starsVisibilityManager: StarsVisibilityManagerService;
-  let visibilityManager: LayersVisibilityManagerService;
   let component: SelectorStarMagnitudeComponent;
 
   beforeEach(() => {
@@ -24,17 +22,16 @@ describe('SelectorStarMagnitudeComponent', () => {
       ]
     });
     const provider = TestBed.inject(StarsProvidersService);
-    const layersService = TestBed.inject(LayerService);
+    const layerService = TestBed.inject(LayerService);
     const starsLayer = mockedLayers.subLayers[1];
-    layersService.registerLayer(provider.getRenderableLayer(starsLayer));
+    layerService.registerLayer(provider.getRenderableLayer(starsLayer));
     starsLayer.subLayers.forEach(
       (subModel: Layer) => {
         const subLayer = provider.getRenderableLayer(subModel);
-        layersService.registerLayer(subLayer);
+        layerService.registerLayer(subLayer);
       }
     );
     starsVisibilityManager = TestBed.inject(StarsVisibilityManagerService);
-    visibilityManager = TestBed.inject(LayersVisibilityManagerService);
     component = TestBed.createComponent(SelectorStarMagnitudeComponent).componentInstance;
   });
 

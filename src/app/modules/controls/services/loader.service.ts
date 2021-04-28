@@ -5,7 +5,6 @@ import { ThemeService } from '#core/services/theme.service';
 import { Theme } from '#core/models/theme/theme';
 import { LayerService } from '#core/services/layer.service';
 import { Layer } from '#core/models/layers/layer';
-import { LayersVisibilityManagerService } from '#core/services/visibility/layers-visibility-manager.service';
 import { LayersProvider } from '#core/models/layers/layers-provider';
 import { RenderableLayer } from '#core/models/layers/renderable-layer';
 import { SearchService } from '#core/services/search.service';
@@ -23,7 +22,6 @@ export class LoaderService {
     private readonly _dataService: StaticDataService,
     private readonly _themeService: ThemeService,
     private readonly _layerService: LayerService,
-    private readonly _visibilityManager: LayersVisibilityManagerService,
     private readonly _searchService: SearchService,
     private readonly _providersRegistry: LayerProvidersRegistryService
   ) {
@@ -56,12 +54,16 @@ export class LoaderService {
         .toPromise()
         .then(
           (theme: Theme) => {
-            this._themeService.theme = theme;
-            this._loadedThemes.set(theme.code, theme);
+            this.setLoadedTheme(theme);
           },
           (err: any) => console.error(err)
         );
     }
+  }
+
+  private setLoadedTheme(theme: Theme): void {
+    this._themeService.theme = theme;
+    this._loadedThemes.set(theme.code, theme);
   }
 
   private loadThemes(): void {
@@ -71,9 +73,6 @@ export class LoaderService {
       .then(
         (themes: Array<ThemeMeta>) => {
           this._themeService.availableThemes = themes;
-          if (themes?.length > 0) {
-            this.loadTheme(themes[0].code);
-          }
         },
         (err: any) => console.error(err)
       );
@@ -87,9 +86,17 @@ export class LoaderService {
         (root: Layer) => {
           this._layerService.rootLayer = root;
           this.processLoadedLayer(root);
+          this.doApplyFirstTheme();
         },
         (err: any) => console.error(err)
       );
+  }
+
+  private doApplyFirstTheme(): void {
+    const allThemes = this._themeService.availableThemes || [];
+    if (allThemes.length > 0) {
+      this.loadTheme(allThemes[0].code);
+    }
   }
 
   private processLoadedLayer(layer: Layer): void {
@@ -107,16 +114,16 @@ export class LoaderService {
         .then(
           (objs: Array<Layer>) => {
             layer.objects = objs || [];
-            this.registerAndShow(layer);
+            this.registerLayer(layer);
           },
           (err: any) => console.error(err)
         );
     } else {
-      this.registerAndShow(layer);
+      this.registerLayer(layer);
     }
   }
 
-  private registerAndShow(layer: Layer): void {
+  private registerLayer(layer: Layer): void {
     const renderable = this._providersRegistry.layerProviders
       .map(
         (provider: LayersProvider) => provider.getRenderableLayer(layer)
@@ -125,7 +132,6 @@ export class LoaderService {
       );
     this._layerService.registerLayer(renderable);
     this._searchService.registerSearchables(renderable?.searchables);
-    this._visibilityManager.setVisible(layer?.code, true);
   }
 
 }

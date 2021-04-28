@@ -1,10 +1,11 @@
+import { LayerStyle } from '#core/models/theme/layer-style';
 import { TextStyle } from '#core/models/theme/text-style';
 import { TextureStyle } from '#core/models/theme/texture-style';
 
 /**
  * Defines the style properties of the stars layer.
  */
-export interface StarsStyle {
+export interface StarsStyle extends LayerStyle {
   /**
    * Lists the star magnitudes to show in the view.
    */
