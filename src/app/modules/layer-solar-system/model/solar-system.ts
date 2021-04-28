@@ -88,7 +88,7 @@ export class SolarSystem extends RenderableLayer {
   }
 
   public applyTheme(theme: Theme): void {
-    const style = this.extractLayerStyle(theme) as SolarSystemStyle;
+    const style = this.extractStyle(theme) as SolarSystemStyle;
     this.applyThemeOnTrajectories(style);
     this.applyThemeOnCelestialBodies(style);
     this.applyTextStyle(style.names);

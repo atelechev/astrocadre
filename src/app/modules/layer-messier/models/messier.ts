@@ -42,7 +42,7 @@ export class Messier extends RenderableLayer {
   }
 
   public applyTheme(theme: Theme): void {
-    const style = this.extractLayerStyle(theme) as MessierStyle;
+    const style = this.extractStyle(theme) as MessierStyle;
     this.useThemeForObjects(style);
     this.useThemeForLabels(style);
   }

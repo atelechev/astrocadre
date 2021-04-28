@@ -56,12 +56,16 @@ export class LoaderService {
         .toPromise()
         .then(
           (theme: Theme) => {
-            this._themeService.theme = theme;
-            this._loadedThemes.set(theme.code, theme);
+            this.setLoadedTheme(theme);
           },
           (err: any) => console.error(err)
         );
     }
+  }
+
+  private setLoadedTheme(theme: Theme): void {
+    this._themeService.theme = theme;
+    this._loadedThemes.set(theme.code, theme);
   }
 
   private loadThemes(): void {
@@ -125,7 +129,18 @@ export class LoaderService {
       );
     this._layerService.registerLayer(renderable);
     this._searchService.registerSearchables(renderable?.searchables);
-    this._visibilityManager.setVisible(layer?.code, true);
+    this.setLayerVisibilityFromTheme(layer);
+  }
+
+  private setLayerVisibilityFromTheme(layer: Layer): void {
+    const theme = this._themeService.theme;
+    const renderable = this._layerService.getRenderableLayer(layer?.code);
+    if (!renderable) {
+      return;
+    }
+    const style = renderable.extractStyle(theme);
+    const visible = !!(style && style.visibleOnLoad);
+    this._visibilityManager.setVisible(layer.code, visible);
   }
 
 }

@@ -45,7 +45,7 @@ export class Constellations extends RenderableLayer {
   }
 
   public applyTheme(theme: Theme): void {
-    const style = this.extractLayerStyle(theme) as ConstellationsStyle;
+    const style = this.extractStyle(theme) as ConstellationsStyle;
     buildAndAssignMaterial(() => buildLineMaterial(style.boundaries), this._boundaries);
     buildAndAssignMaterial(() => buildLineMaterial(style.lines), this._lines);
     this._texts.forEach(

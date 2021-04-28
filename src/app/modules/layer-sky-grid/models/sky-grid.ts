@@ -36,7 +36,7 @@ export class SkyGrid extends RenderableLayer {
   }
 
   public applyTheme(theme: Theme): void {
-    const style = this.extractLayerStyle(theme) as SkyGridStyle;
+    const style = this.extractStyle(theme) as SkyGridStyle;
     this.setNormalLinesMaterial(style);
     this.setReferenceLinesMaterial(style);
   }

@@ -73,7 +73,7 @@ export class Stars extends RenderableLayer {
   }
 
   public applyTheme(theme: Theme): void {
-    const style = this.extractLayerStyle(theme) as StarsStyle;
+    const style = this.extractStyle(theme) as StarsStyle;
     this.useThemeForObjects(style);
     this.useThemeForLabels(style);
   }

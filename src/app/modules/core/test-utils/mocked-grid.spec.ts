@@ -32,7 +32,7 @@ export class MockedGrid extends RenderableLayer {
   }
 
   public applyTheme(theme: Theme): void {
-    const style = this.extractLayerStyle(theme) as SkyGridStyle;
+    const style = this.extractStyle(theme) as SkyGridStyle;
     this.setReferenceLinesMaterial(style);
   }
 

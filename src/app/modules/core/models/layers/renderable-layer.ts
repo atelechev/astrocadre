@@ -83,7 +83,14 @@ export abstract class RenderableLayer implements Layer {
     return [];
   }
 
-  protected extractLayerStyle(theme: Theme): LayerStyle {
+  /**
+   * Returns the LayerStyle object defined in the specified theme and
+   * corresponding to this layer.
+   *
+   * @param theme the theme to extract the style from.
+   * @returns LayerStyle the style definition or undefined if it was not found.
+   */
+  public extractStyle(theme: Theme): LayerStyle {
     if (!theme) {
       return undefined;
     }
