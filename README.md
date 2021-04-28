@@ -194,16 +194,13 @@ The theme configuration file should respect the following structure (cf `src/app
 ```
 {
   "code": "string",                       // redundant with respective "code" value from themes.json
-  "background": BackgroundStyle;          // each *Style type matches an interface in *-style.ts in the same folder
-  "skyGrid": SkyGridStyle;
-  "constellation": ConstellationStyle;
-  "stars": StarsStyle;
-  "messier": MessierObjectsStyle;
-  "solarSystem": SolarSystemStyle;
+  "background": BackgroundStyle;
+  "layers": Array<LayerStyle>;            // an extension of the LayerStyle interface is expected 
+                                          // in each layer module in the models/theme folder.
 }
 ```
 
-For more details on the configuration, please check the documentation in the `*-style.ts` files in the `src/app/modules/core/models/theme` folder.
+For more details on the configuration, please check the documentation in the `*-style.ts` files in the `models/theme` folders of each layer module.
 
 ---
 
