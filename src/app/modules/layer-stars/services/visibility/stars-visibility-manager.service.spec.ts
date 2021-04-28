@@ -1,7 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 import { Stars } from '#layer-stars/models/stars';
 import { LayerService } from '#core/services/layer.service';
-import { LayersVisibilityManagerService } from '#core/services/visibility/layers-visibility-manager.service';
 import { StarsVisibilityManagerService } from '#layer-stars/services/visibility/stars-visibility-manager.service';
 import { mockedLayers } from '#core/test-utils/mocked-layers.spec';
 import { getSubRenderables } from '#core/test-utils/utils.spec';
@@ -18,7 +17,6 @@ describe('StarsVisibilityManagerService', () => {
   const stars = Stars.CODE;
   const starsMag2 = 'stars-mag2.0';
   let manager: StarsVisibilityManagerService;
-  let layersManager: LayersVisibilityManagerService;
   let layerService: LayerService;
 
   beforeEach(() => {
@@ -26,7 +24,6 @@ describe('StarsVisibilityManagerService', () => {
       imports: [LayerStarsModule],
       providers: [
         LayerService,
-        LayersVisibilityManagerService,
         SearchService,
         StarsVisibilityManagerService,
         TextsVisibilityManagerService,
@@ -35,7 +32,6 @@ describe('StarsVisibilityManagerService', () => {
     });
     layerService = TestBed.inject(LayerService);
     manager = TestBed.inject(StarsVisibilityManagerService);
-    layersManager = TestBed.inject(LayersVisibilityManagerService);
   });
 
   const loadStarsLayers = (): void => {
@@ -51,18 +47,18 @@ describe('StarsVisibilityManagerService', () => {
         const layer = provider.getRenderableLayer(model);
         layerService.registerLayer(layer);
       });
-    layersManager.setVisible(stars, true);
+    layerService.setVisible(stars, true);
   };
 
   const assertLayersShown = (expectedShown: Array<string>): void => {
     expectedShown.forEach(
-      (code: string) => expect(layersManager.isShown(code)).toBeTrue()
+      (code: string) => expect(layerService.isShown(code)).toBeTrue()
     );
   };
 
   const assertLayersHidden = (expectedHidden: Array<string>): void => {
     expectedHidden.forEach(
-      (code: string) => expect(layersManager.isShown(code)).toBeFalse()
+      (code: string) => expect(layerService.isShown(code)).toBeFalse()
     );
   };
 

@@ -11,12 +11,12 @@ import { LayerService } from '#core/services/layer.service';
 })
 export class LayersComponent {
 
-  constructor(private readonly _layersService: LayerService) {
+  constructor(private readonly _layerService: LayerService) {
 
   }
 
   public get layers(): Array<Layer> {
-    return this._layersService.rootLayer?.subLayers || [];
+    return this._layerService.rootLayer?.subLayers || [];
   }
 
 }

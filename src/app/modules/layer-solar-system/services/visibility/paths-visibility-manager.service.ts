@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { LayerService } from '#core/services/layer.service';
-import { LayersVisibilityManagerService } from '#core/services/visibility/layers-visibility-manager.service';
 import { SolarSystem } from '#layer-solar-system/model/solar-system';
 
 /**
@@ -12,10 +11,7 @@ export class PathsVisibilityManagerService {
 
   private readonly _layerCode: string;
 
-  constructor(
-    private readonly _layerService: LayerService,
-    private readonly _layersVisibilityManager: LayersVisibilityManagerService
-  ) {
+  constructor(private readonly _layerService: LayerService) {
     this._layerCode = SolarSystem.CODE;
   }
 
@@ -24,9 +20,9 @@ export class PathsVisibilityManagerService {
     if (!layer) {
       return;
     }
-    this._layersVisibilityManager.setVisible(this._layerCode, false);
+    this._layerService.setVisible(this._layerCode, false);
     layer.setTrajectoriesVisible(visible);
-    this._layersVisibilityManager.setVisible(this._layerCode, true);
+    this._layerService.setVisible(this._layerCode, true);
   }
 
   private getSolarSystemLayer(): SolarSystem {

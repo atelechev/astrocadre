@@ -1,7 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 import { LayerService } from '#core/services/layer.service';
 import { SceneService } from '#core/services/scene.service';
-import { LayersVisibilityManagerService } from '#core/services/visibility/layers-visibility-manager.service';
 import { MockedGridLayerFactory } from '#core/test-utils/mocked-grid-layer-factory.spec';
 import { RenderableLayer } from '#core/models/layers/renderable-layer';
 import { CoreModule } from '#core/core.module';
@@ -13,7 +12,7 @@ describe('SceneService', () => {
 
   const code = SkyGrid.CODE;
   let service: SceneService;
-  let visibilityManager: LayersVisibilityManagerService;
+  let layerService: LayerService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -22,13 +21,12 @@ describe('SceneService', () => {
         MockedGridLayerFactory
       ]
     });
-    const layers = TestBed.inject(LayerService);
-    visibilityManager = TestBed.inject(LayersVisibilityManagerService);
+    layerService = TestBed.inject(LayerService);
     service = TestBed.inject(SceneService);
     service.setViewportRootElement(document.createElement('div'));
     const layer = TestBed.inject(MockedGridLayerFactory).buildRenderableLayer();
-    layers.registerLayer(layer);
-    visibilityManager.setVisible(layer.code, true);
+    layerService.registerLayer(layer);
+    layerService.setVisible(layer.code, true);
   });
 
   const getMockedLayer = (): RenderableLayer => (
@@ -49,7 +47,7 @@ describe('SceneService', () => {
 
   it('should add all the objects and texts from a layer when it is shown', () => {
     const layer = getMockedLayer();
-    expect(visibilityManager.isShown(code)).toBeTrue();
+    expect(layerService.isShown(code)).toBeTrue();
 
     expect(layer.objects.length).toEqual(2);
     expect(layer.texts.length).toEqual(1);
@@ -59,10 +57,10 @@ describe('SceneService', () => {
 
   it('should remove all the objects and texts from a layer when it is hidden', () => {
     const layer = getMockedLayer();
-    expect(visibilityManager.isShown(code)).toBeTrue();
+    expect(layerService.isShown(code)).toBeTrue();
     expect(service.allTextsCount).toEqual(1);
 
-    visibilityManager.setVisible(code, false);
+    layerService.setVisible(code, false);
 
     expect(layer.objects.length).toEqual(2);
     expect(layer.texts.length).toEqual(1);

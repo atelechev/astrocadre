@@ -10,7 +10,7 @@ import {
   createSaturn,
   createUranus,
   createVenus
-  } from 'astronomy-bundle/planets';
+} from 'astronomy-bundle/planets';
 import { createSun } from 'astronomy-bundle/sun';
 import { createTimeOfInterest } from 'astronomy-bundle/time';
 import TimeOfInterest from 'astronomy-bundle/time/TimeOfInterest';
@@ -18,7 +18,6 @@ import { LineSegments } from 'three';
 import { Layer } from '#core/models/layers/layer';
 import { LayerFactory } from '#core/models/layers/layer-factory';
 import { SolarSystem } from '#layer-solar-system/model/solar-system';
-import { LayersVisibilityManagerService } from '#core/services/visibility/layers-visibility-manager.service';
 import { ApparentTrajectoryFactoryService } from '#layer-solar-system/services/factories/apparent-trajectory-factory.service';
 import { PointsFactoryService } from '#core/services/factories/points-factory.service';
 import { Searchable } from '#core/models/layers/searchable';
@@ -28,6 +27,7 @@ import { toVector3 } from '#core/utils/vector-utils';
 import { TextOffsetPolicy } from '#core/models/layers/text/text-offset-policy';
 import { SunMoonLabelsPolicy } from '#layer-solar-system/model/layers/sun-moon-labels-policy';
 import { VirtualSphereRadiusService } from '#core/services/virtual-sphere-radius.service';
+import { LayerService } from '#core/services/layer.service';
 
 
 type AstroObjectProducer = (toi?: TimeOfInterest) => AstronomicalObject;
@@ -64,7 +64,7 @@ export class SolarSystemLayerFactoryService implements LayerFactory {
   constructor(
     private readonly _trajectoryFactory: ApparentTrajectoryFactoryService,
     private readonly _pointsFactory: PointsFactoryService,
-    private readonly _visibilityManager: LayersVisibilityManagerService,
+    private readonly _layerService: LayerService,
     private readonly _searchService: SearchService,
     virtualSphereService: VirtualSphereRadiusService
   ) {
@@ -80,7 +80,7 @@ export class SolarSystemLayerFactoryService implements LayerFactory {
       .then(
         (_: any) => {
           this._searchService.registerSearchables(renderable.searchables);
-          this._visibilityManager.setVisible(this._layerCode, true);
+          this._layerService.setVisible(this._layerCode, true);
         }
       );
     return renderable;

@@ -22,13 +22,13 @@ describe('SelectorSolarSystemObjectsComponent', () => {
         LayerSolarSystemModule
       ]
     });
-    const layersService = TestBed.inject(LayerService);
+    const layerService = TestBed.inject(LayerService);
     textsVisibilityManager = TestBed.inject(TextsVisibilityManagerService);
     pathsVisibilityManager = TestBed.inject(PathsVisibilityManagerService);
-    layersService.rootLayer = mockedLayers;
+    layerService.rootLayer = mockedLayers;
     const solarSystemLayer = mockedLayers.subLayers[4];
     const provider = TestBed.inject(SolarSystemProvidersService);
-    layersService.registerLayer(provider.getRenderableLayer(solarSystemLayer));
+    layerService.registerLayer(provider.getRenderableLayer(solarSystemLayer));
     component = TestBed.createComponent(SelectorSolarSystemObjectsComponent).componentInstance;
     component.layer = solarSystemLayer;
   });

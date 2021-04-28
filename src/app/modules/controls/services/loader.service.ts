@@ -5,7 +5,6 @@ import { ThemeService } from '#core/services/theme.service';
 import { Theme } from '#core/models/theme/theme';
 import { LayerService } from '#core/services/layer.service';
 import { Layer } from '#core/models/layers/layer';
-import { LayersVisibilityManagerService } from '#core/services/visibility/layers-visibility-manager.service';
 import { LayersProvider } from '#core/models/layers/layers-provider';
 import { RenderableLayer } from '#core/models/layers/renderable-layer';
 import { SearchService } from '#core/services/search.service';
@@ -23,7 +22,6 @@ export class LoaderService {
     private readonly _dataService: StaticDataService,
     private readonly _themeService: ThemeService,
     private readonly _layerService: LayerService,
-    private readonly _visibilityManager: LayersVisibilityManagerService,
     private readonly _searchService: SearchService,
     private readonly _providersRegistry: LayerProvidersRegistryService
   ) {
@@ -140,7 +138,7 @@ export class LoaderService {
     }
     const style = renderable.extractStyle(theme);
     const visible = !!(style && style.visibleOnLoad);
-    this._visibilityManager.setVisible(layer.code, visible);
+    this._layerService.setVisible(layer.code, visible);
   }
 
 }

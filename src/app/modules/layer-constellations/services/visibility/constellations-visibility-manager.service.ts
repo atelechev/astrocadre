@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { LayerService } from '#core/services/layer.service';
-import { LayersVisibilityManagerService } from '#core/services/visibility/layers-visibility-manager.service';
 import { Constellations } from '#layer-constellations/models/constellations';
 
 
@@ -13,10 +12,7 @@ export class ConstellationsVisibilityManagerService {
 
   private readonly _layerCode: string;
 
-  constructor(
-    private readonly _layerService: LayerService,
-    private readonly _layersVisibilityManager: LayersVisibilityManagerService
-  ) {
+  constructor(private readonly _layerService: LayerService) {
     this._layerCode = Constellations.CODE;
   }
 
@@ -36,9 +32,9 @@ export class ConstellationsVisibilityManagerService {
     if (!layer) {
       return;
     }
-    this._layersVisibilityManager.setVisible(this._layerCode, false);
+    this._layerService.setVisible(this._layerCode, false);
     showFunction(layer, show);
-    this._layersVisibilityManager.setVisible(this._layerCode, true);
+    this._layerService.setVisible(this._layerCode, true);
   }
 
   private getConstellationsLayer(): Constellations {

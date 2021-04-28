@@ -4,10 +4,10 @@ import {
   Type,
 } from '@angular/core';
 import { Layer } from '#core/models/layers/layer';
-import { LayersVisibilityManagerService } from '#core/services/visibility/layers-visibility-manager.service';
 import { LayerAware } from '#core/models/layers/layer-aware';
 import { LayersProvider } from '#core/models/layers/layers-provider';
 import { LayerProvidersRegistryService } from '#controls/services/layer-providers-registry.service';
+import { LayerService } from '#core/services/layer.service';
 
 /**
  * Provides the UI with the controls allowing to select whether a
@@ -25,7 +25,7 @@ export class SelectorLayerComponent {
 
   constructor(
     private readonly _providersRegistry: LayerProvidersRegistryService,
-    private readonly _visibilityManager: LayersVisibilityManagerService
+    private readonly _layerService: LayerService
   ) {
 
   }
@@ -41,11 +41,11 @@ export class SelectorLayerComponent {
   }
 
   public get isShown(): boolean {
-    return this._visibilityManager.isShown(this._layer.code);
+    return this._layerService.isShown(this._layer.code);
   }
 
   public set isShown(show: boolean) {
-    this._visibilityManager.setVisible(this._layer.code, show);
+    this._layerService.setVisible(this._layer.code, show);
   }
 
   public get subLayers(): Array<Layer> {

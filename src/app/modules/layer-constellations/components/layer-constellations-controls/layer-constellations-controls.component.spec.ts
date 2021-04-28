@@ -4,7 +4,6 @@ import { LayerConstellationsControlsComponent } from '#layer-constellations/comp
 import { LayerConstellationsModule } from '#layer-constellations/layer-constellations.module';
 import { LayerService } from '#core/services/layer.service';
 import { ConstellationsProvidersService } from '#layer-constellations/services/constellations-providers.service';
-import { LayersVisibilityManagerService } from '#core/services/visibility/layers-visibility-manager.service';
 import { TextsVisibilityManagerService } from '#core/services/visibility/texts-visibility-manager.service';
 import { ConstellationsVisibilityManagerService } from '#layer-constellations/services/visibility/constellations-visibility-manager.service';
 import { Layer } from '#core/models/layers/layer';
@@ -45,8 +44,9 @@ describe('LayerConstellationsControlsComponent', () => {
     visibilityManager = TestBed.inject(ConstellationsVisibilityManagerService);
     textsVisibilityManager = TestBed.inject(TextsVisibilityManagerService);
     const renderable = TestBed.inject(ConstellationsProvidersService).getRenderableLayer(layer);
-    TestBed.inject(LayerService).registerLayer(renderable);
-    TestBed.inject(LayersVisibilityManagerService).setVisible(layer.code, true);
+    const layerService = TestBed.inject(LayerService);
+    layerService.registerLayer(renderable);
+    layerService.setVisible(layer.code, true);
     component = TestBed.createComponent(LayerConstellationsControlsComponent).componentInstance;
     component.layer = renderable;
   });
