@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import AstronomicalObject from 'astronomy-bundle/astronomicalObject/AstronomicalObject';
-import { EquatorialSphericalCoordinates } from 'astronomy-bundle/coordinates/coordinateTypes';
+import { EquatorialSphericalCoordinates } from 'astronomy-bundle/coordinates/types/CoordinateTypes';
 import { createTimeOfInterest } from 'astronomy-bundle/time';
 import TimeOfInterest from 'astronomy-bundle/time/TimeOfInterest';
-import { forkJoin, Observable } from 'rxjs';
+import { forkJoin } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { LineSegments } from 'three';
 import { AxialCurvesFactoryService } from '#core/services/factories/axial-curves-factory.service';

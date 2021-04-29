@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import AstronomicalObject from 'astronomy-bundle/astronomicalObject/AstronomicalObject';
-import { EquatorialSphericalCoordinates } from 'astronomy-bundle/coordinates/coordinateTypes';
+import { EquatorialSphericalCoordinates } from 'astronomy-bundle/coordinates/types/CoordinateTypes';
 import { createMoon } from 'astronomy-bundle/moon';
 import {
   createJupiter,
@@ -10,7 +10,7 @@ import {
   createSaturn,
   createUranus,
   createVenus
-} from 'astronomy-bundle/planets';
+  } from 'astronomy-bundle/planets';
 import { createSun } from 'astronomy-bundle/sun';
 import { createTimeOfInterest } from 'astronomy-bundle/time';
 import TimeOfInterest from 'astronomy-bundle/time/TimeOfInterest';
