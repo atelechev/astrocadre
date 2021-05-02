@@ -2,6 +2,10 @@
 
 _Astronomy sky charts browsing application_
 
+
+![CI](https://github.com/atelechev/astrocadre/actions/workflows/astrocadre-ci.yml/badge.svg)
+
+
 ## Description
 
 This application allows to view sky maps using a Web browser:
