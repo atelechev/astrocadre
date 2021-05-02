@@ -26,5 +26,5 @@ export interface Searchable {
   /**
    * The names of this object, by which it can be found via the search service.
    */
-  names: Array<string>;
+  names?: Array<string>;
 }

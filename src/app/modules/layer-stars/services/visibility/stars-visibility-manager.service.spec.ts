@@ -1,25 +1,32 @@
-import { TestBed } from '@angular/core/testing';
+import { fakeAsync, TestBed, tick } from '@angular/core/testing';
+import { of } from 'rxjs';
 import { Stars } from '#layer-stars/models/stars';
 import { LayerService } from '#core/services/layer.service';
 import { StarsVisibilityManagerService } from '#layer-stars/services/visibility/stars-visibility-manager.service';
-import { mockedLayers } from '#core/test-utils/mocked-layers.spec';
-import { getSubRenderables } from '#core/test-utils/utils.spec';
 import { SearchService } from '#core/services/search.service';
 import { ThemeService } from '#core/services/theme.service';
 import { TextsVisibilityManagerService } from '#core/services/visibility/texts-visibility-manager.service';
 import { LayerStarsModule } from '#layer-stars/layer-stars.module';
-import { Layer } from '#core/models/layers/layer';
 import { StarsProvidersService } from '#layer-stars/services/stars-providers.service';
+import { RenderableLayer } from '#core/models/layers/renderable-layer';
+import { StaticDataService } from '#core/services/static-data.service';
 
 
 describe('StarsVisibilityManagerService', () => {
 
+  const objects = [
+    [37.95, 89.26, 2.0, 'Polaris', 'ALP UMI']
+  ];
   const stars = Stars.CODE;
   const starsMag2 = 'stars-mag2.0';
+  const starsMag25 = 'stars-mag2.5';
+  const starsMag3 = 'stars-mag3.0';
+  const subLayers = [starsMag2, starsMag25, starsMag3];
+
   let manager: StarsVisibilityManagerService;
   let layerService: LayerService;
 
-  beforeEach(() => {
+  beforeEach(fakeAsync(() => {
     TestBed.configureTestingModule({
       imports: [LayerStarsModule],
       providers: [
@@ -30,25 +37,25 @@ describe('StarsVisibilityManagerService', () => {
         ThemeService
       ]
     });
-    layerService = TestBed.inject(LayerService);
-    manager = TestBed.inject(StarsVisibilityManagerService);
-  });
+    const dataService = TestBed.inject(StaticDataService);
+    spyOn(dataService, 'getDataJson').and.returnValue(of(objects));
 
-  const loadStarsLayers = (): void => {
-    const starsModel = mockedLayers.subLayers[1];
+    layerService = TestBed.inject(LayerService);
     const provider = TestBed.inject(StarsProvidersService);
-    [
-      starsModel,
-      starsModel.subLayers[0],
-      starsModel.subLayers[1],
-      starsModel.subLayers[2]
-    ].forEach(
-      (model: Layer) => {
-        const layer = provider.getRenderableLayer(model);
-        layerService.registerLayer(layer);
-      });
-    layerService.setVisible(stars, true);
-  };
+    const allLayers = [stars].concat(subLayers).map((code: string) => provider.getRenderableLayer(code));
+    Promise.all(allLayers)
+      .then(
+        (layers: Array<RenderableLayer>) =>
+          layers.forEach(
+            (layer: RenderableLayer, i: number) => layerService.registerLayer(layer, i)
+          )
+      ).then(
+        (_: any) => layerService.setVisible(stars, true)
+      );
+
+    manager = TestBed.inject(StarsVisibilityManagerService);
+    tick();
+  }));
 
   const assertLayersShown = (expectedShown: Array<string>): void => {
     expectedShown.forEach(
@@ -65,21 +72,17 @@ describe('StarsVisibilityManagerService', () => {
   describe('showStarLayersDownToMagnitude should', () => {
 
     const assertAllLayersShown = (): void => {
-      assertLayersShown([stars, starsMag2, 'stars-mag2.5', 'stars-mag3.0']);
+      assertLayersShown([stars, starsMag2, starsMag25, starsMag3]);
     };
 
     it('hide all the star layers of magnitude greater than the argument', () => {
-      loadStarsLayers();
-
       assertAllLayersShown();
       manager.showStarLayersDownToMagnitude(2);
       assertLayersShown([stars, starsMag2]);
-      assertLayersHidden(['stars-mag2.5', 'stars-mag3.0']);
+      assertLayersHidden([starsMag25, starsMag3]);
     });
 
     it('have no effect if the arg is falsy', () => {
-      loadStarsLayers();
-
       assertAllLayersShown();
       manager.showStarLayersDownToMagnitude(undefined);
       assertAllLayersShown();
@@ -90,29 +93,23 @@ describe('StarsVisibilityManagerService', () => {
   describe('showStarsProperNames should', () => {
 
     it('show the proper names if useProper is true', () => {
-      loadStarsLayers();
-
       manager.showStarsProperNames(true);
-      const layer = layerService.getRenderableLayer(stars) as Stars;
-      expect(layer.properNamesShown).toBeTrue();
-      getSubRenderables(stars, layerService)
-        .forEach(
-          (subLayer: Stars) =>
-            expect(subLayer.properNamesShown).toBeTrue()
-        );
+      subLayers.forEach(
+        (subCode: string) => {
+          const subLayer = layerService.getRenderableLayer(subCode) as Stars;
+          expect(subLayer.properNamesShown).toBeTrue();
+        }
+      );
     });
 
     it('show the standard names if useProper is false', () => {
-      loadStarsLayers();
-
       manager.showStarsProperNames(false);
-      const layer = layerService.getRenderableLayer(stars) as Stars;
-      expect(layer.properNamesShown).toBeFalse();
-      getSubRenderables(stars, layerService)
-        .forEach(
-          (subLayer: Stars) =>
-            expect(subLayer.properNamesShown).toBeFalse()
-        );
+      subLayers.forEach(
+        (subCode: string) => {
+          const subLayer = layerService.getRenderableLayer(subCode) as Stars;
+          expect(subLayer.properNamesShown).toBeFalse();
+        }
+      );
     });
 
   });

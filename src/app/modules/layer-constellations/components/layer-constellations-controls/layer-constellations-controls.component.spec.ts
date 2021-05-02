@@ -1,4 +1,5 @@
-import { TestBed } from '@angular/core/testing';
+import { fakeAsync, TestBed, tick } from '@angular/core/testing';
+import { of } from 'rxjs';
 import { CoreModule } from '#core/core.module';
 import { LayerConstellationsControlsComponent } from '#layer-constellations/components/layer-constellations-controls/layer-constellations-controls.component';
 import { LayerConstellationsModule } from '#layer-constellations/layer-constellations.module';
@@ -6,35 +7,34 @@ import { LayerService } from '#core/services/layer.service';
 import { ConstellationsProvidersService } from '#layer-constellations/services/constellations-providers.service';
 import { TextsVisibilityManagerService } from '#core/services/visibility/texts-visibility-manager.service';
 import { ConstellationsVisibilityManagerService } from '#layer-constellations/services/visibility/constellations-visibility-manager.service';
-import { Layer } from '#core/models/layers/layer';
 import { Constellations } from '#layer-constellations/models/constellations';
+import { StaticDataService } from '#core/services/static-data.service';
 
 
 describe('LayerConstellationsControlsComponent', () => {
 
-  const layer: Layer = {
-    code: Constellations.CODE,
-    label: 'Constellations',
-    loadFromUrl: true,
-    objects: [{
-      boundaries: [[177.5, -24.5, 162.5, -24.5]],
-      lines: [[72.46, 6.95, 72.65, 8.9]],
-      names: [
-        {
-          type: 'constellation',
-          code: 'AND',
-          ra: 8.532,
-          dec: 38.906,
-          names: ['Andromeda']
-        }
-      ]
-    }]
-  };
+  const rawData = [{
+    boundaries: [
+      [177.5, -24.5, 162.5, -24.5]
+    ],
+    lines: [
+      [72.46, 6.95, 72.65, 8.9]
+    ],
+    names: [
+      {
+        type: 'constellation',
+        code: 'AND',
+        ra: 8.532,
+        dec: 38.906,
+        names: ['Andromeda']
+      }
+    ]
+  }];
   let component: LayerConstellationsControlsComponent;
   let textsVisibilityManager: TextsVisibilityManagerService;
   let visibilityManager: ConstellationsVisibilityManagerService;
 
-  beforeEach(() => {
+  beforeEach(fakeAsync(() => {
     TestBed.configureTestingModule({
       imports: [
         CoreModule,
@@ -43,13 +43,21 @@ describe('LayerConstellationsControlsComponent', () => {
     });
     visibilityManager = TestBed.inject(ConstellationsVisibilityManagerService);
     textsVisibilityManager = TestBed.inject(TextsVisibilityManagerService);
-    const renderable = TestBed.inject(ConstellationsProvidersService).getRenderableLayer(layer);
+    const dataService = TestBed.inject(StaticDataService);
+    spyOn(dataService, 'getDataJson').and.returnValue(of(rawData));
+
     const layerService = TestBed.inject(LayerService);
-    layerService.registerLayer(renderable);
-    layerService.setVisible(layer.code, true);
     component = TestBed.createComponent(LayerConstellationsControlsComponent).componentInstance;
-    component.layer = renderable;
-  });
+    TestBed.inject(ConstellationsProvidersService).getRenderableLayer()
+      .then(
+        (layer: Constellations) => {
+          layerService.registerLayer(layer, 0);
+          layerService.setVisible(layer.code, true);
+          component.layer = layer;
+        }
+      );
+    tick();
+  }));
 
   describe('namesShown should', () => {
 

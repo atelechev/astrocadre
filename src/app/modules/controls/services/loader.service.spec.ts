@@ -7,7 +7,6 @@ import { StaticDataService } from '#core/services/static-data.service';
 import { mockedThemes } from '#core/test-utils/mocked-themes.spec';
 import { mockedTheme } from '#core/test-utils/mocked-theme.spec';
 import { LayerService } from '#core/services/layer.service';
-import { mockedLayers } from '#core/test-utils/mocked-layers.spec';
 import { themeDefault } from '#core/models/theme/theme-default';
 import { LayerConstellationsModule } from '#layer-constellations/layer-constellations.module';
 import { LayerStarsModule } from '#layer-stars/layer-stars.module';
@@ -17,7 +16,6 @@ import { ControlsModule } from '#controls/controls.module';
 import { LayerSolarSystemModule } from '#layer-solar-system/layer-solar-system.module';
 import { Theme } from '#core/models/theme/theme';
 import { ThemeMeta } from '#core/models/theme/theme-meta';
-import { Layer } from '#core/models/layers/layer';
 import { Constellations } from '#layer-constellations/models/constellations';
 
 class MockStaticDataService {
@@ -28,10 +26,6 @@ class MockStaticDataService {
 
   public getThemes(): Observable<Array<ThemeMeta>> {
     return of(mockedThemes);
-  }
-
-  public getLayersTree(): Observable<Layer> {
-    return of(mockedLayers);
   }
 
   public getDataJson(resource: string): Observable<Array<any>> {
@@ -99,17 +93,24 @@ describe('LoaderService', () => {
       expect(service.loadTheme).toHaveBeenCalledWith('dev');
     }));
 
-    it('load expected layers', fakeAsync(() => {
-      spyOn(dataService, 'getLayersTree').and.returnValue(of(mockedLayers));
-      spyOn(layerService, 'registerLayer');
-
-      expect(layerService.rootLayer).toBeUndefined();
+    it('should not load the theme if the list of themes is not available', fakeAsync(() => {
+      spyOn(dataService, 'getThemes').and.returnValue(of([]));
+      expect(themeService.theme).toEqual(themeDefault);
+      expect(themeService.availableThemes).toEqual([]);
 
       service.loadAllData();
       tick();
 
-      expect(layerService.rootLayer).toEqual(mockedLayers);
-      expect(layerService.registerLayer).toHaveBeenCalledTimes(9);
+      expect(themeService.availableThemes).toEqual([]);
+      expect(themeService.theme).toEqual(themeDefault);
+    }));
+
+    it('load expected layers', fakeAsync(() => {
+      spyOn(layerService, 'registerLayer');
+
+      service.loadAllData();
+      tick();
+      expect(layerService.registerLayer).toHaveBeenCalledTimes(14);
     }));
 
   });

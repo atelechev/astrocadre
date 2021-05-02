@@ -1,5 +1,4 @@
 import { LineSegments, Object3D } from 'three';
-import { Layer } from '#core/models/layers/layer';
 import { RenderableLayer } from '#core/models/layers/renderable-layer';
 import { RenderableText } from '#core/models/layers/renderable-text';
 import { Searchable } from '#core/models/layers/searchable';
@@ -16,16 +15,18 @@ export class Constellations extends RenderableLayer {
 
   private readonly _objects: Array<Object3D>;
 
-  private readonly _searchables: Array<Searchable>;
-
   constructor(
-    model: Layer,
     private readonly _boundaries: LineSegments,
     private readonly _lines: LineSegments,
+    private readonly _searchables: Array<Searchable>,
     private readonly _texts: Array<RenderableText>
   ) {
-    super(model);
-    this._searchables = model.objects[0].names;
+    super(
+      Constellations.CODE,
+      [],
+      'Constellations',
+      'Constellations: boundaries, lines and names'
+    );
     this._objects = [
       this._boundaries,
       this._lines

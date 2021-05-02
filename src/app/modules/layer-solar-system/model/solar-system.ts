@@ -4,7 +4,6 @@ import {
   Points,
   PointsMaterial
   } from 'three';
-import { Layer } from '#core/models/layers/layer';
 import { RenderableLayer } from '#core/models/layers/renderable-layer';
 import { Theme } from '#core/models/theme/theme';
 import { LineStyle } from '#core/models/theme/line-style';
@@ -32,8 +31,13 @@ export class SolarSystem extends RenderableLayer {
 
   private readonly _trajectories: Map<string, LineSegments>;
 
-  constructor(model: Layer) {
-    super(model);
+  constructor() {
+    super(
+      SolarSystem.CODE,
+      [],
+      'Solar system',
+      'Solar system objects'
+    );
     this._objects = [];
     this._texts = [];
     this._searchables = [];

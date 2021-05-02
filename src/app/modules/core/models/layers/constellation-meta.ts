@@ -21,5 +21,5 @@ export interface ConstellationMeta {
   /**
    * The array of names that denote this constellation.
    */
-  names: Array<string>;
+  names?: Array<string>;
 }

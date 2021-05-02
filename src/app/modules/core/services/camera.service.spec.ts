@@ -39,14 +39,16 @@ describe('CameraService', () => {
     expect(checked.z).toBeCloseTo(expected.z, precision);
   };
 
-  const assertViewportViewChangedEventFired = (expectData: string, skipEvents: number, done: DoneFn): void => {
+  const assertViewportViewChangedEventFired = (expectData: string, skipEvents: number, done?: DoneFn): void => {
     TestBed.inject(ViewportService).events
       .pipe(skip(skipEvents))
       .subscribe(
         (event: ViewportEvent<any>) => {
           expect(event.key).toEqual(ViewportViewChangeEvent.KEY);
           expect(event.data).toEqual(expectData);
-          done();
+          if (done) {
+            done();
+          }
         }
       );
   };
@@ -60,25 +62,71 @@ describe('CameraService', () => {
     assertExpectedRotation(0, 0, 0);
   });
 
-  it('centerView should set the view centered to expected angles and emit an expected event', (done: DoneFn) => {
-    assertViewportViewChangedEventFired('centerView', 1, done);
-    assertExpectedRotation(0, 0, 0);
-    service.centerView({ rightAscension: 10, declination: 25 });
-    assertExpectedRotation(2.785, -1.102, 1.175);
+  describe('centerView should', () => {
+
+    it('have no effect if the arg is falsy', () => {
+      assertExpectedRotation(0, 0, 0);
+      service.centerView(undefined);
+      assertExpectedRotation(0, 0, 0);
+    });
+
+    it('set the view centered northwards to expected angles and emit an expected event', (done: DoneFn) => {
+      assertViewportViewChangedEventFired('centerView', 1);
+      assertExpectedRotation(0, 0, 0);
+      service.centerView({ rightAscension: 10, declination: 25 });
+      assertExpectedRotation(2.785, -1.102, 1.175);
+      done();
+    });
+
+    it('set the view centered southwards to expected angles and emit an expected event', (done: DoneFn) => {
+      assertViewportViewChangedEventFired('centerView', 1);
+      assertExpectedRotation(0, 0, 0);
+      service.centerView({ rightAscension: 10, declination: -25 });
+      assertExpectedRotation(0.356, -1.102, 1.966);
+      done();
+    });
+
   });
 
-  it('rotate should rotate the camera to requested angles and emit an expected event', (done: DoneFn) => {
-    assertViewportViewChangedEventFired('rotate', 1, done);
-    assertExpectedRotation(0, 0, 0);
-    service.rotate({ rx: 0.1, ry: 0.1, rz: 0.1 });
-    assertExpectedRotation(0.1, 0.1, 0.1);
+  describe('rotate should', () => {
+
+    it('have no effect if the arg is falsy', () => {
+      assertExpectedRotation(0, 0, 0);
+      service.rotate(undefined);
+      assertExpectedRotation(0, 0, 0);
+    });
+
+    it('rotate the camera to requested angles and emit an expected event', (done: DoneFn) => {
+      assertViewportViewChangedEventFired('rotate', 1);
+      assertExpectedRotation(0, 0, 0);
+      service.rotate({ rx: 0.1, ry: 0.1, rz: 0.1 });
+      assertExpectedRotation(0.1, 0.1, 0.1);
+      done();
+    });
+
   });
 
-  it('setFoV should set the expected field of view and emit an expected event', (done: DoneFn) => {
-    assertViewportViewChangedEventFired('setFoV', 1, done);
-    assertExpectedFov(30);
-    service.setFoV(50);
-    assertExpectedFov(50);
+  describe('setFoV should ', () => {
+
+    it('have not effect if the arg is falsy', () => {
+      assertExpectedFov(30);
+      service.setFoV(undefined);
+      assertExpectedFov(30);
+    });
+
+    it('have not effect if the arg is negative', () => {
+      assertExpectedFov(30);
+      service.setFoV(-10);
+      assertExpectedFov(30);
+    });
+
+    it('set the expected field of view and emit an expected event', (done: DoneFn) => {
+      assertViewportViewChangedEventFired('setFoV', 1, done);
+      assertExpectedFov(30);
+      service.setFoV(50);
+      assertExpectedFov(50);
+    });
+
   });
 
   it('alignNSAxis should set the view centered to expected angles and emit an expected event', (done: DoneFn) => {

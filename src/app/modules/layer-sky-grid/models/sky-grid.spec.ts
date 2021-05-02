@@ -1,4 +1,4 @@
-import { TestBed } from '@angular/core/testing';
+import { fakeAsync, TestBed } from '@angular/core/testing';
 import { Color, LineBasicMaterial, LineSegments } from 'three';
 import { SkyGrid } from '#layer-sky-grid/models/sky-grid';
 import { mockedTheme } from '#core/test-utils/mocked-theme.spec';
@@ -8,19 +8,12 @@ import { ThemeService } from '#core/services/theme.service';
 import { LayerSkyGridModule } from '#layer-sky-grid/layer-sky-grid.module';
 import { SkyGridProvidersService } from '#layer-sky-grid/services/sky-grid-providers.service';
 
-const model = {
-  code: SkyGrid.CODE,
-  label: 'Coordinates grid',
-  loadFromUrl: false,
-  description: 'Celestial coordinates grid in degrees',
-  objects: []
-};
 
 describe('SkyGrid', () => {
 
   let layer: SkyGrid;
 
-  beforeEach(() => {
+  beforeEach(fakeAsync(() => {
     TestBed.configureTestingModule({
       imports: [LayerSkyGridModule],
       providers: [
@@ -28,9 +21,12 @@ describe('SkyGrid', () => {
         ThemeService
       ]
     });
-    layer = TestBed.inject(SkyGridProvidersService).getRenderableLayer(model);
     TestBed.inject(ThemeService).theme = mockedTheme;
-  });
+    TestBed.inject(SkyGridProvidersService).getRenderableLayer()
+      .then(
+        (renderable: SkyGrid) => layer = renderable
+      );
+  }));
 
   const assertColorMaterialExpected = (object: LineSegments, line: LineStyle): void => {
     const assignedMaterial = object.material as LineBasicMaterial;

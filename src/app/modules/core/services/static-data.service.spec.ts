@@ -1,9 +1,7 @@
 import { of } from 'rxjs';
-import { Layer } from '#core/models/layers/layer';
 import { Theme } from '#core/models/theme/theme';
 import { ThemeMeta } from '#core/models/theme/theme-meta';
 import { StaticDataService } from '#core/services/static-data.service';
-import { mockedLayers } from '#core/test-utils/mocked-layers.spec';
 import { mockedTheme } from '#core/test-utils/mocked-theme.spec';
 import { mockedThemes } from '#core/test-utils/mocked-themes.spec';
 
@@ -32,15 +30,6 @@ describe('StaticDataService', () => {
     service.getTheme('dev')
       .subscribe(
         (theme: Theme) => expect(theme).toEqual(mockedTheme)
-      );
-    expect(httpClientSpy.get).toHaveBeenCalledTimes(1);
-  });
-
-  it('getLayersTree should return expected data', () => {
-    httpClientSpy.get.and.returnValue(of(mockedLayers));
-    service.getLayersTree()
-      .subscribe(
-        (layer: Layer) => expect(layer).toEqual(mockedLayers)
       );
     expect(httpClientSpy.get).toHaveBeenCalledTimes(1);
   });

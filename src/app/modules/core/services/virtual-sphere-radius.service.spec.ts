@@ -2,13 +2,19 @@ import { TestBed } from '@angular/core/testing';
 import { LayerService } from '#core/services/layer.service';
 import { ThemeService } from '#core/services/theme.service';
 import { VirtualSphereRadiusService } from '#core/services/virtual-sphere-radius.service';
-import { mockedLayers } from '#core/test-utils/mocked-layers.spec';
-import { SkyGrid } from '#layer-sky-grid/models/sky-grid';
-import { Stars } from '#layer-stars/models/stars';
-import { Constellations } from '#layer-constellations/models/constellations';
-import { Messier } from '#layer-messier/models/messier';
-import { SolarSystem } from '#layer-solar-system/model/solar-system';
+import { RenderableLayer } from '#core/models/layers/renderable-layer';
 
+class TestLayer extends RenderableLayer {
+
+  constructor(code: string) {
+    super(code, [], 'Test');
+  }
+
+  public applyTheme(): void {
+    // nothing
+  }
+
+}
 
 describe('VirtualSphereRadiusService', () => {
 
@@ -23,8 +29,6 @@ describe('VirtualSphereRadiusService', () => {
       ]
     });
     service = TestBed.inject(VirtualSphereRadiusService);
-    const layerService = TestBed.inject(LayerService);
-    layerService.rootLayer = mockedLayers;
   });
 
   it('maxRadius should return expected value', () => {
@@ -33,7 +37,7 @@ describe('VirtualSphereRadiusService', () => {
 
   describe('getRadiusFor should return', () => {
 
-    describe('maxRadius0', () => {
+    describe('maxRadius', () => {
 
       it('if the arg is falsy', () => {
         expect(service.getRadiusFor(undefined)).toEqual(2);
@@ -45,15 +49,15 @@ describe('VirtualSphereRadiusService', () => {
 
     });
 
-    it('should return expected values for supported layers', () => {
-      expect(service.getRadiusFor(SkyGrid.CODE)).toEqual(2);
-      expect(service.getRadiusFor(Stars.CODE)).toEqual(1.99);
-      expect(service.getRadiusFor('stars-mag2.0')).toEqual(1.98);
-      expect(service.getRadiusFor('stars-mag2.5')).toEqual(1.97);
-      expect(service.getRadiusFor('stars-mag3.0')).toEqual(1.96);
-      expect(service.getRadiusFor(Constellations.CODE)).toEqual(1.95);
-      expect(service.getRadiusFor(Messier.CODE)).toEqual(1.94);
-      expect(service.getRadiusFor(SolarSystem.CODE)).toEqual(1.93);
+    it('expected value for supported layer', () => {
+      const layerService = TestBed.inject(LayerService);
+      const code1 = 'code1';
+      const code2 = 'code2';
+      layerService.registerLayer(new TestLayer(code1), 0);
+      layerService.registerLayer(new TestLayer(code2), 1);
+
+      expect(service.getRadiusFor(code1)).toEqual(2);
+      expect(service.getRadiusFor(code2)).toEqual(1.99);
     });
 
   });

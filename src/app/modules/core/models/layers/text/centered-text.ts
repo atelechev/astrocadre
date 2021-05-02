@@ -26,11 +26,8 @@ export class CenteredText implements TextOffsetPolicy {
   private calculateWidthOffset(text: string, htmlElement: HTMLElement): number {
     const context = this._measureCanvas.getContext('2d');
     context.font = this.getFontStyleForMetrics(htmlElement);
-    const textWidth = context.measureText(text).width;
-    if (textWidth) {
-      return -Math.ceil(textWidth) / 2;
-    }
-    return 0;
+    const textWidth = context.measureText(text).width || 0;
+    return -Math.ceil(textWidth) / 2;
   }
 
   private getFontStyleForMetrics(htmlElement: HTMLElement): string {

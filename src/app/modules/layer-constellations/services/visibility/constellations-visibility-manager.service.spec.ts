@@ -1,33 +1,13 @@
 import { TestBed } from '@angular/core/testing';
-import { Layer } from '#core/models/layers/layer';
+import { LineSegments } from 'three';
 import { LayerService } from '#core/services/layer.service';
 import { ThemeService } from '#core/services/theme.service';
 import { LayerConstellationsModule } from '#layer-constellations/layer-constellations.module';
 import { Constellations } from '#layer-constellations/models/constellations';
-import { ConstellationsProvidersService } from '#layer-constellations/services/constellations-providers.service';
 import { ConstellationsVisibilityManagerService } from '#layer-constellations/services/visibility/constellations-visibility-manager.service';
 
 describe('ConstellationsVisibilityManagerService', () => {
 
-  const constellations = Constellations.CODE;
-  const model: Layer = {
-    code: constellations,
-    label: 'Constellations',
-    loadFromUrl: true,
-    objects: [{
-      boundaries: [[177.5, -24.5, 162.5, -24.5]],
-      lines: [[72.46, 6.95, 72.65, 8.9]],
-      names: [
-        {
-          type: 'constellation',
-          code: 'AND',
-          ra: 8.532,
-          dec: 38.906,
-          names: ['Andromeda']
-        }
-      ]
-    }]
-  };
   let manager: ConstellationsVisibilityManagerService;
   let layerService: LayerService;
 
@@ -45,10 +25,14 @@ describe('ConstellationsVisibilityManagerService', () => {
   });
 
   const loadConstellationsLayer = (): Constellations => {
-    const provider = TestBed.inject(ConstellationsProvidersService);
-    const layer = provider.getRenderableLayer(model);
-    layerService.registerLayer(layer);
-    layerService.setVisible(constellations, true);
+    const layer = new Constellations(
+      new LineSegments(),
+      new LineSegments(),
+      [],
+      []
+    );
+    layerService.registerLayer(layer, 1);
+    layerService.setVisible(layer.code, true);
     return layer;
   };
 

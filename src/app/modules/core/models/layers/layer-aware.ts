@@ -1,5 +1,5 @@
 import { Directive, Input } from '@angular/core';
-import { Layer } from '#core/models/layers/layer';
+import { RenderableLayer } from '#core/models/layers/renderable-layer';
 
 /**
  * Provides the access to the layer associated with the implementor.
@@ -8,14 +8,14 @@ import { Layer } from '#core/models/layers/layer';
 // eslint-disable-next-line @angular-eslint/directive-class-suffix
 export abstract class LayerAware {
 
-  private _layer: Layer;
+  private _layer: RenderableLayer;
 
   @Input()
-  public set layer(model: Layer) {
-    this._layer = model;
+  public set layer(layer: RenderableLayer) {
+    this._layer = layer;
   }
 
-  public get layer(): Layer {
+  public get layer(): RenderableLayer {
     return this._layer;
   }
 

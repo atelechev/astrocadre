@@ -1,6 +1,6 @@
 import { Injectable, Injector } from '@angular/core';
 import { MessierProvidersService } from '#layer-messier/services/messier-providers.service';
-import { LayersProvider } from '#core/models/layers/layers-provider';
+import { LayerProvider } from '#core/models/layers/layer-provider';
 import { ConstellationsProvidersService } from '#layer-constellations/services/constellations-providers.service';
 import { SkyGridProvidersService } from '#layer-sky-grid/services/sky-grid-providers.service';
 import { StarsProvidersService } from '#layer-stars/services/stars-providers.service';
@@ -12,10 +12,11 @@ import { SolarSystemProvidersService } from '#layer-solar-system/services/solar-
 @Injectable()
 export class LayerProvidersRegistryService {
 
-  private readonly _layerProviders: Array<LayersProvider>;
+  private readonly _layerProviders: Array<LayerProvider>;
+
+  private readonly _layerCodes: Array<string>;
 
   constructor(injector: Injector) {
-    // TODO find a way to inject the modules dynamically, without hard-coding them here
     this._layerProviders = [
       injector.get(SkyGridProvidersService),
       injector.get(StarsProvidersService),
@@ -23,10 +24,18 @@ export class LayerProvidersRegistryService {
       injector.get(MessierProvidersService),
       injector.get(SolarSystemProvidersService)
     ];
+    this._layerCodes = this._layerProviders.map((provider: LayerProvider) => provider.code);
   }
 
-  public get layerProviders(): Array<LayersProvider> {
+  /**
+   * Returns an array containing all known LayerProvier instances.
+   */
+  public get layerProviders(): Array<LayerProvider> {
     return this._layerProviders;
+  }
+
+  public get orderedCodes(): Array<string> {
+    return this._layerCodes;
   }
 
 }

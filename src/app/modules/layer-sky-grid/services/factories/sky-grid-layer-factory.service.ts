@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { LineSegments } from 'three';
 import { SkyGrid } from '#layer-sky-grid/models/sky-grid';
-import { Layer } from '#core/models/layers/layer';
 import { AxialCurvesFactoryService } from '#core/services/factories/axial-curves-factory.service';
 import { LayerFactory } from '#core/models/layers/layer-factory';
 
@@ -21,21 +20,21 @@ export class SkyGridLayerFactoryService implements LayerFactory {
 
   }
 
-  public buildRenderableLayer(model: Layer): SkyGrid {
-    const commonMeridians = this.generateCommonMeridianSegments(model);
-    const commonParallels = this.generateCommonParallelSegments(model);
-    const referenceMeridian = this.generateReferenceMeridianSegments(model);
-    const referenceParallel = this.generateReferenceParallelSegments(model);
-    return new SkyGrid(
-      model,
+  public buildRenderableLayer(): Promise<SkyGrid> {
+    const commonMeridians = this.generateCommonMeridianSegments();
+    const commonParallels = this.generateCommonParallelSegments();
+    const referenceMeridian = this.generateReferenceMeridianSegments();
+    const referenceParallel = this.generateReferenceParallelSegments();
+    const layer = new SkyGrid(
       commonMeridians,
       commonParallels,
       referenceMeridian,
       referenceParallel
     );
+    return new Promise((resolve) => resolve(layer));
   }
 
-  private generateCommonMeridianSegments(model: Layer): LineSegments {
+  private generateCommonMeridianSegments(): LineSegments {
     const segments = new Array<number[]>();
     for (let i = 0; i < 360; i += this._gridStepMeridians) {
       if (i === 0 || i === 180) {
@@ -43,40 +42,40 @@ export class SkyGridLayerFactoryService implements LayerFactory {
       }
       segments.push(this.meridianSegment(i));
     }
-    return this.createLineSegmentsWith(model, segments);
+    return this.createLineSegmentsWith(segments);
   }
 
   private meridianSegment(ra: number): number[] {
     return [ra, this._absMaxMeridianLineDeclination, ra, -this._absMaxMeridianLineDeclination];
   }
 
-  private createLineSegmentsWith(model: Layer, segments: number[][]): LineSegments {
-    const lineSegs = this._curvesFactory.createObject3D(model.code, segments);
+  private createLineSegmentsWith(segments: number[][]): LineSegments {
+    const lineSegs = this._curvesFactory.createObject3D(SkyGrid.CODE, segments);
     lineSegs.computeLineDistances();
     return lineSegs;
   }
 
-  private generateCommonParallelSegments(model: Layer): LineSegments {
+  private generateCommonParallelSegments(): LineSegments {
     const segments = new Array<number[]>();
     for (let par = this._gridStepParallels; par < 90; par += this._gridStepParallels) {
       segments.push(this.parallelSegment(par));
       segments.push(this.parallelSegment(-par));
     }
-    return this.createLineSegmentsWith(model, segments);
+    return this.createLineSegmentsWith(segments);
   }
 
   private parallelSegment(decl: number): number[] {
     return [0.01, decl, 359.99, decl];
   }
 
-  private generateReferenceMeridianSegments(model: Layer): LineSegments {
+  private generateReferenceMeridianSegments(): LineSegments {
     const refSegments = [this.meridianSegment(0), this.meridianSegment(180)];
-    return this.createLineSegmentsWith(model, refSegments);
+    return this.createLineSegmentsWith(refSegments);
   }
 
-  private generateReferenceParallelSegments(model: Layer): LineSegments {
+  private generateReferenceParallelSegments(): LineSegments {
     const refSegments = [this.parallelSegment(0)];
-    return this.createLineSegmentsWith(model, refSegments);
+    return this.createLineSegmentsWith(refSegments);
   }
 
 }

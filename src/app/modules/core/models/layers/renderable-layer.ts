@@ -1,5 +1,4 @@
 import { Object3D } from 'three';
-import { Layer } from '#core/models/layers/layer';
 import { RenderableText } from '#core/models/layers/renderable-text';
 import { Searchable } from '#core/models/layers/searchable';
 import { Theme } from '#core/models/theme/theme';
@@ -8,9 +7,14 @@ import { LayerStyle } from '#core/models/theme/layer-style';
 /**
  * Represents a layer of objects that can be rendered/visualized in the view.
  */
-export abstract class RenderableLayer implements Layer {
+export abstract class RenderableLayer {
 
-  constructor(private readonly _model: Layer) {
+  constructor(
+    private readonly _code: string,
+    private readonly _subLayers: Array<string>,
+    private readonly _label: string,
+    private readonly _description?: string
+  ) {
 
   }
 
@@ -20,7 +24,7 @@ export abstract class RenderableLayer implements Layer {
    * @returns string the code/identifier of this layer.
    */
   public get code(): string {
-    return this._model.code;
+    return this._code;
   }
 
   /**
@@ -36,14 +40,7 @@ export abstract class RenderableLayer implements Layer {
    * @returns string the label of this layer.
    */
   public get label(): string {
-    return this._model.label;
-  }
-
-  /**
-   * Returns true if the objects of this layer are loaded from a separate resource URL.
-   */
-  public get loadFromUrl(): boolean {
-    return this._model.loadFromUrl;
+    return this._label;
   }
 
   /**
@@ -52,21 +49,14 @@ export abstract class RenderableLayer implements Layer {
    * @returns string the description of this layer.
    */
   public get description(): string {
-    return this._model.description;
+    return this._description;
   }
 
   /**
-   * Returns the array of models of the sub-layers of this layer.
+   * Returns the array of codes of the sub-layers of this layer.
    */
-  public get subLayers(): Array<Layer> {
-    return this._model.subLayers || [];
-  }
-
-  /**
-   * Returns the original model object of this layer.
-   */
-  public get model(): Layer {
-    return this._model;
+  public get subLayers(): Array<string> {
+    return this._subLayers;
   }
 
   /**
@@ -95,15 +85,12 @@ export abstract class RenderableLayer implements Layer {
       return undefined;
     }
     return theme.layers.find(
-      (style: LayerStyle) => {
-        if (this.code.startsWith('stars')) {
-          // FIXME this work-around for the stars layer will be removed when stars are merged into a single layer
-          return style.code === 'stars';
-        } else {
-          return style.code === this.code;
-        }
-      }
+      (style: LayerStyle) => this.isStyleMatching(style)
     );
+  }
+
+  protected isStyleMatching(style: LayerStyle): boolean {
+    return style.code === this.code;
   }
 
   /**

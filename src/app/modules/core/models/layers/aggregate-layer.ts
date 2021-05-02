@@ -1,4 +1,3 @@
-import { Layer } from '#core/models/layers/layer';
 import { RenderableLayer } from '#core/models/layers/renderable-layer';
 import { Theme } from '#core/models/theme/theme';
 
@@ -8,8 +7,13 @@ import { Theme } from '#core/models/theme/theme';
  */
 export class AggregateLayer extends RenderableLayer {
 
-  constructor(model: Layer) {
-    super(model);
+  constructor(
+    code: string,
+    subLayers: Array<string>,
+    label: string,
+    description?: string
+  ) {
+    super(code, subLayers, label, description);
   }
 
   public applyTheme(_: Theme): void {

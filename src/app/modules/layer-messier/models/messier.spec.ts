@@ -1,4 +1,5 @@
-import { TestBed } from '@angular/core/testing';
+import { fakeAsync, TestBed } from '@angular/core/testing';
+import { of } from 'rxjs';
 import { Points, PointsMaterial } from 'three';
 import { MessierProvidersService } from '#layer-messier/services/messier-providers.service';
 import { Messier } from '#layer-messier/models/messier';
@@ -6,13 +7,12 @@ import { LayerMessierModule } from '#layer-messier/layer-messier.module';
 import { RenderableText } from '#core/models/layers/renderable-text';
 import { ThemeService } from '#core/services/theme.service';
 import { mockedTheme } from '#core/test-utils/mocked-theme.spec';
+import { StaticDataService } from '#core/services/static-data.service';
 
 
-const model = {
-  code: Messier.CODE,
-  label: 'Messier objects',
-  loadFromUrl: true,
-  objects: [
+describe('Messier', () => {
+
+  const objects = [
     {
       type: 'nebula-supernova',
       code: 'M1',
@@ -21,35 +21,46 @@ const model = {
       names: ['Crab Nebula'],
       mag: 8.4,
       size: [7.0, 5.0]
+    },
+    {
+      type: 'cluster-open',
+      code: 'M6',
+      ra: 265.0833,
+      dec: -32.2533,
+      names: ['Butterfly Cluster'],
+      mag: 4.2,
+      size: [20.0, 20.0, 90]
     }
-  ]
-};
-
-describe('Messier', () => {
-
+  ];
   let layer: Messier;
 
-  beforeEach(() => {
+  beforeEach(fakeAsync(() => {
     TestBed.configureTestingModule({
       imports: [LayerMessierModule],
       providers: [
         ThemeService
       ]
     });
-    layer = TestBed.inject(MessierProvidersService).getRenderableLayer(model);
+    const dataService = TestBed.inject(StaticDataService);
+    spyOn(dataService, 'getDataJson').and.returnValue(of(objects));
+
     TestBed.inject(ThemeService).theme = mockedTheme;
-  });
+    TestBed.inject(MessierProvidersService).getRenderableLayer()
+      .then(
+        (renderable: Messier) => layer = renderable
+      );
+  }));
 
   it('objects should return expected value', () => {
     expect(layer.objects.length).toEqual(4);
   });
 
   it('texts should return expected value', () => {
-    expect(layer.texts.length).toEqual(1);
+    expect(layer.texts.length).toEqual(2);
   });
 
   it('searchables should return expected value', () => {
-    expect(layer.searchables.length).toEqual(1);
+    expect(layer.searchables.length).toEqual(2);
     const searchable = layer.searchables[0];
     expect(searchable).toBeDefined();
     expect(searchable.type).toEqual('nebula-supernova');

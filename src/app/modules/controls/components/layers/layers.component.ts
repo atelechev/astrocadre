@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
-import { Layer } from '#core/models/layers/layer';
 import { LayerService } from '#core/services/layer.service';
+import { RenderableLayer } from '#core/models/layers/renderable-layer';
+import { LayerProvidersRegistryService } from '#controls/services/layer-providers-registry.service';
 
 /**
  * The root component for the choices of the layers to show.
@@ -11,12 +12,17 @@ import { LayerService } from '#core/services/layer.service';
 })
 export class LayersComponent {
 
-  constructor(private readonly _layerService: LayerService) {
+  constructor(
+    private readonly _layerService: LayerService,
+    private readonly _layerProviders: LayerProvidersRegistryService
+  ) {
 
   }
 
-  public get layers(): Array<Layer> {
-    return this._layerService.rootLayer?.subLayers || [];
+  public get layers(): Array<RenderableLayer> {
+    return this._layerProviders.orderedCodes
+      .map((code: string) => this._layerService.getRenderableLayer(code))
+      .filter((layer: RenderableLayer) => !!layer);
   }
 
 }

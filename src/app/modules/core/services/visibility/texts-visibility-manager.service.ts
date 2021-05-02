@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { LayerService } from '#core/services/layer.service';
-import { Layer } from '#core/models/layers/layer';
 import { LayerEvent } from '#core/models/event/layer-event';
 import { TextsShownEvent } from '#core/models/event/texts-shown-event';
 import { TextsHiddenEvent } from '#core/models/event/texts-hidden-event';
@@ -38,8 +37,8 @@ export class TextsVisibilityManagerService {
     }
     const event = visible ? new TextsShownEvent(layer) : new TextsHiddenEvent(layer);
     this._events.next(event);
-    layer.subLayers?.forEach(
-      (subLayer: Layer) => this.setTextsVisible(subLayer.code, visible)
+    layer.subLayers.forEach(
+      (subLayer: string) => this.setTextsVisible(subLayer, visible)
     );
   }
 

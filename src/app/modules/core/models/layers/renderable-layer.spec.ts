@@ -1,13 +1,14 @@
-import { Layer } from '#core/models/layers/layer';
 import { RenderableLayer } from '#core/models/layers/renderable-layer';
 import { Theme } from '#core/models/theme/theme';
-import { mockedTheme } from '#core/test-utils/mocked-theme.spec';
 
+const code = 'test';
+const label = 'Test';
+const description = 'description';
 
-class TestRenderableLayer extends RenderableLayer {
+class TestLayer extends RenderableLayer {
 
-  constructor(model: Layer) {
-    super(model);
+  constructor() {
+    super(code, [], label, description);
   }
 
   public applyTheme(): void {
@@ -16,35 +17,36 @@ class TestRenderableLayer extends RenderableLayer {
 
 }
 
+const theme: Theme = {
+  code: 'test-theme',
+  label: 'Test theme',
+  background: {
+    color: 'white'
+  },
+  layers: [{
+    code: 'test',
+    visibleOnLoad: true
+  }]
+};
+
 describe('RenderableLayer', () => {
 
   let renderable: RenderableLayer;
-  const layer: Layer = {
-    code: 'tested-layer',
-    label: 'Tested',
-    loadFromUrl: false,
-    description: 'test',
-    objects: []
-  };
 
   beforeEach(() => {
-    renderable = new TestRenderableLayer(layer);
+    renderable = new TestLayer();
   });
 
   it('code should return expected value', () => {
-    expect(renderable.code).toEqual(layer.code);
+    expect(renderable.code).toEqual(code);
   });
 
   it('label should return expected value', () => {
-    expect(renderable.label).toEqual(layer.label);
-  });
-
-  it('loadFromUrl should return expected value', () => {
-    expect(renderable.loadFromUrl).toEqual(layer.loadFromUrl);
+    expect(renderable.label).toEqual(label);
   });
 
   it('description should return expected value', () => {
-    expect(renderable.description).toEqual(layer.description);
+    expect(renderable.description).toEqual(description);
   });
 
   it('subLayers should return an empty array', () => {
@@ -72,7 +74,7 @@ describe('RenderableLayer', () => {
       });
 
       it('if the layer was not found', () => {
-        const theme: Theme = {
+        const emptyTheme: Theme = {
           code: 'empty',
           label: 'Empty',
           background: {
@@ -80,50 +82,15 @@ describe('RenderableLayer', () => {
           },
           layers: []
         };
-        expect(renderable.extractStyle(theme)).toBeUndefined();
+        expect(renderable.extractStyle(emptyTheme)).toBeUndefined();
       });
 
     });
 
-    describe('expected style', () => {
-
-      const assertStyleExpected = (model: Layer, expectedCode: string): void => {
-        renderable = new TestRenderableLayer(model);
-        const style = renderable.extractStyle(mockedTheme);
-        expect(style).toBeDefined();
-        expect(style.code).toEqual(expectedCode);
-      };
-
-      it('for a layer other than stars', () => {
-        const model: Layer = {
-          code: 'sky-grid',
-          label: 'Sky grid',
-          loadFromUrl: false,
-          objects: []
-        };
-        assertStyleExpected(model, model.code);
-      });
-
-      it('for the stars layer', () => {
-        const model: Layer = {
-          code: 'stars',
-          label: 'Stars',
-          loadFromUrl: false,
-          objects: []
-        };
-        assertStyleExpected(model, model.code);
-      });
-
-      it('for a sub-layer of the stars layer', () => {
-        const model: Layer = {
-          code: 'stars-mag2.0',
-          label: 'Stars mag 2.0',
-          loadFromUrl: false,
-          objects: []
-        };
-        assertStyleExpected(model, 'stars');
-      });
-
+    it('expected style for a matched layer', () => {
+      const style = renderable.extractStyle(theme);
+      expect(style).toBeDefined();
+      expect(style.code).toEqual(renderable.code);
     });
 
   });

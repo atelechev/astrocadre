@@ -15,7 +15,6 @@ import { createSun } from 'astronomy-bundle/sun';
 import { createTimeOfInterest } from 'astronomy-bundle/time';
 import TimeOfInterest from 'astronomy-bundle/time/TimeOfInterest';
 import { LineSegments } from 'three';
-import { Layer } from '#core/models/layers/layer';
 import { LayerFactory } from '#core/models/layers/layer-factory';
 import { SolarSystem } from '#layer-solar-system/model/solar-system';
 import { ApparentTrajectoryFactoryService } from '#layer-solar-system/services/factories/apparent-trajectory-factory.service';
@@ -74,16 +73,16 @@ export class SolarSystemLayerFactoryService implements LayerFactory {
     this._biggerLabelsPolicy = new SunMoonLabelsPolicy();
   }
 
-  public buildRenderableLayer(model: Layer): SolarSystem {
-    const renderable = new SolarSystem(model);
-    Promise.all(this.getAllObjectsBuilders(renderable))
+  public buildRenderableLayer(): Promise<SolarSystem> {
+    const renderable = new SolarSystem();
+    return Promise.all(this.getAllObjectsBuilders(renderable))
       .then(
         (_: any) => {
           this._searchService.registerSearchables(renderable.searchables);
           this._layerService.setVisible(this._layerCode, true);
+          return Promise.resolve(renderable);
         }
       );
-    return renderable;
   }
 
   private getAllObjectsBuilders(renderable: SolarSystem): Array<Promise<any>> {

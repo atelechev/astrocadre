@@ -2,11 +2,10 @@ import { TestBed } from '@angular/core/testing';
 import { CoreModule } from '#core/core.module';
 import { LayerService } from '#core/services/layer.service';
 import { TextsVisibilityManagerService } from '#core/services/visibility/texts-visibility-manager.service';
-import { mockedLayers } from '#core/test-utils/mocked-layers.spec';
 import { SelectorSolarSystemObjectsComponent } from '#layer-solar-system/components/selector-solar-system-objects/selector-solar-system-objects.component';
 import { LayerSolarSystemModule } from '#layer-solar-system/layer-solar-system.module';
-import { SolarSystemProvidersService } from '#layer-solar-system/services/solar-system-providers.service';
 import { PathsVisibilityManagerService } from '#layer-solar-system/services/visibility/paths-visibility-manager.service';
+import { SolarSystem } from '#layer-solar-system/model/solar-system';
 
 
 describe('SelectorSolarSystemObjectsComponent', () => {
@@ -25,12 +24,10 @@ describe('SelectorSolarSystemObjectsComponent', () => {
     const layerService = TestBed.inject(LayerService);
     textsVisibilityManager = TestBed.inject(TextsVisibilityManagerService);
     pathsVisibilityManager = TestBed.inject(PathsVisibilityManagerService);
-    layerService.rootLayer = mockedLayers;
-    const solarSystemLayer = mockedLayers.subLayers[4];
-    const provider = TestBed.inject(SolarSystemProvidersService);
-    layerService.registerLayer(provider.getRenderableLayer(solarSystemLayer));
+    const layer = new SolarSystem();
+    layerService.registerLayer(layer, 1);
     component = TestBed.createComponent(SelectorSolarSystemObjectsComponent).componentInstance;
-    component.layer = solarSystemLayer;
+    component.layer = layer;
   });
 
   describe('namesShown should', () => {
