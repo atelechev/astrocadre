@@ -7,12 +7,7 @@ import { SkyGrid } from '#layer-sky-grid/models/sky-grid';
 
 describe('SkyGridLayerFactoryService', () => {
 
-  const model = {
-    code: SkyGrid.CODE,
-    label: 'Coordinates grid',
-    loadFromUrl: false,
-    objects: []
-  };
+  const code = SkyGrid.CODE;
   let factory: LayerFactory;
 
   beforeEach(() => {
@@ -25,13 +20,16 @@ describe('SkyGridLayerFactoryService', () => {
     factory = TestBed.inject(SkyGridLayerFactoryService);
   });
 
-  it('buildRenderableLayer should return expected value', () => {
-    const layer = factory.buildRenderableLayer(model);
-    expect(layer).toBeDefined();
-    expect(layer.code).toEqual(model.code);
-    expect(layer.objects.length).toEqual(4);
-    expect(layer.texts.length).toEqual(0);
-    expect(layer.searchables.length).toEqual(0);
+  it('buildRenderableLayer should return expected value', (done: DoneFn) => {
+    factory.buildRenderableLayer()
+      .then((layer: SkyGrid) => {
+        expect(layer).toBeDefined();
+        expect(layer.code).toEqual(code);
+        expect(layer.objects.length).toEqual(4);
+        expect(layer.texts.length).toEqual(0);
+        expect(layer.searchables.length).toEqual(0);
+        done();
+      });
   });
 
 });

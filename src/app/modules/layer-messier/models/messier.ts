@@ -1,5 +1,4 @@
 import { Object3D, Points } from 'three';
-import { Layer } from '#core/models/layers/layer';
 import { RenderableLayer } from '#core/models/layers/renderable-layer';
 import { RenderableText } from '#core/models/layers/renderable-text';
 import { Searchable } from '#core/models/layers/searchable';
@@ -14,14 +13,19 @@ export class Messier extends RenderableLayer {
   public static readonly CODE = 'messier';
 
   constructor(
-    model: Layer,
     private readonly _clusters: Points,
     private readonly _galaxies: Points,
     private readonly _nebulas: Points,
     private readonly _other: Points,
+    private readonly _searchables: Array<Searchable>,
     private readonly _labels: Array<RenderableText>
   ) {
-    super(model);
+    super(
+      Messier.CODE,
+      [],
+      'Messier objects',
+      'Celestial objects from the Messier catalog'
+    );
   }
 
   public get objects(): Array<Object3D> {
@@ -38,7 +42,7 @@ export class Messier extends RenderableLayer {
   }
 
   public get searchables(): Array<Searchable> {
-    return this.model.objects;
+    return this._searchables;
   }
 
   public applyTheme(theme: Theme): void {
@@ -60,7 +64,7 @@ export class Messier extends RenderableLayer {
   }
 
   private useThemeForLabels(style: MessierStyle): void {
-    this._labels?.forEach(
+    this._labels.forEach(
       (label: RenderableText) => label.applyStyle(style.names)
     );
   }

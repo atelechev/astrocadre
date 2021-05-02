@@ -2,7 +2,15 @@
 
 _These notes are added from the most recent on the top, to the oldest at the bottom._
 
-Next version: 21.4.32
+Next version: 21.4.33
+
+### 2021-05-02 - v21.4.32
+
+* Removed the `layers.json` file, which became redundant and useless.
+* Removed the `Layer` interface.
+* Changed the layer factories API, now returning a `Promise`.
+* Refactored the loading sequence of the layers: the raw data are now loaded from inside the factories.
+* Reviewed and cleaned up the configuration of numerous test suites.
 
 ### 2021-04-28 - v21.4.31
 

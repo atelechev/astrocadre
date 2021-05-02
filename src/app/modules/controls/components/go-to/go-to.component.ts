@@ -51,7 +51,7 @@ export class GoToComponent {
 
   private subscribeSearchReady(): void {
     this._searchService
-      .searchReady()
+      .searchReady
       .subscribe(
         (ready: boolean) => {
           if (ready) {

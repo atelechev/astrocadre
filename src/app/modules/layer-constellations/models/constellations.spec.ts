@@ -1,48 +1,72 @@
-import { TestBed } from '@angular/core/testing';
+import { fakeAsync, TestBed, tick } from '@angular/core/testing';
+import { of } from 'rxjs';
 import { Color, LineBasicMaterial, LineSegments } from 'three';
 import { RenderableText } from '#core/models/layers/renderable-text';
 import { LineStyle } from '#core/models/theme/line-style';
 import { SearchService } from '#core/services/search.service';
 import { ThemeService } from '#core/services/theme.service';
-import { mockedTheme } from '#core/test-utils/mocked-theme.spec';
 import { LayerConstellationsModule } from '#layer-constellations/layer-constellations.module';
 import { Constellations } from '#layer-constellations/models/constellations';
 import { ConstellationsProvidersService } from '#layer-constellations/services/constellations-providers.service';
+import { Theme } from '#core/models/theme/theme';
+import { StaticDataService } from '#core/services/static-data.service';
+
+
+const mockedTheme: Theme = {
+  code: 'dev',
+  label: 'Dev',
+  background: {
+    color: 'rgb(2, 0, 44)'
+  },
+  layers: [
+    {
+      code: Constellations.CODE,
+      visibleOnLoad: true,
+      boundaries: {
+        color: 'rgb(94, 86, 239)'
+      },
+      lines: {
+        color: 'rgb(255, 86, 239)'
+      },
+      names: {
+        fontSize: '28px',
+        fontFamily: 'arial',
+        fontStyle: 'italic',
+        fontWeight: 'normal',
+        color: 'red'
+      }
+    }
+  ]
+};
 
 
 describe('Constellations', () => {
 
+  const rawData = [{
+    boundaries: [
+      [177.5, -24.5, 162.5, -24.5],
+      [170.0, 73.5, 170.0, 66.5],
+      [165.0, 25.5, 161.25, 25.5]
+    ],
+    lines: [
+      [72.46, 6.95, 72.65, 8.9],
+      [72.8, 5.6, 72.46, 6.95],
+      [73.56, 2.45, 72.8, 5.6],
+      [74.64, 1.72, 73.56, 2.45]
+    ],
+    names: [
+      {
+        type: 'constellation',
+        code: 'AND',
+        ra: 8.532,
+        dec: 38.906,
+        names: ['Andromeda']
+      }
+    ]
+  }];
   let layer: Constellations;
-  const code = Constellations.CODE;
-  const model = {
-    code,
-    label: 'Constellations',
-    loadFromUrl: true,
-    objects: [{
-      boundaries: [
-        [177.5, -24.5, 162.5, -24.5],
-        [170.0, 73.5, 170.0, 66.5],
-        [165.0, 25.5, 161.25, 25.5]
-      ],
-      lines: [
-        [72.46, 6.95, 72.65, 8.9],
-        [72.8, 5.6, 72.46, 6.95],
-        [73.56, 2.45, 72.8, 5.6],
-        [74.64, 1.72, 73.56, 2.45]
-      ],
-      names: [
-        {
-          type: 'constellation',
-          code: 'AND',
-          ra: 8.532,
-          dec: 38.906,
-          names: ['Andromeda']
-        }
-      ]
-    }]
-  };
 
-  beforeEach(() => {
+  beforeEach(fakeAsync(() => {
     TestBed.configureTestingModule({
       imports: [LayerConstellationsModule],
       providers: [
@@ -50,9 +74,16 @@ describe('Constellations', () => {
         ThemeService
       ]
     });
-    layer = TestBed.inject(ConstellationsProvidersService).getRenderableLayer(model) as Constellations;
+    const dataService = TestBed.inject(StaticDataService);
+    spyOn(dataService, 'getDataJson').and.returnValue(of(rawData));
+
     TestBed.inject(ThemeService).theme = mockedTheme;
-  });
+    TestBed.inject(ConstellationsProvidersService).getRenderableLayer()
+      .then(
+        (renderable: Constellations) => layer = renderable
+      );
+    tick();
+  }));
 
   it('texts should return expected value', () => {
     const texts = layer.texts;
@@ -85,19 +116,19 @@ describe('Constellations', () => {
 
     it('on the boundaries', () => {
       layer.applyTheme(mockedTheme);
-      assertExpectedLineMaterial(0, mockedTheme.layers[1].boundaries);
+      assertExpectedLineMaterial(0, mockedTheme.layers[0].boundaries);
     });
 
     it('on the lines', () => {
       layer.applyTheme(mockedTheme);
-      assertExpectedLineMaterial(1, mockedTheme.layers[1].lines);
+      assertExpectedLineMaterial(1, mockedTheme.layers[0].lines);
     });
 
     it('on the texts', () => {
       layer.applyTheme(mockedTheme);
       const text = layer.texts[0] as RenderableText;
       expect(text).toBeDefined();
-      const style = mockedTheme.layers[1].names;
+      const style = mockedTheme.layers[0].names;
       const html = text.htmlElement;
       expect(html.style.color).toEqual(style.color);
       expect(html.style.fontFamily).toEqual(style.fontFamily);

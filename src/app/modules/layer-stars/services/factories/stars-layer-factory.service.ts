@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Layer } from '#core/models/layers/layer';
+import { map } from 'rxjs/operators';
 import { LayerFactory } from '#core/models/layers/layer-factory';
 import { PointsFactoryService } from '#core/services/factories/points-factory.service';
 import { TextOffsetPolicies } from '#core/models/layers/text/text-offsets-policies';
@@ -8,6 +8,9 @@ import { Stars } from '#layer-stars/models/stars';
 import { Searchable } from '#core/models/layers/searchable';
 import { extractProperName, extractStandardName, toGreekLetter } from '#core/utils/star-utils';
 import { TextOffsetPolicy } from '#core/models/layers/text/text-offset-policy';
+import { RenderableLayer } from '#core/models/layers/renderable-layer';
+import { AggregateLayer } from '#core/models/layers/aggregate-layer';
+import { StaticDataService } from '#core/services/static-data.service';
 
 /**
  * Factory for a renderable layer of stars.
@@ -19,32 +22,54 @@ export class StarsLayerFactoryService implements LayerFactory {
 
   private readonly _subLayerCodePrefix: string;
 
-  constructor(private readonly _pointsFactory: PointsFactoryService) {
+  constructor(
+    private readonly _pointsFactory: PointsFactoryService,
+    private readonly _dataService: StaticDataService
+  ) {
     this._layerCode = Stars.CODE;
     this._subLayerCodePrefix = `${this._layerCode}-mag`;
   }
 
-  public buildRenderableLayer(model: Layer): Stars {
-    const magnitudeClass = this.extractMagnitudeClass(model.code);
-    const useObjects = model.objects || [];
-    const stars = this._pointsFactory.createObject3D(this._layerCode, useObjects);
-    const searchables = this.extractSearchables(model.objects);
+  public buildRenderableLayer(code?: string): Promise<RenderableLayer> {
+    if (!code || code === this._layerCode) {
+      return this.buildAggregate();
+    }
+    return this._dataService.getDataJson(code)
+      .pipe(
+        map(
+          (rawData: Array<any>) => this.buildStars(code, rawData)
+        )
+      ).toPromise();
+  }
+
+  private buildStars(code: string, rawData: Array<any>): Stars {
+    const magnitudeClass = this.extractMagnitudeClass(code);
+    const stars = this._pointsFactory.createObject3D(this._layerCode, rawData);
+    const searchables = this.extractSearchables(rawData);
     return new Stars(
-      model,
+      code,
       magnitudeClass,
       stars,
-      this.initProperNames(model),
-      this.initStandardNames(model),
+      this.initProperNames(rawData),
+      this.initStandardNames(rawData),
       searchables
     );
   }
 
-  private initProperNames(model: Layer): Array<RenderableText> {
-    return this.initLabels(model, extractProperName, TextOffsetPolicies.TOP_RIGHT);
+  private buildAggregate(): Promise<RenderableLayer> {
+    const subLayerCodes = Array(9).fill(2)
+      .map((initial: number, i: number) => initial + i * 0.5)
+      .map((magnitude: number) => `${this._subLayerCodePrefix}${magnitude.toFixed(1)}`);
+    const aggregate = new AggregateLayer(Stars.CODE, subLayerCodes, 'Stars', 'Stars of various magnitudes');
+    return Promise.resolve(aggregate);
   }
 
-  private initStandardNames(model: Layer): Array<RenderableText> {
-    return this.initLabels(model, extractStandardName, TextOffsetPolicies.CLOSE_RIGHT, toGreekLetter);
+  private initProperNames(rawData: Array<any>): Array<RenderableText> {
+    return this.initLabels(rawData, extractProperName, TextOffsetPolicies.TOP_RIGHT);
+  }
+
+  private initStandardNames(rawData: Array<any>): Array<RenderableText> {
+    return this.initLabels(rawData, extractStandardName, TextOffsetPolicies.CLOSE_RIGHT, toGreekLetter);
   }
 
   private extractMagnitudeClass(code: string): number {
@@ -52,13 +77,13 @@ export class StarsLayerFactoryService implements LayerFactory {
   }
 
   private initLabels(
-    model: Layer,
+    rawData: Array<any>,
     extractNameFunct: (rawStar: Array<any>) => string,
     offset: TextOffsetPolicy,
     nameTransform: (rawName: string) => string = (rn: string) => rn
   ): Array<RenderableText> {
     const labels = new Array<RenderableText>();
-    model.objects?.forEach(
+    rawData.forEach(
       (rawStar: Array<any>) => {
         const name = extractNameFunct(rawStar);
         if (name) {

@@ -1,45 +1,82 @@
+import { Injectable, Type } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
-import { LayerMessierModule } from '#layer-messier/layer-messier.module';
-import { mockedLayers } from '#core/test-utils/mocked-layers.spec';
 import { SelectorLayerComponent } from '#controls/components/selector-layer/selector-layer.component';
 import { CoreModule } from '#core/core.module';
 import { ControlsModule } from '#controls/controls.module';
 import { LayerService } from '#core/services/layer.service';
-import { MockedGridLayerFactory } from '#core/test-utils/mocked-grid-layer-factory.spec';
-import { AxialCurvesFactoryService } from '#core/services/factories/axial-curves-factory.service';
-import { LayerStarsModule } from '#layer-stars/layer-stars.module';
-import { LayerSkyGridModule } from '#layer-sky-grid/layer-sky-grid.module';
-import { LayerConstellationsModule } from '#layer-constellations/layer-constellations.module';
-import { LayerSolarSystemModule } from '#layer-solar-system/layer-solar-system.module';
-import { SkyGrid } from '#layer-sky-grid/models/sky-grid';
+import { RenderableLayer } from '#core/models/layers/renderable-layer';
+import { LayerProvider } from '#core/models/layers/layer-provider';
+import { LayerProvidersRegistryService } from '#controls/services/layer-providers-registry.service';
+
+
+class TestLayer extends RenderableLayer {
+
+  constructor(code: string, subLayers: Array<string> = []) {
+    super(code, subLayers, 'Test');
+  }
+
+  public applyTheme(): void {
+    // nothing
+  }
+
+}
+
+const testLayer = new TestLayer('test');
+
+class MockComponent {
+
+}
+
+@Injectable()
+class MockProvider implements LayerProvider {
+
+  public get code(): string {
+    return 'test';
+  }
+
+  public getRenderableLayer(): Promise<RenderableLayer> {
+    return Promise.resolve(testLayer);
+  }
+
+  public getUiControlsComponentType(): Type<any> {
+    return MockComponent;
+  }
+
+}
+
+@Injectable()
+class MockRegistry {
+
+  public get layerProviders(): Array<LayerProvider> {
+    return [];
+  }
+
+}
 
 describe('SelectorLayerComponent', () => {
 
+  const code = 'test';
   let layerService: LayerService;
   let component: SelectorLayerComponent;
-  const code = SkyGrid.CODE;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [
         CoreModule,
-        ControlsModule,
-        LayerConstellationsModule,
-        LayerStarsModule,
-        LayerSkyGridModule,
-        LayerMessierModule,
-        LayerSolarSystemModule
+        ControlsModule
       ],
       providers: [
-        AxialCurvesFactoryService,
-        MockedGridLayerFactory
+        MockProvider,
+        {
+          provide: LayerProvidersRegistryService,
+          useClass: MockRegistry
+        }
       ]
     });
     layerService = TestBed.inject(LayerService);
-    const layer = TestBed.inject(MockedGridLayerFactory).buildRenderableLayer();
-    layerService.registerLayer(layer);
+    layerService.registerLayer(testLayer, 0);
     component = TestBed.createComponent(SelectorLayerComponent).componentInstance;
-    component.layer = layer.model;
+    component.layer = testLayer;
   });
 
   describe('isShown should return', () => {
@@ -81,12 +118,19 @@ describe('SelectorLayerComponent', () => {
   describe('subLayers should return', () => {
 
     it('expected array for a layer with sub-layers', () => {
-      component.layer = mockedLayers.subLayers[1];
-      expect(component.subLayers.length).toEqual(3);
+      const subLayers = ['sub1', 'sub2'];
+      const layerWithSubs = new TestLayer('withSub0', subLayers);
+      const initIndex = 1;
+      layerService.registerLayer(layerWithSubs, initIndex);
+      subLayers.forEach(
+        (subCode: string, i: number) => layerService.registerLayer(new TestLayer(subCode), initIndex + (i + 1))
+      );
+      component.layer = layerWithSubs;
+      expect(component.subLayers.length).toEqual(subLayers.length);
     });
 
     it('an empty array if the layer does not have sub-layers', () => {
-      component.layer = mockedLayers.subLayers[0];
+      component.layer = layerService.getRenderableLayer(code);
       expect(component.subLayers).toEqual([]);
     });
 
@@ -95,12 +139,19 @@ describe('SelectorLayerComponent', () => {
   describe('hasCustomUiControls should return', () => {
 
     it('false if no custom controls are expected for the layer', () => {
-      component.layer = mockedLayers.subLayers[0];
+      const registry = TestBed.inject(LayerProvidersRegistryService);
+      spyOnProperty(registry, 'layerProviders').and.returnValue([]);
+
+      component.layer = testLayer;
       expect(component.hasCustomUiControls).toBeFalse();
     });
 
     it('true if custom controls are expected for the layer', () => {
-      component.layer = mockedLayers.subLayers[1];
+      const registry = TestBed.inject(LayerProvidersRegistryService);
+      const mockProvider = TestBed.inject(MockProvider);
+      spyOnProperty(registry, 'layerProviders').and.returnValue([mockProvider]);
+
+      component.layer = testLayer;
       expect(component.hasCustomUiControls).toBeTrue();
     });
 
@@ -109,12 +160,19 @@ describe('SelectorLayerComponent', () => {
   describe('controlsComponentType should return', () => {
 
     it('undefined if no custom controls are expected for the layer', () => {
-      component.layer = mockedLayers.subLayers[0];
+      const registry = TestBed.inject(LayerProvidersRegistryService);
+      spyOnProperty(registry, 'layerProviders').and.returnValue([]);
+
+      component.layer = testLayer;
       expect(component.controlsComponentType).toBeUndefined();
     });
 
     it('defined value if custom controls are expected for the layer', () => {
-      component.layer = mockedLayers.subLayers[1];
+      const registry = TestBed.inject(LayerProvidersRegistryService);
+      const mockProvider = TestBed.inject(MockProvider);
+      spyOnProperty(registry, 'layerProviders').and.returnValue([mockProvider]);
+
+      component.layer = testLayer;
       // the exact type is not checked, because it is out of scope of this module
       expect(component.controlsComponentType).toBeDefined();
     });

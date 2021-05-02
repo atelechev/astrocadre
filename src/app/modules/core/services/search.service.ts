@@ -84,7 +84,7 @@ export class SearchService {
    *
    * @returns Observable<boolean> observable to check whether the search is ready.
    */
-  public searchReady(): Observable<boolean> {
+  public get searchReady(): Observable<boolean> {
     return this._searchReady;
   }
 

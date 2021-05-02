@@ -5,26 +5,45 @@ import { TextsVisibilityManagerService } from '#core/services/visibility/texts-v
 import { LayerEvent } from '#core/models/event/layer-event';
 import { TextsShownEvent } from '#core/models/event/texts-shown-event';
 import { TextsHiddenEvent } from '#core/models/event/texts-hidden-event';
-import { MockedGridLayerFactory } from '#core/test-utils/mocked-grid-layer-factory.spec';
 import { CoreModule } from '#core/core.module';
-import { SkyGrid } from '#layer-sky-grid/models/sky-grid';
+import { RenderableLayer } from '#core/models/layers/renderable-layer';
+import { RenderableText } from '#core/models/layers/renderable-text';
+import { toVector3 } from '#core/utils/vector-utils';
+import { TextOffsetPolicies } from '#core/models/layers/text/text-offsets-policies';
 
+
+const code = 'test';
+
+class TestLayer extends RenderableLayer {
+
+  constructor() {
+    super(code, [], 'Test');
+  }
+
+  public get texts(): Array<RenderableText> {
+    return [
+      new RenderableText(toVector3(0, 0, 0), code, TextOffsetPolicies.CENTERED)
+    ];
+  }
+
+  public applyTheme(): void {
+    // nothing
+  }
+
+}
 
 describe('TextsVisibilityManagerService', () => {
-
-  const code = SkyGrid.CODE;
+  ;
   let manager: TextsVisibilityManagerService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [CoreModule],
-      providers: [
-        MockedGridLayerFactory
-      ]
+      imports: [CoreModule]
     });
-    const layer = TestBed.inject(MockedGridLayerFactory).buildRenderableLayer();
+    const layer = new TestLayer();
     const layerService = TestBed.inject(LayerService);
-    layerService.registerLayer(layer);
+    layerService.registerLayer(layer, 100);
+    layerService.setVisible(layer.code, true);
     manager = TestBed.inject(TextsVisibilityManagerService);
   });
 

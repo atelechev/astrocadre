@@ -1,71 +1,106 @@
 import { TestBed } from '@angular/core/testing';
+import { LineSegments, Object3D } from 'three';
 import { LayerService } from '#core/services/layer.service';
 import { SceneService } from '#core/services/scene.service';
-import { MockedGridLayerFactory } from '#core/test-utils/mocked-grid-layer-factory.spec';
 import { RenderableLayer } from '#core/models/layers/renderable-layer';
 import { CoreModule } from '#core/core.module';
-import { SkyGrid } from '#layer-sky-grid/models/sky-grid';
+import { RenderableText } from '#core/models/layers/renderable-text';
+import { Searchable } from '#core/models/layers/searchable';
+import { toVector3 } from '#core/utils/vector-utils';
+import { TextOffsetPolicies } from '#core/models/layers/text/text-offsets-policies';
 
+const code = 'test';
 
+class TestLayer extends RenderableLayer {
+
+  constructor() {
+    super(code, [], 'Test');
+  }
+
+  public applyTheme(): void {
+    // nothing
+  }
+
+  public get objects(): Array<Object3D> {
+    return [new LineSegments()];
+  }
+
+  public get texts(): Array<RenderableText> {
+    return [
+      new RenderableText(toVector3(0, 0, 0), 'Rendered!', TextOffsetPolicies.CENTERED)
+    ];
+  }
+
+  /**
+   * Returns the array of searchable objects belonging to this layer.
+   */
+  public get searchables(): Array<Searchable> {
+    return [{
+      type: 'test',
+      code: 'TEST',
+      ra: 0,
+      dec: 0,
+      names: ['the test']
+    }];
+  }
+
+}
 
 describe('SceneService', () => {
 
-  const code = SkyGrid.CODE;
   let service: SceneService;
   let layerService: LayerService;
+  let layer: RenderableLayer;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [CoreModule],
-      providers: [
-        MockedGridLayerFactory
-      ]
+      imports: [CoreModule]
     });
     layerService = TestBed.inject(LayerService);
     service = TestBed.inject(SceneService);
     service.setViewportRootElement(document.createElement('div'));
-    const layer = TestBed.inject(MockedGridLayerFactory).buildRenderableLayer();
-    layerService.registerLayer(layer);
-    layerService.setVisible(layer.code, true);
+
+    layer = new TestLayer();
+    layerService.registerLayer(layer, 100);
   });
 
-  const getMockedLayer = (): RenderableLayer => (
-    TestBed.inject(LayerService).getRenderableLayer(code)
-  );
+  describe('allObjectsCount should return expected value', () => {
 
-  it('allObjectsCount should return expected value', () => {
-    expect(service.allObjectsCount).toEqual(2);
+    it('when there are no visible layers', () => {
+      expect(service.allObjectsCount).toEqual(0);
+    });
+
+    it('when there is a visible layer', () => {
+      layerService.setVisible(code, true);
+      expect(service.allObjectsCount).toEqual(1);
+    });
+
   });
 
-  it('shownObjectsCount should return expected value', () => {
-    expect(service.shownObjectsCount).toEqual(2);
+  describe('shownObjectsCount should return expected value', () => {
+
+    it('when there are no visible layers', () => {
+      expect(service.shownObjectsCount).toEqual(0);
+    });
+
+    it('when there is a visible layer', () => {
+      layerService.setVisible(code, true);
+      expect(service.shownObjectsCount).toEqual(1);
+    });
+
   });
 
-  it('allTextsCount should return expected value', () => {
-    expect(service.allTextsCount).toEqual(1);
-  });
+  describe('allTextsCount should return expected value', () => {
 
-  it('should add all the objects and texts from a layer when it is shown', () => {
-    const layer = getMockedLayer();
-    expect(layerService.isShown(code)).toBeTrue();
+    it('when there are no visible layers', () => {
+      expect(service.allTextsCount).toEqual(0);
+    });
 
-    expect(layer.objects.length).toEqual(2);
-    expect(layer.texts.length).toEqual(1);
-    expect(service.shownObjectsCount).toEqual(2);
-    expect(service.allTextsCount).toEqual(1);
-  });
+    it('when there is a visible layer', () => {
+      layerService.setVisible(code, true);
+      expect(service.allTextsCount).toEqual(1);
+    });
 
-  it('should remove all the objects and texts from a layer when it is hidden', () => {
-    const layer = getMockedLayer();
-    expect(layerService.isShown(code)).toBeTrue();
-    expect(service.allTextsCount).toEqual(1);
-
-    layerService.setVisible(code, false);
-
-    expect(layer.objects.length).toEqual(2);
-    expect(layer.texts.length).toEqual(1);
-    expect(service.shownObjectsCount).toEqual(0);
-    expect(service.allTextsCount).toEqual(0);
   });
 
 });

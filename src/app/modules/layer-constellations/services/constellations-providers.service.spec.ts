@@ -1,33 +1,32 @@
 import { TestBed } from '@angular/core/testing';
+import { of } from 'rxjs';
 import { CoreModule } from '#core/core.module';
-import { mockedLayers } from '#core/test-utils/mocked-layers.spec';
 import { ConstellationsProvidersService } from '#layer-constellations/services/constellations-providers.service';
-import { Layer } from '#core/models/layers/layer';
 import { LayerConstellationsControlsComponent } from '#layer-constellations/components/layer-constellations-controls/layer-constellations-controls.component';
 import { ConstellationsLayerFactoryService } from '#layer-constellations/services/factories/constellations-layer-factory.service';
 import { Constellations } from '#layer-constellations/models/constellations';
+import { StaticDataService } from '#core/services/static-data.service';
 
 
 describe('ConstellationsProvidersService', () => {
 
-  const constellationsLayer: Layer = {
-    code: Constellations.CODE,
-    label: 'Constellations',
-    loadFromUrl: true,
-    objects: [{
-      boundaries: [[177.5, -24.5, 162.5, -24.5]],
-      lines: [[72.46, 6.95, 72.65, 8.9]],
-      names: [
-        {
-          type: 'constellation',
-          code: 'AND',
-          ra: 8.532,
-          dec: 38.906,
-          names: ['Andromeda']
-        }
-      ]
-    }]
-  };
+  const rawData = [{
+    boundaries: [
+      [177.5, -24.5, 162.5, -24.5]
+    ],
+    lines: [
+      [72.46, 6.95, 72.65, 8.9]
+    ],
+    names: [
+      {
+        type: 'constellation',
+        code: 'AND',
+        ra: 8.532,
+        dec: 38.906,
+        names: ['Andromeda']
+      }
+    ]
+  }];
   let service: ConstellationsProvidersService;
 
   beforeEach(() => {
@@ -41,39 +40,23 @@ describe('ConstellationsProvidersService', () => {
       ]
     });
     service = TestBed.inject(ConstellationsProvidersService);
+    const dataService = TestBed.inject(StaticDataService);
+    spyOn(dataService, 'getDataJson').and.returnValue(of(rawData));
   });
 
 
-  describe('getRenderableLayer should return', () => {
-
-    it('a defined object for the "constellations" layer', () => {
-      expect(service.getRenderableLayer(constellationsLayer)).toBeDefined();
-    });
-
-    describe('undefined', () => {
-
-      it('if the arg is falsy', () => {
-        expect(service.getRenderableLayer(undefined)).toBeUndefined();
-      });
-
-      it('if the arg was not matched', () => {
-        expect(service.getRenderableLayer(mockedLayers.subLayers[0])).toBeUndefined();
-      });
-
-    });
-
+  it('getRenderableLayer should return a resolved promise', (done: DoneFn) => {
+    service.getRenderableLayer().then(
+      (layer: Constellations) => {
+        expect(layer).toBeDefined();
+        expect(layer.code).toEqual(Constellations.CODE);
+        done();
+      }
+    );
   });
 
-  describe('getUiControlsComponentType should return', () => {
-
-    it('expected value for the "constellations" layer arg', () => {
-      expect(service.getUiControlsComponentType(constellationsLayer)).toEqual(LayerConstellationsControlsComponent);
-    });
-
-    it('undefined for a falsy arg', () => {
-      expect(service.getUiControlsComponentType(undefined)).toBeUndefined();
-    });
-
+  it('getUiControlsComponentType should return expected value for the "constellations" layer arg', () => {
+    expect(service.getUiControlsComponentType()).toEqual(LayerConstellationsControlsComponent);
   });
 
 });

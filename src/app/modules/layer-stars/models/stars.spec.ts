@@ -1,4 +1,5 @@
-import { TestBed } from '@angular/core/testing';
+import { fakeAsync, TestBed, tick } from '@angular/core/testing';
+import { of } from 'rxjs';
 import { Points, PointsMaterial } from 'three';
 import { RenderableText } from '#core/models/layers/renderable-text';
 import { Stars } from '#layer-stars/models/stars';
@@ -8,23 +9,18 @@ import { ThemeService } from '#core/services/theme.service';
 import { LayerService } from '#core/services/layer.service';
 import { LayerStarsModule } from '#layer-stars/layer-stars.module';
 import { StarsProvidersService } from '#layer-stars/services/stars-providers.service';
+import { StaticDataService } from '#core/services/static-data.service';
 
 
-const model = {
-  code: 'stars-mag2.0',
-  label: 'Magnitude < 2.0',
-  loadFromUrl: true,
-  description: 'Stars of magnitude less or equal to 2.0',
-  objects: [
-    [37.95, 89.26, 2.0, 'Polaris', 'ALP UMI']
-  ]
-};
+const objects = [
+  [37.95, 89.26, 2.0, 'Polaris', 'ALP UMI']
+];
 
 describe('Stars', () => {
 
   let layer: Stars;
 
-  beforeEach(() => {
+  beforeEach(fakeAsync(() => {
     TestBed.configureTestingModule({
       imports: [LayerStarsModule],
       providers: [
@@ -33,9 +29,15 @@ describe('Stars', () => {
         ThemeService
       ]
     });
-    layer = TestBed.inject(StarsProvidersService).getRenderableLayer(model);
     TestBed.inject(ThemeService).theme = mockedTheme;
-  });
+    const dataService = TestBed.inject(StaticDataService);
+    spyOn(dataService, 'getDataJson').and.returnValue(of(objects));
+    TestBed.inject(StarsProvidersService).getRenderableLayer('stars-mag2.0')
+      .then(
+        (renderable: Stars) => layer = renderable
+      );
+    tick();
+  }));
 
   it('magnitudeClass should return expected value', () => {
     expect(layer.magnitudeClass).toEqual(2);

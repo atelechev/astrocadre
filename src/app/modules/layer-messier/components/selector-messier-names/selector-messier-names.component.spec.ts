@@ -1,19 +1,33 @@
-import { TestBed } from '@angular/core/testing';
+import { fakeAsync, TestBed, tick } from '@angular/core/testing';
+import { of } from 'rxjs';
 import { MessierProvidersService } from '#layer-messier/services/messier-providers.service';
 import { LayerMessierModule } from '#layer-messier/layer-messier.module';
 import { SelectorMessierNamesComponent } from '#layer-messier/components/selector-messier-names/selector-messier-names.component';
 import { CoreModule } from '#core/core.module';
 import { LayerService } from '#core/services/layer.service';
 import { TextsVisibilityManagerService } from '#core/services/visibility/texts-visibility-manager.service';
-import { mockedLayers } from '#core/test-utils/mocked-layers.spec';
+import { RenderableLayer } from '#core/models/layers/renderable-layer';
+import { StaticDataService } from '#core/services/static-data.service';
 
 
 describe('SelectorMessierNamesComponent', () => {
 
+  const objects = [
+    {
+      type: 'nebula-supernova',
+      code: 'M1',
+      ra: 83.63308,
+      dec: 22.01450,
+      names: ['Crab Nebula'],
+      mag: 8.4,
+      size: [7.0, 5.0]
+    }
+  ];
+
   let textsVisibilityManager: TextsVisibilityManagerService;
   let component: SelectorMessierNamesComponent;
 
-  beforeEach(() => {
+  beforeEach(fakeAsync(() => {
     TestBed.configureTestingModule({
       imports: [
         CoreModule,
@@ -22,13 +36,20 @@ describe('SelectorMessierNamesComponent', () => {
     });
     const layerService = TestBed.inject(LayerService);
     textsVisibilityManager = TestBed.inject(TextsVisibilityManagerService);
-    layerService.rootLayer = mockedLayers;
-    const messierLayer = mockedLayers.subLayers[3];
+
+    const dataService = TestBed.inject(StaticDataService);
+    spyOn(dataService, 'getDataJson').and.returnValue(of(objects));
+
     const provider = TestBed.inject(MessierProvidersService);
-    layerService.registerLayer(provider.getRenderableLayer(messierLayer));
     component = TestBed.createComponent(SelectorMessierNamesComponent).componentInstance;
-    component.layer = messierLayer;
-  });
+    provider.getRenderableLayer().then(
+      (layer: RenderableLayer) => {
+        layerService.registerLayer(layer, 1);
+        component.layer = layer;
+      }
+    );
+    tick();
+  }));
 
   describe('namesShown should', () => {
 

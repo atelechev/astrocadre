@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import { Layer } from '#core/models/layers/layer';
 import { Stars } from '#layer-stars/models/stars';
 import { LayerService } from '#core/services/layer.service';
 import { TextsVisibilityManagerService } from '#core/services/visibility/texts-visibility-manager.service';
+import { AggregateLayer } from '#core/models/layers/aggregate-layer';
 
 /**
  * Provides methods to manage the visibility of the layers of stars of different magnitudes.
@@ -39,36 +39,39 @@ export class StarsVisibilityManagerService {
    * @param show true to show the proper names, false for the standard names.
    */
   public showStarsProperNames(show: boolean): void {
+    const visibleStarsLayers = this.getVisibleStarsLayers();
     this._textsVisibilityManager.setTextsVisible(this._layerCode, false);
-    this.toggleNamesType(this.starsLayer, show);
+    visibleStarsLayers.forEach(
+      (layer: Stars) => this.toggleNamesType(layer, show)
+    );
     this._textsVisibilityManager.setTextsVisible(this._layerCode, true);
   }
 
-  private get starsLayer(): Stars {
-    return this._layerService.getRenderableLayer(this._layerCode) as Stars;
+  private get starsLayer(): AggregateLayer {
+    return this._layerService.getRenderableLayer(this._layerCode) as AggregateLayer;
   }
 
   private getAllStarsLayers(): Array<Stars> {
-    return this.starsLayer?.subLayers?.map(
-      (subLayer: Layer) => this._layerService.getRenderableLayer(subLayer.code) as Stars
+    return this.starsLayer.subLayers.map(
+      (subLayer: string) => this._layerService.getRenderableLayer(subLayer) as Stars
     ).filter((starLayer: Stars) => !!starLayer) || [];
   }
 
+  private getVisibleStarsLayers(): Array<Stars> {
+    return this.starsLayer.subLayers
+      .filter(
+        (code: string) => this._layerService.isShown(code)
+      ).map(
+        (code: string) => this._layerService.getRenderableLayer(code) as Stars
+      );
+  }
+
   private toggleNamesType(layer: Stars, useProper: boolean): void {
-    if (!layer) {
-      return;
-    }
     if (useProper) {
       layer.showProperNames();
     } else {
       layer.showStandardNames();
     }
-    layer.subLayers?.forEach(
-      (subLayer: Layer) => {
-        const starsSublayer = this._layerService.getRenderableLayer(subLayer.code) as Stars;
-        this.toggleNamesType(starsSublayer, useProper);
-      }
-    );
   }
 
 }

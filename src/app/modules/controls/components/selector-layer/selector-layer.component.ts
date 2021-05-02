@@ -3,11 +3,11 @@ import {
   Input,
   Type,
 } from '@angular/core';
-import { Layer } from '#core/models/layers/layer';
 import { LayerAware } from '#core/models/layers/layer-aware';
-import { LayersProvider } from '#core/models/layers/layers-provider';
+import { LayerProvider } from '#core/models/layers/layer-provider';
 import { LayerProvidersRegistryService } from '#controls/services/layer-providers-registry.service';
 import { LayerService } from '#core/services/layer.service';
+import { RenderableLayer } from '#core/models/layers/renderable-layer';
 
 /**
  * Provides the UI with the controls allowing to select whether a
@@ -19,7 +19,7 @@ import { LayerService } from '#core/services/layer.service';
 })
 export class SelectorLayerComponent {
 
-  private _layer: Layer;
+  private _layer: RenderableLayer;
 
   private _controlsComponentType: Type<LayerAware>;
 
@@ -31,12 +31,12 @@ export class SelectorLayerComponent {
   }
 
   @Input()
-  public set layer(l: Layer) {
+  public set layer(l: RenderableLayer) {
     this._layer = l;
     this.calculateControlsComponentType();
   }
 
-  public get layer(): Layer {
+  public get layer(): RenderableLayer {
     return this._layer;
   }
 
@@ -48,8 +48,12 @@ export class SelectorLayerComponent {
     this._layerService.setVisible(this._layer.code, show);
   }
 
-  public get subLayers(): Array<Layer> {
-    return this._layer?.subLayers || [];
+  public get subLayers(): Array<RenderableLayer> {
+    return this._layer?.subLayers.map(
+      (code: string) => this._layerService.getRenderableLayer(code)
+    ).filter(
+      (renderable: RenderableLayer) => !!renderable
+    ) || [];
   }
 
   public get hasCustomUiControls(): boolean {
@@ -66,11 +70,9 @@ export class SelectorLayerComponent {
     }
     this._controlsComponentType = this._providersRegistry
       .layerProviders
-      .map(
-        (provider: LayersProvider) => provider.getUiControlsComponentType(this._layer)
-      ).find(
-        (type: Type<LayerAware>) => !!type
-      );
+      .find(
+        (provider: LayerProvider) => provider.code === this._layer.code
+      )?.getUiControlsComponentType(this._layer.code);
   }
 
 }

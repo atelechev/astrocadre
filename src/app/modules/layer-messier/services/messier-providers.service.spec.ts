@@ -3,12 +3,12 @@ import { MessierProvidersService } from '#layer-messier/services/messier-provide
 import { LayerMessierModule } from '#layer-messier/layer-messier.module';
 import { SelectorMessierNamesComponent } from '#layer-messier/components/selector-messier-names/selector-messier-names.component';
 import { CoreModule } from '#core/core.module';
-import { mockedLayers } from '#core/test-utils/mocked-layers.spec';
+import { RenderableLayer } from '#core/models/layers/renderable-layer';
+import { Messier } from '#layer-messier/models/messier';
 
 
 describe('MessierProvidersService', () => {
 
-  const messierLayer = mockedLayers.subLayers[3];
   let service: MessierProvidersService;
 
   beforeEach(() => {
@@ -21,44 +21,19 @@ describe('MessierProvidersService', () => {
     service = TestBed.inject(MessierProvidersService);
   });
 
-  describe('getRenderableLayer should return', () => {
 
-    it('a defined object for the "messier" layer', () => {
-      expect(service.getRenderableLayer(messierLayer)).toBeDefined();
-    });
-
-    describe('undefined', () => {
-
-      it('if the arg is falsy', () => {
-        expect(service.getRenderableLayer(undefined)).toBeUndefined();
-      });
-
-      it('if the arg was not matched', () => {
-        expect(service.getRenderableLayer(mockedLayers.subLayers[1])).toBeUndefined();
-      });
-
-    });
-
+  it('getRenderableLayer should return expected layer', (done: DoneFn) => {
+    service.getRenderableLayer().then(
+      (layer: RenderableLayer) => {
+        expect(layer).toBeDefined();
+        expect(layer.code).toEqual(Messier.CODE);
+        done();
+      }
+    );
   });
 
-  describe('getUiControlsComponentType should return', () => {
-
-    describe('undefined', () => {
-
-      it('for a falsy arg', () => {
-        expect(service.getUiControlsComponentType(undefined)).toBeUndefined();
-      });
-
-      it('for an unsupported layer arg', () => {
-        expect(service.getUiControlsComponentType(mockedLayers.subLayers[0])).toBeUndefined();
-      });
-
-    });
-
-    it('expected value for the "messier" layer arg', () => {
-      expect(service.getUiControlsComponentType(messierLayer)).toEqual(SelectorMessierNamesComponent);
-    });
-
+  it('getUiControlsComponentType should return expected value for the "messier" layer arg', () => {
+    expect(service.getUiControlsComponentType()).toEqual(SelectorMessierNamesComponent);
   });
 
 });

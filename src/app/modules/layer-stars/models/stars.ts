@@ -1,5 +1,4 @@
 import { Material, Object3D, Points } from 'three';
-import { Layer } from '#core/models/layers/layer';
 import { RenderableLayer } from '#core/models/layers/renderable-layer';
 import { RenderableText } from '#core/models/layers/renderable-text';
 import { Searchable } from '#core/models/layers/searchable';
@@ -8,6 +7,7 @@ import { TextStyle } from '#core/models/theme/text-style';
 import { TextureStyle } from '#core/models/theme/texture-style';
 import { buildAndAssignMaterial, buildPointMaterial } from '#core/utils/material-utils';
 import { StarsStyle } from '#layer-stars/models/theme/stars-style';
+import { LayerStyle } from '#core/models/theme/layer-style';
 
 /**
  * Represents a renderable layer containing stars.
@@ -19,14 +19,14 @@ export class Stars extends RenderableLayer {
   private _properNamesShown: boolean;
 
   constructor(
-    model: Layer,
+    code: string,
     private readonly _magClass: number,
     private readonly _stars: Points,
     private readonly _properNames: Array<RenderableText>,
     private readonly _standardNames: Array<RenderableText>,
     private readonly _searchables: Array<Searchable>
   ) {
-    super(model);
+    super(code, [], `Stars mag=${_magClass}`);
     this.showProperNames();
   }
 
@@ -76,6 +76,10 @@ export class Stars extends RenderableLayer {
     const style = this.extractStyle(theme) as StarsStyle;
     this.useThemeForObjects(style);
     this.useThemeForLabels(style);
+  }
+
+  protected isStyleMatching(style: LayerStyle): boolean {
+    return style.code === Stars.CODE;
   }
 
   private useThemeForObjects(style: StarsStyle): void {

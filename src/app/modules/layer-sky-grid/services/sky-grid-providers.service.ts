@@ -1,7 +1,6 @@
 import { Injectable, Type } from '@angular/core';
-import { Layer } from '#core/models/layers/layer';
 import { SkyGridLayerFactoryService } from '#layer-sky-grid/services/factories/sky-grid-layer-factory.service';
-import { LayersProvider } from '#core/models/layers/layers-provider';
+import { LayerProvider } from '#core/models/layers/layer-provider';
 import { SkyGrid } from '#layer-sky-grid/models/sky-grid';
 import { LayerAware } from '#core/models/layers/layer-aware';
 
@@ -9,20 +8,21 @@ import { LayerAware } from '#core/models/layers/layer-aware';
  * LayersProvider implementation for the LayerSkyGridModule.
  */
 @Injectable()
-export class SkyGridProvidersService implements LayersProvider {
+export class SkyGridProvidersService implements LayerProvider {
 
   constructor(private readonly _skyGridFactory: SkyGridLayerFactoryService) {
 
   }
 
-  public getRenderableLayer(model: Layer): SkyGrid {
-    if (model?.code === SkyGrid.CODE) {
-      return this._skyGridFactory.buildRenderableLayer(model);
-    }
-    return undefined;
+  public get code(): string {
+    return SkyGrid.CODE;
   }
 
-  public getUiControlsComponentType(_: Layer): Type<LayerAware> {
+  public getRenderableLayer(): Promise<SkyGrid> {
+    return this._skyGridFactory.buildRenderableLayer();
+  }
+
+  public getUiControlsComponentType(): Type<LayerAware> {
     return undefined;
   }
 

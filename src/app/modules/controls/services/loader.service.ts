@@ -1,14 +1,14 @@
-import { Injectable, Injector } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { ThemeMeta } from '#core/models/theme/theme-meta';
 import { StaticDataService } from '#core/services/static-data.service';
 import { ThemeService } from '#core/services/theme.service';
 import { Theme } from '#core/models/theme/theme';
 import { LayerService } from '#core/services/layer.service';
-import { Layer } from '#core/models/layers/layer';
-import { LayersProvider } from '#core/models/layers/layers-provider';
+import { LayerProvider } from '#core/models/layers/layer-provider';
 import { RenderableLayer } from '#core/models/layers/renderable-layer';
 import { SearchService } from '#core/services/search.service';
 import { LayerProvidersRegistryService } from '#controls/services/layer-providers-registry.service';
+import { themeDefault } from '#core/models/theme/theme-default';
 
 /**
  * Asynchronously loads layers and themes data.
@@ -18,6 +18,8 @@ export class LoaderService {
 
   private readonly _loadedThemes: Map<string, Theme>;
 
+  private _layerIndexCounter: number;
+
   constructor(
     private readonly _dataService: StaticDataService,
     private readonly _themeService: ThemeService,
@@ -26,6 +28,7 @@ export class LoaderService {
     private readonly _providersRegistry: LayerProvidersRegistryService
   ) {
     this._loadedThemes = new Map<string, Theme>();
+    this._layerIndexCounter = 0;
   }
 
   /**
@@ -62,8 +65,9 @@ export class LoaderService {
   }
 
   private setLoadedTheme(theme: Theme): void {
-    this._themeService.theme = theme;
-    this._loadedThemes.set(theme.code, theme);
+    const useTheme = theme || themeDefault;
+    this._themeService.theme = useTheme;
+    this._loadedThemes.set(useTheme.code, useTheme);
   }
 
   private loadThemes(): void {
@@ -73,65 +77,34 @@ export class LoaderService {
       .then(
         (themes: Array<ThemeMeta>) => {
           this._themeService.availableThemes = themes;
+          if (themes.length > 0) {
+            this.loadTheme(themes[0].code);
+          }
         },
         (err: any) => console.error(err)
       );
   }
 
   private loadLayers(): void {
-    this._dataService
-      .getLayersTree()
-      .toPromise()
+    this._providersRegistry.layerProviders
+      .forEach(
+        (provider: LayerProvider) => this.loadLayer(provider)
+      );
+  }
+
+  private loadLayer(provider: LayerProvider, code?: string): void {
+    provider.getRenderableLayer(code)
       .then(
-        (root: Layer) => {
-          this._layerService.rootLayer = root;
-          this.processLoadedLayer(root);
-          this.doApplyFirstTheme();
-        },
-        (err: any) => console.error(err)
+        (layer: RenderableLayer) => {
+          if (layer) {
+            this._layerService.registerLayer(layer, this._layerIndexCounter++);
+            this._searchService.registerSearchables(layer.searchables);
+            layer.subLayers.forEach(
+              (subCode: string) => this.loadLayer(provider, subCode)
+            );
+          }
+        }
       );
-  }
-
-  private doApplyFirstTheme(): void {
-    const allThemes = this._themeService.availableThemes || [];
-    if (allThemes.length > 0) {
-      this.loadTheme(allThemes[0].code);
-    }
-  }
-
-  private processLoadedLayer(layer: Layer): void {
-    this.loadLayerObjects(layer);
-    layer.subLayers?.forEach(
-      (subLayer: Layer) => this.processLoadedLayer(subLayer)
-    );
-  }
-
-  private loadLayerObjects(layer: Layer): void {
-    if (layer.loadFromUrl) {
-      this._dataService
-        .getDataJson(layer.code)
-        .toPromise()
-        .then(
-          (objs: Array<Layer>) => {
-            layer.objects = objs || [];
-            this.registerLayer(layer);
-          },
-          (err: any) => console.error(err)
-        );
-    } else {
-      this.registerLayer(layer);
-    }
-  }
-
-  private registerLayer(layer: Layer): void {
-    const renderable = this._providersRegistry.layerProviders
-      .map(
-        (provider: LayersProvider) => provider.getRenderableLayer(layer)
-      ).find(
-        (createdLayer: RenderableLayer) => !!createdLayer
-      );
-    this._layerService.registerLayer(renderable);
-    this._searchService.registerSearchables(renderable?.searchables);
   }
 
 }

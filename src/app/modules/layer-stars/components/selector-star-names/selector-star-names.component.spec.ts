@@ -1,39 +1,57 @@
-import { TestBed } from '@angular/core/testing';
+import { fakeAsync, TestBed, tick } from '@angular/core/testing';
+import { of } from 'rxjs';
 import { LayerService } from '#core/services/layer.service';
 import { SelectorStarNamesComponent } from '#layer-stars/components/selector-star-names/selector-star-names.component';
-import { mockedLayers } from '#core/test-utils/mocked-layers.spec';
 import { StarsVisibilityManagerService } from '#layer-stars/services/visibility/stars-visibility-manager.service';
 import { TextsVisibilityManagerService } from '#core/services/visibility/texts-visibility-manager.service';
 import { CoreModule } from '#core/core.module';
 import { LayerStarsModule } from '#layer-stars/layer-stars.module';
 import { StarsProvidersService } from '#layer-stars/services/stars-providers.service';
 import { SelectableItem } from '#core/models/selectable-item';
+import { RenderableLayer } from '#core/models/layers/renderable-layer';
+import { StaticDataService } from '#core/services/static-data.service';
 
 
 describe('SelectorStarNamesComponent', () => {
+
+  const objects = [
+    [37.95, 89.26, 2.0, 'Polaris', 'ALP UMI']
+  ];
 
   let textsVisibilityManager: TextsVisibilityManagerService;
   let starsVisibilityManager: StarsVisibilityManagerService;
   let component: SelectorStarNamesComponent;
 
-  beforeEach(() => {
+  beforeEach(fakeAsync(() => {
     TestBed.configureTestingModule({
       imports: [
         CoreModule,
         LayerStarsModule
       ]
     });
+    const dataService = TestBed.inject(StaticDataService);
+    spyOn(dataService, 'getDataJson').and.returnValue(of(objects));
+
     const layerService = TestBed.inject(LayerService);
     starsVisibilityManager = TestBed.inject(StarsVisibilityManagerService);
     textsVisibilityManager = TestBed.inject(TextsVisibilityManagerService);
-    layerService.rootLayer = mockedLayers;
-    const starsLayer = mockedLayers.subLayers[1];
-    const starsMag2Layer = starsLayer.subLayers[0];
+    const starsCode = 'stars';
+    const starsMag2Code = 'stars-mag2.0';
     const provider = TestBed.inject(StarsProvidersService);
-    layerService.registerLayer(provider.getRenderableLayer(starsLayer));
-    layerService.registerLayer(provider.getRenderableLayer(starsMag2Layer));
+    Promise.all([
+      provider.getRenderableLayer(starsCode),
+      provider.getRenderableLayer(starsMag2Code)
+    ]).then(
+      (layers: Array<RenderableLayer>) => {
+        layerService.registerLayer(layers[0], 0);
+        layerService.registerLayer(layers[1], 1);
+      }
+    ).then(
+      (_: any) => layerService.setVisible(starsCode, true)
+    );
     component = TestBed.createComponent(SelectorStarNamesComponent).componentInstance;
-  });
+    tick();
+  }));
 
   it('selectableNames should return expected value', () => {
     const selectables = component.selectableNames;

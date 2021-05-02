@@ -1,3 +1,4 @@
+import { BehaviorSubject } from 'rxjs';
 import { Searchable } from '#core/models/layers/searchable';
 import { SkyCoordinate } from '#core/models/screen/sky-coordinate';
 import { SearchService } from '#core/services/search.service';
@@ -94,6 +95,68 @@ describe('SearchService', () => {
     it('the expected number of registered items', () => {
       service.registerSearchables(searchableData);
       expect(service.searchablesCount).toEqual(3);
+    });
+
+  });
+
+  describe('registerSearchables should', () => {
+
+    it('have no effect if the arg is falsy', () => {
+      expect(service.searchablesCount).toEqual(0);
+      service.registerSearchables(undefined);
+      expect(service.searchablesCount).toEqual(0);
+    });
+
+    it('have no effect if the searchable object is falsy', () => {
+      expect(service.searchablesCount).toEqual(0);
+      service.registerSearchables([undefined]);
+      expect(service.searchablesCount).toEqual(0);
+    });
+
+    it('register the expected searchable object by code', () => {
+      const searchable = {
+        type: 'constellation',
+        code: 'AND',
+        ra: 8.532,
+        dec: 38.906
+      };
+      expect(service.searchablesCount).toEqual(0);
+      service.registerSearchables([searchable]);
+      expect(service.searchablesCount).toEqual(1);
+    });
+
+    it('register the expected searchable object by name', () => {
+      const searchable = {
+        type: 'constellation',
+        code: 'AND',
+        ra: 8.532,
+        dec: 38.906,
+        names: ['Andromeda']
+      };
+      expect(service.searchablesCount).toEqual(0);
+      service.registerSearchables([searchable]);
+      expect(service.searchablesCount).toEqual(2);
+    });
+
+    it('emit a search ready event if the number of calls achieves the expected number', () => {
+      const eventHandler = service.searchReady as BehaviorSubject<boolean>;
+      spyOn(eventHandler, 'next');
+
+      const eventsUntilReady = 9;
+      for (let i = eventsUntilReady; i > 0; i--) {
+        const searchable = {
+          type: 'object',
+          code: `CODE${i}`,
+          ra: i,
+          dec: i,
+          names: []
+        };
+        service.registerSearchables([searchable]);
+        expect(eventHandler.next).toHaveBeenCalledTimes(0);
+      }
+
+      service.registerSearchables(searchableData);
+      expect(eventHandler.next).toHaveBeenCalledTimes(1);
     });
 
   });
