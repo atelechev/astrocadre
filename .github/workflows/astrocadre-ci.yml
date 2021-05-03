@@ -32,13 +32,15 @@ jobs:
     - name: Execute the production build
       run: npm run build:prod
 
-    - name: Copy the dist into GitHub pages of the project
+    - name: Update the GitHub pages of the project
+      uses: actions/checkout@v2
+      with:
+        ref: gh-pages
       run: |
-          git checkout gh-pages
           rm -rf ./docs
           mv ./dist ./docs
-          git config --global user.email "noreply@github.com"
-          git config --global user.name "GitHub Web Flow"
+          git config user.name github-actions
+          git config user.email github-actions@github.com
           git add -A
           git commit -m 'Update GitHub pages'
           git push
