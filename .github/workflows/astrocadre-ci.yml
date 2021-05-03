@@ -22,5 +22,21 @@ jobs:
       uses: actions/setup-node@v2
       with:
         node-version: ${{ matrix.node-version }}
-    - run: npm install
-    - run: npm run test-headless
+
+    - name: Install the dependencies
+      run: npm install
+
+    - name: Execute the tests
+      run: npm run test-headless
+
+    - name: Execute the production build
+      run: npm run build:prod
+
+    - name: Copy the dist into GitHub pages of the project
+      run: git checkout gh-pages
+    - run: rm -rf ./docs && mv ./dist ./docs
+    - run: |
+          git config --global user.email "noreply@github.com"
+          git config --global user.name "GitHub Web Flow"
+          git add -A
+          git commit -m 'Update GitHub pages'
