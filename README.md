@@ -5,6 +5,7 @@ _Astronomy sky charts browsing application_
 
 ![CI](https://github.com/atelechev/astrocadre/actions/workflows/astrocadre-ci.yml/badge.svg)
 
+[Demo](https://atelechev.github.io/astrocadre)
 
 ## Description
 
