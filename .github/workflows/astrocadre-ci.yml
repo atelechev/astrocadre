@@ -46,6 +46,6 @@ jobs:
           mv ./dist ./docs
           git config user.name github-actions
           git config user.email github-actions@github.com
-          git add -A ./docs
+          git add -A -f ./docs
           git commit -m 'Update GitHub pages'
           git push
