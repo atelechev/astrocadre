@@ -32,10 +32,12 @@ jobs:
     - name: Execute the production build
       run: npm run build:prod
 
-    - name: Update the GitHub pages of the project
+    - name: Checkout the gh-pages branch
       uses: actions/checkout@v2
       with:
         ref: gh-pages
+
+    - name: Update the GitHub pages of the project
       run: |
           rm -rf ./docs
           mv ./dist ./docs
