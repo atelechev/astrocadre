@@ -1,0 +1,992 @@
+[
+  {
+    "type": "nebula-supernova",
+    "code": "M1",
+    "ra": 83.63308,
+    "dec": 22.01450,
+    "names": ["Crab Nebula", "Crab"],
+    "mag": 8.4,
+    "size": [7.0, 5.0]
+  },
+  {
+    "type": "cluster-globular",
+    "code": "M2",
+    "ra": 323.36258,
+    "dec": -0.82325,
+    "names": [],
+    "mag": 6.3,
+    "size": [1.86, 1.86, 0]
+  },
+  {
+    "type": "cluster-globular",
+    "code": "M3",
+    "ra": 205.54842,
+    "dec": 28.37728,
+    "names": [],
+    "mag": 6.2,
+    "size": [2.24, 2.24, 0]
+  },
+  {
+    "type": "cluster-globular",
+    "code": "M4",
+    "ra": 245.89675,
+    "dec": -26.52575,
+    "names": [],
+    "mag": 5.9,
+    "size": [7.3, 7.3, 0]
+  },
+  {
+    "type": "cluster-globular",
+    "code": "M5",
+    "ra": 229.63842,
+    "dec": 2.08103,
+    "names": [],
+    "mag": 6.7,
+    "size": [4.22, 4.22, 0]
+  },
+  {
+    "type": "cluster-open",
+    "code": "M6",
+    "ra": 265.0833,
+    "dec": -32.2533,
+    "names": ["Butterfly Cluster", "Butterfly"],
+    "mag": 4.2,
+    "size": [20.0, 20.0, 90]
+  },
+  {
+    "type": "cluster-open",
+    "code": "M7",
+    "ra": 268.4625,
+    "dec": -34.7933,
+    "names": ["Ptolemy Cluster", "Ptolemy"],
+    "mag": 3.3,
+    "size": []
+  },
+  {
+    "type": "nebula-diffuse",
+    "code": "M8",
+    "ra": 270.9042,
+    "dec": -24.3867,
+    "names": ["Lagoon Nebula", "Lagoon"],
+    "mag": 6.0,
+    "size": []
+  },
+  {
+    "type": "cluster-globular",
+    "code": "M9",
+    "ra": 259.79908,
+    "dec": -18.51625,
+    "names": [],
+    "mag": 8.4,
+    "size": [8.7, 8.7, 0]
+  },
+  {
+    "type": "cluster-globular",
+    "code": "M10",
+    "ra": 254.28771,
+    "dec": -4.10031,
+    "names": [],
+    "mag": 6.4,
+    "size": [3.62, 3.62, 0]
+  },
+  {
+    "type": "cluster-open",
+    "code": "M11",
+    "ra": 282.7708,
+    "dec": -6.27,
+    "names": ["Wild Duck Cluster", "Wild Duck"],
+    "mag": 6.3,
+    "size": []
+  },
+  {
+    "type": "cluster-globular",
+    "code": "M12",
+    "ra": 251.80908,
+    "dec": -1.94853,
+    "names": [],
+    "mag": 6.7,
+    "size": [4.32, 4.32, 0]
+  },
+  {
+    "type": "cluster-globular",
+    "code": "M13",
+    "ra": 250.423475,
+    "dec": 36.461319,
+    "names": ["Great Hercules Globular", "Hercules Globular Cluster"],
+    "mag": 5.8,
+    "size": [33.0, 33.0, 0]
+  },
+  {
+    "type": "cluster-globular",
+    "code": "M14",
+    "ra": 264.40063,
+    "dec": -3.24592,
+    "names": [],
+    "mag": 7.6,
+    "size": [13.5, 13.5, 0]
+  },
+  {
+    "type": "cluster-globular",
+    "code": "M15",
+    "ra": 322.49304,
+    "dec": 12.167,
+    "names": ["Great Pegasus Globular"],
+    "mag": 6.2,
+    "size": [22.2, 22.2, 0]
+  },
+  {
+    "type": "cluster-open",
+    "code": "M16",
+    "ra": 274.7000,
+    "dec": -13.8067,
+    "names": ["Eagle Nebula", "Star Queen"],
+    "mag": 6.4,
+    "size": []
+  },
+  {
+    "type": "nebula-diffuse",
+    "code": "M17",
+    "ra": 275.1958,
+    "dec": -16.1717,
+    "names": ["Omega Nebula", "Lobster Nebula", "Swan Nebula", "Checkmark Nebula"],
+    "mag": 7.0,
+    "size": [1.63, 1.63, 90]
+  },
+  {
+    "type": "cluster-open",
+    "code": "M18",
+    "ra": 274.9917,
+    "dec": -17.1017,
+    "names": [],
+    "mag": 7.5,
+    "size": [5.0, 5.0, 90]
+  },
+  {
+    "type": "cluster-globular",
+    "code": "M19",
+    "ra": 255.65704,
+    "dec": -26.26794,
+    "names": [],
+    "mag": 6.8,
+    "size": [9.6, 9.6, 0]
+  },
+  {
+    "type": "nebula-diffuse",
+    "code": "M20",
+    "ra": 270.6750,
+    "dec": -22.9717,
+    "names": ["Trifid Nebula"],
+    "mag": 9.0,
+    "size": [28.0, 28.0, 90]
+  },
+  {
+    "type": "cluster-open",
+    "code": "M21",
+    "ra": 271.0542,
+    "dec": -22.490,
+    "names": [],
+    "mag": 6.5,
+    "size": [14.0, 14.0, 90]
+  },
+  {
+    "type": "cluster-globular",
+    "code": "M22",
+    "ra": 279.09975,
+    "dec": -23.90475,
+    "names": ["Sagittarius Cluster"],
+    "mag": 5.1,
+    "size": [6.52, 6.52, 0]
+  },
+  {
+    "type": "cluster-open",
+    "code": "M23",
+    "ra": 269.2667,
+    "dec": -18.985,
+    "names": [],
+    "mag": 6.9,
+    "size": []
+  },
+  {
+    "type": "cluster-stars",
+    "code": "M24",
+    "ra": 274.2000,
+    "dec": -18.55,
+    "names": ["Sagittarius Star Cloud", "Small Sgr Star Cloud"],
+    "mag": 4.6,
+    "size": [120, 60, 90]
+  },
+  {
+    "type": "cluster-open",
+    "code": "M25",
+    "ra": 277.9458,
+    "dec": -19.116,
+    "names": [],
+    "mag": 6.5,
+    "size": []
+  },
+  {
+    "type": "cluster-open",
+    "code": "M26",
+    "ra": 281.3250,
+    "dec": -9.3833,
+    "names": [],
+    "mag": 8.0,
+    "size": []
+  },
+  {
+    "type": "nebula-planetary",
+    "code": "M27",
+    "ra": 299.90151,
+    "dec": 22.7211,
+    "names": ["Dumbbell Nebula", "Diabolo Nebula"],
+    "mag": 7.4,
+    "size": [0.133, 0.133, 90]
+  },
+  {
+    "type": "cluster-globular",
+    "code": "M28",
+    "ra": 276.13704,
+    "dec": -24.86983,
+    "names": [],
+    "mag": 6.8,
+    "size": [3.12, 3.12, 0]
+  },
+  {
+    "type": "cluster-open",
+    "code": "M29",
+    "ra": 305.9833,
+    "dec": 38.523,
+    "names": [],
+    "mag": 7.1,
+    "size": []
+  },
+  {
+    "type": "cluster-globular",
+    "code": "M30",
+    "ra": 325.09217,
+    "dec": -23.17986,
+    "names": [],
+    "mag": 7.2,
+    "size": [2.3, 2.3, 0]
+  },
+  {
+    "type": "galaxy-spiral",
+    "code": "M31",
+    "ra": 10.684708,
+    "dec": 41.26875,
+    "names": ["Andromeda Galaxy", "Andromeda Nebula"],
+    "mag": 3.4,
+    "size": [199.53, 70.79, 35]
+  },
+  {
+    "type": "galaxy-elliptical",
+    "code": "M32",
+    "ra": 10.674271,
+    "dec": 40.865169,
+    "names": [],
+    "mag": 8.1,
+    "size": []
+  },
+  {
+    "type": "galaxy-spiral",
+    "code": "M33",
+    "ra": 23.462100,
+    "dec": 30.659942,
+    "names": ["Triangulum Galaxy", "Triangulum Pinwheel"],
+    "mag": 5.7,
+    "size": [60.26, 35.48, 22]
+  },
+  {
+    "type": "cluster-open",
+    "code": "M34",
+    "ra": 40.5208,
+    "dec": 42.7617,
+    "names": [],
+    "mag": 5.5,
+    "size": []
+  },
+  {
+    "type": "cluster-open",
+    "code": "M35",
+    "ra": 92.2250,
+    "dec": 24.333,
+    "names": [],
+    "mag": 5.3,
+    "size": []
+  },
+  {
+    "type": "cluster-open",
+    "code": "M36",
+    "ra": 84.075,
+    "dec": 34.14,
+    "names": [],
+    "mag": 6.3,
+    "size": []
+  },
+  {
+    "type": "cluster-open",
+    "code": "M37",
+    "ra": 88.075,
+    "dec": 32.553,
+    "names": [],
+    "mag": 6.2,
+    "size": []
+  },
+  {
+    "type": "cluster-open",
+    "code": "M38",
+    "ra": 82.1792,
+    "dec": 35.855,
+    "names": [],
+    "mag": 7.4,
+    "size": []
+  },
+  {
+    "type": "cluster-open",
+    "code": "M39",
+    "ra": 322.9500,
+    "dec": 48.433,
+    "names": [],
+    "mag": 4.6,
+    "size": []
+  },
+  {
+    "type": "star-double",
+    "code": "M40",
+    "ra": 185.55221,
+    "dec": 58.08294,
+    "names": ["Winnecke 4"],
+    "mag": 8.4,
+    "size": []
+  },
+  {
+    "type": "cluster-open",
+    "code": "M41",
+    "ra": 101.5042,
+    "dec": -20.756,
+    "names": [],
+    "mag": 4.6,
+    "size": []
+  },
+  {
+    "type": "nebula-diffuse",
+    "code": "M42",
+    "ra": 83.8221,
+    "dec": -5.3911,
+    "names": ["Great Nebula in Orion", "Great Orion Nebula", "Orion Nebula"],
+    "mag": 4.0,
+    "size": [5.5, 5.5 ,90]
+  },
+  {
+    "type": "nebula-diffuse",
+    "code": "M43",
+    "ra": 83.8792,
+    "dec":  -5.27,
+    "names": ["De Mairan's Nebula", "Mairan's Nebula"],
+    "mag": 9.0,
+    "size": []
+  },
+  {
+    "type": "cluster-open",
+    "code": "M44",
+    "ra": 130.1,
+    "dec": 19.666,
+    "names": ["Beehive Cluster", "Praesepe", "Praesepe Cluster"],
+    "mag": 3.7,
+    "size": []
+  },
+  {
+    "type": "cluster-open",
+    "code": "M45",
+    "ra": 56.7500,
+    "dec": 24.1167,
+    "names": ["Pleiades", "Seven Sisters"],
+    "mag": 1.6,
+    "size": [1200, 1200, 90]
+  },
+  {
+    "type": "cluster-open",
+    "code": "M46",
+    "ra": 115.4417,
+    "dec": -14.81,
+    "names": [],
+    "mag": 6.0,
+    "size": []
+  },
+  {
+    "type": "cluster-open",
+    "code": "M47",
+    "ra": 114.1458,
+    "dec": -14.483,
+    "names": [],
+    "mag": 5.2,
+    "size": []
+  },
+  {
+    "type": "cluster-open",
+    "code": "M48",
+    "ra": 123.4292,
+    "dec": -5.75,
+    "names": [],
+    "mag": 5.5,
+    "size": []
+  },
+  {
+    "type": "galaxy-elliptical",
+    "code": "M49",
+    "ra": 187.444992,
+    "dec": 8.000411,
+    "names": [],
+    "mag": 8.4,
+    "size": [10.96, 8.91, 157]
+  },
+  {
+    "type": "cluster-open",
+    "code": "M50",
+    "ra": 105.6979,
+    "dec": -8.3378,
+    "names": [],
+    "mag": 6.3,
+    "size": []
+  },
+  {
+    "type": "galaxy-spiral",
+    "code": "M51",
+    "ra": 202.469575,
+    "dec": 47.195258,
+    "names": ["Whirlpool", "Whirlpool Galaxy", "Question Mark Galaxy"],
+    "mag": 8.4,
+    "size": [10.0, 7.59, 163]
+  },
+  {
+    "type": "cluster-open",
+    "code": "M52",
+    "ra": 351.2,
+    "dec": 61.593,
+    "names": [],
+    "mag": 7.3,
+    "size": []
+  },
+  {
+    "type": "cluster-globular",
+    "code": "M53",
+    "ra": 198.23021,
+    "dec": 18.16817,
+    "names": [],
+    "mag": 7.6,
+    "size": [18.0, 18.0, 0]
+  },
+  {
+    "type": "cluster-globular",
+    "code": "M54",
+    "ra": 283.76387,
+    "dec": -30.47986,
+    "names": [],
+    "mag": 7.6,
+    "size": [0.98, 0.98, 0]
+  },
+  {
+    "type": "cluster-globular",
+    "code": "M55",
+    "ra": 294.99879,
+    "dec": -30.96475,
+    "names": [],
+    "mag": 6.3,
+    "size": [5.78, 5.78, 0]
+  },
+  {
+    "type": "cluster-globular",
+    "code": "M56",
+    "ra": 289.14821,
+    "dec": 30.18347,
+    "names": [],
+    "mag": 8.3,
+    "size": [2.32, 2.32, 0]
+  },
+  {
+    "type": "nebula-planetary",
+    "code": "M57",
+    "ra": 283.39623,
+    "dec": 33.02913,
+    "names": ["Ring Nebula"],
+    "mag": 8.8,
+    "size": [1.153, 1.153, 90]
+  },
+  {
+    "type": "galaxy-barred",
+    "code": "M58",
+    "ra": 189.431654,
+    "dec": 11.818089,
+    "names": [],
+    "mag": 9.7,
+    "size": [5.62, 4.37, 88]
+  },
+  {
+    "type": "galaxy-elliptical",
+    "code": "M59",
+    "ra": 190.509675,
+    "dec": 11.646931,
+    "names": [],
+    "mag": 9.6,
+    "size": [5.5, 3.98, 164]
+  },
+  {
+    "type": "galaxy-elliptical",
+    "code": "M60",
+    "ra": 190.9167,
+    "dec": 11.552611,
+    "names": [],
+    "mag": 8.8,
+    "size": [7.94, 6.61, 104]
+  },
+  {
+    "type": "galaxy-spiral",
+    "code": "M61",
+    "ra": 185.478864,
+    "dec": 4.47377,
+    "names": [],
+    "mag": 9.7,
+    "size": [6.17, 5.5]
+  },
+  {
+    "type": "cluster-globular",
+    "code": "M62",
+    "ra": 255.3025,
+    "dec": -30.11236,
+    "names": [],
+    "mag": 6.5,
+    "size": [2.46, 2.46, 0]
+  },
+  {
+    "type": "galaxy-spiral",
+    "code": "M63",
+    "ra": 198.9553,
+    "dec": 42.02936,
+    "names": ["Sunflower Galaxy"],
+    "mag": 8.6,
+    "size": [13.18, 7.94, 102]
+  },
+  {
+    "type": "galaxy-spiral",
+    "code": "M64",
+    "ra": 194.182067,
+    "dec": 21.682658,
+    "names": ["Black Eye Galaxy", "Evil Eye Galaxy"],
+    "mag": 8.5,
+    "size": [9.77, 4.9, 115]
+  },
+  {
+    "type": "galaxy-spiral",
+    "code": "M65",
+    "ra": 169.733154,
+    "dec": 13.092211,
+    "names": [],
+    "mag": 9.3,
+    "size": [8.32, 2.14, 174]
+  },
+  {
+    "type": "galaxy-spiral",
+    "code": "M66",
+    "ra": 170.062608,
+    "dec": 12.991289,
+    "names": [],
+    "mag": 8.9,
+    "size": [8.51, 3.8, 173]
+  },
+  {
+    "type": "cluster-open",
+    "code": "M67",
+    "ra": 132.825,
+    "dec": 11.8,
+    "names": [],
+    "mag": 6.1,
+    "size": [25.0, 25.0, 0]
+  },
+  {
+    "type": "cluster-globular",
+    "code": "M68",
+    "ra": 189.86658,
+    "dec": -26.74406,
+    "names": [],
+    "mag": 7.8,
+    "size": [3.1, 3.1, 0]
+  },
+  {
+    "type": "cluster-globular",
+    "code": "M69",
+    "ra": 277.84625,
+    "dec": -32.34808,
+    "names": [],
+    "mag": 7.6,
+    "size": [4.2, 4.2, 0]
+  },
+  {
+    "type": "cluster-globular",
+    "code": "M70",
+    "ra": 280.80317,
+    "dec": -32.29211,
+    "names": [],
+    "mag": 7.9,
+    "size": [1.86, 1.86, 0]
+  },
+  {
+    "type": "cluster-globular",
+    "code": "M71",
+    "ra": 298.44371,
+    "dec": 18.77919,
+    "names": [],
+    "mag": 8.2,
+    "size": [3.3, 3.3, 0]
+  },
+  {
+    "type": "cluster-globular",
+    "code": "M72",
+    "ra": 313.36542,
+    "dec": -12.53731,
+    "names": [],
+    "mag": 9.3,
+    "size": [9.0, 9.0, 0]
+  },
+  {
+    "type": "asterism",
+    "code": "M73",
+    "ra": 314.7500,
+    "dec": -12.633,
+    "names": [],
+    "mag": 9.0,
+    "size": []
+  },
+  {
+    "type": "galaxy-spiral",
+    "code": "M74",
+    "ra": 24.17405,
+    "dec": 15.783461,
+    "names": [],
+    "mag": 9.4,
+    "size": [9.33, 8.71]
+  },
+  {
+    "type": "cluster-globular",
+    "code": "M75",
+    "ra": 301.520171,
+    "dec": -21.922261,
+    "names": [],
+    "mag": 8.5,
+    "size": [2.383, 2.145, 55]
+  },
+  {
+    "type": "nebula-planetary",
+    "code": "M76",
+    "ra": 25.58191,
+    "dec": 51.57543,
+    "names": ["Little Dumbbell Nebula", "Barbell Nebula", "Cork Nebula"],
+    "mag": 10.1,
+    "size": [2.307, 2.307, 90]
+  },
+  {
+    "type": "galaxy-spiral",
+    "code": "M77",
+    "ra": 40.669879,
+    "dec": -0.013289,
+    "names": [],
+    "mag": 8.9,
+    "size": [6.92, 6.03, 72]
+  },
+  {
+    "type": "nebula-diffuse",
+    "code": "M78",
+    "ra": 86.6908,
+    "dec": 0.0792,
+    "names": [],
+    "mag": 8.3,
+    "size": []
+  },
+  {
+    "type": "cluster-globular",
+    "code": "M79",
+    "ra": 81.04413,
+    "dec": -24.52425,
+    "names": [],
+    "mag": 7.7,
+    "size": [1.6, 1.6, 0]
+  },
+  {
+    "type": "cluster-globular",
+    "code": "M80",
+    "ra": 244.26004,
+    "dec": -22.97608,
+    "names": [],
+    "mag": 7.3,
+    "size": [1.3, 1.3, 0]
+  },
+  {
+    "type": "galaxy-spiral",
+    "code": "M81",
+    "ra": 148.88822,
+    "dec": 69.06529,
+    "names": ["Bode's Galaxy"],
+    "mag": 6.9,
+    "size": [21.38, 10.23, 157]
+  },
+  {
+    "type": "galaxy-irregular",
+    "code": "M82",
+    "ra": 148.968458,
+    "dec": 69.679703,
+    "names": ["Cigar Galaxy"],
+    "mag": 8.4,
+    "size": []
+  },
+  {
+    "type": "galaxy-spiral",
+    "code": "M83",
+    "ra": 204.253829,
+    "dec": -29.865761,
+    "names": ["Southern Pinwheel Galaxy"],
+    "mag": 7.6,
+    "size": [13.8, 12.88]
+  },
+  {
+    "type": "galaxy-lenticular",
+    "code": "M84",
+    "ra": 186.26559721,
+    "dec": 12.88698314,
+    "names": [],
+    "mag": 9.1,
+    "size": [6.46, 5.75, 133]
+  },
+  {
+    "type": "galaxy-lenticular",
+    "code": "M85",
+    "ra": 186.350221,
+    "dec": 18.191081,
+    "names": [],
+    "mag": 9.1,
+    "size": [7.76, 6.03]
+  },
+  {
+    "type": "galaxy-lenticular",
+    "code": "M86",
+    "ra": 186.549225,
+    "dec": 12.945969,
+    "names": [],
+    "mag": 8.9,
+    "size": [10.47, 7.59, 127]
+  },
+  {
+    "type": "galaxy-elliptical",
+    "code": "M87",
+    "ra": 187.70593,
+    "dec": 12.39112,
+    "names": ["Virgo Galaxy", "Smoking Gun"],
+    "mag": 8.6,
+    "size": [9.12, 7.94]
+  },
+  {
+    "type": "galaxy-spiral",
+    "code": "M88",
+    "ra": 187.996733,
+    "dec": 14.420411,
+    "names": [],
+    "mag": 9.6,
+    "size": [7.76, 4.57, 138]
+  },
+  {
+    "type": "galaxy-elliptical",
+    "code": "M89",
+    "ra": 188.91586,
+    "dec": 12.55634,
+    "names": [],
+    "mag": 9.8,
+    "size": [6.92, 6.46]
+  },
+  {
+    "type": "galaxy-spiral",
+    "code": "M90",
+    "ra": 189.207567,
+    "dec": 13.162869,
+    "names": [],
+    "mag": 9.5,
+    "size": [9.77, 4.37, 23]
+  },
+  {
+    "type": "galaxy-barred",
+    "code": "M91",
+    "ra": 188.860125,
+    "dec": 14.496319,
+    "names": [],
+    "mag": 10.2,
+    "size": [5.37, 4.47]
+  },
+  {
+    "type": "cluster-globular",
+    "code": "M92",
+    "ra": 259.28079,
+    "dec": 43.13594,
+    "names": [],
+    "mag": 6.4,
+    "size": [2.18, 2.18, 0]
+  },
+  {
+    "type": "cluster-open",
+    "code": "M93",
+    "ra": 116.125,
+    "dec": -23.856,
+    "names": [],
+    "mag": 6.0,
+    "size": []
+  },
+  {
+    "type": "galaxy-spiral",
+    "code": "M94",
+    "ra": 192.72145,
+    "dec": 41.120153,
+    "names": [],
+    "mag": 8.2,
+    "size": [11.48, 10.0, 105]
+  },
+  {
+    "type": "galaxy-barred",
+    "code": "M95",
+    "ra": 160.990554,
+    "dec": 11.703611,
+    "names": [],
+    "mag": 9.7,
+    "size": [7.08, 4.27, 13]
+  },
+  {
+    "type": "galaxy-spiral",
+    "code": "M96",
+    "ra": 161.6906,
+    "dec": 11.819939,
+    "names": [],
+    "mag": 9.2,
+    "size": [7.24, 4.79, 5]
+  },
+  {
+    "type": "nebula-planetary",
+    "code": "M97",
+    "ra": 168.6988,
+    "dec": 55.019023,
+    "names": ["Owl Nebula"],
+    "mag": 9.9,
+    "size": [3.333, 3.333, 90]
+  },
+  {
+    "type": "galaxy-spiral",
+    "code": "M98",
+    "ra": 183.451217,
+    "dec": 14.900469,
+    "names": [],
+    "mag": 10.1,
+    "size": [9.55, 2.29, 152]
+  },
+  {
+    "type": "galaxy-spiral",
+    "code": "M99",
+    "ra": 184.706771,
+    "dec": 14.416489,
+    "names": ["Coma Pinwheel", "Virgo Cluster Pinwheel"],
+    "mag": 9.9,
+    "size": [5.13, 4.47]
+  },
+  {
+    "type": "galaxy-spiral",
+    "code": "M100",
+    "ra": 185.72888,
+    "dec": 15.8223,
+    "names": [],
+    "mag": 9.3,
+    "size": [7.59, 6.76, 170]
+  },
+  {
+    "type": "galaxy-spiral",
+    "code": "M101",
+    "ra": 210.802429,
+    "dec": 54.34875,
+    "names": ["Pinwheel Galaxy"],
+    "mag": 7.9,
+    "size": [21.88, 20.89]
+  },
+  {
+    "type": "galaxy-lenticular",
+    "code": "M102",
+    "ra": 226.623171,
+    "dec": 55.763308,
+    "names": [],
+    "mag": 9.9,
+    "size": [6.31, 2.69, 128]
+  },
+  {
+    "type": "cluster-open",
+    "code": "M103",
+    "ra": 23.3458,
+    "dec": 60.650,
+    "names": [],
+    "mag": 7.4,
+    "size": []
+  },
+  {
+    "type": "galaxy-spiral",
+    "code": "M104",
+    "ra": 189.99763271,
+    "dec": -11.62305,
+    "names": ["Sombrero", "Sombrero Galaxy"],
+    "mag": 8.0,
+    "size": [8.51, 5.01, 90]
+  },
+  {
+    "type": "galaxy-elliptical",
+    "code": "M105",
+    "ra": 161.956667,
+    "dec": 12.581631,
+    "names": [],
+    "mag": 9.3,
+    "size": [5.13, 4.68]
+  },
+  {
+    "type": "galaxy-spiral",
+    "code": "M106",
+    "ra": 184.740083,
+    "dec": 47.303719,
+    "names": [],
+    "mag": 8.4,
+    "size": [17.78, 6.92]
+  },
+  {
+    "type": "cluster-globular",
+    "code": "M107",
+    "ra": 248.13275,
+    "dec": -13.05378,
+    "names": [],
+    "mag": 7.9,
+    "size": [5.4, 5.4, 0]
+  },
+  {
+    "type": "galaxy-spiral",
+    "code": "M108",
+    "ra": 167.879029,
+    "dec": 55.674122,
+    "names": [],
+    "mag": 10.0,
+    "size": [7.76, 2.69, 79]
+  },
+  {
+    "type": "galaxy-barred",
+    "code": "M109",
+    "ra": 179.399933,
+    "dec": 53.374519,
+    "names": [],
+    "mag": 9.8,
+    "size": [7.24, 4.79, 78]
+  },
+  {
+    "type": "galaxy-elliptical",
+    "code": "M110",
+    "ra": 10.09189,
+    "dec": 41.68541,
+    "names": [],
+    "mag": 8.5,
+    "size": [18.62, 10.47, 170]
+  }
+]
