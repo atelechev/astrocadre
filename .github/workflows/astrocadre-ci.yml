@@ -34,9 +34,10 @@ jobs:
 
     - name: Copy the dist into GitHub pages of the project
       run: git checkout gh-pages
-    - run: rm -rf ./docs && mv ./dist ./docs
-    - run: |
+      run: rm -rf ./docs && mv ./dist ./docs
+      run: |
           git config --global user.email "noreply@github.com"
           git config --global user.name "GitHub Web Flow"
           git add -A
           git commit -m 'Update GitHub pages'
+          git push
