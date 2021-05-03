@@ -1,4 +1,6 @@
 # Ignoring all on this branch (gh-pages), because all the contents will be copied here by the CI build
 
 *
-**/*
+
+# Keep only the docs folder and its contents
+!docs/**/*
