@@ -33,9 +33,10 @@ jobs:
       run: npm run build:prod
 
     - name: Copy the dist into GitHub pages of the project
-      run: git checkout gh-pages
-      run: rm -rf ./docs && mv ./dist ./docs
       run: |
+          git checkout gh-pages
+          rm -rf ./docs
+          mv ./dist ./docs
           git config --global user.email "noreply@github.com"
           git config --global user.name "GitHub Web Flow"
           git add -A
