@@ -17,9 +17,9 @@ export class ViewportService {
 
   private readonly _maxSettableSize = 16384;
 
-  private readonly _defaultHeight: number;
+  private _defaultHeight: number;
 
-  private readonly _defaultWidth: number;
+  private _defaultWidth: number;
 
   private _height: number;
 
@@ -27,12 +27,8 @@ export class ViewportService {
 
   constructor() {
     this._events = new BehaviorSubject<ViewportEvent<any>>(ViewportEvent.INITIAL);
-    this._defaultHeight = window.screen.height;
-    this._defaultWidth = window.screen.width;
-    this.size = {
-      height: this._defaultHeight,
-      width: this._defaultWidth
-    };
+    this.updateDefaultDimensions();
+    this.subscribeWindowResizeEvent();
   }
 
   /**
@@ -164,6 +160,19 @@ export class ViewportService {
 
   private isSizeInRange(value: number): boolean {
     return value && value > 0 && value < this._maxSettableSize;
+  }
+
+  private updateDefaultDimensions(): void {
+    this._defaultHeight = window.screen.height;
+    this._defaultWidth = window.screen.width;
+    this.size = {
+      height: this._defaultHeight,
+      width: this._defaultWidth
+    };
+  }
+
+  private subscribeWindowResizeEvent(): void {
+    window.addEventListener('resize', () => this.updateDefaultDimensions());
   }
 
 }

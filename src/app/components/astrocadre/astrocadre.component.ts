@@ -5,7 +5,7 @@ import {
   OnInit,
   ViewChild
   } from '@angular/core';
-import { MouseEventsHandler } from '#core/services/mouse-events-handler';
+import { UiEventsHandler } from '#core/services/ui-events-handler';
 import { SceneService } from '#core/services/scene.service';
 import { ViewportService } from '#core/services/viewport.service';
 import { LoaderService } from '#controls/services/loader.service';
@@ -24,7 +24,7 @@ export class AstrocadreComponent implements OnInit, AfterViewInit {
 
   constructor(
     private readonly _loaderService: LoaderService,
-    private readonly _mouseEventsHandler: MouseEventsHandler,
+    private readonly _uiEventsHandler: UiEventsHandler,
     private readonly _viewportService: ViewportService,
     private readonly _sceneService: SceneService
   ) {
@@ -38,7 +38,7 @@ export class AstrocadreComponent implements OnInit, AfterViewInit {
   public ngAfterViewInit(): void {
     const viewportRoot = this._astrocadreViewport.nativeElement as HTMLDivElement;
     this._sceneService.setViewportRootElement(viewportRoot);
-    this._mouseEventsHandler.initMouseListenersOn(viewportRoot);
+    this._uiEventsHandler.initMouseListenersOn(viewportRoot);
     this.startRendering();
   }
 

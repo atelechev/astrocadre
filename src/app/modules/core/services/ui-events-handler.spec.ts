@@ -1,18 +1,18 @@
 import { TestBed } from '@angular/core/testing';
-import { MouseEventsHandler } from '#core/services/mouse-events-handler';
+import { UiEventsHandler } from '#core/services/ui-events-handler';
 import { CoreModule } from '#core/core.module';
 
 
 describe('MouseEventsHandler', () => {
 
-  let service: MouseEventsHandler;
+  let service: UiEventsHandler;
   let element: HTMLDivElement;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [CoreModule]
     });
-    service = TestBed.inject(MouseEventsHandler);
+    service = TestBed.inject(UiEventsHandler);
     element = document.createElement('div');
   });
 

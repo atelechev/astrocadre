@@ -11,6 +11,8 @@ import { SkyCoordinate } from '#core/models/screen/sky-coordinate';
 import { ViewportService } from '#core/services/viewport.service';
 import { toVector3 } from '#core/utils/vector-utils';
 import { VirtualSphereRadiusService } from '#core/services/virtual-sphere-radius.service';
+import { ViewportEvent } from '#core/models/event/viewport-event';
+import { ViewportSizeChangeEvent } from '#core/models/event/viewport-size-change-event';
 
 /**
  * Holds the reference to the camera object and provides methods to change the view.
@@ -50,6 +52,7 @@ export class CameraService {
     this._camera = this.initializeCamera();
     this._frustum = new Frustum();
     this._coordsMarker = this.initCoordsMarker();
+    this.subscribeViewportEvents();
   }
 
   /**
@@ -155,10 +158,12 @@ export class CameraService {
   }
 
   private initializeCamera(): PerspectiveCamera {
-    const camera = new PerspectiveCamera(this._defaultFov,
+    const camera = new PerspectiveCamera(
+      this._defaultFov,
       this._viewportService.aspectRatio,
       this._nearPlane,
-      this._farPlane);
+      this._farPlane
+    );
     const origin = 0;
     camera.position.z = origin;
     camera.position.x = origin;
@@ -172,6 +177,18 @@ export class CameraService {
     this._camera.add(marker);
     this._camera.updateMatrixWorld(true);
     return marker;
+  }
+
+  private subscribeViewportEvents(): void {
+    this._viewportService.events
+      .subscribe(
+        (event: ViewportEvent<any>) => {
+          if (event.key === ViewportSizeChangeEvent.KEY) {
+            this._camera.aspect = this._viewportService.aspectRatio;
+            this._camera.updateProjectionMatrix();
+          }
+        }
+      );
   }
 
 }

@@ -7,10 +7,9 @@ on:
     branches: [ master ]
 
 jobs:
+
   build:
-
     runs-on: ubuntu-latest
-
     strategy:
       matrix:
         node-version: [14.x]
@@ -35,12 +34,14 @@ jobs:
       run: npm run build:prod
 
     - name: Checkout the gh-pages branch
+      if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/master' }}
       uses: actions/checkout@v2
       with:
         ref: gh-pages
         clean: false
 
     - name: Update the GitHub pages of the project
+      if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/master' }}
       run: |
           rm -rf ./docs
           mv ./dist ./docs
