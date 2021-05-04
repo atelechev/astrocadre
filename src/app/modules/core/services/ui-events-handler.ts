@@ -3,7 +3,7 @@ import { MathUtils } from 'three';
 import { CameraService } from '#core/services/camera.service';
 
 /**
- * Provides a method to bind mouse event listeners to a DOM element.
+ * Provides a method to bind UI event listeners to a DOM element.
  */
 @Injectable({ providedIn: 'root' })
 export class UiEventsHandler {
@@ -20,7 +20,7 @@ export class UiEventsHandler {
   }
 
   /**
-   * Binds mouse event listeners to the specified HTML element.
+   * Binds UI events listeners to the specified HTML element.
    *
    * @param element the HTML element to bind mouse listeners to.
    */
