@@ -2,7 +2,13 @@
 
 _These notes are added from the most recent on the top, to the oldest at the bottom._
 
-Next version: 21.4.33
+Next version: 21.4.34
+
+### 2021-05-04 - v21.4.33
+
+* Added support for touch screen events.
+* Fixed invalid view projection when the window is resized.
+* Refactor `MouseEventsHandler`.
 
 ### 2021-05-02 - v21.4.32
 
