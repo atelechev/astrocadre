@@ -13,6 +13,7 @@ import { toVector3 } from '#core/utils/vector-utils';
 import { VirtualSphereRadiusService } from '#core/services/virtual-sphere-radius.service';
 import { ViewportEvent } from '#core/models/event/viewport-event';
 import { ViewportSizeChangeEvent } from '#core/models/event/viewport-size-change-event';
+import { ScreenCoordinate } from '#core/models/screen/screen-coordinate';
 
 /**
  * Holds the reference to the camera object and provides methods to change the view.
@@ -148,6 +149,22 @@ export class CameraService {
     this._camera.updateMatrixWorld(true);
     const matrix = new Matrix4().multiplyMatrices(this.camera.projectionMatrix, this.camera.matrixWorldInverse);
     this._frustum.setFromProjectionMatrix(matrix);
+  }
+
+  /**
+   * Returns the screen coordinates of the specified point in the 3D space.
+   *
+   * @param point the point to convert the coordinates for.
+   * @returns ScreenCoordinate the screen coordinates of the point.
+   */
+  public getOnScreenPosition(point: Vector3): ScreenCoordinate {
+    const onScreen = point.clone();
+    onScreen.project(this._camera);
+    const halfWidth = this._viewportService.halfWidth;
+    const halfHeight = this._viewportService.halfHeight;
+    const scrX = (onScreen.x * halfWidth) + halfWidth;
+    const scrY = -(onScreen.y * halfHeight) + halfHeight;
+    return { x: scrX, y: scrY };
   }
 
   private getAlignmentPoleCoordinate(declination: number): Vector3 {

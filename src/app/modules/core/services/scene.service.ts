@@ -5,7 +5,7 @@ import {
   Scene,
   Vector3,
   WebGLRenderer
-} from 'three';
+  } from 'three';
 import { Color } from 'three';
 import { Dimension } from '#core/models/screen/dimension';
 import { RenderableLayer } from '#core/models/layers/renderable-layer';
@@ -41,10 +41,6 @@ export class SceneService {
   private readonly _allObjects: Set<Object3D>;
 
   private readonly _allTextElements: Set<RenderableText>;
-
-  private _halfWidth: number;
-
-  private _halfHeight: number;
 
   constructor(
     private readonly _cameraService: CameraService,
@@ -189,8 +185,6 @@ export class SceneService {
 
   private processViewportSizeChange(size: Dimension): void {
     this.updateCanvasSize(size);
-    this._halfWidth = size.width / 2;
-    this._halfHeight = size.height / 2;
     this.showVisibleLabels();
   }
 
@@ -279,21 +273,13 @@ export class SceneService {
       .forEach(
         (text: RenderableText) => {
           if (!this._cameraService.isPointBehind(text.position)) {
-            const onScreenCoordinate = this.getOnscreenPosition(text.position);
+            const onScreenCoordinate = this._cameraService.getOnScreenPosition(text.position);
             if (this._viewportService.isInBounds(onScreenCoordinate)) {
               this.setTextPositionAndShow(text, onScreenCoordinate);
             }
           }
         }
       );
-  }
-
-  private getOnscreenPosition(point: Vector3): ScreenCoordinate {
-    const onScreen = point.clone();
-    onScreen.project(this.camera);
-    const scrX = (onScreen.x * this._halfWidth) + this._halfWidth;
-    const scrY = -(onScreen.y * this._halfHeight) + this._halfHeight;
-    return { x: scrX, y: scrY };
   }
 
   private setTextPositionAndShow(renderable: RenderableText, onScreen: ScreenCoordinate): void {

@@ -25,6 +25,14 @@ export class ViewportService {
 
   private _width: number;
 
+  /*
+    The _halfWidth and _halfHeight fields are used for the calculation of onscreen positions.
+    They are cached in order to avoid recalculating the values too many times.
+  */
+  private _halfWidth: number;
+
+  private _halfHeight: number;
+
   constructor() {
     this._events = new BehaviorSubject<ViewportEvent<any>>(ViewportEvent.INITIAL);
     this.updateDefaultDimensions();
@@ -74,6 +82,7 @@ export class ViewportService {
     this._height = this.isSizeInRange(size?.height) ? Math.floor(size.height) : this._defaultHeight;
     this._width = this.isSizeInRange(size?.width) ? Math.floor(size.width) : this._defaultWidth;
     if (this._height !== previousHeight || this._width !== previousWidth) {
+      this.updateHalfSizes();
       this.fireViewportSizeChanged(this.size);
     }
   }
@@ -98,6 +107,13 @@ export class ViewportService {
   }
 
   /**
+   * Returns the current value of the half of the viewport height.
+   */
+  public get halfHeight(): number {
+    return this._halfHeight;
+  }
+
+  /**
    * Returns the current width of the viewport.
    */
   public get width(): number {
@@ -114,6 +130,13 @@ export class ViewportService {
       height: this._height,
       width: w
     };
+  }
+
+  /**
+   * Returns the current value of the half of the viewport width.
+   */
+  public get halfWidth(): number {
+    return this._halfWidth;
   }
 
   /**
@@ -169,6 +192,11 @@ export class ViewportService {
       height: this._defaultHeight,
       width: this._defaultWidth
     };
+  }
+
+  private updateHalfSizes(): void {
+    this._halfWidth = this._width / 2;
+    this._halfHeight = this._height / 2;
   }
 
   private subscribeWindowResizeEvent(): void {
