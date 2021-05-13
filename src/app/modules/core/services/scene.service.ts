@@ -1,16 +1,9 @@
 import { Injectable } from '@angular/core';
-import {
-  Camera,
-  Object3D,
-  Scene,
-  Vector3,
-  WebGLRenderer
-  } from 'three';
+import { Object3D, Scene, WebGLRenderer } from 'three';
 import { Color } from 'three';
 import { Dimension } from '#core/models/screen/dimension';
 import { RenderableLayer } from '#core/models/layers/renderable-layer';
 import { RenderableText } from '#core/models/layers/renderable-text';
-import { ScreenCoordinate } from '#core/models/screen/screen-coordinate';
 import { Theme } from '#core/models/theme/theme';
 import { CameraService } from '#core/services/camera.service';
 import { ViewportService } from '#core/services/viewport.service';
@@ -99,7 +92,7 @@ export class SceneService {
    * Starts the rendering in the underlying canvas.
    */
   public render(): void {
-    this._renderer.render(this._scene, this.camera);
+    this._renderer.render(this._scene, this._cameraService.camera);
   }
 
   private showTexts(layer: RenderableLayer): void {
@@ -262,10 +255,6 @@ export class SceneService {
       );
   }
 
-  private get camera(): Camera {
-    return this._cameraService.camera;
-  }
-
   private showVisibleLabels(): void {
     this.hideAllLabels();
     this._cameraService.updateFrustum();
@@ -275,18 +264,11 @@ export class SceneService {
           if (!this._cameraService.isPointBehind(text.position)) {
             const onScreenCoordinate = this._cameraService.getOnScreenPosition(text.position);
             if (this._viewportService.isInBounds(onScreenCoordinate)) {
-              this.setTextPositionAndShow(text, onScreenCoordinate);
+              text.setPositionAndShow(onScreenCoordinate);
             }
           }
         }
       );
-  }
-
-  private setTextPositionAndShow(renderable: RenderableText, onScreen: ScreenCoordinate): void {
-    const style = renderable.htmlElement.style;
-    style.top = Math.floor(onScreen.y + renderable.offsetY) + 'px';
-    style.left = Math.floor(onScreen.x + renderable.offsetX) + 'px';
-    style.display = 'initial';
   }
 
 }

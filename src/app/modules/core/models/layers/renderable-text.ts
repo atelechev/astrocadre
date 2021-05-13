@@ -2,6 +2,7 @@ import { Vector3 } from 'three';
 import { TextOffsetPolicy } from '#core/models/layers/text/text-offset-policy';
 import { TextOffsets } from '#core/models/layers/text/text-offsets';
 import { TextStyle } from '#core/models/theme/text-style';
+import { ScreenCoordinate } from '#core/models/screen/screen-coordinate';
 
 /**
  * Wraps the data about a text that can be rendered in the view.
@@ -85,6 +86,19 @@ export class RenderableText {
         (cssProperty: string) => elementStyle[cssProperty] = style[cssProperty]
       );
     this._offsets = this._offsetPolicy.calculateOffsets(this._text, this._htmlElement);
+  }
+
+  /**
+   * Sets the on-screen position of this element to the specified coordinates
+   * and makes this element visible.
+   *
+   * @param onScreen the coordinate to show this element at.
+   */
+  public setPositionAndShow(onScreen: ScreenCoordinate): void {
+    const style = this._htmlElement.style;
+    style.top = Math.floor(onScreen.y + this.offsetY) + 'px';
+    style.left = Math.floor(onScreen.x + this.offsetX) + 'px';
+    style.display = 'initial';
   }
 
   private newLabel(text: string): HTMLElement {
