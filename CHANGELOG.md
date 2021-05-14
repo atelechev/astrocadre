@@ -2,7 +2,13 @@
 
 _These notes are added from the most recent on the top, to the oldest at the bottom._
 
-Next version: 21.4.34
+Next version: 21.4.35
+
+### 2021-05-14 - v21.4.34
+
+* Adjusted the tools sidebar for smaller screens.
+* Refactor some parts of the `ViewportService` and `RenderableText`.
+* Extracted `PositionCalculationService`.
 
 ### 2021-05-04 - v21.4.33
 

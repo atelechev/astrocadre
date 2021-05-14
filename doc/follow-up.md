@@ -2,6 +2,8 @@
 
 _If an idea of this list looks concrete enough and useful for the application, it should be transformed into an issue in the project's issues tracker and removed from this list._
 
+* `RenderableLayer`: merge the texts and the searchables.
+
 * Add the "Kiddy" theme.
 
 * Make objects selectable in the view, probably with additional text info.
