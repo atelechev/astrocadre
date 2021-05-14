@@ -2,6 +2,7 @@ import { TextOffsetPolicies } from '#core/models/layers/text/text-offsets-polici
 import { RenderableText } from '#core/models/layers/renderable-text';
 import { TextStyle } from '#core/models/theme/text-style';
 import { toVector3 } from '#core/utils/vector-utils';
+import { ScreenCoordinate } from '#core/models/screen/screen-coordinate';
 
 
 describe('RenderableText', () => {
@@ -110,6 +111,32 @@ describe('RenderableText', () => {
       assertTextStyleExpected(style);
       expect(renderable.offsetX).toEqual(9);
       expect(renderable.offsetY).toEqual(-12);
+    });
+
+  });
+
+  describe('setPositionAndShow should', () => {
+
+    it('have no effect if the arg is falsy', () => {
+      const style = renderable.htmlElement.style;
+      const topBefore = style.top;
+      const leftBefore = style.left;
+      const displayBefore = style.display;
+
+      renderable.setPositionAndShow(undefined);
+      expect(style.top).toEqual(topBefore);
+      expect(style.left).toEqual(leftBefore);
+      expect(style.display).toEqual(displayBefore);
+    });
+
+    it('set the expected screen coordinates', () => {
+      const coordinate: ScreenCoordinate = { x: 20, y: 30 };
+
+      renderable.setPositionAndShow(coordinate);
+      const style = renderable.htmlElement.style;
+      expect(style.top).toEqual('30px');
+      expect(style.left).toEqual('20px');
+      expect(style.display).toEqual('initial');
     });
 
   });

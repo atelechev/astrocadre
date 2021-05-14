@@ -1,5 +1,5 @@
 import { TestBed } from '@angular/core/testing';
-import { skip, take } from 'rxjs/operators';
+import { skip } from 'rxjs/operators';
 import { ScreenCoordinate } from '#core/models/screen/screen-coordinate';
 import { ViewportService } from '#core/services/viewport.service';
 import { Dimension } from '#core/models/screen/dimension';
@@ -194,6 +194,30 @@ describe('ViewportService', () => {
       service.size = dimension;
     });
 
+  });
+
+  it('set width should set the width and preserve the previous height value', () => {
+    service.size = {
+      width: 640,
+      height: 480
+    };
+
+    service.width = 1024;
+
+    expect(service.size.width).toEqual(1024);
+    expect(service.size.height).toEqual(480);
+  });
+
+  it('set height should set the height and preserve the previous width value', () => {
+    service.size = {
+      width: 640,
+      height: 480
+    };
+
+    service.height = 1024;
+
+    expect(service.size.width).toEqual(640);
+    expect(service.size.height).toEqual(1024);
   });
 
 });

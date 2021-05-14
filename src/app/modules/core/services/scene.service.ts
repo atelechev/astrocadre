@@ -1,16 +1,9 @@
 import { Injectable } from '@angular/core';
-import {
-  Camera,
-  Object3D,
-  Scene,
-  Vector3,
-  WebGLRenderer
-} from 'three';
+import { Object3D, Scene, WebGLRenderer } from 'three';
 import { Color } from 'three';
 import { Dimension } from '#core/models/screen/dimension';
 import { RenderableLayer } from '#core/models/layers/renderable-layer';
 import { RenderableText } from '#core/models/layers/renderable-text';
-import { ScreenCoordinate } from '#core/models/screen/screen-coordinate';
 import { Theme } from '#core/models/theme/theme';
 import { CameraService } from '#core/services/camera.service';
 import { ViewportService } from '#core/services/viewport.service';
@@ -41,10 +34,6 @@ export class SceneService {
   private readonly _allObjects: Set<Object3D>;
 
   private readonly _allTextElements: Set<RenderableText>;
-
-  private _halfWidth: number;
-
-  private _halfHeight: number;
 
   constructor(
     private readonly _cameraService: CameraService,
@@ -103,7 +92,7 @@ export class SceneService {
    * Starts the rendering in the underlying canvas.
    */
   public render(): void {
-    this._renderer.render(this._scene, this.camera);
+    this._renderer.render(this._scene, this._cameraService.camera);
   }
 
   private showTexts(layer: RenderableLayer): void {
@@ -189,8 +178,6 @@ export class SceneService {
 
   private processViewportSizeChange(size: Dimension): void {
     this.updateCanvasSize(size);
-    this._halfWidth = size.width / 2;
-    this._halfHeight = size.height / 2;
     this.showVisibleLabels();
   }
 
@@ -268,10 +255,6 @@ export class SceneService {
       );
   }
 
-  private get camera(): Camera {
-    return this._cameraService.camera;
-  }
-
   private showVisibleLabels(): void {
     this.hideAllLabels();
     this._cameraService.updateFrustum();
@@ -279,28 +262,13 @@ export class SceneService {
       .forEach(
         (text: RenderableText) => {
           if (!this._cameraService.isPointBehind(text.position)) {
-            const onScreenCoordinate = this.getOnscreenPosition(text.position);
+            const onScreenCoordinate = this._cameraService.getOnScreenPosition(text.position);
             if (this._viewportService.isInBounds(onScreenCoordinate)) {
-              this.setTextPositionAndShow(text, onScreenCoordinate);
+              text.setPositionAndShow(onScreenCoordinate);
             }
           }
         }
       );
-  }
-
-  private getOnscreenPosition(point: Vector3): ScreenCoordinate {
-    const onScreen = point.clone();
-    onScreen.project(this.camera);
-    const scrX = (onScreen.x * this._halfWidth) + this._halfWidth;
-    const scrY = -(onScreen.y * this._halfHeight) + this._halfHeight;
-    return { x: scrX, y: scrY };
-  }
-
-  private setTextPositionAndShow(renderable: RenderableText, onScreen: ScreenCoordinate): void {
-    const style = renderable.htmlElement.style;
-    style.top = Math.floor(onScreen.y + renderable.offsetY) + 'px';
-    style.left = Math.floor(onScreen.x + renderable.offsetX) + 'px';
-    style.display = 'initial';
   }
 
 }

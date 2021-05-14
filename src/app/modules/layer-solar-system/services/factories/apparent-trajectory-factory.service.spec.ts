@@ -1,21 +1,20 @@
 import { fakeAsync, TestBed, tick } from '@angular/core/testing';
-import { createMoon } from 'astronomy-bundle/moon';
 import { LineSegments } from 'three';
 import { ApparentTrajectoryFactoryService } from '#layer-solar-system/services/factories/apparent-trajectory-factory.service';
 import { CoreModule } from '#core/core.module';
-import { SolarSystem } from '#layer-solar-system/model/solar-system';
+import { LayerSolarSystemModule } from '#layer-solar-system/layer-solar-system.module';
 
 
 describe('ApparentTrajectoryFactoryService', () => {
 
-  const solarSystem = SolarSystem.CODE;
+  const sun = 'Sun';
   let factory: ApparentTrajectoryFactoryService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [CoreModule],
-      providers: [
-        ApparentTrajectoryFactoryService
+      imports: [
+        CoreModule,
+        LayerSolarSystemModule
       ]
     });
     factory = TestBed.inject(ApparentTrajectoryFactoryService);
@@ -29,16 +28,8 @@ describe('ApparentTrajectoryFactoryService', () => {
 
     describe('reject the promise', () => {
 
-      it('if the layerCode arg is falsy', fakeAsync(() => {
-        factory.buildApparentTrajectory(undefined, createMoon, 10)
-          .then(
-            (_: any) => unexpectedPromise(),
-            (msg: any) => expect(msg).toEqual(expectedRejectMessage)
-          );
-      }));
-
-      it('if the objectProducer arg is falsy', fakeAsync(() => {
-        factory.buildApparentTrajectory(solarSystem, undefined, 10)
+      it('if the name arg is falsy', fakeAsync(() => {
+        factory.buildApparentTrajectory(undefined, 10)
           .then(
             (_: any) => unexpectedPromise(),
             (msg: any) => expect(msg).toEqual(expectedRejectMessage)
@@ -46,7 +37,7 @@ describe('ApparentTrajectoryFactoryService', () => {
       }));
 
       it('if the segmentsCount arg is falsy', fakeAsync(() => {
-        factory.buildApparentTrajectory(solarSystem, createMoon, undefined)
+        factory.buildApparentTrajectory(sun, undefined)
           .then(
             (_: any) => unexpectedPromise(),
             (msg: any) => expect(msg).toEqual(expectedRejectMessage)
@@ -54,7 +45,7 @@ describe('ApparentTrajectoryFactoryService', () => {
       }));
 
       it('if the segmentsCount arg is lower than 2', fakeAsync(() => {
-        factory.buildApparentTrajectory(solarSystem, createMoon, 1)
+        factory.buildApparentTrajectory(sun, 1)
           .then(
             (_: any) => unexpectedPromise(),
             (msg: any) => expect(msg).toEqual(expectedRejectMessage)
@@ -64,7 +55,7 @@ describe('ApparentTrajectoryFactoryService', () => {
     });
 
     it('return expected value for valid args', fakeAsync(() => {
-      factory.buildApparentTrajectory(solarSystem, createMoon, 2)
+      factory.buildApparentTrajectory(sun, 2)
         .then(
           (line: LineSegments) => {
             expect(line).toBeDefined();

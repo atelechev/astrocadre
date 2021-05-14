@@ -1,19 +1,4 @@
 import { Injectable } from '@angular/core';
-import AstronomicalObject from 'astronomy-bundle/astronomicalObject/AstronomicalObject';
-import { EquatorialSphericalCoordinates } from 'astronomy-bundle/coordinates/types/CoordinateTypes';
-import { createMoon } from 'astronomy-bundle/moon';
-import {
-  createJupiter,
-  createMars,
-  createMercury,
-  createNeptune,
-  createSaturn,
-  createUranus,
-  createVenus
-  } from 'astronomy-bundle/planets';
-import { createSun } from 'astronomy-bundle/sun';
-import { createTimeOfInterest } from 'astronomy-bundle/time';
-import TimeOfInterest from 'astronomy-bundle/time/TimeOfInterest';
 import { LineSegments } from 'three';
 import { LayerFactory } from '#core/models/layers/layer-factory';
 import { SolarSystem } from '#layer-solar-system/model/solar-system';
@@ -27,48 +12,34 @@ import { TextOffsetPolicy } from '#core/models/layers/text/text-offset-policy';
 import { SunMoonLabelsPolicy } from '#layer-solar-system/model/layers/sun-moon-labels-policy';
 import { VirtualSphereRadiusService } from '#core/services/virtual-sphere-radius.service';
 import { LayerService } from '#core/services/layer.service';
+import { PositionCalculationService } from '#layer-solar-system/services/position-calculation.service';
+import { TimeService } from '#layer-solar-system/services/time.service';
+import { SOLAR_SYSTEM_OBJECTS } from '#layer-solar-system/model/solar-system-objects';
+import { SolarSystemObject } from '#layer-solar-system/model/solar-system-object';
 
 
-type AstroObjectProducer = (toi?: TimeOfInterest) => AstronomicalObject;
-
-type AstroObjectProps = {
-  name: string;
-  producer: AstroObjectProducer;
-  trajectorySteps: number;
-};
-
+/**
+ * Factory for the renderable layer of Solar system objects.
+ */
 @Injectable()
 export class SolarSystemLayerFactoryService implements LayerFactory {
-
-  private readonly _astroObjectProps: Array<AstroObjectProps> = [
-    { name: 'Sun', producer: createSun, trajectorySteps: 365 },
-    { name: 'Moon', producer: createMoon, trajectorySteps: 28 },
-    { name: 'Mercury', producer: createMercury, trajectorySteps: 7 },
-    { name: 'Venus', producer: createVenus, trajectorySteps: 7 },
-    { name: 'Mars', producer: createMars, trajectorySteps: 14 },
-    { name: 'Jupiter', producer: createJupiter, trajectorySteps: 30 },
-    { name: 'Saturn', producer: createSaturn, trajectorySteps: 30 },
-    { name: 'Uranus', producer: createUranus, trajectorySteps: 30 },
-    { name: 'Neptune', producer: createNeptune, trajectorySteps: 30 }
-  ];
 
   private readonly _layerCode;
 
   private readonly _worldRadius: number;
 
-  private readonly _currentTime: TimeOfInterest;
-
   private readonly _biggerLabelsPolicy: TextOffsetPolicy;
 
   constructor(
+    private readonly _timeService: TimeService,
     private readonly _trajectoryFactory: ApparentTrajectoryFactoryService,
+    private readonly _positionCalculator: PositionCalculationService,
     private readonly _pointsFactory: PointsFactoryService,
     private readonly _layerService: LayerService,
     private readonly _searchService: SearchService,
     virtualSphereService: VirtualSphereRadiusService
   ) {
     this._layerCode = SolarSystem.CODE;
-    this._currentTime = createTimeOfInterest.fromCurrentTime();
     this._worldRadius = virtualSphereService.getRadiusFor(this._layerCode);
     this._biggerLabelsPolicy = new SunMoonLabelsPolicy();
   }
@@ -86,37 +57,28 @@ export class SolarSystemLayerFactoryService implements LayerFactory {
   }
 
   private getAllObjectsBuilders(renderable: SolarSystem): Array<Promise<any>> {
-    const bodies = this._astroObjectProps.map(
-      (props: AstroObjectProps) => this.buildCelestialBody(renderable, props.name, props.producer)
+    const bodies = SOLAR_SYSTEM_OBJECTS.map(
+      (obj: SolarSystemObject) => this.buildCelestialBody(renderable, obj.name)
     );
-    const trajectories = this._astroObjectProps.map(
-      (props: AstroObjectProps) => this.buildTrajectory(renderable, props.name, props.producer, props.trajectorySteps)
+    const trajectories = SOLAR_SYSTEM_OBJECTS.map(
+      (obj: SolarSystemObject) => this.buildTrajectory(renderable, obj)
     );
     return bodies.concat(trajectories);
   }
 
-  private buildTrajectory(
-    renderable: SolarSystem,
-    name: string,
-    bodyProducer: AstroObjectProducer,
-    steps: number
-  ): Promise<void> {
+  private buildTrajectory(renderable: SolarSystem, object: SolarSystemObject): Promise<void> {
     return this._trajectoryFactory
-      .buildApparentTrajectory(renderable.code, bodyProducer, steps)
+      .buildApparentTrajectory(object.name, object.pathSteps)
       .then(
-        (plane: LineSegments) => renderable.addTrajectory(name, plane)
+        (plane: LineSegments) => renderable.addTrajectory(object.name, plane)
       );
   }
 
-  private buildCelestialBody(
-    renderable: SolarSystem,
-    name: string,
-    astroObjectProvider: AstroObjectProducer
-  ): Promise<void> {
-    return astroObjectProvider(this._currentTime).getApparentGeocentricEquatorialSphericalCoordinates()
+  private buildCelestialBody(renderable: SolarSystem, name: string): Promise<void> {
+    return this._positionCalculator
+      .calculatePosition(name.toLowerCase(), this._timeService.selectedTime)
       .then(
-        (esCoords: EquatorialSphericalCoordinates) => {
-          const coords = [esCoords.rightAscension, esCoords.declination, this._worldRadius];
+        (coords: Array<number>) => {
           const body = this._pointsFactory.createObject3D(this._layerCode, [coords]);
           renderable.addSeachable(this.toSearchable(coords, name));
           renderable.addText(this.toRenderableText(coords, name));
