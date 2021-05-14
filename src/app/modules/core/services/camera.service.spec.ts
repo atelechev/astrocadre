@@ -6,6 +6,7 @@ import { ViewportService } from '#core/services/viewport.service';
 import { ViewportEvent } from '#core/models/event/viewport-event';
 import { ViewportViewChangeEvent } from '#core/models/event/viewport-view-change-event';
 import { CoreModule } from '#core/core.module';
+import { toVector3 } from '#core/utils/vector-utils';
 
 
 describe('CameraService', () => {
@@ -147,6 +148,24 @@ describe('CameraService', () => {
 
   it('isPointBehind should return true if the arg is falsy', () => {
     expect(service.isPointBehind(undefined)).toBeTrue();
+  });
+
+  describe('getOnScreenPosition should return', () => {
+
+    it('expected NaN coordinates if the arg is falsy', () => {
+      const coords = service.getOnScreenPosition(undefined);
+      expect(coords).toBeDefined();
+      expect(coords.x).toBeNaN();
+      expect(coords.y).toBeNaN();
+    });
+
+    it('expected coordinates', () => {
+      const coords = service.getOnScreenPosition(toVector3(51.745747, 18.79993, 2));
+      expect(coords).toBeDefined();
+      expect(coords.x).toBeCloseTo(-1636, 0);
+      expect(coords.y).toBeCloseTo(2883, 0);
+    });
+
   });
 
 });

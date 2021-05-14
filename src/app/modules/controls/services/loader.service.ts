@@ -65,7 +65,7 @@ export class LoaderService {
   }
 
   private setLoadedTheme(theme: Theme): void {
-    const useTheme = theme || themeDefault;
+    const useTheme = theme;
     this._themeService.theme = useTheme;
     this._loadedThemes.set(useTheme.code, useTheme);
   }

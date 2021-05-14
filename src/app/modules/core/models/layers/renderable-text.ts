@@ -95,6 +95,9 @@ export class RenderableText {
    * @param onScreen the coordinate to show this element at.
    */
   public setPositionAndShow(onScreen: ScreenCoordinate): void {
+    if (!onScreen) {
+      return;
+    }
     const style = this._htmlElement.style;
     style.top = Math.floor(onScreen.y + this.offsetY) + 'px';
     style.left = Math.floor(onScreen.x + this.offsetX) + 'px';

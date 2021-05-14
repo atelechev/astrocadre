@@ -158,6 +158,9 @@ export class CameraService {
    * @returns ScreenCoordinate the screen coordinates of the point.
    */
   public getOnScreenPosition(point: Vector3): ScreenCoordinate {
+    if (!point) {
+      return { x: NaN, y: NaN };
+    }
     const onScreen = point.clone();
     onScreen.project(this._camera);
     const halfWidth = this._viewportService.halfWidth;
