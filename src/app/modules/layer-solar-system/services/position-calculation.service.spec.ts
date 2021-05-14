@@ -29,8 +29,8 @@ describe('PositionCalculationService', () => {
     }));
 
     it('expected coordinates for valid args', fakeAsync(() => {
-      const time = new Date(2021, 5, 13, 22, 41, 0);
-      const expectedCoords = [82.424518, 23.254692];
+      const time = new Date(Date.UTC(2021, 5, 13, 22, 41, 0, 0));
+      const expectedCoords = [82.511082, 23.258846];
       service.calculatePosition('sun', time).then(
         (coords: Array<number>) => {
           expect(coords).toBeDefined();
